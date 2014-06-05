@@ -1,8 +1,16 @@
 
+/**
+	Z80Core.hpp
+
+	Define the Z80 processor structure
+
+	@author Natesh Narain
+	@since June 5, 2014
+*/
+
 #ifndef Z80
 #define Z80
 
-#include <stdlib.h>
 #include <cstdint>
 
 #define SIZE_MEMORY_MAP  0xFFFF + 1
@@ -14,7 +22,8 @@ namespace Z80{
 	
 	const long CLK = 4000000; ///< Z80 Clock Speed 4 MHz
 
-	struct Core{
+	//! Structure representing the Z80 internals
+	typedef struct Core{
 
 		//! 16 bit accumulator
 		union{
@@ -57,7 +66,14 @@ namespace Z80{
 		uint16_t IX; ///< Index register X
 		uint16_t IY; ///< Index Register Y
 
-		uint8_t rom[SIZE_MEMORY_MAP];
+		uint8_t rom[SIZE_MEMORY_MAP]; ///< Memory
+
+		/* Interrupt Handlers */
+		void (*iVBlank)();  ///< V-Blank interrupt handler
+		void (*iLCDStat)(); ///< LCD Stat interrupt handler 
+		void (*iTimer)();   ///< Timer interrupt handler
+		void (*iSerial)();  ///< Serial interrupt handler
+		void (*iJoyPad)();  ///< JoyPad interrupt handler
 	};
 
 	/**
@@ -79,13 +95,18 @@ namespace Z80{
 	{
 		initCore(core);
 
-		// enables V-Blank, LCD Stat, Timer, JoyPad. disable Serial
+		// Default: enables V-Blank, LCD Stat, Timer, JoyPad. disable Serial
 		core->rom[INTERRUPT_ENABLE] = 0x17;
 	}
 
 	uint8_t* getInterruptFlags(Core* core)
 	{
 		return &core->rom[INTERRUPT_FLAG];
+	}
+
+	uint8_t* getInterruptEnable(Core* core)
+	{
+		return &core->rom[INTERRUPT_ENABLE];
 	}
 
 }
