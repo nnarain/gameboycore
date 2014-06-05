@@ -5,19 +5,26 @@
 typedef unsigned char uint8;
 typedef signed char int8;
 
-namespace z80{
+namespace Z80{
 	
-	struct core{
-		uint8 A;
-		uint8 B;
-		uint8 C;
-		uint8 D;
-		uint8 E;
-		uint8 F;
+	struct Core{
+		uint8 A; ///< Registers
+		uint8 B; ///< Registers
+		uint8 C; ///< Registers
+		uint8 D; ///< Registers
+		uint8 E; ///< Registers
+		uint8 F; ///< Registers
 
-		uint8 H;
-		uint8 L;
+		uint8 H; ///< Registers
+		uint8 L; ///< Registers
+
+		int* memoryMap;
 	};
+
+	void initCore(struct Core core)
+	{
+
+	}
 
 }
 
