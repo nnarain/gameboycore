@@ -1,0 +1,10 @@
+# binary files
+bin/*
+*.exe
+*.o
+*.dll
+*.so
+*.a
+
+# testing
+test/*
