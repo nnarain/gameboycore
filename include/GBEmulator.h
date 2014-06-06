@@ -1,10 +1,10 @@
 
 
-#ifndef Z80_EMULATOR
-#define Z80_EMULATOR
+#ifndef GB_EMULATOR
+#define GB_EMULATOR
 
 #ifdef __cplusplus
-namespace Z80{
+namespace gb{
 #endif
 
 	typedef int (*InstructionImpl)(Core*);

@@ -1,9 +1,9 @@
 
-#include "Z80Core.h"
-#include "Z80Emulator.h"
+#include "GBCore.h"
+#include "GBEmulator.h"
 
 #ifdef __cplusplus
-namespace Z80{
+namespace gb{
 #endif
 
 	int execute(Core* core, uint8_t optCode)

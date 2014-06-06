@@ -2,14 +2,14 @@
 /**
 	Z80Core.hpp
 
-	Define the Z80 processor structure
+	Define the Gameboy processor structure
 
 	@author Natesh Narain
 	@since June 5, 2014
 */
 
-#ifndef Z80
-#define Z80
+#ifndef GB_CORE
+#define GB_CORE
 
 #include <cstdint>
 
@@ -46,7 +46,7 @@
 #define INTERRUPT_FLAG               0xFF0F
 
 #ifdef __cplusplus
-namespace Z80{
+namespace gb{
 #endif // __cplusplus
 	
 	const long CLK = 4000000; ///< Z80 Clock Speed 4 MHz
