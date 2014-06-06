@@ -3,7 +3,9 @@
 #ifndef Z80_EMULATOR
 #define Z80_EMULATOR
 
+#ifdef __cplusplus
 namespace Z80{
+#endif
 
 	typedef int (*InstructionImpl)(Core*);
 
@@ -533,7 +535,8 @@ namespace Z80{
 		NULL /*0xfe*/,
 		NULL /*0xff*/,
 	}
-
+#ifdef __cplusplus
 }
+#endif 
 
 #endif // Z80_INSTRUCTION_SET

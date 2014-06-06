@@ -18,7 +18,9 @@
 #define INTERRUPT_ENABLE 0xFFFF
 #define INTERRUPT_FLAG   0xFF0F
 
+#ifdef __cplusplus
 namespace Z80{
+#endif // __cplusplus
 	
 	const long CLK = 4000000; ///< Z80 Clock Speed 4 MHz
 
@@ -125,6 +127,8 @@ namespace Z80{
 		return &core->rom[INTERRUPT_ENABLE];
 	}
 
+#ifdef __cplusplus
 }
+#endif
 
 #endif // Z80
