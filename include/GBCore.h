@@ -11,39 +11,98 @@
 #ifndef GB_CORE
 #define GB_CORE
 
+#ifdef __cplusplus
 #include <cstdint>
+#else
+#include <stdint.h>
+#endif
 
-#define SIZE_MEMORY_MAP              0xFFFF + 1
+#define SIZE_MEMORY_MAP           0xFFFF + 1
 
-#define PERMANENT_ROM_BANK_START     0x0000
-#define PERMANENT_ROM_BANK_END       0x3FFF
+#define PERMANENT_ROM_BANK_START  0x0000
 
-#define SWITCHABLE_ROM_BANK_START    0x4000
-#define SWITCHABLE_ROM_BANK_END      0x7FFF
+#define INTERRUPT_HANDLER_VBLANK  0x0040
+#define INTERRUPT_HANDLER_LCDSTAT 0x0048
+#define INTERRUPT_HANDLER_TIMER   0x0050
+#define INTERRUPT_HANDLER_SERIAL  0x0058
+#define INTERRUPT_HANDLER_JOYPAD  0x0060
 
-#define VRAM_START                   0x8000
-#define VRAM_END                     0x9FFF
+#define PROGRAM_START             0x0100
 
-#define EXTERNAL_RAM_BANK_START      0xA000
-#define EXTERNAL_RAM_BANK_END        0xBFFF
+#define NINTENDO_LOGO_START       0x0104
+#define NINTENDO_LOGO_END         0x0133
 
-#define WORK_RAM_BANK_0_START        0xC000
-#define WORK_RAM_BANK_0_END          0xCFFF
+#define GAME_TITLE_START          0x0134
+#define GAME_TITLE_END            0x013E
 
-#define WORK_RAM_BANK_1_START        0xD000
-#define WORK_RAM_BANK_1_END          0xDFFF
+#define GAME_DESTINATION_START    0x013F
+#define GAME_DESTINATION_END      0x0142
 
-#define SPRITE_ATTRIBUTE_TABLE_START 0xFE00
-#define SPRITE_ATTRIBUTE_TABLE_END   0xFEFF
+#define COLOR_COMPATABILITY       0x0143
 
-#define DEVICE_MAP_START             0xFF00
-#define DEVICE_MAP_END               0xFF7F
+#define NEW_LICENSE_START         0x0144
+#define NEW_LICENSE_END           0x0145
 
-#define HIGH_RAM_START               0xFF80
-#define HIGH_RAM_END                 0xFFFE
+#define SGB_COMPATABILITY         0x0146
 
-#define INTERRUPT_ENABLE             0xFFFF
-#define INTERRUPT_FLAG               0xFF0F
+#define CART_TYPE                 0x0147
+
+#define CART_ROM_SIZE             0x0148
+#define CART_RAM_SIZE             0x0149
+
+#define DETINATION_CODE           0x014A
+
+#define OLD_LICENSE               0x014B
+
+#define MASK_ROM_VERSION          0x014C
+
+#define COMPLEMENT_CHECKSUM       0x014D
+
+#define CHECKSUM_START            0x014E
+#define CHECKSUM_END              0x014F
+
+#define PERMANENT_ROM_BANK_END    0x3FFF
+
+#define SWITCHABLE_ROM_BANK_START 0x4000
+#define SWITCHABLE_ROM_BANK_END   0x7FFF
+
+#define CHARACTER_RAM_START       0x8000
+#define CHARACTER_RAM_END         0x97FF
+
+#define BG_MAP_DATA_1_START       0x9800
+#define BG_MAP_DATA_1_END         0x9BFF
+
+#define BG_MAP_DATA_2_START       0x9C00
+#define BG_MAP_DATA_2_END         0x9FFF
+
+#define CART_RAM_BANK_START       0xA000
+#define CART_RAM_BANK_END         0xBFFF
+
+#define WORK_RAM_BANK_0_START     0xC000
+#define WORK_RAM_BANK_0_END       0xCFFF
+
+#define WORK_RAM_BANK_1_START     0xD000
+#define WORK_RAM_BANK_1_END       0xDFFF
+
+#define OAM_START                 0xFE00
+#define OAM_END                   0xFE9F
+
+#define JOYPAD_REGISTER           0xFF00
+
+#define HIGH_RAM_START            0xFF80
+#define HIGH_RAM_END              0xFFFE
+
+#define INTERRUPT_ENABLE          0xFFFF
+#define INTERRUPT_FLAG            0xFF0F
+
+/* Device I/O */
+#define JOYPAD_P10                0x00
+#define JOYPAD_P11                0x02
+#define JOYPAD_P12                0x04
+#define JOYPAD_P13                0x08
+#define JOYPAD_P14                0x10
+#define JOYPAD_P15                0x20
+
 
 #ifdef __cplusplus
 namespace gb{
@@ -114,8 +173,8 @@ namespace gb{
 		core->BC.val = 0;
 		core->DE.val = 0;
 		core->HL.val = 0;
-		core->PC     = 0;
-		core->SP     = 0; // maybe change?
+		core->PC     = PROGRAM_START;
+		core->SP     = WORK_RAM_BANK_0_END; // maybe change?
 		core->IX     = 0;
 		core->IY     = 0;
 	}
