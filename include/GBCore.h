@@ -188,29 +188,11 @@ namespace gb{
 	}
 
 	/**
-		Return the address of the Interrupt Flags Register
-
-		@param core
-			The Z80 Core
-
-		@return address to the interrupt flags register
+		@returns a pointer to a address in the Core's memory map
 	*/
-	uint8_t* getInterruptFlags(Core* core)
+	uint8_t* getAddress(Core* core, uint16_t addr)
 	{
-		return &core->rom[INTERRUPT_FLAG];
-	}
-
-	/**
-		Return the address of the Interrupt Enable Register
-
-		@param core
-			The Z80 Core
-
-		@return address to interrupt enable register
-	*/
-	uint8_t* getInterruptEnable(Core* core)
-	{
-		return &core->rom[INTERRUPT_ENABLE];
+		return &core->rom[addr];
 	}
 
 #ifdef __cplusplus
