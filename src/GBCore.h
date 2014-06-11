@@ -100,8 +100,8 @@
 #define JOYPAD_P14                0x10
 #define JOYPAD_P15                0x20
 
+#define CLK                       4000000L
 	
-const long CLK = 4000000; ///< Z80 Clock Speed 4 MHz
 
 //! Structure representing the Z80 internals
 struct Core{
@@ -148,44 +148,7 @@ struct Core{
 	uint16_t IY; ///< Index Register Y
 
 	uint8_t rom[SIZE_MEMORY_MAP]; ///< Memory
-
-	/* Interrupt Handlers */
-	void (*iVBlank)();  ///< V-Blank interrupt handler
-	void (*iLCDStat)(); ///< LCD Stat interrupt handler 
-	void (*iTimer)();   ///< Timer interrupt handler
-	void (*iSerial)();  ///< Serial interrupt handler
-	void (*iJoyPad)();  ///< JoyPad interrupt handler
 };
 
-/**
-	Initialize all registers to 0
-*/
-static void initCore(Core* core)
-{
-	core->AF.val = 0;
-	core->BC.val = 0;
-	core->DE.val = 0;
-	core->HL.val = 0;
-	core->PC     = PROGRAM_START;
-	core->SP     = WORK_RAM_BANK_0_END; // maybe change?
-	core->IX     = 0;
-	core->IY     = 0;
-}
-
-void bootCore(Core* core)
-{
-	initCore(core);
-
-	// Default: enables V-Blank, LCD Stat, Timer, JoyPad. disable Serial
-	core->rom[INTERRUPT_ENABLE] = 0x17;
-}
-
-/**
-	@returns a pointer to a address in the Core's memory map
-*/
-uint8_t* getAddress(Core* core, uint16_t addr)
-{
-	return &core->rom[addr];
-}
 
 #endif // Z80

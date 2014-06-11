@@ -1,18 +1,25 @@
 
-CC = g++
-CFLAGS = -g -Wall -std=c++0x
+CC = gcc
+CFLAGS = -g -Wall
 INCLUDE_DIR = ../include
+BIN_DIR = ../bin
+
+APP_NAME = GBCoreTest
 
 library:
-	$(CC) -fpic -c GBEmulator.cpp
+	$(CC) -fpic -c GBEmulator.c
 	$(CC) -shared -o libGBEmulator.so GBEmulator.o
 
-test: Test.o GBEmulator.o
-	$(CC) -o Test Test.o GBEmulator.o
+test: test.o GBEmulator.o
+	$(CC) -o $(APP_NAME) test.o GBEmulator.o
 	mv *.o ../bin
+	mv $(APP_NAME) $(BIN_DIR)
 
-Test.o:
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) Test.cpp
+test.o:
+	$(CC) -c $(CFLAGS) -I$(INCLUDE_DIR) test.c
 
 GBEmulator.o:
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) GBEmulator.cpp
+	$(CC) -c $(CFLAGS) -I$(INCLUDE_DIR) GBEmulator.c
+
+clean:
+	rm *.o

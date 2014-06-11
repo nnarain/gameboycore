@@ -1,16 +1,26 @@
 
-#include "GBCore.h"
 #include "GBEmulator.h"
 
-
-
-int execute(Core* core, uint8_t optCode)
+int execute(struct Core* core, uint8_t optCode)
 {
-	gb::Instruction instruction = instructionSet1[optCode];
-
-	instruction.impl(core);
+	if(optCode != 0xCB){
+		instructionSet1[optCode].impl(core);
+	}
+	else{
+		instructionSet2[optCode].impl(core);
+	}
 
 	return 0;
+}
+
+void bootCore(struct Core* core)
+{
+	
+}
+
+uint8_t* getAddress(struct Core* core, uint16_t addr)
+{
+	return &core->rom[addr];
 }
 
 int genericTransfer(uint8_t* to, uint8_t* from)
@@ -21,7 +31,7 @@ int genericTransfer(uint8_t* to, uint8_t* from)
 
 /* Core Functions */
 
-int NOP(Core* core)
+int NOP(struct Core* core)
 {
 	return 0;
 }

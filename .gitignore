@@ -9,3 +9,6 @@ bin/*
 # testing
 test/*
 *test*
+
+# logging
+log/*
