@@ -23,4 +23,16 @@ int transfer(uint8_t* to, uint8_t* from);
 
 int NOP(struct Core*);
 
+/* Subtract Byte instructions */
+
+int subAA(struct Core*);
+int subAB(struct Core*);
+int subAC(struct Core*);
+int subAD(struct Core*);
+int subAE(struct Core*);
+int subAH(struct Core*);
+int subAL(struct Core*);
+int subAHL(struct Core*);
+int subAByte(struct Core*);
+
 #endif // Z80_INSTRUCTION_SET
