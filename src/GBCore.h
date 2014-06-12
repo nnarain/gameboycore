@@ -100,7 +100,8 @@
 #define JOYPAD_P14                0x10
 #define JOYPAD_P15                0x20
 
-#define CLK                       4000000L
+#define CLK                       4000000UL
+#define CLK_PERIOD                1.0f/CLK
 	
 
 //! Structure representing the Z80 internals
