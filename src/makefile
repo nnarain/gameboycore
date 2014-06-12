@@ -16,10 +16,10 @@ test: test.o GBEmulator.o
 	mv $(APP_NAME) $(BIN_DIR)
 
 test.o:
-	$(CC) -c $(CFLAGS) -I$(INCLUDE_DIR) test.c
+	$(CC) -c $(CFLAGS) -I$(INCLUDE_DIR) -DDEBUG test.c
 
 GBEmulator.o:
-	$(CC) -c $(CFLAGS) -I$(INCLUDE_DIR) GBEmulator.c
+	$(CC) -c $(CFLAGS) -I$(INCLUDE_DIR) -DDEBUG GBEmulator.c
 
 clean:
 	@rm *.o

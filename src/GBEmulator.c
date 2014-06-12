@@ -4,6 +4,10 @@
 
 #include <time.h>
 
+#ifdef DEBUG
+#include <stdio.h>
+#endif
+
 int execute(struct Core* core, uint8_t optCode)
 {
 	uint8_t cycles;
@@ -19,10 +23,13 @@ int execute(struct Core* core, uint8_t optCode)
 		instructionSet2[core->rom[++core->PC]].impl(core);
 	}
  
-	float elapseMillis = ( (clock() - (float)tick) / CLOCKS_PER_SEC ) * 1000.0f;
+	float elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
 
 	while(elapseMillis < (CLK_PERIOD * 1000.0f * cycles)){
-		elapseMillis = ( (clock() - (float)tick) / CLOCKS_PER_SEC ) * 1000.0f;		
+		elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
+#ifdef DEBUG
+		
+#endif	
 	}
 
 	return 0;
