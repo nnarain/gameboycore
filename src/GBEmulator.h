@@ -17,6 +17,10 @@ uint8_t* getAddress(struct Core*, uint16_t);
 
 int execute(struct Core*, uint8_t);
 
+/* Exchange Functions */
+int exSPHL(struct Core*);
+int exDEHL(struct Core*);
+
 int transfer(uint8_t* to, uint8_t* from);
 
 /* Core functions */
