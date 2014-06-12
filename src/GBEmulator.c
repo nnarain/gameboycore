@@ -1,5 +1,6 @@
 
 #include "GBEmulator.h"
+#include "instructionset.h"
 
 int execute(struct Core* core, uint8_t optCode)
 {

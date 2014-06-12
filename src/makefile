@@ -22,4 +22,4 @@ GBEmulator.o:
 	$(CC) -c $(CFLAGS) -I$(INCLUDE_DIR) GBEmulator.c
 
 clean:
-	rm *.o
+	@rm *.o
