@@ -88,3 +88,9 @@ int decSP(struct Core* core)
 	core->SP--;
 	return 0;
 }
+
+int notA(struct Core* core)
+{
+	core->AF.A = ~core->AF.A;
+	return 0;
+}
