@@ -21,6 +21,15 @@ int transfer(uint8_t* to, uint8_t* from);
 
 /* Core functions */
 
+int incA(struct Core*);
+int incB(struct Core*);
+int incC(struct Core*);
+int incD(struct Core*);
+int incE(struct Core*);
+int incH(struct Core*);
+int incL(struct Core*);
+int incHL(struct Core*);
+
 int NOP(struct Core*);
 
 #endif // Z80_INSTRUCTION_SET
