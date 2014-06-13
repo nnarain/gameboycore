@@ -104,6 +104,11 @@
 #define CLK_PERIOD                1.0f/CLK
 	
 
+#define FLAG_C 4
+#define FLAG_H 5
+#define FLAG_S 6
+#define FLAG_Z 7
+
 //! Structure representing the Z80 internals
 struct Core{
 
