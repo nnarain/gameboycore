@@ -23,4 +23,9 @@ int transfer(uint8_t* to, uint8_t* from);
 
 int NOP(struct Core*);
 
+int incBC(struct Core*);
+int incDE(struct Core*);
+int incHL(struct Core*);
+int incSP(struct Core*);
+
 #endif // Z80_INSTRUCTION_SET
