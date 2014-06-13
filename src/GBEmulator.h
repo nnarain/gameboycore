@@ -21,6 +21,15 @@ int transfer(uint8_t* to, uint8_t* from);
 
 /* Core functions */
 
+int decA(struct Core*);
+int decB(struct Core*);
+int decC(struct Core*);
+int decD(struct Core*);
+int decE(struct Core*);
+int decH(struct Core*);
+int decL(struct Core*);
+int decHL(struct Core*);
+
 int NOP(struct Core*);
 
 #endif // Z80_INSTRUCTION_SET
