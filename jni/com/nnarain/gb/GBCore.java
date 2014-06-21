@@ -3,20 +3,18 @@ package com.nnarain.gb;
 
 public class GBCore{
 
-	public static final String UNIX_LIB_NAME = "libGBCore.so";
-
-	private long handle;
+	private final long handle;
 
 	public GBCore(){
-		this.handle = GBCore.createCore();
+		this.handle = createCore();
 	}
 
 	public void step(){
-		GBCore.step(this.handle);
+		step(this.handle);
 	}
 
 	public void release(){
-		GBCore.release(this.handle);
+		release(this.handle);
 	}
 
 	/* Native Functions */
