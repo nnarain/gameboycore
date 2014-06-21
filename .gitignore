@@ -6,9 +6,14 @@ bin/*
 *.so
 *.a
 
+# java
+*.class
+*.jar
+
 # testing
 test/*
 *test*
+*Test*
 
 # logging
 log/*
