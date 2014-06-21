@@ -26,18 +26,18 @@ JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_release
 /*
  * Class:     com_nnarain_gb_GBCore
  * Method:    loadROM
- * Signature: (J[C)V
+ * Signature: (J[B)V
  */
-JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_loadROM
-  (JNIEnv *, jclass, jlong, jcharArray);
+JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_loadROMBank0
+  (JNIEnv *, jclass, jlong, jbyteArray);
 
 /*
  * Class:     com_nnarain_gb_GBCore
  * Method:    swapROM
- * Signature: (J[C)V
+ * Signature: (J[B)V
  */
 JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_swapROM
-  (JNIEnv *, jclass, jlong, jcharArray);
+  (JNIEnv *, jclass, jlong, jbyteArray);
 
 /*
  * Class:     com_nnarain_gb_GBCore
