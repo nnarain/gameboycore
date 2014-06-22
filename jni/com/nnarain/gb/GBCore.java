@@ -4,9 +4,11 @@ package com.nnarain.gb;
 public class GBCore{
 
 	private final long handle;
+	private boolean isAllocated;
 
 	public GBCore(){
 		this.handle = createCore();
+		this.isAllocated = true;
 	}
 
 	public void step(){
@@ -19,6 +21,13 @@ public class GBCore{
 
 	public void release(){
 		release(this.handle);
+		this.isAllocated = false;
+	}
+
+	@Override
+	protected void finalize() throws Throwable{
+		if(this.isAllocated) release();
+		super.finalize();
 	}
 
 	/* Native Functions */
