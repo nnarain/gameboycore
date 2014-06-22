@@ -13,8 +13,8 @@ public class GBCore{
 		step(this.handle);
 	}
 
-	public void loadROM(byte[] rom){
-		loadROM(this.handle, rom);
+	public void loadROMBank0(byte[] rom){
+		loadROMBank0(this.handle, rom);
 	}
 
 	public void release(){
@@ -26,7 +26,7 @@ public class GBCore{
 	private static native long createCore();
 	private static native void release(long handle);
 
-	private static native void loadROM(long handle, byte[] rom);
+	private static native void loadROMBank0(long handle, byte[] rom);
 	private static native void swapROM(long handle, byte[] rom);
 
 	private static native void step(long handle);
