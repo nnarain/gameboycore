@@ -54,13 +54,4 @@
 		</javadoc>
 	</target>
 
-	<!-- run make -->
-	<target name="make">
-		<exec executable="make">
-			<arg value="-f src/makefile" />
-			<!-- defined at prompt -->
-			<arg value="${target}"/>
-		</exec>
-	</target>
-
 </project>
