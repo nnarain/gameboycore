@@ -1,0 +1,65 @@
+<!--
+	Build Targets
+
+	@author Natesh Narain
+-->
+
+<project name="GBCore" default="main" basedir=".">
+
+	<property name="src.dir" location="jni" />
+	<property name="build.dir" location="bin/classes" />
+	<property name="dist.dir" location="dist" />
+	<property name="docs.dir" location="docs/java" />
+
+	<!-- Remove output directories -->
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<delete dir="${docs.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<!-- create output directories -->
+	<target name="makedir">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${docs.dir}" />
+		<mkdir dir="${dist.dir}"/>
+	</target>
+
+	<!-- compile java source files -->
+	<target name="compile" depends="makedir">
+		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}"></javac>
+	</target>
+
+	<!-- perform clean build -->
+	<target name="rebuild">
+		<antcall>
+			<target name="clean" />
+			<target name="makedir" />
+			<target name="compile" />
+		</antcall>
+	</target>
+
+	<!-- package library -->
+	<target name="jar" depends="compile">
+		<jar destfile="${dist.dir}/gbcore.jar" basedir="${build.dir}"></jar>
+	</target>
+
+	<!-- build javadocs -->
+	<target name="docs" depends="compile">
+		<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}">
+			<!-- include all files under the source directory -->
+			<fileset dir="${src.dir}">
+				<include name="**" />
+			</fileset>
+		</javadoc>
+	</target>
+
+	<!-- run make -->
+	<target name="make">
+		<exec executable="make">
+			<!-- defined at prompt -->
+			<arg value="${target}"/>
+		</exec>
+	</target>
+
+</project>

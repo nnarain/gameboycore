@@ -17,3 +17,10 @@ test/*
 
 # logging
 log/*
+
+# dist
+dist/*
+
+# docs
+docs/*
+!refman.pdf
