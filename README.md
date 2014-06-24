@@ -6,8 +6,8 @@ Overview
 
 Implement the core instructions of the hybrid Z80/8080 processor inside the Gameboy.
 
-Installtion
------------
+Installation
+------------
 
 **Environment Variables**
 
