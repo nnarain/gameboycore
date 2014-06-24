@@ -8,7 +8,8 @@
 
 	<property name="lib.name" value="gbcore" />
 
-	<property name="src.dir" location="jni" />
+	<property name="java.src.dir" location="jni" />
+	<property name="c.src.dir" location="src" />
 	<property name="build.dir" location="build" />
 	<property name="java.build.dir" location="build/classes" />
 	<property name="jar.dir" location="build/jar" />
@@ -37,7 +38,7 @@
 
 	<!-- compile java source files -->
 	<target name="compile" depends="makedir">
-		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${java.build.dir}"></javac>
+		<javac includeantruntime="false" srcdir="${java.src.dir}" destdir="${java.build.dir}"></javac>
 	</target>
 
 	<!-- perform clean build -->
@@ -56,16 +57,23 @@
 
 	<!-- build javadocs -->
 	<target name="docs" depends="compile">
-		<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}">
+		<javadoc packagenames="src" sourcepath="${java.src.dir}" destdir="${docs.dir}">
 			<!-- include all files under the source directory -->
-			<fileset dir="${src.dir}">
+			<fileset dir="${java.src.dir}">
 				<include name="**" />
 			</fileset>
 		</javadoc>
 	</target>
 
+	<!-- generate native headers from class file -->
+	<target name="jni" depends="compile">
+		<javah destdir="${c.src.dir}" classpath="${java.src.dir}" force="yes" verbose="yes">
+			<class name="com.nnarain.gb.GBCore" />
+		</javah>
+	</target>
+
 	<!-- package libraries -->
-	<target name="package" depends="jar">
+	<target name="zip" depends="jar">
 		<zip destfile="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.zip">
 			<zipfileset dir="${build.dir}" prefix="${lib.name}/" excludes="classes/**"/>
 		</zip>

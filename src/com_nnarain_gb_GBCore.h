@@ -25,7 +25,7 @@ JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_release
 
 /*
  * Class:     com_nnarain_gb_GBCore
- * Method:    loadROM
+ * Method:    loadROMBank0
  * Signature: (J[B)V
  */
 JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_loadROMBank0
