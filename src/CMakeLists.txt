@@ -10,13 +10,13 @@ cmake_minimum_required(VERSION 2.6)
 project("GameBoyCore")
 
 # set library names
-set(libNameShared gbcore-s)
+set(libNameShared gbcore)
 set(libNameStatic gbcore-a)
-set(libNameJNI gbcore-s-jni)
+set(libNameJNI gbcore-jni)
 
 # set directory names
 set(bin "../bin/")
-set(binObj "../bin/obj/")
+set(binObj "../bin/lib/")
 
 # create needed direcotries
 file(MAKE_DIRECTORY ${bin})
