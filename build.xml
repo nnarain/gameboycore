@@ -73,10 +73,15 @@
 	</target>
 
 	<!-- package libraries -->
-	<target name="zip" depends="jar">
+	<target name="package" depends="jar">
 		<zip destfile="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.zip">
 			<zipfileset dir="${build.dir}" prefix="${lib.name}/" excludes="classes/**"/>
 		</zip>
+		<tar destfile="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.tar">
+			<tarfileset dir="${build.dir}" prefix="${lib.name}/" excludes="classes/**" />
+		</tar>
+		<gzip destfile="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.tar.gz" src="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.tar" />
+		<delete file="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.tar" />
 	</target>
 
 	<!-- Default Target -->
