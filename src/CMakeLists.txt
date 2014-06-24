@@ -15,16 +15,16 @@ set(libNameStatic gbcore-a)
 set(libNameJNI gbcore-jni)
 
 # set directory names
-set(bin "../bin/")
-set(binObj "../bin/lib/")
+set(build "../build/")
+set(buildObj "../build/lib/")
 
 # create needed direcotries
-file(MAKE_DIRECTORY ${bin})
-file(MAKE_DIRECTORY ${binObj})
+file(MAKE_DIRECTORY ${build})
+file(MAKE_DIRECTORY ${buildObj})
 
 # set project directories
 set(include "../include/")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${binObj})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${buildObj})
 
 include_directories(${include})
 include_directories($ENV{JAVA_HOME}/include)

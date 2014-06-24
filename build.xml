@@ -6,28 +6,38 @@
 
 <project name="GBCore" default="main" basedir=".">
 
+	<property name="lib.name" value="gbcore" />
+
 	<property name="src.dir" location="jni" />
-	<property name="build.dir" location="bin/classes" />
-	<property name="jar.dir" location="bin/jar" />
+	<property name="build.dir" location="build" />
+	<property name="java.build.dir" location="build/classes" />
+	<property name="jar.dir" location="build/jar" />
 	<property name="docs.dir" location="docs/java" />
+	<property name="dist.dir" location="dist" />
+
+	<condition property="package.os.name" value="win" else="unix">
+		<os family="windows" />
+	</condition>
 
 	<!-- Remove output directories -->
 	<target name="clean">
 		<delete dir="${build.dir}"/>
 		<delete dir="${docs.dir}" />
-		<delete dir="${jar.dir}" />
+		<delete dir="${dist.dir}"/>
 	</target>
 
 	<!-- create output directories -->
 	<target name="makedir">
 		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${java.build.dir}"/>
 		<mkdir dir="${docs.dir}" />
 		<mkdir dir="${jar.dir}"/>
+		<mkdir dir="${dist.dir}"/>
 	</target>
 
 	<!-- compile java source files -->
 	<target name="compile" depends="makedir">
-		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}"></javac>
+		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${java.build.dir}"></javac>
 	</target>
 
 	<!-- perform clean build -->
@@ -41,7 +51,7 @@
 
 	<!-- package library -->
 	<target name="jar" depends="compile">
-		<jar destfile="${jar.dir}/gbcore.jar" basedir="${build.dir}"></jar>
+		<jar destfile="${jar.dir}/gbcore.jar" basedir="${java.build.dir}"></jar>
 	</target>
 
 	<!-- build javadocs -->
@@ -54,6 +64,14 @@
 		</javadoc>
 	</target>
 
+	<!-- package libraries -->
+	<target name="package" depends="jar">
+		<zip destfile="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.zip">
+			<zipfileset dir="${build.dir}" prefix="${lib.name}/" excludes="classes/**"/>
+		</zip>
+	</target>
+
+	<!-- Default Target -->
 	<target name="main">
 		<antcall>
 			<target name="compile" />
