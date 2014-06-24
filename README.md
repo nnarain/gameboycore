@@ -40,7 +40,7 @@ Build source with your project\make files
 $ make
 ```
 
-Shared libraries will be placed in bin/lib
+Shared libraries will be placed in build/lib
 
 **Build Java Sources with Apache ANT**
 
