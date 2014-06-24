@@ -8,21 +8,21 @@
 
 	<property name="src.dir" location="jni" />
 	<property name="build.dir" location="bin/classes" />
-	<property name="dist.dir" location="dist" />
+	<property name="jar.dir" location="bin/jar" />
 	<property name="docs.dir" location="docs/java" />
 
 	<!-- Remove output directories -->
 	<target name="clean">
 		<delete dir="${build.dir}"/>
 		<delete dir="${docs.dir}" />
-		<delete dir="${dist.dir}" />
+		<delete dir="${jar.dir}" />
 	</target>
 
 	<!-- create output directories -->
 	<target name="makedir">
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${docs.dir}" />
-		<mkdir dir="${dist.dir}"/>
+		<mkdir dir="${jar.dir}"/>
 	</target>
 
 	<!-- compile java source files -->
@@ -41,7 +41,7 @@
 
 	<!-- package library -->
 	<target name="jar" depends="compile">
-		<jar destfile="${dist.dir}/gbcore.jar" basedir="${build.dir}"></jar>
+		<jar destfile="${jar.dir}/gbcore.jar" basedir="${build.dir}"></jar>
 	</target>
 
 	<!-- build javadocs -->
@@ -52,6 +52,14 @@
 				<include name="**" />
 			</fileset>
 		</javadoc>
+	</target>
+
+	<target name="main">
+		<antcall>
+			<target name="compile" />
+			<target name="jar" />
+			<target name="docs" />
+		</antcall>
 	</target>
 
 </project>

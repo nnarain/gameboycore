@@ -6,6 +6,8 @@ bin/*
 *.so
 *.a
 
+build/*
+
 # java
 *.class
 *.jar
