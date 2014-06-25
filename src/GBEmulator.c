@@ -64,32 +64,6 @@ int NOP(struct Core* core)
 	return 0;
 }
 
-/* Add Byte instructions */
-
-int decBC(struct Core* core)
-{
-	core->BC.val--;
-	return 0;
-}
-
-int decDE(struct Core* core)
-{
-	core->DE.val--;
-	return 0;
-}
-
-int decHL(struct Core* core)
-{
-	core->HL.val--;
-	return 0;
-}
-
-int decSP(struct Core* core)
-{
-	core->SP--;
-	return 0;
-}
-
 int ldAA(struct Core* core)
 {
 	core->AF.A = core->AF.A;

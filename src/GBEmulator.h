@@ -33,11 +33,6 @@ int transfer(uint8_t* to, uint8_t* from);
 
 int NOP(struct Core*);
 
-int decBC(struct Core*);
-int decDE(struct Core*);
-int decHL(struct Core*);
-int decSP(struct Core*);
-
 int ldAA(struct Core*);
 int ldAB(struct Core*);
 int ldAC(struct Core*);
