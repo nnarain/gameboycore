@@ -1,7 +1,5 @@
 package com.nnarain.gb.util;
 
-import java.util.ArrayList;
-
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -100,18 +98,25 @@ public class GBROMParser{
 	private byte[] rom;
 
 	/**
+	* @param filePath
+	* 	The path of the file to parse
 	*/
-	public GBROMParser(String fileName) throws FileNotFoundException, IOException{
-		this(new File(fileName));
+	public GBROMParser(String filePath) throws FileNotFoundException, IOException{
+		this(new File(filePath));
 	}
 
 	/**
+	* @param romFile
+	*	The file to parse
 	*/
 	public GBROMParser(File romFile) throws FileNotFoundException, IOException{
 		this.rom = this.getBytes(romFile);
 	}
 
 	/**
+	* Gets the ROM title from the file
+	*
+	* @return the title
 	*/
 	public String getTitle(){
 
@@ -127,6 +132,9 @@ public class GBROMParser{
 	}
 
 	/**
+	* Verifies if the ROM file contains the Nintendo Logo
+	*
+	* @return true if the file contains the Nintendo Logo
 	*/
 	public boolean hasNintendoLogo(){
 
@@ -144,6 +152,11 @@ public class GBROMParser{
 
 	}
 
+	/**
+	* Seperate the bytes into ROM Banks
+	*
+	* @return Array of ROM Banks
+	*/
 	public byte[][] getROMBanks(){
 
 		final int bankSize = PERMANENT_ROM_BANK_END - PERMANENT_ROM_BANK_START;
@@ -162,6 +175,12 @@ public class GBROMParser{
 		return banks;
 	}
 
+	/**
+	* Reads the file data into a byte array
+	*
+	* @param romFile
+	*	The file to read
+	*/
 	private byte[] getBytes(File romFile) throws FileNotFoundException, IOException{
 
 		FileInputStream fis = new FileInputStream(romFile);
