@@ -1,6 +1,8 @@
 
 package com.nnarain.gb;
 
+import com.nnarain.gb.util.GBRuntimeException;
+
 /**
 * Native interface to the underlying C struct Core
 *
@@ -39,8 +41,18 @@ public class GBCore{
 	* Frees native resources
 	*/
 	public void release(){
-		release(this.handle);
+		if(this.isAllocated) 
+			release(this.handle);
+		else
+			throw new GBRuntimeException("Native Resources has already been released");
 		this.isAllocated = false;
+	}
+
+	/**
+	* @return True is native resources for this object is still allocated
+	*/
+	public boolean isAllocated(){
+		return this.isAllocated;
 	}
 
 	/**
