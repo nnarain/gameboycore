@@ -1,5 +1,7 @@
 package com.nnarain.gb.util;
 
+import com.nnarain.gb.map.GBMemMap;
+
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -12,7 +14,7 @@ import java.io.FileNotFoundException;
 * @author Natesh Narain	
 */
 public class GBROMParser{
-
+/*
 	public static final int PERMANENT_ROM_BANK_START  = 0x0000;
 
 	public static final int INTERRUPT_HANDLER_VBLANK  = 0x0040;
@@ -88,7 +90,7 @@ public class GBROMParser{
 
 	public static final int INTERRUPT_ENABLE          = 0xFFFF;
 	public static final int INTERRUPT_FLAG            = 0xFF0F;
-
+*/
 	private static final byte[] nintendoLogo = {
 		(byte)0xCE, (byte)0xED, (byte)0x66, (byte)0x66, (byte)0xCC, (byte)0x0D, (byte)0x00, (byte)0x0B, (byte)0x03, (byte)0x73, (byte)0x00, (byte)0x83, (byte)0x00, (byte)0x0C, (byte)0x00, (byte)0x0D,
 		(byte)0x00, (byte)0x08, (byte)0x11, (byte)0x1F, (byte)0x88, (byte)0x89, (byte)0x00, (byte)0x0E, (byte)0xDC, (byte)0xCC, (byte)0x6E, (byte)0xE6, (byte)0xDD, (byte)0xDD, (byte)0xD9, (byte)0x99,
@@ -122,10 +124,10 @@ public class GBROMParser{
 
 		StringBuilder builder = new StringBuilder();
 
-		final int len = GAME_TITLE_END - GAME_TITLE_START;
+		final int len = GBMemMap.GAME_TITLE.range();
 
 		for(int i = 0; i <= len; i++){
-			builder.append( (char) this.rom[GAME_TITLE_START + i] );
+			builder.append( (char) this.rom[GBMemMap.GAME_TITLE.begin() + i] );
 		}
 
 		return builder.toString();
@@ -140,10 +142,10 @@ public class GBROMParser{
 
 		boolean result;
 
-		final int len = NINTENDO_LOGO_END - NINTENDO_LOGO_START;
+		final int len = GBMemMap.NINTENDO_LOGO.range();
 
 		for(int i = 0; i <= len; i++){
-			if( this.rom[NINTENDO_LOGO_START + i] != nintendoLogo[i] ){
+			if( this.rom[GBMemMap.NINTENDO_LOGO.begin() + i] != nintendoLogo[i] ){
 				return false;
 			}
 		}
@@ -159,7 +161,7 @@ public class GBROMParser{
 	*/
 	public byte[][] getROMBanks(){
 
-		final int bankSize = PERMANENT_ROM_BANK_END - PERMANENT_ROM_BANK_START;
+		final int bankSize = GBMemMap.PERMANENT_ROM.range();
 		final int numBanks = this.rom.length / bankSize;
 
 		final byte[][] banks = new byte[numBanks][bankSize];

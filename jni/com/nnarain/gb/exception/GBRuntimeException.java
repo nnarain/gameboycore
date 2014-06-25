@@ -1,5 +1,5 @@
 
-package com.nnarain.gb.util;
+package com.nnarain.gb.exception;
 
 public class GBRuntimeException extends RuntimeException{
 

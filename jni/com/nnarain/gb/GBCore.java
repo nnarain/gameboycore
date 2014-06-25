@@ -1,7 +1,7 @@
 
 package com.nnarain.gb;
 
-import com.nnarain.gb.util.GBRuntimeException;
+import com.nnarain.gb.exception.GBRuntimeException;
 
 /**
 * Native interface to the underlying C struct Core
