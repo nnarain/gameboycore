@@ -30,6 +30,8 @@ include_directories(${include})
 include_directories($ENV{JAVA_HOME}/include)
 include_directories($ENV{JAVA_HOME}/include/win32)
 
+set(CMAKE_{C,CXX}_FLAGS -m64)
+
 # build core shared library
 add_library(
 	${libNameShared}
