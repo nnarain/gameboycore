@@ -84,6 +84,10 @@
 		<delete file="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.tar" />
 	</target>
 
+	<target name="test">
+		<java classname="test.Test" classpath="${java.build.dir}" />
+	</target>
+
 	<!-- Default Target -->
 	<target name="main">
 		<antcall>
