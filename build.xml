@@ -6,7 +6,7 @@
 
 <project name="GBCore" default="main" basedir=".">
 
-	<property name="project.version" value="0.1.0" />
+	<property name="project.version" value="0.5.1" />
 
 	<property name="lib.name" value="gbcore" />
 
