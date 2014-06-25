@@ -6,6 +6,8 @@
 
 <project name="GBCore" default="main" basedir=".">
 
+	<property name="project.version" value="0.1.0" />
+
 	<property name="lib.name" value="gbcore" />
 
 	<property name="java.src.dir" location="jni" />
@@ -16,9 +18,13 @@
 	<property name="docs.dir" location="docs/java" />
 	<property name="dist.dir" location="dist" />
 
+	<property name="jar.name" value="gbcore-v${project.version}.jar" />
+
 	<condition property="package.os.name" value="win" else="unix">
 		<os family="windows" />
 	</condition>
+
+	<property name="package.name" value="gbcore-v${project.version}-${package.os.name}-${os.arch}" />
 
 	<!-- Remove output directories -->
 	<target name="clean">
@@ -45,14 +51,13 @@
 	<target name="rebuild">
 		<antcall>
 			<target name="clean" />
-			<target name="makedir" />
 			<target name="compile" />
 		</antcall>
 	</target>
 
 	<!-- package library -->
 	<target name="jar" depends="compile">
-		<jar destfile="${jar.dir}/gbcore.jar" basedir="${java.build.dir}"></jar>
+		<jar destfile="${jar.dir}/${jar.name}" basedir="${java.build.dir}"></jar>
 	</target>
 
 	<!-- build javadocs -->
@@ -74,14 +79,14 @@
 
 	<!-- package libraries -->
 	<target name="package" depends="jar">
-		<zip destfile="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.zip">
+		<zip destfile="${dist.dir}/${package.name}.zip">
 			<zipfileset dir="${build.dir}" prefix="${lib.name}/" excludes="classes/**"/>
 		</zip>
-		<tar destfile="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.tar">
+		<tar destfile="${dist.dir}/${package.name}.tar">
 			<tarfileset dir="${build.dir}" prefix="${lib.name}/" excludes="classes/**" />
 		</tar>
-		<gzip destfile="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.tar.gz" src="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.tar" />
-		<delete file="${dist.dir}/${lib.name}-${package.os.name}-${os.arch}.tar" />
+		<gzip destfile="${dist.dir}/${package.name}.tar.gz" src="${dist.dir}/${package.name}.tar" />
+		<delete file="${dist.dir}/${package.name}.tar" />
 	</target>
 
 	<!-- Default Target -->
