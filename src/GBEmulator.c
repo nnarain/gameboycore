@@ -66,7 +66,6 @@ int NOP(struct Core* core)
 
 /* Add Byte instructions */
 
-<<<<<<< HEAD
 int decBC(struct Core* core)
 {
 	core->BC.val--;
@@ -556,6 +555,5 @@ int addAHL(struct Core* core)
 int addAByte(struct Core* core)
 {
 	core->AF.A += core->rom[++core->PC];
->>>>>>> add-byte-instructions
 	return 0;
 }
