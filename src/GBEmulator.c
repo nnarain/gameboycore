@@ -51,31 +51,6 @@ uint8_t* getAddress(struct Core* core, uint16_t addr)
 	return &core->rom[addr];
 }
 
-/* Exvhange functions */
-
-int exSPHL(struct Core* core)
-{
-	uint8_t tmpH = core->HL.H;
-	uint8_t tmpL = core->HL.L;
-
-	core->HL.H = core->SP + 1;
-	core->HL.L = core->SP;
-
-
-
-	return 0;
-}
-
-int exDEHL(struct Core* core)
-{
-
-	uint16_t tmpHL = core->HL.val;
-
-	core->HL.val = core->DE.val;
-	core->DE.val = tmpHL;
-
-	return 0;
-}
 
 int genericTransfer(uint8_t* to, uint8_t* from)
 {
