@@ -39,6 +39,7 @@ add_library(
 	GBEmulator.c
 	add.c
 	decrement.c
+	increment.c
 	exchange.c
 	load.c
 	subtract.c
@@ -51,6 +52,7 @@ add_library(
 	GBEmulator.c
 	add.c
 	decrement.c
+	increment.c
 	exchange.c
 	load.c
 	subtract.c
@@ -64,6 +66,7 @@ add_library(
 	GBEmulator.c
 	add.c
 	decrement.c
+	increment.c
 	exchange.c
 	load.c
 	subtract.c

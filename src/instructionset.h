@@ -5,6 +5,7 @@
 #include "add.h"
 #include "subtract.h"
 #include "load.h"
+#include "increment.h"
 
 #define REDIRECT 0xCB
 
