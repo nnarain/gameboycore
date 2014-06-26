@@ -17,7 +17,7 @@ set(libNameJNI gbcore-jni)
 # set directory names
 set(build "../build/")
 set(buildLib "../build/lib/")
-set(buildObj "../build/obj/")
+set(buildObj "../build/lib/")
 
 # create needed direcotries
 file(MAKE_DIRECTORY ${build})
