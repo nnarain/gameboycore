@@ -40,6 +40,7 @@ add_library(
 	add.c
 	decrement_reg_pair.c
 	increment.c
+	decrement.c
 	exchange.c
 	load.c
 	subtract.c
@@ -54,6 +55,7 @@ add_library(
 	add.c
 	decrement_reg_pair.c
 	increment.c
+	decrement.c
 	exchange.c
 	load.c
 	subtract.c
@@ -69,6 +71,7 @@ add_library(
 	add.c
 	decrement_reg_pair.c
 	increment.c
+	decrement.c
 	exchange.c
 	load.c
 	subtract.c

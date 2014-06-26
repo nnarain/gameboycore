@@ -45,9 +45,4 @@ int decL(struct Core* core)
 	return 0;
 }
 
-int decHL(struct Core* core)
-{
-	core->HL.val--;
-	return 0;
-}
 
