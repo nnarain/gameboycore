@@ -1,11 +1,13 @@
 
-
 #ifndef DECREMENT
 #define DECREMENT
 
-int decBC(struct Core*);
-int decDE(struct Core*);
-int decHL(struct Core*);
-int decSP(struct Core*);
+int decA(struct Core*);
+int decB(struct Core*);
+int decC(struct Core*);
+int decD(struct Core*);
+int decE(struct Core*);
+int decH(struct Core*);
+int decL(struct Core*);
 
 #endif

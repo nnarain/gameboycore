@@ -3,10 +3,16 @@
 #define INSTRUCTION_SET
 
 #include "add.h"
-#include "subtract.h"
-#include "load.h"
+#include "decrement.h"
+#include "decrement_reg_pair.h"
+#include "exchange.h"
 #include "increment.h"
 #include "increment_reg_pair.h"
+<<<<<<< HEAD
+=======
+#include "load.h"
+#include "subtract.h"
+>>>>>>> 09f84187f7952e705761d361da89ff338dda9df4
 
 #define REDIRECT 0xCB
 
@@ -17,7 +23,7 @@ struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0x2*/,
 	{&incBC, 6} /*0x3*/,
 	{&NOP, 4} /*0x4*/,
-	{&NOP, 4} /*0x5*/,
+	{&decB, 4} /*0x5*/,
 	{&NOP, 4} /*0x6*/,
 	{&NOP, 4} /*0x7*/,
 	{&NOP, 4} /*0x8*/,
@@ -25,7 +31,7 @@ struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0xa*/,
 	{&NOP, 4} /*0xb*/,
 	{&incC, 4} /*0xc*/,
-	{&NOP, 4} /*0xd*/,
+	{&decC, 4} /*0xd*/,
 	{&NOP, 4} /*0xe*/,
 	{&NOP, 4} /*0xf*/,
 	{&NOP, 4} /*0x10*/,
@@ -33,7 +39,7 @@ struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0x12*/,
 	{&NOP, 4} /*0x13*/,
 	{&incD, 4} /*0x14*/,
-	{&NOP, 4} /*0x15*/,
+	{&decD, 4} /*0x15*/,
 	{&NOP, 4} /*0x16*/,
 	{&NOP, 4} /*0x17*/,
 	{&NOP, 4} /*0x18*/,
@@ -49,7 +55,7 @@ struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0x22*/,
 	{&NOP, 4} /*0x23*/,
 	{&incH, 4} /*0x24*/,
-	{&NOP, 4} /*0x25*/,
+	{&decH, 4} /*0x25*/,
 	{&NOP, 4} /*0x26*/,
 	{&NOP, 4} /*0x27*/,
 	{&NOP, 4} /*0x28*/,
@@ -57,7 +63,7 @@ struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0x2a*/,
 	{&NOP, 4} /*0x2b*/,
 	{&incL, 4} /*0x2c*/,
-	{&NOP, 4} /*0x2d*/,
+	{&decL, 4} /*0x2d*/,
 	{&NOP, 4} /*0x2e*/,
 	{&NOP, 4} /*0x2f*/,
 	{&NOP, 4} /*0x30*/,
@@ -65,7 +71,7 @@ struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0x32*/,
 	{&NOP, 4} /*0x33*/,
 	{&incHL, 4} /*0x34*/,
-	{&NOP, 4} /*0x35*/,
+	{&decHL, 4} /*0x35*/,
 	{&NOP, 4} /*0x36*/,
 	{&NOP, 4} /*0x37*/,
 	{&NOP, 4} /*0x38*/,
@@ -73,7 +79,7 @@ struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0x3a*/,
 	{&NOP, 4} /*0x3b*/,
 	{&incA, 4} /*0x3c*/,
-	{&NOP, 4} /*0x3d*/,
+	{&decA, 4} /*0x3d*/,
 	{&NOP, 4} /*0x3e*/,
 	{&NOP, 4} /*0x3f*/,
 	{&NOP, 4} /*0x40*/,

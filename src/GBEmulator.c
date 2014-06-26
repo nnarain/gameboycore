@@ -1,6 +1,7 @@
 
 #include "GBEmulator.h"
 #include "instructionset.h"
+#include "opts.h"
 
 #include <time.h>
 
@@ -64,4 +65,3 @@ int NOP(struct Core* core)
 {
 	return 0;
 }
-

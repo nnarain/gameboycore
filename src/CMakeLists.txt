@@ -17,7 +17,7 @@ set(libNameJNI gbcore-jni)
 # set directory names
 set(build "../build/")
 set(buildLib "../build/lib/")
-set(buildObj "../build/obj/")
+set(buildObj "../build/lib/")
 
 # create needed direcotries
 file(MAKE_DIRECTORY ${build})
@@ -38,11 +38,14 @@ add_library(
 	SHARED
 	GBEmulator.c
 	add.c
-	decrement.c
+	decrement_reg_pair.c
 	increment.c
+	decrement.c
 	exchange.c
 	load.c
 	subtract.c
+	increment_reg_pair.c
+	special_accumulator_flag.c
 )
 
 # build core static library
@@ -51,11 +54,14 @@ add_library(
 	STATIC
 	GBEmulator.c
 	add.c
-	decrement.c
+	decrement_reg_pair.c
 	increment.c
+	decrement.c
 	exchange.c
 	load.c
 	subtract.c
+	increment_reg_pair.c
+	special_accumulator_flag.c
 )
 
 # build jni shared library
@@ -65,11 +71,14 @@ add_library(
 	GBCoreJNI.c
 	GBEmulator.c
 	add.c
-	decrement.c
+	decrement_reg_pair.c
 	increment.c
+	decrement.c
 	exchange.c
 	load.c
 	subtract.c
+	increment_reg_pair.c
+	special_accumulator_flag.c
 )
 
 

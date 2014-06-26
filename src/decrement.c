@@ -3,26 +3,46 @@
 #include "decrement.h"
 
 
-int decBC(struct Core* core)
+int decA(struct Core* core)
 {
-	core->BC.val--;
+	core->AF.A--;
 	return 0;
 }
 
-int decDE(struct Core* core)
+int decB(struct Core* core)
 {
-	core->DE.val--;
+	core->BC.B--;
 	return 0;
 }
 
-int decHL(struct Core* core)
+int decC(struct Core* core)
 {
-	core->HL.val--;
+	core->BC.B--;
 	return 0;
 }
 
-int decSP(struct Core* core)
+int decD(struct Core* core)
 {
-	core->SP--;
+	core->DE.D--;
 	return 0;
 }
+
+int decE(struct Core* core)
+{
+	core->DE.E--;
+	return 0;
+}
+
+int decH(struct Core* core)
+{
+	core->HL.H--;
+	return 0;
+}
+
+int decL(struct Core* core)
+{
+	core->HL.L--;
+	return 0;
+}
+
+

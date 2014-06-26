@@ -11,12 +11,12 @@ Installation
 
 **Environment Variables**
 
-JAVA_HOME must be set to the root of the JDK
+JAVA_HOME must be set in your environment.
 
 **Clone Git repository**
 ```bash
 $ git clone https://nnarain@bitbucket.org/nnarain/gameboycore.git
-$ cd gameboycore
+$ cd path/to/gameboycore
 ```
 
 **Build C sources with CMake.**
@@ -24,8 +24,8 @@ $ cd gameboycore
 Create a directory for CMake output.
 
 ```bash
-$ mkdir build
-$ cd build
+$ mkdir unixmake
+$ cd unixmake
 ```
 
 Use cmake command to generate you make\project files (ex. Unix Makefiles)
@@ -45,6 +45,6 @@ Shared libraries will be placed in build/lib
 **Build Java Sources with Apache ANT**
 
 ```bash
-$ cd gameboycore
+$ cd path/to/gameboycore
 $ ant
 ```

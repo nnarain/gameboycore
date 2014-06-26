@@ -42,9 +42,3 @@ int incL(struct Core* core)
 	core->HL.L++;
 	return 0;
 }
-
-int incHL(struct Core* core)
-{
-	core->HL.val++;
-	return 0;
-}
