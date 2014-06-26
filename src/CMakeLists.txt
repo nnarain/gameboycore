@@ -16,21 +16,21 @@ set(libNameJNI gbcore-jni)
 
 # set directory names
 set(build "../build/")
-set(buildObj "../build/lib/")
+set(buildLib "../build/lib/")
+set(buildObj "../build/obj/")
 
 # create needed direcotries
 file(MAKE_DIRECTORY ${build})
-file(MAKE_DIRECTORY ${buildObj})
+file(MAKE_DIRECTORY ${buildLib})
 
 # set project directories
 set(include "../include/")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${buildObj})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${buildLib})
 
 include_directories(${include})
 include_directories($ENV{JAVA_HOME}/include)
 include_directories($ENV{JAVA_HOME}/include/win32)
-
-set(CMAKE_{C,CXX}_FLAGS -m64)
 
 # build core shared library
 add_library(
