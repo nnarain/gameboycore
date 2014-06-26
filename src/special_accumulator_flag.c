@@ -2,7 +2,7 @@
 
 #include "GBCore.h"
 #include "special_accumulator_flag.h"
-
+#include "opts.h"
 
 int notA(struct Core* core)
 {

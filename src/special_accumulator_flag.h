@@ -2,9 +2,9 @@
 #ifndef SPECIAL_ACCUMULATOR_FLAG
 #define SPECIAL_ACCUMULATOR_FLAG
 
-int notA(struct Core*);
-int SCF(struct Core*);
-int CCF(struct Core*)
+int notA(struct Core* core);
+int SCF(struct Core* core);
+int CCF(struct Core* core);
 
 #endif
 
