@@ -3,7 +3,7 @@
 #define INSTRUCTION_SET
 
 #include "add.h"
-#include "decrement.h"
+#include "decrement_reg_pair.h"
 #include "exchange.h"
 #include "increment.h"
 #include "increment_reg_pair.h"

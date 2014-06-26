@@ -38,7 +38,7 @@ add_library(
 	SHARED
 	GBEmulator.c
 	add.c
-	decrement.c
+	decrement_reg_pair.c
 	increment.c
 	exchange.c
 	load.c
@@ -52,7 +52,7 @@ add_library(
 	STATIC
 	GBEmulator.c
 	add.c
-	decrement.c
+	decrement_reg_pair.c
 	increment.c
 	exchange.c
 	load.c
@@ -67,7 +67,7 @@ add_library(
 	GBCoreJNI.c
 	GBEmulator.c
 	add.c
-	decrement.c
+	decrement_reg_pair.c
 	increment.c
 	exchange.c
 	load.c
