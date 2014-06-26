@@ -28,9 +28,5 @@ int decDE(struct Core*);
 int decHL(struct Core*);
 int decSP(struct Core*);
 
-int notA(struct Core*);
-int SCF(struct Core*);
-int CCF(struct Core*)
-
 
 #endif // Z80_INSTRUCTION_SET

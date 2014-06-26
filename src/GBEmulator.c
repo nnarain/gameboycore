@@ -89,21 +89,3 @@ int decSP(struct Core* core)
 	core->SP--;
 	return 0;
 }
-
-int notA(struct Core* core)
-{
-	core->AF.A = ~core->AF.A;
-	return 0;
-}
-
-int SCF(struct Core* core)
-{
-	setbit(core->AF.F, FLAG_C);
-	return 0;
-}
-
-int CCF(struct Core* core)
-{
-	clearbit(core->AF.F, FLAG_C);
-	return 0;
-}
