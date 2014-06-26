@@ -19,6 +19,8 @@ int transfer(uint8_t* to, uint8_t* from);
 
 /* Core functions */
 
+
+
 int NOP(struct Core*);
 
 

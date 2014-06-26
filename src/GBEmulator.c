@@ -65,3 +65,7 @@ int NOP(struct Core* core)
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> increment-byte-instructions
