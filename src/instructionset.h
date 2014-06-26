@@ -6,6 +6,7 @@
 #include "subtract.h"
 #include "load.h"
 #include "increment.h"
+#include "increment_register_pair.h"
 
 #define REDIRECT 0xCB
 
@@ -14,8 +15,8 @@ struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0x0*/,
 	{&NOP, 4} /*0x1*/,
 	{&NOP, 4} /*0x2*/,
-	{&NOP, 4} /*0x3*/,
-	{&incB, 4} /*0x4*/,
+	{&incBC, 6} /*0x3*/,
+	{&NOP, 4} /*0x4*/,
 	{&NOP, 4} /*0x5*/,
 	{&NOP, 4} /*0x6*/,
 	{&NOP, 4} /*0x7*/,
