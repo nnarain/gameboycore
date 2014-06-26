@@ -64,3 +64,4 @@ int NOP(struct Core* core)
 {
 	return 0;
 }
+
