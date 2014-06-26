@@ -8,11 +8,8 @@
 #include "exchange.h"
 #include "increment.h"
 #include "increment_reg_pair.h"
-<<<<<<< HEAD
-=======
 #include "load.h"
 #include "subtract.h"
->>>>>>> 09f84187f7952e705761d361da89ff338dda9df4
 
 #define REDIRECT 0xCB
 
