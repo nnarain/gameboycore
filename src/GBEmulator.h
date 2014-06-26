@@ -21,9 +21,7 @@ int transfer(uint8_t* to, uint8_t* from);
 
 /* Core functions */
 
-int NOP(struct Core*);s
+int NOP(struct Core*);
 
 
-
-
-#endif
+#endif // Z80_INSTRUCTION_SET
