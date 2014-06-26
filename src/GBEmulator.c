@@ -51,6 +51,7 @@ uint8_t* getAddress(struct Core* core, uint16_t addr)
 	return &core->rom[addr];
 }
 
+
 int genericTransfer(uint8_t* to, uint8_t* from)
 {
 	*to = *from;
