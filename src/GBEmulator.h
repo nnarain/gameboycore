@@ -23,9 +23,4 @@ int transfer(uint8_t* to, uint8_t* from);
 
 int NOP(struct Core*);
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> increment-register-pair-instructions
 #endif // Z80_INSTRUCTION_SET
