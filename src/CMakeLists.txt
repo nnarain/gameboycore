@@ -37,6 +37,11 @@ add_library(
 	${libNameShared}
 	SHARED
 	GBEmulator.c
+	add.c
+	decrement.c
+	exchange.c
+	load.c
+	subtract.c
 )
 
 # build core static library
@@ -44,6 +49,11 @@ add_library(
 	${libNameStatic}
 	STATIC
 	GBEmulator.c
+	add.c
+	decrement.c
+	exchange.c
+	load.c
+	subtract.c
 )
 
 # build jni shared library
@@ -52,6 +62,11 @@ add_library(
 	SHARED
 	GBCoreJNI.c
 	GBEmulator.c
+	add.c
+	decrement.c
+	exchange.c
+	load.c
+	subtract.c
 )
 
 

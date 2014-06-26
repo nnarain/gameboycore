@@ -226,7 +226,7 @@ int ldEE(struct Core* core)
 
 int ldEH(struct Core* core)
 {
-	core->DE.E = core-HL.H;
+	core->DE.E = core->HL.H;
 	return 0;
 }
 

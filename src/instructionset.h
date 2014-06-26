@@ -2,6 +2,10 @@
 #ifndef INSTRUCTION_SET
 #define INSTRUCTION_SET
 
+#include "add.h"
+#include "subtract.h"
+#include "load.h"
+
 #define REDIRECT 0xCB
 
 //! First set of instructions
