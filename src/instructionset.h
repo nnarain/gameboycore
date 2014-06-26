@@ -3,10 +3,12 @@
 #define INSTRUCTION_SET
 
 #include "add.h"
-#include "subtract.h"
-#include "load.h"
+#include "decrement.h"
+#include "exchange.h"
 #include "increment.h"
-#include "increment_register_pair.h"
+#include "increment_reg_pair.h"
+#include "load.h"
+#include "subtract.h"
 
 #define REDIRECT 0xCB
 

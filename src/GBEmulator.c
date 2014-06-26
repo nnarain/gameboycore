@@ -64,7 +64,3 @@ int NOP(struct Core* core)
 {
 	return 0;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> increment-register-pair-instructions

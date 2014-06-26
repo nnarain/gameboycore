@@ -43,6 +43,7 @@ add_library(
 	exchange.c
 	load.c
 	subtract.c
+	increment_reg_pair.c
 )
 
 # build core static library
@@ -56,6 +57,7 @@ add_library(
 	exchange.c
 	load.c
 	subtract.c
+	increment_reg_pair.c
 )
 
 # build jni shared library
@@ -70,6 +72,7 @@ add_library(
 	exchange.c
 	load.c
 	subtract.c
+	increment_reg_pair.c
 )
 
 
