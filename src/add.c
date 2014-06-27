@@ -51,7 +51,7 @@ int addAHL(struct Core* core)
 
 int addAByte(struct Core* core)
 {
-	core->AF.A += core->rom[++core->PC];
+	core->AF.A += core->mem[++core->PC];
 	return 0;
 }
 

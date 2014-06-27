@@ -25,7 +25,7 @@ int execute(struct Core* core, uint8_t optCode)
 	}
 	else{
 		cycles = instructionSet2[optCode].cycles;
-		instructionSet2[core->rom[++core->PC]].impl(core);
+		instructionSet2[core->mem[++core->PC]].impl(core);
 	}
  
 	float elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
@@ -60,7 +60,7 @@ void initCore(struct Core* core)
 */
 uint8_t* getAddress(struct Core* core, uint16_t addr)
 {
-	return &core->rom[addr];
+	return &core->mem[addr];
 }
 
 /**

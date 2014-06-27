@@ -154,7 +154,7 @@ struct Core{
 	uint16_t IX; ///< Index register X
 	uint16_t IY; ///< Index Register Y
 
-	uint8_t rom[SIZE_MEMORY_MAP]; ///< Memory
+	uint8_t mem[SIZE_MEMORY_MAP]; ///< Memory
 
 	uint8_t** banks; ///< ROM Banks. Holds ROM data that can be used for swap rom
 };
