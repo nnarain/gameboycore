@@ -16,5 +16,14 @@ int Aand_HL_(struct Core*);
 
 int AandByte(struct Core*);
 
+int AxorA(struct Core*);
+int AxorB(struct Core*);
+int AxorC(struct Core*);
+int AxorD(struct Core*);
+int AxorE(struct Core*);
+int AxorH(struct Core*);
+int AxorL(struct Core*);
+int Axor_HL_(struct Core*);
+int AxorByte(struct Core*);
 
 #endif

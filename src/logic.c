@@ -54,3 +54,61 @@ int AandByte(struct Core* core)
 	core->AF.A &= core->mem[++core->PC];
 	return 0;
 }
+
+int AxorA(struct Core* core)
+{
+	core->AF.A ^= core->AF.A;
+	return 0;
+}
+
+int AxorB(struct Core* core)
+{
+	core->AF.A ^= core->BC.B;
+	return 0;
+}
+
+int AxorC(struct Core* core)
+{
+	core->AF.A ^= core->BC.C;
+	return 0;
+}
+
+int AxorD(struct Core* core)
+{
+	core->AF.A ^= core->DE.D;
+	return 0;
+}
+
+int AxorE(struct Core* core)
+{
+	core->AF.A ^= core->DE.E;
+	return 0;
+}
+
+int AxorH(struct Core* core)
+{
+	core->AF.A ^= core->HL.H;
+	return 0;
+}
+
+int AxorL(struct Core* core)
+{
+	core->AF.A ^= core->HL.L;
+	return 0;
+}
+
+int Axor_HL_(struct Core* core)
+{
+	core->AF.A ^= core->mem[core->HL.val];
+	return 0;
+}
+
+int AxorByte(struct Core* core)
+{
+	core->AF.A ^= core->mem[++core->PC];
+	return 0;
+}
+
+
+
+

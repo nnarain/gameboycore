@@ -48,6 +48,7 @@ add_library(
 	special_accumulator_flag.c
 	nop.c
 	opts.c
+	logic.c
 )
 
 # build core static library
@@ -66,6 +67,7 @@ add_library(
 	special_accumulator_flag.c
 	nop.c
 	opts.c
+	logic.c
 )
 
 # build jni shared library
@@ -85,6 +87,7 @@ add_library(
 	special_accumulator_flag.c
 	nop.c
 	opts.c
+	logic.c
 )
 
 
@@ -106,5 +109,6 @@ add_executable(
 	special_accumulator_flag.c
 	nop.c
 	opts.c
+	logic.c
 )
 
