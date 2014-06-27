@@ -85,5 +85,22 @@ add_library(
 )
 
 
-
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../build/test")
+# add test executable
+add_executable(
+	GBTest
+	test.c
+	gbapi.c
+	gbparser.c
+	add.c
+	decrement_reg_pair.c
+	increment.c
+	decrement.c
+	exchange.c
+	load.c
+	subtract.c
+	increment_reg_pair.c
+	special_accumulator_flag.c
+	nop.c
+)
 
