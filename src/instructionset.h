@@ -10,6 +10,7 @@
 #include "increment_reg_pair.h"
 #include "load.h"
 #include "subtract.h"
+#include "nop.h"
 
 #define REDIRECT 0xCB
 
