@@ -92,6 +92,8 @@
 #define INTERRUPT_ENABLE          0xFFFF
 #define INTERRUPT_FLAG            0xFF0F
 
+#define SIZE_BANK                 PERMANENT_ROM_BANK_END - PERMANENT_ROM_BANK_START
+
 /* Device I/O */
 #define JOYPAD_P10                0x00
 #define JOYPAD_P11                0x02
@@ -153,6 +155,8 @@ struct Core{
 	uint16_t IY; ///< Index Register Y
 
 	uint8_t rom[SIZE_MEMORY_MAP]; ///< Memory
+
+	uint8_t** banks; ///< ROM Banks. Holds ROM data that can be used for swap rom
 };
 
 
