@@ -5,6 +5,8 @@
 #include "gbcore.h"
 #include "opts.h"
 
+/* 8 bit */
+
 int ldAA(struct Core*);
 int ldAB(struct Core*);
 int ldAC(struct Core*);
@@ -81,5 +83,25 @@ int ldHLByte(struct Core*);
 int ldBCA(struct Core*);
 int ldDEA(struct Core*);
 int ldAddrA(struct Core*);
+
+/* 16 bit */
+
+int ldBCWord(struct Core*);
+int ldDEWord(struct Core*);
+int ldHLWord(struct Core*);
+int ldSPWord(struct Core*);
+
+int ldHLAddr(struct Core*);
+int ldBCAddr(struct Core*);
+int ldDEAddr(struct Core*);
+//int ldHLAddr(struct Core*); there might be another redirect
+
+int ldAddrHL(struct Core*);
+int ldAddrBC(struct Core*);
+int ldAddrDE(struct Core*);
+//int ldAddrHL(struct Core*); ``      ``   ``  ``      ``
+int ldAddrSP(struct Core*);
+
+int ldSPHL(struct Core*);
 
 #endif

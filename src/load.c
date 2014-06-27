@@ -444,3 +444,75 @@ int ldAddrA(struct Core* core)
 	core->mem[getNextWord(&core->PC, core->mem)] = core->AF.A;
 	return 0;
 }
+
+/* 16 bit */
+
+int ldBCWord(struct Core* core)
+{
+	core->BC.val = getNextWord(&core->PC, core->mem);
+	return 0;
+}
+
+int ldDEWord(struct Core* core)
+{
+	core->DE.val = getNextWord(&core->PC, core->mem);
+	return 0;
+}
+
+int ldHLWord(struct Core* core)
+{
+	core->HL.val = getNextWord(&core->PC, core->mem);
+	return 0;
+}
+
+int ldSPWord(struct Core* core)
+{
+	core->SP = getNextWord(&core->PC, core->mem);
+	return 0;
+}
+
+int ldHLAddr(struct Core* core)
+{
+	core->HL.val = core->mem[getNextWord(&core->PC, core->mem)];
+	return 0;
+}
+
+int ldBCAddr(struct Core* core)
+{
+	core->BC.val = core->mem[getNextWord(&core->PC, core->mem)];
+	return 0;
+}
+
+int ldDEAddr(struct Core* core)
+{
+	core->DE.val = core->mem[getNextWord(&core->PC, core->mem)];
+	return 0;
+}
+
+//int ldHLAddr(struct Core*); there might be another redirect
+
+int ldAddrHL(struct Core* core)
+{
+	core->mem[getNextWord(&core->PC, core->mem)] = core->HL.val;
+	return 0;
+}
+
+int ldAddrBC(struct Core* core)
+{
+	core->mem[getNextWord(&core->PC, core->mem)] = core->BC.val;
+	return 0;
+}
+
+int ldAddrDE(struct Core* core)
+{
+	core->mem[getNextWord(&core->PC, core->mem)] = core->DE.val;
+	return 0;
+}
+
+//int ldAddrHL(struct Core*); ``      ``   ``  ``      ``
+int ldAddrSP(struct Core* core)
+{
+	core->mem[getNextWord(&core->PC, core->mem)] = core->SP;
+	return 0;
+}
+
