@@ -36,7 +36,7 @@ include_directories($ENV{JAVA_HOME}/include/win32)
 add_library(
 	${libNameShared}
 	SHARED
-	GBEmulator.c
+	gbapi.c
 	add.c
 	decrement_reg_pair.c
 	increment.c
@@ -52,7 +52,7 @@ add_library(
 add_library(
 	${libNameStatic}
 	STATIC
-	GBEmulator.c
+	gbapi.c
 	add.c
 	decrement_reg_pair.c
 	increment.c
@@ -68,8 +68,8 @@ add_library(
 add_library(
 	${libNameJNI}
 	SHARED
-	GBCoreJNI.c
-	GBEmulator.c
+	gbcorejni.c
+	gbapi.c
 	add.c
 	decrement_reg_pair.c
 	increment.c

@@ -1,5 +1,5 @@
 
-#include "GBEmulator.h"
+#include "gbapi.h"
 #include "instructionset.h"
 #include "opts.h"
 
@@ -36,7 +36,7 @@ int execute(struct Core* core, uint8_t optCode)
 	return 0;
 }
 
-void bootCore(struct Core* core)
+void initCore(struct Core* core)
 {
 	// Initialize all core members to 0
 	core->AF.val = 0;

@@ -1,5 +1,5 @@
 
-#include "GBCore.h"
+#include "gbcore.h"
 #include "load.h"
 
 int ldAA(struct Core* core)

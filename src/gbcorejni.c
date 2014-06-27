@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "com_nnarain_gb_GBCore.h"
-#include "GBEmulator.h"
+#include "gbapi.h"
 
 JNIEXPORT jlong JNICALL Java_com_nnarain_gb_GBCore_createCore(JNIEnv *env, jclass clazz)
 {

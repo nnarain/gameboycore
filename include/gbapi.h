@@ -3,7 +3,7 @@
 #ifndef GB_EMULATOR
 #define GB_EMULATOR
 
-#include "GBCore.h"
+#include "gbcore.h"
 
 struct Instruction{
 	int (*impl)(struct Core*);

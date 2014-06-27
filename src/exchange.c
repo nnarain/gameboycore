@@ -1,5 +1,5 @@
 
-#include "GBCore.h"
+#include "gbcore.h"
 #include "exchange.h"
 
 

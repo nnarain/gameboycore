@@ -1,5 +1,5 @@
 
-#include "GBCore.h"
+#include "gbcore.h"
 #include "increment.h"
 
 int incA(struct Core* core)
