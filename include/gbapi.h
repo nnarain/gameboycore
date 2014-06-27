@@ -4,6 +4,7 @@
 #define GB_API
 
 #include "gbcore.h"
+#include "gbparser.h"
 
 int execute(struct Core*, uint8_t);
 
