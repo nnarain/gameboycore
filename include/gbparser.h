@@ -4,6 +4,7 @@
 
 #include "gbcore.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 
 //! structure to contain rom meta data
@@ -15,6 +16,7 @@ struct GBROMData{
 };
 
 void gbparse(struct GBROMData* data, FILE* file);
+void releaseROMData(struct GBROMData*);
 
 #endif
 
