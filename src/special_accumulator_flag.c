@@ -1,6 +1,5 @@
 
 
-#include "gbcore.h"
 #include "special_accumulator_flag.h"
 #include "opts.h"
 

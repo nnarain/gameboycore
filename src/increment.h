@@ -3,6 +3,8 @@
 #ifndef INCREMENT
 #define INCREMENT
 
+#include "gbcore.h"
+
 int incA(struct Core*);
 int incB(struct Core*);
 int incC(struct Core*);

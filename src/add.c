@@ -1,5 +1,4 @@
 
-#include "gbcore.h"
 #include "add.h"
 
 int addAA(struct Core* core)

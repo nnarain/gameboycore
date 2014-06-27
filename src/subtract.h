@@ -2,6 +2,8 @@
 #ifndef SUBTRACT
 #define SUBTRACT
 
+#include "gbcore.h"
+
 int subAA(struct Core*);
 int subAB(struct Core*);
 int subAC(struct Core*);

@@ -2,6 +2,8 @@
 #ifndef LOAD
 #define LOAD
 
+#include "gbcore.h"
+
 int ldAA(struct Core*);
 int ldAB(struct Core*);
 int ldAC(struct Core*);

@@ -1,5 +1,4 @@
 
-#include "gbcore.h"
 #include "subtract.h"
 
 int subAA(struct Core* core)

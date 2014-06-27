@@ -1,7 +1,7 @@
 
 
-#ifndef NOP
-#define NOP
+#ifndef NOP_
+#define NOP_
 
 #include "gbcore.h"
 

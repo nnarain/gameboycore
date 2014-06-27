@@ -3,6 +3,8 @@
 #ifndef ADD
 #define ADD
 
+#include "gbcore.h"
+
 int addAA(struct Core*);
 int addAB(struct Core*);
 int addAC(struct Core*);
