@@ -25,7 +25,7 @@ JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_release(JNIEnv *env, jclass cl
 JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_step(JNIEnv *env, jclass clazz, jlong handle)
 {
 	struct Core* core = (struct Core*) ((long)handle);
-	execute(core, core->rom[++core->PC]);
+	execute(core, core->mem[++core->PC]);
 }
 
 JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_loadROMBank0(JNIEnv *env, jclass c, jlong handle, jbyteArray rom)
@@ -37,7 +37,7 @@ JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_loadROMBank0(JNIEnv *env, jcla
 	jbyte* romElements = (*env)->GetByteArrayElements(env, rom, 0);
 
 	for(i = 0; i < len; i++){
-		core->rom[i] = (uint8_t) romElements[i];
+		core->mem[i] = (uint8_t) romElements[i];
 	}
 
 }
@@ -53,6 +53,6 @@ JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_swapROM(JNIEnv *env, jclass c,
 	romElements = (*env)->GetByteArrayElements(env, rom, 0);
 
 	for(i = SWITCHABLE_ROM_BANK_START, j = 0; j < len; i++, j++){
-		core->rom[i] = romElements[j];
+		core->mem[i] = romElements[j];
 	}
 }

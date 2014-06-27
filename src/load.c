@@ -369,48 +369,48 @@ int ldHLL(struct Core* core)
 
 int ldAByte(struct Core* core)
 {
-	core->AF.A = core->rom[++core->PC];
+	core->AF.A = core->mem[++core->PC];
 	return 0;
 }
 
 int ldBByte(struct Core* core)
 {
-	core->BC.B = core->rom[++core->PC];
+	core->BC.B = core->mem[++core->PC];
 	return 0;
 }
 
 int ldCByte(struct Core* core)
 {
-	core->BC.C = core->rom[++core->PC];
+	core->BC.C = core->mem[++core->PC];
 	return 0;
 }
 
 int ldDByte(struct Core* core)
 {
-	core->DE.D = core->rom[++core->PC];
+	core->DE.D = core->mem[++core->PC];
 	return 0;
 }
 
 int ldEByte(struct Core* core)
 {
-	core->DE.E = core->rom[++core->PC];
+	core->DE.E = core->mem[++core->PC];
 	return 0;
 }
 
 int ldHByte(struct Core* core)
 {
-	core->HL.H = core->rom[++core->PC];
+	core->HL.H = core->mem[++core->PC];
 	return 0;
 }
 
 int ldLByte(struct Core* core)
 {
-	core->HL.L = core->rom[++core->PC];
+	core->HL.L = core->mem[++core->PC];
 	return 0;
 }
 
 int ldHLByte(struct Core* core)
 {
-	core->HL.val = core->rom[++core->PC];
+	core->HL.val = core->mem[++core->PC];
 	return 0;
 }
