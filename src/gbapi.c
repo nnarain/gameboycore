@@ -5,10 +5,6 @@
 
 #include <time.h>
 
-#ifdef DEBUG
-#include <stdio.h>
-#endif
-
 int execute(struct Core* core, uint8_t optCode)
 {
 	uint8_t cycles;
@@ -28,9 +24,6 @@ int execute(struct Core* core, uint8_t optCode)
 
 	while(elapseMillis < (CLK_PERIOD * 1000.0f * cycles)){
 		elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
-#ifdef DEBUG
-		
-#endif	
 	}
 
 	return 0;
@@ -52,16 +45,4 @@ uint8_t* getAddress(struct Core* core, uint16_t addr)
 	return &core->rom[addr];
 }
 
-
-int genericTransfer(uint8_t* to, uint8_t* from)
-{
-	*to = *from;
-	return 0;
-}
-
 /* Core Functions */
-
-int NOP(struct Core* core)
-{
-	return 0;
-}
