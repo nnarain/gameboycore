@@ -46,6 +46,7 @@ add_library(
 	subtract.c
 	increment_reg_pair.c
 	special_accumulator_flag.c
+	nop.c
 )
 
 # build core static library
@@ -62,6 +63,7 @@ add_library(
 	subtract.c
 	increment_reg_pair.c
 	special_accumulator_flag.c
+	nop.c
 )
 
 # build jni shared library
@@ -79,6 +81,7 @@ add_library(
 	subtract.c
 	increment_reg_pair.c
 	special_accumulator_flag.c
+	nop.c
 )
 
 
