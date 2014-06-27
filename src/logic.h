@@ -26,4 +26,14 @@ int AxorL(struct Core*);
 int Axor_HL_(struct Core*);
 int AxorByte(struct Core*);
 
+int AorA(struct Core*);
+int AorB(struct Core*);
+int AorC(struct Core*);
+int AorD(struct Core*);
+int AorE(struct Core*);
+int AorH(struct Core*);
+int AorL(struct Core*);
+int Aor_HL_(struct Core*);
+int AorByte(struct Core*);
+
 #endif
