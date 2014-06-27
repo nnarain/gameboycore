@@ -47,6 +47,7 @@ add_library(
 	increment_reg_pair.c
 	special_accumulator_flag.c
 	nop.c
+	opts.c
 )
 
 # build core static library
@@ -64,6 +65,7 @@ add_library(
 	increment_reg_pair.c
 	special_accumulator_flag.c
 	nop.c
+	opts.c
 )
 
 # build jni shared library
@@ -82,6 +84,7 @@ add_library(
 	increment_reg_pair.c
 	special_accumulator_flag.c
 	nop.c
+	opts.c
 )
 
 
@@ -102,5 +105,6 @@ add_executable(
 	increment_reg_pair.c
 	special_accumulator_flag.c
 	nop.c
+	opts.c
 )
 

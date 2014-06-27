@@ -3,6 +3,7 @@
 #define LOAD
 
 #include "gbcore.h"
+#include "opts.h"
 
 int ldAA(struct Core*);
 int ldAB(struct Core*);
@@ -76,5 +77,9 @@ int ldEByte(struct Core*);
 int ldHByte(struct Core*);
 int ldLByte(struct Core*);
 int ldHLByte(struct Core*);
+
+int ldBCA(struct Core*);
+int ldDEA(struct Core*);
+int ldAddrA(struct Core*);
 
 #endif
