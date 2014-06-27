@@ -45,13 +45,25 @@ int ldAL(struct Core* core)
 
 int ldAHL(struct Core* core)
 {
-	core->AF.A = core->HL.val;
+	core->AF.A = core->mem[core->HL.val];
+	return 0;
+}
+
+int ldABC(struct Core* core)
+{
+	core->AF.A = core->mem[core->BC.val];
+	return 0;
+}
+
+int ldADE(struct Core* core)
+{
+	core->AF.A = core->mem[core->DE.val];
 	return 0;
 }
 
 int ldAWord(struct Core* core)
 {
-
+	core->AF.A = core->mem[getNextWord(&core->PC, core->mem)];
 	return 0;
 }
 
@@ -99,7 +111,7 @@ int ldBL(struct Core* core)
 
 int ldBHL(struct Core* core)
 {
-	core->BC.B = core->HL.val;
+	core->BC.B = core->mem[core->HL.val];
 	return 0;
 }
 
@@ -147,7 +159,7 @@ int ldCL(struct Core* core)
 
 int ldCHL(struct Core* core)
 {
-	core->BC.C = core->HL.val;
+	core->BC.C = core->mem[core->HL.val];
 	return 0;
 }
 
@@ -189,7 +201,7 @@ int ldDL(struct Core* core)
 
 int ldDHL(struct Core* core)
 {
-	core->DE.D = core->HL.val;
+	core->DE.D = core->mem[core->HL.val];
 	return 0;
 }
 
@@ -237,7 +249,7 @@ int ldEL(struct Core* core)
 
 int ldEHL(struct Core* core)
 {
-	core->DE.E = core->HL.val;
+	core->DE.E = core->mem[core->HL.val];
 	return 0;
 }
 
@@ -279,7 +291,7 @@ int ldHL(struct Core* core)
 
 int ldHHL(struct Core* core)
 {
-	core->HL.H = core->HL.val;
+	core->HL.H = core->mem[core->HL.val];
 	return 0;
 }
 
@@ -321,49 +333,49 @@ int ldLH(struct Core* core)
 
 int ldLHL(struct Core* core)
 {
-	core->HL.L = core->HL.val;
+	core->HL.L = core->mem[core->HL.val];
 	return 0;
 }
 
 int ldHLA(struct Core* core)
 {
-	core->HL.val = core->AF.A;
+	core->mem[core->HL.val] = core->AF.A;
 	return 0;
 }
 
 int ldHLB(struct Core* core)
 {
-	core->HL.val = core->BC.B;
+	core->mem[core->HL.val] = core->BC.B;
 	return 0;
 }
 
 int ldHLC(struct Core* core)
 {
-	core->HL.val = core->BC.C;
+	core->mem[core->HL.val] = core->BC.C;
 	return 0;
 }
 
 int ldHLD(struct Core* core)
 {
-	core->HL.val = core->DE.D;
+	core->mem[core->HL.val] = core->DE.D;
 	return 0;
 }
 
 int ldHLE(struct Core* core)
 {
-	core->HL.val = core->DE.E;
+	core->mem[core->HL.val] = core->DE.E;
 	return 0;
 }
 
 int ldHLH(struct Core* core)
 {
-	core->HL.val = core->HL.H;
+	core->mem[core->HL.val] = core->HL.H;
 	return 0;
 }
 
 int ldHLL(struct Core* core)
 {
-	core->HL.val = core->HL.L;
+	core->mem[core->HL.val] = core->HL.L;
 	return 0;
 }
 
@@ -411,6 +423,24 @@ int ldLByte(struct Core* core)
 
 int ldHLByte(struct Core* core)
 {
-	core->HL.val = core->mem[++core->PC];
+	core->mem[core->HL.val] = core->mem[++core->PC];
+	return 0;
+}
+
+int ldBCA(struct Core* core)
+{
+	core->mem[core->BC.val] = core->AF.A;
+	return 0;
+}
+
+int ldDEA(struct Core* core)
+{
+	core->mem[core->DE.val] = core->AF.A;
+	return 0;
+}
+
+int ldAddrA(struct Core* core)
+{
+	core->mem[getNextWord(&core->PC, core->mem)] = core->AF.A;
 	return 0;
 }
