@@ -5,6 +5,13 @@
 
 #include <time.h>
 
+/**
+	execute the next optcode on the core
+
+	@param core
+
+	@param optCode
+*/
 int execute(struct Core* core, uint8_t optCode)
 {
 	uint8_t cycles;
@@ -29,6 +36,9 @@ int execute(struct Core* core, uint8_t optCode)
 	return 0;
 }
 
+/**
+	@param core
+*/
 void initCore(struct Core* core)
 {
 	// Initialize all core members to 0
@@ -40,9 +50,15 @@ void initCore(struct Core* core)
 	core->PC     = 0x00;
 }
 
+/**
+	Get a pointer to rom at the specified address
+
+	@param core
+
+	@param addr
+*/
 uint8_t* getAddress(struct Core* core, uint16_t addr)
 {
 	return &core->rom[addr];
 }
 
-/* Core Functions */

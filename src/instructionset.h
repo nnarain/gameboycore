@@ -13,6 +13,11 @@
 
 #define REDIRECT 0xCB
 
+struct Instruction{
+	int (*impl)(struct Core*);
+	uint8_t cycles;
+};
+
 //! First set of instructions
 struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0x0*/,
