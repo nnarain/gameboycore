@@ -1,10 +1,9 @@
 
+#include "com_nnarain_gb_resource_GBCore.h"
+#include "gbapi.h"
 #include <stdlib.h>
 
-#include "com_nnarain_gb_GBCore.h"
-#include "gbapi.h"
-
-JNIEXPORT jlong JNICALL Java_com_nnarain_gb_GBCore_createCore(JNIEnv *env, jclass clazz)
+JNIEXPORT jlong JNICALL Java_com_nnarain_gb_resource_GBCore_createCore(JNIEnv *env, jclass clazz)
 {
 	struct Core* core = (struct Core*) malloc( sizeof(struct Core) );
 	core->AF.val = 0;
@@ -15,11 +14,6 @@ JNIEXPORT jlong JNICALL Java_com_nnarain_gb_GBCore_createCore(JNIEnv *env, jclas
 	core->SP = WORK_RAM_BANK_0_END;
 
 	return (long) core;
-}
-
-JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_release(JNIEnv *env, jclass clazz, jlong handle)
-{
-	free( (struct Core*) ((long)handle) );
 }
 
 JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_step(JNIEnv *env, jclass clazz, jlong handle)
