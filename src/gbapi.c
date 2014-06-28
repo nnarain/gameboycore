@@ -47,7 +47,7 @@ void initCore(struct Core* core)
 	core->BC.val = 0;
 	core->DE.val = 0;
 	core->HL.val = 0;
-	core->SP     = WORK_RAM_BANK_0_END;
+	core->SP     = HIGH_RAM_END;
 	core->PC     = 0x00;
 }
 
