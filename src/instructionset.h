@@ -11,6 +11,7 @@
 #include "load.h"
 #include "subtract.h"
 #include "nop.h"
+#include "double_add.h"
 
 #define REDIRECT 0xCB
 
