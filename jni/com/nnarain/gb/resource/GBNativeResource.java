@@ -17,7 +17,7 @@ public class GBNativeResource{
 		@param handle
 			handle to native resources
 	*/
-	public GBNativeResource(long handle){
+	protected GBNativeResource(long handle){
 		this.handle = handle;
 		this.isAllocated = true;
 	}
