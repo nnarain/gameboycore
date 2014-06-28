@@ -75,6 +75,8 @@ add_library(
 	${libNameJNI}
 	SHARED
 	gbcorejni.c
+	gbnativeresourcejni.c
+	gbparserjni.c
 	gbapi.c
 	add.c
 	decrement_reg_pair.c
