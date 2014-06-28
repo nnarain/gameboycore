@@ -34,7 +34,7 @@ public class GBROMParser extends GBNativeResource{
 		@param filePath
 			path to set
 	*/
-	public void sertFilePath(String filePath){
+	public void setFilePath(String filePath){
 		this.filePath = filePath;
 	}
 
