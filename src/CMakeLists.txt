@@ -78,6 +78,7 @@ add_library(
 	gbnativeresourcejni.c
 	gbparserjni.c
 	gbapi.c
+	gbparser.c
 	add.c
 	decrement_reg_pair.c
 	increment.c
