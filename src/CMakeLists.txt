@@ -49,6 +49,7 @@ add_library(
 	nop.c
 	opts.c
 	logic.c
+	double_add.c
 )
 
 # build core static library
@@ -68,6 +69,7 @@ add_library(
 	nop.c
 	opts.c
 	logic.c
+	double_add.c
 )
 
 # build jni shared library
@@ -91,6 +93,7 @@ add_library(
 	nop.c
 	opts.c
 	logic.c
+	double_add.c
 )
 
 
@@ -113,5 +116,6 @@ add_executable(
 	nop.c
 	opts.c
 	logic.c
+	double_add.c
 )
 
