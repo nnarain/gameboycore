@@ -6,12 +6,7 @@
 JNIEXPORT jlong JNICALL Java_com_nnarain_gb_resource_GBCore_createCore(JNIEnv *env, jclass clazz)
 {
 	struct Core* core = (struct Core*) malloc( sizeof(struct Core) );
-	core->AF.val = 0;
-	core->BC.val = 0;
-	core->DE.val = 0;
-	core->HL.val = 0;
-	core->PC = 0;
-	core->SP = WORK_RAM_BANK_0_END;
+	initCore(core);
 
 	return (long) core;
 }
