@@ -17,6 +17,14 @@ JNIEXPORT jlong JNICALL Java_com_nnarain_gb_resource_GBCore_createCore
 
 /*
  * Class:     com_nnarain_gb_resource_GBCore
+ * Method:    loadBanks
+ * Signature: (JJ)V
+ */
+JNIEXPORT void JNICALL Java_com_nnarain_gb_resource_GBCore_loadBanks
+  (JNIEnv *, jclass, jlong, jlong);
+
+/*
+ * Class:     com_nnarain_gb_resource_GBCore
  * Method:    loadROMBank0
  * Signature: (J[B)V
  */

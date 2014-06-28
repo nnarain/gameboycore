@@ -33,6 +33,13 @@ public class GBNativeResource{
 		isAllocated = false;
 	}
 
+	/**
+		@return the native handle
+	*/
+	public long getHandle(){
+		return handle;
+	}
+
 	/** @return the native allocated flag */
 	public boolean isAllocated(){
 		return isAllocated;

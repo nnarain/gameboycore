@@ -45,3 +45,12 @@ JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_swapROM(JNIEnv *env, jclass c,
 		core->mem[i] = romElements[j];
 	}
 }
+
+JNIEXPORT void JNICALL Java_com_nnarain_gb_resource_GBCore_loadBanks(JNIEnv *env, jclass c, jlong hCore, jlong hData)
+{
+	struct Core* core = (struct Core*)((long)hCore);
+	struct GBROMData* data = (struct GBROMData*)((long)hData);
+
+	initBanks(core, data->nBanks);
+	loadBanks(core, data->banks, data->nBanks);
+}

@@ -26,10 +26,16 @@ public class GBCore extends GBNativeResource{
 		loadROMBank0(this.handle, rom);
 	}
 
+	public void loadBanks(GBROMParser parser){
+		loadBanks(handle, parser.getHandle());
+	}
+
 
 	/* Native Functions */
 
 	private static native long createCore();
+
+	private static native void loadBanks(long hCore, long hData);
 
 	private static native void loadROMBank0(long handle, byte[] rom);
 	private static native void swapROM(long handle, byte[] rom);
