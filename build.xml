@@ -17,6 +17,7 @@
 	<property name="jar.dir" location="build/jar" />
 	<property name="java.docs.dir" location="docs/javadocs" />
 	<property name="docs.dir" location="docs/" />
+	<property name="c.docs.dir" location="docs/c" />
 	<property name="dist.dir" location="dist" />
 
 	<property name="jar.name" value="gbcore-v${project.version}.jar" />
@@ -39,6 +40,7 @@
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${java.build.dir}"/>
 		<mkdir dir="${java.docs.dir}" />
+		<mkdir dir="${c.docs.dir}" />
 		<mkdir dir="${jar.dir}"/>
 		<mkdir dir="${dist.dir}"/>
 	</target>
