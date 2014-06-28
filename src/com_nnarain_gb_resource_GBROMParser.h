@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT jlong JNICALL Java_com_nnarain_gb_resource_GBROMParser_createParser
   (JNIEnv *, jclass);
 
+/*
+ * Class:     com_nnarain_gb_resource_GBROMParser
+ * Method:    parse
+ * Signature: (JLjava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_nnarain_gb_resource_GBROMParser_parse
+  (JNIEnv *, jclass, jlong, jstring);
+
 #ifdef __cplusplus
 }
 #endif
