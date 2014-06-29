@@ -12,6 +12,7 @@
 #include "subtract.h"
 #include "nop.h"
 #include "double_add.h"
+#include "stack.h"
 
 #define REDIRECT 0xCB
 

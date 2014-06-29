@@ -50,6 +50,7 @@ add_library(
 	opts.c
 	logic.c
 	double_add.c
+	stack.c
 )
 
 # build core static library
@@ -70,6 +71,7 @@ add_library(
 	opts.c
 	logic.c
 	double_add.c
+	stack.c
 )
 
 # build jni shared library
@@ -94,6 +96,7 @@ add_library(
 	opts.c
 	logic.c
 	double_add.c
+	stack.c
 )
 
 
@@ -117,5 +120,6 @@ add_executable(
 	opts.c
 	logic.c
 	double_add.c
+	stack.c
 )
 
