@@ -27,10 +27,19 @@
 
 #define bitset(target,mask,val) target = (val) ? target | mask : target & ~mask
 
+/* Concatenate bit pattern macros */
+
 #define bitcat(x, y, bits) (x<<bits) + y 	   ///< Concatenate 2 bit patterns (i.e. 00001111, 00001111 = 111100001111)
 #define nibcat(x, y) bitcat(x,y,NIB)     	   ///< Concatenate 2 nibbles
 #define bytecat(x, y) bitcat(x,y,BYTE)   	   ///< Concatenate 2 bytes (i.e. 0x08, 0x01 = 0x0801)
 #define wordcat(x, y) bitcat(x,y,WORD)   	   ///< Concatenate 2 words
+
+/* Carry macros */
+
+#define halfcarry(x,y) ( (x & 0x0F) + (y & 0x0F) ) & BIT4 ///< Determines half carry
+#define fullcarry(x,y) ( x + y ) & 0x100
+
+/* helper functions prototypes */
 
 inline uint16_t getNextWord(uint16_t* PC, uint8_t mem[]);
 
