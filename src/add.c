@@ -4,6 +4,8 @@
 
 int addAA(struct Core* core)
 {
+	clearbit(core->AF.F, FLAG_S);
+	
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->AF.A));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->AF.A));
 	core->AF.A += core->AF.A;
@@ -12,6 +14,8 @@ int addAA(struct Core* core)
 
 int addAB(struct Core* core)
 {
+	clearbit(core->AF.F, FLAG_S);
+
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.B));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->BC.B));
 	core->AF.A += core->BC.B;
@@ -20,6 +24,8 @@ int addAB(struct Core* core)
 
 int addAC(struct Core* core)
 {
+	clearbit(core->AF.F, FLAG_S);
+
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.C));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->BC.C));
 	core->AF.A += core->BC.C;
@@ -28,6 +34,8 @@ int addAC(struct Core* core)
 
 int addAD(struct Core* core)
 {
+	clearbit(core->AF.F, FLAG_S);
+
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.D));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->DE.D));
 	core->AF.A += core->DE.D;
@@ -36,6 +44,8 @@ int addAD(struct Core* core)
 
 int addAE(struct Core* core)
 {
+	clearbit(core->AF.F, FLAG_S);
+
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.E));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->DE.E));
 	core->AF.A += core->DE.E;
@@ -44,6 +54,8 @@ int addAE(struct Core* core)
 
 int addAH(struct Core* core)
 {
+	clearbit(core->AF.F, FLAG_S);
+
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.H));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->HL.H));
 	core->AF.A += core->HL.H;
@@ -52,6 +64,8 @@ int addAH(struct Core* core)
 
 int addAL(struct Core* core)
 {
+	clearbit(core->AF.F, FLAG_S);
+
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.L));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->HL.L));
 	core->AF.A += core->HL.L;
@@ -60,6 +74,8 @@ int addAL(struct Core* core)
 
 int addAHL(struct Core* core)
 {
+	clearbit(core->AF.F, FLAG_S);
+
 	const uint8_t byte = core->mem[core->HL.val];
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, byte));
@@ -69,6 +85,8 @@ int addAHL(struct Core* core)
 
 int addAByte(struct Core* core)
 {
+	clearbit(core->AF.F, FLAG_S);
+
 	const uint8_t byte = core->mem[++core->PC];
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, byte));
