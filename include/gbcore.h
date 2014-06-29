@@ -1,7 +1,5 @@
 
 /**
-	Z80Core.hpp
-
 	Define the Gameboy processor structure
 
 	@author Natesh Narain
@@ -110,7 +108,7 @@
 #define FLAG_S 6
 #define FLAG_Z 7
 
-//! Structure representing the Z80 internals
+//! Structure representing the Gameboy internals
 struct Core{
 
 	//! 16 bit accumulator
