@@ -159,3 +159,64 @@ int sra_HL_(struct Core* core)
 
 	return 0;
 }
+
+int srlA(struct Core* core){
+
+	bitset(core->AF.F, FLAG_C, core->AF.A & 0x01);
+	core->AF.A >>= 1;
+
+	return 0;
+}
+int srlB(struct Core* core){
+
+	bitset(core->AF.F, FLAG_C, core->BC.B & 0x01);
+	core->BC.B >>= 1;
+
+	return 0;
+}
+int srlC(struct Core* core){
+
+	bitset(core->AF.F, FLAG_C, core->BC.C & 0x01);
+	core->BC.C >>= 1;
+
+	return 0;
+}
+int srlD(struct Core* core){
+
+	bitset(core->AF.F, FLAG_C, core->DE.D & 0x01);
+	core->DE.D >>= 1;
+
+	return 0;
+}
+int srlE(struct Core* core){
+
+	bitset(core->AF.F, FLAG_C, core->DE.E & 0x01);
+	core->DE.E >>= 1;
+
+	return 0;
+}
+int srlH(struct Core* core){
+
+	bitset(core->AF.F, FLAG_C, core->HL.H & 0x01);
+	core->HL.H >>= 1;
+
+	return 0;
+}
+int srlL(struct Core* core){
+
+	bitset(core->AF.F, FLAG_C, core->HL.L & 0x01);
+	core->HL.L >>= 1;
+
+	return 0;
+}
+int srl_HL_(struct Core* core){
+
+	uint8_t byte = core->mem[core->HL.val];
+
+	bitset(core->AF.F, FLAG_C, byte & 0x01);
+	byte >>= 1;
+
+	core->mem[core->HL.val] = byte;
+
+	return 0;
+}
