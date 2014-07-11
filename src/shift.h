@@ -23,6 +23,15 @@ int sraH(struct Core*);
 int sraL(struct Core*);
 int sra_HL_(struct Core*);
 
+int srlA(struct Core*);
+int srlB(struct Core*);
+int srlC(struct Core*);
+int srlD(struct Core*);
+int srlE(struct Core*);
+int srlH(struct Core*);
+int srlL(struct Core*);
+int srl_HL_(struct Core*);
+
 #endif
 
 
