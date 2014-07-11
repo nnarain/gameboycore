@@ -25,6 +25,10 @@
 #define setbit(x,y) set(x, bv(y))
 #define clearbit(x,y) clear(x, bv(y))
 
+#define isSet(x,y) x & y
+#define isClear(x,y) !(x & y)
+#define isBitSet(x,y) x & bv(y)
+
 #define bitset(target,mask,val) target = (val) ? target | bv(mask) : target & ~bv(mask)
 
 /* Concatenate bit pattern macros */
