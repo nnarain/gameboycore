@@ -6,11 +6,12 @@ Overview
 
 Implement the core instructions of the hybrid Z80/8080 processor inside the Gameboy.
 
-Installation
-------------
+Building Source
+---------------
 
-**Environment Variables**
+**Environment**
 
+The Java Development Kit must be install on your system.
 JAVA_HOME must be set in your environment.
 
 **Clone Git repository**
@@ -24,11 +25,11 @@ $ cd path/to/gameboycore
 Create a directory for CMake output.
 
 ```bash
-$ mkdir unixmake
-$ cd unixmake
+$ mkdir myBuild
+$ cd myBuild
 ```
 
-Use cmake command to generate you make\project files (ex. Unix Makefiles)
+Use cmake command to generate you make\project files (ex. Unix Makefiles, MinGW Makefiles, etc)
 
 ```bash
 $ cmake -G "Unix Makefiles" ../src
