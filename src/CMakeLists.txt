@@ -51,6 +51,7 @@ add_library(
 	logic.c
 	double_add.c
 	stack.c
+	shift.c
 )
 
 # build core static library
@@ -72,6 +73,7 @@ add_library(
 	logic.c
 	double_add.c
 	stack.c
+	shift.c
 )
 
 # build jni shared library
@@ -97,6 +99,7 @@ add_library(
 	logic.c
 	double_add.c
 	stack.c
+	shift.c
 )
 
 
@@ -121,5 +124,6 @@ add_executable(
 	logic.c
 	double_add.c
 	stack.c
+	shift.c
 )
 
