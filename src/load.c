@@ -187,6 +187,12 @@ int ldDD(struct Core* core)
 	return 0;
 }
 
+int ldDE(struct Core* core)
+{
+	core->DE.D = core->DE.E;
+	return 0;
+}
+
 int ldDH(struct Core* core)
 {
 	core->DE.D = core->HL.H;
@@ -283,6 +289,12 @@ int ldHE(struct Core* core)
 	return 0;
 }
 
+int ldHH(struct Core* core)
+{
+	core->HL.H = core->HL.H;
+	return 0;
+}
+
 int ldHL(struct Core* core)
 {
 	core->HL.H = core->HL.L;
@@ -328,6 +340,12 @@ int ldLE(struct Core* core)
 int ldLH(struct Core* core)
 {
 	core->HL.L = core->HL.H;
+	return 0;
+}
+
+int ldLL(struct Core* core)
+{
+	core->HL.L = core->HL.L;
 	return 0;
 }
 
