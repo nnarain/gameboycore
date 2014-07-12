@@ -534,3 +534,8 @@ int ldAddrSP(struct Core* core)
 	return 0;
 }
 
+int ldSPHL(struct Core* core)
+{
+	core->SP = core->HL.val;
+	return 0;
+}
