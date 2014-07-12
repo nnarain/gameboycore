@@ -52,6 +52,7 @@ add_library(
 	double_add.c
 	stack.c
 	branch.c
+	shift.c
 )
 
 # build core static library
@@ -74,6 +75,7 @@ add_library(
 	double_add.c
 	stack.c
 	branch.c
+	shift.c
 )
 
 # build jni shared library
@@ -100,6 +102,7 @@ add_library(
 	double_add.c
 	stack.c
 	branch.c
+	shift.c
 )
 
 
@@ -125,5 +128,6 @@ add_executable(
 	double_add.c
 	stack.c
 	branch.c
+	shift.c
 )
 

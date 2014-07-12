@@ -15,4 +15,14 @@ int addAL(struct Core*);
 int addAHL(struct Core*);
 int addAByte(struct Core*);
 
+int addcAA(struct Core*);
+int addcAB(struct Core*);
+int addcAC(struct Core*);
+int addcAD(struct Core*);
+int addcAE(struct Core*);
+int addcAH(struct Core*);
+int addcAL(struct Core*);
+int addcAAddr(struct Core*);
+int addcAByte(struct Core*);
+
 #endif

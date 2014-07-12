@@ -94,3 +94,105 @@ int addAByte(struct Core* core)
 	return 0;
 }
 
+int addcAA(struct Core* core){
+	clearbit(core->AF.F, FLAG_S);
+
+	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->AF.A));
+	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->AF.A));
+
+	core->AF.A += (core->AF.A + carry(core->AF.F, FLAG_C));
+
+	return 0;
+}
+
+int addcAB(struct Core* core){
+	clearbit(core->AF.F, FLAG_S);
+
+	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.B));
+	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->BC.B));
+
+	core->AF.A += (core->BC.B + carry(core->AF.F, FLAG_C));
+
+	return 0;
+}
+
+int addcAC(struct Core* core){
+	clearbit(core->AF.F, FLAG_S);
+
+	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.C));
+	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->BC.C));
+
+	core->AF.A += (core->BC.C + carry(core->AF.F, FLAG_C));
+
+	return 0;
+}
+
+int addcAD(struct Core* core){
+	clearbit(core->AF.F, FLAG_S);
+
+	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.D));
+	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->DE.D));
+
+	core->AF.A += (core->DE.D + carry(core->AF.F, FLAG_C));
+
+	return 0;
+}
+
+int addcAE(struct Core* core){
+	clearbit(core->AF.F, FLAG_S);
+
+	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.E));
+	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->DE.E));
+
+	core->AF.A += (core->DE.E + carry(core->AF.F, FLAG_C));
+
+	return 0;
+}
+
+int addcAH(struct Core* core){
+	clearbit(core->AF.F, FLAG_S);
+
+	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.H));
+	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->HL.H));
+
+	core->AF.A += (core->HL.H + carry(core->AF.F, FLAG_C));
+
+	return 0;
+}
+
+int addcAL(struct Core* core){
+	clearbit(core->AF.F, FLAG_S);
+
+	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.L));
+	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->HL.L));
+
+	core->AF.A += (core->HL.L + carry(core->AF.F, FLAG_C));
+
+	return 0;
+}
+
+int addcAAddr(struct Core* core){
+	clearbit(core->AF.F, FLAG_S);
+
+	uint8_t byte = core->mem[getNextWord(&core->PC, core->mem)];
+
+	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
+	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, byte));
+
+	core->AF.A += (byte + carry(core->AF.F, FLAG_C));
+
+	return 0;
+}
+
+int addcAByte(struct Core* core){
+	clearbit(core->AF.F, FLAG_S);
+
+	uint8_t byte = core->mem[++core->PC];
+
+	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
+	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, byte));
+
+	core->AF.A += (byte + carry(core->AF.F, FLAG_C));
+
+	return 0;
+}

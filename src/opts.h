@@ -31,6 +31,8 @@
 
 #define bitset(target,mask,val) target = (val) ? target | bv(mask) : target & ~bv(mask)
 
+#define isSet(x, y) (x & y)
+
 /* Concatenate bit pattern macros */
 
 #define bitcat(x, y, bits) (x<<bits) + y 	   ///< Concatenate 2 bit patterns (i.e. 00001111, 00001111 = 111100001111)
@@ -42,6 +44,8 @@
 
 #define halfcarry(x,y) ( (x & 0x0F) + (y & 0x0F) ) & BIT4 ///< Determines half carry
 #define fullcarry(x,y) ( x + y ) & 0x100
+
+#define carry(x,y) ( isSet( x, bv(y) ) ) ? 1 : 0
 
 /* helper functions prototypes */
 
