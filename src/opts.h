@@ -31,8 +31,6 @@
 
 #define bitset(target,mask,val) target = (val) ? target | bv(mask) : target & ~bv(mask)
 
-#define isSet(x, y) (x & y)
-
 /* Concatenate bit pattern macros */
 
 #define bitcat(x, y, bits) (x<<bits) + y 	   ///< Concatenate 2 bit patterns (i.e. 00001111, 00001111 = 111100001111)
