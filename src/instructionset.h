@@ -15,6 +15,8 @@
 #include "stack.h"
 #include "branch.h"
 #include "shift.h"
+#include "special_accumulator_flag.h"
+#include "logic.h"
 
 #define REDIRECT 0xCB
 
