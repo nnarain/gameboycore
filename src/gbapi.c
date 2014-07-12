@@ -15,24 +15,26 @@
 */
 int execute(struct Core* core, uint8_t optCode)
 {
-	uint8_t cycles;
+	//uint8_t cycles;
 
-	clock_t tick = clock();
+	//clock_t tick = clock();
 
 	if(optCode != 0xCB){
-		cycles = instructionSet1[optCode].cycles;
+		//cycles = instructionSet1[optCode].cycles;
 		instructionSet1[optCode].impl(core);
 	}
 	else{
-		cycles = instructionSet2[optCode].cycles;
+		//cycles = instructionSet2[optCode].cycles;
 		instructionSet2[core->mem[++core->PC]].impl(core);
 	}
  
-	float elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
+	//float elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
 
-	while(elapseMillis < (CLK_PERIOD * 1000.0f * cycles)){
-		elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
-	}
+	//while(elapseMillis < (CLK_PERIOD * 1000.0f * cycles)){
+	//	elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
+	//}
+
+	core->PC++;
 
 	return 0;
 }
@@ -91,5 +93,12 @@ void loadBanks(struct Core* core, uint8_t** banks, int nBanks)
 	int i;
 	for(i = 0; i < nBanks; i++){
 		core->banks[i] = banks[i];
+
+		if(i < 2){
+			int j;
+			for(j = 0; j < SIZE_BANK; j++){
+				core->mem[j + SIZE_BANK] = banks[i][j];
+			}
+		}
 	}
 }
