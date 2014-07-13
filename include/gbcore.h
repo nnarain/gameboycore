@@ -10,6 +10,7 @@
 #define GB_CORE
 
 #include <stdint.h>
+#include <stdlib.h>
 
 
 #define SIZE_MEMORY_MAP           0xFFFF + 1
@@ -108,6 +109,13 @@
 #define FLAG_S 6
 #define FLAG_Z 7
 
+//! Memory Bank Controller
+struct MBC{
+	uint8_t cartType;
+	uint8_t** banks;
+	size_t nBanks;
+};
+
 //! Structure representing the Gameboy internals
 struct Core{
 
@@ -154,7 +162,7 @@ struct Core{
 
 	uint8_t mem[SIZE_MEMORY_MAP]; ///< Memory
 
-	uint8_t** banks; ///< ROM Banks. Holds ROM data that can be used for swap rom
+	struct MBC mbc; ///< Memory bank controller
 };
 
 

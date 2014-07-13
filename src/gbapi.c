@@ -65,40 +65,8 @@ uint8_t* getAddress(struct Core* core, uint16_t addr)
 	return &core->mem[addr];
 }
 
-/**
-	Initialize the rom banks of the core
 
-	@param core
-		Core to use
-
-	@param nBanks
-		Number of banks to allocate space for
-
-*/
-void initBanks(struct Core* core, int nBanks)
+void releaseBanks(struct MBC* mbc)
 {
-	core->banks = (uint8_t**) malloc( nBanks * sizeof(uint8_t*) );
-
-	int i;
-	for(i = 0; i < nBanks; i++){
-		core->banks[i] = (uint8_t*) malloc( SIZE_BANK * sizeof(uint8_t) );
-	}
-}
-
-/**
-	Loads core banks with rom data.
-*/
-void loadBanks(struct Core* core, uint8_t** banks, int nBanks)
-{
-	int i;
-	for(i = 0; i < nBanks; i++){
-		core->banks[i] = banks[i];
-
-		if(i < 2){
-			int j;
-			for(j = 0; j < SIZE_BANK; j++){
-				core->mem[j + SIZE_BANK] = banks[i][j];
-			}
-		}
-	}
+	free(mbc);
 }
