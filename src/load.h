@@ -96,13 +96,8 @@ int ldSPWord(struct Core*);
 int ldHLAddr(struct Core*);
 int ldBCAddr(struct Core*);
 int ldDEAddr(struct Core*);
-//int ldHLAddr(struct Core*); there might be another redirect
 
 int ldAddrHL(struct Core*);
-int ldAddrBC(struct Core*);
-int ldAddrDE(struct Core*);
-//int ldAddrHL(struct Core*); ``      ``   ``  ``      ``
-int ldAddrSP(struct Core*);
 
 int ldSPHL(struct Core*);
 

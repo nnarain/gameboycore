@@ -507,30 +507,9 @@ int ldDEAddr(struct Core* core)
 	return 0;
 }
 
-//int ldHLAddr(struct Core*); there might be another redirect
-
 int ldAddrHL(struct Core* core)
 {
 	core->mem[getNextWord(&core->PC, core->mem)] = core->HL.val;
-	return 0;
-}
-
-int ldAddrBC(struct Core* core)
-{
-	core->mem[getNextWord(&core->PC, core->mem)] = core->BC.val;
-	return 0;
-}
-
-int ldAddrDE(struct Core* core)
-{
-	core->mem[getNextWord(&core->PC, core->mem)] = core->DE.val;
-	return 0;
-}
-
-//int ldAddrHL(struct Core*); ``      ``   ``  ``      ``
-int ldAddrSP(struct Core* core)
-{
-	core->mem[getNextWord(&core->PC, core->mem)] = core->SP;
 	return 0;
 }
 
