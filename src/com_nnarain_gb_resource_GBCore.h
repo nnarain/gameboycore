@@ -17,34 +17,18 @@ JNIEXPORT jlong JNICALL Java_com_nnarain_gb_resource_GBCore_createCore
 
 /*
  * Class:     com_nnarain_gb_resource_GBCore
- * Method:    loadBanks
- * Signature: (JJ)V
- */
-JNIEXPORT void JNICALL Java_com_nnarain_gb_resource_GBCore_loadBanks
-  (JNIEnv *, jclass, jlong, jlong);
-
-/*
- * Class:     com_nnarain_gb_resource_GBCore
- * Method:    loadROMBank0
- * Signature: (J[B)V
- */
-JNIEXPORT void JNICALL Java_com_nnarain_gb_resource_GBCore_loadROMBank0
-  (JNIEnv *, jclass, jlong, jbyteArray);
-
-/*
- * Class:     com_nnarain_gb_resource_GBCore
- * Method:    swapROM
- * Signature: (J[B)V
- */
-JNIEXPORT void JNICALL Java_com_nnarain_gb_resource_GBCore_swapROM
-  (JNIEnv *, jclass, jlong, jbyteArray);
-
-/*
- * Class:     com_nnarain_gb_resource_GBCore
  * Method:    step
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_com_nnarain_gb_resource_GBCore_step
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_nnarain_gb_resource_GBCore
+ * Method:    release
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_com_nnarain_gb_resource_GBCore_release
   (JNIEnv *, jclass, jlong);
 
 #ifdef __cplusplus

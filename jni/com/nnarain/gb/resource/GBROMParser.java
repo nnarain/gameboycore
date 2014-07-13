@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 * 
 * @author Natesh Narain	
 */
-public class GBROMParser extends GBNativeResource{
+public class GBROMParser {
 
 	private String filePath;
 
@@ -18,15 +18,15 @@ public class GBROMParser extends GBNativeResource{
 	}
 
 	public GBROMParser(String filePath){
-		super(createParser());
+		//super(createParser());
 		this.filePath = filePath;
 	}
 
 	/**
 		Parse the file
 	*/
-	public void parse() throws GBException{
-		if(parse(handle, filePath) == -1)
+	public void parse(GBCore core) throws GBException{
+		if(parse(core.getHandle(), filePath) == -1)
 			throw new GBException("error opening file");
 	}
 
@@ -40,7 +40,7 @@ public class GBROMParser extends GBNativeResource{
 
 	/* Native Functions */
 
-	private static native long createParser();
+	//private static native long createParser();
 	private static native int parse(long handle, String filePath);
 
 }

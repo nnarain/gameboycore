@@ -7,12 +7,10 @@
 #include "gbparser.h"
 
 int execute(struct Core*, uint8_t);
+void step(struct Core*);
 
 void initCore(struct Core* core);
 uint8_t* getAddress(struct Core*, uint16_t);
-
-void initBanks(struct Core* core, int nBanks);
-void loadBanks(struct Core*, uint8_t**, int);
 
 void releaseBanks(struct MBC*);
 

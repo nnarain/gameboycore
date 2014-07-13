@@ -6,7 +6,7 @@ import com.nnarain.gb.exception.GBRuntimeException;
 /**
 	Base representation of a Native resource
 */
-public class GBNativeResource{
+public abstract class GBNativeResource{
 
 	/** Handle to the native resource */
 	protected final long handle;
@@ -25,13 +25,13 @@ public class GBNativeResource{
 	/**
 		Calls a native function to release native resources
 	*/
-	public void release(){
-		if(this.isAllocated)
-			release(handle);
-		else
-			throw new GBRuntimeException("Native resources have already been freed");
-		isAllocated = false;
-	}
+	public abstract void release();//{
+	//	if(this.isAllocated)
+			//release(handle);
+	//	else
+	//		throw new GBRuntimeException("Native resources have already been freed");
+	//	isAllocated = false;
+	//}
 
 	/**
 		@return the native handle
@@ -56,7 +56,7 @@ public class GBNativeResource{
 
 	/* Native Function */
 
-	private static native void release(long handle);
+	//private static native void release(long handle);
 
 }
 

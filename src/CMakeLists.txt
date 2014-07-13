@@ -83,7 +83,6 @@ add_library(
 	${libNameJNI}
 	SHARED
 	gbcorejni.c
-	gbnativeresourcejni.c
 	gbparserjni.c
 	gbapi.c
 	gbparser.c

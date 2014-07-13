@@ -1,10 +1,13 @@
 
 #include "gbapi.h"
 #include "instructionset.h"
-#include "opts.h"
 
 #include <stdlib.h>
-#include <time.h>
+
+void step(struct Core* core)
+{
+	execute(core, core->mem[core->PC]);
+}
 
 /**
 	execute the next optcode on the core
