@@ -64,6 +64,12 @@ int rlcl(struct Core* core)
 	return 0;
 }
 
+int rlchl(struct Core* core)
+{
+	_rlc(core->AF.F, core->mem[core->HL.val]);
+	return 0;
+}
+
 int rrcb(struct Core* core)
 {
 	_rrc(core->AF.F, core->BC.B);
@@ -92,6 +98,12 @@ int rrch(struct Core* core)
 int rrcl(struct Core* core)
 {
 	_rrc(core->AF.F, core->HL.L);
+	return 0;
+}
+
+int rrchl(struct Core* core)
+{
+	_rrc(core->AF.F, core->mem[core->HL.val]);
 	return 0;
 }
 
@@ -128,6 +140,12 @@ int rlh(struct Core* core)
 int rll(struct Core* core)
 {
 	_rlc0(core->AF.F, core->HL.L);
+	return 0;
+}
+
+int rlhl(struct Core* core)
+{
+	_rlc0(core->AF.F, core->mem[core->HL.val]);
 	return 0;
 }
 
