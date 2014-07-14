@@ -17,13 +17,13 @@ int rrca(struct Core* core)
 
 int rla(struct Core* core)
 {
-
+	_rlc0(core->AF.F, core->AF.A);
 	return 0;
 }
 
 int rra(struct Core* core)
 {
-
+	_rrc0(core->AF.F, core->AF.A);
 	return 0;
 }
 
@@ -183,5 +183,11 @@ int rrh(struct Core* core)
 int rrl(struct Core* core)
 {
 	_rlc0(core->AF.F, core->HL.L);
+	return 0;
+}
+
+int rrhl(struct Core* core)
+{
+	_rlc0(core->AF.F, core->mem[core->HL.val]);
 	return 0;
 }

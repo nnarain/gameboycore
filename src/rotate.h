@@ -39,6 +39,7 @@ int rlcd(struct Core*);
 int rlce(struct Core*);
 int rlch(struct Core*);
 int rlcl(struct Core*);
+int rlchl(struct Core* core);
 
 int rrcb(struct Core*);
 int rrcc(struct Core*);
@@ -46,6 +47,7 @@ int rrcd(struct Core*);
 int rrce(struct Core*);
 int rrch(struct Core*);
 int rrcl(struct Core*);
+int rrchl(struct Core*);
 
 int rlb(struct Core*);
 int rlc(struct Core*);
@@ -53,6 +55,7 @@ int rld(struct Core*);
 int rle(struct Core*);
 int rlh(struct Core*);
 int rll(struct Core*);
+int rlhl(struct Core*);
 
 int rrb(struct Core*);
 int rrc(struct Core*);
@@ -60,6 +63,7 @@ int rrd(struct Core*);
 int rre(struct Core*);
 int rrh(struct Core*);
 int rrl(struct Core*);
+int rrhl(struct Core*);
 
 #endif
 
