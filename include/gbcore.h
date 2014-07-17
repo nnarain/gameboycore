@@ -112,8 +112,8 @@
 //! Memory Bank Controller
 struct MBC{
 	uint8_t cartType;
-	uint8_t** banks;
 	size_t nBanks;
+	uint8_t** banks;
 };
 
 //! Structure representing the Gameboy internals
