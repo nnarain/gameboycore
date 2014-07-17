@@ -7,6 +7,13 @@
 #include "opts.h"
 
 int call(struct Core*);
+int call10H(struct Core*);
+int call18H(struct Core*);
+int call20H(struct Core*);
+int call28H(struct Core*);
+int call30H(struct Core*);
+int call38H(struct Core*);
+
 int ret(struct Core*);
 int jp(struct Core*);
 

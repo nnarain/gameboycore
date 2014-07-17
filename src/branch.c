@@ -13,6 +13,72 @@ int call(struct Core* core)
 	return 0;
 }
 
+int call10H(struct Core* core)
+{
+	core->mem[core->SP-1] = core->PC >> 8;
+	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->SP -= 2;
+
+	core->PC = 0x10;
+
+	return 0;
+}
+
+int call18H(struct Core* core)
+{
+	core->mem[core->SP-1] = core->PC >> 8;
+	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->SP -= 2;
+
+	core->PC = 0x18;
+
+	return 0;
+}
+
+int call20H(struct Core* core)
+{
+	core->mem[core->SP-1] = core->PC >> 8;
+	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->SP -= 2;
+
+	core->PC = 0x20;
+
+	return 0;
+}
+
+int call28H(struct Core* core)
+{
+	core->mem[core->SP-1] = core->PC >> 8;
+	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->SP -= 2;
+
+	core->PC = 0x28;
+
+	return 0;
+}
+
+int call30H(struct Core* core)
+{
+	core->mem[core->SP-1] = core->PC >> 8;
+	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->SP -= 2;
+
+	core->PC = 0x30;
+
+	return 0;
+}
+
+int call38H(struct Core* core)
+{
+	core->mem[core->SP-1] = core->PC >> 8;
+	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->SP -= 2;
+
+	core->PC = 0x38;
+
+	return 0;
+}
+
 int ret(struct Core* core)
 {
 	core->PC = bytecat(core->mem[core->SP+1], core->mem[core->SP]);
