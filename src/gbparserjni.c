@@ -9,12 +9,12 @@
 */
 JNIEXPORT jlong JNICALL Java_com_nnarain_gb_resource_GBROMParser_createParser(JNIEnv *env, jclass c)
 {
-	return (long) ((struct GBROMData*) malloc( sizeof(struct GBROMData) ));
+	return 0L;
 }
 
 JNIEXPORT jint JNICALL Java_com_nnarain_gb_resource_GBROMParser_parse(JNIEnv *env, jclass c, jlong handle, jstring filePath)
 {
-	struct GBROMData* data = (struct GBROMData*)((long)handle);
+	struct Core* core = (struct Core*)((long)handle);
 
 	FILE* file;
 	const char* path = (*env)->GetStringUTFChars(env, filePath, NULL);
@@ -23,7 +23,7 @@ JNIEXPORT jint JNICALL Java_com_nnarain_gb_resource_GBROMParser_parse(JNIEnv *en
 
 	if(file != NULL){
 
-		gbparse(data, file);
+		gbparse(&core->mbc, file);
 
 		fclose(file);
 		return 0;

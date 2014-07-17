@@ -76,9 +76,7 @@
 	<!-- generate native headers from class file -->
 	<target name="jni" depends="compile">
 		<javah destdir="${c.src.dir}" classpath="${java.src.dir}" force="yes" verbose="yes">
-			<class name="com.nnarain.gb.resource.GBNativeResource" />
 			<class name="com.nnarain.gb.resource.GBCore" />
-			<class name="com.nnarain.gb.resource.GBROMParser" />
 		</javah>
 	</target>
 

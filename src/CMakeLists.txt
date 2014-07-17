@@ -53,6 +53,7 @@ add_library(
 	stack.c
 	branch.c
 	shift.c
+	rotate.c
 )
 
 # build core static library
@@ -76,6 +77,7 @@ add_library(
 	stack.c
 	branch.c
 	shift.c
+	rotate.c
 )
 
 # build jni shared library
@@ -83,7 +85,6 @@ add_library(
 	${libNameJNI}
 	SHARED
 	gbcorejni.c
-	gbnativeresourcejni.c
 	gbparserjni.c
 	gbapi.c
 	gbparser.c
@@ -103,6 +104,7 @@ add_library(
 	stack.c
 	branch.c
 	shift.c
+	rotate.c
 )
 
 
@@ -129,5 +131,6 @@ add_executable(
 	stack.c
 	branch.c
 	shift.c
+	rotate.c
 )
 
