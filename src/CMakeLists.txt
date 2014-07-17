@@ -54,6 +54,7 @@ add_library(
 	branch.c
 	shift.c
 	rotate.c
+	compare.c
 )
 
 # build core static library
@@ -78,6 +79,7 @@ add_library(
 	branch.c
 	shift.c
 	rotate.c
+	compare.c
 )
 
 # build jni shared library
@@ -105,6 +107,7 @@ add_library(
 	branch.c
 	shift.c
 	rotate.c
+	compare.c
 )
 
 
@@ -132,5 +135,6 @@ add_executable(
 	branch.c
 	shift.c
 	rotate.c
+	compare.c
 )
 
