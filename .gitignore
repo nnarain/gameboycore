@@ -26,3 +26,5 @@ dist/*
 # docs
 docs/*
 !refman.pdf
+
+debug/
