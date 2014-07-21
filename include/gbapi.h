@@ -5,6 +5,12 @@
 
 #include "gbcore.h"
 #include "gbparser.h"
+#include "gboam.h"
+#include "gbtile.h"
+#include "gbmapregion.h"
+#include "gbpalette.h"
+
+#define EXECUTE_CYCLES 256
 
 int execute(struct Core*, uint8_t);
 void step(struct Core*);

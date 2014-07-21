@@ -32,6 +32,10 @@ include_directories(${include})
 include_directories($ENV{JAVA_HOME}/include)
 include_directories($ENV{JAVA_HOME}/include/win32)
 
+include_directories(/opt/sdl/include)
+
+link_directories(/opt/sdl)
+
 # build core shared library
 add_library(
 	${libNameShared}
@@ -55,6 +59,9 @@ add_library(
 	shift.c
 	rotate.c
 	compare.c
+	gbmapregion.c
+	gbtile.c
+	gbpalette.c
 )
 
 # build core static library
@@ -80,6 +87,9 @@ add_library(
 	shift.c
 	rotate.c
 	compare.c
+	gbmapregion.c
+	gbtile.c
+	gbpalette.c
 )
 
 # build jni shared library
@@ -108,6 +118,9 @@ add_library(
 	shift.c
 	rotate.c
 	compare.c
+	gbmapregion.c
+	gbtile.c
+	gbpalette.c
 )
 
 
@@ -136,5 +149,10 @@ add_executable(
 	shift.c
 	rotate.c
 	compare.c
+	gbmapregion.c
+	gbtile.c
+	gbpalette.c
 )
+
+target_link_libraries(GBTest SDL2-2.0)
 

@@ -5,8 +5,7 @@
 
 #include <stdlib.h>
 
-#define D
-#ifdef D
+#ifdef DEBUG
 #include <stdio.h>
 #endif
 
@@ -16,7 +15,11 @@
 
 void step(struct Core* core)
 {
-	execute(core, core->mem[core->PC]);
+	int cycles;
+
+	do{
+		cycles += execute(core, core->mem[core->PC]);
+	}while(cycles < EXECUTE_CYCLES);
 }
 
 /**
@@ -29,16 +32,20 @@ void step(struct Core* core)
 int execute(struct Core* core, uint8_t optCode)
 {
 
+	uint8_t cycles;
+
 	if(optCode != 0xCB){
+		cycles = instructionSet1[optCode].cycles;
 		instructionSet1[optCode].impl(core);
 	}
 	else{
+		cycles = instructionSet2[optCode].cycles;
 		instructionSet2[core->mem[++core->PC]].impl(core);
 	}
 
 	core->PC++;
 
-	return 0;
+	return cycles;
 }
 
 void swap(struct Core* core, int bankNum)
