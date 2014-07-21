@@ -7,6 +7,8 @@
 #include "opts.h"
 
 int call(struct Core*);
+int rst00H(struct Core*);
+int rst08H(struct Core*);
 int rst10H(struct Core*);
 int rst18H(struct Core*);
 int rst20H(struct Core*);

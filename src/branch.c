@@ -13,6 +13,28 @@ int call(struct Core* core)
 	return 0;
 }
 
+int rst00H(struct Core* core)
+{
+	core->mem[core->SP-1] = core->PC >> 8;
+	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->SP -= 2;
+
+	core->PC = 0;
+
+	return 0;
+}
+
+int rst08H(struct Core* core)
+{
+	core->mem[core->SP-1] = core->PC >> 8;
+	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->SP -= 2;
+
+	core->PC = 0x08;
+
+	return 0;
+}
+
 int rst10H(struct Core* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
