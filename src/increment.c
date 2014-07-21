@@ -41,3 +41,9 @@ int incL(struct Core* core)
 	core->HL.L++;
 	return 0;
 }
+
+int incAddr(struct Core* core)
+{
+	core->mem[core->HL.val]++;
+	return 0;
+}

@@ -4,6 +4,7 @@
 #define BRANCH
 
 #include "gbcore.h"
+#include "nop.h"
 #include "opts.h"
 
 int call(struct Core*);
@@ -45,8 +46,7 @@ int jrz(struct Core*);
 int jrnc(struct Core*);
 int jrc(struct Core*);
 
-
-
+int halt(struct Core*);
 
 
 #endif

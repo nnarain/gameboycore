@@ -225,3 +225,10 @@ int jrc(struct Core* core)
 	if( isSet(core->AF.F, bv(FLAG_C)) ) jr(core);
 	return 0;
 }
+
+int halt(struct Core* core)
+{
+	NOP(core);
+	core->PC--;
+	return 0;
+}

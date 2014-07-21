@@ -12,6 +12,7 @@ int incD(struct Core*);
 int incE(struct Core*);
 int incH(struct Core*);
 int incL(struct Core*);
+int incAddr(struct Core*);
 
 #endif
 

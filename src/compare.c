@@ -58,3 +58,10 @@ int cmpAHL(struct Core* core)
 	return 0;
 }
 
+int cmpByte(struct Core* core)
+{
+	uint8_t r = core->AF.A - core->mem[++core->PC];
+	bitset(core->AF.F, bv(FLAG_Z), r);
+
+	return 0;
+}

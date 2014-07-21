@@ -14,6 +14,7 @@ int cmpAE(struct Core*);
 int cmpAH(struct Core*);
 int cmpAL(struct Core*);
 int cmpAHL(struct Core*);
+int cmpByte(struct Core*);
 
 #endif
 
