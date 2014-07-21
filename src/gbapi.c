@@ -44,7 +44,7 @@ int execute(struct Core* core, uint8_t optCode)
 void swap(struct Core* core, int bankNum)
 {
 #ifdef DEBUG
-	//printf("\nswap\n");
+	printf("\nswap\n");
 #endif
 	int i;
 
