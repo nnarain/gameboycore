@@ -4,6 +4,11 @@
 
 #include <stdlib.h>
 
+#define D
+#ifdef D
+#include <stdio.h>
+#endif
+
 void step(struct Core* core)
 {
 	execute(core, core->mem[core->PC]);
@@ -21,6 +26,10 @@ int execute(struct Core* core, uint8_t optCode)
 	//uint8_t cycles;
 
 	//clock_t tick = clock();
+
+#ifdef D
+	if(core->PC == 0x0150 || core->PC == 0x016e) printf("%X\n", optCode);
+#endif
 
 	if(optCode != 0xCB){
 		//cycles = instructionSet1[optCode].cycles;
