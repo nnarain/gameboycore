@@ -18,6 +18,7 @@
 #include "special_accumulator_flag.h"
 #include "logic.h"
 #include "rotate.h"
+#include "compare.h"
 
 #define REDIRECT 0xCB
 
@@ -212,14 +213,14 @@ struct Instruction instructionSet1[256] = {
 	{&AorL, 4} /*0xb5*/,
 	{&Aor_HL_, 4} /*0xb6*/,
 	{&AorA, 4} /*0xb7*/,
-	{&NOP, 4} /*0xb8*/,
-	{&NOP, 4} /*0xb9*/,
-	{&NOP, 4} /*0xba*/,
-	{&NOP, 4} /*0xbb*/,
-	{&NOP, 4} /*0xbc*/,
-	{&NOP, 4} /*0xbd*/,
-	{&NOP, 4} /*0xbe*/,
-	{&NOP, 4} /*0xbf*/,
+	{&cmpAB, 4} /*0xb8*/,
+	{&cmpAC, 4} /*0xb9*/,
+	{&cmpAD, 4} /*0xba*/,
+	{&cmpAE, 4} /*0xbb*/,
+	{&cmpAH, 4} /*0xbc*/,
+	{&cmpAL, 4} /*0xbd*/,
+	{&cmpAHL, 4} /*0xbe*/,
+	{&cmpAA, 4} /*0xbf*/,
 	{&rnz, 4} /*0xc0*/,
 	{&popBC, 4} /*0xc1*/,
 	{&jpnz, 4} /*0xc2*/,

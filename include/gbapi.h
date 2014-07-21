@@ -12,6 +12,8 @@ void step(struct Core*);
 void initCore(struct Core* core);
 uint8_t* getAddress(struct Core*, uint16_t);
 
+void swap(struct Core*, int);
+
 void releaseBanks(struct MBC*);
 
 #endif

@@ -357,42 +357,65 @@ int ldLHL(struct Core* core)
 
 int ldHLA(struct Core* core)
 {
+	if(core->HL.val > PERMANENT_ROM_BANK_START && core->HL.val < PERMANENT_ROM_BANK_END) 
+		swap(core, core->AF.A);
+		return;
+
 	core->mem[core->HL.val] = core->AF.A;
 	return 0;
 }
 
 int ldHLB(struct Core* core)
 {
+	if(core->HL.val > PERMANENT_ROM_BANK_START && core->HL.val < PERMANENT_ROM_BANK_END) 
+		swap(core, core->BC.B);
+		return;
+
 	core->mem[core->HL.val] = core->BC.B;
 	return 0;
 }
 
 int ldHLC(struct Core* core)
 {
+	if(core->HL.val > PERMANENT_ROM_BANK_START && core->HL.val < PERMANENT_ROM_BANK_END) 
+		swap(core, core->BC.C);
+		return;
 	core->mem[core->HL.val] = core->BC.C;
 	return 0;
 }
 
 int ldHLD(struct Core* core)
 {
+	if(core->HL.val > PERMANENT_ROM_BANK_START && core->HL.val < PERMANENT_ROM_BANK_END) 
+		swap(core, core->DE.D);
+		return;
 	core->mem[core->HL.val] = core->DE.D;
 	return 0;
 }
 
 int ldHLE(struct Core* core)
 {
+	if(core->HL.val > PERMANENT_ROM_BANK_START && core->HL.val < PERMANENT_ROM_BANK_END) 
+		swap(core, core->DE.E);
+		return;
 	core->mem[core->HL.val] = core->DE.E;
 	return 0;
 }
 
 int ldHLH(struct Core* core)
 {
+	if(core->HL.val > PERMANENT_ROM_BANK_START && core->HL.val < PERMANENT_ROM_BANK_END) 
+		swap(core, core->HL.H);
+		return;
 	core->mem[core->HL.val] = core->HL.H;
 	return 0;
 }
 
 int ldHLL(struct Core* core)
 {
+	if(core->HL.val > PERMANENT_ROM_BANK_START && core->HL.val < PERMANENT_ROM_BANK_END) 
+		swap(core, core->HL.L);
+		return;
 	core->mem[core->HL.val] = core->HL.L;
 	return 0;
 }
@@ -441,25 +464,40 @@ int ldLByte(struct Core* core)
 
 int ldHLByte(struct Core* core)
 {
-	core->mem[core->HL.val] = core->mem[++core->PC];
+	uint8_t byte = core->mem[++core->PC];
+	if(core->HL.val > PERMANENT_ROM_BANK_START && core->HL.val < PERMANENT_ROM_BANK_END) 
+		swap(core, byte);
+		return;
+	core->mem[core->HL.val] = byte;
 	return 0;
 }
 
 int ldBCA(struct Core* core)
 {
+	uint8_t byte = core->mem[++core->PC];
+	if(core->BC.val > PERMANENT_ROM_BANK_START && core->BC.val < PERMANENT_ROM_BANK_END) 
+		swap(core, byte);
+		return;
 	core->mem[core->BC.val] = core->AF.A;
 	return 0;
 }
 
 int ldDEA(struct Core* core)
 {
+	if(core->DE.val > PERMANENT_ROM_BANK_START && core->DE.val < PERMANENT_ROM_BANK_END) 
+		swap(core, core->AF.A);
+		return;
 	core->mem[core->DE.val] = core->AF.A;
 	return 0;
 }
 
 int ldAddrA(struct Core* core)
 {
-	core->mem[getNextWord(&core->PC, core->mem)] = core->AF.A;
+	uint16_t addr = getNextWord(&core->PC, core->mem);
+	if(addr > PERMANENT_ROM_BANK_START && addr < PERMANENT_ROM_BANK_END) 
+		swap(core, core->AF.A);
+		return;
+	core->mem[addr] = core->AF.A;
 	return 0;
 }
 
@@ -509,7 +547,11 @@ int ldDEAddr(struct Core* core)
 
 int ldAddrHL(struct Core* core)
 {
-	core->mem[getNextWord(&core->PC, core->mem)] = core->HL.val;
+	uint16_t addr = getNextWord(&core->PC, core->mem);
+	if(addr > PERMANENT_ROM_BANK_START && addr < PERMANENT_ROM_BANK_END) 
+		swap(core, core->HL.val);
+		return;
+	core->mem[addr] = core->HL.val;
 	return 0;
 }
 

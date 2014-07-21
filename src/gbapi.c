@@ -1,12 +1,19 @@
+#define DEBUG
 
 #include "gbapi.h"
 #include "instructionset.h"
 
 #include <stdlib.h>
 
+<<<<<<< HEAD
 #define D
 #ifdef D
 #include <stdio.h>
+#endif
+
+=======
+#ifdef __unix__
+#include <sys/mman.h>
 #endif
 
 void step(struct Core* core)
@@ -23,32 +30,29 @@ void step(struct Core* core)
 */
 int execute(struct Core* core, uint8_t optCode)
 {
-	//uint8_t cycles;
-
-	//clock_t tick = clock();
-
-#ifdef D
-	if(core->PC == 0x0150 || core->PC == 0x016e) printf("%X\n", optCode);
-#endif
 
 	if(optCode != 0xCB){
-		//cycles = instructionSet1[optCode].cycles;
 		instructionSet1[optCode].impl(core);
 	}
 	else{
-		//cycles = instructionSet2[optCode].cycles;
 		instructionSet2[core->mem[++core->PC]].impl(core);
 	}
- 
-	//float elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
-
-	//while(elapseMillis < (CLK_PERIOD * 1000.0f * cycles)){
-	//	elapseMillis = ( ((float)clock() - (float)tick) / (float)CLOCKS_PER_SEC ) * 1000.0f;
-	//}
 
 	core->PC++;
 
 	return 0;
+}
+
+void swap(struct Core* core, int bankNum)
+{
+#ifdef DEBUG
+	printf("swap\n");
+#endif
+	int i;
+
+	for(i = 0; i < SIZE_BANK; i++){
+		core->mem[i + SWITCHABLE_ROM_BANK_START] = core->mbc.banks[bankNum][i]; 
+	}
 }
 
 /**
@@ -63,6 +67,12 @@ void initCore(struct Core* core)
 	core->HL.val = 0;
 	core->SP     = HIGH_RAM_END;
 	core->PC     = 0x00;
+
+	// load the first to rom banks
+	int i;
+	for(i = 0; i < SIZE_BANK * 2; i++){
+		core->mem[i] = (i < 0x4FFF) ? core->mbc.banks[0][i] : core->mbc.banks[1][i];
+	}
 }
 
 /**
@@ -80,5 +90,9 @@ uint8_t* getAddress(struct Core* core, uint16_t addr)
 
 void releaseBanks(struct MBC* mbc)
 {
-	free(mbc);
+	int i = 0;
+	for(i = 0; i < mbc->nBanks; i++){
+		free(mbc->banks[i]);
+	}
+	free(mbc->banks);
 }
