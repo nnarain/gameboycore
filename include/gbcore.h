@@ -125,7 +125,7 @@ struct Core{
 			uint8_t A; ///< All Purpose Register
 			uint8_t F; ///< Flag Purpose Register
 		};
-		int val;
+		uint16_t val;
 	}AF;
 	
 	//! 16 bit accumulator
@@ -134,7 +134,7 @@ struct Core{
 			uint8_t B; ///< All Purpose Register
 			uint8_t C; ///< All Purpose Register
 		};
-		int val;
+		uint16_t val;
 	}BC;
 	
 	//! 16 bit accumulator
@@ -143,7 +143,7 @@ struct Core{
 			uint8_t D; ///< All Purpose Register
 			uint8_t E; ///< All Purpose Register
 		};
-		int val;
+		uint16_t val;
 	}DE;
 	
 	//! 16 bit accumulator
@@ -152,7 +152,7 @@ struct Core{
 			uint8_t H; ///< All Purpose Register
 			uint8_t L; ///< All Purpose Register
 		};
-		int val;
+		uint16_t val;
 	}HL;
 
 	uint16_t PC; ///< Program Counter

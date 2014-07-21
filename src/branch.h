@@ -7,12 +7,12 @@
 #include "opts.h"
 
 int call(struct Core*);
-int call10H(struct Core*);
-int call18H(struct Core*);
-int call20H(struct Core*);
-int call28H(struct Core*);
-int call30H(struct Core*);
-int call38H(struct Core*);
+int rst10H(struct Core*);
+int rst18H(struct Core*);
+int rst20H(struct Core*);
+int rst28H(struct Core*);
+int rst30H(struct Core*);
+int rst38H(struct Core*);
 
 int ret(struct Core*);
 int jp(struct Core*);
@@ -36,6 +36,16 @@ int rz(struct Core*);
 
 int rnc(struct Core*);
 int rc(struct Core*);
+
+int jr(struct Core*);
+int jrnz(struct Core*);
+int jrz(struct Core*);
+int jrnc(struct Core*);
+int jrc(struct Core*);
+
+
+
+
 
 #endif
 

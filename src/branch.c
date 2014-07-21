@@ -13,7 +13,7 @@ int call(struct Core* core)
 	return 0;
 }
 
-int call10H(struct Core* core)
+int rst10H(struct Core* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -24,7 +24,7 @@ int call10H(struct Core* core)
 	return 0;
 }
 
-int call18H(struct Core* core)
+int rst18H(struct Core* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -35,7 +35,7 @@ int call18H(struct Core* core)
 	return 0;
 }
 
-int call20H(struct Core* core)
+int rst20H(struct Core* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -46,7 +46,7 @@ int call20H(struct Core* core)
 	return 0;
 }
 
-int call28H(struct Core* core)
+int rst28H(struct Core* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -57,7 +57,7 @@ int call28H(struct Core* core)
 	return 0;
 }
 
-int call30H(struct Core* core)
+int rst30H(struct Core* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -68,7 +68,7 @@ int call30H(struct Core* core)
 	return 0;
 }
 
-int call38H(struct Core* core)
+int rst38H(struct Core* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -88,6 +88,9 @@ int ret(struct Core* core)
 
 int jp(struct Core* core)
 {
+#ifdef DEBUG
+	printf("\njmp\n");
+#endif
 	core->PC = getNextWord(&core->PC, core->mem);
 	return 0;
 }
@@ -167,5 +170,36 @@ int rnc(struct Core* core)
 int rc(struct Core* core)
 {
 	if(isSet(core->AF.F, bv(FLAG_C))) ret(core);
+	return 0;
+}
+
+int jr(struct Core* core)
+{
+	signed char idx = core->mem[++core->PC];
+	core->PC += idx;
+	return 0;
+}
+
+int jrnz(struct Core* core)
+{
+	if( isClear(core->AF.F, bv(FLAG_Z)) ) jr(core);
+	return 0;
+}
+
+int jrz(struct Core* core)
+{
+	if( isSet(core->AF.F, bv(FLAG_Z)) ) jr(core);
+	return 0;
+}
+
+int jrnc(struct Core* core)
+{
+	if( isClear(core->AF.F, bv(FLAG_C)) ) jr(core);
+	return 0;
+}
+
+int jrc(struct Core* core)
+{
+	if( isSet(core->AF.F, bv(FLAG_C)) ) jr(core);
 	return 0;
 }

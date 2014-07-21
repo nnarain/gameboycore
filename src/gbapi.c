@@ -5,13 +5,11 @@
 
 #include <stdlib.h>
 
-<<<<<<< HEAD
 #define D
 #ifdef D
 #include <stdio.h>
 #endif
 
-=======
 #ifdef __unix__
 #include <sys/mman.h>
 #endif
@@ -46,13 +44,15 @@ int execute(struct Core* core, uint8_t optCode)
 void swap(struct Core* core, int bankNum)
 {
 #ifdef DEBUG
-	printf("swap\n");
+	//printf("\nswap\n");
 #endif
 	int i;
 
 	for(i = 0; i < SIZE_BANK; i++){
 		core->mem[i + SWITCHABLE_ROM_BANK_START] = core->mbc.banks[bankNum][i]; 
 	}
+
+	//core->PC = 0; // wheres the program counter after swap?
 }
 
 /**
