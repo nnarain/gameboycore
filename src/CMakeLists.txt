@@ -154,5 +154,5 @@ add_executable(
 	gbpalette.c
 )
 
-target_link_libraries(GBTest SDL2-2.0)
+#target_link_libraries(GBTest SDL2-2.0)
 

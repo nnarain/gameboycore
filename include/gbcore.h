@@ -114,6 +114,7 @@ struct MBC{
 	uint8_t cartType;
 	size_t nBanks;
 	uint8_t** banks;
+	int currentBank;
 };
 
 //! Structure representing the Gameboy internals
@@ -122,8 +123,8 @@ struct Core{
 	//! 16 bit accumulator
 	union{
 		struct{
-			uint8_t A; ///< All Purpose Register
 			uint8_t F; ///< Flag Purpose Register
+			uint8_t A; ///< All Purpose Register
 		};
 		uint16_t val;
 	}AF;
@@ -131,8 +132,8 @@ struct Core{
 	//! 16 bit accumulator
 	union{
 		struct{
-			uint8_t B; ///< All Purpose Register
 			uint8_t C; ///< All Purpose Register
+			uint8_t B; ///< All Purpose Register
 		};
 		uint16_t val;
 	}BC;
@@ -140,8 +141,8 @@ struct Core{
 	//! 16 bit accumulator
 	union{
 		struct{
-			uint8_t D; ///< All Purpose Register
 			uint8_t E; ///< All Purpose Register
+			uint8_t D; ///< All Purpose Register
 		};
 		uint16_t val;
 	}DE;
@@ -149,8 +150,8 @@ struct Core{
 	//! 16 bit accumulator
 	union{
 		struct{
-			uint8_t H; ///< All Purpose Register
 			uint8_t L; ///< All Purpose Register
+			uint8_t H; ///< All Purpose Register
 		};
 		uint16_t val;
 	}HL;

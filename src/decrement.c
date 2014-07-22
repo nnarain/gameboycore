@@ -16,7 +16,7 @@ int decB(struct Core* core)
 
 int decC(struct Core* core)
 {
-	core->BC.B--;
+	core->BC.C--;
 	return 0;
 }
 

@@ -51,8 +51,11 @@ int execute(struct Core* core, uint8_t optCode)
 void swap(struct Core* core, int bankNum)
 {
 #ifdef DEBUG
-	printf("\nswap\n");
+	//printf("\nswap\n");
 #endif
+
+	core->mbc.currentBank = bankNum;
+
 	int i;
 
 	for(i = 0; i < SIZE_BANK; i++){
@@ -74,6 +77,7 @@ void initCore(struct Core* core)
 	core->HL.val = 0;
 	core->SP     = HIGH_RAM_END;
 	core->PC     = 0x00;
+	core->mbc.currentBank = 0;
 
 	// load the first to rom banks
 	int i;
