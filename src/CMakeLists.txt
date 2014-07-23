@@ -32,9 +32,9 @@ include_directories(${include})
 include_directories($ENV{JAVA_HOME}/include)
 include_directories($ENV{JAVA_HOME}/include/win32)
 
-include_directories(/opt/sdl/include)
+#include_directories(/opt/sdl/include)
 
-link_directories(/opt/sdl)
+#link_directories(/opt/sdl)
 
 # build core shared library
 add_library(
