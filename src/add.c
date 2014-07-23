@@ -2,176 +2,153 @@
 #include "add.h"
 #include "opts.h"
 
-int addAA(struct Core* core)
+void addAA(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 	
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->AF.A));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->AF.A));
-	core->AF.A += core->AF.A;
-	return 0;
+core->AF.A += core->AF.A;
 }
 
-int addAB(struct Core* core)
+void addAB(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.B));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->BC.B));
-	core->AF.A += core->BC.B;
-	return 0;
+core->AF.A += core->BC.B;
 }
 
-int addAC(struct Core* core)
+void addAC(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.C));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->BC.C));
-	core->AF.A += core->BC.C;
-	return 0;
+core->AF.A += core->BC.C;
 }
 
-int addAD(struct Core* core)
+void addAD(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.D));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->DE.D));
-	core->AF.A += core->DE.D;
-	return 0;
+core->AF.A += core->DE.D;
 }
 
-int addAE(struct Core* core)
+void addAE(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.E));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->DE.E));
-	core->AF.A += core->DE.E;
-	return 0;
+core->AF.A += core->DE.E;
 }
 
-int addAH(struct Core* core)
+void addAH(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.H));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->HL.H));
-	core->AF.A += core->HL.H;
-	return 0;
+core->AF.A += core->HL.H;
 }
 
-int addAL(struct Core* core)
+void addAL(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.L));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->HL.L));
-	core->AF.A += core->HL.L;
-	return 0;
+core->AF.A += core->HL.L;
 }
 
-int addAHL(struct Core* core)
+void addAHL(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	const uint8_t byte = core->mem[core->HL.val];
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, byte));
-	core->AF.A += byte;
-	return 0;
+core->AF.A += byte;
 }
 
-int addAByte(struct Core* core)
+void addAByte(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	const uint8_t byte = core->mem[++core->PC];
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, byte));
-	core->AF.A += byte;
-	return 0;
+core->AF.A += byte;
 }
 
-int addcAA(struct Core* core){
+void addcAA(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->AF.A));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->AF.A));
 
 	core->AF.A += (core->AF.A + carry(core->AF.F, FLAG_C));
-
-	return 0;
 }
 
-int addcAB(struct Core* core){
+void addcAB(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.B));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->BC.B));
 
 	core->AF.A += (core->BC.B + carry(core->AF.F, FLAG_C));
-
-	return 0;
 }
 
-int addcAC(struct Core* core){
+void addcAC(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.C));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->BC.C));
 
 	core->AF.A += (core->BC.C + carry(core->AF.F, FLAG_C));
-
-	return 0;
 }
 
-int addcAD(struct Core* core){
+void addcAD(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.D));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->DE.D));
 
 	core->AF.A += (core->DE.D + carry(core->AF.F, FLAG_C));
-
-	return 0;
 }
 
-int addcAE(struct Core* core){
+void addcAE(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.E));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->DE.E));
 
 	core->AF.A += (core->DE.E + carry(core->AF.F, FLAG_C));
-
-	return 0;
 }
 
-int addcAH(struct Core* core){
+void addcAH(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.H));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->HL.H));
 
 	core->AF.A += (core->HL.H + carry(core->AF.F, FLAG_C));
-
-	return 0;
 }
 
-int addcAL(struct Core* core){
+void addcAL(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.L));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->HL.L));
 
 	core->AF.A += (core->HL.L + carry(core->AF.F, FLAG_C));
-
-	return 0;
 }
 
-int addcAAddr(struct Core* core){
+void addcAAddr(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	uint8_t byte = core->mem[getNextWord(&core->PC, core->mem)];
@@ -180,11 +157,9 @@ int addcAAddr(struct Core* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, byte));
 
 	core->AF.A += (byte + carry(core->AF.F, FLAG_C));
-
-	return 0;
 }
 
-int addcAByte(struct Core* core){
+void addcAByte(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	uint8_t byte = core->mem[++core->PC];
@@ -193,6 +168,4 @@ int addcAByte(struct Core* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, byte));
 
 	core->AF.A += (byte + carry(core->AF.F, FLAG_C));
-
-	return 0;
 }

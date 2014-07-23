@@ -2,7 +2,7 @@
 #include "branch.h"
 
 
-int call(struct Core* core)
+void call(GBCore* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -10,10 +10,9 @@ int call(struct Core* core)
 
 	core->PC = getNextWord(&core->PC, core->mem);
 
-	return 0;
 }
 
-int rst00H(struct Core* core)
+void rst00H(GBCore* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -21,10 +20,9 @@ int rst00H(struct Core* core)
 
 	core->PC = 0;
 
-	return 0;
 }
 
-int rst08H(struct Core* core)
+void rst08H(GBCore* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -32,10 +30,9 @@ int rst08H(struct Core* core)
 
 	core->PC = 0x08;
 
-	return 0;
 }
 
-int rst10H(struct Core* core)
+void rst10H(GBCore* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -43,10 +40,9 @@ int rst10H(struct Core* core)
 
 	core->PC = 0x10;
 
-	return 0;
 }
 
-int rst18H(struct Core* core)
+void rst18H(GBCore* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -54,10 +50,9 @@ int rst18H(struct Core* core)
 
 	core->PC = 0x18;
 
-	return 0;
 }
 
-int rst20H(struct Core* core)
+void rst20H(GBCore* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -65,10 +60,9 @@ int rst20H(struct Core* core)
 
 	core->PC = 0x20;
 
-	return 0;
 }
 
-int rst28H(struct Core* core)
+void rst28H(GBCore* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -76,10 +70,9 @@ int rst28H(struct Core* core)
 
 	core->PC = 0x28;
 
-	return 0;
 }
 
-int rst30H(struct Core* core)
+void rst30H(GBCore* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -87,10 +80,9 @@ int rst30H(struct Core* core)
 
 	core->PC = 0x30;
 
-	return 0;
 }
 
-int rst38H(struct Core* core)
+void rst38H(GBCore* core)
 {
 	core->mem[core->SP-1] = core->PC >> 8;
 	core->mem[core->SP-2] = core->PC & 0x0F;
@@ -98,137 +90,115 @@ int rst38H(struct Core* core)
 
 	core->PC = 0x38;
 
-	return 0;
 }
 
-int ret(struct Core* core)
+void ret(GBCore* core)
 {
 	core->PC = bytecat(core->mem[core->SP+1], core->mem[core->SP]);
 	core->SP += 2;
-	return 0;
 }
 
-int jp(struct Core* core)
+void jp(GBCore* core)
 {
 #ifdef DEBUG
 	printf("\njmp\n");
 #endif
 	core->PC = getNextWord(&core->PC, core->mem);
-	return 0;
 }
 
-int jpnz(struct Core* core)
+void jpnz(GBCore* core)
 {
-	if(isClear(core->AF.F, bv(FLAG_Z))) core->PC = jp(core);
-	return 0;
+	if(isClear(core->AF.F, bv(FLAG_Z))) jp(core);
 }
 
-int jpz(struct Core* core)
+void jpz(GBCore* core)
 {
 	if(isSet(core->AF.F, bv(FLAG_Z))) jp(core);
-	return 0;
 }
 
-int jpnc(struct Core* core)
+void jpnc(GBCore* core)
 {
 	if(isClear(core->AF.F, bv(FLAG_C))) jp(core);
-	return 0;
 }
 
-int jpc(struct Core* core)
+void jpc(GBCore* core)
 {
 	if(isSet(core->AF.F, bv(FLAG_C))) jp(core);
-	return 0;
 }
 
-int pcHL(struct Core* core)
+void pcHL(GBCore* core)
 {
 	core->PC = core->HL.val;
-	return 0;
 }
 
-int cnz(struct Core* core)
+void cnz(GBCore* core)
 {
 	if(isClear(core->AF.F, bv(FLAG_Z))) call(core);
-	return 0;
 }
 
-int cz(struct Core* core)
+void cz(GBCore* core)
 {
 	if(isSet(core->AF.F, bv(FLAG_Z))) call(core);
-	return 0;
 }
 
-int cnc(struct Core* core)
+void cnc(GBCore* core)
 {
 	if(isClear(core->AF.F, bv(FLAG_C))) call(core);
-	return 0;
 }
 
-int cc(struct Core* core)
+void cc(GBCore* core)
 {
 	if(isSet(core->AF.F, bv(FLAG_C))) call(core);
-	return 0;
 }
 
-int rnz(struct Core* core)
+void rnz(GBCore* core)
 {
 	if(isClear(core->AF.F, bv(FLAG_Z))) ret(core);
-	return 0;
 }
 
-int rz(struct Core* core)
+void rz(GBCore* core)
 {
 	if(isSet(core->AF.F, bv(FLAG_Z))) ret(core);
-	return 0;
 }
 
-int rnc(struct Core* core)
+void rnc(GBCore* core)
 {
 	if(isClear(core->AF.F, bv(FLAG_C))) ret(core);
-	return 0;
 }
 
-int rc(struct Core* core)
+void rc(GBCore* core)
 {
 	if(isSet(core->AF.F, bv(FLAG_C))) ret(core);
-	return 0;
 }
 
-int jr(struct Core* core)
+void jr(GBCore* core)
 {
 	signed char idx = core->mem[++core->PC];
 	core->PC += idx;
-	return 0;
 }
 
-int jrnz(struct Core* core)
+void jrnz(GBCore* core)
 {
 	if( isClear(core->AF.F, bv(FLAG_Z)) ) jr(core);
-	return 0;
 }
 
-int jrz(struct Core* core)
+void jrz(GBCore* core)
 {
 	if( isSet(core->AF.F, bv(FLAG_Z)) ) jr(core);
-	return 0;
 }
 
-int jrnc(struct Core* core)
+void jrnc(GBCore* core)
 {
 	if( isClear(core->AF.F, bv(FLAG_C)) ) jr(core);
-	return 0;
 }
 
-int jrc(struct Core* core)
+void jrc(GBCore* core)
 {
 	if( isSet(core->AF.F, bv(FLAG_C)) ) jr(core);
-	return 0;
 }
 
-int halt(struct Core* core)
+void halt(GBCore* core)
 {
 	NOP(core);
 	core->PC--;
-	return 0;
 }

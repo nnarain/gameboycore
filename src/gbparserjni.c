@@ -14,7 +14,7 @@ JNIEXPORT jlong JNICALL Java_com_nnarain_gb_resource_GBROMParser_createParser(JN
 
 JNIEXPORT jint JNICALL Java_com_nnarain_gb_resource_GBROMParser_parse(JNIEnv *env, jclass c, jlong handle, jstring filePath)
 {
-	struct Core* core = (struct Core*)((long)handle);
+	GBCore* core = (GBCore*)((long)handle);
 
 	FILE* file;
 	const char* path = (*env)->GetStringUTFChars(env, filePath, NULL);

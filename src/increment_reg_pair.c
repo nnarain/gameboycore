@@ -2,26 +2,22 @@
 #include "increment_reg_pair.h"
 
 
-int incBC(struct Core* core)
+void incBC(GBCore* core)
 {
 	core->BC.val++;
-	return 0;
 }
 
-int incDE(struct Core* core)
+void incDE(GBCore* core)
 {
 	core->DE.val++;
-	return 0;
 }
 
-int incHL(struct Core* core)
+void incHL(GBCore* core)
 {
 	core->HL.val++;
-	return 0;
 }
 
-int incSP(struct Core* core)
+void incSP(GBCore* core)
 {
 	core->SP++;
-	return 0;
 }

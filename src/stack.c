@@ -3,66 +3,58 @@
 #include "stack.h"
 
 
-int pushAF(struct Core* core)
+void pushAF(GBCore* core)
 {
 	core->mem[core->SP-2] = core->AF.F;
 	core->mem[core->SP-1] = core->AF.A;
 	core->SP -= 2;
-	return 0;
 }
 
-int pushBC(struct Core* core)
+void pushBC(GBCore* core)
 {
 	core->mem[core->SP-2] = core->BC.C;
 	core->mem[core->SP-1] = core->BC.B;
 	core->SP -= 2;
-	return 0;
 }
 
-int pushDE(struct Core* core)
+void pushDE(GBCore* core)
 {
 	core->mem[core->SP-2] = core->DE.E;
 	core->mem[core->SP-1] = core->DE.D;
 	core->SP -= 2;
-	return 0;
 }
 
-int pushHL(struct Core* core)
+void pushHL(GBCore* core)
 {
 	core->mem[core->SP-2] = core->HL.L;
 	core->mem[core->SP-1] = core->HL.H;
-	return 0;
 }
 
-int popAF(struct Core* core)
+void popAF(GBCore* core)
 {
 	core->AF.A = core->mem[core->SP+1];
 	core->AF.F = core->mem[core->SP];
 	core->SP += 2;
-	return 0;
 }
 
-int popBC(struct Core* core)
+void popBC(GBCore* core)
 {
 	core->BC.B = core->mem[core->SP+1];
 	core->BC.C = core->mem[core->SP];
 	core->SP += 2;
-	return 0;
 }
 
-int popDE(struct Core* core)
+void popDE(GBCore* core)
 {
 	core->DE.D = core->mem[core->SP+1];
 	core->DE.E = core->mem[core->SP];
 	core->SP += 2;
-	return 0;
 }
 
-int popHL(struct Core* core)
+void popHL(GBCore* core)
 {
 	core->HL.H = core->mem[core->SP+1];
 	core->HL.L = core->mem[core->SP];
 	core->SP += 2;
-	return 0;
 }
 

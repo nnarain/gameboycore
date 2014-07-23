@@ -4,12 +4,12 @@
 
 #include "gbcore.h"
 
-int decA(struct Core*);
-int decB(struct Core*);
-int decC(struct Core*);
-int decD(struct Core*);
-int decE(struct Core*);
-int decH(struct Core*);
-int decL(struct Core*);
+void decA(GBCore*);
+void decB(GBCore*);
+void decC(GBCore*);
+void decD(GBCore*);
+void decE(GBCore*);
+void decH(GBCore*);
+void decL(GBCore*);
 
 #endif

@@ -5,14 +5,14 @@
 
 #include "gbcore.h"
 
-int incA(struct Core*);
-int incB(struct Core*);
-int incC(struct Core*);
-int incD(struct Core*);
-int incE(struct Core*);
-int incH(struct Core*);
-int incL(struct Core*);
-int incAddr(struct Core*);
+void incA(GBCore*);
+void incB(GBCore*);
+void incC(GBCore*);
+void incD(GBCore*);
+void incE(GBCore*);
+void incH(GBCore*);
+void incL(GBCore*);
+void incAddr(GBCore*);
 
 #endif
 

@@ -7,46 +7,46 @@
 #include "nop.h"
 #include "opts.h"
 
-int call(struct Core*);
-int rst00H(struct Core*);
-int rst08H(struct Core*);
-int rst10H(struct Core*);
-int rst18H(struct Core*);
-int rst20H(struct Core*);
-int rst28H(struct Core*);
-int rst30H(struct Core*);
-int rst38H(struct Core*);
+void call(GBCore*);
+void rst00H(GBCore*);
+void rst08H(GBCore*);
+void rst10H(GBCore*);
+void rst18H(GBCore*);
+void rst20H(GBCore*);
+void rst28H(GBCore*);
+void rst30H(GBCore*);
+void rst38H(GBCore*);
 
-int ret(struct Core*);
-int jp(struct Core*);
+void ret(GBCore*);
+void jp(GBCore*);
 
-int jpnz(struct Core*);
-int jpz(struct Core*);
+void jpnz(GBCore*);
+void jpz(GBCore*);
 
-int jpnc(struct Core*);
-int jpc(struct Core*);
+void jpnc(GBCore*);
+void jpc(GBCore*);
 
-int pcHL(struct Core*);
+void pcHL(GBCore*);
 
-int cnz(struct Core*);
-int cz(struct Core*);
+void cnz(GBCore*);
+void cz(GBCore*);
 
-int cnc(struct Core*);
-int cc(struct Core*);
+void cnc(GBCore*);
+void cc(GBCore*);
 
-int rnz(struct Core*);
-int rz(struct Core*);
+void rnz(GBCore*);
+void rz(GBCore*);
 
-int rnc(struct Core*);
-int rc(struct Core*);
+void rnc(GBCore*);
+void rc(GBCore*);
 
-int jr(struct Core*);
-int jrnz(struct Core*);
-int jrz(struct Core*);
-int jrnc(struct Core*);
-int jrc(struct Core*);
+void jr(GBCore*);
+void jrnz(GBCore*);
+void jrz(GBCore*);
+void jrnc(GBCore*);
+void jrc(GBCore*);
 
-int halt(struct Core*);
+void halt(GBCore*);
 
 
 #endif

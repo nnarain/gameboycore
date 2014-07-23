@@ -1,7 +1,7 @@
 
 #include "gbmapregion.h"
 
-void getMemoryMapRegion(struct Core* core, struct GBMapRegion* region)
+void getMemoryMapRegion(GBCore* core, GBMapRegion* region)
 {
 	
 	int size = region->end - region->start;
@@ -19,7 +19,7 @@ void getMemoryMapRegion(struct Core* core, struct GBMapRegion* region)
 
 }
 
-void releaseRegion(struct GBMapRegion* r)
+void releaseRegion(GBMapRegion* r)
 {
 	free(r->ptr);
 }

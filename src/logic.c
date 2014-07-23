@@ -1,167 +1,167 @@
 
 #include "logic.h"
 
-int AandA(struct Core* core)
+void AandA(GBCore* core)
 {
 	core->AF.A &= core->AF.A;
-	return 0;
+	
 }
 
-int AandB(struct Core* core)
+void AandB(GBCore* core)
 {
 	core->AF.A &= core->BC.B;
-	return 0;
+	
 }
 
-int AandC(struct Core* core)
+void AandC(GBCore* core)
 {
 	core->AF.A &= core->BC.C;
-	return 0;
+	
 }
 
-int AandD(struct Core* core)
+void AandD(GBCore* core)
 {
 	core->AF.A &= core->DE.D;
-	return 0;
+	
 }
 
-int AandE(struct Core* core)
+void AandE(GBCore* core)
 {
 	core->AF.A &= core->DE.E;
-	return 0;
+	
 }
 
-int AandH(struct Core* core)
+void AandH(GBCore* core)
 {
 	core->AF.A &= core->HL.H;
-	return 0;
+	
 }
 
-int AandL(struct Core* core)
+void AandL(GBCore* core)
 {
 	core->AF.A &= core->HL.L;
-	return 0;
+	
 }
 
-int Aand_HL_(struct Core* core)
+void Aand_HL_(GBCore* core)
 {
 	core->AF.A &= core->mem[core->HL.val];
-	return 0;
+	
 }
 
-int AandByte(struct Core* core)
+void AandByte(GBCore* core)
 {
 	core->AF.A &= core->mem[++core->PC];
-	return 0;
+	
 }
 
-int AxorA(struct Core* core)
+void AxorA(GBCore* core)
 {
 	core->AF.A ^= core->AF.A;
-	return 0;
+	
 }
 
-int AxorB(struct Core* core)
+void AxorB(GBCore* core)
 {
 	core->AF.A ^= core->BC.B;
-	return 0;
+	
 }
 
-int AxorC(struct Core* core)
+void AxorC(GBCore* core)
 {
 	core->AF.A ^= core->BC.C;
-	return 0;
+	
 }
 
-int AxorD(struct Core* core)
+void AxorD(GBCore* core)
 {
 	core->AF.A ^= core->DE.D;
-	return 0;
+	
 }
 
-int AxorE(struct Core* core)
+void AxorE(GBCore* core)
 {
 	core->AF.A ^= core->DE.E;
-	return 0;
+	
 }
 
-int AxorH(struct Core* core)
+void AxorH(GBCore* core)
 {
 	core->AF.A ^= core->HL.H;
-	return 0;
+	
 }
 
-int AxorL(struct Core* core)
+void AxorL(GBCore* core)
 {
 	core->AF.A ^= core->HL.L;
-	return 0;
+	
 }
 
-int Axor_HL_(struct Core* core)
+void Axor_HL_(GBCore* core)
 {
 	core->AF.A ^= core->mem[core->HL.val];
-	return 0;
+	
 }
 
-int AxorByte(struct Core* core)
+void AxorByte(GBCore* core)
 {
 	core->AF.A ^= core->mem[++core->PC];
-	return 0;
+	
 }
 
 
-int AorA(struct Core* core)
+void AorA(GBCore* core)
 {
 	core->AF.A |= core->AF.A;
-	return 0;
+	
 }
 
-int AorB(struct Core* core)
+void AorB(GBCore* core)
 {
 	core->AF.A |= core->BC.B;
-	return 0;
+	
 }
 
-int AorC(struct Core* core)
+void AorC(GBCore* core)
 {
 	core->AF.A |= core->BC.C;
-	return 0;
+	
 }
 
-int AorD(struct Core* core)
+void AorD(GBCore* core)
 {
 	core->AF.A |= core->DE.D;
-	return 0;
+	
 }
 
-int AorE(struct Core* core)
+void AorE(GBCore* core)
 {
 	core->AF.A |= core->DE.E;
-	return 0;
+	
 }
 
-int AorH(struct Core* core)
+void AorH(GBCore* core)
 {
 	core->AF.A |= core->HL.H;
-	return 0;
+	
 }
 
-int AorL(struct Core* core)
+void AorL(GBCore* core)
 {
 	core->AF.A |= core->HL.L;
-	return 0;
+	
 }
 
-int Aor_HL_(struct Core* core)
+void Aor_HL_(GBCore* core)
 {
 	core->AF.A |= core->mem[core->HL.val];
-	return 0;
+	
 }
 
-int AorByte(struct Core* core)
+void AorByte(GBCore* core)
 {
 	core->AF.A |= core->mem[++core->PC];
-	return 0;
+	
 }
 
 

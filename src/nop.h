@@ -5,7 +5,7 @@
 
 #include "gbcore.h"
 
-int NOP(struct Core*);
+void NOP(GBCore*);
 
 #endif
 

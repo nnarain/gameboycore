@@ -5,7 +5,7 @@
 
 JNIEXPORT jlong JNICALL Java_com_nnarain_gb_resource_GBCore_createCore(JNIEnv *env, jclass clazz)
 {
-	struct Core* core = (struct Core*) malloc( sizeof(struct Core) );
+	GBCore* core = (GBCore*) malloc( sizeof(GBCore) );
 	initCore(core);
 
 	return (long) core;
@@ -13,13 +13,13 @@ JNIEXPORT jlong JNICALL Java_com_nnarain_gb_resource_GBCore_createCore(JNIEnv *e
 
 JNIEXPORT void JNICALL Java_com_nnarain_gb_GBCore_step(JNIEnv *env, jclass clazz, jlong handle)
 {
-	struct Core* core = (struct Core*) ((long)handle);
+	GBCore* core = (GBCore*) ((long)handle);
 	step(core);
 }
 
 JNIEXPORT void JNICALL Java_com_nnarain_gb_resource_GBCore_release(JNIEnv *env, jclass clazz, jlong handle)
 {
-	struct Core* core = (struct Core*) ((long)handle);
+	GBCore* core = (GBCore*) ((long)handle);
 
 	releaseBanks(&core->mbc);
 	free(core);

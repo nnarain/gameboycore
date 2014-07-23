@@ -4,10 +4,10 @@
 
 #include "gbcore.h"
 
-int incBC(struct Core*);
-int incDE(struct Core*);
-int incHL(struct Core*);
-int incSP(struct Core*);
+void incBC(GBCore*);
+void incDE(GBCore*);
+void incHL(GBCore*);
+void incSP(GBCore*);
 
 #endif
 

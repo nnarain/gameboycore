@@ -4,9 +4,9 @@
 
 #include "gbcore.h"
 
-int notA(struct Core* core);
-int SCF(struct Core* core);
-int CCF(struct Core* core);
+void notA(GBCore* core);
+void SCF(GBCore* core);
+void CCF(GBCore* core);
 
 #endif
 

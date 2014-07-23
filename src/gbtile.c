@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void loadTile(struct Core* core, struct Tile* tile, int num)
+void loadTile(GBCore* core, GBTile* tile, int num)
 {
 	// load tiles from memory
 	memcpy( tile->rows, core->mem + CHARACTER_RAM_START + num, TILE_SIZE );

@@ -4,36 +4,36 @@
 
 #include "gbcore.h"
 
-int AandA(struct Core*);
-int AandB(struct Core*);
-int AandC(struct Core*);
-int AandD(struct Core*);
-int AandE(struct Core*);
-int AandH(struct Core*);
-int AandL(struct Core*);
+void AandA(GBCore*);
+void AandB(GBCore*);
+void AandC(GBCore*);
+void AandD(GBCore*);
+void AandE(GBCore*);
+void AandH(GBCore*);
+void AandL(GBCore*);
 
-int Aand_HL_(struct Core*);
+void Aand_HL_(GBCore*);
 
-int AandByte(struct Core*);
+void AandByte(GBCore*);
 
-int AxorA(struct Core*);
-int AxorB(struct Core*);
-int AxorC(struct Core*);
-int AxorD(struct Core*);
-int AxorE(struct Core*);
-int AxorH(struct Core*);
-int AxorL(struct Core*);
-int Axor_HL_(struct Core*);
-int AxorByte(struct Core*);
+void AxorA(GBCore*);
+void AxorB(GBCore*);
+void AxorC(GBCore*);
+void AxorD(GBCore*);
+void AxorE(GBCore*);
+void AxorH(GBCore*);
+void AxorL(GBCore*);
+void Axor_HL_(GBCore*);
+void AxorByte(GBCore*);
 
-int AorA(struct Core*);
-int AorB(struct Core*);
-int AorC(struct Core*);
-int AorD(struct Core*);
-int AorE(struct Core*);
-int AorH(struct Core*);
-int AorL(struct Core*);
-int Aor_HL_(struct Core*);
-int AorByte(struct Core*);
+void AorA(GBCore*);
+void AorB(GBCore*);
+void AorC(GBCore*);
+void AorD(GBCore*);
+void AorE(GBCore*);
+void AorH(GBCore*);
+void AorL(GBCore*);
+void Aor_HL_(GBCore*);
+void AorByte(GBCore*);
 
 #endif

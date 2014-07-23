@@ -23,7 +23,7 @@
 #define REDIRECT 0xCB
 
 struct Instruction{
-	int (*impl)(struct Core*);
+	void (*impl)(GBCore*);
 	uint8_t cycles;
 };
 

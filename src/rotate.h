@@ -28,42 +28,42 @@
 
 
 
-int rlca(struct Core*);
-int rrca(struct Core*);
-int rla(struct Core*);
-int rra(struct Core*);
+void rlca(GBCore*);
+void rrca(GBCore*);
+void rla(GBCore*);
+void rra(GBCore*);
 
-int rlcb(struct Core*);
-int rlcc(struct Core*);
-int rlcd(struct Core*);
-int rlce(struct Core*);
-int rlch(struct Core*);
-int rlcl(struct Core*);
-int rlchl(struct Core* core);
+void rlcb(GBCore*);
+void rlcc(GBCore*);
+void rlcd(GBCore*);
+void rlce(GBCore*);
+void rlch(GBCore*);
+void rlcl(GBCore*);
+void rlchl(GBCore* core);
 
-int rrcb(struct Core*);
-int rrcc(struct Core*);
-int rrcd(struct Core*);
-int rrce(struct Core*);
-int rrch(struct Core*);
-int rrcl(struct Core*);
-int rrchl(struct Core*);
+void rrcb(GBCore*);
+void rrcc(GBCore*);
+void rrcd(GBCore*);
+void rrce(GBCore*);
+void rrch(GBCore*);
+void rrcl(GBCore*);
+void rrchl(GBCore*);
 
-int rlb(struct Core*);
-int rlc(struct Core*);
-int rld(struct Core*);
-int rle(struct Core*);
-int rlh(struct Core*);
-int rll(struct Core*);
-int rlhl(struct Core*);
+void rlb(GBCore*);
+void rlc(GBCore*);
+void rld(GBCore*);
+void rle(GBCore*);
+void rlh(GBCore*);
+void rll(GBCore*);
+void rlhl(GBCore*);
 
-int rrb(struct Core*);
-int rrc(struct Core*);
-int rrd(struct Core*);
-int rre(struct Core*);
-int rrh(struct Core*);
-int rrl(struct Core*);
-int rrhl(struct Core*);
+void rrb(GBCore*);
+void rrc(GBCore*);
+void rrd(GBCore*);
+void rre(GBCore*);
+void rrh(GBCore*);
+void rrl(GBCore*);
+void rrhl(GBCore*);
 
 #endif
 

@@ -13,7 +13,7 @@
 #include <sys/mman.h>
 #endif
 
-void step(struct Core* core)
+void step(GBCore* core)
 {
 	int cycles;
 
@@ -29,7 +29,7 @@ void step(struct Core* core)
 
 	@param optCode
 */
-int execute(struct Core* core, uint8_t optCode)
+int execute(GBCore* core, uint8_t optCode)
 {
 
 	uint8_t cycles;
@@ -48,7 +48,7 @@ int execute(struct Core* core, uint8_t optCode)
 	return cycles;
 }
 
-void swap(struct Core* core, int bankNum)
+void swap(GBCore* core, int bankNum)
 {
 #ifdef DEBUG
 	//printf("\nswap\n");
@@ -68,7 +68,7 @@ void swap(struct Core* core, int bankNum)
 /**
 	@param core
 */
-void initCore(struct Core* core)
+void initCore(GBCore* core)
 {
 	// Initialize all core members to 0
 	core->AF.val = 0;
@@ -93,13 +93,13 @@ void initCore(struct Core* core)
 
 	@param addr
 */
-uint8_t* getAddress(struct Core* core, uint16_t addr)
+uint8_t* getAddress(GBCore* core, uint16_t addr)
 {
 	return &core->mem[addr];
 }
 
 
-void releaseBanks(struct MBC* mbc)
+void releaseBanks(MBC* mbc)
 {
 	int i = 0;
 	for(i = 0; i < mbc->nBanks; i++){

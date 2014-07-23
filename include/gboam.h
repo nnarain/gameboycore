@@ -4,11 +4,11 @@
 
 #include <stdint.h>
 
-struct Sprite{
+typedef struct {
 	uint8_t x;
 	uint8_t y;
 	uint8_t tileNum;
 	uint8_t extra;
-};
+}Sprite;
 
 #endif

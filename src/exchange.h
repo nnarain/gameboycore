@@ -4,8 +4,8 @@
 
 #include "gbcore.h"
 
-int exSPHL(struct Core*);
-int exDEHL(struct Core*);
+void exSPHL(GBCore*);
+void exDEHL(GBCore*);
 
 
 #endif
