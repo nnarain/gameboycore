@@ -7,12 +7,12 @@
 //		{  96,  96,  96, 255 },
 //		{   0,   0,   0, 255 }
 
-void paletteInitDefault(struct GBPalette* p)
+void paletteInitDefault(GBPalette* p)
 {
-	struct GBColor c0 = { 255, 255, 255, 255 };
-	struct GBColor c1 = { 192, 192, 192, 255 };
-	struct GBColor c2 = {  96,  96,  96, 255 };
-	struct GBColor c3 = {   0,   0,   0, 255 };
+	GBColor c0 = { 255, 255, 255, 255 };
+	GBColor c1 = { 192, 192, 192, 255 };
+	GBColor c2 = {  96,  96,  96, 255 };
+	GBColor c3 = {   0,   0,   0, 255 };
 
 	p->colors[0] = c0;
 	p->colors[1] = c1;

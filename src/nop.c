@@ -1,7 +1,7 @@
 
 #include "nop.h"
 
-int NOP(struct Core* core)
+void NOP(GBCore* core)
 {
-	return 0;
+	return ;
 }

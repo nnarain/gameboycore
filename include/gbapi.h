@@ -16,15 +16,15 @@ extern "C"{
 
 #define EXECUTE_CYCLES 256
 
-int execute(struct Core*, uint8_t);
-void step(struct Core*);
+int execute(GBCore*, uint8_t);
+void step(GBCore*);
 
-void initCore(struct Core* core);
-uint8_t* getAddress(struct Core*, uint16_t);
+void initCore(GBCore* core);
+uint8_t* getAddress(GBCore*, uint16_t);
 
-void swap(struct Core*, int);
+void swap(GBCore*, int);
 
-void releaseBanks(struct MBC*);
+void releaseBanks(MBC*);
 
 #ifdef __cplusplus
 }

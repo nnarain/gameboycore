@@ -4,10 +4,10 @@
 
 #include "gbcore.h"
 
-int addHLBC(struct Core*);
-int addHLDE(struct Core*);
-int addHLHL(struct Core*);
-int addHLSP(struct Core*);
+void addHLBC(GBCore*);
+void addHLDE(GBCore*);
+void addHLHL(GBCore*);
+void addHLSP(GBCore*);
 
 #endif
 

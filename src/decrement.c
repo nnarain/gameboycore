@@ -2,46 +2,39 @@
 #include "decrement.h"
 
 
-int decA(struct Core* core)
+void decA(GBCore* core)
 {
 	core->AF.A--;
-	return 0;
 }
 
-int decB(struct Core* core)
+void decB(GBCore* core)
 {
 	core->BC.B--;
-	return 0;
 }
 
-int decC(struct Core* core)
+void decC(GBCore* core)
 {
 	core->BC.C--;
-	return 0;
 }
 
-int decD(struct Core* core)
+void decD(GBCore* core)
 {
 	core->DE.D--;
-	return 0;
 }
 
-int decE(struct Core* core)
+void decE(GBCore* core)
 {
 	core->DE.E--;
-	return 0;
 }
 
-int decH(struct Core* core)
+void decH(GBCore* core)
 {
 	core->HL.H--;
-	return 0;
 }
 
-int decL(struct Core* core)
+void decL(GBCore* core)
 {
 	core->HL.L--;
-	return 0;
 }
 
 

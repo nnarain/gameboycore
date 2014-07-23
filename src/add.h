@@ -5,24 +5,24 @@
 
 #include "gbcore.h"
 
-int addAA(struct Core*);
-int addAB(struct Core*);
-int addAC(struct Core*);
-int addAD(struct Core*);
-int addAE(struct Core*);
-int addAH(struct Core*);
-int addAL(struct Core*);
-int addAHL(struct Core*);
-int addAByte(struct Core*);
+void addAA(GBCore*);
+void addAB(GBCore*);
+void addAC(GBCore*);
+void addAD(GBCore*);
+void addAE(GBCore*);
+void addAH(GBCore*);
+void addAL(GBCore*);
+void addAHL(GBCore*);
+void addAByte(GBCore*);
 
-int addcAA(struct Core*);
-int addcAB(struct Core*);
-int addcAC(struct Core*);
-int addcAD(struct Core*);
-int addcAE(struct Core*);
-int addcAH(struct Core*);
-int addcAL(struct Core*);
-int addcAAddr(struct Core*);
-int addcAByte(struct Core*);
+void addcAA(GBCore*);
+void addcAB(GBCore*);
+void addcAC(GBCore*);
+void addcAD(GBCore*);
+void addcAE(GBCore*);
+void addcAH(GBCore*);
+void addcAL(GBCore*);
+void addcAAddr(GBCore*);
+void addcAByte(GBCore*);
 
 #endif

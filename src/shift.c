@@ -2,60 +2,53 @@
 
 #include "shift.h"
 
-int slaA(struct Core* core){
+void slaA(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->AF.A & 0x80 );
 	core->AF.A <<= 1;
 
-	return 0;
 }
 
-int slaB(struct Core* core){
+void slaB(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->BC.B & 0x80 );
 	core->BC.B <<= 1;
 
-	return 0;
 }
 
-int slaC(struct Core* core){
+void slaC(GBCore* core){
 
 	bitset(core->BC.C, FLAG_C, core->BC.C & 0x80 );
 	core->BC.C <<= 1;
 
-	return 0;
 }
 
-int slaD(struct Core* core){
+void slaD(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->DE.D & 0x80 );
 	core->DE.D <<= 1;
 
-	return 0;
 }
 
-int slaE(struct Core* core){
+void slaE(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->DE.E & 0x80 );
 	core->DE.E <<= 1;
 
-	return 0;
 }
-int slaH(struct Core* core){
+void slaH(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->HL.H & 0x80 );
 	core->HL.H <<= 1;
 
-	return 0;
 }
-int slaL(struct Core* core){
+void slaL(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->HL.L & 0x80 );
 	core->HL.L <<= 1;
 
-	return 0;
 }
-int sla_HL_(struct Core* core){
+void sla_HL_(GBCore* core){
 
 	uint8_t byte = core->mem[core->HL.val];
 
@@ -64,11 +57,10 @@ int sla_HL_(struct Core* core){
 
 	core->mem[core->HL.val] = byte;
 
-	return 0;
 }
 
 
-int sraA(struct Core* core)
+void sraA(GBCore* core)
 {
 	uint8_t cpy = core->AF.A;
 
@@ -77,9 +69,8 @@ int sraA(struct Core* core)
 
 	core->AF.A |= (cpy & 0x80);
 
-	return 0;
 }
-int sraB(struct Core* core)
+void sraB(GBCore* core)
 {
 	uint8_t cpy = core->BC.B;
 
@@ -88,9 +79,8 @@ int sraB(struct Core* core)
 
 	core->BC.B |= (cpy & 0x80);
 
-	return 0;
 }
-int sraC(struct Core* core)
+void sraC(GBCore* core)
 {
 	uint8_t cpy = core->BC.C;
 
@@ -99,9 +89,8 @@ int sraC(struct Core* core)
 
 	core->BC.C |= (cpy & 0x80);
 
-	return 0;
 }
-int sraD(struct Core* core)
+void sraD(GBCore* core)
 {
 	uint8_t cpy = core->DE.D;
 
@@ -110,9 +99,8 @@ int sraD(struct Core* core)
 
 	core->DE.D |= (cpy & 0x80);
 
-	return 0;
 }
-int sraE(struct Core* core)
+void sraE(GBCore* core)
 {
 	uint8_t cpy = core->DE.E;
 
@@ -121,9 +109,8 @@ int sraE(struct Core* core)
 
 	core->DE.E |= (cpy & 0x80);
 
-	return 0;
 }
-int sraH(struct Core* core)
+void sraH(GBCore* core)
 {
 	uint8_t cpy = core->HL.H;
 
@@ -132,9 +119,8 @@ int sraH(struct Core* core)
 
 	core->HL.H |= (cpy & 0x80);
 
-	return 0;
 }
-int sraL(struct Core* core)
+void sraL(GBCore* core)
 {
 	uint8_t cpy = core->HL.L;
 
@@ -143,9 +129,8 @@ int sraL(struct Core* core)
 
 	core->HL.L |= (cpy & 0x80);
 
-	return 0;
 }
-int sra_HL_(struct Core* core)
+void sra_HL_(GBCore* core)
 {
 	uint8_t byte = core->mem[core->HL.val];
 	uint8_t cpy = byte;
@@ -157,59 +142,51 @@ int sra_HL_(struct Core* core)
 
 	core->mem[core->HL.val] = byte;
 
-	return 0;
 }
 
-int srlA(struct Core* core){
+void srlA(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->AF.A & 0x01);
 	core->AF.A >>= 1;
 
-	return 0;
 }
-int srlB(struct Core* core){
+void srlB(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->BC.B & 0x01);
 	core->BC.B >>= 1;
 
-	return 0;
 }
-int srlC(struct Core* core){
+void srlC(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->BC.C & 0x01);
 	core->BC.C >>= 1;
 
-	return 0;
 }
-int srlD(struct Core* core){
+void srlD(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->DE.D & 0x01);
 	core->DE.D >>= 1;
 
-	return 0;
 }
-int srlE(struct Core* core){
+void srlE(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->DE.E & 0x01);
 	core->DE.E >>= 1;
 
-	return 0;
 }
-int srlH(struct Core* core){
+void srlH(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->HL.H & 0x01);
 	core->HL.H >>= 1;
 
-	return 0;
 }
-int srlL(struct Core* core){
+void srlL(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->HL.L & 0x01);
 	core->HL.L >>= 1;
 
-	return 0;
 }
-int srl_HL_(struct Core* core){
+void srl_HL_(GBCore* core){
 
 	uint8_t byte = core->mem[core->HL.val];
 
@@ -218,5 +195,4 @@ int srl_HL_(struct Core* core){
 
 	core->mem[core->HL.val] = byte;
 
-	return 0;
 }

@@ -5,15 +5,15 @@
 
 #include "gbcore.h"
 
-int pushAF(struct Core*);
-int pushBC(struct Core*);
-int pushDE(struct Core*);
-int pushHL(struct Core*);
+void pushAF(GBCore*);
+void pushBC(GBCore*);
+void pushDE(GBCore*);
+void pushHL(GBCore*);
 
-int popAF(struct Core*);
-int popBC(struct Core*);
-int popDE(struct Core*);
-int popHL(struct Core*);
+void popAF(GBCore*);
+void popBC(GBCore*);
+void popDE(GBCore*);
+void popHL(GBCore*);
 
 #endif
 

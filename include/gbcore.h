@@ -110,15 +110,15 @@
 #define FLAG_Z 7
 
 //! Memory Bank Controller
-struct MBC{
+typedef struct{
 	uint8_t cartType;
 	size_t nBanks;
 	uint8_t** banks;
 	int currentBank;
-};
+}MBC;
 
 //! Structure representing the Gameboy internals
-struct Core{
+typedef struct{
 
 	//! 16 bit accumulator
 	union{
@@ -163,8 +163,8 @@ struct Core{
 
 	uint8_t mem[SIZE_MEMORY_MAP]; ///< Memory
 
-	struct MBC mbc; ///< Memory bank controller
-};
+	MBC mbc; ///< Memory bank controller
+}GBCore;
 
 
 #endif

@@ -6,15 +6,15 @@
 #include "opts.h"
 
 
-int cmpAA(struct Core*);
-int cmpAB(struct Core*);
-int cmpAC(struct Core*);
-int cmpAD(struct Core*);
-int cmpAE(struct Core*);
-int cmpAH(struct Core*);
-int cmpAL(struct Core*);
-int cmpAHL(struct Core*);
-int cmpByte(struct Core*);
+void cmpAA(GBCore*);
+void cmpAB(GBCore*);
+void cmpAC(GBCore*);
+void cmpAD(GBCore*);
+void cmpAE(GBCore*);
+void cmpAH(GBCore*);
+void cmpAL(GBCore*);
+void cmpAHL(GBCore*);
+void cmpByte(GBCore*);
 
 #endif
 

@@ -3,191 +3,191 @@
 #include "rotate.h"
 
 
-int rlca(struct Core* core)
+void rlca(GBCore* core)
 {
 	_rlc(core->AF.F, core->AF.A);
-	return 0;
+	
 }
 
-int rrca(struct Core* core)
+void rrca(GBCore* core)
 {
 	_rrc(core->AF.F, core->AF.A);
-	return 0;
+	
 }
 
-int rla(struct Core* core)
+void rla(GBCore* core)
 {
 	_rlc0(core->AF.F, core->AF.A);
-	return 0;
+	
 }
 
-int rra(struct Core* core)
+void rra(GBCore* core)
 {
 	_rrc0(core->AF.F, core->AF.A);
-	return 0;
+	
 }
 
 
-int rlcb(struct Core* core)
+void rlcb(GBCore* core)
 {
 	_rlc(core->AF.F, core->BC.B);
-	return 0;
+	
 }
 
-int rlcc(struct Core* core)
+void rlcc(GBCore* core)
 {
 	_rlc(core->AF.F, core->BC.C);
-	return 0;
+	
 }
 
-int rlcd(struct Core* core)
+void rlcd(GBCore* core)
 {
 	_rlc(core->AF.F, core->DE.D);
-	return 0;
+	
 }
 
-int rlce(struct Core* core)
+void rlce(GBCore* core)
 {
 	_rlc(core->AF.F, core->DE.E);
-	return 0;
+	
 }
 
-int rlch(struct Core* core)
+void rlch(GBCore* core)
 {
 	_rlc(core->AF.F, core->HL.H);
-	return 0;
+	
 }
 
-int rlcl(struct Core* core)
+void rlcl(GBCore* core)
 {
 	_rlc(core->AF.F, core->HL.L);
-	return 0;
+	
 }
 
-int rlchl(struct Core* core)
+void rlchl(GBCore* core)
 {
 	_rlc(core->AF.F, core->mem[core->HL.val]);
-	return 0;
+	
 }
 
-int rrcb(struct Core* core)
+void rrcb(GBCore* core)
 {
 	_rrc(core->AF.F, core->BC.B);
-	return 0;
+	
 }
-int rrcc(struct Core* core)
+void rrcc(GBCore* core)
 {
 	_rrc(core->AF.F, core->BC.C);
-	return 0;
+	
 }
-int rrcd(struct Core* core)
+void rrcd(GBCore* core)
 {
 	_rrc(core->AF.F, core->DE.D);
-	return 0;
+	
 }
-int rrce(struct Core* core)
+void rrce(GBCore* core)
 {
 	_rrc(core->AF.F, core->DE.E);
-	return 0;
+	
 }
-int rrch(struct Core* core)
+void rrch(GBCore* core)
 {
 	_rrc(core->AF.F, core->HL.H);
-	return 0;
+	
 }
-int rrcl(struct Core* core)
+void rrcl(GBCore* core)
 {
 	_rrc(core->AF.F, core->HL.L);
-	return 0;
+	
 }
 
-int rrchl(struct Core* core)
+void rrchl(GBCore* core)
 {
 	_rrc(core->AF.F, core->mem[core->HL.val]);
-	return 0;
+	
 }
 
-int rlb(struct Core* core)
+void rlb(GBCore* core)
 {
 	_rlc0(core->AF.F, core->BC.B);
-	return 0;
+	
 }
 
-int rlc(struct Core* core)
+void rlc(GBCore* core)
 {
 	_rlc0(core->AF.F, core->BC.C);
-	return 0;
+	
 }
 
-int rld(struct Core* core)
+void rld(GBCore* core)
 {
 	_rlc0(core->AF.F, core->DE.D);
-	return 0;
+	
 }
 
-int rle(struct Core* core)
+void rle(GBCore* core)
 {
 	_rlc0(core->AF.F, core->DE.E);
-	return 0;
+	
 }
 
-int rlh(struct Core* core)
+void rlh(GBCore* core)
 {
 	_rlc0(core->AF.F, core->HL.H);
-	return 0;
+	
 }
 
-int rll(struct Core* core)
+void rll(GBCore* core)
 {
 	_rlc0(core->AF.F, core->HL.L);
-	return 0;
+	
 }
 
-int rlhl(struct Core* core)
+void rlhl(GBCore* core)
 {
 	_rlc0(core->AF.F, core->mem[core->HL.val]);
-	return 0;
+	
 }
 
 
-int rrb(struct Core* core)
+void rrb(GBCore* core)
 {
 	_rrc0(core->AF.F, core->BC.B);
-	return 0;
+	
 }
 
-int rrc(struct Core* core)
+void rrc(GBCore* core)
 {
 	_rlc0(core->AF.F, core->BC.C);
-	return 0;
+	
 }
 
-int rrd(struct Core* core)
+void rrd(GBCore* core)
 {
 	_rlc0(core->AF.F, core->DE.D);
-	return 0;
+	
 }
 
-int rre(struct Core* core)
+void rre(GBCore* core)
 {
 	_rlc0(core->AF.F, core->DE.E);
-	return 0;
+	
 }
 
-int rrh(struct Core* core)
+void rrh(GBCore* core)
 {
 	_rlc0(core->AF.F, core->HL.H);
-	return 0;
+	
 }
 
-int rrl(struct Core* core)
+void rrl(GBCore* core)
 {
 	_rlc0(core->AF.F, core->HL.L);
-	return 0;
+	
 }
 
-int rrhl(struct Core* core)
+void rrhl(GBCore* core)
 {
 	_rlc0(core->AF.F, core->mem[core->HL.val]);
-	return 0;
+	
 }

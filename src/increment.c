@@ -1,49 +1,41 @@
 
 #include "increment.h"
 
-int incA(struct Core* core)
+void incA(GBCore* core)
 {
 	core->AF.A++;
-	return 0;
 }
 
-int incB(struct Core* core)
+void incB(GBCore* core)
 {
 	core->BC.B++;
-	return 0;
 }
-int incC(struct Core* core)
+void incC(GBCore* core)
 {
 	core->BC.C++;
-	return 0;
 }
 
-int incD(struct Core* core)
+void incD(GBCore* core)
 {
 	core->DE.D++;
-	return 0;
 }
 
-int incE(struct Core* core)
+void incE(GBCore* core)
 {
 	core->DE.E++;
-	return 0;
 }
 
-int incH(struct Core* core)
+void incH(GBCore* core)
 {
 	core->HL.H++;
-	return 0;
 }
 
-int incL(struct Core* core)
+void incL(GBCore* core)
 {
 	core->HL.L++;
-	return 0;
 }
 
-int incAddr(struct Core* core)
+void incAddr(GBCore* core)
 {
 	core->mem[core->HL.val]++;
-	return 0;
 }

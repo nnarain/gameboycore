@@ -10,11 +10,11 @@
 #define TILE_SIZE 16 ///< 16 Bytes tile size
 #define TILE_ROW_NUM 8
 
-struct Tile{
+typedef struct{
 	uint16_t rows[8];
 	uint8_t colorIdx[64];
-};
+}GBTile;
 
-void loadTile(struct Core*, struct Tile*, int);
+void loadTile(GBCore*, GBTile*, int);
 
 #endif
