@@ -9,7 +9,7 @@ void loadTile(struct Core* core, struct Tile* tile, int num)
 	memcpy( tile->rows, core->mem + CHARACTER_RAM_START + num, TILE_SIZE );
 
 	// convert 16 bit pixel data to color indicies
-	int i, j, k;
+	int i, bitIdx, k;
 	k = 0;
 	for(i = 0; i < TILE_ROW_NUM; i++){
 
@@ -18,13 +18,20 @@ void loadTile(struct Core* core, struct Tile* tile, int num)
 		// ========
 		// 02120302 -> DECIMAL ( Colors 0 - 3 )
 
-		uint8_t lsb = (uint8_t) (tile->rows[i] & 0xFF00) >> 0xFF;
-		uint8_t msb = (uint8_t) (tile->rows[i] & 0x00FF ); 
+		// separate the msb and lsb for the 16-bit number
+		uint8_t lsb = (tile->rows[i] & 0xFF00) >> 8;
+		uint8_t msb = (tile->rows[i] & 0x00FF ); 
 
-		for(j = 7; j >= 0; j--){
+		// add each indiviual bit
+		for(bitIdx = 7; bitIdx >= 0; bitIdx--){
 
-			uint8_t idx = ( msb << 1 ) + lsb;
-			tile->colorIdx[k] = idx;
+			// create a mask using the bit index
+			uint8_t mask = ( 1 << bitIdx );
+
+			// get individual bits from bytes and shift downwards to add them.
+			// msb is shifted one position less so that it is the most sig bit of a 2 bit number
+			uint8_t color = ( (msb & mask) >> bitIdx-1 ) + ((lsb & mask) >> bitIdx);
+			tile->colorIdx[k] = color;
 
 			k++;
 		}
