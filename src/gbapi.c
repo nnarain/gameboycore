@@ -65,6 +65,15 @@ void swap(GBCore* core, int bankNum)
 	//core->PC = 0; // wheres the program counter after swap?
 }
 
+uint8_t readMem(GBCore* core, uint16_t addr)
+{
+	return core->mem[addr];
+}
+void writeMem(GBCore* core, uint16_t addr)
+{
+
+}
+
 /**
 	@param core
 */

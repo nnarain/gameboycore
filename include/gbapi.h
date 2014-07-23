@@ -22,6 +22,9 @@ void step(GBCore*);
 void initCore(GBCore* core);
 uint8_t* getAddress(GBCore*, uint16_t);
 
+uint8_t readMem(GBCore, uint16_t);
+void writeMem(GBCore, uint16_t);
+
 void swap(GBCore*, int);
 
 void releaseBanks(MBC*);
