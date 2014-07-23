@@ -3,6 +3,10 @@
 #ifndef GB_API
 #define GB_API
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #include "gbcore.h"
 #include "gbparser.h"
 #include "gboam.h"
@@ -21,5 +25,9 @@ uint8_t* getAddress(struct Core*, uint16_t);
 void swap(struct Core*, int);
 
 void releaseBanks(struct MBC*);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 
 #endif
