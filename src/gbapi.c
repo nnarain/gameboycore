@@ -48,23 +48,6 @@ int execute(GBCore* core, uint8_t optCode)
 	return cycles;
 }
 
-void swap(GBCore* core, int bankNum)
-{
-#ifdef DEBUG
-	//printf("\nswap\n");
-#endif
-
-	core->mbc.currentBank = bankNum;
-
-	int i;
-
-	for(i = 0; i < SIZE_BANK; i++){
-		core->mem[i + SWITCHABLE_ROM_BANK_START] = core->mbc.banks[bankNum][i]; 
-	}
-
-	//core->PC = 0; // wheres the program counter after swap?
-}
-
 uint8_t readMem(GBCore* core, uint16_t addr)
 {
 	return core->mem[addr];
@@ -86,7 +69,7 @@ void initCore(GBCore* core)
 	core->HL.val = 0;
 	core->SP     = HIGH_RAM_END;
 	core->PC     = 0x00;
-	core->mbc.currentBank = 0;
+	core->mbc.romBankIdx = 0;
 
 	// load the first 2 rom banks into the memory map
 	int i;

@@ -33,14 +33,24 @@
 #define MBC5_RUMBLE_RAM     0x1D
 #define MBC5_RUMBLE_RAM_BAT 0x1E
 
+#define XRAM_ENABLE         0x0A   ///< Enable external RAM
+#define XRAM_BANK_SIZE      0x1FFF ///< External RAM banks are 8 KB in size
+
+#define XRAM_NONE           0x00
+#define XRAM_2KB            0x01
+#define XRAM_8KB            0x02
+#define XRAM_32KB           0x03
+
 //! Memory Bank Controller
 typedef struct{
 	uint8_t cartType;
+	uint8_t xramSize;
 	size_t nBanks;
 	uint8_t** banks;
-	int currentBank;
+	uint8_t** xRAMBanks;
+	int romBankIdx;
+	int ramBankIdx;
 }GBMemoryBankController;
 
-void initMBC(GBMemoryBankController*);
 
 #endif
