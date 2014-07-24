@@ -54,7 +54,16 @@ uint8_t readMem(GBCore* core, uint16_t addr)
 }
 void writeMem(GBCore* core, uint16_t addr, uint8_t b)
 {
+	// Detect write to ROM attempt
+	if(addr <= 0x7FFF){
 
+		// This is where the MBC kicks in
+
+	}
+	else{
+		// In RAM
+		core->mem[addr] = b;
+	}
 }
 
 /**
@@ -71,11 +80,19 @@ void initCore(GBCore* core)
 	core->PC     = 0x00;
 	core->mbc.romBankIdx = 0;
 
+#ifdef DEBUG
+	//printf("nBanks: %d",core->mbc.nBanks);
+#endif
+
+	// copy first 2 ROM banks into memory
+	memcpy(core->mem, core->mbc.banks[0], SIZE_BANK);
+	memcpy(core->mem + SIZE_BANK + 1, core->mbc.banks[1], SIZE_BANK);
+
 	// load the first 2 rom banks into the memory map
-	int i;
-	for(i = 0; i <= (SIZE_BANK * 2)+1; i++){
-		core->mem[i] = (i <= 0x3FFF) ? core->mbc.banks[0][i] : core->mbc.banks[1][i];
-	}
+	//int i;
+	//for(i = 0; i <= (SIZE_BANK * 2)+1; i++){
+	//	core->mem[i] = (i <= 0x3FFF) ? core->mbc.banks[0][i] : core->mbc.banks[1][i];
+	//}
 }
 
 /**
