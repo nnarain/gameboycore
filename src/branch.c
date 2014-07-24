@@ -180,21 +180,25 @@ void jr(GBCore* core)
 void jrnz(GBCore* core)
 {
 	if( isClear(core->AF.F, bv(FLAG_Z)) ) jr(core);
+	else core->PC += 2;
 }
 
 void jrz(GBCore* core)
 {
 	if( isSet(core->AF.F, bv(FLAG_Z)) ) jr(core);
+	else core->PC += 2;
 }
 
 void jrnc(GBCore* core)
 {
 	if( isClear(core->AF.F, bv(FLAG_C)) ) jr(core);
+	else core->PC += 2;
 }
 
 void jrc(GBCore* core)
 {
 	if( isSet(core->AF.F, bv(FLAG_C)) ) jr(core);
+	else core->PC += 2;
 }
 
 void halt(GBCore* core)
