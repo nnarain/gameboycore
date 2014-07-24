@@ -45,26 +45,26 @@ void ldAL(GBCore* core)
 
 void ldAHL(GBCore* core)
 {
-	core->AF.A = core->mem[core->HL.val];
-	
+	//core->AF.A = core->mem[core->HL.val];
+	core->AF.A = readMem(core, core->HL.val);
 }
 
 void ldABC(GBCore* core)
 {
-	core->AF.A = core->mem[core->BC.val];
-	
+	//core->AF.A = core->mem[core->BC.val];
+	core->AF.A = readMem(core, core->BC.val);
 }
 
 void ldADE(GBCore* core)
 {
-	core->AF.A = core->mem[core->DE.val];
-	
+	//core->AF.A = core->mem[core->DE.val];
+	core->AF.A = readMem(core, core->DE.val);
 }
 
 void ldAWord(GBCore* core)
 {
-	core->AF.A = core->mem[getNextWord(&core->PC, core->mem)];
-	
+	//core->AF.A = core->mem[getNextWord(&core->PC, core->mem)];
+	core->AF.A = readMem(core, getNextWord(&core->PC, core->mem));
 }
 
 void ldBA(GBCore* core)
@@ -111,7 +111,7 @@ void ldBL(GBCore* core)
 
 void ldBHL(GBCore* core)
 {
-	core->BC.B = core->mem[core->HL.val];
+	core->BC.B = readMem(core, core->HL.val);
 	
 }
 
@@ -159,8 +159,8 @@ void ldCL(GBCore* core)
 
 void ldCHL(GBCore* core)
 {
-	core->BC.C = core->mem[core->HL.val];
-	
+	//core->BC.C = core->mem[core->HL.val];
+	core->BC.C = readMem(core, core->HL.val);
 }
 
 void ldDA(GBCore* core)
@@ -207,8 +207,8 @@ void ldDL(GBCore* core)
 
 void ldDHL(GBCore* core)
 {
-	core->DE.D = core->mem[core->HL.val];
-	
+	//core->DE.D = core->mem[core->HL.val];
+	core->DE.D = readMem(core, core->HL.val);
 }
 
 void ldEA(GBCore* core)
@@ -255,8 +255,8 @@ void ldEL(GBCore* core)
 
 void ldEHL(GBCore* core)
 {
-	core->DE.E = core->mem[core->HL.val];
-	
+	//core->DE.E = core->mem[core->HL.val];
+	core->DE.E = readMem(core, core->HL.val);
 }
 
 void ldHA(GBCore* core)
@@ -303,8 +303,8 @@ void ldHL(GBCore* core)
 
 void ldHHL(GBCore* core)
 {
-	core->HL.H = core->mem[core->HL.val];
-	
+	//core->HL.H = core->mem[core->HL.val];
+	core->HL.H = readMem(core, core->HL.val);
 }
 
 void ldLA(GBCore* core)
@@ -351,154 +351,113 @@ void ldLL(GBCore* core)
 
 void ldLHL(GBCore* core)
 {
-	core->HL.L = core->mem[core->HL.val];
+	core->HL.L = readMem(core, core->HL.val);//core->mem[core->HL.val];
 	
 }
 
 void ldHLA(GBCore* core)
 {
-	if(core->HL.val >= PERMANENT_ROM_BANK_START && core->HL.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, core->AF.A);
-		return;
-
-	core->mem[core->HL.val] = core->AF.A;
-	
+	//core->mem[core->HL.val] = core->AF.A;
+	writeMem(core, core->HL.val, core->AF.A);
 }
 
 void ldHLB(GBCore* core)
 {
-	if(core->HL.val >= PERMANENT_ROM_BANK_START && core->HL.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, core->BC.B);
-		return;
-
-	core->mem[core->HL.val] = core->BC.B;
-	
+	//core->mem[core->HL.val] = core->BC.B;
+	writeMem(core, core->HL.val, core->BC.B);
 }
 
 void ldHLC(GBCore* core)
 {
-	if(core->HL.val >= PERMANENT_ROM_BANK_START && core->HL.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, core->BC.C);
-		return;
-	core->mem[core->HL.val] = core->BC.C;
-	
+	//core->mem[core->HL.val] = core->BC.C;
+	writeMem(core, core->HL.val, core->BC.C);
 }
 
 void ldHLD(GBCore* core)
 {
-	if(core->HL.val >= PERMANENT_ROM_BANK_START && core->HL.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, core->DE.D);
-		return;
-	core->mem[core->HL.val] = core->DE.D;
-	
+	//core->mem[core->HL.val] = core->DE.D;
+	writeMem(core, core->HL.val, core->DE.D);
 }
 
 void ldHLE(GBCore* core)
 {
-	if(core->HL.val >= PERMANENT_ROM_BANK_START && core->HL.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, core->DE.E);
-		return;
-	core->mem[core->HL.val] = core->DE.E;
-	
+	//core->mem[core->HL.val] = core->DE.E;
+	writeMem(core, core->HL.val, core->DE.E);
 }
 
 void ldHLH(GBCore* core)
 {
-	if(core->HL.val >= PERMANENT_ROM_BANK_START && core->HL.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, core->HL.H);
-		return;
-	core->mem[core->HL.val] = core->HL.H;
-	
+	//core->mem[core->HL.val] = core->HL.H;
+	writeMem(core, core->HL.val, core->HL.H);
 }
 
 void ldHLL(GBCore* core)
 {
-	if(core->HL.val >= PERMANENT_ROM_BANK_START && core->HL.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, core->HL.L);
-		return;
-	core->mem[core->HL.val] = core->HL.L;
-	
+	//core->mem[core->HL.val] = core->HL.L;
+	writeMem(core, core->HL.val, core->HL.L);
 }
 
 void ldAByte(GBCore* core)
 {
 	core->AF.A = core->mem[++core->PC];
-	
 }
 
 void ldBByte(GBCore* core)
 {
 	core->BC.B = core->mem[++core->PC];
-	
 }
 
 void ldCByte(GBCore* core)
 {
 	core->BC.C = core->mem[++core->PC];
-	
 }
 
 void ldDByte(GBCore* core)
 {
 	core->DE.D = core->mem[++core->PC];
-	
 }
 
 void ldEByte(GBCore* core)
 {
-	core->DE.E = core->mem[++core->PC];
-	
+	core->DE.E = core->mem[++core->PC];	
 }
 
 void ldHByte(GBCore* core)
 {
-	core->HL.H = core->mem[++core->PC];
-	
+	//core->HL.H = core->mem[++core->PC];
+	core->HL.H = readMem(core, ++core->PC);
 }
 
 void ldLByte(GBCore* core)
 {
-	core->HL.L = core->mem[++core->PC];
-	
+	//core->HL.L = core->mem[++core->PC];
+	core->HL.L = readMem(core, ++core->PC);
 }
 
 void ldHLByte(GBCore* core)
 {
 	uint8_t byte = core->mem[++core->PC];
-	if(core->HL.val >= PERMANENT_ROM_BANK_START && core->HL.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, byte);
-		return;
-	core->mem[core->HL.val] = byte;
-	
+	writeMem(core, core->HL.val, byte);
+	//core->mem[core->HL.val] = byte;
 }
 
 void ldBCA(GBCore* core)
 {
 	uint8_t byte = core->mem[++core->PC];
-	if(core->BC.val >= PERMANENT_ROM_BANK_START && core->BC.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, byte);
-		return;
-	core->mem[core->BC.val] = core->AF.A;
-	
+	writeMem(core, core->BC.val, byte);
+	//core->mem[core->BC.val] = core->AF.A;
 }
 
 void ldDEA(GBCore* core)
 {
-	if(core->DE.val > PERMANENT_ROM_BANK_START && core->DE.val <= PERMANENT_ROM_BANK_END) 
-		swap(core, core->AF.A);
-		return;
 	core->mem[core->DE.val] = core->AF.A;
-	
 }
 
 void ldAddrA(GBCore* core)
 {
 	uint16_t addr = getNextWord(&core->PC, core->mem);
-	if(addr >= PERMANENT_ROM_BANK_START && addr <= PERMANENT_ROM_BANK_END) 
-		swap(core, core->AF.A);
-		return;
-	core->mem[addr] = core->AF.A;
-	
+	writeMem(core, addr, core->AF.A);
+	//core->mem[addr] = core->AF.A;
 }
 
 /* 16 bit */
@@ -506,57 +465,49 @@ void ldAddrA(GBCore* core)
 void ldBCWord(GBCore* core)
 {
 	core->BC.val = getNextWord(&core->PC, core->mem);
-	
 }
 
 void ldDEWord(GBCore* core)
 {
 	core->DE.val = getNextWord(&core->PC, core->mem);
-	
 }
 
 void ldHLWord(GBCore* core)
 {
 	core->HL.val = getNextWord(&core->PC, core->mem);
-	
 }
 
 void ldSPWord(GBCore* core)
 {
 	core->SP = getNextWord(&core->PC, core->mem);
-	
 }
 
 void ldHLAddr(GBCore* core)
 {
-	core->HL.val = core->mem[getNextWord(&core->PC, core->mem)];
-	
+	core->HL.val = readMem(core, getNextWord(&core->PC, core->mem));
+	//core->HL.val = core->mem[getNextWord(&core->PC, core->mem)];
 }
 
 void ldBCAddr(GBCore* core)
 {
-	core->BC.val = core->mem[getNextWord(&core->PC, core->mem)];
-	
+	core->BC.val = readMem(core, getNextWord(&core->PC, core->mem));
+	//core->BC.val = core->mem[getNextWord(&core->PC, core->mem)];
 }
 
 void ldDEAddr(GBCore* core)
 {
-	core->DE.val = core->mem[getNextWord(&core->PC, core->mem)];
-	
+	core->DE.val = readMem(core, getNextWord(&core->PC, core->mem));
+	//core->DE.val = core->mem[getNextWord(&core->PC, core->mem)];
 }
 
 void ldAddrHL(GBCore* core)
 {
 	uint16_t addr = getNextWord(&core->PC, core->mem);
-	if(addr >= PERMANENT_ROM_BANK_START && addr <= PERMANENT_ROM_BANK_END) 
-		//swap(core, core->HL.val);
-		return;
-	core->mem[addr] = core->HL.val;
-	
+	writeMem(core, addr, core->HL.val);
+	//core->mem[addr] = core->HL.val;
 }
 
 void ldSPHL(GBCore* core)
 {
 	core->SP = core->HL.val;
-	
 }

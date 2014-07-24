@@ -10,7 +10,7 @@
 	@param file
 		file to parse
 */
-void gbparse(MBC* mbc, FILE* file)
+void gbparse(GBMemoryBankController* mbc, FILE* file)
 {
 	int i;
 

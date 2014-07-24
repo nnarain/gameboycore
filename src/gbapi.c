@@ -69,7 +69,7 @@ uint8_t readMem(GBCore* core, uint16_t addr)
 {
 	return core->mem[addr];
 }
-void writeMem(GBCore* core, uint16_t addr)
+void writeMem(GBCore* core, uint16_t addr, uint8_t b)
 {
 
 }
@@ -88,10 +88,10 @@ void initCore(GBCore* core)
 	core->PC     = 0x00;
 	core->mbc.currentBank = 0;
 
-	// load the first to rom banks
+	// load the first 2 rom banks into the memory map
 	int i;
-	for(i = 0; i < SIZE_BANK * 2; i++){
-		core->mem[i] = (i < 0x4FFF) ? core->mbc.banks[0][i] : core->mbc.banks[1][i];
+	for(i = 0; i <= (SIZE_BANK * 2)+1; i++){
+		core->mem[i] = (i <= 0x3FFF) ? core->mbc.banks[0][i] : core->mbc.banks[1][i];
 	}
 }
 
@@ -108,7 +108,7 @@ uint8_t* getAddress(GBCore* core, uint16_t addr)
 }
 
 
-void releaseBanks(MBC* mbc)
+void releaseBanks(GBMemoryBankController* mbc)
 {
 	int i = 0;
 	for(i = 0; i < mbc->nBanks; i++){

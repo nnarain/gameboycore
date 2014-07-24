@@ -4,6 +4,7 @@
 
 #include "gbcore.h"
 #include "opts.h"
+#include "memopts.h"
 
 /* 8 bit */
 
