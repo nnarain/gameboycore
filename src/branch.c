@@ -14,8 +14,8 @@ void call(GBCore* core)
 
 void rst00H(GBCore* core)
 {
-	core->mem[core->SP-1] = (core->PC + 3) >> 8;
-	core->mem[core->SP-2] = (core->PC + 3) & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0;
@@ -24,8 +24,8 @@ void rst00H(GBCore* core)
 
 void rst08H(GBCore* core)
 {
-	core->mem[core->SP-1] = (core->PC + 3) >> 8;
-	core->mem[core->SP-2] = (core->PC + 3) & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x08;
@@ -34,8 +34,8 @@ void rst08H(GBCore* core)
 
 void rst10H(GBCore* core)
 {
-	core->mem[core->SP-1] = (core->PC + 3) >> 8;
-	core->mem[core->SP-2] = (core->PC + 3) & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x10;
@@ -44,8 +44,8 @@ void rst10H(GBCore* core)
 
 void rst18H(GBCore* core)
 {
-	core->mem[core->SP-1] = (core->PC + 3) >> 8;
-	core->mem[core->SP-2] = (core->PC + 3) & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x18;
@@ -54,8 +54,8 @@ void rst18H(GBCore* core)
 
 void rst20H(GBCore* core)
 {
-	core->mem[core->SP-1] = (core->PC + 3) >> 8;
-	core->mem[core->SP-2] = (core->PC + 3) & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x20;
@@ -64,8 +64,8 @@ void rst20H(GBCore* core)
 
 void rst28H(GBCore* core)
 {
-	core->mem[core->SP-1] = (core->PC + 3) >> 8;
-	core->mem[core->SP-2] = (core->PC + 3) & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x28;
@@ -74,8 +74,8 @@ void rst28H(GBCore* core)
 
 void rst30H(GBCore* core)
 {
-	core->mem[core->SP-1] = (core->PC + 3) >> 8;
-	core->mem[core->SP-2] = (core->PC + 3) & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x30;
@@ -84,8 +84,8 @@ void rst30H(GBCore* core)
 
 void rst38H(GBCore* core)
 {
-	core->mem[core->SP-1] = (core->PC + 3) >> 8;
-	core->mem[core->SP-2] = (core->PC + 3) & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x38;

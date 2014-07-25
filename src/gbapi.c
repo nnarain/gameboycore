@@ -76,7 +76,7 @@ void initCore(GBCore* core)
 	core->DE.val = 0;
 	core->HL.val = 0;
 	core->SP     = HIGH_RAM_END;
-	core->PC     = 0x00;
+	core->PC     = PROGRAM_START;
 	core->mbc.romBankIdx = 0;
 
 #ifdef DEBUG
