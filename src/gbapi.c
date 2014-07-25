@@ -49,21 +49,21 @@ int execute(GBCore* core, uint8_t optCode)
 	return cycles;
 }
 
-void swap(GBCore* core, int bankNum)
+uint8_t readMem(GBCore* core, uint16_t addr)
 {
-#ifdef DEBUG
-	//printf("\nswap\n");
-#endif
-
-	core->mbc.currentBank = bankNum;
-
-	int i;
-
-	for(i = 0; i < SIZE_BANK; i++){
-		core->mem[i + SWITCHABLE_ROM_BANK_START] = core->mbc.banks[bankNum][i]; 
+	return core->mem[addr];
+}
+void writeMem(GBCore* core, uint16_t addr, uint8_t b)
+{
+	// Detect write to ROM attempt
+	if(addr <= 0x7FFF){
+		// This is where the MBC kicks in
+		mbcStart(&core->mbc, core->mem, addr, b);
 	}
-
-	//core->PC = 0; // wheres the program counter after swap?
+	else{
+		// In RAM
+		core->mem[addr] = b;
+	}
 }
 
 /**
@@ -78,13 +78,21 @@ void initCore(GBCore* core)
 	core->HL.val = 0;
 	core->SP     = HIGH_RAM_END;
 	core->PC     = PROGRAM_START;
-	core->mbc.currentBank = 0;
+	core->mbc.romBankIdx = 0;
 
-	// load the first to rom banks
-	int i;
-	for(i = 0; i < SIZE_BANK * 2; i++){
-		core->mem[i] = (i < 0x4FFF) ? core->mbc.banks[0][i] : core->mbc.banks[1][i];
-	}
+#ifdef DEBUG
+	//printf("nBanks: %d",core->mbc.nBanks);
+#endif
+
+	// copy first 2 ROM banks into memory
+	memcpy(core->mem, core->mbc.banks[0], SIZE_BANK);
+	memcpy(core->mem + SIZE_BANK + 1, core->mbc.banks[1], SIZE_BANK);
+
+	// load the first 2 rom banks into the memory map
+	//int i;
+	//for(i = 0; i <= (SIZE_BANK * 2)+1; i++){
+	//	core->mem[i] = (i <= 0x3FFF) ? core->mbc.banks[0][i] : core->mbc.banks[1][i];
+	//}
 }
 
 /**
@@ -100,7 +108,7 @@ uint8_t* getAddress(GBCore* core, uint16_t addr)
 }
 
 
-void releaseBanks(MBC* mbc)
+void releaseBanks(GBMemoryBankController* mbc)
 {
 	int i = 0;
 	for(i = 0; i < mbc->nBanks; i++){

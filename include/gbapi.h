@@ -13,6 +13,8 @@ extern "C"{
 #include "gbtile.h"
 #include "gbmapregion.h"
 #include "gbpalette.h"
+#include "memopts.h"
+#include "mbc.h"
 
 #define EXECUTE_CYCLES 256
 
@@ -20,11 +22,8 @@ int execute(GBCore*, uint8_t);
 void step(GBCore*);
 
 void initCore(GBCore* core);
-uint8_t* getAddress(GBCore*, uint16_t);
 
-void swap(GBCore*, int);
-
-void releaseBanks(MBC*);
+void releaseBanks(GBMemoryBankController*);
 
 #ifdef __cplusplus
 }

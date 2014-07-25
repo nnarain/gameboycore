@@ -10,19 +10,42 @@
 	@param file
 		file to parse
 */
-void gbparse(MBC* mbc, FILE* file)
+void gbparse(GBMemoryBankController* mbc, FILE* file)
 {
 	int i;
-
-	// get rom title
-	//fseek(file, GAME_TITLE_START, SEEK_SET);
-	//fread(data->title, GAME_TITLE_END - GAME_TITLE_START, sizeof(char), file);
 
 	// get cart type
 	fseek(file, CART_TYPE, SEEK_SET);
 	fread(&mbc->cartType, 1, sizeof(uint8_t), file);
 
-	// get number of banks
+	// get ram size
+	fseek(file, CART_RAM_SIZE, SEEK_SET);
+	fread(&mbc->xramSize, 1, sizeof(uint8_t), file);
+
+	// init XRAM Banks
+	int numRamBanks;
+	switch(mbc->xramSize){
+		case XRAM_NONE:
+			numRamBanks = 0;
+			break;
+		case XRAM_2KB:
+			numRamBanks = 1;
+			break;
+		case XRAM_8KB:
+			numRamBanks = 1;
+			break;
+		case XRAM_32KB:
+			numRamBanks = 4;
+			break;
+	}
+
+	mbc->xRAMBanks = (uint8_t**) malloc( numRamBanks * sizeof(uint8_t*) );
+
+	for(i = 0; i < numRamBanks; i++){
+		mbc->xRAMBanks[i] = (uint8_t*) malloc(0x1FFF * sizeof(uint8_t));
+	}
+
+	// get number of rom banks
 	fseek(file, 0, SEEK_END);
 	size_t fileSize = ftell(file);
 

@@ -48,6 +48,7 @@ add_library(
 	gbmapregion.c
 	gbtile.c
 	gbpalette.c
+	mbc.c
 )
 
 # build core static library
@@ -77,6 +78,7 @@ add_library(
 	gbmapregion.c
 	gbtile.c
 	gbpalette.c
+	mbc.c
 )
 
 # build jni shared library
@@ -109,6 +111,7 @@ add_library(
 	gbmapregion.c
 	gbtile.c
 	gbpalette.c
+	mbc.c
 )
 
 

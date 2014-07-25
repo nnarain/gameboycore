@@ -20,6 +20,7 @@ int subAC(GBCore* core)
 {
 	core->AF.A -= core->BC.C;
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+
 	return 1;
 }
 

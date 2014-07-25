@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "mbc.h"
 
 #define SIZE_MEMORY_MAP           0xFFFF + 1
 
@@ -91,7 +92,7 @@
 #define INTERRUPT_ENABLE          0xFFFF
 #define INTERRUPT_FLAG            0xFF0F
 
-#define SIZE_BANK                 PERMANENT_ROM_BANK_END - PERMANENT_ROM_BANK_START
+#define SIZE_BANK                 0x3FFF
 
 /* Device I/O */
 #define JOYPAD_P10                0x00
@@ -108,14 +109,6 @@
 #define FLAG_H 5
 #define FLAG_S 6
 #define FLAG_Z 7
-
-//! Memory Bank Controller
-typedef struct{
-	uint8_t cartType;
-	size_t nBanks;
-	uint8_t** banks;
-	int currentBank;
-}MBC;
 
 //! Structure representing the Gameboy internals
 typedef struct{
@@ -163,7 +156,8 @@ typedef struct{
 
 	uint8_t mem[SIZE_MEMORY_MAP]; ///< Memory
 
-	MBC mbc; ///< Memory bank controller
+	GBMemoryBankController mbc; ///< Memory bank controller
+	
 }GBCore;
 
 

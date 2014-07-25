@@ -31,6 +31,7 @@ int pushHL(GBCore* core)
 {
 	core->mem[core->SP-2] = core->HL.L;
 	core->mem[core->SP-1] = core->HL.H;
+	core->SP -= 2;
 	return 1;
 }
 

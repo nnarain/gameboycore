@@ -15,7 +15,7 @@
 //	uint8_t** banks;
 //};
 
-void gbparse(MBC* mbc, FILE* file);
+void gbparse(GBMemoryBankController* mbc, FILE* file);
 //void releaseROMData(struct GBROMData*);
 
 #endif
