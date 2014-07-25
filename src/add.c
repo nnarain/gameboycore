@@ -2,70 +2,77 @@
 #include "add.h"
 #include "opts.h"
 
-void addAA(GBCore* core)
+int addAA(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 	
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->AF.A));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->AF.A));
 core->AF.A += core->AF.A;
+	return 1;
 }
 
-void addAB(GBCore* core)
+int addAB(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.B));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->BC.B));
 core->AF.A += core->BC.B;
+	return 1;
 }
 
-void addAC(GBCore* core)
+int addAC(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.C));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->BC.C));
 core->AF.A += core->BC.C;
+	return 1;
 }
 
-void addAD(GBCore* core)
+int addAD(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.D));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->DE.D));
 core->AF.A += core->DE.D;
+	return 1;
 }
 
-void addAE(GBCore* core)
+int addAE(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.E));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->DE.E));
 core->AF.A += core->DE.E;
+	return 1;
 }
 
-void addAH(GBCore* core)
+int addAH(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.H));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->HL.H));
 core->AF.A += core->HL.H;
+	return 1;
 }
 
-void addAL(GBCore* core)
+int addAL(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.L));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->HL.L));
 core->AF.A += core->HL.L;
+	return 1;
 }
 
-void addAHL(GBCore* core)
+int addAHL(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
@@ -73,9 +80,10 @@ void addAHL(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, byte));
 core->AF.A += byte;
+	return 1;
 }
 
-void addAByte(GBCore* core)
+int addAByte(GBCore* core)
 {
 	clearbit(core->AF.F, FLAG_S);
 
@@ -83,72 +91,80 @@ void addAByte(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, byte));
 core->AF.A += byte;
+	return 1;
 }
 
-void addcAA(GBCore* core){
+int addcAA(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->AF.A));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->AF.A));
 
 	core->AF.A += (core->AF.A + carry(core->AF.F, FLAG_C));
+	return 1;
 }
 
-void addcAB(GBCore* core){
+int addcAB(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.B));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->BC.B));
 
 	core->AF.A += (core->BC.B + carry(core->AF.F, FLAG_C));
+	return 1;
 }
 
-void addcAC(GBCore* core){
+int addcAC(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.C));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->BC.C));
 
 	core->AF.A += (core->BC.C + carry(core->AF.F, FLAG_C));
+	return 1;
 }
 
-void addcAD(GBCore* core){
+int addcAD(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.D));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->DE.D));
 
 	core->AF.A += (core->DE.D + carry(core->AF.F, FLAG_C));
+	return 1;
 }
 
-void addcAE(GBCore* core){
+int addcAE(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.E));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->DE.E));
 
 	core->AF.A += (core->DE.E + carry(core->AF.F, FLAG_C));
+	return 1;
 }
 
-void addcAH(GBCore* core){
+int addcAH(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.H));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->HL.H));
 
 	core->AF.A += (core->HL.H + carry(core->AF.F, FLAG_C));
+	return 1;
 }
 
-void addcAL(GBCore* core){
+int addcAL(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.L));
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->HL.L));
 
 	core->AF.A += (core->HL.L + carry(core->AF.F, FLAG_C));
+	return 1;
 }
 
-void addcAAddr(GBCore* core){
+int addcAAddr(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	uint8_t byte = core->mem[getNextWord(&core->PC, core->mem)];
@@ -157,9 +173,10 @@ void addcAAddr(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, byte));
 
 	core->AF.A += (byte + carry(core->AF.F, FLAG_C));
+	return 1;
 }
 
-void addcAByte(GBCore* core){
+int addcAByte(GBCore* core){
 	clearbit(core->AF.F, FLAG_S);
 
 	uint8_t byte = core->mem[++core->PC];
@@ -168,4 +185,5 @@ void addcAByte(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, byte));
 
 	core->AF.A += (byte + carry(core->AF.F, FLAG_C));
+	return 1;
 }

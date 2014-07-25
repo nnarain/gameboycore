@@ -2,23 +2,27 @@
 
 #include "double_add.h"
 
-void addHLBC(GBCore* core)
+int addHLBC(GBCore* core)
 {
 	core->HL.val += core->BC.val;
+	return 1;
 }
 
-void addHLDE(GBCore* core)
+int addHLDE(GBCore* core)
 {
 	core->HL.val += core->DE.val;
+	return 1;
 }
 
-void addHLHL(GBCore* core)
+int addHLHL(GBCore* core)
 {
 	core->HL.val += core->HL.val;
+	return 1;
 }
 
-void addHLSP(GBCore* core)
+int addHLSP(GBCore* core)
 {
 	core->HL.val += core->SP;
+	return 1;
 }
 

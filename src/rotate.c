@@ -3,191 +3,191 @@
 #include "rotate.h"
 
 
-void rlca(GBCore* core)
+int rlca(GBCore* core)
 {
 	_rlc(core->AF.F, core->AF.A);
-	
+	return 1;	
 }
 
-void rrca(GBCore* core)
+int rrca(GBCore* core)
 {
 	_rrc(core->AF.F, core->AF.A);
-	
+	return 1;	
 }
 
-void rla(GBCore* core)
+int rla(GBCore* core)
 {
 	_rlc0(core->AF.F, core->AF.A);
-	
+	return 1;	
 }
 
-void rra(GBCore* core)
+int rra(GBCore* core)
 {
 	_rrc0(core->AF.F, core->AF.A);
-	
+	return 1;	
 }
 
 
-void rlcb(GBCore* core)
+int rlcb(GBCore* core)
 {
 	_rlc(core->AF.F, core->BC.B);
-	
+	return 1;	
 }
 
-void rlcc(GBCore* core)
+int rlcc(GBCore* core)
 {
 	_rlc(core->AF.F, core->BC.C);
-	
+	return 1;	
 }
 
-void rlcd(GBCore* core)
+int rlcd(GBCore* core)
 {
 	_rlc(core->AF.F, core->DE.D);
-	
+	return 1;	
 }
 
-void rlce(GBCore* core)
+int rlce(GBCore* core)
 {
 	_rlc(core->AF.F, core->DE.E);
-	
+	return 1;	
 }
 
-void rlch(GBCore* core)
+int rlch(GBCore* core)
 {
 	_rlc(core->AF.F, core->HL.H);
-	
+	return 1;	
 }
 
-void rlcl(GBCore* core)
+int rlcl(GBCore* core)
 {
 	_rlc(core->AF.F, core->HL.L);
-	
+	return 1;	
 }
 
-void rlchl(GBCore* core)
+int rlchl(GBCore* core)
 {
 	_rlc(core->AF.F, core->mem[core->HL.val]);
-	
+	return 1;	
 }
 
-void rrcb(GBCore* core)
+int rrcb(GBCore* core)
 {
 	_rrc(core->AF.F, core->BC.B);
-	
+	return 1;	
 }
-void rrcc(GBCore* core)
+int rrcc(GBCore* core)
 {
 	_rrc(core->AF.F, core->BC.C);
-	
+	return 1;	
 }
-void rrcd(GBCore* core)
+int rrcd(GBCore* core)
 {
 	_rrc(core->AF.F, core->DE.D);
-	
+	return 1;	
 }
-void rrce(GBCore* core)
+int rrce(GBCore* core)
 {
 	_rrc(core->AF.F, core->DE.E);
-	
+	return 1;	
 }
-void rrch(GBCore* core)
+int rrch(GBCore* core)
 {
 	_rrc(core->AF.F, core->HL.H);
-	
+	return 1;	
 }
-void rrcl(GBCore* core)
+int rrcl(GBCore* core)
 {
 	_rrc(core->AF.F, core->HL.L);
-	
+	return 1;	
 }
 
-void rrchl(GBCore* core)
+int rrchl(GBCore* core)
 {
 	_rrc(core->AF.F, core->mem[core->HL.val]);
-	
+	return 1;	
 }
 
-void rlb(GBCore* core)
+int rlb(GBCore* core)
 {
 	_rlc0(core->AF.F, core->BC.B);
-	
+	return 1;	
 }
 
-void rlc(GBCore* core)
+int rlc(GBCore* core)
 {
 	_rlc0(core->AF.F, core->BC.C);
-	
+	return 1;	
 }
 
-void rld(GBCore* core)
+int rld(GBCore* core)
 {
 	_rlc0(core->AF.F, core->DE.D);
-	
+	return 1;	
 }
 
-void rle(GBCore* core)
+int rle(GBCore* core)
 {
 	_rlc0(core->AF.F, core->DE.E);
-	
+	return 1;	
 }
 
-void rlh(GBCore* core)
+int rlh(GBCore* core)
 {
 	_rlc0(core->AF.F, core->HL.H);
-	
+	return 1;	
 }
 
-void rll(GBCore* core)
+int rll(GBCore* core)
 {
 	_rlc0(core->AF.F, core->HL.L);
-	
+	return 1;	
 }
 
-void rlhl(GBCore* core)
+int rlhl(GBCore* core)
 {
 	_rlc0(core->AF.F, core->mem[core->HL.val]);
-	
+	return 1;	
 }
 
 
-void rrb(GBCore* core)
+int rrb(GBCore* core)
 {
 	_rrc0(core->AF.F, core->BC.B);
-	
+	return 1;	
 }
 
-void rrc(GBCore* core)
+int rrc(GBCore* core)
 {
 	_rlc0(core->AF.F, core->BC.C);
-	
+	return 1;	
 }
 
-void rrd(GBCore* core)
+int rrd(GBCore* core)
 {
 	_rlc0(core->AF.F, core->DE.D);
-	
+	return 1;	
 }
 
-void rre(GBCore* core)
+int rre(GBCore* core)
 {
 	_rlc0(core->AF.F, core->DE.E);
-	
+	return 1;	
 }
 
-void rrh(GBCore* core)
+int rrh(GBCore* core)
 {
 	_rlc0(core->AF.F, core->HL.H);
-	
+	return 1;	
 }
 
-void rrl(GBCore* core)
+int rrl(GBCore* core)
 {
 	_rlc0(core->AF.F, core->HL.L);
-	
+	return 1;	
 }
 
-void rrhl(GBCore* core)
+int rrhl(GBCore* core)
 {
 	_rlc0(core->AF.F, core->mem[core->HL.val]);
-	
+	return 1;	
 }

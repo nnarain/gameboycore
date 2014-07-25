@@ -4,36 +4,36 @@
 
 #include "gbcore.h"
 
-void AandA(GBCore*);
-void AandB(GBCore*);
-void AandC(GBCore*);
-void AandD(GBCore*);
-void AandE(GBCore*);
-void AandH(GBCore*);
-void AandL(GBCore*);
+int AandA(GBCore*);
+int AandB(GBCore*);
+int AandC(GBCore*);
+int AandD(GBCore*);
+int AandE(GBCore*);
+int AandH(GBCore*);
+int AandL(GBCore*);
 
-void Aand_HL_(GBCore*);
+int Aand_HL_(GBCore*);
 
-void AandByte(GBCore*);
+int AandByte(GBCore*);
 
-void AxorA(GBCore*);
-void AxorB(GBCore*);
-void AxorC(GBCore*);
-void AxorD(GBCore*);
-void AxorE(GBCore*);
-void AxorH(GBCore*);
-void AxorL(GBCore*);
-void Axor_HL_(GBCore*);
-void AxorByte(GBCore*);
+int AxorA(GBCore*);
+int AxorB(GBCore*);
+int AxorC(GBCore*);
+int AxorD(GBCore*);
+int AxorE(GBCore*);
+int AxorH(GBCore*);
+int AxorL(GBCore*);
+int Axor_HL_(GBCore*);
+int AxorByte(GBCore*);
 
-void AorA(GBCore*);
-void AorB(GBCore*);
-void AorC(GBCore*);
-void AorD(GBCore*);
-void AorE(GBCore*);
-void AorH(GBCore*);
-void AorL(GBCore*);
-void Aor_HL_(GBCore*);
-void AorByte(GBCore*);
+int AorA(GBCore*);
+int AorB(GBCore*);
+int AorC(GBCore*);
+int AorD(GBCore*);
+int AorE(GBCore*);
+int AorH(GBCore*);
+int AorL(GBCore*);
+int Aor_HL_(GBCore*);
+int AorByte(GBCore*);
 
 #endif

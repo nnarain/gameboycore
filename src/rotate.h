@@ -28,42 +28,42 @@
 
 
 
-void rlca(GBCore*);
-void rrca(GBCore*);
-void rla(GBCore*);
-void rra(GBCore*);
+int rlca(GBCore*);
+int rrca(GBCore*);
+int rla(GBCore*);
+int rra(GBCore*);
 
-void rlcb(GBCore*);
-void rlcc(GBCore*);
-void rlcd(GBCore*);
-void rlce(GBCore*);
-void rlch(GBCore*);
-void rlcl(GBCore*);
-void rlchl(GBCore* core);
+int rlcb(GBCore*);
+int rlcc(GBCore*);
+int rlcd(GBCore*);
+int rlce(GBCore*);
+int rlch(GBCore*);
+int rlcl(GBCore*);
+int rlchl(GBCore* core);
 
-void rrcb(GBCore*);
-void rrcc(GBCore*);
-void rrcd(GBCore*);
-void rrce(GBCore*);
-void rrch(GBCore*);
-void rrcl(GBCore*);
-void rrchl(GBCore*);
+int rrcb(GBCore*);
+int rrcc(GBCore*);
+int rrcd(GBCore*);
+int rrce(GBCore*);
+int rrch(GBCore*);
+int rrcl(GBCore*);
+int rrchl(GBCore*);
 
-void rlb(GBCore*);
-void rlc(GBCore*);
-void rld(GBCore*);
-void rle(GBCore*);
-void rlh(GBCore*);
-void rll(GBCore*);
-void rlhl(GBCore*);
+int rlb(GBCore*);
+int rlc(GBCore*);
+int rld(GBCore*);
+int rle(GBCore*);
+int rlh(GBCore*);
+int rll(GBCore*);
+int rlhl(GBCore*);
 
-void rrb(GBCore*);
-void rrc(GBCore*);
-void rrd(GBCore*);
-void rre(GBCore*);
-void rrh(GBCore*);
-void rrl(GBCore*);
-void rrhl(GBCore*);
+int rrb(GBCore*);
+int rrc(GBCore*);
+int rrd(GBCore*);
+int rre(GBCore*);
+int rrh(GBCore*);
+int rrl(GBCore*);
+int rrhl(GBCore*);
 
 #endif
 

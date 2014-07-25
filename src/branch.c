@@ -2,203 +2,280 @@
 #include "branch.h"
 
 
-void call(GBCore* core)
+int call(GBCore* core)
 {
-	core->mem[core->SP-1] = core->PC >> 8;
-	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 3) >> 8;
+	core->mem[core->SP-2] = (core->PC + 3) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = getNextWord(&core->PC, core->mem);
 
+	return 0;
 }
 
-void rst00H(GBCore* core)
+int rst00H(GBCore* core)
 {
-	core->mem[core->SP-1] = core->PC >> 8;
-	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0;
 
+	return 0;
 }
 
-void rst08H(GBCore* core)
+int rst08H(GBCore* core)
 {
-	core->mem[core->SP-1] = core->PC >> 8;
-	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x08;
 
+	return 0;
 }
 
-void rst10H(GBCore* core)
+int rst10H(GBCore* core)
 {
-	core->mem[core->SP-1] = core->PC >> 8;
-	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x10;
 
+	return 0;
 }
 
-void rst18H(GBCore* core)
+int rst18H(GBCore* core)
 {
-	core->mem[core->SP-1] = core->PC >> 8;
-	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x18;
 
+	return 0;
 }
 
-void rst20H(GBCore* core)
+int rst20H(GBCore* core)
 {
-	core->mem[core->SP-1] = core->PC >> 8;
-	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x20;
 
+	return 0;
 }
 
-void rst28H(GBCore* core)
+int rst28H(GBCore* core)
 {
-	core->mem[core->SP-1] = core->PC >> 8;
-	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x28;
 
+	return 0;
 }
 
-void rst30H(GBCore* core)
+int rst30H(GBCore* core)
 {
-	core->mem[core->SP-1] = core->PC >> 8;
-	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x30;
 
+	return 0;
 }
 
-void rst38H(GBCore* core)
+int rst38H(GBCore* core)
 {
-	core->mem[core->SP-1] = core->PC >> 8;
-	core->mem[core->SP-2] = core->PC & 0x0F;
+	core->mem[core->SP-1] = (core->PC + 1) >> 8;
+	core->mem[core->SP-2] = (core->PC + 1) & 0x0F;
 	core->SP -= 2;
 
 	core->PC = 0x38;
 
+	return 0;
 }
 
-void ret(GBCore* core)
+int ret(GBCore* core)
 {
 	core->PC = bytecat(core->mem[core->SP+1], core->mem[core->SP]);
 	core->SP += 2;
+
+	return 0;
 }
 
-void jp(GBCore* core)
+int jp(GBCore* core)
 {
 #ifdef DEBUG
 	printf("\njmp\n");
 #endif
 	core->PC = getNextWord(&core->PC, core->mem);
+
+	return 0;
 }
 
-void jpnz(GBCore* core)
+int jpnz(GBCore* core)
 {
 	if(isClear(core->AF.F, bv(FLAG_Z))) jp(core);
 }
 
-void jpz(GBCore* core)
+int jpz(GBCore* core)
 {
-	if(isSet(core->AF.F, bv(FLAG_Z))) jp(core);
+	if(isSet(core->AF.F, bv(FLAG_Z))) 
+		return jp(core);
+
+	core->PC += 2;
+	return 1;
 }
 
-void jpnc(GBCore* core)
+int jpnc(GBCore* core)
 {
-	if(isClear(core->AF.F, bv(FLAG_C))) jp(core);
+	if(isClear(core->AF.F, bv(FLAG_C))) 
+		return jp(core);
+
+	core->PC += 2;
+
+	return 1;
 }
 
-void jpc(GBCore* core)
+int jpc(GBCore* core)
 {
-	if(isSet(core->AF.F, bv(FLAG_C))) jp(core);
+	if(isSet(core->AF.F, bv(FLAG_C))) 
+		return jp(core);
+
+	core->PC += 2;
+
+	return 1;
 }
 
-void pcHL(GBCore* core)
+int pcHL(GBCore* core)
 {
 	core->PC = core->HL.val;
+	return 0;
 }
 
-void cnz(GBCore* core)
+int cnz(GBCore* core)
 {
-	if(isClear(core->AF.F, bv(FLAG_Z))) call(core);
+	if(isClear(core->AF.F, bv(FLAG_Z))) 
+		return call(core);
+
+	core->PC += 2;
+
+	return 1;
 }
 
-void cz(GBCore* core)
+int cz(GBCore* core)
 {
-	if(isSet(core->AF.F, bv(FLAG_Z))) call(core);
+	if(isSet(core->AF.F, bv(FLAG_Z))) 
+		return call(core);
+
+	core->PC += 2;
+
+	return 1;
 }
 
-void cnc(GBCore* core)
+int cnc(GBCore* core)
 {
-	if(isClear(core->AF.F, bv(FLAG_C))) call(core);
+	if(isClear(core->AF.F, bv(FLAG_C))) 
+		return call(core);
+
+	core->PC += 2;
+	return 1;
 }
 
-void cc(GBCore* core)
+int cc(GBCore* core)
 {
-	if(isSet(core->AF.F, bv(FLAG_C))) call(core);
+	if(isSet(core->AF.F, bv(FLAG_C))) 
+		return call(core);
+
+	core->PC += 2;
+	return 1;
 }
 
-void rnz(GBCore* core)
+int rnz(GBCore* core)
 {
-	if(isClear(core->AF.F, bv(FLAG_Z))) ret(core);
+	if(isClear(core->AF.F, bv(FLAG_Z))) 
+		return ret(core);
+
+	return 1;
 }
 
-void rz(GBCore* core)
+int rz(GBCore* core)
 {
-	if(isSet(core->AF.F, bv(FLAG_Z))) ret(core);
+	if(isSet(core->AF.F, bv(FLAG_Z))) 
+		return ret(core);
+
+	return 1;
 }
 
-void rnc(GBCore* core)
+int rnc(GBCore* core)
 {
-	if(isClear(core->AF.F, bv(FLAG_C))) ret(core);
+	if(isClear(core->AF.F, bv(FLAG_C))) 
+		return ret(core);
+
+	return 1;
 }
 
-void rc(GBCore* core)
+int rc(GBCore* core)
 {
-	if(isSet(core->AF.F, bv(FLAG_C))) ret(core);
+	if(isSet(core->AF.F, bv(FLAG_C))) 
+		return ret(core);
+
+	return 1;
 }
 
-void jr(GBCore* core)
+int jr(GBCore* core)
 {
 	signed char idx = core->mem[++core->PC];
 	core->PC += idx;
+	return 0;
 }
 
-void jrnz(GBCore* core)
+int jrnz(GBCore* core)
 {
-	if( isClear(core->AF.F, bv(FLAG_Z)) ) jr(core);
+	if( isClear(core->AF.F, bv(FLAG_Z)) ) 
+		return jr(core);
+
+	core->PC++;
+	return 1;
 }
 
-void jrz(GBCore* core)
+int jrz(GBCore* core)
 {
-	if( isSet(core->AF.F, bv(FLAG_Z)) ) jr(core);
+	if( isSet(core->AF.F, bv(FLAG_Z)) ) 
+		return jr(core);
+
+	core->PC++;
+	return 1;
 }
 
-void jrnc(GBCore* core)
+int jrnc(GBCore* core)
 {
-	if( isClear(core->AF.F, bv(FLAG_C)) ) jr(core);
+	if( isClear(core->AF.F, bv(FLAG_C)) ) 
+		return jr(core);
+
+	core->PC++;
+	return 1;
 }
 
-void jrc(GBCore* core)
+int jrc(GBCore* core)
 {
-	if( isSet(core->AF.F, bv(FLAG_C)) ) jr(core);
+	if( isSet(core->AF.F, bv(FLAG_C)) ) 
+		return jr(core);
+
+	core->PC++;
+	return 1;
 }
 
-void halt(GBCore* core)
+int halt(GBCore* core)
 {
 	NOP(core);
 	core->PC--;
+
+	return 1;
 }

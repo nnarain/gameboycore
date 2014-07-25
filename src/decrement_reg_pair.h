@@ -5,9 +5,9 @@
 
 #include "gbcore.h"
 
-void decBC(GBCore*);
-void decDE(GBCore*);
-void decHL(GBCore*);
-void decSP(GBCore*);
+int decBC(GBCore*);
+int decDE(GBCore*);
+int decHL(GBCore*);
+int decSP(GBCore*);
 
 #endif

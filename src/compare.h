@@ -6,15 +6,15 @@
 #include "opts.h"
 
 
-void cmpAA(GBCore*);
-void cmpAB(GBCore*);
-void cmpAC(GBCore*);
-void cmpAD(GBCore*);
-void cmpAE(GBCore*);
-void cmpAH(GBCore*);
-void cmpAL(GBCore*);
-void cmpAHL(GBCore*);
-void cmpByte(GBCore*);
+int cmpAA(GBCore*);
+int cmpAB(GBCore*);
+int cmpAC(GBCore*);
+int cmpAD(GBCore*);
+int cmpAE(GBCore*);
+int cmpAH(GBCore*);
+int cmpAL(GBCore*);
+int cmpAHL(GBCore*);
+int cmpByte(GBCore*);
 
 #endif
 

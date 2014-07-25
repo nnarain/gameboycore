@@ -7,46 +7,46 @@
 #include "nop.h"
 #include "opts.h"
 
-void call(GBCore*);
-void rst00H(GBCore*);
-void rst08H(GBCore*);
-void rst10H(GBCore*);
-void rst18H(GBCore*);
-void rst20H(GBCore*);
-void rst28H(GBCore*);
-void rst30H(GBCore*);
-void rst38H(GBCore*);
+int call(GBCore*);
+int rst00H(GBCore*);
+int rst08H(GBCore*);
+int rst10H(GBCore*);
+int rst18H(GBCore*);
+int rst20H(GBCore*);
+int rst28H(GBCore*);
+int rst30H(GBCore*);
+int rst38H(GBCore*);
 
-void ret(GBCore*);
-void jp(GBCore*);
+int ret(GBCore*);
+int jp(GBCore*);
 
-void jpnz(GBCore*);
-void jpz(GBCore*);
+int jpnz(GBCore*);
+int jpz(GBCore*);
 
-void jpnc(GBCore*);
-void jpc(GBCore*);
+int jpnc(GBCore*);
+int jpc(GBCore*);
 
-void pcHL(GBCore*);
+int pcHL(GBCore*);
 
-void cnz(GBCore*);
-void cz(GBCore*);
+int cnz(GBCore*);
+int cz(GBCore*);
 
-void cnc(GBCore*);
-void cc(GBCore*);
+int cnc(GBCore*);
+int cc(GBCore*);
 
-void rnz(GBCore*);
-void rz(GBCore*);
+int rnz(GBCore*);
+int rz(GBCore*);
 
-void rnc(GBCore*);
-void rc(GBCore*);
+int rnc(GBCore*);
+int rc(GBCore*);
 
-void jr(GBCore*);
-void jrnz(GBCore*);
-void jrz(GBCore*);
-void jrnc(GBCore*);
-void jrc(GBCore*);
+int jr(GBCore*);
+int jrnz(GBCore*);
+int jrz(GBCore*);
+int jrnc(GBCore*);
+int jrc(GBCore*);
 
-void halt(GBCore*);
+int halt(GBCore*);
 
 
 #endif

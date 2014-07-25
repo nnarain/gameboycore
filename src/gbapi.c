@@ -33,17 +33,18 @@ int execute(GBCore* core, uint8_t optCode)
 {
 
 	uint8_t cycles;
+	int inc;
 
 	if(optCode != 0xCB){
 		cycles = instructionSet1[optCode].cycles;
-		instructionSet1[optCode].impl(core);
+		inc = instructionSet1[optCode].impl(core);
 	}
 	else{
 		cycles = instructionSet2[optCode].cycles;
-		instructionSet2[core->mem[++core->PC]].impl(core);
+		inc = instructionSet2[core->mem[++core->PC]].impl(core);
 	}
 
-	core->PC++;
+	core->PC += inc;
 
 	return cycles;
 }
@@ -76,7 +77,7 @@ void initCore(GBCore* core)
 	core->DE.val = 0;
 	core->HL.val = 0;
 	core->SP     = HIGH_RAM_END;
-	core->PC     = 0x00;
+	core->PC     = PROGRAM_START;
 	core->mbc.currentBank = 0;
 
 	// load the first to rom banks
