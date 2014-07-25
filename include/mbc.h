@@ -50,7 +50,9 @@ typedef struct{
 	uint8_t** xRAMBanks;
 	int romBankIdx;
 	int ramBankIdx;
+	int xramOn;
 }GBMemoryBankController;
 
+void mbcStart(GBMemoryBankController* mbc, uint8_t** map, uint16_t addr, uint8_t b);
 
 #endif

@@ -42,7 +42,7 @@ void gbparse(GBMemoryBankController* mbc, FILE* file)
 	mbc->xRAMBanks = (uint8_t**) malloc( numRamBanks * sizeof(uint8_t*) );
 
 	for(i = 0; i < numRamBanks; i++){
-		mbc->xRAMBanks[i] = (uint8_t*) malloc(SIZE_BANK * sizeof(uint8_t));
+		mbc->xRAMBanks[i] = (uint8_t*) malloc(0x1FFF * sizeof(uint8_t));
 	}
 
 	// get number of rom banks

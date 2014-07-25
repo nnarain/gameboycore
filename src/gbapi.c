@@ -56,9 +56,8 @@ void writeMem(GBCore* core, uint16_t addr, uint8_t b)
 {
 	// Detect write to ROM attempt
 	if(addr <= 0x7FFF){
-
 		// This is where the MBC kicks in
-
+		mbcStart(&core->mbc, core->mem, addr, b);
 	}
 	else{
 		// In RAM
