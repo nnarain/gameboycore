@@ -2,137 +2,155 @@
 #include "subtract.h"
 #include "opts.h"
 
-void subAA(GBCore* core)
+int subAA(GBCore* core)
 {
 	core->AF.A -= core->AF.A;
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+	return 1;
 }
 
-void subAB(GBCore* core)
+int subAB(GBCore* core)
 {
 	core->AF.A -= core->BC.B;
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+	return 1;
 }
 
-void subAC(GBCore* core)
+int subAC(GBCore* core)
 {
 	core->AF.A -= core->BC.C;
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+	return 1;
 }
 
-void subAD(GBCore* core)
+int subAD(GBCore* core)
 {
 	core->AF.A -= core->DE.D;
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+	return 1;
 }
 
-void subAE(GBCore* core)
+int subAE(GBCore* core)
 {
 	core->AF.A -= core->DE.E;
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+	return 1;
 }
 
-void subAH(GBCore* core)
+int subAH(GBCore* core)
 {
 	core->AF.A -= core->HL.H;
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+	return 1;
 }
 
-void subAL(GBCore* core)
+int subAL(GBCore* core)
 {
 	core->AF.A -= core->HL.L;
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+	return 1;
 }
 
-void subAHL(GBCore* core)
+int subAHL(GBCore* core)
 {
 	core->AF.A -= core->HL.val;
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+	return 1;
 }
 
-void subAByte(GBCore* core)
+int subAByte(GBCore* core)
 {
 	core->AF.A -= core->mem[++core->PC];
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
+	return 1;
 }
 
 
-void subcAA(GBCore* core){
+int subcAA(GBCore* core){
 
 	setbit(core->AF.F, FLAG_S);
 
 	core->AF.A -= (core->AF.A + carry(core->AF.F, FLAG_C));
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
 
+	return 1;
 }
 
-void subcAB(GBCore* core){
+int subcAB(GBCore* core){
 
 	setbit(core->AF.F, FLAG_S);
 
 	core->AF.A -= (core->BC.B + carry(core->AF.F, FLAG_C));
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
 
+	return 1;
 }
 
-void subcAC(GBCore* core){
+int subcAC(GBCore* core){
 
 	setbit(core->AF.F, FLAG_S);
 
 	core->AF.A -= (core->BC.C + carry(core->AF.F, FLAG_C));
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
 
+	return 1;
 }
 
-void subcAD(GBCore* core){
+int subcAD(GBCore* core){
 
 	setbit(core->AF.F, FLAG_S);
 
 	core->AF.A -= (core->DE.D + carry(core->AF.F, FLAG_C));
 
+	return 1;
 }
 
-void subcAE(GBCore* core){
+int subcAE(GBCore* core){
 
 	setbit(core->AF.F, FLAG_S);
 
 	core->AF.A -= (core->DE.E + carry(core->AF.F, FLAG_C));
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
 
+	return 1;
 }
 
-void subcAH(GBCore* core){
+int subcAH(GBCore* core){
 
 	setbit(core->AF.F, FLAG_S);
 
 	core->AF.A -= (core->HL.H + carry(core->AF.F, FLAG_C));
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
 
+	return 1;
 }
 
-void subcAL(GBCore* core){
+int subcAL(GBCore* core){
 
 	setbit(core->AF.F, FLAG_S);
 
 	core->AF.A -= (core->HL.L + carry(core->AF.F, FLAG_C));
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
 
+	return 1;
 }
 
-void subcA_HL_(GBCore* core){
+int subcA_HL_(GBCore* core){
 
 	setbit(core->AF.F, FLAG_S);
 
 	core->AF.A -= (core->mem[core->HL.val] + carry(core->AF.F, FLAG_C));
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
 
+	return 1;
 }
 
-void subcAByte(GBCore* core){
+int subcAByte(GBCore* core){
 
 	setbit(core->AF.F, FLAG_S);
 
 	core->AF.A -= (core->mem[++core->PC] + carry(core->AF.F, FLAG_C));
 	bitset(core->AF.F, FLAG_Z, core->AF.A);
 
+	return 1;
 }

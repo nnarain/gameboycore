@@ -1,58 +1,67 @@
 
 #include "compare.h"
 
-void cmpAA(GBCore* core)
+int cmpAA(GBCore* core)
 {
 	uint8_t r = core->AF.A - core->AF.A;
 	bitset(core->AF.F, bv(FLAG_Z), r);
 
+	return 1;
 }
-void cmpAB(GBCore* core)
+int cmpAB(GBCore* core)
 {
 	uint8_t r = core->AF.A - core->BC.B;
 	bitset(core->AF.F, bv(FLAG_Z), r);
 
+	return 1;
 }
-void cmpAC(GBCore* core)
+int cmpAC(GBCore* core)
 {
 	uint8_t r = core->AF.A - core->BC.C;
 	bitset(core->AF.F, bv(FLAG_Z), r);
 
+	return 1;
 }
-void cmpAD(GBCore* core)
+int cmpAD(GBCore* core)
 {
 	uint8_t r = core->AF.A - core->DE.D;
 	bitset(core->AF.F, bv(FLAG_Z), r);
 
+	return 1;
 }
-void cmpAE(GBCore* core)
+int cmpAE(GBCore* core)
 {
 	uint8_t r = core->AF.A - core->DE.E;
 	bitset(core->AF.F, bv(FLAG_Z), r);
 
+	return 1;
 }
-void cmpAH(GBCore* core)
+int cmpAH(GBCore* core)
 {
 	uint8_t r = core->AF.A - core->HL.H;
 	bitset(core->AF.F, bv(FLAG_Z), r);
 
+	return 1;
 }
-void cmpAL(GBCore* core)
+int cmpAL(GBCore* core)
 {
 	uint8_t r = core->AF.A - core->HL.L;
 	bitset(core->AF.F, bv(FLAG_Z), r);
 
+	return 1;
 }
-void cmpAHL(GBCore* core)
+int cmpAHL(GBCore* core)
 {
 	uint8_t r = core->AF.A - core->mem[core->HL.val];
 	bitset(core->AF.F, bv(FLAG_Z), r);
 
+	return 1;
 }
 
-void cmpByte(GBCore* core)
+int cmpByte(GBCore* core)
 {
 	uint8_t r = core->AF.A - core->mem[++core->PC];
 	bitset(core->AF.F, bv(FLAG_Z), r);
 
+	return 1;
 }

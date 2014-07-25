@@ -2,53 +2,53 @@
 
 #include "shift.h"
 
-void slaA(GBCore* core){
+int slaA(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->AF.A & 0x80 );
 	core->AF.A <<= 1;
-
+	return 1;
 }
 
-void slaB(GBCore* core){
+int slaB(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->BC.B & 0x80 );
 	core->BC.B <<= 1;
-
+	return 1;
 }
 
-void slaC(GBCore* core){
+int slaC(GBCore* core){
 
 	bitset(core->BC.C, FLAG_C, core->BC.C & 0x80 );
 	core->BC.C <<= 1;
-
+	return 1;
 }
 
-void slaD(GBCore* core){
+int slaD(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->DE.D & 0x80 );
 	core->DE.D <<= 1;
-
+	return 1;
 }
 
-void slaE(GBCore* core){
+int slaE(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->DE.E & 0x80 );
 	core->DE.E <<= 1;
-
+	return 1;
 }
-void slaH(GBCore* core){
+int slaH(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->HL.H & 0x80 );
 	core->HL.H <<= 1;
-
+	return 1;
 }
-void slaL(GBCore* core){
+int slaL(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->HL.L & 0x80 );
 	core->HL.L <<= 1;
-
+	return 1;
 }
-void sla_HL_(GBCore* core){
+int sla_HL_(GBCore* core){
 
 	uint8_t byte = core->mem[core->HL.val];
 
@@ -56,11 +56,11 @@ void sla_HL_(GBCore* core){
 	byte <<= 1;
 
 	core->mem[core->HL.val] = byte;
-
+	return 1;
 }
 
 
-void sraA(GBCore* core)
+int sraA(GBCore* core)
 {
 	uint8_t cpy = core->AF.A;
 
@@ -68,9 +68,9 @@ void sraA(GBCore* core)
 	core->AF.A >>= 1;
 
 	core->AF.A |= (cpy & 0x80);
-
+	return 1;
 }
-void sraB(GBCore* core)
+int sraB(GBCore* core)
 {
 	uint8_t cpy = core->BC.B;
 
@@ -78,9 +78,9 @@ void sraB(GBCore* core)
 	core->BC.B >>= 1;
 
 	core->BC.B |= (cpy & 0x80);
-
+	return 1;
 }
-void sraC(GBCore* core)
+int sraC(GBCore* core)
 {
 	uint8_t cpy = core->BC.C;
 
@@ -88,9 +88,9 @@ void sraC(GBCore* core)
 	core->BC.C >>= 1;
 
 	core->BC.C |= (cpy & 0x80);
-
+	return 1;
 }
-void sraD(GBCore* core)
+int sraD(GBCore* core)
 {
 	uint8_t cpy = core->DE.D;
 
@@ -98,9 +98,9 @@ void sraD(GBCore* core)
 	core->DE.D >>= 1;
 
 	core->DE.D |= (cpy & 0x80);
-
+	return 1;
 }
-void sraE(GBCore* core)
+int sraE(GBCore* core)
 {
 	uint8_t cpy = core->DE.E;
 
@@ -108,9 +108,9 @@ void sraE(GBCore* core)
 	core->DE.E >>= 1;
 
 	core->DE.E |= (cpy & 0x80);
-
+	return 1;
 }
-void sraH(GBCore* core)
+int sraH(GBCore* core)
 {
 	uint8_t cpy = core->HL.H;
 
@@ -118,9 +118,9 @@ void sraH(GBCore* core)
 	core->HL.H >>= 1;
 
 	core->HL.H |= (cpy & 0x80);
-
+	return 1;
 }
-void sraL(GBCore* core)
+int sraL(GBCore* core)
 {
 	uint8_t cpy = core->HL.L;
 
@@ -128,9 +128,9 @@ void sraL(GBCore* core)
 	core->HL.L >>= 1;
 
 	core->HL.L |= (cpy & 0x80);
-
+	return 1;
 }
-void sra_HL_(GBCore* core)
+int sra_HL_(GBCore* core)
 {
 	uint8_t byte = core->mem[core->HL.val];
 	uint8_t cpy = byte;
@@ -141,52 +141,52 @@ void sra_HL_(GBCore* core)
 	byte |= (cpy & 0x80);
 
 	core->mem[core->HL.val] = byte;
-
+	return 1;
 }
 
-void srlA(GBCore* core){
+int srlA(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->AF.A & 0x01);
 	core->AF.A >>= 1;
-
+	return 1;
 }
-void srlB(GBCore* core){
+int srlB(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->BC.B & 0x01);
 	core->BC.B >>= 1;
-
+	return 1;
 }
-void srlC(GBCore* core){
+int srlC(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->BC.C & 0x01);
 	core->BC.C >>= 1;
-
+	return 1;
 }
-void srlD(GBCore* core){
+int srlD(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->DE.D & 0x01);
 	core->DE.D >>= 1;
-
+	return 1;
 }
-void srlE(GBCore* core){
+int srlE(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->DE.E & 0x01);
 	core->DE.E >>= 1;
-
+	return 1;
 }
-void srlH(GBCore* core){
+int srlH(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->HL.H & 0x01);
 	core->HL.H >>= 1;
-
+	return 1;
 }
-void srlL(GBCore* core){
+int srlL(GBCore* core){
 
 	bitset(core->AF.F, FLAG_C, core->HL.L & 0x01);
 	core->HL.L >>= 1;
-
+	return 1;
 }
-void srl_HL_(GBCore* core){
+int srl_HL_(GBCore* core){
 
 	uint8_t byte = core->mem[core->HL.val];
 
@@ -194,5 +194,5 @@ void srl_HL_(GBCore* core){
 	byte >>= 1;
 
 	core->mem[core->HL.val] = byte;
-
+	return 1;
 }

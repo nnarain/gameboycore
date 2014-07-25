@@ -4,25 +4,25 @@
 
 #include "gbcore.h"
 
-void subAA(GBCore*);
-void subAB(GBCore*);
-void subAC(GBCore*);
-void subAD(GBCore*);
-void subAE(GBCore*);
-void subAH(GBCore*);
-void subAL(GBCore*);
-void subAHL(GBCore*);
-void subAByte(GBCore*);
+int subAA(GBCore*);
+int subAB(GBCore*);
+int subAC(GBCore*);
+int subAD(GBCore*);
+int subAE(GBCore*);
+int subAH(GBCore*);
+int subAL(GBCore*);
+int subAHL(GBCore*);
+int subAByte(GBCore*);
 
-void subcAA(GBCore*);
-void subcAB(GBCore*);
-void subcAC(GBCore*);
-void subcAD(GBCore*);
-void subcAE(GBCore*);
-void subcAH(GBCore*);
-void subcAL(GBCore*);
-void subcA_HL_(GBCore*);
-void subcAByte(GBCore*);
+int subcAA(GBCore*);
+int subcAB(GBCore*);
+int subcAC(GBCore*);
+int subcAD(GBCore*);
+int subcAE(GBCore*);
+int subcAH(GBCore*);
+int subcAL(GBCore*);
+int subcA_HL_(GBCore*);
+int subcAByte(GBCore*);
 
 
 #endif

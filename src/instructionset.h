@@ -23,7 +23,7 @@
 #define REDIRECT 0xCB
 
 struct Instruction{
-	void (*impl)(GBCore*);
+	int (*impl)(GBCore*);
 	uint8_t cycles;
 };
 
@@ -40,7 +40,7 @@ struct Instruction instructionSet1[256] = {
 	{&NOP, 4} /*0x8*/,
 	{&addHLBC, 4} /*0x9*/,
 	{&ldABC, 4} /*0xa*/,
-	{&NOP, 4} /*0xb*/,
+	{&decBC, 4} /*0xb*/,
 	{&incC, 4} /*0xc*/,
 	{&decC, 4} /*0xd*/,
 	{&ldCByte, 4} /*0xe*/,

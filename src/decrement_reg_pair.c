@@ -2,22 +2,26 @@
 #include "decrement_reg_pair.h"
 
 
-void decBC(GBCore* core)
+int decBC(GBCore* core)
 {
 	core->BC.val--;
+	return 1;
 }
 
-void decDE(GBCore* core)
+int decDE(GBCore* core)
 {
 	core->DE.val--;
+	return 1;
 }
 
-void decHL(GBCore* core)
+int decHL(GBCore* core)
 {
 	core->HL.val--;
+	return 1;
 }
 
-void decSP(GBCore* core)
+int decSP(GBCore* core)
 {
 	core->SP--;
+	return 1;
 }
