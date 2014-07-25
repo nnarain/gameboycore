@@ -3,7 +3,7 @@
 #include "mbc.h"
 
 
-void mbcStart(GBMemoryBankController* mbc, uint8_t** map, uint16_t addr, uint8_t b)
+void mbcStart(GBMemoryBankController* mbc, uint8_t* map, uint16_t addr, uint8_t b)
 {
 	switch(addr & 0xF000){
 

@@ -7,6 +7,9 @@
 	Supporting MBC1 through MBC5 with external RAM 
 */
 
+#include <stdlib.h>
+#include <stdint.h>
+
 #define ROM_ONLY            0x00
 #define MBC1                0x01
 #define MBC1_RAM            0x02
@@ -53,6 +56,6 @@ typedef struct{
 	int xramOn;
 }GBMemoryBankController;
 
-void mbcStart(GBMemoryBankController* mbc, uint8_t** map, uint16_t addr, uint8_t b);
+void mbcStart(GBMemoryBankController* mbc, uint8_t* map, uint16_t addr, uint8_t b);
 
 #endif

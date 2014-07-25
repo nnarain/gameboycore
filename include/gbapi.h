@@ -14,6 +14,7 @@ extern "C"{
 #include "gbmapregion.h"
 #include "gbpalette.h"
 #include "memopts.h"
+#include "mbc.h"
 
 #define EXECUTE_CYCLES 256
 
