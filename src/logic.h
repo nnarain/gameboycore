@@ -3,6 +3,7 @@
 #define LOGIC
 
 #include "gbcore.h"
+#include "opts.h"
 
 int AandA(GBCore*);
 int AandB(GBCore*);

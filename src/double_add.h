@@ -3,6 +3,7 @@
 #define DOUBLE_ADD
 
 #include "gbcore.h"
+#include "opts.h"
 
 int addHLBC(GBCore*);
 int addHLDE(GBCore*);
