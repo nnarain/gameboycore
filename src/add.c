@@ -19,6 +19,9 @@ int addAB(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.B));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->BC.B));
 core->AF.A += core->BC.B;
+	
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
+
 	return 1;
 }
 
@@ -29,6 +32,7 @@ int addAC(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->BC.C));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->BC.C));
 core->AF.A += core->BC.C;
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -39,6 +43,7 @@ int addAD(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.D));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->DE.D));
 core->AF.A += core->DE.D;
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -49,6 +54,7 @@ int addAE(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->DE.E));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->DE.E));
 core->AF.A += core->DE.E;
+bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -59,6 +65,7 @@ int addAH(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.H));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->HL.H));
 core->AF.A += core->HL.H;
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -69,6 +76,7 @@ int addAL(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, core->HL.L));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, core->HL.L));
 core->AF.A += core->HL.L;
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -80,6 +88,7 @@ int addAHL(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, byte));
 core->AF.A += byte;
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -91,6 +100,7 @@ int addAByte(GBCore* core)
 	bitset(core->AF.F, FLAG_H, halfcarry(core->AF.A, byte));
 	bitset(core->AF.F, FLAG_C, fullcarry(core->AF.A, byte));
 core->AF.A += byte;
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -101,6 +111,7 @@ int addcAA(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->AF.A));
 
 	core->AF.A += (core->AF.A + carry(core->AF.F, FLAG_C));
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -111,6 +122,7 @@ int addcAB(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->BC.B));
 
 	core->AF.A += (core->BC.B + carry(core->AF.F, FLAG_C));
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -121,6 +133,7 @@ int addcAC(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->BC.C));
 
 	core->AF.A += (core->BC.C + carry(core->AF.F, FLAG_C));
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -131,6 +144,7 @@ int addcAD(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->DE.D));
 
 	core->AF.A += (core->DE.D + carry(core->AF.F, FLAG_C));
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -141,6 +155,7 @@ int addcAE(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->DE.E));
 
 	core->AF.A += (core->DE.E + carry(core->AF.F, FLAG_C));
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -151,6 +166,7 @@ int addcAH(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->HL.H));
 
 	core->AF.A += (core->HL.H + carry(core->AF.F, FLAG_C));
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -161,6 +177,7 @@ int addcAL(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, core->HL.L));
 
 	core->AF.A += (core->HL.L + carry(core->AF.F, FLAG_C));
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -173,6 +190,7 @@ int addcAAddr(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, byte));
 
 	core->AF.A += (byte + carry(core->AF.F, FLAG_C));
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
 
@@ -185,5 +203,6 @@ int addcAByte(GBCore* core){
 	bitset(core->AF.F, FLAG_H, fullcarry(core->AF.A, byte));
 
 	core->AF.A += (byte + carry(core->AF.F, FLAG_C));
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
 	return 1;
 }
