@@ -2,15 +2,27 @@
 #ifndef SUBTRACT
 #define SUBTRACT
 
-int subAA(struct Core*);
-int subAB(struct Core*);
-int subAC(struct Core*);
-int subAD(struct Core*);
-int subAE(struct Core*);
-int subAH(struct Core*);
-int subAL(struct Core*);
-int subAHL(struct Core*);
-int subAByte(struct Core*);
+#include "gbcore.h"
+
+int subAA(GBCore*);
+int subAB(GBCore*);
+int subAC(GBCore*);
+int subAD(GBCore*);
+int subAE(GBCore*);
+int subAH(GBCore*);
+int subAL(GBCore*);
+int subAHL(GBCore*);
+int subAByte(GBCore*);
+
+int subcAA(GBCore*);
+int subcAB(GBCore*);
+int subcAC(GBCore*);
+int subcAD(GBCore*);
+int subcAE(GBCore*);
+int subcAH(GBCore*);
+int subcAL(GBCore*);
+int subcA_HL_(GBCore*);
+int subcAByte(GBCore*);
 
 
 #endif

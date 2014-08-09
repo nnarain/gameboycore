@@ -1,417 +1,542 @@
 
-#include "GBCore.h"
 #include "load.h"
 
-int ldAA(struct Core* core)
+int ldAA(GBCore* core)
 {
 	core->AF.A = core->AF.A;
-	return 0;
+	return 1;	
 }
 
-int ldAB(struct Core* core)
+int ldAB(GBCore* core)
 {
 	core->AF.A = core->BC.B;
-	return 0;
+	return 1;	
 }
 
-int ldAC(struct Core* core)
+int ldAC(GBCore* core)
 {
 	core->AF.A = core->BC.C;
-	return 0;
+	return 1;	
 }
 
-int ldAD(struct Core* core)
+int ldAD(GBCore* core)
 {
 	core->AF.A = core->DE.D;
-	return 0;
+	return 1;	
 }
 
-int ldAE(struct Core* core)
+int ldAE(GBCore* core)
 {
 	core->AF.A = core->BC.B;
-	return 0;
+	return 1;	
 }
 
-int ldAH(struct Core* core)
+int ldAH(GBCore* core)
 {
 	core->AF.A = core->HL.H;
-	return 0;
+	return 1;	
 }
 
-int ldAL(struct Core* core)
+int ldAL(GBCore* core)
 {
 	core->AF.A = core->HL.L;
-	return 0;
+	return 1;	
 }
 
-int ldAHL(struct Core* core)
+int ldAHL(GBCore* core)
 {
-	core->AF.A = core->HL.val;
-	return 0;
+	//core->AF.A = core->mem[core->HL.val];
+	core->AF.A = readMem(core, core->HL.val);
+	return 1;	
 }
 
-int ldAWord(struct Core* core)
+int ldABC(GBCore* core)
 {
-
-	return 0;
+	//core->AF.A = core->mem[core->BC.val];
+	core->AF.A = readMem(core, core->BC.val);
+	return 1;	
 }
 
-int ldBA(struct Core* core)
+int ldADE(GBCore* core)
+{
+	//core->AF.A = core->mem[core->DE.val];
+	core->AF.A = readMem(core, core->DE.val);
+	return 1;	
+}
+
+int ldAWord(GBCore* core)
+{
+	//core->AF.A = core->mem[getNextWord(&core->PC, core->mem)];
+	core->AF.A = readMem(core, getNextWord(&core->PC, core->mem));
+	return 1;	
+}
+
+int ldBA(GBCore* core)
 {
 	core->BC.B = core->AF.A;
-	return 0;
+	return 1;	
 }
 
-int ldBB(struct Core* core)
+int ldBB(GBCore* core)
 {
 	core->BC.B = core->BC.B;
-	return 0;
+	return 1;	
 }
 
-int ldBC(struct Core* core)
+int ldBC(GBCore* core)
 {
 	core->BC.B = core->BC.C;
-	return 0;
+	return 1;	
 }
 
-int ldBD(struct Core* core)
+int ldBD(GBCore* core)
 {
 	core->BC.B = core->DE.D;
-	return 0;
+	return 1;	
 }
 
-int ldBE(struct Core* core)
+int ldBE(GBCore* core)
 {
 	core->BC.B = core->DE.D;
-	return 0;
+	return 1;	
 }
 
-int ldBH(struct Core* core)
+int ldBH(GBCore* core)
 {
 	core->BC.B = core->HL.H;
-	return 0;
+	return 1;	
 }
 
-int ldBL(struct Core* core)
+int ldBL(GBCore* core)
 {
 	core->BC.B = core->HL.L;
-	return 0;
+	return 1;	
 }
 
-int ldBHL(struct Core* core)
+int ldBHL(GBCore* core)
 {
-	core->BC.B = core->HL.val;
-	return 0;
+	core->BC.B = readMem(core, core->HL.val);
+	return 1;	
 }
 
-int ldCA(struct Core* core)
+int ldCA(GBCore* core)
 {
 	core->BC.C = core->AF.A;
-	return 0;
+	return 1;	
 }
 
-int ldCB(struct Core* core)
+int ldCB(GBCore* core)
 {
 	core->BC.C = core->BC.B;
-	return 0;
+	return 1;	
 }
 
-int ldCC(struct Core* core)
+int ldCC(GBCore* core)
 {
 	core->BC.C = core->BC.C;
-	return 0;
+	return 1;	
 }
 
-int ldCD(struct Core* core)
+int ldCD(GBCore* core)
 {
 	core->BC.C = core->DE.D;
-	return 0;
+	return 1;	
 }
 
-int ldCE(struct Core* core)
+int ldCE(GBCore* core)
 {
 	core->BC.C = core->DE.E;
-	return 0;
+	return 1;	
 }
 
-int ldCH(struct Core* core)
+int ldCH(GBCore* core)
 {
 	core->BC.C = core->HL.L;
-	return 0;
+	return 1;	
 }
 
-int ldCL(struct Core* core)
+int ldCL(GBCore* core)
 {
 	core->BC.C = core->HL.L;
-	return 0;
+	return 1;	
 }
 
-int ldCHL(struct Core* core)
+int ldCHL(GBCore* core)
 {
-	core->BC.C = core->HL.val;
-	return 0;
+	//core->BC.C = core->mem[core->HL.val];
+	core->BC.C = readMem(core, core->HL.val);
+	return 1;	
 }
 
-int ldDA(struct Core* core)
+int ldDA(GBCore* core)
 {
 	core->DE.D = core->AF.A;
-	return 0;
+	return 1;	
 }
 
-int ldDB(struct Core* core)
+int ldDB(GBCore* core)
 {
 	core->DE.D = core->BC.B;
-	return 0;
+	return 1;	
 }
 
-int ldDC(struct Core* core)
+int ldDC(GBCore* core)
 {
 	core->DE.D = core->BC.C;
-	return 0;
+	return 1;	
 }
 
-int ldDD(struct Core* core)
+int ldDD(GBCore* core)
 {
 	core->DE.D = core->DE.D;
-	return 0;
+	return 1;	
 }
 
-int ldDH(struct Core* core)
+int ldDE(GBCore* core)
+{
+	core->DE.D = core->DE.E;
+	return 1;	
+}
+
+int ldDH(GBCore* core)
 {
 	core->DE.D = core->HL.H;
-	return 0;
+	return 1;	
 }
 
-int ldDL(struct Core* core)
+int ldDL(GBCore* core)
 {
 	core->DE.D = core->HL.L;
-	return 0;
+	return 1;	
 }
 
-int ldDHL(struct Core* core)
+int ldDHL(GBCore* core)
 {
-	core->DE.D = core->HL.val;
-	return 0;
+	//core->DE.D = core->mem[core->HL.val];
+	core->DE.D = readMem(core, core->HL.val);
+	return 1;	
 }
 
-int ldEA(struct Core* core)
+int ldEA(GBCore* core)
 {
 	core->DE.E = core->AF.A;
-	return 0;
+	return 1;	
 }
 
-int ldEB(struct Core* core)
+int ldEB(GBCore* core)
 {
 	core->DE.E = core->BC.B;
-	return 0;
+	return 1;	
 }
 
-int ldEC(struct Core* core)
+int ldEC(GBCore* core)
 {
 	core->DE.E = core->BC.C;
-	return 0;
+	return 1;	
 }
 
-int ldED(struct Core* core)
+int ldED(GBCore* core)
 {
 	core->DE.E = core->DE.D;
-	return 0;
+	return 1;	
 }
 
-int ldEE(struct Core* core)
+int ldEE(GBCore* core)
 {
 	core->DE.E = core->DE.E;
-	return 0;
+	return 1;	
 }
 
-int ldEH(struct Core* core)
+int ldEH(GBCore* core)
 {
 	core->DE.E = core->HL.H;
-	return 0;
+	return 1;	
 }
 
-int ldEL(struct Core* core)
+int ldEL(GBCore* core)
 {
 	core->DE.E = core->HL.L;
-	return 0;
+	return 1;	
 }
 
-int ldEHL(struct Core* core)
+int ldEHL(GBCore* core)
 {
-	core->DE.E = core->HL.val;
-	return 0;
+	//core->DE.E = core->mem[core->HL.val];
+	core->DE.E = readMem(core, core->HL.val);
+	return 1;	
 }
 
-int ldHA(struct Core* core)
+int ldHA(GBCore* core)
 {
 	core->HL.H = core->AF.A;
-	return 0;
+	return 1;	
 }
 
-int ldHB(struct Core* core)
+int ldHB(GBCore* core)
 {
 	core->HL.H = core->BC.B;
-	return 0;
+	return 1;	
 }
 
-int ldHC(struct Core* core)
+int ldHC(GBCore* core)
 {
 	core->HL.H = core->BC.C;
-	return 0;
+	return 1;	
 }
 
-int ldHD(struct Core* core)
+int ldHD(GBCore* core)
 {
 	core->HL.H = core->DE.D;
-	return 0;
+	return 1;	
 }
 
-int ldHE(struct Core* core)
+int ldHE(GBCore* core)
 {
 	core->HL.H = core->DE.E;
-	return 0;
+	return 1;	
 }
 
-int ldHL(struct Core* core)
+int ldHH(GBCore* core)
+{
+	core->HL.H = core->HL.H;
+	return 1;	
+}
+
+int ldHL(GBCore* core)
 {
 	core->HL.H = core->HL.L;
-	return 0;
+	return 1;	
 }
 
-int ldHHL(struct Core* core)
+int ldHHL(GBCore* core)
 {
-	core->HL.H = core->HL.val;
-	return 0;
+	//core->HL.H = core->mem[core->HL.val];
+	core->HL.H = readMem(core, core->HL.val);
+	return 1;	
+
 }
 
-int ldLA(struct Core* core)
+int ldLA(GBCore* core)
 {
 	core->HL.L = core->AF.A;
-	return 0;
+	return 1;	
 }
 
-int ldLB(struct Core* core)
+int ldLB(GBCore* core)
 {
 	core->HL.L = core->BC.B;
-	return 0;
+	return 1;	
 }
 
-int ldLC(struct Core* core)
+int ldLC(GBCore* core)
 {
 	core->HL.L = core->BC.C;
-	return 0;
+	return 1;	
 }
 
-int ldLD(struct Core* core)
+int ldLD(GBCore* core)
 {
 	core->HL.L = core->DE.D;
-	return 0;
+	return 1;	
 }
 
-int ldLE(struct Core* core)
+int ldLE(GBCore* core)
 {
 	core->HL.L = core->DE.E;
-	return 0;
+	return 1;	
 }
 
-int ldLH(struct Core* core)
+int ldLH(GBCore* core)
 {
 	core->HL.L = core->HL.H;
-	return 0;
+	return 1;	
 }
 
-int ldLHL(struct Core* core)
+int ldLL(GBCore* core)
 {
-	core->HL.L = core->HL.val;
-	return 0;
+	core->HL.L = core->HL.L;
+	return 1;	
 }
 
-int ldHLA(struct Core* core)
+int ldLHL(GBCore* core)
 {
-	core->HL.val = core->AF.A;
-	return 0;
+	core->HL.L = readMem(core, core->HL.val);//core->mem[core->HL.val];
+	return 1;
 }
 
-int ldHLB(struct Core* core)
+int ldHLA(GBCore* core)
 {
-	core->HL.val = core->BC.B;
-	return 0;
+	//core->mem[core->HL.val] = core->AF.A;
+	writeMem(core, core->HL.val, core->AF.A);
+	return 1;	
 }
 
-int ldHLC(struct Core* core)
+int ldHLB(GBCore* core)
 {
-	core->HL.val = core->BC.C;
-	return 0;
+	//core->mem[core->HL.val] = core->BC.B;
+	writeMem(core, core->HL.val, core->BC.B);
+	return 1;
 }
 
-int ldHLD(struct Core* core)
+int ldHLC(GBCore* core)
 {
-	core->HL.val = core->DE.D;
-	return 0;
+	//core->mem[core->HL.val] = core->BC.C;
+	writeMem(core, core->HL.val, core->BC.C);
+	return 1;
 }
 
-int ldHLE(struct Core* core)
+int ldHLD(GBCore* core)
 {
-	core->HL.val = core->DE.E;
-	return 0;
+	writeMem(core, core->HL.val, core->DE.D);
+	return 1;	
 }
 
-int ldHLH(struct Core* core)
+int ldHLE(GBCore* core)
 {
-	core->HL.val = core->HL.H;
-	return 0;
+	//core->mem[core->HL.val] = core->DE.E;
+	writeMem(core, core->HL.val, core->DE.E);
+	return 1;	
 }
 
-int ldHLL(struct Core* core)
+int ldHLH(GBCore* core)
 {
-	core->HL.val = core->HL.L;
-	return 0;
+	//core->mem[core->HL.val] = core->HL.H;
+	writeMem(core, core->HL.val, core->HL.H);
+	return 1;	
 }
 
-int ldAByte(struct Core* core)
+int ldHLL(GBCore* core)
 {
-	core->AF.A = core->rom[++core->PC];
-	return 0;
+	writeMem(core, core->HL.val, core->HL.L);
+	return 1;	
 }
 
-int ldBByte(struct Core* core)
+int ldAByte(GBCore* core)
 {
-	core->BC.B = core->rom[++core->PC];
-	return 0;
+	core->AF.A = core->mem[++core->PC];
+	return 1;	
 }
 
-int ldCByte(struct Core* core)
+int ldBByte(GBCore* core)
 {
-	core->BC.C = core->rom[++core->PC];
-	return 0;
+	core->BC.B = core->mem[++core->PC];
+	return 1;	
 }
 
-int ldDByte(struct Core* core)
+int ldCByte(GBCore* core)
 {
-	core->DE.D = core->rom[++core->PC];
-	return 0;
+	core->BC.C = core->mem[++core->PC];
+	return 1;	
 }
 
-int ldEByte(struct Core* core)
+int ldDByte(GBCore* core)
 {
-	core->DE.E = core->rom[++core->PC];
-	return 0;
+	core->DE.D = core->mem[++core->PC];
+	return 1;	
 }
 
-int ldHByte(struct Core* core)
+int ldEByte(GBCore* core)
 {
-	core->HL.H = core->rom[++core->PC];
-	return 0;
+	core->DE.E = core->mem[++core->PC];
+	return 1;	
 }
 
-int ldLByte(struct Core* core)
+int ldHByte(GBCore* core)
 {
-	core->HL.L = core->rom[++core->PC];
-	return 0;
+	//core->HL.H = core->mem[++core->PC];
+	core->HL.H = readMem(core, ++core->PC);
+	return 1;	
 }
 
-int ldHLByte(struct Core* core)
+int ldLByte(GBCore* core)
 {
-	core->HL.val = core->rom[++core->PC];
-	return 0;
+	//core->HL.L = core->mem[++core->PC];
+	core->HL.L = readMem(core, ++core->PC);
+	return 1;	
+}
+
+int ldHLByte(GBCore* core)
+{
+	uint8_t byte = core->mem[++core->PC];
+	writeMem(core, core->HL.val, byte);
+	//core->mem[core->HL.val] = byte;
+	return 1;	
+}
+
+int ldBCA(GBCore* core)
+{
+	uint8_t byte = core->mem[++core->PC];
+	writeMem(core, core->BC.val, byte);
+	return 1;	
+}
+
+int ldDEA(GBCore* core)
+{
+	core->mem[core->DE.val] = core->AF.A;
+	return 1;	
+}
+
+int ldAddrA(GBCore* core)
+{
+	uint16_t addr = getNextWord(&core->PC, core->mem);
+	writeMem(core, addr, core->AF.A);
+	return 1;	
+
+}
+
+/* 16 bit */
+
+int ldBCWord(GBCore* core)
+{
+	core->BC.val = getNextWord(&core->PC, core->mem);
+	return 1;	
+}
+
+int ldDEWord(GBCore* core)
+{
+	core->DE.val = getNextWord(&core->PC, core->mem);
+	return 1;	
+}
+
+int ldHLWord(GBCore* core)
+{
+	core->HL.val = getNextWord(&core->PC, core->mem);
+	return 1;	
+}
+
+int ldSPWord(GBCore* core)
+{
+	core->SP = getNextWord(&core->PC, core->mem);
+	return 1;	
+}
+
+int ldHLAddr(GBCore* core)
+{
+	core->HL.val = readMem(core, getNextWord(&core->PC, core->mem));
+	return 1;	
+}
+
+int ldBCAddr(GBCore* core)
+{
+	core->BC.val = readMem(core, getNextWord(&core->PC, core->mem));
+	return 1;	
+}
+
+int ldDEAddr(GBCore* core)
+{
+	core->DE.val = readMem(core, getNextWord(&core->PC, core->mem));
+	return 1;	
+}
+
+int ldAddrHL(GBCore* core)
+{
+	uint16_t addr = getNextWord(&core->PC, core->mem);
+	writeMem(core, addr, core->HL.val);
+	return 1;		
+}
+
+int ldSPHL(GBCore* core)
+{
+	core->SP = core->HL.val;
+	return 1;	
 }

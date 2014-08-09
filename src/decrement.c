@@ -1,48 +1,62 @@
 
-#include "GBCore.h"
 #include "decrement.h"
+#include "opts.h"
 
 
-int decA(struct Core* core)
+int decA(GBCore* core)
 {
+	setbit(core->AF.F, FLAG_S);
 	core->AF.A--;
-	return 0;
+	bitset(core->AF.F, FLAG_Z, !core->AF.A);
+	return 1;
 }
 
-int decB(struct Core* core)
+int decB(GBCore* core)
 {
+	setbit(core->AF.F, FLAG_S);
 	core->BC.B--;
-	return 0;
+	bitset(core->AF.F, FLAG_Z, !core->BC.B);
+	return 1;
 }
 
-int decC(struct Core* core)
+int decC(GBCore* core)
 {
-	core->BC.B--;
-	return 0;
+	setbit(core->AF.F, FLAG_S);
+	core->BC.C--;
+	bitset(core->AF.F, FLAG_Z, !core->BC.C);
+	return 1;
 }
 
-int decD(struct Core* core)
+int decD(GBCore* core)
 {
+	setbit(core->AF.F, FLAG_S);
 	core->DE.D--;
-	return 0;
+	bitset(core->AF.F, FLAG_Z, !core->DE.D);
+	return 1;
 }
 
-int decE(struct Core* core)
+int decE(GBCore* core)
 {
+	setbit(core->AF.F, FLAG_S);
 	core->DE.E--;
-	return 0;
+	bitset(core->AF.F, FLAG_Z, !core->DE.E);
+	return 1;
 }
 
-int decH(struct Core* core)
+int decH(GBCore* core)
 {
+	setbit(core->AF.F, FLAG_S);
 	core->HL.H--;
-	return 0;
+	bitset(core->AF.F, FLAG_Z, !core->HL.H);
+	return 1;
 }
 
-int decL(struct Core* core)
+int decL(GBCore* core)
 {
+	setbit(core->AF.F, FLAG_S);
 	core->HL.L--;
-	return 0;
+	bitset(core->AF.F, FLAG_Z, !core->HL.L);
+	return 1;
 }
 
 

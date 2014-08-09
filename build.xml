@@ -15,7 +15,9 @@
 	<property name="build.dir" location="build" />
 	<property name="java.build.dir" location="build/classes" />
 	<property name="jar.dir" location="build/jar" />
-	<property name="docs.dir" location="docs/java" />
+	<property name="java.docs.dir" location="docs/javadocs" />
+	<property name="docs.dir" location="docs/" />
+	<property name="c.docs.dir" location="docs/c" />
 	<property name="dist.dir" location="dist" />
 
 	<property name="jar.name" value="gbcore-v${project.version}.jar" />
@@ -37,7 +39,8 @@
 	<target name="makedir">
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${java.build.dir}"/>
-		<mkdir dir="${docs.dir}" />
+		<mkdir dir="${java.docs.dir}" />
+		<mkdir dir="${c.docs.dir}" />
 		<mkdir dir="${jar.dir}"/>
 		<mkdir dir="${dist.dir}"/>
 	</target>
@@ -62,7 +65,7 @@
 
 	<!-- build javadocs -->
 	<target name="docs" depends="compile">
-		<javadoc packagenames="src" sourcepath="${java.src.dir}" destdir="${docs.dir}">
+		<javadoc packagenames="src" sourcepath="${java.src.dir}" destdir="${java.docs.dir}">
 			<!-- include all files under the source directory -->
 			<fileset dir="${java.src.dir}">
 				<include name="**" />
@@ -73,17 +76,19 @@
 	<!-- generate native headers from class file -->
 	<target name="jni" depends="compile">
 		<javah destdir="${c.src.dir}" classpath="${java.src.dir}" force="yes" verbose="yes">
-			<class name="com.nnarain.gb.GBCore" />
+			<class name="com.nnarain.gb.resource.GBCore" />
 		</javah>
 	</target>
 
 	<!-- package libraries -->
-	<target name="package" depends="jar">
+	<target name="package" depends="jar, docs">
 		<zip destfile="${dist.dir}/${package.name}.zip">
 			<zipfileset dir="${build.dir}" prefix="${lib.name}/" excludes="classes/**"/>
+			<zipfileset dir="${docs.dir}" prefix="${lib.name}/" />
 		</zip>
 		<tar destfile="${dist.dir}/${package.name}.tar">
 			<tarfileset dir="${build.dir}" prefix="${lib.name}/" excludes="classes/**" />
+			<tarfileset dir="${docs.dir}" prefix="${lib.name}/" />
 		</tar>
 		<gzip destfile="${dist.dir}/${package.name}.tar.gz" src="${dist.dir}/${package.name}.tar" />
 		<delete file="${dist.dir}/${package.name}.tar" />

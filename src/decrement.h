@@ -2,12 +2,14 @@
 #ifndef DECREMENT
 #define DECREMENT
 
-int decA(struct Core*);
-int decB(struct Core*);
-int decC(struct Core*);
-int decD(struct Core*);
-int decE(struct Core*);
-int decH(struct Core*);
-int decL(struct Core*);
+#include "gbcore.h"
+
+int decA(GBCore*);
+int decB(GBCore*);
+int decC(GBCore*);
+int decD(GBCore*);
+int decE(GBCore*);
+int decH(GBCore*);
+int decL(GBCore*);
 
 #endif
