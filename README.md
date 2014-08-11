@@ -9,9 +9,11 @@ Implement the core instructions of the hybrid Z80/8080 processor inside the Game
 Building Source
 ---------------
 
-**Environment**
+**Prerequisites**
 
-The Java Development Kit must be install on your system.
+Have the lastest version of Cmake install.
+
+If you wish to build JNI libraries the Java Development Kit must be install on your system.
 JAVA_HOME must be set in your environment.
 
 **Clone Git repository**
