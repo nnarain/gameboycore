@@ -16,7 +16,7 @@ JAVA_HOME must be set in your environment.
 
 **Clone Git repository**
 ```bash
-$ git clone https://nnarain@bitbucket.org/nnarain/gameboycore.git
+$ git clone https://github.com/nnarain/GameBoyCore.git
 $ cd path/to/gameboycore
 ```
 
@@ -32,7 +32,7 @@ $ cd myBuild
 Use cmake command to generate you make\project files (ex. Unix Makefiles, MinGW Makefiles, etc)
 
 ```bash
-$ cmake -G "Unix Makefiles" ../src
+$ cmake -G "Unix Makefiles" path/to/gameboycore
 ```
 
 Build source with your project\make files
@@ -40,8 +40,6 @@ Build source with your project\make files
 ```bash
 $ make
 ```
-
-Shared libraries will be placed in build/lib
 
 **Build Java Sources with Apache ANT**
 
