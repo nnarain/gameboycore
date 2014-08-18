@@ -2,8 +2,10 @@
 #ifndef EXCHANGE
 #define EXCHANGE
 
-int exSPHL(struct Core*);
-int exDEHL(struct Core*);
+#include "gbcore.h"
+
+int exSPHL(GBCore*);
+int exDEHL(GBCore*);
 
 
 #endif

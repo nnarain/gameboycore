@@ -3,13 +3,16 @@
 #ifndef INCREMENT
 #define INCREMENT
 
-int incA(struct Core*);
-int incB(struct Core*);
-int incC(struct Core*);
-int incD(struct Core*);
-int incE(struct Core*);
-int incH(struct Core*);
-int incL(struct Core*);
+#include "gbcore.h"
+
+int incA(GBCore*);
+int incB(GBCore*);
+int incC(GBCore*);
+int incD(GBCore*);
+int incE(GBCore*);
+int incH(GBCore*);
+int incL(GBCore*);
+int incAddr(GBCore*);
 
 #endif
 

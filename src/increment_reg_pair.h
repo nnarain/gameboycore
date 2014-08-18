@@ -2,10 +2,12 @@
 #ifndef INCREMENT_REG_PAIR
 #define INCREMENT_REG_PAIR
 
-int incBC(struct Core*);
-int incDE(struct Core*);
-int incHL(struct Core*);
-int incSP(struct Core*);
+#include "gbcore.h"
+
+int incBC(GBCore*);
+int incDE(GBCore*);
+int incHL(GBCore*);
+int incSP(GBCore*);
 
 #endif
 

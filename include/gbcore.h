@@ -1,7 +1,5 @@
 
 /**
-	Z80Core.hpp
-
 	Define the Gameboy processor structure
 
 	@author Natesh Narain
@@ -12,7 +10,9 @@
 #define GB_CORE
 
 #include <stdint.h>
+#include <stdlib.h>
 
+#include "mbc.h"
 
 #define SIZE_MEMORY_MAP           0xFFFF + 1
 
@@ -92,6 +92,8 @@
 #define INTERRUPT_ENABLE          0xFFFF
 #define INTERRUPT_FLAG            0xFF0F
 
+#define SIZE_BANK                 0x3FFF
+
 /* Device I/O */
 #define JOYPAD_P10                0x00
 #define JOYPAD_P11                0x02
@@ -108,43 +110,43 @@
 #define FLAG_S 6
 #define FLAG_Z 7
 
-//! Structure representing the Z80 internals
-struct Core{
+//! Structure representing the Gameboy internals
+typedef struct{
 
 	//! 16 bit accumulator
 	union{
 		struct{
-			uint8_t A; ///< All Purpose Register
 			uint8_t F; ///< Flag Purpose Register
+			uint8_t A; ///< All Purpose Register
 		};
-		int val;
+		uint16_t val;
 	}AF;
 	
 	//! 16 bit accumulator
 	union{
 		struct{
-			uint8_t B; ///< All Purpose Register
 			uint8_t C; ///< All Purpose Register
+			uint8_t B; ///< All Purpose Register
 		};
-		int val;
+		uint16_t val;
 	}BC;
 	
 	//! 16 bit accumulator
 	union{
 		struct{
-			uint8_t D; ///< All Purpose Register
 			uint8_t E; ///< All Purpose Register
+			uint8_t D; ///< All Purpose Register
 		};
-		int val;
+		uint16_t val;
 	}DE;
 	
 	//! 16 bit accumulator
 	union{
 		struct{
-			uint8_t H; ///< All Purpose Register
 			uint8_t L; ///< All Purpose Register
+			uint8_t H; ///< All Purpose Register
 		};
-		int val;
+		uint16_t val;
 	}HL;
 
 	uint16_t PC; ///< Program Counter
@@ -152,8 +154,11 @@ struct Core{
 	uint16_t IX; ///< Index register X
 	uint16_t IY; ///< Index Register Y
 
-	uint8_t rom[SIZE_MEMORY_MAP]; ///< Memory
-};
+	uint8_t mem[SIZE_MEMORY_MAP]; ///< Memory
+
+	GBMemoryBankController mbc; ///< Memory bank controller
+	
+}GBCore;
 
 
-#endif // Z80
+#endif

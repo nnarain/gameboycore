@@ -3,9 +3,11 @@
 #ifndef DECREMENT_REG_PAIR
 #define DECREMENT_REG_PAIR
 
-int decBC(struct Core*);
-int decDE(struct Core*);
-int decHL(struct Core*);
-int decSP(struct Core*);
+#include "gbcore.h"
+
+int decBC(GBCore*);
+int decDE(GBCore*);
+int decHL(GBCore*);
+int decSP(GBCore*);
 
 #endif

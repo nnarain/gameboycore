@@ -1,28 +1,27 @@
 
-#include "GBCore.h"
 #include "decrement_reg_pair.h"
 
 
-int decBC(struct Core* core)
+int decBC(GBCore* core)
 {
 	core->BC.val--;
-	return 0;
+	return 1;
 }
 
-int decDE(struct Core* core)
+int decDE(GBCore* core)
 {
 	core->DE.val--;
-	return 0;
+	return 1;
 }
 
-int decHL(struct Core* core)
+int decHL(GBCore* core)
 {
 	core->HL.val--;
-	return 0;
+	return 1;
 }
 
-int decSP(struct Core* core)
+int decSP(GBCore* core)
 {
 	core->SP--;
-	return 0;
+	return 1;
 }

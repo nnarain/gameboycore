@@ -2,77 +2,104 @@
 #ifndef LOAD
 #define LOAD
 
-int ldAA(struct Core*);
-int ldAB(struct Core*);
-int ldAC(struct Core*);
-int ldAD(struct Core*);
-int ldAE(struct Core*);
-int ldAH(struct Core*);
-int ldAL(struct Core*);
-int ldAHL(struct Core*);
-int ldABC(struct Core*);
-int ldADE(struct Core*);
-int ldAWord(struct Core*);
-int ldBA(struct Core*);
-int ldBB(struct Core*);
-int ldBC(struct Core*);
-int ldBD(struct Core*);
-int ldBE(struct Core*);
-int ldBH(struct Core*);
-int ldBL(struct Core*);
-int ldBHL(struct Core*);
-int ldCA(struct Core*);
-int ldCB(struct Core*);
-int ldCC(struct Core*);
-int ldCD(struct Core*);
-int ldCE(struct Core*);
-int ldCH(struct Core*);
-int ldCL(struct Core*);
-int ldCHL(struct Core*);
-int ldDA(struct Core*);
-int ldDB(struct Core*);
-int ldDC(struct Core*);
-int ldDD(struct Core*);
-int ldDE(struct Core*);
-int ldDH(struct Core*);
-int ldDL(struct Core*);
-int ldDHL(struct Core*);
-int ldEA(struct Core*);
-int ldEB(struct Core*);
-int ldEC(struct Core*);
-int ldED(struct Core*);
-int ldEE(struct Core*);
-int ldEH(struct Core*);
-int ldEL(struct Core*);
-int ldEHL(struct Core*);
-int ldHA(struct Core*);
-int ldHB(struct Core*);
-int ldHC(struct Core*);
-int ldHD(struct Core*);
-int ldHE(struct Core*);
-int ldHL(struct Core*);
-int ldHHL(struct Core*);
-int ldLA(struct Core*);
-int ldLB(struct Core*);
-int ldLC(struct Core*);
-int ldLD(struct Core*);
-int ldLE(struct Core*);
-int ldLH(struct Core*);
-int ldLHL(struct Core*);
-int ldHLA(struct Core*);
-int ldHLB(struct Core*);
-int ldHLC(struct Core*);
-int ldHLD(struct Core*);
-int ldHLE(struct Core*);
-int ldHLH(struct Core*);
-int ldHLL(struct Core*);
-int ldAByte(struct Core*);
-int ldBByte(struct Core*);
-int ldCByte(struct Core*);
-int ldDByte(struct Core*);
-int ldEByte(struct Core*);
-int ldHByte(struct Core*);
-int ldLByte(struct Core*);
-int ldHLByte(struct Core*);
+#include "gbcore.h"
+#include "opts.h"
+#include "memopts.h"
+
+/* 8 bit */
+
+int ldAA(GBCore*);
+int ldAB(GBCore*);
+int ldAC(GBCore*);
+int ldAD(GBCore*);
+int ldAE(GBCore*);
+int ldAH(GBCore*);
+int ldAL(GBCore*);
+int ldAHL(GBCore*);
+int ldABC(GBCore*);
+int ldADE(GBCore*);
+int ldAWord(GBCore*);
+int ldBA(GBCore*);
+int ldBB(GBCore*);
+int ldBC(GBCore*);
+int ldBD(GBCore*);
+int ldBE(GBCore*);
+int ldBH(GBCore*);
+int ldBL(GBCore*);
+int ldBHL(GBCore*);
+int ldCA(GBCore*);
+int ldCB(GBCore*);
+int ldCC(GBCore*);
+int ldCD(GBCore*);
+int ldCE(GBCore*);
+int ldCH(GBCore*);
+int ldCL(GBCore*);
+int ldCHL(GBCore*);
+int ldDA(GBCore*);
+int ldDB(GBCore*);
+int ldDC(GBCore*);
+int ldDD(GBCore*);
+int ldDE(GBCore*);
+int ldDH(GBCore*);
+int ldDL(GBCore*);
+int ldDHL(GBCore*);
+int ldEA(GBCore*);
+int ldEB(GBCore*);
+int ldEC(GBCore*);
+int ldED(GBCore*);
+int ldEE(GBCore*);
+int ldEH(GBCore*);
+int ldEL(GBCore*);
+int ldEHL(GBCore*);
+int ldHA(GBCore*);
+int ldHB(GBCore*);
+int ldHC(GBCore*);
+int ldHD(GBCore*);
+int ldHE(GBCore*);
+int ldHH(GBCore*);
+int ldHL(GBCore*);
+int ldHHL(GBCore*);
+int ldLA(GBCore*);
+int ldLB(GBCore*);
+int ldLC(GBCore*);
+int ldLD(GBCore*);
+int ldLE(GBCore*);
+int ldLH(GBCore*);
+int ldLL(GBCore*);
+int ldLHL(GBCore*);
+int ldHLA(GBCore*);
+int ldHLB(GBCore*);
+int ldHLC(GBCore*);
+int ldHLD(GBCore*);
+int ldHLE(GBCore*);
+int ldHLH(GBCore*);
+int ldHLL(GBCore*);
+int ldAByte(GBCore*);
+int ldBByte(GBCore*);
+int ldCByte(GBCore*);
+int ldDByte(GBCore*);
+int ldEByte(GBCore*);
+int ldHByte(GBCore*);
+int ldLByte(GBCore*);
+int ldHLByte(GBCore*);
+
+int ldBCA(GBCore*);
+int ldDEA(GBCore*);
+int ldAddrA(GBCore*);
+
+/* 16 bit */
+
+int ldBCWord(GBCore*);
+int ldDEWord(GBCore*);
+int ldHLWord(GBCore*);
+int ldSPWord(GBCore*);
+
+int ldHLAddr(GBCore*);
+int ldBCAddr(GBCore*);
+int ldDEAddr(GBCore*);
+
+int ldAddrHL(GBCore*);
+
+int ldSPHL(GBCore*);
 
 #endif
