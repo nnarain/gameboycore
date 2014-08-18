@@ -34,7 +34,7 @@ $ cd myBuild
 Use cmake command to generate you make\project files (ex. Unix Makefiles, MinGW Makefiles, etc)
 
 ```bash
-$ cmake -G "Unix Makefiles" path/to/gameboycore
+$ cmake -G "Unix Makefiles" path/to/gameboycore/src
 ```
 
 Build source with your project\make files
