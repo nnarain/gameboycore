@@ -19,13 +19,13 @@ include_directories(
 
 # main emulator executable
 add_executable(${PROJECT_NAME}
-    src/main.cpp
+    src/gameboy/gameboy.cpp
     ${GAMEBOYCORE}
 )
 
 # ROM reader utility
-add_executable(gbreader
-    src/gbreader.cpp
+add_executable(rominfo
+    src/rominfo/rominfo.cpp
 )
 
 # Gameboy Core Library
