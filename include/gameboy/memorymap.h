@@ -1,3 +1,9 @@
+/**
+	Constants that define the CPU memory map
+
+	@author Natesh Narain <nnaraindev@gmail.com>
+*/
+
 #ifndef MEMORYMAP_H
 #define MEMORYMAP_H
 
