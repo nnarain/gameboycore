@@ -1,0 +1,32 @@
+language: cpp
+dist: trusty
+
+sudo: required
+
+os:
+  - linux
+
+compiler:
+  - g++
+
+before_install:
+  - git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
+  - cd ~/scripts/ && ./bootstrap && cd -
+  - preinstall_general
+
+install:
+  - install_general
+
+script:
+  - mkdir build && cd build
+  - cmake ..
+  - make
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "n2hEalbehB9HWgd0ejPddkv/nrTPNK9+VriJDtpEw5cvm8ItRk7lSVFIFoJnM4GZQsEg/OcVku9MxUgJ16v9HCel78mkMCdqCVhmWj4NaVDr8qTUckoyCMe/7NXxx8KPI2tA5vj59D8oGx896zwNV52gLzreS5ByQJ5pSH8Y3DTaHxvq3vAxKMsrGY0s0nDutL698NRZo/n79AdcwMstBDOj7cuhe7HgwgzIbztTdZTSptcNBKHdqF6PY/tM87BWXcNk4RbLfKzZ/PXhZtKOk4ge95eyZbX4UqrcShEJcrQcONloiIymoHKULxT08VH/HNt6r2L5SkG3vEtPiS2H/Pq4L8E5httc7n6vrCbV9S8tyKe00oGZz0+GDOMjd7NgyFjhZ5j1wPqbyy2MvZTSm6gUU2uOc85bzDK8PnuSUJKo9bMEdSFIPajr49k5xqM7FqOyEvotNXmYNrKPUdjQxNKO8Yvc0v4mXudAsEPv1tQXjsyTozpHnjyIq7V+EX1EYECbYNoOWffHonITP9aSIAv192JkDW2qiPISmDGPAmE6ty/sKufjxKDeQo3yNxpopjWPr1jyucT0hoAP5y6q2Wow2+fhKxXhrMKqcvlPH9CxeB5w7uELCkTqT9ZWjjIIfbr6qTlNJDFq91DM1TOPaFEzn5XuCuB8Fbvqf0Yxk8E="
+  file: ''
+  skip_cleanup: true
+  on:
+    tags: true

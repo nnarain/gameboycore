@@ -8,9 +8,11 @@ cmake_minimum_required(VERSION 2.8)
 
 project(gameboy)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 # Core sources for Gameboy emulation
 set(GAMEBOYCORE
-
+    src/core/cartinfo.cpp
 )
 
 include_directories(
@@ -19,13 +21,14 @@ include_directories(
 
 # main emulator executable
 add_executable(${PROJECT_NAME}
-    src/gameboy/gameboy.cpp
+    src/gameboy/main.cpp
     ${GAMEBOYCORE}
 )
 
 # ROM reader utility
 add_executable(rominfo
     src/rominfo/rominfo.cpp
+    ${GAMEBOYCORE}
 )
 
 # Gameboy Core Library

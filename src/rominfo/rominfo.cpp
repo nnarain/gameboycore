@@ -2,6 +2,9 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cstdint>
+
+#include "gameboy/cartinfo.h"
 
 int main(int argc, char * argv[])
 {
@@ -22,9 +25,13 @@ int main(int argc, char * argv[])
 		buffer.resize(length);
 
 		rom_image.seekg(0, std::ios::beg);
-		rom_image.read(&buffer[0], length);
+		rom_image.read((char*)&buffer[0], length);
 
-		//
+		// parse the gameboy rom image
+		gb::RomParser parser;
+		gb::CartInfo info = parser.parse(&buffer[0]);
+
+		std::cout << "-- Game Title: " << info.game_title << std::endl;
 	}
 	else
 	{
