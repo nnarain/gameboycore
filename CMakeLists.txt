@@ -32,6 +32,6 @@ add_executable(rominfo
 )
 
 # Gameboy Core Library
-# add_library(gbcore
-#     ${GAMEBOYCORE}
-# )
+add_library(gbcore
+    ${GAMEBOYCORE}
+)
