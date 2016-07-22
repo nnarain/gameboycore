@@ -1,6 +1,11 @@
-GameBoy Core
-============
+# Gameboy Emulator [![Build Status](https://travis-ci.org/nnarain/gameboy.svg?branch=rominfo)](https://travis-ci.org/nnarain/gameboy)
 
-Emulator for Gamebody Color
+Build
+-----
 
-Starting a re-write of this project soon view the legacy code [here](https://github.com/nnarain/GameBoyCore/tree/master-legacy).
+~~~~~~~~~~~~~~~~~~~~~~~~~~{.sh}
+cd path/to/project/
+mkdir build && cd build
+cmake ..
+make
+~~~~~~~~~~~~~~~~~~~~~~~~~~
