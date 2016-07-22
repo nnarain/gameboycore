@@ -1,4 +1,11 @@
 
+/**
+	\file rominfo.cpp
+	\brief Print information about the Gameboy ROM file
+
+	\author Natesh Narain <nnaraindev@gmail.com>
+*/
+
 #include <iostream>
 #include <fstream>
 #include <vector>

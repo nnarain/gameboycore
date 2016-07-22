@@ -1,3 +1,8 @@
+/**
+    @file cartinfo.h
+    @author Natesh Narain <nnaraindev@gmail.com>
+*/
+
 #ifndef GAMEBOY_CARTINFO_H
 #define GAMEBOY_CARTINFO_H
 
@@ -6,6 +11,9 @@
 
 namespace gb
 {
+    /**
+        Structure containing cartridge information, contained in header
+    */
     struct CartInfo
     {
         uint8_t type;
@@ -14,6 +22,9 @@ namespace gb
         char game_title[memorymap::GAME_TITLE_END - memorymap::GAME_TITLE_START];
     };
 
+    /**
+        \brief Used to parse rom image for information contained in header
+    */
     class RomParser
     {
     public:
