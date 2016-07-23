@@ -17,6 +17,15 @@ set(GAMEBOYCORE
     src/core/mmu.cpp
     src/core/cartinfo.cpp
 )
+set(GAMEBOYCORE_HEADERS
+	include/gameboy/gameboy.h
+	include/gameboy/cpu.h
+	include/gameboy/mmu.h
+	
+	include/gameboy/memorymap.h
+	include/gameboy/mbc.h
+	include/gameboy/cartinfo.h
+)
 
 include_directories(
     include/
@@ -30,6 +39,7 @@ add_library(gbcore
 # main emulator executable
 add_executable(${PROJECT_NAME}
     src/gameboy/emulator.cpp
+	${GAMEBOYCORE_HEADERS}
 )
 target_link_libraries(${PROJECT_NAME}
     gbcore
@@ -38,6 +48,7 @@ target_link_libraries(${PROJECT_NAME}
 # ROM reader utility
 add_executable(rominfo
     src/rominfo/rominfo.cpp
+	${GAMEBOYCORE_HEADERS}
 )
 target_link_libraries(rominfo
     gbcore
