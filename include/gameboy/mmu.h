@@ -9,12 +9,17 @@
 #include <vector>
 #include <stdint.h>
 
+#include "gameboy/cartinfo.h"
+
 namespace gb
 {
     class MMU
     {
     private:
+		using bank_t = std::vector<uint8_t>;
+
         std::vector<uint8_t> memory_;
+		std::vector<bank_t> rom_banks_;
 
     public:
         MMU();
@@ -24,6 +29,9 @@ namespace gb
 
         uint8_t read(uint16_t);
         void write(uint8_t, uint16_t);
+
+	private:
+		void loadROMBanks(CartInfo& info);
     };
 }
 
