@@ -12,6 +12,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 # Core sources for Gameboy emulation
 set(GAMEBOYCORE
+    src/core/gameboy.cpp
+    src/core/cpu.cpp
+    src/core/mmu.cpp
     src/core/cartinfo.cpp
 )
 
