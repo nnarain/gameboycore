@@ -1,3 +1,7 @@
+# 
+# Appveyor build 
+#
+# @author Natesh Narain <nnaraindev@gmail.com>
 
 os: Visual Studio 2015
 
@@ -8,7 +12,6 @@ before_build:
   - cd c:\projects\gameboy
   - mkdir build && cd build
   - cmake -G "Visual Studio 14 2015" ..
-  - dir
 
 build:
-  project: gameboy.sln
+  project: c:\projects\gameboy\build\gameboy.sln
