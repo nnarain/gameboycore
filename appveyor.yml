@@ -3,10 +3,6 @@ os: Visual Studio 2015
 
 clone_folder: c:\projects\gameboy
 
-branches:
-	except:
-		- gh-pages
-
 before_build:
 	- echo "Generating Visual Studio Solution..."
 	- cd c:\projects\gameboy
