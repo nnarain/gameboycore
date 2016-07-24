@@ -58,10 +58,19 @@ namespace gb
 
 	void CPU::decode1(uint8_t opcode) 
 	{
+		switch (opcode) 
+		{
+		case 0x00:
+			// NOP
+			break;
+		}
 	}
 
 	void CPU::decode2(uint8_t opcode)
 	{
+		switch (opcode)
+		{
+		}
 	}
 
 	uint8_t CPU::load8Imm()
@@ -71,8 +80,8 @@ namespace gb
 
 	uint16_t CPU::load16Imm()
 	{
-		uint8_t hi = load8Imm();
 		uint8_t lo = load8Imm();
+		uint8_t hi = load8Imm();
 
 		return WORD(hi, lo);
 	}
