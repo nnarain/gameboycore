@@ -8,8 +8,6 @@ cmake_minimum_required(VERSION 2.8)
 
 project(gameboy)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
 # Core sources for Gameboy emulation
 set(GAMEBOYCORE
     src/core/gameboy.cpp
@@ -26,6 +24,11 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/mbc.h
 	include/gameboy/cartinfo.h
 )
+
+# set flags for g++/gcc compiler
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -std=c++11")
+endif()
 
 include_directories(
     include/
