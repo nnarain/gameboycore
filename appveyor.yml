@@ -8,6 +8,7 @@ before_build:
   - cd c:\projects\gameboy
   - mkdir build && cd build
   - cmake -G "Visual Studio 14 2015" ..
+  - dir
 
 build:
   project: gameboy.sln
