@@ -77,7 +77,7 @@ namespace gb
 	void MMU::copyROMToBanks(unsigned int num_banks, uint8_t* rom)
 	{
 		// copy ROM image into banks
-		for (auto i = 0; i < num_banks; ++i)
+		for (unsigned int i = 0; i < num_banks; ++i)
 		{
 			ROMBank& bank = rom_banks_[i];
 			bank.resize(16 * KILO_BYTE);
