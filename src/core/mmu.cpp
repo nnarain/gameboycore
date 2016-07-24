@@ -1,6 +1,8 @@
 #include "gameboy/mmu.h"
 #include "gameboy/mbc.h"
 
+#include <cstring>
+
 static const unsigned int KILO_BYTE = 1024;
 static const unsigned int BANK_SIZE = (16 * KILO_BYTE);
 
