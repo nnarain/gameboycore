@@ -37,12 +37,12 @@ include_directories(
 # Gameboy Core Library
 add_library(gbcore
     ${GAMEBOYCORE}
+	${GAMEBOYCORE_HEADERS}
 )
 
 # main emulator executable
 add_executable(${PROJECT_NAME}
     src/gameboy/emulator.cpp
-	${GAMEBOYCORE_HEADERS}
 )
 target_link_libraries(${PROJECT_NAME}
     gbcore
@@ -51,7 +51,6 @@ target_link_libraries(${PROJECT_NAME}
 # ROM reader utility
 add_executable(rominfo
     src/rominfo/rominfo.cpp
-	${GAMEBOYCORE_HEADERS}
 )
 target_link_libraries(rominfo
     gbcore
