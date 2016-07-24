@@ -4,10 +4,10 @@ os: Visual Studio 2015
 clone_folder: c:\projects\gameboy
 
 before_build:
-	- echo "Generating Visual Studio Solution..."
-	- cd c:\projects\gameboy
-	- mkdir build && cd build
-	- cmake -G "Visual Studio 14 2015" ..
+  - echo "Generating Visual Studio Solution..."
+  - cd c:\projects\gameboy
+  - mkdir build && cd build
+  - cmake -G "Visual Studio 14 2015" ..
 
 build:
 	project: gameboy.sln
