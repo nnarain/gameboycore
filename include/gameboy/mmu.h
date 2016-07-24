@@ -16,10 +16,10 @@ namespace gb
     class MMU
     {
     private:
-		using bank_t = std::vector<uint8_t>;
+		using ROMBank = std::vector<uint8_t>;
 
         std::vector<uint8_t> memory_;
-		std::vector<bank_t> rom_banks_;
+		std::vector<ROMBank> rom_banks_;
 
     public:
         MMU();
@@ -31,7 +31,9 @@ namespace gb
         void write(uint8_t, uint16_t);
 
 	private:
-		void loadROMBanks(CartInfo& info);
+		void loadROMBanks(uint8_t rom_size, uint8_t * rom);
+		void copyROMToBanks(unsigned int num_banks, uint8_t* rom);
+		
     };
 }
 

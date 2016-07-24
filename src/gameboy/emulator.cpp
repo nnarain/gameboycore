@@ -23,6 +23,9 @@ int main(int argc, char * argv[])
     {
         Gameboy gameboy;
         gameboy.loadROM(&rom[0], rom.size());
+
+		// after loading ROM into Gameboy, release loaded image
+		rom.clear();
     }
     else
     {
