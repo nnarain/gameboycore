@@ -1,0 +1,58 @@
+#
+# Gameboy Build
+#
+# @author Natesh Narain <nnaraindev@gmail.com>
+#
+
+cmake_minimum_required(VERSION 2.8)
+
+project(gameboy)
+
+# Core sources for Gameboy emulation
+set(GAMEBOYCORE
+    src/core/gameboy.cpp
+    src/core/cpu.cpp
+    src/core/mmu.cpp
+    src/core/cartinfo.cpp
+)
+set(GAMEBOYCORE_HEADERS
+	include/gameboy/gameboy.h
+	include/gameboy/cpu.h
+	include/gameboy/mmu.h
+	
+	include/gameboy/memorymap.h
+	include/gameboy/mbc.h
+	include/gameboy/cartinfo.h
+)
+
+# set flags for g++/gcc compiler
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -std=c++11")
+endif()
+
+include_directories(
+    include/
+)
+
+# Gameboy Core Library
+add_library(gbcore
+    ${GAMEBOYCORE}
+)
+
+# main emulator executable
+add_executable(${PROJECT_NAME}
+    src/gameboy/emulator.cpp
+	${GAMEBOYCORE_HEADERS}
+)
+target_link_libraries(${PROJECT_NAME}
+    gbcore
+)
+
+# ROM reader utility
+add_executable(rominfo
+    src/rominfo/rominfo.cpp
+	${GAMEBOYCORE_HEADERS}
+)
+target_link_libraries(rominfo
+    gbcore
+)
