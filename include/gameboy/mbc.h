@@ -35,6 +35,18 @@ enum{
     XRAM_ENABLE         = 0x0A,   ///< Enable external RAM
     XRAM_BANK_SIZE      = 0x1FFF, ///< External RAM banks are 8 KB in size
 
+	ROM_32KB            = 0x00,
+	ROM_64KB            = 0x01,
+	ROM_128KB           = 0x02,
+	ROM_256KB           = 0x03,
+	ROM_512KB           = 0x04,
+	ROM_1MB             = 0x05,
+	ROM_2MB             = 0x06,
+	ROM_4MB             = 0x07,
+	ROM_1_1MB           = 0x52,
+	ROM_1_2MB           = 0x53,
+	ROM_1_5MB           = 0x54,
+
     XRAM_NONE           = 0x00,
     XRAM_2KB            = 0x01,
     XRAM_8KB            = 0x02,
