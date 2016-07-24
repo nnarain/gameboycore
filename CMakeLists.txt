@@ -37,6 +37,7 @@ include_directories(
 # Gameboy Core Library
 add_library(gbcore
     ${GAMEBOYCORE}
+	${GAMEBOYCORE_HEADERS}
 )
 
 # main emulator executable
