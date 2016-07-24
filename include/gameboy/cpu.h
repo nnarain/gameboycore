@@ -36,11 +36,18 @@ namespace gb
 
         void tick();
 
+        bool isHalted() const;
+        MMU& getMMU();
+
+	private:
 		void decode1(uint8_t opcode);
 		void decode2(uint8_t opcode);
 
-        bool isHalted() const;
-        MMU& getMMU();
+		/**
+			Load 8 bit integer immediately from memory
+		*/
+		uint8_t load8Imm();
+		uint16_t load16Imm();
     };
 }
 

@@ -64,6 +64,19 @@ namespace gb
 	{
 	}
 
+	uint8_t CPU::load8Imm()
+	{
+		return mmu_.read(pc++);
+	}
+
+	uint16_t CPU::load16Imm()
+	{
+		uint8_t hi = load8Imm();
+		uint8_t lo = load8Imm();
+
+		return WORD(hi, lo);
+	}
+
     bool CPU::isHalted() const
     {
         return halted_;
