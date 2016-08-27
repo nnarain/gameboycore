@@ -24,7 +24,7 @@ namespace gb
     void CPU::tick()
     {
 		// fetch next opcode
-		uint8_t opcode = mmu_.read(pc_++);
+		uint8_t opcode = mmu_.read(pc_.val++);
 		uint8_t cycles;
 
 		// $CB means decode from the second page of instructions
@@ -39,7 +39,7 @@ namespace gb
 		else 
 		{
 			// read the second page opcode
-			opcode = mmu_.read(pc_++);
+			opcode = mmu_.read(pc_.val++);
 			// decode from second page
 			decode2(opcode);
 
@@ -66,12 +66,16 @@ namespace gb
 	{
 		switch (opcode)
 		{
+		case 0x00:
+			break;
+		default:
+			break;
 		}
 	}
 
 	uint8_t CPU::load8Imm()
 	{
-		return mmu_.read(pc_++);
+		return mmu_.read(pc_.val++);
 	}
 
 	uint16_t CPU::load16Imm()
@@ -80,26 +84,6 @@ namespace gb
 		uint8_t hi = load8Imm();
 
 		return WORD(hi, lo);
-	}
-
-	uint8_t CPU::getH(Register reg)
-	{
-		return (reg & 0xFF00) >> 8;
-	}
-
-	uint8_t CPU::getL(Register reg)
-	{
-		return (uint8_t)(reg & 0x00FF);
-	}
-
-	void CPU::setH(Register& reg, uint8_t hi)
-	{
-		reg = ((hi & 0xFFFF) << 8) | (reg & 0x00FF);
-	}
-	
-	void CPU::setL(Register& reg, uint8_t lo)
-	{
-		reg = (reg & 0xFF00) | (lo & 0x00FF);
 	}
 
     bool CPU::isHalted() const
@@ -111,4 +95,18 @@ namespace gb
     {
         return mmu_;
     }
+
+	CPU::Status CPU::getStatus() const
+	{
+		Status status;
+		status.af = af_;
+		status.bc = bc_;
+		status.de = de_;
+		status.hl = hl_;
+		status.sp = sp_;
+		status.pc = pc_;
+
+		return status;
+	}
+
 }
