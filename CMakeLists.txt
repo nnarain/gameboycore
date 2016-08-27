@@ -42,3 +42,6 @@ add_executable(rominfo
 target_link_libraries(rominfo
     gbcore
 )
+
+enable_testing();
+add_subdirectory(tests)
