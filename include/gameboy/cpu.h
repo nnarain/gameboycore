@@ -6,6 +6,11 @@
 #ifndef GAMEBOY_CPU_H
 #define GAMEBOY_CPU_H
 
+// check endianness
+#if !defined(__BIGENDIAN__) && !defined(__LITTLEENDIAN__)
+#	error "Either __BIGENDIAN__ or __LITTLEENDIAN__ must be defined"
+#endif
+
 #include "gameboy/mmu.h"
 #include <stdint.h>
 
