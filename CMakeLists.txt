@@ -43,5 +43,5 @@ target_link_libraries(rominfo
     gbcore
 )
 
-enable_testing();
+enable_testing()
 add_subdirectory(tests)
