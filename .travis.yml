@@ -19,7 +19,7 @@ install:
   - echo "Installing Gameboy Assembler"
   - git clone --depth=1 https://github.com/nnarain/gameboy-assembler.git
   - cd gameboy-assembler
-  - make && make install
+  - make && sudo make install
   - cd -
 
 script:
