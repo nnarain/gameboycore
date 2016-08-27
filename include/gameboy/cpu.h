@@ -18,18 +18,8 @@ namespace gb
 {
     class CPU
     {
-    private:
-		uint8_t a, f;
-		uint8_t b, c;
-		uint8_t d, e;
-		uint8_t h, l;
-		uint16_t sp;
-		uint16_t pc;
-
-        MMU mmu_;
-        bool halted_;
-
-		uint16_t cycle_count_;
+	public:
+		using Register = uint16_t;
 
     public:
         CPU();
@@ -48,6 +38,28 @@ namespace gb
 		*/
 		uint8_t load8Imm();
 		uint16_t load16Imm();
+
+		/**
+			get high and low byte of Register
+		*/
+		uint8_t getH(Register reg);
+		uint8_t getL(Register reg);
+
+		void setH(Register& reg, uint8_t);
+		void setL(Register& reg, uint8_t);
+
+	private:
+		Register af_;
+		Register bc_;
+		Register de_;
+		Register hl_;
+		Register sp_;
+		Register pc_;
+
+		MMU mmu_;
+		bool halted_;
+
+		uint16_t cycle_count_;
     };
 }
 
