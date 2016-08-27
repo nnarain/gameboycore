@@ -25,6 +25,8 @@ namespace gb
         void update();
 
         void loadROM(uint8_t* rom, uint32_t size);
+
+		bool isDone() const;
     private:
     };
 }

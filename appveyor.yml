@@ -1,0 +1,17 @@
+# 
+# Appveyor build 
+#
+# @author Natesh Narain <nnaraindev@gmail.com>
+
+os: Visual Studio 2015
+
+clone_folder: c:\projects\gameboy
+
+before_build:
+  - echo "Generating Visual Studio Solution..."
+  - cd c:\projects\gameboy
+  - mkdir build && cd build
+  - cmake -G "Visual Studio 14 2015" ..
+
+build:
+  project: c:\projects\gameboy\build\gameboy.sln

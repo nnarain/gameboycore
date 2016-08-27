@@ -23,6 +23,17 @@ int main(int argc, char * argv[])
     {
         Gameboy gameboy;
         gameboy.loadROM(&rom[0], rom.size());
+
+		// after loading ROM into Gameboy, release loaded image
+		rom.clear();
+
+		// start emulating
+		while (!gameboy.isDone()) 
+		{
+			gameboy.update();
+
+			// TODO: render VRAM
+		}
     }
     else
     {
@@ -37,7 +48,7 @@ bool loadGB(const std::string& file_name, std::vector<uint8_t>& buffer)
     std::ifstream file(file_name, std::ios::binary | std::ios::ate);
     if(file.is_open())
     {
-        size_t length = file.tellg();
+        size_t length = (size_t)file.tellg();
         buffer.resize(length);
 
         file.seekg(0, std::ios::beg);

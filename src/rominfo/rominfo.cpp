@@ -33,7 +33,7 @@ int main(int argc, char * argv[])
 	{
 		// load rom image into memory
 		std::vector<uint8_t> buffer;
-		size_t length = rom_image.tellg();
+		size_t length = (size_t)rom_image.tellg();
 		buffer.resize(length);
 
 		rom_image.seekg(0, std::ios::beg);
