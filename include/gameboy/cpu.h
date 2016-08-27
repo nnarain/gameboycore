@@ -19,7 +19,34 @@ namespace gb
     class CPU
     {
 	public:
-		using Register = uint16_t;
+		struct Register
+		{
+			union {
+				struct {
+#ifdef __LITTLEENDIAN__
+					uint8_t lo;
+					uint8_t hi;
+#else
+					uint8_t hi;
+					uint8_t lo;
+#endif
+				};
+				uint16_t val;
+			};
+
+			Register() {}
+			Register(uint16_t val) : val(val) {}
+		};
+
+		struct Status
+		{
+			Register af;
+			Register bc;
+			Register de;
+			Register hl;
+			Register sp;
+			Register pc;
+		};
 
     public:
         CPU();
@@ -28,6 +55,8 @@ namespace gb
 
         bool isHalted() const;
         MMU& getMMU();
+
+		Status getStatus() const;
 
 	private:
 		void decode1(uint8_t opcode);
@@ -38,15 +67,6 @@ namespace gb
 		*/
 		uint8_t load8Imm();
 		uint16_t load16Imm();
-
-		/**
-			get high and low byte of Register
-		*/
-		uint8_t getH(Register reg);
-		uint8_t getL(Register reg);
-
-		void setH(Register& reg, uint8_t);
-		void setL(Register& reg, uint8_t);
 
 	private:
 		Register af_;
