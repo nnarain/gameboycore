@@ -3,9 +3,15 @@ find_package(CxxTest REQUIRED)
 
 message("-- adding unit tests")
 
+set(ROM_DIR "${CMAKE_SOURCE_DIR}/tests/asm/")
+
 include_directories(
     ${CXXTEST_INCLUDE_DIRS}
     ../include/
+)
+
+add_definitions(
+	-DROM_DIR="${ROM_DIR}"
 )
 
 # test load instructions

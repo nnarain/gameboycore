@@ -6,6 +6,10 @@
 #include <string>
 #include <fstream>
 
+#ifndef ROM_DIR
+#	error "ROM_DIR not defined"
+#endif
+
 bool loadGB(const std::string& file_name, std::vector<uint8_t>& buffer);
 
 class LoadInstructionsTestSuite : public CxxTest::TestSuite
