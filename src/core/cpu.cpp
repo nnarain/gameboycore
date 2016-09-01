@@ -85,6 +85,20 @@ namespace gb
 			hl_.lo = load8Imm();
 			break;
 
+		// load 16 bit immediate
+		case 0x01: // LD BC,d16
+			bc_.val = load16Imm();
+			break;
+		case 0x11: // LD DE,d16
+			de_.val = load16Imm();
+			break;
+		case 0x21: // LD HL,d16
+			hl_.val = load16Imm();
+			break;
+		case 0x31: // LD SP,d16
+			sp_.val = load16Imm();
+			break;
+
 		case 0x76:
 			halted_ = true;
 			break;
