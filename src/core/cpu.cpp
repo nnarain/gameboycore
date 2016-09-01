@@ -59,6 +59,35 @@ namespace gb
 		case 0x00:
 			// NOP
 			break;
+
+		// Load Instructions
+
+		// 8 bit loads immediate
+		case 0x3E: // LD A,d8
+			af_.hi = load8Imm();
+			break;
+		case 0x06: // LD B,d8
+			bc_.hi = load8Imm();
+			break;
+		case 0x0E: // LD C,d8
+			bc_.lo = load8Imm();
+			break;
+		case 0x16: // LD D,d8
+			de_.hi = load8Imm();
+			break;
+		case 0x1E: // LD E,d8
+			de_.lo = load8Imm();
+			break;
+		case 0x26: // LD H,d8
+			hl_.hi = load8Imm();
+			break;
+		case 0x2E: // LD L,d8
+			hl_.lo = load8Imm();
+			break;
+
+		case 0x76:
+			halted_ = true;
+			break;
 		}
 	}
 
