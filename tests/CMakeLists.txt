@@ -1,5 +1,5 @@
 
-find_package(CxxTest REQUIRED)
+find_package(CxxTest)
 
 if(CXXTEST_FOUND)
 	message("-- adding unit tests")

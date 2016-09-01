@@ -64,7 +64,7 @@ private:
 
 		// game title
 		static const char* game_title = "TEST";
-		std::memcpy(&rom_[gb::memorymap::GAME_TITLE_START], game_title, sizeof(game_title));
+		std::memcpy(&rom_[gb::memorymap::GAME_TITLE_START], game_title, std::strlen(game_title));
 
 		// nintendo logo
 		static const uint8_t nintendo_logo[] = {
