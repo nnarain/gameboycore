@@ -19,23 +19,18 @@ namespace gb
     class CPU
     {
 	public:
-		struct Register
+		union Register
 		{
-			union {
-				struct {
+			struct {
 #ifdef __LITTLEENDIAN__
-					uint8_t lo;
-					uint8_t hi;
+				uint8_t lo;
+				uint8_t hi;
 #else
-					uint8_t hi;
-					uint8_t lo;
+				uint8_t hi;
+				uint8_t lo;
 #endif
-				};
-				uint16_t val;
 			};
-
-			Register() {}
-			Register(uint16_t val) : val(val) {}
+			uint16_t val;
 		};
 
 		struct Status
