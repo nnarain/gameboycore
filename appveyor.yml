@@ -36,5 +36,5 @@ before_build:
 build:
   project: c:\projects\gameboy\build\gameboy.sln
   
-test:
+after_build:
   - msbuild c:\projects\gameboy\build\RUN_TESTS.vcxproj
