@@ -3,6 +3,7 @@ find_package(CxxTest)
 
 if(CXXTEST_FOUND)
 	message("-- adding unit tests")
+	set($ENV{CTEST_OUTPUT_ON_FAILURE} 1)
 
 	include_directories(
 		${CXXTEST_INCLUDE_DIRS}

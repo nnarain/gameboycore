@@ -45,6 +45,37 @@ public:
 		TS_ASSERT_EQUALS(status.hl.hi, 6);
 		TS_ASSERT_EQUALS(status.hl.lo, 7);
 	}
+	
+	void testLoadImmediate16Bit()
+	{
+		// test load immediate for all registers
+
+		CodeGenerator code;
+		code.block(
+			0x01, 0x34, 0x12, // LD BC,$1234
+			0x11, 0x78, 0x56, // LD DE,$5678
+			0x21, 0xBC, 0x9A, // LD HL,$9ABC
+			0x31, 0xFE, 0xFF, // LD SP,$FFFE
+
+			0x76              // halt
+		);
+
+		
+		Gameboy gameboy;
+
+		auto rom = code.rom();
+		gameboy.loadROM(&rom[0], rom.size());
+
+		while (!gameboy.isDone())
+			gameboy.update();
+
+		CPU::Status status = gameboy.getCPU().getStatus();
+		
+		TS_ASSERT_EQUALS(status.bc.val, 0x1234);
+		TS_ASSERT_EQUALS(status.de.val, 0x5678);
+		TS_ASSERT_EQUALS(status.hl.val, 0x9ABC);
+		TS_ASSERT_EQUALS(status.sp.val, 0xFFFE);
+	}
 
 private:
 };
