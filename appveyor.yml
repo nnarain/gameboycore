@@ -19,7 +19,9 @@ environment:
 clone_folder: c:\projects\gameboy
 
 before_build:
-  - echo "Install CxxTest..."
+  - echo "Setting up Python"
+  - set PATH=%PATH%;%PYTHON%
+  - echo "Installing CxxTest..."
   - git clone https://github.com/CxxTest/cxxtest.git c:\libs\cxxtest
   - set INCLUDE=%INCLUDE%;%CXXTEST_ROOT%
   - echo "Generating Visual Studio Solution..."
