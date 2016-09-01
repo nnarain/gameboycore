@@ -18,6 +18,11 @@ namespace gb
         mmu.load(rom, size);
     }
 
+	const CPU& Gameboy::getCPU() const
+	{
+		return cpu_;
+	}
+
 	bool Gameboy::isDone() const
 	{
 		return cpu_.isHalted();

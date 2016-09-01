@@ -1,16 +1,9 @@
 #include <cxxtest/TestSuite.h>
+#include "util/codegenerator.h"
 
 #include <gameboy/gameboy.h>
 
-#include <vector>
-#include <string>
-#include <fstream>
-
-#ifndef ROM_DIR
-#	error "ROM_DIR not defined"
-#endif
-
-bool loadGB(const std::string& file_name, std::vector<uint8_t>& buffer);
+using namespace gb;
 
 class LoadInstructionsTestSuite : public CxxTest::TestSuite
 {
@@ -18,27 +11,40 @@ public:
 
 	void testLoadImmediate()
 	{
-		TS_ASSERT(true == true);
+		// test load immediate for all registers
+
+		CodeGenerator code;
+		code.block(
+			0x3E, 0x01, // LD A,1
+			0x06, 0x02, // LD B,2
+			0x0E, 0x03, // LD C,3
+			0x16, 0x04, // LD D,4
+			0x1E, 0x05, // LD E,5
+			0x26, 0x06, // LD H,6
+			0x2E, 0x07, // LD L,7
+
+			0x76        // halt
+		);
+
+		
+		Gameboy gameboy;
+
+		auto rom = code.rom();
+		gameboy.loadROM(&rom[0], rom.size());
+
+		while (!gameboy.isDone())
+			gameboy.update();
+
+		CPU::Status status = gameboy.getCPU().getStatus();
+		
+		TS_ASSERT_EQUALS(status.af.hi, 1);
+		TS_ASSERT_EQUALS(status.bc.hi, 2);
+		TS_ASSERT_EQUALS(status.bc.lo, 3);
+		TS_ASSERT_EQUALS(status.de.hi, 4);
+		TS_ASSERT_EQUALS(status.de.lo, 5);
+		TS_ASSERT_EQUALS(status.hl.hi, 6);
+		TS_ASSERT_EQUALS(status.hl.lo, 7);
 	}
 
 private:
 };
-
-bool loadGB(const std::string& file_name, std::vector<uint8_t>& buffer)
-{
-    std::ifstream file(file_name, std::ios::binary | std::ios::ate);
-    if(file.is_open())
-    {
-        size_t length = (size_t)file.tellg();
-        buffer.resize(length);
-
-        file.seekg(0, std::ios::beg);
-        file.read((char*)&buffer[0], length);
-
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
