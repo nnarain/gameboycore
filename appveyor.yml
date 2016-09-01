@@ -12,18 +12,21 @@ environment:
 
     # Python 2.7.10 is the latest version and is not pre-installed.
 
-    - PYTHON: "C:\\Python27.10"
+    - PYTHON: "C:\\Python27"
       PYTHON_VERSION: "2.7.10"
       PYTHON_ARCH: "32"  
 
 clone_folder: c:\projects\gameboy
 
-before_build:
+install:
   - echo "Setting up Python"
   - set PATH=%PATH%;%PYTHON%
   - echo "Installing CxxTest..."
-  - git clone https://github.com/CxxTest/cxxtest.git c:\libs\cxxtest
+  - git clone --depth=1 https://github.com/CxxTest/cxxtest.git c:\libs\cxxtest
   - set INCLUDE=%INCLUDE%;%CXXTEST_ROOT%
+
+before_build:
+  - dir C:\
   - echo "Generating Visual Studio Solution..."
   - cd c:\projects\gameboy
   - mkdir build && cd build
