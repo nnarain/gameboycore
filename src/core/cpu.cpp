@@ -11,14 +11,14 @@ namespace gb
     CPU::CPU() :
         mmu_(),
         halted_(false),
-		cycle_count_(0),
-		af_(0),
-		bc_(0),
-		de_(0),
-		hl_(0),
-		sp_(memorymap::HIGH_RAM_END),
-		pc_(memorymap::PROGRAM_START)
+		cycle_count_(0)
     {
+		af_.val = 0;
+		bc_.val = 0;
+		de_.val = 0;
+		hl_.val = 0;
+		sp_.val = memorymap::HIGH_RAM_END;
+		pc_.val = memorymap::PROGRAM_START;
     }
 
     void CPU::tick()
