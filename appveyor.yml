@@ -7,6 +7,11 @@ os: Visual Studio 2015
 
 environment:
   CXXTEST_ROOT: c:\libs\cxxtest
+  
+  matrix:
+    - PYTHON: "C:\\Python27"
+	  PYTHON_VERSION: "2.7.8"
+      PYTHON_ARCH: "32"	  
 
 clone_folder: c:\projects\gameboy
 
