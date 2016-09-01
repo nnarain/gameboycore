@@ -9,7 +9,7 @@ class LoadInstructionsTestSuite : public CxxTest::TestSuite
 {
 public:
 
-	void testLoadImmediate()
+	void testLoadImmediate8Bit()
 	{
 		// test load immediate for all registers
 
