@@ -9,9 +9,12 @@ environment:
   CXXTEST_ROOT: c:\libs\cxxtest
   
   matrix:
-    - PYTHON: "C:\\Python27"
-	  PYTHON_VERSION: "2.7.8"
-      PYTHON_ARCH: "32"	  
+
+    # Python 2.7.10 is the latest version and is not pre-installed.
+
+    - PYTHON: "C:\\Python27.10"
+      PYTHON_VERSION: "2.7.10"
+      PYTHON_ARCH: "32"  
 
 clone_folder: c:\projects\gameboy
 
