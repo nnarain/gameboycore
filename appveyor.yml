@@ -24,6 +24,7 @@ install:
   - echo "Installing CxxTest..."
   - git clone --depth=1 https://github.com/CxxTest/cxxtest.git c:\libs\cxxtest
   - set INCLUDE=%INCLUDE%;%CXXTEST_ROOT%
+  - set PATH=%PATH%;%CXXTEST_ROOT%\bin
 
 before_build:
   - dir C:\
