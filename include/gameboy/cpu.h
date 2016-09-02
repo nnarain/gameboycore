@@ -48,6 +48,8 @@ namespace gb
 
         void tick();
 
+		void reset();
+
         bool isHalted() const;
         MMU& getMMU();
 

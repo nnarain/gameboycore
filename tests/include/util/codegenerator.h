@@ -47,6 +47,11 @@ public:
 	{
 		address_counter_ = address;
 	}
+
+	void reset()
+	{
+		address_counter_ = 0x150;
+	}
 	
 	std::vector<uint8_t>& rom()
 	{

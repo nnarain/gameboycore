@@ -13,12 +13,7 @@ namespace gb
         halted_(false),
 		cycle_count_(0)
     {
-		af_.val = 0;
-		bc_.val = 0;
-		de_.val = 0;
-		hl_.val = 0;
-		sp_.val = memorymap::HIGH_RAM_END;
-		pc_.val = memorymap::PROGRAM_START;
+		reset();
     }
 
     void CPU::tick()
@@ -323,6 +318,19 @@ namespace gb
 		uint8_t hi = load8Imm();
 
 		return WORD(hi, lo);
+	}
+
+	void CPU::reset()
+	{
+		af_.val = 0;
+		bc_.val = 0;
+		de_.val = 0;
+		hl_.val = 0;
+		sp_.val = memorymap::HIGH_RAM_END;
+		pc_.val = memorymap::PROGRAM_START;
+
+		cycle_count_ = 0;
+		halted_ = false;
 	}
 
     bool CPU::isHalted() const
