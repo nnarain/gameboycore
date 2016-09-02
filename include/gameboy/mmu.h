@@ -30,6 +30,8 @@ namespace gb
         uint8_t read(uint16_t);
         void write(uint8_t, uint16_t);
 
+		unsigned int numBanks() const;
+
 	private:
 		void loadROMBanks(uint8_t rom_size, uint8_t * rom);
 		void copyROMToBanks(unsigned int num_banks, uint8_t* rom);
