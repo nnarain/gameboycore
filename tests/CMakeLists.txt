@@ -26,6 +26,6 @@ if(GTEST_FOUND)
 	)
 	
 	# make check target to run gtests manually
-	add_custom_target(check COMMAND gameboy_tests)
+	add_custom_target(check COMMAND gameboy_tests DEPENDS gameboy_tests)
 	
 endif(GTEST_FOUND)
