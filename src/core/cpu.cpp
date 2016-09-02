@@ -99,6 +99,40 @@ namespace gb
 			sp_.val = load16Imm();
 			break;
 
+		// transfer (Register to register, memory to register)
+		case 0x40: // LD B,B
+			break;
+		case 0x41: // LD B,C
+			break;
+		case 0x42: // LD B,D
+			break;
+		case 0x43: // LD B,E
+			break;
+		case 0x44: // LD B,H
+			break;
+		case 0x45: // LD B,L
+			break;
+		case 0x46: // LD B,(HL)
+			break;
+		case 0x47: // LD B,A
+			break;
+		case 0x48: // LD C,B
+			break;
+		case 0x49: // LD C,C
+			break;
+		case 0x4A: // LD C,D
+			break;
+		case 0x4B: // LD C,E
+			break;
+		case 0x4C: // LD C,H
+			break;
+		case 0x4D: // LD C,L
+			break;
+		case 0x4E: // LD C,(HL)
+			break;
+		case 0x4F: // LD C,A
+			break;
+
 		case 0x76:
 			halted_ = true;
 			break;
