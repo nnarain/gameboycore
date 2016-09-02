@@ -51,7 +51,8 @@ namespace gb
 		void reset();
 
         bool isHalted() const;
-        MMU& getMMU();
+        const MMU& getMMU() const;
+		MMU& getMMU();
 
 		Status getStatus() const;
 

@@ -308,3 +308,116 @@ TEST(LoadInstructionsTest, Transfer)
 	EXPECT_EQ(status.de.lo, 0x01);
 	EXPECT_EQ(status.hl.lo, 0x01);
 }
+
+TEST(LoadInstructionsTest, LoadRegisterFromMemory)
+{
+	CodeGenerator code;
+	code.block(
+		0x21, 0x50, 0x02,	// LD HL,$0250
+		0x46,				// LD B,(HL)
+		0x56,				// LD D,(HL)
+		0x4E,				// LD C,(HL)
+		0x5E,				// LD E,(HL)
+		0x7E,				// LD A,(HL)
+		0x66,				// LD H,(HL)
+
+		0x76
+	);
+
+	code.address(0x250);
+	code.block(0xAE);
+
+	Gameboy gameboy;
+	CPU::Status status;
+
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.bc.hi, 0xAE);
+	EXPECT_EQ(status.bc.lo, 0xAE);
+	EXPECT_EQ(status.de.hi, 0xAE);
+	EXPECT_EQ(status.de.lo, 0xAE);
+	EXPECT_EQ(status.af.hi, 0xAE);
+
+	EXPECT_EQ(status.hl.hi, 0xAE);
+//	EXPECT_EQ(status.hl.lo, 0xAE);
+}
+
+TEST(LoadInstructionsTest, LoadMemoryFromRegister)
+{
+	Gameboy gameboy;
+	const MMU& mmu = gameboy.getCPU().getMMU();
+	CPU::Status status;
+
+	CodeGenerator code;
+
+	code.block(
+		0x21, 0x50, 0x02,	// LD HL, $250
+		0x06, 0x05,			// LD B,5
+		0x70,				// LD (HL),B
+
+		0x76
+	);
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(mmu.read(0x250), 0x05);
+
+	code.reset();
+	code.block(
+		0x21, 0x51, 0x02,	// LD HL, $251
+		0x0E, 0x05,			// LD C,5
+		0x71,				// LD (HL),C
+
+		0x76
+	);
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(mmu.read(0x251), 0x05);
+
+	code.reset();
+	code.block(
+		0x21, 0x52, 0x02,	// LD HL, $252
+		0x16, 0x05,			// LD D,5
+		0x72,				// LD (HL),D
+
+		0x76
+	);
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(mmu.read(0x252), 0x05);
+
+	code.reset();
+	code.block(
+		0x21, 0x53, 0x02,	// LD HL, $253
+		0x1E, 0x05,			// LD E,5
+		0x73,				// LD (HL),E
+
+		0x76
+	);
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(mmu.read(0x253), 0x05);
+
+	code.reset();
+	code.block(
+		0x21, 0x54, 0x02,	// LD HL, $254
+		0x26, 0x02,			// LD H,5
+		0x74,				// LD (HL),H
+
+		0x76
+	);
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(mmu.read(0x254), 0x02);
+
+	code.reset();
+	code.block(
+		0x21, 0x55, 0x02,	// LD HL, $254
+		0x2E, 0x55,			// LD L,5
+		0x75,				// LD (HL),L
+
+		0x76
+	);
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(mmu.read(0x255), 0x55);
+}

@@ -338,10 +338,14 @@ namespace gb
         return halted_;
     }
 
-    MMU& CPU::getMMU()
+    const MMU& CPU::getMMU() const
     {
         return mmu_;
     }
+	MMU& CPU::getMMU()
+	{
+		return mmu_;
+	}
 
 	CPU::Status CPU::getStatus() const
 	{
