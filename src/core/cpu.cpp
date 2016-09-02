@@ -101,36 +101,198 @@ namespace gb
 
 		// transfer (Register to register, memory to register)
 		case 0x40: // LD B,B
+			bc_.hi = bc_.hi;
 			break;
 		case 0x41: // LD B,C
+			bc_.hi = bc_.lo;
 			break;
 		case 0x42: // LD B,D
+			bc_.hi = de_.hi;
 			break;
 		case 0x43: // LD B,E
+			bc_.hi = de_.lo;
 			break;
 		case 0x44: // LD B,H
+			bc_.hi = hl_.hi;
 			break;
 		case 0x45: // LD B,L
+			bc_.hi = hl_.lo;
 			break;
 		case 0x46: // LD B,(HL)
+			bc_.hi = mmu_.read(hl_.val);
 			break;
 		case 0x47: // LD B,A
+			bc_.hi = af_.hi;
 			break;
 		case 0x48: // LD C,B
+			bc_.lo = bc_.hi;
 			break;
 		case 0x49: // LD C,C
+			bc_.lo = bc_.lo;
 			break;
 		case 0x4A: // LD C,D
+			bc_.lo = de_.hi;
 			break;
 		case 0x4B: // LD C,E
+			bc_.lo = de_.lo;
 			break;
 		case 0x4C: // LD C,H
+			bc_.lo = hl_.hi;
 			break;
 		case 0x4D: // LD C,L
+			bc_.lo = hl_.lo;
 			break;
 		case 0x4E: // LD C,(HL)
+			bc_.lo = mmu_.read(hl_.val);
 			break;
 		case 0x4F: // LD C,A
+			bc_.lo = af_.hi;
+			break;
+
+		case 0x50: // LD D,B
+			de_.hi = bc_.hi;
+			break;
+		case 0x51: // LD D,C
+			de_.hi = bc_.lo;
+			break;
+		case 0x52: // LD D,D
+			de_.hi = de_.hi;
+			break;
+		case 0x53: // LD D,E
+			de_.hi = de_.lo;
+			break;
+		case 0x54: // LD D,H
+			de_.hi = hl_.hi;
+			break;
+		case 0x55: // LD D,L
+			de_.hi = hl_.lo;
+			break;
+		case 0x56: // LD D,(HL)
+			de_.hi = mmu_.read(hl_.val);
+			break;
+		case 0x57: // LD D,A
+			de_.hi = af_.hi;
+			break;
+		case 0x58: // LD E,B
+			de_.lo = bc_.hi;
+			break;
+		case 0x59: // LD E,C
+			de_.lo = bc_.lo;
+			break;
+		case 0x5A: // LD E,D
+			de_.lo = de_.hi;
+			break;
+		case 0x5B: // LD E,E
+			de_.lo = de_.lo;
+			break;
+		case 0x5C: // LD E,H
+			de_.lo = hl_.hi;
+			break;
+		case 0x5D: // LD E,L
+			de_.lo = hl_.lo;
+			break;
+		case 0x5E: // LD E,(HL)
+			de_.lo = mmu_.read(hl_.val);
+			break;
+		case 0x5F: // LD E,A
+			de_.lo = af_.hi;
+			break;
+
+		case 0x60: // LD H,B
+			hl_.hi = bc_.hi;
+			break;
+		case 0x61: // LD H,C
+			hl_.hi = bc_.lo;
+			break;
+		case 0x62: // LD H,D
+			hl_.hi = de_.hi;
+			break;
+		case 0x63: // LD H,E
+			hl_.hi = de_.lo;
+			break;
+		case 0x64: // LD H,H
+			hl_.hi = hl_.hi;
+			break;
+		case 0x65: // LD H,L
+			hl_.hi = hl_.lo;
+			break;
+		case 0x66: // LD H,(HL)
+			hl_.hi = mmu_.read(hl_.val);
+			break;
+		case 0x67: // LD H,A
+			hl_.hi = af_.hi;
+			break;
+		case 0x68: // LD L,B
+			hl_.lo = bc_.hi;
+			break;
+		case 0x69: // LD L,C
+			hl_.lo = bc_.lo;
+			break;
+		case 0x6A: // LD L,D
+			hl_.lo = de_.hi;
+			break;
+		case 0x6B: // LD L,E
+			hl_.lo = de_.lo;
+			break;
+		case 0x6C: // LD L,H
+			hl_.lo = hl_.hi;
+			break;
+		case 0x6D: // LD L,L
+			hl_.lo = hl_.lo;
+			break;
+		case 0x6E: // LD L,(HL)
+			hl_.lo = mmu_.read(hl_.val);
+			break;
+		case 0x6F: // LD L,A
+			hl_.lo = af_.hi;
+			break;
+
+		case 0x78: // LD A,B
+			af_.hi = bc_.hi;
+			break;
+		case 0x79: // LD A,C
+			af_.hi = bc_.lo;
+			break;
+		case 0x7A: // LD A,D
+			af_.hi = de_.hi;
+			break;
+		case 0x7B: // LD A,E
+			af_.hi = de_.lo;
+			break;
+		case 0x7C: // LD A,H
+			af_.hi = hl_.hi;
+			break;
+		case 0x7D: // LD A,L
+			af_.hi = hl_.lo;
+			break;
+		case 0x7E: // LD A,(HL)
+			af_.hi = mmu_.read(hl_.val);
+			break;
+		case 0x7F: // LD A,A
+			af_.hi = af_.hi;
+			break;
+
+		// register to memory
+		case 0x70: // LD (HL),B
+			mmu_.write(bc_.hi, hl_.val);
+			break;
+		case 0x71: // LD (HL),C
+			mmu_.write(bc_.lo, hl_.val);
+			break;
+		case 0x72: // LD (HL),D
+			mmu_.write(de_.hi, hl_.val);
+			break;
+		case 0x73: // LD (HL),E
+			mmu_.write(de_.lo, hl_.val);
+			break;
+		case 0x74: // LD (HL),H
+			mmu_.write(hl_.hi, hl_.val);
+			break;
+		case 0x75: // LD (HL),L
+			mmu_.write(hl_.lo, hl_.val);
+			break;
+		case 0x77: // LD (HL),A
+			mmu_.write(af_.hi, hl_.val);
 			break;
 
 		case 0x76:
