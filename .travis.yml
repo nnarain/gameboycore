@@ -23,7 +23,7 @@ install:
 script:
 - mkdir build && cd build
 - cmake ..
-- make && make check
+- make && cd tests && make check
 
 after_success:
   - tar -cvf gameboy.tar.gz build/gameboy build/libgbcore.a build/rominfo
