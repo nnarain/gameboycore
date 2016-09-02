@@ -79,9 +79,3 @@ TEST(LoadInstructionsTest, Load16BitImmediate)
 	EXPECT_EQ(status.sp.val, 0xFFFE);
 }
 
-int main(int argc, char * argv[])
-{
-	testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
-}
-

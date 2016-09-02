@@ -22,7 +22,9 @@ if(GTEST_FOUND)
 	
 	# add gtests
 	add_gtest(gameboy_tests
+		test_entry.cpp
 		test_load_instructions.cpp
+		test_mmu.cpp
 	)
 	
 	# make check target to run gtests manually

@@ -90,4 +90,9 @@ namespace gb
 			std::memcpy(&bank[0], current_bank, BANK_SIZE);
 		}
 	}
+
+	unsigned int MMU::numBanks() const
+	{
+		return rom_banks_.size();
+	}
 }
