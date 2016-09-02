@@ -5,6 +5,7 @@
 #include <vector>
 #include <cstdint>
 #include <string>
+#include <cstring>
 #include <iostream>
 
 #include <gameboy/memorymap.h>
@@ -34,7 +35,6 @@ public:
 
 	void emit(uint8_t byte)
 	{
-		std::cout << "$" << std::hex << (int)byte << std::endl;
 		rom_[address_counter_++] = byte;
 	}
 
