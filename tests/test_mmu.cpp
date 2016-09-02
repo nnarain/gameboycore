@@ -46,5 +46,5 @@ TEST(MMUTest, Write)
 
 	mmu.write(0x35, 0x512);
 
-	EXPECT_TRUE(mmu.read(0x512), 0x35);
+	EXPECT_EQ(mmu.read(0x512), 0x35);
 }
