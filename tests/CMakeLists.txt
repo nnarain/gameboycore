@@ -4,8 +4,8 @@ find_package(GTest)
 if(GTEST_FOUND)
 	message("-- adding tests")
 
-	macro(add_gtest name test_file)
-		add_executable(${name} ${test_file})
+	macro(add_gtest name)
+		add_executable(${name} ${ARGN})
 		target_link_libraries(${name} gbcore ${GTEST_BOTH_LIBRARIES})
 		add_test(${name} ${name})
 	endmacro(add_gtest)
@@ -16,9 +16,12 @@ if(GTEST_FOUND)
 		${GTEST_INCLUDE_DIRS}
 	)
 	
-	# load instructions test
-	add_gtest(loadinstructions_test test_load_instructions.cpp)
+	# add gtests
+	add_gtest(gameboy_tests
+		test_load_instructions.cpp
+	)
 	
-	
+	# make check target to run gtests manually
+	add_custom_target(check COMMAND gameboy_tests)
 	
 endif(GTEST_FOUND)
