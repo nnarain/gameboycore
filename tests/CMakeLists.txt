@@ -1,20 +1,24 @@
 
-find_package(CxxTest)
+find_package(GTest)
 
-if(CXXTEST_FOUND)
-	message("-- adding unit tests")
+if(GTEST_FOUND)
+	message("-- adding tests")
 
+	macro(add_gtest name test_file)
+		add_executable(${name} ${test_file})
+		target_link_libraries(${name} gbcore ${GTEST_BOTH_LIBRARIES})
+		add_test(${name} ${name})
+	endmacro(add_gtest)
+	
 	include_directories(
-		${CXXTEST_INCLUDE_DIRS}
 		../include/
 		include/
+		${GTEST_INCLUDE_DIRS}
 	)
-
-	# test load instructions
-	cxxtest_add_test(test_load_instructions test_load_instructions.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/test_load_instructions.h
-	)
-	target_link_libraries(test_load_instructions
-		gbcore
-	)
-endif(CXXTEST_FOUND)
+	
+	# load instructions test
+	add_gtest(loadinstructions_test test_load_instructions.cpp)
+	
+	
+	
+endif(GTEST_FOUND)
