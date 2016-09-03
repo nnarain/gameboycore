@@ -450,7 +450,6 @@ TEST(LoadInstructionsTest, LoadMemoryIncDec)
 TEST(LoadInstructionsTest, LoadRegisterIncDec)
 {
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status;
 
 	CodeGenerator code;
@@ -488,7 +487,6 @@ TEST(LoadInstructionsTest, LoadRegisterIncDec)
 TEST(LoadInstructionsTest, In) 
 {
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status;
 
 	CodeGenerator code;
