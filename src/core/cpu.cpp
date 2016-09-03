@@ -93,6 +93,8 @@ namespace gb
 		case 0x31: // LD SP,d16
 			sp_.val = load16Imm();
 			break;
+		case 0x08: // LD (a16),SP
+			break;
 
 			// transfer (Register to register, memory to register)
 		case 0x40: // LD B,B
