@@ -290,6 +290,21 @@ namespace gb
 			mmu_.write(af_.hi, hl_.val);
 			break;
 
+		// Load Increment/Decrement
+		// (HL+/-) <- A & A <- (HL+/-)
+		case 0x22: // LD (HL+),A
+			mmu_.write(af_.hi, hl_.val + 1);
+			break;
+		case 0x32: // LD (HL-),A
+			mmu_.write(af_.hi, hl_.val - 1);
+			break;
+		case 0x2A: // LD A,(HL+)
+			af_.hi = mmu_.read(hl_.val + 1);
+			break;
+		case 0x3A: // LD A,(HL-)
+			af_.hi = mmu_.read(hl_.val - 1);
+			break;
+
 		case 0x76:
 			halted_ = true;
 			break;
