@@ -375,9 +375,7 @@ namespace gb
 			inc(hl_.lo);
 			break;
 		case 0x34: // INC (HL)
-			uint8_t b = mmu_.read(hl_.val);
-			inc(b);
-			mmu_.write(b, hl_.val);
+			inca(hl_.val);
 			break;
 		case 0x3C: // INC A
 			inc(af_.hi);
@@ -403,9 +401,7 @@ namespace gb
 			dec(hl_.lo);
 			break;
 		case 0x35: // DEC (HL)
-			uint8_t b = mmu_.read(hl_.val);
-			dec(b);
-			mmu_.write(b, hl_.val);
+			deca(hl_.val);
 			break;
 		case 0x3D: // DEC A
 			dec(af_.hi);
@@ -475,6 +471,20 @@ namespace gb
 	{
 		d--;
 		// TODO: Flag bits
+	}
+
+	void CPU::inca(uint16_t addr)
+	{
+		uint8_t b = mmu_.read(addr);
+		inc(b);
+		mmu_.write(b, addr);
+	}
+
+	void CPU::deca(uint16_t addr)
+	{
+		uint8_t b = mmu_.read(addr);
+		dec(b);
+		mmu_.write(b, addr);
 	}
 
 	void CPU::reset()
