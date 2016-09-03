@@ -433,17 +433,18 @@ TEST(LoadInstructionsTest, LoadMemoryIncDec)
 	code.block(
 		0x3E, 0x05,			// LD A,5
 		0x21, 0x50, 0x02,	// LD HL,$250
-		0x22,				// LD ($250 + 1),A
-		0x32,				// LD ($250 - 1),A
+		0x22,				// LD (HL+1),A
+		0x3E, 0x06,			// LD A,6
+		0x32,				// LD (HL-1),A
 
 		0x76
 	);
 	status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 5);
+	EXPECT_EQ(status.af.hi, 6);
 	EXPECT_EQ(status.hl.val, 0x250);
-	EXPECT_EQ(mmu.read(0x251), 5);
-	EXPECT_EQ(mmu.read(0x24F), 5);
+	EXPECT_EQ(mmu.read(0x250), 5);
+	EXPECT_EQ(mmu.read(0x251), 6);
 }
 
 TEST(LoadInstructionsTest, LoadRegisterIncDec)
@@ -460,12 +461,13 @@ TEST(LoadInstructionsTest, LoadRegisterIncDec)
 
 		0x76
 	);
-	code.address(0x251);
+	code.address(0x250);
 	code.block(0x06);
 
 	status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 6);
+	EXPECT_EQ(status.hl.val, 0x251);
 
 	code.reset();
 	code.block(
@@ -480,4 +482,51 @@ TEST(LoadInstructionsTest, LoadRegisterIncDec)
 	status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 6);
+	EXPECT_EQ(status.hl.val, 0x24F);
+}
+
+TEST(LoadInstructionsTest, In) 
+{
+	Gameboy gameboy;
+	const MMU& mmu = gameboy.getCPU().getMMU();
+	CPU::Status status;
+
+	CodeGenerator code;
+
+	code.block(
+		0x21, 0x05, 0xFF,	// LD HL,$FF05
+		0x06, 0xFE,			// LD B,$FE
+		0x70,				// LD (HL),B
+		0x0E, 0x05,			// LD C,5
+
+		0xF2,				// LD A,(C)
+		
+		0x76
+	);
+
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.hi, 0xFE);
+}
+
+TEST(LoadInstructionsTest, Out)
+{
+	Gameboy gameboy;
+	const MMU& mmu = gameboy.getCPU().getMMU();
+	CPU::Status status;
+
+	CodeGenerator code;
+
+	code.block(
+		0x0E, 0x05,			// LD C,5
+		0x3E, 0xFF,			// LD A,$FF
+
+		0xE2,				// LD (C),A
+
+		0x76
+	);
+
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(mmu.read(0xFF05), 0xFF);
 }

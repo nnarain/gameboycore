@@ -8,22 +8,22 @@ uint8_t cycles2[] = { 0 };
 
 namespace gb
 {
-    CPU::CPU() :
-        mmu_(),
-        halted_(false),
+	CPU::CPU() :
+		mmu_(),
+		halted_(false),
 		cycle_count_(0)
-    {
+	{
 		reset();
-    }
+	}
 
-    void CPU::tick()
-    {
+	void CPU::tick()
+	{
 		// fetch next opcode
 		uint8_t opcode = mmu_.read(pc_.val++);
 		uint8_t cycles;
 
 		// $CB means decode from the second page of instructions
-		if (opcode != 0xCB) 
+		if (opcode != 0xCB)
 		{
 			// decode from first page
 			decode1(opcode);
@@ -31,7 +31,7 @@ namespace gb
 			// look up the number of cycles for this opcode
 			cycles = cycles1[opcode];
 		}
-		else 
+		else
 		{
 			// read the second page opcode
 			opcode = mmu_.read(pc_.val++);
@@ -45,19 +45,19 @@ namespace gb
 		cycle_count_ += cycles;
 
 		// TODO: determine what interrupts should fire
-    }
+	}
 
-	void CPU::decode1(uint8_t opcode) 
+	void CPU::decode1(uint8_t opcode)
 	{
-		switch (opcode) 
+		switch (opcode)
 		{
 		case 0x00:
 			// NOP
 			break;
 
-		// Load Instructions
+			// Load Instructions
 
-		// 8 bit loads immediate
+			// 8 bit loads immediate
 		case 0x3E: // LD A,d8
 			af_.hi = load8Imm();
 			break;
@@ -80,7 +80,7 @@ namespace gb
 			hl_.lo = load8Imm();
 			break;
 
-		// load 16 bit immediate
+			// load 16 bit immediate
 		case 0x01: // LD BC,d16
 			bc_.val = load16Imm();
 			break;
@@ -94,7 +94,7 @@ namespace gb
 			sp_.val = load16Imm();
 			break;
 
-		// transfer (Register to register, memory to register)
+			// transfer (Register to register, memory to register)
 		case 0x40: // LD B,B
 			bc_.hi = bc_.hi;
 			break;
@@ -267,7 +267,7 @@ namespace gb
 			af_.hi = af_.hi;
 			break;
 
-		// register to memory
+			// register to memory
 		case 0x70: // LD (HL),B
 			mmu_.write(bc_.hi, hl_.val);
 			break;
@@ -290,19 +290,39 @@ namespace gb
 			mmu_.write(af_.hi, hl_.val);
 			break;
 
-		// Load Increment/Decrement
-		// (HL+/-) <- A & A <- (HL+/-)
+			// Load Increment/Decrement
+			// (HL+/-) <- A & A <- (HL+/-)
 		case 0x22: // LD (HL+),A
-			mmu_.write(af_.hi, hl_.val + 1);
+			mmu_.write(af_.hi, hl_.val++);
 			break;
 		case 0x32: // LD (HL-),A
-			mmu_.write(af_.hi, hl_.val - 1);
+			mmu_.write(af_.hi, hl_.val--);
 			break;
 		case 0x2A: // LD A,(HL+)
-			af_.hi = mmu_.read(hl_.val + 1);
+			af_.hi = mmu_.read(hl_.val++);
 			break;
 		case 0x3A: // LD A,(HL-)
-			af_.hi = mmu_.read(hl_.val - 1);
+			af_.hi = mmu_.read(hl_.val--);
+			break;
+
+		// IN/OUT Instructions. Load and Store to IO Registers (immediate or using C register). IO Offset is $FF00
+		case 0xE0: // LDH (a8),A
+			out(load8Imm());
+			break;
+		case 0xF0: // LDH A,(a8)
+			in(load8Imm());
+			break;
+		case 0xE2: // LD (C),A
+			out(bc_.lo);
+			break;
+		case 0xF2: // LD A,(C)
+			in(bc_.lo);
+			break;
+		case 0xEA: // LD (a16),A
+			out(load16Imm());
+			break;
+		case 0xFA: // LD A,(a16)
+			in(load16Imm());
 			break;
 
 		case 0x76:
@@ -333,6 +353,18 @@ namespace gb
 		uint8_t hi = load8Imm();
 
 		return WORD(hi, lo);
+	}
+
+	void CPU::in(uint16_t offset)
+	{
+		// read from offset into IO registers
+		af_.hi = mmu_.read(0xFF00 + offset);
+	}
+
+	void CPU::out(uint16_t offset)
+	{
+		// write out to the IO registers given the offset
+		mmu_.write(af_.hi, 0xFF00 + offset);
 	}
 
 	void CPU::reset()

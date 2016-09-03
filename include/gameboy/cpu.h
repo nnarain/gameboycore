@@ -66,6 +66,12 @@ namespace gb
 		uint8_t load8Imm();
 		uint16_t load16Imm();
 
+		/**
+			IN/OUT
+		*/
+		void in(uint16_t offset);
+		void out(uint16_t offset);
+
 	private:
 		Register af_;
 		Register bc_;
