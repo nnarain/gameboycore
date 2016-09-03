@@ -36,6 +36,15 @@ namespace gb
         memory_[addr] = value;
     }
 
+	void MMU::write(uint16_t value, uint16_t addr)
+	{
+		uint8_t hi = (value & 0xFF00) >> 8;
+		uint8_t lo = (value & 0x00FF);
+
+		memory_[addr]     = lo;
+		memory_[addr + 1] = hi;
+	}
+
 	void MMU::loadROMBanks(uint8_t rom_size, uint8_t * rom)
 	{
 		static unsigned int rom_banks1[] = {
