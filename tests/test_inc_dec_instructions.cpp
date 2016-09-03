@@ -164,7 +164,7 @@ TEST(IncDecInstructions, IncMemory)
 
 	Gameboy gameboy;
 	const MMU& mmu = gameboy.getCPU().getMMU();
-	CPU::Status status = run(gameboy, code.rom());
+	(void)run(gameboy, code.rom());
 
 	EXPECT_EQ(mmu.read(0x250), 0xFF);
 }
