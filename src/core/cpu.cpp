@@ -290,8 +290,8 @@ namespace gb
 			mmu_.write(af_.hi, hl_.val);
 			break;
 
-			// Load Increment/Decrement
-			// (HL+/-) <- A & A <- (HL+/-)
+		// Load Increment/Decrement
+		// (HL+/-) <- A & A <- (HL+/-)
 		case 0x22: // LD (HL+),A
 			mmu_.write(af_.hi, hl_.val++);
 			break;
@@ -323,6 +323,88 @@ namespace gb
 			break;
 		case 0xFA: // LD A,(a16)
 			in(load16Imm());
+			break;
+
+		/* Increment Instruction */
+
+		// 16 bit increment
+		case 0x03: // INC BC
+			inc(bc_.val);
+			break;
+		case 0x13: // INC DE
+			inc(de_.val);
+			break;
+		case 0x23: // INC HL
+			inc(hl_.val);
+			break;
+		case 0x33: // INC SP
+			inc(sp_.val);
+			break;
+
+		// 16 bit decrement
+		case 0x0B: // DEC BC
+			dec(bc_.val);
+			break;
+		case 0x1B: // DEC DE
+			dec(de_.val);
+			break;
+		case 0x2B: // DEC HL
+			dec(hl_.val);
+			break;
+		case 0x3B: // DEC SP
+			dec(sp_.val);
+			break;
+
+		// 8 bit increment
+		case 0x04: // INC B
+			inc(bc_.hi);
+			break;
+		case 0x0C: // INC C
+			inc(bc_.lo);
+			break;
+		case 0x14: // INC D
+			inc(de_.hi);
+			break;
+		case 0x1C: // INC E
+			inc(de_.lo);
+			break;
+		case 0x24: // INC H
+			inc(hl_.hi);
+			break;
+		case 0x2C: // INC L
+			inc(hl_.lo);
+			break;
+		case 0x34: // INC (HL)
+			inca(hl_.val);
+			break;
+		case 0x3C: // INC A
+			inc(af_.hi);
+			break;
+
+		// 8 bit decrement
+		case 0x05: // DEC B
+			dec(bc_.hi);
+			break;
+		case 0x0D: // DEC C
+			dec(bc_.lo);
+			break;
+		case 0x15: // DEC D
+			dec(de_.hi);
+			break;
+		case 0x1D: // DEC C
+			dec(de_.lo);
+			break;
+		case 0x25: // DEC H
+			dec(hl_.hi);
+			break;
+		case 0x2D: // DEC L
+			dec(hl_.lo);
+			break;
+		case 0x35: // DEC (HL)
+			deca(hl_.val);
+			break;
+		case 0x3D: // DEC A
+			dec(af_.hi);
 			break;
 
 		case 0x76:
@@ -365,6 +447,44 @@ namespace gb
 	{
 		// write out to the IO registers given the offset
 		mmu_.write(af_.hi, 0xFF00 + offset);
+	}
+
+	void CPU::inc(uint8_t& i)
+	{
+		i++;
+		// TODO: Flag bits
+	}
+	
+	void CPU::inc(uint16_t& i)
+	{
+		i++;
+		// TODO: Flag bits
+	}
+	
+	void CPU::dec(uint8_t& d)
+	{
+		d--;
+		// TODO: Flag bits
+	}
+
+	void CPU::dec(uint16_t& d)
+	{
+		d--;
+		// TODO: Flag bits
+	}
+
+	void CPU::inca(uint16_t addr)
+	{
+		uint8_t b = mmu_.read(addr);
+		inc(b);
+		mmu_.write(b, addr);
+	}
+
+	void CPU::deca(uint16_t addr)
+	{
+		uint8_t b = mmu_.read(addr);
+		dec(b);
+		mmu_.write(b, addr);
 	}
 
 	void CPU::reset()

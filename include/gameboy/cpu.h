@@ -72,6 +72,16 @@ namespace gb
 		void in(uint16_t offset);
 		void out(uint16_t offset);
 
+		/**
+			INC/DEC 
+		*/
+		void inc(uint8_t&);
+		void inc(uint16_t&);
+		void inca(uint16_t);
+		void dec(uint8_t&);
+		void dec(uint16_t&);
+		void deca(uint16_t);
+
 	private:
 		Register af_;
 		Register bc_;
