@@ -1,9 +1,33 @@
 
-find_package(CxxTest REQUIRED)
+find_package(GTest)
 
-include_directories(
-    ${CXXTEST_INCLUDE_DIRS}
-    ../include/
-)
+if(UNIX)
+	find_package(Threads REQUIRED)
+endif(UNIX)
 
-# add tests...
+if(GTEST_FOUND)
+	message("-- adding tests")
+
+	macro(add_gtest name)
+		add_executable(${name} ${ARGN})
+		target_link_libraries(${name} gbcore ${GTEST_BOTH_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+		add_test(${name} ${name})
+	endmacro(add_gtest)
+	
+	include_directories(
+		../include/
+		include/
+		${GTEST_INCLUDE_DIRS}
+	)
+	
+	# add gtests
+	add_gtest(gameboy_tests
+		test_entry.cpp
+		test_load_instructions.cpp
+		test_mmu.cpp
+	)
+	
+	# make check target to run gtests manually
+	add_custom_target(check COMMAND gameboy_tests)
+	
+endif(GTEST_FOUND)

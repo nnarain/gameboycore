@@ -8,6 +8,19 @@ cmake_minimum_required(VERSION 2.8)
 
 project(gameboy)
 
+# test endianness of system
+include(TestBigEndian)
+
+test_big_endian(IS_BIG_ENDIAN)
+
+if(IS_BIG_ENDIAN)
+    message("-- Setting __BIGENDIAN__")
+    set(ENDIAN "__BIGENDIAN__")
+else(IS_BIG_ENDIAN)
+    message("-- Setting __LITTLEENDIAN__")
+    set(ENDIAN "__LITTLEENDIAN__")
+endif(IS_BIG_ENDIAN)
+
 # Core sources for Gameboy emulation
 set(GAMEBOYCORE
     src/core/gameboy.cpp
@@ -19,7 +32,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
 	include/gameboy/cpu.h
 	include/gameboy/mmu.h
-	
+
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h
 	include/gameboy/cartinfo.h
@@ -32,6 +45,10 @@ endif()
 
 include_directories(
     include/
+)
+
+add_definitions(
+    -D${ENDIAN}
 )
 
 # Gameboy Core Library

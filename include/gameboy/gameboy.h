@@ -26,6 +26,10 @@ namespace gb
 
         void loadROM(uint8_t* rom, uint32_t size);
 
+		void reset();
+
+		const CPU& getCPU() const;
+
 		bool isDone() const;
     private:
     };

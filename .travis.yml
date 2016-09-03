@@ -1,25 +1,24 @@
 language: cpp
 dist: trusty
 sudo: required
+
 os:
 - linux
 compiler:
 - g++
+
 before_install:
 - git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
 - cd ~/scripts/ && ./bootstrap && cd -
 - preinstall_general
+
 install:
 - install_general
-- echo "Installing Gameboy Assembler"
-- git clone --depth=1 https://github.com/nnarain/gameboy-assembler.git
-- cd gameboy-assembler
-- make && sudo make install
-- cd -
+
 script:
 - mkdir build && cd build
 - cmake ..
-- make
+- make && make check
 
 after_success:
   - tar -cvf gameboy.tar.gz build/gameboy build/libgbcore.a build/rominfo

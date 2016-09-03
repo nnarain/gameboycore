@@ -25,7 +25,7 @@ namespace gb
 		loadROMBanks(info.rom_size, rom);
     }
 
-    uint8_t MMU::read(uint16_t addr)
+    uint8_t MMU::read(uint16_t addr) const
     {
         return memory_[addr];
     }
@@ -59,6 +59,7 @@ namespace gb
 
 			if (cartridge_rom_banks != 0) 
 			{
+				rom_banks_.clear();
 				rom_banks_.resize(switchable_rom_banks);
 				copyROMToBanks(switchable_rom_banks, rom);
 			}
@@ -69,6 +70,7 @@ namespace gb
 			// since there are always 2 available in the $0000 - $3FFF range
 			unsigned int switchable_rom_banks = rom_banks2[rom_size] - 2;
 
+			rom_banks_.clear();
 			rom_banks_.resize(switchable_rom_banks);
 			copyROMToBanks(switchable_rom_banks, rom);
 		}
@@ -89,5 +91,10 @@ namespace gb
 
 			std::memcpy(&bank[0], current_bank, BANK_SIZE);
 		}
+	}
+
+	unsigned int MMU::numBanks() const
+	{
+		return rom_banks_.size();
 	}
 }
