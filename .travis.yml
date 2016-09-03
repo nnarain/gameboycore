@@ -1,32 +1,34 @@
 language: cpp
 dist: trusty
-
 sudo: required
 
 os:
-  - linux
-
+- linux
 compiler:
-  - g++
+- g++
 
 before_install:
-  - git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
-  - cd ~/scripts/ && ./bootstrap && cd -
-  - preinstall_general
+- git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
+- cd ~/scripts/ && ./bootstrap && cd -
+- preinstall_general
 
 install:
-  - install_general
+- install_general
 
 script:
-  - mkdir build && cd build
-  - cmake ..
-  - make
+- mkdir build && cd build
+- cmake ..
+- make && make check
+
+after_success:
+  - tar -cvf gameboy.tar.gz build/gameboy build/libgbcore.a build/rominfo
 
 deploy:
   provider: releases
   api_key:
-    secure: "n2hEalbehB9HWgd0ejPddkv/nrTPNK9+VriJDtpEw5cvm8ItRk7lSVFIFoJnM4GZQsEg/OcVku9MxUgJ16v9HCel78mkMCdqCVhmWj4NaVDr8qTUckoyCMe/7NXxx8KPI2tA5vj59D8oGx896zwNV52gLzreS5ByQJ5pSH8Y3DTaHxvq3vAxKMsrGY0s0nDutL698NRZo/n79AdcwMstBDOj7cuhe7HgwgzIbztTdZTSptcNBKHdqF6PY/tM87BWXcNk4RbLfKzZ/PXhZtKOk4ge95eyZbX4UqrcShEJcrQcONloiIymoHKULxT08VH/HNt6r2L5SkG3vEtPiS2H/Pq4L8E5httc7n6vrCbV9S8tyKe00oGZz0+GDOMjd7NgyFjhZ5j1wPqbyy2MvZTSm6gUU2uOc85bzDK8PnuSUJKo9bMEdSFIPajr49k5xqM7FqOyEvotNXmYNrKPUdjQxNKO8Yvc0v4mXudAsEPv1tQXjsyTozpHnjyIq7V+EX1EYECbYNoOWffHonITP9aSIAv192JkDW2qiPISmDGPAmE6ty/sKufjxKDeQo3yNxpopjWPr1jyucT0hoAP5y6q2Wow2+fhKxXhrMKqcvlPH9CxeB5w7uELCkTqT9ZWjjIIfbr6qTlNJDFq91DM1TOPaFEzn5XuCuB8Fbvqf0Yxk8E="
-  file: ''
-  skip_cleanup: true
+    secure: d/qxX3lQXZg8gzABz8+IonCqCDbQSA0TCefBMnzZETvkKuZSCk7HoUxt1yVUPaybHSEP06uqyKI0qar7o48K2SLR3AakhmpUAfmrNRlCFYSzrUUag0vJXVsKR24g5T0aYQj8IHcYwWGQZ9/pZRcuCjtKee60ey40g3LzSO8/mRH7+96uAORLh5HsY1JvFJ/q1cnZQKG2+WNX8cw78NvTDzZb7zyeNiPLNmjvG6Hqys/qp2icSui6vLPKzaNm9r8mutk0tUdYY/RxsFt3auzkDeRGYLJyeRtM+OuIya7CmB5bsEi7AhwnFsTOfKL76Fpi7plKZ3nFUpjb3vIWb1M55ZIe2xd5qhzYTcG5NEOBVehcz+7WS7wlzlivrY9jrXQgMeJY/aBH5XsWRzL0i0fQt6NHF+gr2jOrDoHEPYTeBzoQEe8xX7f5IoHAxcn592UD3wno1K058WWb4wiXVITqhldJdDtRAIR9LQ1M7ieZiz/L6yf7/ScR5+HOkvkz/ipoCPKPR4CEikMq8loJDaJNv3OlV+I4XWh/yQR+Q4gSpZ/nizASgJIoOWI2OXGrTrassVfJeR8OmNQ9piuiUUxjdK8Z0SOPKphxVlKsyDpbVZ2vb+lfqLV8gl/t20/L1a1ZQhbWHK3XvQsuoHK2R1SKI/MOoF6DeQ7jRont8UMhoeE=
+  file:
+    - gameboy
   on:
+    repo: nnarain/gameboy
     tags: true
