@@ -63,3 +63,23 @@ TEST(CallInstructions, ZFlag)
 }
 
 // TODO C Flag
+
+TEST(CallInstructions, Return)
+{
+	CodeGenerator code;
+	code.block(
+		0xCD, 0x50, 0x02,	// CALL $250
+		0x76				// halt
+	);
+	code.address(0x250);
+	code.block(
+		0xC9				// RET
+	);
+
+	Gameboy gameboy;
+	const MMU& mmu = gameboy.getCPU().getMMU();
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.pc.val, 0x154);
+	EXPECT_EQ(status.sp.val, 0xFFFE);
+}

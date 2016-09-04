@@ -108,6 +108,7 @@ namespace gb
 		*/
 		void call(uint16_t);
 		void ret();
+		void reti();
 		
 
 	private:

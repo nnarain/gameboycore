@@ -517,6 +517,30 @@ namespace gb
 		case 0xDC: // CALL C,nn
 			if (IS_SET(af_.lo, Flags::C)) call(load16Imm());
 			break;
+
+		/* Returns */
+		case 0xC9: // RET
+			ret();
+			break;
+
+		// conditional returns
+		case 0xC0: // RET NZ
+			if (IS_CLR(af_.lo, Flags::Z)) ret();
+			break;
+		case 0xC8: // RET Z
+			if (IS_SET(af_.lo, Flags::Z)) ret();
+			break;
+		case 0xD0: // RET NC
+			if (IS_CLR(af_.lo, Flags::C)) ret();
+			break;
+		case 0xD8: // RET C
+			if (IS_SET(af_.lo, Flags::C)) ret();
+			break;
+
+		// return from interrupt
+		case 0xD9: // RETI
+			reti();
+			break;
 		}
 	}
 
@@ -648,6 +672,12 @@ namespace gb
 	void CPU::ret()
 	{
 		pc_.val = pop();
+	}
+
+	void CPU::reti()
+	{
+		ret();
+		// TODO: Enable Interrutps
 	}
 
 	void CPU::reset()
