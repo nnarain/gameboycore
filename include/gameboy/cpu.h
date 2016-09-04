@@ -103,6 +103,13 @@ namespace gb
 		void jp(uint16_t);
 		void jr(int8_t);
 
+		/**
+			Call and Return
+		*/
+		void call(uint16_t);
+		void ret();
+		
+
 	private:
 		Register af_;
 		Register bc_;
