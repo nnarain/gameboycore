@@ -56,7 +56,7 @@
 
 /* Full and Half Carry */
 
-#define HALF_CARRY(x, y) (( ((x) & 0x0F) + ((y) & 0x0F) ) & (0x10))
+#define IS_HALF_CARRY(x, y) ((( ((x) & 0x0F) + ((y) & 0x0F) ) & (0x10)) != 0)
 
 //!
 #define EXPAND_PORT(port)( *(volatile word * const) &(port) )
