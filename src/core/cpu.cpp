@@ -5,6 +5,8 @@
 
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
 
+#include "bitutil.h"
+
 uint8_t cycles1[] = { 0 };
 uint8_t cycles2[] = { 0 };
 

@@ -36,6 +36,8 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h
 	include/gameboy/cartinfo.h
+	
+	src/core/bitutil.h
 )
 
 # set flags for g++/gcc compiler
