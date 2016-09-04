@@ -16,8 +16,8 @@ install:
   - cd c:\tmp\googletest
   - mkdir build && cd build
   - cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=c:\libs\googletest
-  - msbuild googletest-distribution.sln
-  - msbuild INSTALL.vcxproj
+  - msbuild googletest-distribution.sln /verbosity:quiet
+  - msbuild INSTALL.vcxproj /verbosity:quiet
 
 before_build:
   - echo "Generating Visual Studio Solution..."
