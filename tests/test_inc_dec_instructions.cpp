@@ -171,4 +171,60 @@ TEST(IncDecInstructions, IncMemory)
 
 TEST(IncDecInstructions, DecMemory)
 {
+	CodeGenerator code;
+	code.block(
+		0x21, 0x50, 0x02,	// LD HL,$250
+
+		0x34,				// INC (HL)
+
+		0x76				// halt
+	);
+
+
+	Gameboy gameboy;
+	const MMU& mmu = gameboy.getCPU().getMMU();
+	(void)run(gameboy, code.rom());
+
+	EXPECT_EQ(mmu.read(0x250), 0x01);
 }
+
+
+TEST(IncDecInstructions, ZeroFlag)
+{
+	CodeGenerator code;
+	code.block(
+		0x06, 0x1,			// LD B,1
+
+		0x05,				// DEC B
+
+		0x76				// halt
+	);
+
+
+	Gameboy gameboy;
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.af.lo & CPU::Flags::N, CPU::Flags::N);
+}
+
+TEST(IncDecInstructions, HalfCarryFlag)
+{
+	CodeGenerator code;
+	code.block(
+		0x06, 0x0F,			// LD B,$0F
+
+		0x04,				// INC B
+
+		0x76				// halt
+	);
+
+
+	Gameboy gameboy;
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.af.lo & CPU::Flags::N, 0);
+}
+
+// TODO: Half Carry with DEC

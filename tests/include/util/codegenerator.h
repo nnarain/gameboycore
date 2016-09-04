@@ -84,7 +84,7 @@ private:
 		// program start up
 		static const uint8_t program_boot[] = {
 			0x00,            // nop
-			0xC3, 0x50, 0x10 // jp $150
+			0xC3, 0x50, 0x01 // jp $150
 		};
 
 		std::memcpy(&rom_[gb::memorymap::PROGRAM_START], program_boot, sizeof(program_boot));

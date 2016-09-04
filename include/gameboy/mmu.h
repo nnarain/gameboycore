@@ -28,7 +28,8 @@ namespace gb
         void load(uint8_t* rom, uint32_t size);
 
         uint8_t read(uint16_t) const;
-        void write(uint8_t, uint16_t);
+        void write(uint8_t value, uint16_t addr);
+		void write(uint16_t value, uint16_t addr);
 
 		unsigned int numBanks() const;
 

@@ -5,29 +5,22 @@
 
 os: Visual Studio 2015
 
-environment:
-  CXXTEST_ROOT: c:\libs\cxxtest
-  
-  matrix:
-
-    # Python 2.7.10 is the latest version and is not pre-installed.
-
-    - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.10"
-      PYTHON_ARCH: "32"  
-
 clone_folder: c:\projects\gameboy
 
+environment:
+  GTEST_ROOT: c:\libs\googletest
+
 install:
-  - echo "Setting up Python"
-  - set PATH=%PATH%;%PYTHON%
-  - echo "Installing CxxTest..."
-  - git clone --depth=1 https://github.com/CxxTest/cxxtest.git c:\libs\cxxtest
-  - set INCLUDE=%INCLUDE%;%CXXTEST_ROOT%
-  - set PATH=%PATH%;%CXXTEST_ROOT%\bin
+  - echo "Installing Google Test"
+  - git clone --depth=1 https://github.com/google/googletest.git c:\tmp\googletest
+  - cd c:\tmp\googletest
+  - mkdir build && cd build
+  - cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=c:\libs\googletest
+  - msbuild googletest-distribution.sln /verbosity:quiet
+  - msbuild INSTALL.vcxproj /verbosity:quiet
+  - set PATH=%PATH%;%GTEST_ROOT%\lib
 
 before_build:
-  - dir C:\
   - echo "Generating Visual Studio Solution..."
   - cd c:\projects\gameboy
   - mkdir build && cd build
@@ -35,6 +28,7 @@ before_build:
 
 build:
   project: c:\projects\gameboy\build\gameboy.sln
-  
+  verbosity: minimal
+
 after_build:
-  - msbuild c:\projects\gameboy\build\RUN_TESTS.vcxproj
+  - C:\projects\gameboy\build\tests\Debug\gameboy_tests.exe

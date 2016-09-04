@@ -43,6 +43,14 @@ namespace gb
 			Register pc;
 		};
 
+		enum Flags
+		{
+			Z = 1 << 7,
+			N = 1 << 6,
+			H = 1 << 5,
+			C = 1 << 4
+		};
+
     public:
         CPU();
 
@@ -82,6 +90,26 @@ namespace gb
 		void dec(uint16_t&);
 		void deca(uint16_t);
 
+		/**
+			Push/Pop
+		*/
+
+		void push(uint16_t);
+		uint16_t pop();
+
+		/**
+			Jump
+		*/
+		void jp(uint16_t);
+		void jr(int8_t);
+
+		/**
+			Call and Return
+		*/
+		void call(uint16_t);
+		void ret();
+		void reti();
+
 	private:
 		Register af_;
 		Register bc_;
@@ -92,6 +120,7 @@ namespace gb
 
 		MMU mmu_;
 		bool halted_;
+		bool stopped_;
 
 		uint16_t cycle_count_;
     };

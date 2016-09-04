@@ -1,7 +1,11 @@
 
 #include "gameboy/cpu.h"
 
+#include <iostream>
+
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
+
+#include "bitutil.h"
 
 uint8_t cycles1[] = { 0 };
 uint8_t cycles2[] = { 0 };
@@ -53,6 +57,9 @@ namespace gb
 		{
 		case 0x00:
 			// NOP
+			break;
+		case 0x10:
+			stopped_ = true;
 			break;
 
 			// Load Instructions
@@ -407,8 +414,161 @@ namespace gb
 			dec(af_.hi);
 			break;
 
+		/* Stack Instructions */
+
+		// Push
+		case 0xC5: // PUSH BC
+			push(bc_.val);
+			break;
+		case 0xD5: // PUSH DE
+			push(de_.val);
+			break;
+		case 0xE5: // PUSH HL
+			push(hl_.val);
+			break;
+		case 0xF5: // PUSH AF
+			push(af_.val);
+			break;
+
+		// Pop
+		case 0xC1: // POP BC
+			bc_.val = pop();
+			break;
+		case 0xD1: // POP DE
+			de_.val = pop();
+			break;
+		case 0xE1: // POP HL
+			hl_.val = pop();
+			break;
+		case 0xF1: // POP AF
+			af_.val = pop();
+			break;
+
+		// Load
+
+		case 0x08: // LD (a16),SP
+			mmu_.write(sp_.val, load16Imm());
+			break;
+		case 0xF8: // LD HL,SP+r8
+			hl_.val = (uint16_t)((int16_t)sp_.val + (int8_t)load8Imm());
+			break;
+		case 0xF9: // LD SP,HL
+			sp_.val = hl_.val;
+			break;
+
 		case 0x76:
 			halted_ = true;
+			break;
+
+		/* Jumps */
+		case 0xC3: // JP a16
+			jp(load16Imm());
+			break;
+
+		case 0xE9:	// JP (HL)
+			jp(hl_.val);
+			break;
+
+		// conditional jumps
+		case 0xC2: // JP NZ,nn
+			if (IS_CLR(af_.lo, Flags::Z)) jp(load16Imm());
+			break;
+		case 0xCA: // JP Z,nn
+			if (IS_SET(af_.lo, Flags::Z)) jp(load16Imm());
+			break;
+		case 0xD2: // JP NC,nn
+			if (IS_CLR(af_.lo, Flags::C)) jp(load16Imm());
+			break;
+		case 0xDA: // JP C,nn
+			if (IS_SET(af_.lo, Flags::C)) jp(load16Imm());
+			break;
+
+		// relative jumps
+		case 0x18: // JR r8
+			jr((int8_t)load8Imm());
+			break;
+
+		// relative conditional jumps
+		case 0x20: // JR NZ,n
+			if (IS_CLR(af_.lo, Flags::Z)) jr((int8_t)load8Imm());
+			break;
+		case 0x28: // JR Z,n
+			if (IS_SET(af_.lo, Flags::Z)) jr((int8_t)load8Imm());
+			break;
+		case 0x30: // JR NC,n
+			if(IS_CLR(af_.lo, Flags::C)) jr((int8_t)load8Imm());
+			break;
+		case 0x38: // JR C,n
+			if (IS_SET(af_.lo, Flags::C)) jr((int8_t)load8Imm());
+			break;
+
+		/* Call */
+		case 0xCD: // CALL nn
+			call(load16Imm());
+			break;
+
+		// call condition
+		case 0xC4: // CALL NZ,nn
+			if (IS_CLR(af_.lo, Flags::Z)) call(load16Imm());
+			break;
+		case 0xCC: // CALL Z,nn
+			if (IS_SET(af_.lo, Flags::Z)) call(load16Imm());
+			break;
+		case 0xD4: // CALL NC,nn
+			if (IS_CLR(af_.lo, Flags::C)) call(load16Imm());
+			break;
+		case 0xDC: // CALL C,nn
+			if (IS_SET(af_.lo, Flags::C)) call(load16Imm());
+			break;
+
+		/* Returns */
+		case 0xC9: // RET
+			ret();
+			break;
+
+		// conditional returns
+		case 0xC0: // RET NZ
+			if (IS_CLR(af_.lo, Flags::Z)) ret();
+			break;
+		case 0xC8: // RET Z
+			if (IS_SET(af_.lo, Flags::Z)) ret();
+			break;
+		case 0xD0: // RET NC
+			if (IS_CLR(af_.lo, Flags::C)) ret();
+			break;
+		case 0xD8: // RET C
+			if (IS_SET(af_.lo, Flags::C)) ret();
+			break;
+
+		// return from interrupt
+		case 0xD9: // RETI
+			reti();
+			break;
+
+		/* Reset Instructions */
+		case 0xC7: // RST $00
+			call(0x00);
+			break;
+		case 0xCF: // RST $08
+			call(0x08);
+			break;
+		case 0xD7: // RST $10
+			call(0x10);
+			break;
+		case 0xDF: // RST $18
+			call(0x18);
+			break;
+		case 0xE7: // RST $20
+			call(0x20);
+			break;
+		case 0xEF: // RST $28
+			call(0x28);
+			break;
+		case 0xF7: // RST $30
+			call(0x30);
+			break;
+		case 0xFF: // RST $38
+			call(0x38);
 			break;
 		}
 	}
@@ -451,26 +611,40 @@ namespace gb
 
 	void CPU::inc(uint8_t& i)
 	{
+		bool half_carry = IS_HALF_CARRY(i, 1);
+
 		i++;
-		// TODO: Flag bits
+		
+		if (i == 0) SET(af_.lo, Flags::Z);
+		CLR(af_.lo, Flags::N);
+		if (half_carry)
+			SET(af_.lo, Flags::H);
+		else
+			CLR(af_.lo, Flags::H);
 	}
 	
 	void CPU::inc(uint16_t& i)
 	{
 		i++;
-		// TODO: Flag bits
 	}
 	
 	void CPU::dec(uint8_t& d)
 	{
+		bool half_carry = IS_HALF_CARRY(d, -1);
+
 		d--;
-		// TODO: Flag bits
+		
+		if (d == 0) SET(af_.lo, Flags::Z);
+		SET(af_.lo, Flags::N);
+		if (half_carry)
+			SET(af_.lo, Flags::H);
+		else
+			CLR(af_.lo, Flags::H);
 	}
 
 	void CPU::dec(uint16_t& d)
 	{
 		d--;
-		// TODO: Flag bits
 	}
 
 	void CPU::inca(uint16_t addr)
@@ -487,6 +661,54 @@ namespace gb
 		mmu_.write(b, addr);
 	}
 
+	void CPU::push(uint16_t value)
+	{
+		uint8_t hi = (value & 0xFF00) >> 8;
+		uint8_t lo = (value & 0x00FF);
+
+		mmu_.write(hi, sp_.val - 1);
+		mmu_.write(lo, sp_.val - 2);
+
+		sp_.val -= 2;
+	}
+
+	uint16_t CPU::pop()
+	{
+		uint8_t lo = mmu_.read(sp_.val);
+		uint8_t hi = mmu_.read(sp_.val + 1);
+
+		sp_.val += 2;
+
+		return WORD(hi, lo);
+	}
+
+	void CPU::jp(uint16_t addr)
+	{
+		pc_.val = addr;
+	}
+
+	void CPU::jr(int8_t r)
+	{
+		pc_.val += r;
+	}
+
+	void CPU::call(uint16_t addr)
+	{
+		push(pc_.val);
+		pc_.val = addr;
+	}
+
+	void CPU::ret()
+	{
+		pc_.val = pop();
+	}
+
+	void CPU::reti()
+	{
+		ret();
+		// TODO: Enable Interrutps
+	}
+
 	void CPU::reset()
 	{
 		af_.val = 0;
@@ -498,6 +720,7 @@ namespace gb
 
 		cycle_count_ = 0;
 		halted_ = false;
+		stopped_ = false;
 	}
 
     bool CPU::isHalted() const

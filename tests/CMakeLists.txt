@@ -26,6 +26,9 @@ if(GTEST_FOUND)
 		test_mmu.cpp
 		test_load_instructions.cpp
 		test_inc_dec_instructions.cpp
+		test_stack_instructions.cpp
+		test_jump_instructions.cpp
+		test_call_instructions.cpp
 	)
 
 	# make check target to run gtests manually
