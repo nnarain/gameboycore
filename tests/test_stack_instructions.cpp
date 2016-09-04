@@ -65,9 +65,9 @@ TEST(StackInstructions, LoadHLwithSPRelative)
 {
 	CodeGenerator code;
 	code.block(
-		0xF8, 0x81, // LD HL,SP+r8
+		0xF8, (uint8_t)-1,	// LD HL,SP+r8
 
-		0x76        // halt
+		0x76				// halt
 	);
 
 

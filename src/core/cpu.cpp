@@ -445,7 +445,7 @@ namespace gb
 			mmu_.write(sp_.val, load16Imm());
 			break;
 		case 0xF8: // LD HL,SP+r8
-			hl_.val = sp_.val + (int8_t)load8Imm();
+			hl_.val = (uint16_t)((int16_t)sp_.val + (int8_t)load8Imm());
 			break;
 		case 0xF9: // LD SP,HL
 			sp_.val = hl_.val;
