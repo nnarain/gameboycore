@@ -457,9 +457,46 @@ namespace gb
 			halted_ = true;
 			break;
 
-		// Jump
+		/* Jumps */
 		case 0xC3: // JP a16
 			jp(load16Imm());
+			break;
+
+		case 0xE9:	// JP (HL)
+			jp(hl_.val);
+			break;
+
+		// conditional jumps
+		case 0xC2: // JP NZ,nn
+			if (IS_CLR(af_.lo, Flags::Z)) jp(load16Imm());
+			break;
+		case 0xCA: // JP Z,nn
+			if (IS_SET(af_.lo, Flags::Z)) jp(load16Imm());
+			break;
+		case 0xD2: // JP NC,nn
+			if (IS_CLR(af_.lo, Flags::C)) jp(load16Imm());
+			break;
+		case 0xDA: // JP C,nn
+			if (IS_SET(af_.lo, Flags::C)) jp(load16Imm());
+			break;
+
+		// relative jumps
+		case 0x18: // JR r8
+			jr((int8_t)load8Imm());
+			break;
+
+		// relative conditional jumps
+		case 0x20: // JR NZ,n
+			if (IS_CLR(af_.lo, Flags::Z)) jr((int8_t)load8Imm());
+			break;
+		case 0x28: // JR Z,n
+			if (IS_SET(af_.lo, Flags::Z)) jr((int8_t)load8Imm());
+			break;
+		case 0x30: // JR NC,n
+			if(IS_CLR(af_.lo, Flags::C)) jr((int8_t)load8Imm());
+			break;
+		case 0x38: // JR C,n
+			if (IS_SET(af_.lo, Flags::C)) jr((int8_t)load8Imm());
 			break;
 		}
 	}
@@ -576,6 +613,11 @@ namespace gb
 	void CPU::jp(uint16_t addr)
 	{
 		pc_.val = addr;
+	}
+
+	void CPU::jr(int8_t r)
+	{
+		pc_.val += r;
 	}
 
 	void CPU::reset()
