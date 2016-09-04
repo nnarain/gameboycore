@@ -457,9 +457,23 @@ namespace gb
 			halted_ = true;
 			break;
 
-		// Jump
+		/* Jumps */
 		case 0xC3: // JP a16
 			jp(load16Imm());
+			break;
+
+		// conditional jumps
+		case 0xC2: // JP NZ,nn
+			if (IS_CLR(af_.lo, Flags::Z)) jp(load16Imm());
+			break;
+		case 0xCA: // JP Z,nn
+			if (IS_SET(af_.lo, Flags::Z)) jp(load16Imm());
+			break;
+		case 0xD2: // JP NC,nn
+			if (IS_CLR(af_.lo, Flags::C)) jp(load16Imm());
+			break;
+		case 0xDA: // JP C,nn
+			if (IS_SET(af_.lo, Flags::C)) jp(load16Imm());
 			break;
 		}
 	}
