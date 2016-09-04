@@ -7,9 +7,17 @@ os: Visual Studio 2015
 
 clone_folder: c:\projects\gameboy
 
+environment:
+  GTEST_ROOT: c:\libs\googletest
+
 install:
-  - git clone --depth=1 https://github.com/google/googletest.git c:\libs\googletest
-  - echo "TODO: Install GTest"
+  - echo "Installing Google Test"
+  - git clone --depth=1 https://github.com/google/googletest.git c:\tmp\googletest
+  - cd c:\tmp\googletest
+  - mkdir build && cd build
+  - cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=c:\libs\googletest
+  - msbuild googletest-distribution.sln
+  - msbuild INSTALL.vcxproj
 
 before_build:
   - echo "Generating Visual Studio Solution..."
