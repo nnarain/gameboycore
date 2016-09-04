@@ -58,6 +58,9 @@ namespace gb
 		case 0x00:
 			// NOP
 			break;
+		case 0x10:
+			stopped_ = true;
+			break;
 
 			// Load Instructions
 
@@ -717,6 +720,7 @@ namespace gb
 
 		cycle_count_ = 0;
 		halted_ = false;
+		stopped_ = false;
 	}
 
     bool CPU::isHalted() const

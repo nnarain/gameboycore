@@ -120,6 +120,7 @@ namespace gb
 
 		MMU mmu_;
 		bool halted_;
+		bool stopped_;
 
 		uint16_t cycle_count_;
     };
