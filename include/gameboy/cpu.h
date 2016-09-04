@@ -82,6 +82,18 @@ namespace gb
 		void dec(uint16_t&);
 		void deca(uint16_t);
 
+		/**
+			Push/Pop
+		*/
+
+		void push(uint16_t);
+		uint16_t pop();
+
+		/**
+			Jump
+		*/
+		void jp(uint16_t);
+
 	private:
 		Register af_;
 		Register bc_;

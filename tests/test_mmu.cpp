@@ -35,7 +35,7 @@ TEST(MMUTest, Read)
 	EXPECT_EQ(mmu.read(0x251), 0x2);
 }
 
-TEST(MMUTest, Write)
+TEST(MMUTest, Write8Bit)
 {
 	CodeGenerator code;
 
@@ -44,7 +44,24 @@ TEST(MMUTest, Write)
 	MMU mmu;
 	mmu.load(&rom[0], rom.size());
 
-	mmu.write(0x35, 0x512);
+	uint8_t b = 0x35;
+	mmu.write(b, 0x512);
 
 	EXPECT_EQ(mmu.read(0x512), 0x35);
+}
+
+TEST(MMUTest, Write16Bit)
+{
+	CodeGenerator code;
+
+	auto rom = code.rom();
+
+	MMU mmu;
+	mmu.load(&rom[0], rom.size());
+
+	uint16_t b = 0xDEAD;
+	mmu.write(b, 0x512);
+
+	EXPECT_EQ(mmu.read(0x512), 0xAD);
+	EXPECT_EQ(mmu.read(0x513), 0xDE);
 }

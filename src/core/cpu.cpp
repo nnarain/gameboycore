@@ -1,6 +1,8 @@
 
 #include "gameboy/cpu.h"
 
+#include <iostream>
+
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
 
 uint8_t cycles1[] = { 0 };
@@ -92,8 +94,6 @@ namespace gb
 			break;
 		case 0x31: // LD SP,d16
 			sp_.val = load16Imm();
-			break;
-		case 0x08: // LD (a16),SP
 			break;
 
 			// transfer (Register to register, memory to register)
@@ -409,8 +409,55 @@ namespace gb
 			dec(af_.hi);
 			break;
 
+		/* Stack Instructions */
+
+		// Push
+		case 0xC5: // PUSH BC
+			push(bc_.val);
+			break;
+		case 0xD5: // PUSH DE
+			push(de_.val);
+			break;
+		case 0xE5: // PUSH HL
+			push(hl_.val);
+			break;
+		case 0xF5: // PUSH AF
+			push(af_.val);
+			break;
+
+		// Pop
+		case 0xC1: // POP BC
+			bc_.val = pop();
+			break;
+		case 0xD1: // POP DE
+			de_.val = pop();
+			break;
+		case 0xE1: // POP HL
+			hl_.val = pop();
+			break;
+		case 0xF1: // POP AF
+			af_.val = pop();
+			break;
+
+		// Load
+
+		case 0x08: // LD (a16),SP
+			mmu_.write(sp_.val, load16Imm());
+			break;
+		case 0xF8: // LD HL,SP+r8
+			hl_.val = (uint16_t)((int16_t)sp_.val + (int8_t)load8Imm());
+			break;
+		case 0xF9: // LD SP,HL
+			sp_.val = hl_.val;
+			break;
+
 		case 0x76:
 			halted_ = true;
+			break;
+
+		// Jump
+		case 0xC3: // JP a16
+			jp(load16Imm());
 			break;
 		}
 	}
@@ -487,6 +534,32 @@ namespace gb
 		uint8_t b = mmu_.read(addr);
 		dec(b);
 		mmu_.write(b, addr);
+	}
+
+	void CPU::push(uint16_t value)
+	{
+		uint8_t hi = (value & 0xFF00) >> 8;
+		uint8_t lo = (value & 0x00FF);
+
+		mmu_.write(hi, sp_.val - 1);
+		mmu_.write(lo, sp_.val - 2);
+
+		sp_.val -= 2;
+	}
+
+	uint16_t CPU::pop()
+	{
+		uint8_t lo = mmu_.read(sp_.val);
+		uint8_t hi = mmu_.read(sp_.val + 1);
+
+		sp_.val += 2;
+
+		return WORD(hi, lo);
+	}
+
+	void CPU::jp(uint16_t addr)
+	{
+		pc_.val = addr;
 	}
 
 	void CPU::reset()
