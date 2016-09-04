@@ -498,6 +498,25 @@ namespace gb
 		case 0x38: // JR C,n
 			if (IS_SET(af_.lo, Flags::C)) jr((int8_t)load8Imm());
 			break;
+
+		/* Call */
+		case 0xCD: // CALL nn
+			call(load16Imm());
+			break;
+
+		// call condition
+		case 0xC4: // CALL NZ,nn
+			if (IS_CLR(af_.lo, Flags::Z)) call(load16Imm());
+			break;
+		case 0xCC: // CALL Z,nn
+			if (IS_SET(af_.lo, Flags::Z)) call(load16Imm());
+			break;
+		case 0xD4: // CALL NC,nn
+			if (IS_CLR(af_.lo, Flags::C)) call(load16Imm());
+			break;
+		case 0xDC: // CALL C,nn
+			if (IS_SET(af_.lo, Flags::C)) call(load16Imm());
+			break;
 		}
 	}
 
@@ -618,6 +637,17 @@ namespace gb
 	void CPU::jr(int8_t r)
 	{
 		pc_.val += r;
+	}
+
+	void CPU::call(uint16_t addr)
+	{
+		push(pc_.val);
+		pc_.val = addr;
+	}
+
+	void CPU::ret()
+	{
+		pc_.val = pop();
 	}
 
 	void CPU::reset()
