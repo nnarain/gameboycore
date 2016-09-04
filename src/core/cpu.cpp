@@ -541,6 +541,32 @@ namespace gb
 		case 0xD9: // RETI
 			reti();
 			break;
+
+		/* Reset Instructions */
+		case 0xC7: // RST $00
+			call(0x00);
+			break;
+		case 0xCF: // RST $08
+			call(0x08);
+			break;
+		case 0xD7: // RST $10
+			call(0x10);
+			break;
+		case 0xDF: // RST $18
+			call(0x18);
+			break;
+		case 0xE7: // RST $20
+			call(0x20);
+			break;
+		case 0xEF: // RST $28
+			call(0x28);
+			break;
+		case 0xF7: // RST $30
+			call(0x30);
+			break;
+		case 0xFF: // RST $38
+			call(0x38);
+			break;
 		}
 	}
 
