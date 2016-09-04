@@ -29,3 +29,5 @@ build:
   project: c:\projects\gameboy\build\gameboy.sln
   verbosity: minimal
 
+after_build:
+  - C:\projects\gameboy\build\tests\Debug\gameboy_tests.exe
