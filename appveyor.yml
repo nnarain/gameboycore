@@ -19,5 +19,5 @@ before_build:
 
 build:
   project: c:\projects\gameboy\build\gameboy.sln
-  verbosity: quiet
+  verbosity: minimal
 
