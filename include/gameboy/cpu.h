@@ -101,6 +101,7 @@ namespace gb
 			Jump
 		*/
 		void jp(uint16_t);
+		void jr(int8_t);
 
 	private:
 		Register af_;
