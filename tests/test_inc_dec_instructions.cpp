@@ -205,6 +205,7 @@ TEST(IncDecInstructions, ZeroFlag)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.af.lo & CPU::Flags::N, CPU::Flags::N);
 }
 
 TEST(IncDecInstructions, HalfCarryFlag)
@@ -223,6 +224,7 @@ TEST(IncDecInstructions, HalfCarryFlag)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.af.lo & CPU::Flags::N, 0);
 }
 
 // TODO: Half Carry with DEC
