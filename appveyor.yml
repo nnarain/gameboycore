@@ -18,6 +18,7 @@ install:
   - cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=c:\libs\googletest
   - msbuild googletest-distribution.sln /verbosity:quiet
   - msbuild INSTALL.vcxproj /verbosity:quiet
+  - set PATH=%PATH%;%GTEST_ROOT%\lib
 
 before_build:
   - echo "Generating Visual Studio Solution..."
