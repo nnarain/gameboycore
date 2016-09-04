@@ -545,7 +545,6 @@ namespace gb
 		mmu_.write(lo, sp_.val - 2);
 
 		sp_.val -= 2;
-		std::cout << std::hex << sp_.val << std::endl;
 	}
 
 	uint16_t CPU::pop()
@@ -554,8 +553,6 @@ namespace gb
 		uint8_t hi = mmu_.read(sp_.val + 1);
 
 		sp_.val += 2;
-
-		std::cout << std::hex << sp_.val << std::endl;
 
 		return WORD(hi, lo);
 	}
