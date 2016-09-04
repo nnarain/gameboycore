@@ -5,6 +5,8 @@
 
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
 
+#include "bitutil.h"
+
 uint8_t cycles1[] = { 0 };
 uint8_t cycles2[] = { 0 };
 
@@ -500,26 +502,40 @@ namespace gb
 
 	void CPU::inc(uint8_t& i)
 	{
+		bool half_carry = IS_HALF_CARRY(i, 1);
+
 		i++;
-		// TODO: Flag bits
+		
+		if (i == 0) SET(af_.lo, Flags::Z);
+		CLR(af_.lo, Flags::N);
+		if (half_carry)
+			SET(af_.lo, Flags::H);
+		else
+			CLR(af_.lo, Flags::H);
 	}
 	
 	void CPU::inc(uint16_t& i)
 	{
 		i++;
-		// TODO: Flag bits
 	}
 	
 	void CPU::dec(uint8_t& d)
 	{
+		bool half_carry = IS_HALF_CARRY(d, -1);
+
 		d--;
-		// TODO: Flag bits
+		
+		if (d == 0) SET(af_.lo, Flags::Z);
+		SET(af_.lo, Flags::N);
+		if (half_carry)
+			SET(af_.lo, Flags::H);
+		else
+			CLR(af_.lo, Flags::H);
 	}
 
 	void CPU::dec(uint16_t& d)
 	{
 		d--;
-		// TODO: Flag bits
 	}
 
 	void CPU::inca(uint16_t addr)
