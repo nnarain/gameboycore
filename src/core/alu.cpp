@@ -67,9 +67,34 @@ namespace gb
 		bool is_half_borrow = IS_HALF_BORROW(a, n);
 		bool is_full_borrow = IS_FULL_BORROW(a, n);
 
+		a -= n;
+
+		if (is_half_borrow)
+			SET(flags_, ALU::Flags::H);
+		else
+			CLR(flags_, ALU::Flags::H);
+
+		if (is_full_borrow)
+			SET(flags_, ALU::Flags::C);
+		else
+			CLR(flags_, ALU::Flags::C);
+
+		if (a == 0)
+			SET(flags_, ALU::Flags::Z);
+		else
+			CLR(flags_, ALU::Flags::Z);
+
+		SET(flags_, ALU::Flags::N);
+	}
+
+	void ALU::subc(uint8_t& a, uint8_t n)
+	{
+		bool is_half_borrow = IS_HALF_BORROW(a, n);
+		bool is_full_borrow = IS_FULL_BORROW(a, n);
+
 		uint8_t carry = (IS_SET(flags_, ALU::Flags::C)) ? 1 : 0;
 
-		a -= n;
+		a -= (n + carry);
 
 		if (is_half_borrow)
 			SET(flags_, ALU::Flags::H);

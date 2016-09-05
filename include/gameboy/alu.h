@@ -43,6 +43,11 @@ namespace gb
 		*/
 		void sub(uint8_t& a, uint8_t n);
 
+		/**
+			SUBC
+		*/
+		void subc(uint8_t& a, uint8_t n);
+
 	private:
 		uint8_t& flags_;
 	};

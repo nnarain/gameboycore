@@ -47,7 +47,7 @@ TEST(ALUTests, AddWithCarry)
 	EXPECT_EQ(flags & CPU::Flags::Z, 0);
 }
 
-TEST(ALUTests, Sub)
+TEST(ALUTests, Subtract)
 {
 	uint8_t flags = 0;
 	ALU alu(flags);
@@ -61,7 +61,7 @@ TEST(ALUTests, Sub)
 	EXPECT_EQ(flags & CPU::Flags::Z, CPU::Flags::Z);
 }
 
-TEST(ALUTests, SubHalfBorrow)
+TEST(ALUTests, SubtractHalfBorrow)
 {
 	uint8_t flags = 0;
 	ALU alu(flags);
@@ -75,7 +75,7 @@ TEST(ALUTests, SubHalfBorrow)
 	EXPECT_EQ(flags & CPU::Flags::H, CPU::Flags::H);
 }
 
-TEST(ALUTests, SubFullBorrow)
+TEST(ALUTests, SubtractFullBorrow)
 {
 	uint8_t flags = 0;
 	ALU alu(flags);
@@ -85,5 +85,32 @@ TEST(ALUTests, SubFullBorrow)
 
 	EXPECT_EQ(a, 0xFE);
 	EXPECT_EQ(flags & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(flags & CPU::Flags::C, CPU::Flags::C);
+}
+
+TEST(ALUTests, SubtractWithBorrow)
+{
+	uint8_t flags = CPU::Flags::C;
+	ALU alu(flags);
+
+	uint8_t a = 0x3B;
+	alu.subc(a, 0x2A);
+
+	EXPECT_EQ(a, 0x10);
+	EXPECT_EQ(flags & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+}
+
+TEST(ALUTests, SubtractWithBorrowHldBurrowAndFullBorrow)
+{
+	uint8_t flags = CPU::Flags::C;
+	ALU alu(flags);
+
+	uint8_t a = 0x3B;
+	alu.subc(a, 0x4F);
+
+	EXPECT_EQ(a, 0xEB);
+	EXPECT_EQ(flags & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(flags & CPU::Flags::H, CPU::Flags::H);
 	EXPECT_EQ(flags & CPU::Flags::C, CPU::Flags::C);
 }
