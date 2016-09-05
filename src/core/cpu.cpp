@@ -600,6 +600,14 @@ namespace gb
 			CLR(af_.lo, CPU::Flags::N);
 			CLR(af_.lo, CPU::Flags::H);
 			break;
+
+		/* Disable and Enable Interrupt */
+		case 0xF3: // DI
+			// TODO
+			break;
+		case 0xFB: // EI
+			// TODO
+			break;
 		}
 	}
 
