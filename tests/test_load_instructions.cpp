@@ -38,12 +38,14 @@ TEST(LoadInstructionsTest, Load8BitImmediate)
 		0x1E, 0x05, // LD E,5
 		0x26, 0x06, // LD H,6
 		0x2E, 0x07, // LD L,7
+		0x36, 0x08, // LD (HL),$08
 
 		0x76        // halt
 	);
 
 	
 	Gameboy gameboy;
+	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status = run(gameboy, code.rom());
 	
 	EXPECT_EQ(status.af.hi, 1);
@@ -53,6 +55,7 @@ TEST(LoadInstructionsTest, Load8BitImmediate)
 	EXPECT_EQ(status.de.lo, 5);
 	EXPECT_EQ(status.hl.hi, 6);
 	EXPECT_EQ(status.hl.lo, 7);
+	EXPECT_EQ(mmu.read(status.hl.val), 0x08);
 }
 
 TEST(LoadInstructionsTest, Load16BitImmediate)

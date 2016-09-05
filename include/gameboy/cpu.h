@@ -110,6 +110,11 @@ namespace gb
 		void ret();
 		void reti();
 
+		/**
+			Swap nybbles in byte
+		*/
+		uint8_t swap(uint8_t);
+
 	private:
 		Register af_;
 		Register bc_;

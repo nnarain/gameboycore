@@ -62,9 +62,9 @@ namespace gb
 			stopped_ = true;
 			break;
 
-			// Load Instructions
+		/* Load Instructions */
 
-			// 8 bit loads immediate
+		// 8 bit loads immediate
 		case 0x3E: // LD A,d8
 			af_.hi = load8Imm();
 			break;
@@ -85,6 +85,9 @@ namespace gb
 			break;
 		case 0x2E: // LD L,d8
 			hl_.lo = load8Imm();
+			break;
+		case 0x36: // LD (HL),d8
+			mmu_.write(load8Imm(), hl_.val);
 			break;
 
 			// load 16 bit immediate
@@ -577,7 +580,29 @@ namespace gb
 	{
 		switch (opcode)
 		{
-		case 0x00:
+		case 0x37: // SWAP A
+			af_.hi = swap(af_.hi);
+			break;
+		case 0x30: // SWAP B
+			bc_.hi = swap(bc_.hi);
+			break;
+		case 0x31: // SWAP C
+			bc_.lo = swap(bc_.lo);
+			break;
+		case 0x32: // SWAP D
+			de_.hi = swap(de_.hi);
+			break;
+		case 0x33: // SWAP E
+			de_.lo = swap(de_.lo);
+			break;
+		case 0x34: // SWAP H
+			hl_.hi = swap(hl_.hi);
+			break;
+		case 0x35: // SWAP L
+			hl_.lo = swap(hl_.lo);
+			break;
+		case 0x36: // SWAP (HL)
+			mmu_.write(swap(mmu_.read(hl_.val)), hl_.val);
 			break;
 		default:
 			break;
@@ -707,6 +732,14 @@ namespace gb
 	{
 		ret();
 		// TODO: Enable Interrutps
+	}
+
+	uint8_t CPU::swap(uint8_t byte)
+	{
+		uint8_t hi = (byte & 0xF0) >> 4;
+		uint8_t lo = byte & 0x0F;
+
+		return (lo << 4) | hi;
 	}
 
 	void CPU::reset()
