@@ -114,3 +114,61 @@ TEST(ALUTests, SubtractWithBorrowHldBurrowAndFullBorrow)
 	EXPECT_EQ(flags & CPU::Flags::H, CPU::Flags::H);
 	EXPECT_EQ(flags & CPU::Flags::C, CPU::Flags::C);
 }
+
+TEST(ALUTests, AND)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint8_t a = 0x5A;
+	alu.and(a, 0x3F);
+
+	EXPECT_EQ(a, 0x1A);
+	EXPECT_EQ(flags & CPU::Flags::N, 0);
+	EXPECT_EQ(flags & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+}
+
+TEST(ALUTests, ANDZero)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint8_t a = 0x5A;
+	alu.and(a, 0x00);
+
+	EXPECT_EQ(a, 0x00);
+	EXPECT_EQ(flags & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(flags & CPU::Flags::N, 0);
+	EXPECT_EQ(flags & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+}
+
+TEST(ALUTests, OR)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint8_t a = 0x5A;
+	alu.or(a, 0x0F);
+
+	EXPECT_EQ(a, 0x5F);
+	EXPECT_EQ(flags & CPU::Flags::N, 0);
+	EXPECT_EQ(flags & CPU::Flags::H, 0);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+}
+
+TEST(ALUTests, XOR)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint8_t a = 0xFF;
+	alu.xor(a, 0xFF);
+
+	EXPECT_EQ(a, 0x00);
+	EXPECT_EQ(flags & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(flags & CPU::Flags::N, 0);
+	EXPECT_EQ(flags & CPU::Flags::H, 0);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+}

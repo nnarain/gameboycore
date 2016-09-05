@@ -48,6 +48,21 @@ namespace gb
 		*/
 		void subc(uint8_t& a, uint8_t n);
 
+		/**
+			AND
+		*/
+		void and(uint8_t& a, uint8_t n);
+
+		/**
+			OR
+		*/
+		void or(uint8_t& a, uint8_t n);
+
+		/**
+			XOR
+		*/
+		void xor(uint8_t& a, uint8_t n);
+
 	private:
 		uint8_t& flags_;
 	};

@@ -114,8 +114,49 @@ namespace gb
 		SET(flags_, ALU::Flags::N);
 	}
 
+	void ALU::and(uint8_t& a, uint8_t n)
+	{
+		a &= n;
+
+		if (a == 0)
+			SET(flags_, ALU::Flags::Z);
+		else
+			CLR(flags_, ALU::Flags::Z);
+
+		CLR(flags_, ALU::Flags::N);
+		SET(flags_, ALU::Flags::H);
+		CLR(flags_, ALU::Flags::C);
+	}
+
+	void ALU::or(uint8_t& a, uint8_t n)
+	{
+		a |= n;
+
+		if (a == 0)
+			SET(flags_, ALU::Flags::Z);
+		else
+			CLR(flags_, ALU::Flags::Z);
+
+		CLR(flags_, ALU::Flags::N);
+		CLR(flags_, ALU::Flags::H);
+		CLR(flags_, ALU::Flags::C);
+	}
+
+	void ALU::xor(uint8_t& a, uint8_t n)
+	{
+		a ^= n;
+
+		if (a == 0)
+			SET(flags_, ALU::Flags::Z);
+		else
+			CLR(flags_, ALU::Flags::Z);
+
+		CLR(flags_, ALU::Flags::N);
+		CLR(flags_, ALU::Flags::H);
+		CLR(flags_, ALU::Flags::C);
+	}
+
 	ALU::~ALU()
 	{
 	}
-
 }
