@@ -58,3 +58,19 @@ TEST(MiscInstructions, Swap)
 	EXPECT_EQ(status.hl.lo, 0xED);
 	EXPECT_EQ(mmu.read(0xBCDE), 0x0F);
 }
+
+TEST(MiscInstructions, ComplementA)
+{
+	CodeGenerator code;
+	code.block(
+		0x3E, 0x00, // LD A,$00
+		0x2F,		// CPL
+
+		0x76        // halt
+	);
+
+	Gameboy gameboy;
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.hi, 0xFF);
+}

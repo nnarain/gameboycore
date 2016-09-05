@@ -573,6 +573,16 @@ namespace gb
 		case 0xFF: // RST $38
 			call(0x38);
 			break;
+
+		/* Decimal Adjust */
+		case 0x27:
+			daa();
+			break;
+
+		/* Complement */
+		case 0x2F:
+			TGL(af_.hi, 0xFF);
+			break;
 		}
 	}
 
