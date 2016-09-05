@@ -47,6 +47,20 @@ TEST(ALUTests, AddWithCarry)
 	EXPECT_EQ(flags & CPU::Flags::Z, 0);
 }
 
+TEST(ALUTests, AddRelative)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint16_t sp = 0xFF;
+	alu.addr(sp, -2);
+
+	EXPECT_EQ(sp, 0xFD);
+	EXPECT_EQ(flags & CPU::Flags::H, 0);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+	EXPECT_EQ(flags & CPU::Flags::N, 0);
+}
+
 TEST(ALUTests, Add16bit)
 {
 	uint8_t flags = CPU::Flags::C;

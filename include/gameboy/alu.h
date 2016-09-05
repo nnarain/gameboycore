@@ -33,6 +33,7 @@ namespace gb
 		*/
 		void add(uint8_t& a, uint8_t n);
 		void add(uint16_t& hl, uint16_t n);
+		void addr(uint16_t& sp, int8_t n);
 
 		/**
 			ADC

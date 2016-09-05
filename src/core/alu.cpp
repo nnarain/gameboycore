@@ -35,6 +35,26 @@ namespace gb
 		setFlag(ALU::Flags::N, false);
 	}
 
+	void ALU::addr(uint16_t& sp, int8_t n)
+	{
+		bool is_half_carry = false;
+		bool is_full_carry = false;
+
+		// TODO: Sketchy...
+		if (n > 0)
+		{
+			is_half_carry = IS_HALF_CARRY(sp, n);
+			is_full_carry = IS_FULL_CARRY(sp, n);
+		}
+
+		sp += n;
+
+		setFlag(ALU::Flags::H, is_half_carry);
+		setFlag(ALU::Flags::C, is_full_carry);
+		setFlag(ALU::Flags::Z, false);
+		setFlag(ALU::Flags::N, false);
+	}
+
 	void ALU::addc(uint8_t& a, uint8_t n)
 	{
 		bool is_half_carry = IS_HALF_CARRY(a, n);
