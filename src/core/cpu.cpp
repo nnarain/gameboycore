@@ -813,6 +813,33 @@ namespace gb
 			break;
 
 		/* Comparison */
+		case 0xBF: // CP A,A
+			alu_.compare(af_.hi, af_.hi);
+			break;
+		case 0xB8: // CP A,B
+			alu_.compare(af_.hi, bc_.hi);
+			break;
+		case 0xB9: // CP A,C
+			alu_.compare(af_.hi, bc_.lo);
+			break;
+		case 0xBA: // CP A,D
+			alu_.compare(af_.hi, de_.hi);
+			break;
+		case 0xBB: // CP A,E
+			alu_.compare(af_.hi, de_.lo);
+			break;
+		case 0xBC: // CP A,H
+			alu_.compare(af_.hi, hl_.hi);
+			break;
+		case 0xBD: // CP A,L
+			alu_.compare(af_.hi, hl_.lo);
+			break;
+		case 0xBE: // CP A,(HL)
+			alu_.compare(af_.hi, mmu_.read(hl_.val));
+			break;
+		case 0xFE: // CP A,n
+			alu_.compare(af_.hi, load8Imm());
+			break;
 		}
 	}
 
