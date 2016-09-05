@@ -17,22 +17,14 @@ namespace gb
 
 		a += n;
 
-		if (is_half_carry)
-			SET(flags_, ALU::Flags::H);
-		else
-			CLR(flags_, ALU::Flags::H);
+		setFlag(ALU::Flags::H, is_half_carry);
+		setFlag(ALU::Flags::C, is_full_carry);
+		setFlag(ALU::Flags::Z, (a == 0));
+		setFlag(ALU::Flags::N, false);
+	}
 
-		if (is_full_carry)
-			SET(flags_, ALU::Flags::C);
-		else
-			CLR(flags_, ALU::Flags::C);
-
-		if (a == 0)
-			SET(flags_, ALU::Flags::Z);
-		else
-			CLR(flags_, ALU::Flags::Z);
-
-		CLR(flags_, ALU::Flags::N);
+	void ALU::add(uint16_t& hl, uint16_t n)
+	{
 	}
 
 	void ALU::addc(uint8_t& a, uint8_t n)
@@ -44,22 +36,10 @@ namespace gb
 
 		a += (n + carry);
 
-		if (is_half_carry)
-			SET(flags_, ALU::Flags::H);
-		else
-			CLR(flags_, ALU::Flags::H);
-
-		if (is_full_carry)
-			SET(flags_, ALU::Flags::C);
-		else
-			CLR(flags_, ALU::Flags::C);
-
-		if (a == 0)
-			SET(flags_, ALU::Flags::Z);
-		else
-			CLR(flags_, ALU::Flags::Z);
-
-		CLR(flags_, ALU::Flags::N);
+		setFlag(ALU::Flags::H, is_half_carry);
+		setFlag(ALU::Flags::C, is_full_carry);
+		setFlag(ALU::Flags::Z, (a == 0));
+		setFlag(ALU::Flags::N, false);
 	}
 
 	void ALU::sub(uint8_t& a, uint8_t n)
@@ -69,22 +49,10 @@ namespace gb
 
 		a -= n;
 
-		if (is_half_borrow)
-			SET(flags_, ALU::Flags::H);
-		else
-			CLR(flags_, ALU::Flags::H);
-
-		if (is_full_borrow)
-			SET(flags_, ALU::Flags::C);
-		else
-			CLR(flags_, ALU::Flags::C);
-
-		if (a == 0)
-			SET(flags_, ALU::Flags::Z);
-		else
-			CLR(flags_, ALU::Flags::Z);
-
-		SET(flags_, ALU::Flags::N);
+		setFlag(ALU::Flags::H, is_half_borrow);
+		setFlag(ALU::Flags::C, is_full_borrow);
+		setFlag(ALU::Flags::Z, (a == 0));
+		setFlag(ALU::Flags::N, true);
 	}
 
 	void ALU::subc(uint8_t& a, uint8_t n)
@@ -96,50 +64,30 @@ namespace gb
 
 		a -= (n + carry);
 
-		if (is_half_borrow)
-			SET(flags_, ALU::Flags::H);
-		else
-			CLR(flags_, ALU::Flags::H);
-
-		if (is_full_borrow)
-			SET(flags_, ALU::Flags::C);
-		else
-			CLR(flags_, ALU::Flags::C);
-
-		if (a == 0)
-			SET(flags_, ALU::Flags::Z);
-		else
-			CLR(flags_, ALU::Flags::Z);
-
-		SET(flags_, ALU::Flags::N);
+		setFlag(ALU::Flags::H, is_half_borrow);
+		setFlag(ALU::Flags::C, is_full_borrow);
+		setFlag(ALU::Flags::Z, (a == 0));
+		setFlag(ALU::Flags::N, true);
 	}
 
 	void ALU::anda(uint8_t& a, uint8_t n)
 	{
 		a &= n;
 
-		if (a == 0)
-			SET(flags_, ALU::Flags::Z);
-		else
-			CLR(flags_, ALU::Flags::Z);
-
-		CLR(flags_, ALU::Flags::N);
-		SET(flags_, ALU::Flags::H);
-		CLR(flags_, ALU::Flags::C);
+		setFlag(ALU::Flags::N, false);
+		setFlag(ALU::Flags::H, true);
+		setFlag(ALU::Flags::C, false);
+		setFlag(ALU::Flags::Z, (a == 0));
 	}
 
 	void ALU::ora(uint8_t& a, uint8_t n)
 	{
 		a |= n;
 
-		if (a == 0)
-			SET(flags_, ALU::Flags::Z);
-		else
-			CLR(flags_, ALU::Flags::Z);
-
-		CLR(flags_, ALU::Flags::N);
-		CLR(flags_, ALU::Flags::H);
-		CLR(flags_, ALU::Flags::C);
+		setFlag(ALU::Flags::N, false);
+		setFlag(ALU::Flags::Z, (a == 0));
+		setFlag(ALU::Flags::H, false);
+		setFlag(ALU::Flags::C, false);
 	}
 
 	void ALU::xora(uint8_t& a, uint8_t n)
@@ -151,9 +99,9 @@ namespace gb
 		else
 			CLR(flags_, ALU::Flags::Z);
 
-		CLR(flags_, ALU::Flags::N);
-		CLR(flags_, ALU::Flags::H);
-		CLR(flags_, ALU::Flags::C);
+		setFlag(ALU::Flags::N, false);
+		setFlag(ALU::Flags::H, false);
+		setFlag(ALU::Flags::C, false);
 	}
 
 	void ALU::compare(uint8_t& a, uint8_t n)
@@ -163,22 +111,22 @@ namespace gb
 
 		uint8_t r = a - n;
 
-		if (is_half_borrow)
-			SET(flags_, ALU::Flags::H);
-		else
-			CLR(flags_, ALU::Flags::H);
+		setFlag(ALU::Flags::H, is_half_borrow);
+		setFlag(ALU::Flags::C, is_full_borrow);
+		setFlag(ALU::Flags::Z, (r == 0));
+		setFlag(ALU::Flags::N, true);
+	}
 
-		if (is_full_borrow)
-			SET(flags_, ALU::Flags::C);
+	void ALU::setFlag(uint8_t mask, bool set)
+	{
+		if (set)
+		{
+			SET(flags_, mask);
+		}
 		else
-			CLR(flags_, ALU::Flags::C);
-
-		if (r == 0)
-			SET(flags_, ALU::Flags::Z);
-		else
-			CLR(flags_, ALU::Flags::Z);
-
-		SET(flags_, ALU::Flags::N);
+		{
+			CLR(flags_, mask);
+		}
 	}
 
 	ALU::~ALU()
