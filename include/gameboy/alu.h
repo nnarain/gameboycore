@@ -6,7 +6,7 @@
 #ifndef ALU_H
 #define ALU_H
 
-#include <cstdint>
+#include <stdint.h>
 
 /**
 	Contains Math and Logical operation
