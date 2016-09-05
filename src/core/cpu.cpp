@@ -739,7 +739,18 @@ namespace gb
 		uint8_t hi = (byte & 0xF0) >> 4;
 		uint8_t lo = byte & 0x0F;
 
-		return (lo << 4) | hi;
+		uint8_t newByte = (lo << 4) | hi;
+
+		if (newByte == 0)
+			SET(af_.lo, CPU::Flags::Z);
+		else
+			CLR(af_.lo, CPU::Flags::Z);
+
+		CLR(af_.lo, CPU::Flags::N);
+		CLR(af_.lo, CPU::Flags::H);
+		CLR(af_.lo, CPU::Flags::C);
+
+		return newByte;
 	}
 
 	void CPU::reset()
