@@ -32,6 +32,7 @@ namespace gb
 			ADD
 		*/
 		void add(uint8_t& a, uint8_t n);
+		void add(uint16_t& hl, uint16_t n);
 
 		/**
 			ADC
@@ -67,6 +68,9 @@ namespace gb
 			Compare
 		*/
 		void compare(uint8_t& a, uint8_t n);
+
+	private:
+		void setFlag(uint8_t mask, bool set);
 
 	private:
 		uint8_t& flags_;
