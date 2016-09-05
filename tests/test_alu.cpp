@@ -172,3 +172,31 @@ TEST(ALUTests, XOR)
 	EXPECT_EQ(flags & CPU::Flags::H, 0);
 	EXPECT_EQ(flags & CPU::Flags::C, 0);
 }
+
+TEST(ALUTests, Compare)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint8_t a = 0x3C;
+	alu.compare(a, 0x2F);
+
+	EXPECT_EQ(flags & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(flags & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+	EXPECT_EQ(flags & CPU::Flags::Z, 0);
+}
+
+TEST(ALUTests, CompareZero)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint8_t a = 0x3C;
+	alu.compare(a, 0x3C);
+
+	EXPECT_EQ(flags & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(flags & CPU::Flags::H, 0);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+	EXPECT_EQ(flags & CPU::Flags::Z, CPU::Flags::Z);
+}

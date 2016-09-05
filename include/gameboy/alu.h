@@ -63,6 +63,11 @@ namespace gb
 		*/
 		void xora(uint8_t& a, uint8_t n);
 
+		/**
+			Compare
+		*/
+		void compare(uint8_t& a, uint8_t n);
+
 	private:
 		uint8_t& flags_;
 	};
