@@ -77,7 +77,6 @@ TEST(CallInstructions, Return)
 	);
 
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.pc.val, 0x154);
