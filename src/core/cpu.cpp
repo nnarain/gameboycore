@@ -668,6 +668,35 @@ namespace gb
 		case 0xCE: // ADC A,n
 			alu_.add(af_.hi, load8Imm());
 			break;
+
+		// subtract
+		case 0x97: // SUB A,A
+			alu_.sub(af_.hi, af_.hi);
+			break;
+		case 0x90: // SUB A,B
+			alu_.sub(af_.hi, bc_.hi);
+			break;
+		case 0x91: // SUB A,C
+			alu_.sub(af_.hi, bc_.lo);
+			break;
+		case 0x92: // SUB A,D
+			alu_.sub(af_.hi, de_.hi);
+			break;
+		case 0x93: // SUB A,E
+			alu_.sub(af_.hi, de_.lo);
+			break;
+		case 0x94: // SUB A,H
+			alu_.sub(af_.hi, hl_.hi);
+			break;
+		case 0x95: // SUB A,L
+			alu_.sub(af_.hi, hl_.lo);
+			break;
+		case 0x96: // SUB A,(HL)
+			alu_.sub(af_.hi, mmu_.read(hl_.val));
+			break;
+		case 0xD6: // SUB A,n
+			alu_.sub(af_.hi, load8Imm());
+			break;
 		}
 	}
 
