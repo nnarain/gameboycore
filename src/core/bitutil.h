@@ -57,9 +57,10 @@
 /* Full and Half Carry */
 
 #define IS_HALF_CARRY(x, y) ((( ((x) & 0x0F) + ((y) & 0x0F) ) & (0x10)) != 0)
+#define IS_FULL_CARRY(x, y) ((( ( (x)&0x0FF ) + ( ((y)&0x0FF) )  ) & 0x100 ) != 0)
 
-//!
-#define EXPAND_PORT(port)( *(volatile word * const) &(port) )
+#define IS_HALF_BORROW(x, y) (  ((x)&0x0F) < ((y)&0x0F)  )
+#define IS_FULL_BORROW(x, y) (  ((x)&0xF0) < ((y)&0xF0)  )
 
 #endif // BITUTIL_H
 

@@ -25,12 +25,14 @@ endif(IS_BIG_ENDIAN)
 set(GAMEBOYCORE
     src/core/gameboy.cpp
     src/core/cpu.cpp
+	src/core/alu.cpp
     src/core/mmu.cpp
     src/core/cartinfo.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
 	include/gameboy/cpu.h
+	include/gameboy/alu.h
 	include/gameboy/mmu.h
 
 	include/gameboy/memorymap.h

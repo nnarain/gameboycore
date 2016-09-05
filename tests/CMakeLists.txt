@@ -29,6 +29,7 @@ if(GTEST_FOUND)
 		test_stack_instructions.cpp
 		test_jump_instructions.cpp
 		test_call_instructions.cpp
+		test_alu.cpp
 		test_misc.cpp
 	)
 
