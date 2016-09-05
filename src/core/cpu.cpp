@@ -593,6 +593,13 @@ namespace gb
 			CLR(af_.lo, CPU::Flags::N);
 			CLR(af_.lo, CPU::Flags::H);
 			break;
+
+		/* Set Carry Flag */
+		case 0x37: // SCF
+			SET(af_.lo, CPU::Flags::C);
+			CLR(af_.lo, CPU::Flags::N);
+			CLR(af_.lo, CPU::Flags::H);
+			break;
 		}
 	}
 

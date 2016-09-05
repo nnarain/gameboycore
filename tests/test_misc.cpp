@@ -76,3 +76,17 @@ TEST(MiscInstructions, ComplementA)
 	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
 	EXPECT_EQ(status.af.lo & CPU::Flags::N, CPU::Flags::N);
 }
+
+TEST(MiscInstructions, SetCarry)
+{
+	CodeGenerator code;
+	code.block(
+		0x37,
+		0x76        // halt
+		);
+
+	Gameboy gameboy;
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.lo & CPU::Flags::C, CPU::Flags::C);
+}
