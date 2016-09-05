@@ -3,8 +3,8 @@
 	@author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef ALU_H
-#define ALU_H
+#ifndef GAMEBOY_ALU_H
+#define GAMEBOY_ALU_H
 
 #include <stdint.h>
 
@@ -77,4 +77,4 @@ namespace gb
 	};
 
 }
-#endif // ALU_H
+#endif // GAMEBOY_ALU_H
