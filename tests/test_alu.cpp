@@ -46,3 +46,44 @@ TEST(ALUTests, AddWithCarry)
 	EXPECT_EQ(flags & CPU::Flags::C, 0);
 	EXPECT_EQ(flags & CPU::Flags::Z, 0);
 }
+
+TEST(ALUTests, Sub)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint8_t a = 0x3E;
+	alu.sub(a, 0x3E);
+
+	EXPECT_EQ(a, 0x0);
+	EXPECT_EQ(flags & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+	EXPECT_EQ(flags & CPU::Flags::Z, CPU::Flags::Z);
+}
+
+TEST(ALUTests, SubHalfBorrow)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint8_t a = 0x3E;
+	alu.sub(a, 0x0F);
+
+	EXPECT_EQ(a, 0x2F);
+	EXPECT_EQ(flags & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(flags & CPU::Flags::C, 0);
+	EXPECT_EQ(flags & CPU::Flags::H, CPU::Flags::H);
+}
+
+TEST(ALUTests, SubFullBorrow)
+{
+	uint8_t flags = 0;
+	ALU alu(flags);
+
+	uint8_t a = 0x3E;
+	alu.sub(a, 0x40);
+
+	EXPECT_EQ(a, 0xFE);
+	EXPECT_EQ(flags & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(flags & CPU::Flags::C, CPU::Flags::C);
+}

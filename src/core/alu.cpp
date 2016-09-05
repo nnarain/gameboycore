@@ -86,7 +86,7 @@ namespace gb
 		else
 			CLR(flags_, ALU::Flags::Z);
 
-		CLR(flags_, ALU::Flags::N);
+		SET(flags_, ALU::Flags::N);
 	}
 
 	ALU::~ALU()
