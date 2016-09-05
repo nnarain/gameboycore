@@ -753,6 +753,11 @@ namespace gb
 		return newByte;
 	}
 
+	void CPU::daa()
+	{
+		// TODO
+	}
+
 	void CPU::reset()
 	{
 		af_.val = 0;

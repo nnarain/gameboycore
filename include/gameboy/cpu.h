@@ -115,6 +115,11 @@ namespace gb
 		*/
 		uint8_t swap(uint8_t);
 
+		/**
+			Decimal Adjust Register A
+		*/
+		void daa();
+
 	private:
 		Register af_;
 		Register bc_;
