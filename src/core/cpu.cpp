@@ -62,9 +62,9 @@ namespace gb
 			stopped_ = true;
 			break;
 
-			// Load Instructions
+		/* Load Instructions */
 
-			// 8 bit loads immediate
+		// 8 bit loads immediate
 		case 0x3E: // LD A,d8
 			af_.hi = load8Imm();
 			break;
@@ -85,6 +85,9 @@ namespace gb
 			break;
 		case 0x2E: // LD L,d8
 			hl_.lo = load8Imm();
+			break;
+		case 0x36: // LD (HL),d8
+			mmu_.write(load8Imm(), hl_.val);
 			break;
 
 			// load 16 bit immediate
@@ -570,6 +573,41 @@ namespace gb
 		case 0xFF: // RST $38
 			call(0x38);
 			break;
+
+		/* Decimal Adjust */
+		case 0x27:
+			daa();
+			break;
+
+		/* Complement */
+
+		// Register A
+		case 0x2F: // CPL
+			TGL(af_.hi, 0xFF);
+			SET(af_.lo, CPU::Flags::N);
+			SET(af_.lo, CPU::Flags::H);
+			break;
+		// Carry Flag
+		case 0x3F: // CCF
+			TGL(af_.lo, CPU::Flags::C);
+			CLR(af_.lo, CPU::Flags::N);
+			CLR(af_.lo, CPU::Flags::H);
+			break;
+
+		/* Set Carry Flag */
+		case 0x37: // SCF
+			SET(af_.lo, CPU::Flags::C);
+			CLR(af_.lo, CPU::Flags::N);
+			CLR(af_.lo, CPU::Flags::H);
+			break;
+
+		/* Disable and Enable Interrupt */
+		case 0xF3: // DI
+			// TODO
+			break;
+		case 0xFB: // EI
+			// TODO
+			break;
 		}
 	}
 
@@ -577,7 +615,29 @@ namespace gb
 	{
 		switch (opcode)
 		{
-		case 0x00:
+		case 0x37: // SWAP A
+			af_.hi = swap(af_.hi);
+			break;
+		case 0x30: // SWAP B
+			bc_.hi = swap(bc_.hi);
+			break;
+		case 0x31: // SWAP C
+			bc_.lo = swap(bc_.lo);
+			break;
+		case 0x32: // SWAP D
+			de_.hi = swap(de_.hi);
+			break;
+		case 0x33: // SWAP E
+			de_.lo = swap(de_.lo);
+			break;
+		case 0x34: // SWAP H
+			hl_.hi = swap(hl_.hi);
+			break;
+		case 0x35: // SWAP L
+			hl_.lo = swap(hl_.lo);
+			break;
+		case 0x36: // SWAP (HL)
+			mmu_.write(swap(mmu_.read(hl_.val)), hl_.val);
 			break;
 		default:
 			break;
@@ -707,6 +767,30 @@ namespace gb
 	{
 		ret();
 		// TODO: Enable Interrutps
+	}
+
+	uint8_t CPU::swap(uint8_t byte)
+	{
+		uint8_t hi = (byte & 0xF0) >> 4;
+		uint8_t lo = byte & 0x0F;
+
+		uint8_t newByte = (lo << 4) | hi;
+
+		if (newByte == 0)
+			SET(af_.lo, CPU::Flags::Z);
+		else
+			CLR(af_.lo, CPU::Flags::Z);
+
+		CLR(af_.lo, CPU::Flags::N);
+		CLR(af_.lo, CPU::Flags::H);
+		CLR(af_.lo, CPU::Flags::C);
+
+		return newByte;
+	}
+
+	void CPU::daa()
+	{
+		// TODO
 	}
 
 	void CPU::reset()
