@@ -121,7 +121,7 @@ TEST(ALUTests, AND)
 	ALU alu(flags);
 
 	uint8_t a = 0x5A;
-	alu.and(a, 0x3F);
+	alu.anda(a, 0x3F);
 
 	EXPECT_EQ(a, 0x1A);
 	EXPECT_EQ(flags & CPU::Flags::N, 0);
@@ -135,7 +135,7 @@ TEST(ALUTests, ANDZero)
 	ALU alu(flags);
 
 	uint8_t a = 0x5A;
-	alu.and(a, 0x00);
+	alu.anda(a, 0x00);
 
 	EXPECT_EQ(a, 0x00);
 	EXPECT_EQ(flags & CPU::Flags::Z, CPU::Flags::Z);
@@ -150,7 +150,7 @@ TEST(ALUTests, OR)
 	ALU alu(flags);
 
 	uint8_t a = 0x5A;
-	alu.or(a, 0x0F);
+	alu.ora(a, 0x0F);
 
 	EXPECT_EQ(a, 0x5F);
 	EXPECT_EQ(flags & CPU::Flags::N, 0);
@@ -164,7 +164,7 @@ TEST(ALUTests, XOR)
 	ALU alu(flags);
 
 	uint8_t a = 0xFF;
-	alu.xor(a, 0xFF);
+	alu.xora(a, 0xFF);
 
 	EXPECT_EQ(a, 0x00);
 	EXPECT_EQ(flags & CPU::Flags::Z, CPU::Flags::Z);

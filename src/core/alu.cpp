@@ -114,7 +114,7 @@ namespace gb
 		SET(flags_, ALU::Flags::N);
 	}
 
-	void ALU::and(uint8_t& a, uint8_t n)
+	void ALU::anda(uint8_t& a, uint8_t n)
 	{
 		a &= n;
 
@@ -128,7 +128,7 @@ namespace gb
 		CLR(flags_, ALU::Flags::C);
 	}
 
-	void ALU::or(uint8_t& a, uint8_t n)
+	void ALU::ora(uint8_t& a, uint8_t n)
 	{
 		a |= n;
 
@@ -142,7 +142,7 @@ namespace gb
 		CLR(flags_, ALU::Flags::C);
 	}
 
-	void ALU::xor(uint8_t& a, uint8_t n)
+	void ALU::xora(uint8_t& a, uint8_t n)
 	{
 		a ^= n;
 
