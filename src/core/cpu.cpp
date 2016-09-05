@@ -669,6 +669,10 @@ namespace gb
 			alu_.add(af_.hi, load8Imm());
 			break;
 
+		case 0xE8: // ADD SP,n
+			alu_.addr(sp_.val, (int8_t)load8Imm());
+			break;
+
 		// subtract
 		case 0x97: // SUB A,A
 			alu_.sub(af_.hi, af_.hi);
