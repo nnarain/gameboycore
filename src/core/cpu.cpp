@@ -611,7 +611,7 @@ namespace gb
 			break;
 
 		/* Arithmetic Operations */
-		// add
+		// add 8 bit
 		case 0x87: // ADD A,A
 			alu_.add(af_.hi, af_.hi);
 			break;
@@ -697,6 +697,122 @@ namespace gb
 		case 0xD6: // SUB A,n
 			alu_.sub(af_.hi, load8Imm());
 			break;
+
+		// substract with carry
+		case 0x9F: // SBC A,A
+			alu_.subc(af_.hi, af_.hi);
+			break;
+		case 0x98: // SBC A,B
+			alu_.subc(af_.hi, bc_.hi);
+			break;
+		case 0x99: // SBC A,C
+			alu_.subc(af_.hi, bc_.lo);
+			break;
+		case 0x9A: // SBC A,D
+			alu_.subc(af_.hi, de_.hi);
+			break;
+		case 0x9B: // SBC A,E
+			alu_.subc(af_.hi, de_.lo);
+			break;
+		case 0x9C: // SBC A,H
+			alu_.subc(af_.hi, hl_.hi);
+			break;
+		case 0x9D: // SBC A,L
+			alu_.subc(af_.hi, hl_.lo);
+			break;
+		case 0x9E: // SBC A,(HL)
+			alu_.subc(af_.hi, mmu_.read(hl_.val));
+			break;
+		case 0xDE: // SBC A,n
+			alu_.subc(af_.hi, load8Imm());
+			break;
+
+		/* Logical Operations */
+		case 0xA7: // AND A,A
+			alu_.anda(af_.hi, af_.hi);
+			break;
+		case 0xA0: // AND A,B
+			alu_.anda(af_.hi, bc_.hi);
+			break;
+		case 0xA1: // AND A,C
+			alu_.anda(af_.hi, bc_.lo);
+			break;
+		case 0xA2: // AND A,D
+			alu_.anda(af_.hi, de_.hi);
+			break;
+		case 0xA3: // AND A,E
+			alu_.anda(af_.hi, de_.lo);
+			break;
+		case 0xA4: // AND A,H
+			alu_.anda(af_.hi, hl_.hi);
+			break;
+		case 0xA5: // AND A,L
+			alu_.anda(af_.hi, hl_.lo);
+			break;
+		case 0xA6: // AND A,(HL)
+			alu_.anda(af_.hi, mmu_.read(hl_.val));
+			break;
+		case 0xE6: // AND A,n
+			alu_.anda(af_.hi, load8Imm());
+			break;
+
+		case 0xB7: // OR A,A
+			alu_.ora(af_.hi, af_.hi);
+			break;
+		case 0xB0: // OR A,B
+			alu_.ora(af_.hi, bc_.hi);
+			break;
+		case 0xB1: // OR A,C
+			alu_.ora(af_.hi, bc_.lo);
+			break;
+		case 0xB2: // OR A,D
+			alu_.ora(af_.hi, de_.hi);
+			break;
+		case 0xB3: // OR A,E
+			alu_.ora(af_.hi, de_.lo);
+			break;
+		case 0xB4: // OR A,H
+			alu_.ora(af_.hi, hl_.hi);
+			break;
+		case 0xB5: // OR A,L
+			alu_.ora(af_.hi, hl_.lo);
+			break;
+		case 0xB6: // OR A,(HL)
+			alu_.ora(af_.hi, mmu_.read(hl_.val));
+			break;
+		case 0xF6: // OR A,n
+			alu_.ora(af_.hi, load8Imm());
+			break;
+
+		case 0xAF: // XOR A,A
+			alu_.xora(af_.hi, af_.hi);
+			break;
+		case 0xA8: // XOR A,B
+			alu_.xora(af_.hi, bc_.hi);
+			break;
+		case 0xA9: // XOR A,C
+			alu_.xora(af_.hi, bc_.lo);
+			break;
+		case 0xAA: // XOR A,D
+			alu_.xora(af_.hi, de_.hi);
+			break;
+		case 0xAB: // XOR A,E
+			alu_.xora(af_.hi, de_.lo);
+			break;
+		case 0xAC: // XOR A,H
+			alu_.xora(af_.hi, hl_.hi);
+			break;
+		case 0xAD: // XOR A,L
+			alu_.xora(af_.hi, hl_.lo);
+			break;
+		case 0xAE: // XOR A,(HL)
+			alu_.xora(af_.hi, mmu_.read(hl_.val));
+			break;
+		case 0xEE: // OR A,n
+			alu_.xora(af_.hi, load8Imm());
+			break;
+
+		/* Comparison */
 		}
 	}
 
