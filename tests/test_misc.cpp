@@ -73,4 +73,6 @@ TEST(MiscInstructions, ComplementA)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 0xFF);
+	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.af.lo & CPU::Flags::N, CPU::Flags::N);
 }

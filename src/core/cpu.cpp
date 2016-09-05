@@ -580,8 +580,18 @@ namespace gb
 			break;
 
 		/* Complement */
-		case 0x2F:
+
+		// Register A
+		case 0x2F: // CPL
 			TGL(af_.hi, 0xFF);
+			SET(af_.lo, CPU::Flags::N);
+			SET(af_.lo, CPU::Flags::H);
+			break;
+		// Carry Flag
+		case 0x3F: // CCF
+			TGL(af_.lo, CPU::Flags::C);
+			CLR(af_.lo, CPU::Flags::N);
+			CLR(af_.lo, CPU::Flags::H);
 			break;
 		}
 	}
