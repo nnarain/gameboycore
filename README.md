@@ -11,3 +11,10 @@ mkdir build && cd build
 cmake ..
 make
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+References
+----------
+
+* http://marc.rawer.de/Gameboy/Docs/GBCPUman.pdf
+* http://gameboy.mongenel.com/dmg/opcodes.html
+* http://www.pastraiser.com/cpu/gameboy/gameboy_opcodes.html
