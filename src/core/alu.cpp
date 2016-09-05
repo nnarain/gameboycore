@@ -25,6 +25,14 @@ namespace gb
 
 	void ALU::add(uint16_t& hl, uint16_t n)
 	{
+		bool is_half_carry = IS_HALF_CARRY16(hl, n);
+		bool is_full_carry = IS_FULL_CARRY16(hl, n);
+
+		hl += n;
+
+		setFlag(ALU::Flags::H, is_half_carry);
+		setFlag(ALU::Flags::C, is_full_carry);
+		setFlag(ALU::Flags::N, false);
 	}
 
 	void ALU::addc(uint8_t& a, uint8_t n)
