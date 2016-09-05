@@ -14,6 +14,7 @@ namespace gb
 {
 	CPU::CPU() :
 		mmu_(),
+		alu_(af_.lo),
 		halted_(false),
 		cycle_count_(0)
 	{
@@ -607,6 +608,35 @@ namespace gb
 			break;
 		case 0xFB: // EI
 			// TODO
+			break;
+
+		/* Arithmetic Operations */
+		case 0x87: // ADD A,A
+			alu_.add(af_.hi, af_.hi);
+			break;
+		case 0x80: // ADD A,B
+			alu_.add(af_.hi, bc_.hi);
+			break;
+		case 0x81: // ADD A,C
+			alu_.add(af_.hi, bc_.lo);
+			break;
+		case 0x82: // ADD A,D
+			alu_.add(af_.hi, de_.hi);
+			break;
+		case 0x83: // ADD A,E
+			alu_.add(af_.hi, de_.lo);
+			break;
+		case 0x84: // ADD A,H
+			alu_.add(af_.hi, hl_.hi);
+			break;
+		case 0x85: // ADD A,L
+			alu_.add(af_.hi, hl_.lo);
+			break;
+		case 0x86: // ADD A,(HL)
+			alu_.add(af_.hi, mmu_.read(hl_.val));
+			break;
+		case 0xC6: // ADD A,n
+			alu_.add(af_.hi, load8Imm());
 			break;
 		}
 	}

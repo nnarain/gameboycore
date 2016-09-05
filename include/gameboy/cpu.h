@@ -12,6 +12,8 @@
 #endif
 
 #include "gameboy/mmu.h"
+#include "gameboy/alu.h"
+
 #include <stdint.h>
 
 namespace gb
@@ -129,6 +131,8 @@ namespace gb
 		Register pc_;
 
 		MMU mmu_;
+		ALU alu_;
+
 		bool halted_;
 		bool stopped_;
 
