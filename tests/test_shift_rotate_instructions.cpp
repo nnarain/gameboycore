@@ -31,9 +31,20 @@ TEST(Rotate, RotateLeftThroughCarry)
 TEST(Rotate, RotateRight)
 {
 	uint8_t flags = 0;
-	uint8_t a = 0x81;
+	uint8_t a = 0x3B;
 
 	a = rotateRight(a, flags);
+
+	EXPECT_EQ(a, 0x9D);
+	EXPECT_EQ(flags & CPU::Flags::C, CPU::Flags::C);
+}
+
+TEST(Rotate, RotateRightThroughCarry)
+{
+	uint8_t flags = 0;
+	uint8_t a = 0x81;
+
+	a = rotateRightCarry(a, flags);
 
 	EXPECT_EQ(a, 0x40);
 	EXPECT_EQ(flags & CPU::Flags::C, CPU::Flags::C);
