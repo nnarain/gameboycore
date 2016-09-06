@@ -122,6 +122,11 @@ namespace gb
 		*/
 		void daa();
 
+		/**
+			Bit
+		*/
+		void bit(uint8_t val, uint8_t bit);
+
 	private:
 		Register af_;
 		Register bc_;
