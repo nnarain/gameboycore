@@ -16,6 +16,7 @@ if(GTEST_FOUND)
 
 	include_directories(
 		../include/
+		../src/core/
 		include/
 		${GTEST_INCLUDE_DIRS}
 	)
@@ -31,6 +32,7 @@ if(GTEST_FOUND)
 		test_stack_instructions.cpp
 		test_jump_instructions.cpp
 		test_call_instructions.cpp
+		test_shift_rotate_instructions.cpp
 		test_misc.cpp
 	)
 
