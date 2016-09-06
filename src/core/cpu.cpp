@@ -865,6 +865,8 @@ namespace gb
 
 	void CPU::decode2(uint8_t opcode)
 	{
+		uint8_t tmp;
+
 		switch (opcode)
 		{
 		/* SWAP */
@@ -1280,6 +1282,219 @@ namespace gb
 			break;
 		case 0x7F: // BIT 1,A
 			bit(af_.hi, 0);
+			break;
+
+		/* Reset */
+		case 0x80: // RES 0,B
+			CLR_BIT(bc_.hi, 0);
+			break;
+		case 0x81: // RES 0,C
+			CLR_BIT(bc_.lo, 0);
+			break;
+		case 0x82: // RES 0,D
+			CLR_BIT(de_.hi, 0);
+			break;
+		case 0x83: // RES 0,E
+			CLR_BIT(de_.lo, 0);
+			break;
+		case 0x84: // RES 0,H
+			CLR_BIT(hl_.hi, 0);
+			break;
+		case 0x85: // RES 0,L
+			CLR_BIT(hl_.lo, 0);
+			break;
+		case 0x86: // RES 0,(HL)
+			tmp = mmu_.read(hl_.val);
+			CLR_BIT(tmp, 0);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0x87: // RES 0,A
+			CLR_BIT(af_.hi, 0);
+			break;
+		case 0x88: // RES 1,B
+			CLR_BIT(bc_.hi, 1);
+			break;
+		case 0x89: // RES 1,C
+			CLR_BIT(bc_.lo, 1);
+			break;
+		case 0x8A: // RES 1,D
+			CLR_BIT(de_.hi, 1);
+			break;
+		case 0x8B: // RES 1,E
+			CLR_BIT(de_.lo, 1);
+			break;
+		case 0x8C: // RES 1,H
+			CLR_BIT(hl_.hi, 1);
+			break;
+		case 0x8D: // RES 1,L
+			CLR_BIT(hl_.lo, 1);
+			break;
+		case 0x8E: // RES 1,(HL)
+			tmp = mmu_.read(hl_.val);
+			CLR_BIT(tmp, 1);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0x8F: // RES 1,A
+			CLR_BIT(af_.hi, 1);
+			break;
+
+		case 0x90: // RES 2,B
+			CLR_BIT(bc_.hi, 2);
+			break;
+		case 0x91: // RES 2,C
+			CLR_BIT(bc_.lo, 2);
+			break;
+		case 0x92: // RES 2,D
+			CLR_BIT(de_.hi, 2);
+			break;
+		case 0x93: // RES 2,E
+			CLR_BIT(de_.lo, 2);
+			break;
+		case 0x94: // RES 2,H
+			CLR_BIT(hl_.hi, 2);
+			break;
+		case 0x95: // RES 2,L
+			CLR_BIT(hl_.lo, 2);
+			break;
+		case 0x96: // RES 2,(HL)
+			tmp = mmu_.read(hl_.val);
+			CLR_BIT(tmp, 2);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0x97: // RES 2,A
+			CLR_BIT(af_.hi, 2);
+			break;
+		case 0x98: // RES 3,B
+			CLR_BIT(bc_.hi, 3);
+			break;
+		case 0x99: // RES 3,C
+			CLR_BIT(bc_.lo, 3);
+			break;
+		case 0x9A: // RES 3,D
+			CLR_BIT(de_.hi, 3);
+			break;
+		case 0x9B: // RES 3,E
+			CLR_BIT(de_.lo, 3);
+			break;
+		case 0x9C: // RES 3,H
+			CLR_BIT(hl_.hi, 3);
+			break;
+		case 0x9D: // RES 3,L
+			CLR_BIT(hl_.lo, 3);
+			break;
+		case 0x9E: // RES 3,(HL)
+			tmp = mmu_.read(hl_.val);
+			CLR_BIT(tmp, 3);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0x9F: // RES 3,A
+			CLR_BIT(af_.hi, 3);
+			break;
+
+		case 0xA0: // RES 4,B
+			CLR_BIT(bc_.hi, 4);
+			break;
+		case 0xA1: // RES 4,C
+			CLR_BIT(bc_.lo, 4);
+			break;
+		case 0xA2: // RES 4,D
+			CLR_BIT(de_.hi, 4);
+			break;
+		case 0xA3: // RES 4,E
+			CLR_BIT(de_.lo, 4);
+			break;
+		case 0xA4: // RES 4,H
+			CLR_BIT(hl_.hi, 4);
+			break;
+		case 0xA5: // RES 4,L
+			CLR_BIT(hl_.lo, 4);
+			break;
+		case 0xA6: // RES 4,(HL)
+			tmp = mmu_.read(hl_.val);
+			CLR_BIT(tmp, 4);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xA7: // RES 4,A
+			CLR_BIT(af_.hi, 4);
+			break;
+		case 0xA8: // RES 5,B
+			CLR_BIT(bc_.hi, 5);
+			break;
+		case 0xA9: // RES 5,C
+			CLR_BIT(bc_.lo, 5);
+			break;
+		case 0xAA: // RES 5,D
+			CLR_BIT(de_.hi, 5);
+			break;
+		case 0xAB: // RES 5,E
+			CLR_BIT(de_.lo, 5);
+			break;
+		case 0xAC: // RES 5,H
+			CLR_BIT(hl_.hi, 5);
+			break;
+		case 0xAD: // RES 5,L
+			CLR_BIT(hl_.lo, 5);
+			break;
+		case 0xAE: // RES 5,(HL)
+			tmp = mmu_.read(hl_.val);
+			CLR_BIT(tmp, 5);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xAF: // RES 5,A
+			CLR_BIT(af_.hi, 5);
+			break;
+
+		case 0xB0: // RES 6,B
+			CLR_BIT(bc_.hi, 6);
+			break;
+		case 0xB1: // RES 6,C
+			CLR_BIT(bc_.lo, 6);
+			break;
+		case 0xB2: // RES 6,D
+			CLR_BIT(de_.hi, 6);
+			break;
+		case 0xB3: // RES 6,E
+			CLR_BIT(de_.lo, 6);
+			break;
+		case 0xB4: // RES 6,H
+			CLR_BIT(hl_.hi, 6);
+			break;
+		case 0xB5: // RES 6,L
+			CLR_BIT(hl_.lo, 6);
+			break;
+		case 0xB6: // RES 6,(HL)
+			tmp = mmu_.read(hl_.val);
+			CLR_BIT(tmp, 6);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xB7: // RES 6,A
+			CLR_BIT(af_.hi, 6);
+			break;
+		case 0xB8: // RES 7,B
+			CLR_BIT(bc_.hi, 7);
+			break;
+		case 0xB9: // RES 7,C
+			CLR_BIT(bc_.lo, 7);
+			break;
+		case 0xBA: // RES 7,D
+			CLR_BIT(de_.hi, 7);
+			break;
+		case 0xBB: // RES 7,E
+			CLR_BIT(de_.lo, 7);
+			break;
+		case 0xBC: // RES 7,H
+			CLR_BIT(hl_.hi, 7);
+			break;
+		case 0xBD: // RES 7,L
+			CLR_BIT(hl_.lo, 7);
+			break;
+		case 0xBE: // RES 7,(HL)
+			tmp = mmu_.read(hl_.val);
+			CLR_BIT(tmp, 7);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xBF: // RES 7,A
+			CLR_BIT(af_.hi, 7);
 			break;
 
 		default:
