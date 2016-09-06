@@ -28,6 +28,7 @@ set(GAMEBOYCORE
 	src/core/alu.cpp
     src/core/mmu.cpp
     src/core/cartinfo.cpp
+	src/core/shiftrotate.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
@@ -40,6 +41,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/cartinfo.h
 	
 	src/core/bitutil.h
+	src/core/shiftrotate.h
 )
 
 # set flags for g++/gcc compiler
