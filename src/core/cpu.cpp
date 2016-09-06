@@ -1081,7 +1081,7 @@ namespace gb
 		// bit 0
 		case 0x40: // BIT 0,B
 			bit(bc_.hi, 0);
-			break; 
+			break;
 		case 0x41: // BIT 0,C
 			bit(bc_.lo, 0);
 			break;
@@ -1206,7 +1206,7 @@ namespace gb
 		case 0x67: // BIT 4,A
 			bit(af_.hi, 0);
 			break;
-		
+
 		// bit 5
 		case 0x68: // BIT 5,B
 			bit(bc_.hi, 0);
@@ -1497,6 +1497,220 @@ namespace gb
 			CLR_BIT(af_.hi, 7);
 			break;
 
+		/* Set */
+
+		case 0xC0: // SET 0,B
+			SET_BIT(bc_.hi, 0);
+			break;
+		case 0xC1: // SET 0,C
+			SET_BIT(bc_.lo, 0);
+			break;
+		case 0xC2: // SET 0,D
+			SET_BIT(de_.hi, 0);
+			break;
+		case 0xC3: // SET 0,E
+			SET_BIT(de_.lo, 0);
+			break;
+		case 0xC4: // SET 0,H
+			SET_BIT(hl_.hi, 0);
+			break;
+		case 0xC5: // SET 0,L
+			SET_BIT(hl_.lo, 0);
+			break;
+		case 0xC6: // SET 0,(HL)
+			tmp = mmu_.read(hl_.val);
+			SET_BIT(tmp, 0);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xC7: // SET 0,A
+			SET_BIT(af_.hi, 0);
+			break;
+		case 0xC8: // SET 1,B
+			SET_BIT(bc_.hi, 1);
+			break;
+		case 0xC9: // SET 1,C
+			SET_BIT(bc_.lo, 1);
+			break;
+		case 0xCA: // SET 1,D
+			SET_BIT(de_.hi, 1);
+			break;
+		case 0xCB: // SET 1,E
+			SET_BIT(de_.lo, 1);
+			break;
+		case 0xCC: // SET 1,H
+			SET_BIT(hl_.hi, 1);
+			break;
+		case 0xCD: // SET 1,L
+			SET_BIT(hl_.lo, 1);
+			break;
+		case 0xCE: // SET 1,(HL)
+			tmp = mmu_.read(hl_.val);
+			SET_BIT(tmp, 1);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xCF: // SET 1,A
+			SET_BIT(af_.hi, 1);
+			break;
+
+		case 0xD0: // SET 2,B
+			SET_BIT(bc_.hi, 2);
+			break;
+		case 0xD1: // SET 2,C
+			SET_BIT(bc_.lo, 2);
+			break;
+		case 0xD2: // SET 2,D
+			SET_BIT(de_.hi, 2);
+			break;
+		case 0xD3: // SET 2,E
+			SET_BIT(de_.lo, 2);
+			break;
+		case 0xD4: // SET 2,H
+			SET_BIT(hl_.hi, 2);
+			break;
+		case 0xD5: // SET 2,L
+			SET_BIT(hl_.lo, 2);
+			break;
+		case 0xD6: // SET 2,(HL)
+			tmp = mmu_.read(hl_.val);
+			SET_BIT(tmp, 2);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xD7: // SET 2,A
+			SET_BIT(af_.hi, 2);
+			break;
+		case 0xD8: // SET 3,B
+			SET_BIT(bc_.hi, 3);
+			break;
+		case 0xD9: // SET 3,C
+			SET_BIT(bc_.lo, 3);
+			break;
+		case 0xDA: // SET 3,D
+			SET_BIT(de_.hi, 3);
+			break;
+		case 0xDB: // SET 3,E
+			SET_BIT(de_.lo, 3);
+			break;
+		case 0xDC: // SET 3,H
+			SET_BIT(hl_.hi, 3);
+			break;
+		case 0xDD: // SET 3,L
+			SET_BIT(hl_.lo, 3);
+			break;
+		case 0xDE: // SET 3,(HL)
+			tmp = mmu_.read(hl_.val);
+			SET_BIT(tmp, 3);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xDF: // SET 3,A
+			SET_BIT(af_.hi, 3);
+			break;
+
+		case 0xE0: // SET 4,B
+			SET_BIT(bc_.hi, 4);
+			break;
+		case 0xE1: // SET 4,C
+			SET_BIT(bc_.lo, 4);
+			break;
+		case 0xE2: // SET 4,D
+			SET_BIT(de_.hi, 4);
+			break;
+		case 0xE3: // SET 4,E
+			SET_BIT(de_.lo, 4);
+			break;
+		case 0xE4: // SET 4,H
+			SET_BIT(hl_.hi, 4);
+			break;
+		case 0xE5: // SET 4,L
+			SET_BIT(hl_.lo, 4);
+			break;
+		case 0xE6: // SET 4,(HL)
+			tmp = mmu_.read(hl_.val);
+			SET_BIT(tmp, 4);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xE7: // SET 4,A
+			SET_BIT(af_.hi, 4);
+			break;
+		case 0xE8: // SET 5,B
+			SET_BIT(bc_.hi, 5);
+			break;
+		case 0xE9: // SET 5,C
+			SET_BIT(bc_.lo, 5);
+			break;
+		case 0xEA: // SET 5,D
+			SET_BIT(de_.hi, 5);
+			break;
+		case 0xEB: // SET 5,E
+			SET_BIT(de_.lo, 5);
+			break;
+		case 0xEC: // SET 5,H
+			SET_BIT(hl_.hi, 5);
+			break;
+		case 0xED: // SET 5,L
+			SET_BIT(hl_.lo, 5);
+			break;
+		case 0xEE: // SET 5,(HL)
+			tmp = mmu_.read(hl_.val);
+			SET_BIT(tmp, 5);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xEF: // SET 5,A
+			SET_BIT(af_.hi, 5);
+			break;
+
+		case 0xF0: // SET 6,B
+			SET_BIT(bc_.hi, 6);
+			break;
+		case 0xF1: // SET 6,C
+			SET_BIT(bc_.lo, 6);
+			break;
+		case 0xF2: // SET 6,D
+			SET_BIT(de_.hi, 6);
+			break;
+		case 0xF3: // SET 6,E
+			SET_BIT(de_.lo, 6);
+			break;
+		case 0xF4: // SET 6,H
+			SET_BIT(hl_.hi, 6);
+			break;
+		case 0xF5: // SET 6,L
+			SET_BIT(hl_.lo, 6);
+			break;
+		case 0xF6: // SET 6,(HL)
+			tmp = mmu_.read(hl_.val);
+			SET_BIT(tmp, 6);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xF7: // SET 6,A
+			SET_BIT(af_.hi, 6);
+			break;
+		case 0xF8: // SET 7,B
+			SET_BIT(bc_.hi, 7);
+			break;
+		case 0xF9: // SET 7,C
+			SET_BIT(bc_.lo, 7);
+			break;
+		case 0xFA: // SET 7,D
+			SET_BIT(de_.hi, 7);
+			break;
+		case 0xFB: // SET 7,E
+			SET_BIT(de_.lo, 7);
+			break;
+		case 0xFC: // SET 7,H
+			SET_BIT(hl_.hi, 7);
+			break;
+		case 0xFD: // SET 7,L
+			SET_BIT(hl_.lo, 7);
+			break;
+		case 0xFE: // SET 7,(HL)
+			tmp = mmu_.read(hl_.val);
+			SET_BIT(tmp, 7);
+			mmu_.write(tmp, hl_.val);
+			break;
+		case 0xFF: // SET 7,A
+			SET_BIT(af_.hi, 7);
+			break;
+
 		default:
 			break;
 		}
@@ -1532,7 +1746,7 @@ namespace gb
 		bool half_carry = IS_HALF_CARRY(i, 1);
 
 		i++;
-		
+
 		if (i == 0) SET(af_.lo, Flags::Z);
 		CLR(af_.lo, Flags::N);
 		if (half_carry)
@@ -1540,18 +1754,18 @@ namespace gb
 		else
 			CLR(af_.lo, Flags::H);
 	}
-	
+
 	void CPU::inc(uint16_t& i)
 	{
 		i++;
 	}
-	
+
 	void CPU::dec(uint8_t& d)
 	{
 		bool half_carry = IS_HALF_CARRY(d, -1);
 
 		d--;
-		
+
 		if (d == 0) SET(af_.lo, Flags::Z);
 		SET(af_.lo, Flags::N);
 		if (half_carry)
