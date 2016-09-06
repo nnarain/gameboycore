@@ -21,6 +21,21 @@ namespace gb
 		return r;
 	}
 
+	uint8_t rotateLeftCarry(uint8_t val, uint8_t& flags)
+	{
+		uint8_t r = 0;
+		uint8_t c = (IS_BIT_SET(flags, C_BIT)) ? 1 : 0;
+
+		uint8_t bit7 = (IS_BIT_SET(val, 7)) ? 1 : 0;
+
+		r = (val << 1) | c;
+
+		flags = 0;
+		flags |= (bit7 << C_BIT);
+
+		return r;
+	}
+
 	uint8_t rotateRight(uint8_t val, uint8_t& flags)
 	{
 		uint8_t r = 0;
@@ -30,6 +45,21 @@ namespace gb
 		r = (val >> 1) | (bit0 << 7);
 
 		flags = 0; // clear N, Z and H
+		flags |= (bit0 << C_BIT);
+
+		return r;
+	}
+
+	uint8_t rotateRightCarry(uint8_t val, uint8_t& flags)
+	{
+		uint8_t r = 0;
+		uint8_t c = (IS_BIT_SET(flags, C_BIT)) ? 1 : 0;
+
+		uint8_t bit0 = (IS_BIT_SET(val, 0)) ? 1 : 0;
+
+		r = (val >> 1) | (c << 7);
+
+		flags = 0;
 		flags |= (bit0 << C_BIT);
 
 		return r;
