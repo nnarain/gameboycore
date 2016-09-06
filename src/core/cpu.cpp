@@ -1074,6 +1074,214 @@ namespace gb
 			af_.hi = shiftRightL(af_.hi, 1, af_.lo);
 			break;
 
+		/* Bit */
+
+		// bit 0
+		case 0x40: // BIT 0,B
+			bit(bc_.hi, 0);
+			break; 
+		case 0x41: // BIT 0,C
+			bit(bc_.lo, 0);
+			break;
+		case 0x42: // BIT 0,D
+			bit(de_.hi, 0);
+			break;
+		case 0x43: // BIT 0,E
+			bit(de_.lo, 0);
+			break;
+		case 0x44: // BIT 0,H
+			bit(hl_.hi, 0);
+			break;
+		case 0x45: // BIT 0,L
+			bit(hl_.lo, 0);
+			break;
+		case 0x46: // BIT 0,(HL)
+			bit(mmu_.read(hl_.val), 0);
+			break;
+		case 0x47: // BIT 0,A
+			bit(af_.hi, 0);
+			break;
+		// bit 1
+		case 0x48: // BIT 1,B
+			bit(bc_.hi, 0);
+			break;
+		case 0x49: // BIT 1,C
+			bit(bc_.lo, 0);
+			break;
+		case 0x4A: // BIT 1,D
+			bit(de_.hi, 0);
+			break;
+		case 0x4B: // BIT 1,E
+			bit(de_.lo, 0);
+			break;
+		case 0x4C: // BIT 1,H
+			bit(hl_.hi, 0);
+			break;
+		case 0x4D: // BIT 1,L
+			bit(hl_.lo, 0);
+			break;
+		case 0x4E: // BIT 1,(HL)
+			bit(mmu_.read(hl_.val), 0);
+			break;
+		case 0x4F: // BIT 1,A
+			bit(af_.hi, 0);
+			break;
+
+		// bit 2
+		case 0x50: // BIT 2,B
+			bit(bc_.hi, 0);
+			break;
+		case 0x51: // BIT 2,C
+			bit(bc_.lo, 0);
+			break;
+		case 0x52: // BIT 2,D
+			bit(de_.hi, 0);
+			break;
+		case 0x53: // BIT 2,E
+			bit(de_.lo, 0);
+			break;
+		case 0x54: // BIT 2,H
+			bit(hl_.hi, 0);
+			break;
+		case 0x55: // BIT 2,L
+			bit(hl_.lo, 0);
+			break;
+		case 0x56: // BIT 2,(HL)
+			bit(mmu_.read(hl_.val), 0);
+			break;
+		case 0x57: // BIT 2,A
+			bit(af_.hi, 0);
+			break;
+
+		// bit 3
+		case 0x58: // BIT 3,B
+			bit(bc_.hi, 0);
+			break;
+		case 0x59: // BIT 3,C
+			bit(bc_.lo, 0);
+			break;
+		case 0x5A: // BIT 3,D
+			bit(de_.hi, 0);
+			break;
+		case 0x5B: // BIT 3,E
+			bit(de_.lo, 0);
+			break;
+		case 0x5C: // BIT 3,H
+			bit(hl_.hi, 0);
+			break;
+		case 0x5D: // BIT 3,L
+			bit(hl_.lo, 0);
+			break;
+		case 0x5E: // BIT 3,(HL)
+			bit(mmu_.read(hl_.val), 0);
+			break;
+		case 0x5F: // BIT 3,A
+			bit(af_.hi, 0);
+			break;
+
+		// bit 4
+		case 0x60: // BIT 4,B
+			bit(bc_.hi, 0);
+			break;
+		case 0x61: // BIT 4,C
+			bit(bc_.lo, 0);
+			break;
+		case 0x62: // BIT 4,D
+			bit(de_.hi, 0);
+			break;
+		case 0x63: // BIT 4,E
+			bit(de_.lo, 0);
+			break;
+		case 0x64: // BIT 4,H
+			bit(hl_.hi, 0);
+			break;
+		case 0x65: // BIT 4,L
+			bit(hl_.lo, 0);
+			break;
+		case 0x66: // BIT 4,(HL)
+			bit(mmu_.read(hl_.val), 0);
+			break;
+		case 0x67: // BIT 4,A
+			bit(af_.hi, 0);
+			break;
+		
+		// bit 5
+		case 0x68: // BIT 5,B
+			bit(bc_.hi, 0);
+			break;
+		case 0x69: // BIT 5,C
+			bit(bc_.lo, 0);
+			break;
+		case 0x6A: // BIT 5,D
+			bit(de_.hi, 0);
+			break;
+		case 0x6B: // BIT 5,E
+			bit(de_.lo, 0);
+			break;
+		case 0x6C: // BIT 5,H
+			bit(hl_.hi, 0);
+			break;
+		case 0x6D: // BIT 5,L
+			bit(hl_.lo, 0);
+			break;
+		case 0x6E: // BIT 5,(HL)
+			bit(mmu_.read(hl_.val), 0);
+			break;
+		case 0x6F: // BIT 5,A
+			bit(af_.hi, 0);
+			break;
+
+		// bit 6
+		case 0x70: // BIT 0,B
+			bit(bc_.hi, 0);
+			break;
+		case 0x71: // BIT 0,C
+			bit(bc_.lo, 0);
+			break;
+		case 0x72: // BIT 0,D
+			bit(de_.hi, 0);
+			break;
+		case 0x73: // BIT 0,E
+			bit(de_.lo, 0);
+			break;
+		case 0x74: // BIT 0,H
+			bit(hl_.hi, 0);
+			break;
+		case 0x75: // BIT 0,L
+			bit(hl_.lo, 0);
+			break;
+		case 0x76: // BIT 0,(HL)
+			bit(mmu_.read(hl_.val), 0);
+			break;
+		case 0x77: // BIT 0,A
+			bit(af_.hi, 0);
+			break;
+		// bit 7
+		case 0x78: // BIT 1,B
+			bit(bc_.hi, 0);
+			break;
+		case 0x79: // BIT 1,C
+			bit(bc_.lo, 0);
+			break;
+		case 0x7A: // BIT 1,D
+			bit(de_.hi, 0);
+			break;
+		case 0x7B: // BIT 1,E
+			bit(de_.lo, 0);
+			break;
+		case 0x7C: // BIT 1,H
+			bit(hl_.hi, 0);
+			break;
+		case 0x7D: // BIT 1,L
+			bit(hl_.lo, 0);
+			break;
+		case 0x7E: // BIT 1,(HL)
+			bit(mmu_.read(hl_.val), 0);
+			break;
+		case 0x7F: // BIT 1,A
+			bit(af_.hi, 0);
+			break;
+
 		default:
 			break;
 		}
@@ -1226,6 +1434,21 @@ namespace gb
 	void CPU::daa()
 	{
 		// TODO
+	}
+
+	void CPU::bit(uint8_t val, uint8_t n)
+	{
+		if (IS_BIT_SET(val, n))
+		{
+			CLR(af_.lo, Flags::Z);
+		}
+		else
+		{
+			SET(af_.lo, Flags::Z);
+		}
+
+		SET(af_.lo, Flags::H);
+		CLR(af_.lo, Flags::N);
 	}
 
 	void CPU::reset()
