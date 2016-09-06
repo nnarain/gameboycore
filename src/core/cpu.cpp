@@ -6,6 +6,7 @@
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
 
 #include "bitutil.h"
+#include "shiftrotate.h"
 
 uint8_t cycles1[] = { 0 };
 uint8_t cycles2[] = { 0 };
@@ -844,6 +845,21 @@ namespace gb
 		case 0xFE: // CP A,n
 			alu_.compare(af_.hi, load8Imm());
 			break;
+
+		/* Rotate A*/
+
+		case 0x07: // RLCA
+			af_.hi = rotateLeft(af_.hi, 1, af_.lo);
+			break;
+		case 0x17: // RLA
+			af_.hi = rotateLeftCarry(af_.hi, 1, af_.lo);
+			break;
+		case 0x0F: // RRCA
+			af_.hi = rotateRight(af_.hi, 1, af_.lo);
+			break;
+		case 0x1F: // RRA
+			af_.hi = rotateRightCarry(af_.hi, 1, af_.lo);
+			break;
 		}
 	}
 
@@ -851,6 +867,7 @@ namespace gb
 	{
 		switch (opcode)
 		{
+		/* SWAP */
 		case 0x37: // SWAP A
 			af_.hi = swap(af_.hi);
 			break;
@@ -875,6 +892,188 @@ namespace gb
 		case 0x36: // SWAP (HL)
 			mmu_.write(swap(mmu_.read(hl_.val)), hl_.val);
 			break;
+
+		/* Rotate */
+
+		case 0x00: // RLC B
+			bc_.hi = rotateLeft(bc_.hi, 1, af_.lo);
+			break;
+		case 0x01: // RLC C
+			bc_.lo = rotateLeft(bc_.lo, 1, af_.lo);
+			break;
+		case 0x02: // RLC D
+			de_.hi = rotateLeft(de_.hi, 1, af_.lo);
+			break;
+		case 0x03: // RLC E
+			de_.lo = rotateLeft(de_.lo, 1, af_.lo);
+			break;
+		case 0x04: // RLC H
+			hl_.hi = rotateLeft(hl_.hi, 1, af_.lo);
+			break;
+		case 0x05: // RLC L
+			hl_.lo = rotateLeft(hl_.lo, 1, af_.lo);
+			break;
+		case 0x06: // RLC (HL)
+			mmu_.write(rotateLeft(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			break;
+		case 0x07: // RLC A
+			af_.hi = rotateLeft(af_.hi, 1, af_.lo);
+			break;
+
+		case 0x08: // RRC B
+			bc_.hi = rotateRight(bc_.hi, 1, af_.lo);
+			break;
+		case 0x09: // RRC C
+			bc_.lo = rotateRight(bc_.lo, 1, af_.lo);
+			break;
+		case 0x0A: // RRC D
+			de_.hi = rotateRight(de_.hi, 1, af_.lo);
+			break;
+		case 0x0B: // RRC E
+			de_.lo = rotateRight(de_.lo, 1, af_.lo);
+			break;
+		case 0x0C: // RRC H
+			hl_.hi = rotateRight(hl_.hi, 1, af_.lo);
+			break;
+		case 0x0D: // RRC L
+			hl_.lo = rotateRight(hl_.lo, 1, af_.lo);
+			break;
+		case 0x0E: // RRC (HL)
+			mmu_.write(rotateRight(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			break;
+		case 0x0F: // RRC A
+			af_.hi = rotateRight(af_.hi, 1, af_.lo);
+			break;
+
+			//.........................
+
+		case 0x10: // RL B
+			bc_.hi = rotateLeftCarry(bc_.hi, 1, af_.lo);
+			break;
+		case 0x11: // RL C
+			bc_.lo = rotateLeftCarry(bc_.lo, 1, af_.lo);
+			break;
+		case 0x12: // RL D
+			de_.hi = rotateLeftCarry(de_.hi, 1, af_.lo);
+			break;
+		case 0x13: // RL E
+			de_.lo = rotateLeftCarry(de_.lo, 1, af_.lo);
+			break;
+		case 0x14: // RL H
+			hl_.hi = rotateLeftCarry(hl_.hi, 1, af_.lo);
+			break;
+		case 0x15: // RL L
+			hl_.lo = rotateLeftCarry(hl_.lo, 1, af_.lo);
+			break;
+		case 0x16: // RL (HL)
+			mmu_.write(rotateLeftCarry(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			break;
+		case 0x17: // RL A
+			af_.hi = rotateLeftCarry(af_.hi, 1, af_.lo);
+			break;
+
+		case 0x18: // RR B
+			bc_.hi = rotateRightCarry(bc_.hi, 1, af_.lo);
+			break;
+		case 0x19: // RR C
+			bc_.lo = rotateRightCarry(bc_.lo, 1, af_.lo);
+			break;
+		case 0x1A: // RR D
+			de_.hi = rotateRightCarry(de_.hi, 1, af_.lo);
+			break;
+		case 0x1B: // RR E
+			de_.lo = rotateRightCarry(de_.lo, 1, af_.lo);
+			break;
+		case 0x1C: // RR H
+			hl_.hi = rotateRightCarry(hl_.hi, 1, af_.lo);
+			break;
+		case 0x1D: // RR L
+			hl_.lo = rotateRightCarry(hl_.lo, 1, af_.lo);
+			break;
+		case 0x1E: // RR (HL)
+			mmu_.write(rotateRightCarry(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			break;
+		case 0x1F: // RR A
+			af_.hi = rotateRightCarry(af_.hi, 1, af_.lo);
+			break;
+
+		/* Shift */
+
+		case 0x20: // SLA B
+			bc_.hi = shiftLeft(bc_.hi, 1, af_.lo);
+			break;
+		case 0x21: // SLA C
+			bc_.lo = shiftLeft(bc_.lo, 1, af_.lo);
+			break;
+		case 0x22: // SLA D
+			de_.hi = shiftLeft(de_.hi, 1, af_.lo);
+			break;
+		case 0x23: // SLA E
+			de_.lo = shiftLeft(de_.lo, 1, af_.lo);
+			break;
+		case 0x24: // SLA H
+			hl_.hi = shiftLeft(hl_.hi, 1, af_.lo);
+			break;
+		case 0x25: // SLA L
+			hl_.lo = shiftLeft(hl_.lo, 1, af_.lo);
+			break;
+		case 0x26: // SLA (HL)
+			mmu_.write(shiftLeft(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			break;
+		case 0x27: // SLA A
+			af_.hi = shiftLeft(af_.hi, 1, af_.lo);
+			break;
+
+		case 0x28: // SRA B
+			bc_.hi = shiftRightA(bc_.hi, 1, af_.lo);
+			break;
+		case 0x29: // SRA C
+			bc_.lo = shiftRightA(bc_.lo, 1, af_.lo);
+			break;
+		case 0x2A: // SRA D
+			de_.hi = shiftRightA(de_.hi, 1, af_.lo);
+			break;
+		case 0x2B: // SRA E
+			de_.lo = shiftRightA(de_.lo, 1, af_.lo);
+			break;
+		case 0x2C: // SRA H
+			hl_.hi = shiftRightA(hl_.hi, 1, af_.lo);
+			break;
+		case 0x2D: // SRA L
+			hl_.lo = shiftRightA(hl_.lo, 1, af_.lo);
+			break;
+		case 0x2E: // SRA (HL)
+			mmu_.write(shiftRightA(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			break;
+		case 0x2F: // SRA A
+			af_.hi = shiftRightA(af_.hi, 1, af_.lo);
+			break;
+
+		case 0x38: // SRL B
+			bc_.hi = shiftRightL(bc_.hi, 1, af_.lo);
+			break;
+		case 0x39: // SRL C
+			bc_.lo = shiftRightL(bc_.lo, 1, af_.lo);
+			break;
+		case 0x3A: // SRL D
+			de_.hi = shiftRightL(de_.hi, 1, af_.lo);
+			break;
+		case 0x3B: // SRL E
+			de_.lo = shiftRightL(de_.lo, 1, af_.lo);
+			break;
+		case 0x3C: // SRL H
+			hl_.hi = shiftRightL(hl_.hi, 1, af_.lo);
+			break;
+		case 0x3D: // SRL L
+			hl_.lo = shiftRightL(hl_.lo, 1, af_.lo);
+			break;
+		case 0x3E: // SRL (HL)
+			mmu_.write(shiftRightL(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			break;
+		case 0x3F: // SRL A
+			af_.hi = shiftRightL(af_.hi, 1, af_.lo);
+			break;
+
 		default:
 			break;
 		}
