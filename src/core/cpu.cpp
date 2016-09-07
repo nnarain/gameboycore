@@ -1,6 +1,7 @@
 
 #include "gameboy/cpu.h"
 
+#include <stdexcept>
 #include <iostream>
 
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
@@ -860,6 +861,11 @@ namespace gb
 		case 0x1F: // RRA
 			af_.hi = rotateRightCarry(af_.hi, 1, af_.lo);
 			break;
+
+		default:
+			std::cout << "Unimplemented Instruction: " << std::hex << opcode << std::endl;
+			throw std::runtime_error("");
+			break;
 		}
 	}
 
@@ -1712,6 +1718,8 @@ namespace gb
 			break;
 
 		default:
+			std::cout << "Unimplemented Instruction: " << std::hex << opcode << std::endl;
+			throw std::runtime_error("");
 			break;
 		}
 	}
