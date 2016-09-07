@@ -18,7 +18,8 @@ namespace gb
 		mmu_(),
 		alu_(af_.lo),
 		halted_(false),
-		cycle_count_(0)
+		cycle_count_(0),
+		debug_mode_(false)
 	{
 		reset();
 	}
@@ -496,16 +497,28 @@ namespace gb
 
 		// relative conditional jumps
 		case 0x20: // JR NZ,n
-			if (IS_CLR(af_.lo, Flags::Z)) jr((int8_t)load8Imm());
+			if (IS_CLR(af_.lo, Flags::Z))
+				jr((int8_t)load8Imm());
+			else
+				pc_.val++; // skip next byte
 			break;
 		case 0x28: // JR Z,n
-			if (IS_SET(af_.lo, Flags::Z)) jr((int8_t)load8Imm());
+			if (IS_SET(af_.lo, Flags::Z)) 
+				jr((int8_t)load8Imm());
+			else
+				pc_.val++; // skip next byte
 			break;
 		case 0x30: // JR NC,n
-			if(IS_CLR(af_.lo, Flags::C)) jr((int8_t)load8Imm());
+			if(IS_CLR(af_.lo, Flags::C)) 
+				jr((int8_t)load8Imm());
+			else
+				pc_.val++; // skip next byte
 			break;
 		case 0x38: // JR C,n
-			if (IS_SET(af_.lo, Flags::C)) jr((int8_t)load8Imm());
+			if (IS_SET(af_.lo, Flags::C)) 
+				jr((int8_t)load8Imm());
+			else
+				pc_.val++; // skip next byte
 			break;
 
 		/* Call */
@@ -515,16 +528,28 @@ namespace gb
 
 		// call condition
 		case 0xC4: // CALL NZ,nn
-			if (IS_CLR(af_.lo, Flags::Z)) call(load16Imm());
+			if (IS_CLR(af_.lo, Flags::Z))
+				call(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xCC: // CALL Z,nn
-			if (IS_SET(af_.lo, Flags::Z)) call(load16Imm());
+			if (IS_SET(af_.lo, Flags::Z)) 
+				call(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xD4: // CALL NC,nn
-			if (IS_CLR(af_.lo, Flags::C)) call(load16Imm());
+			if (IS_CLR(af_.lo, Flags::C)) 
+				call(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xDC: // CALL C,nn
-			if (IS_SET(af_.lo, Flags::C)) call(load16Imm());
+			if (IS_SET(af_.lo, Flags::C)) 
+				call(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 
 		/* Returns */
@@ -866,6 +891,11 @@ namespace gb
 			std::cout << "Unimplemented Instruction: " << std::hex << opcode << std::endl;
 			throw std::runtime_error("");
 			break;
+		}
+
+		if (debug_mode_)
+		{
+			printDisassembly(opcode, OpcodePage::PAGE1);
 		}
 	}
 
@@ -1724,6 +1754,13 @@ namespace gb
 		}
 	}
 
+	void CPU::printDisassembly(uint8_t opcode, OpcodePage page)
+	{
+		OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
+
+		std::cout << opcodeinfo.disassembly << std::endl;
+	}
+
 	uint8_t CPU::load8Imm()
 	{
 		return mmu_.read(pc_.val++);
@@ -1900,6 +1937,11 @@ namespace gb
 		cycle_count_ = 0;
 		halted_ = false;
 		stopped_ = false;
+	}
+
+	void CPU::setDebugMode(bool debug_mode)
+	{
+		debug_mode_ = debug_mode;
 	}
 
     bool CPU::isHalted() const

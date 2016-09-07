@@ -13,6 +13,7 @@
 
 #include "gameboy/mmu.h"
 #include "gameboy/alu.h"
+#include "gameboy/opcodeinfo.h"
 
 #include <stdint.h>
 
@@ -64,11 +65,17 @@ namespace gb
         const MMU& getMMU() const;
 		MMU& getMMU();
 
+		void setDebugMode(bool debug_mode);
+
 		Status getStatus() const;
 
 	private:
 		void decode1(uint8_t opcode);
 		void decode2(uint8_t opcode);
+
+		void printDisassembly(uint8_t opcode, OpcodePage page);
+
+		/* Instruction Implementation Helper Functions */
 
 		/**
 			Load 8 bit integer immediately from memory
@@ -140,6 +147,7 @@ namespace gb
 
 		bool halted_;
 		bool stopped_;
+		bool debug_mode_;
 
 		uint16_t cycle_count_;
     };

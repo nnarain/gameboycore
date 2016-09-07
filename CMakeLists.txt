@@ -29,6 +29,7 @@ set(GAMEBOYCORE
     src/core/mmu.cpp
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp
+	src/core/opcodeinfo.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
@@ -39,6 +40,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h
 	include/gameboy/cartinfo.h
+	include/gameboy/opcodeinfo.h
 	
 	src/core/bitutil.h
 	src/core/shiftrotate.h
