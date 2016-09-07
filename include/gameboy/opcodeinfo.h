@@ -12,16 +12,29 @@
 
 namespace gb
 {
+	/**
+		Which page of instructions
+	*/
+	enum class OpcodePage
+	{
+		PAGE1, PAGE2
+	};
 
+	enum class OperandType
+	{
+		NONE,
+		IMM8, // Immediate 8 bit integer
+		IMM16 // Immediate 16 bit integer
+	};
+
+	/**
+		Struct containing metadata
+	*/
 	struct OpcodeInfo
 	{
 		uint8_t cycles;
 		const char *disassembly;
-	};
-
-	enum class OpcodePage
-	{
-		PAGE1, PAGE2
+		OperandType operand_type;
 	};
 
 	OpcodeInfo getOpcodeInfo(uint8_t opcode, OpcodePage page);
