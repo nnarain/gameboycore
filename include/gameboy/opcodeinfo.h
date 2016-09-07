@@ -20,6 +20,13 @@ namespace gb
 		PAGE1, PAGE2
 	};
 
+	enum class OperandType
+	{
+		NONE, // No operands
+		IMM8, // 8 bit immediate data
+		IMM16 // 16 bit immediate data
+	};
+
 	/**
 		Struct containing metadata
 	*/
@@ -27,7 +34,7 @@ namespace gb
 	{
 		uint8_t cycles;
 		const char *disassembly;
-		bool has_user_data;
+		OperandType userdata;
 	};
 
 	OpcodeInfo getOpcodeInfo(uint8_t opcode, OpcodePage page);

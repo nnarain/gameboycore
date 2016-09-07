@@ -57,6 +57,11 @@ namespace gb
 
 	void CPU::decode1(uint8_t opcode)
 	{
+		static uint16_t old_pc;
+
+		// store current program counter location so it can be reused for disassembly output
+		old_pc = pc_.val;
+
 		switch (opcode)
 		{
 		case 0x00:
@@ -895,7 +900,7 @@ namespace gb
 
 		if (debug_mode_)
 		{
-			printDisassembly(opcode, 0, OpcodePage::PAGE1);
+			printDisassembly(opcode, old_pc, OpcodePage::PAGE1);
 		}
 	}
 
@@ -1754,20 +1759,31 @@ namespace gb
 		}
 	}
 
-	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata, OpcodePage page)
+	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
 	{
 		OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
 
-		if (opcodeinfo.has_user_data)
+		if (opcodeinfo.userdata == OperandType::NONE)
 		{
-			std::printf(opcodeinfo.disassembly, userdata);
-			std::printf("\n");
+			std::printf(opcodeinfo.disassembly);
 		}
 		else
 		{
-			std::printf(opcodeinfo.disassembly);
-			std::printf("\n");
+			if (opcodeinfo.userdata == OperandType::IMM8)
+			{
+				uint8_t userdata = mmu_.read(userdata_addr);
+				std::printf(opcodeinfo.disassembly, userdata);
+			}
+			else // OperandType::IMM16 
+			{
+				uint8_t lo = mmu_.read(userdata_addr);
+				uint8_t hi = mmu_.read(userdata_addr + 1);
+
+				std::printf(opcodeinfo.disassembly, WORD(hi, lo));
+			}
 		}
+
+		std::printf("\n");
 	}
 
 	uint8_t CPU::load8Imm()
