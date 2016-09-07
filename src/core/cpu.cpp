@@ -895,7 +895,7 @@ namespace gb
 
 		if (debug_mode_)
 		{
-			printDisassembly(opcode, OpcodePage::PAGE1);
+			printDisassembly(opcode, 0, OpcodePage::PAGE1);
 		}
 	}
 
@@ -1754,11 +1754,20 @@ namespace gb
 		}
 	}
 
-	void CPU::printDisassembly(uint8_t opcode, OpcodePage page)
+	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata, OpcodePage page)
 	{
 		OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
 
-		std::cout << opcodeinfo.disassembly << std::endl;
+		if (opcodeinfo.has_user_data)
+		{
+			std::printf(opcodeinfo.disassembly, userdata);
+			std::printf("\n");
+		}
+		else
+		{
+			std::printf(opcodeinfo.disassembly);
+			std::printf("\n");
+		}
 	}
 
 	uint8_t CPU::load8Imm()

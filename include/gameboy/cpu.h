@@ -73,7 +73,7 @@ namespace gb
 		void decode1(uint8_t opcode);
 		void decode2(uint8_t opcode);
 
-		void printDisassembly(uint8_t opcode, OpcodePage page);
+		void printDisassembly(uint8_t opcode, uint16_t userdata, OpcodePage page);
 
 		/* Instruction Implementation Helper Functions */
 
