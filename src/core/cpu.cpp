@@ -1754,6 +1754,10 @@ namespace gb
 			throw std::runtime_error("");
 			break;
 		}
+
+		if (debug_mode_)
+		{
+		}
 	}
 
 	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
@@ -1780,6 +1784,7 @@ namespace gb
 			}
 		}
 
+		std::printf("         | pc: %04X", userdata_addr - 1);
 		std::printf("\n");
 	}
 

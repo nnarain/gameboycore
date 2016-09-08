@@ -132,6 +132,8 @@ std::string opcodeToAssembly(OpcodeInfo& info, uint16_t& program_counter, const 
 			userdata = ((hi & 0xFFFF) << 8) | (lo & 0xFFFF);
 		}
 
+		program_counter++;
+
 		// format string
 		std::sprintf(str, info.disassembly, userdata);
 
