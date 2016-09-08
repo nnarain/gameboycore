@@ -73,6 +73,14 @@ target_link_libraries(${PROJECT_NAME}
     gbcore
 )
 
+# disassembler 
+add_executable(gbdisassembler
+	src/disassembler/disassembler.cpp
+)
+target_link_libraries(gbdisassembler
+	gbcore
+)
+
 # ROM reader utility
 add_executable(rominfo
     src/rominfo/rominfo.cpp
