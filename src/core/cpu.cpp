@@ -9,9 +9,6 @@
 #include "bitutil.h"
 #include "shiftrotate.h"
 
-uint8_t cycles1[] = { 0 };
-uint8_t cycles2[] = { 0 };
-
 namespace gb
 {
 	CPU::CPU() :
