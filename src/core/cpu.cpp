@@ -34,7 +34,7 @@ namespace gb
 			decode1(opcode);
 
 			// look up the number of cycles for this opcode
-			cycles = cycles1[opcode];
+			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE1).cycles;
 		}
 		else
 		{
@@ -44,7 +44,7 @@ namespace gb
 			decode2(opcode);
 
 			// look up the number of cycles for this opcode
-			cycles = cycles2[opcode];
+			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 		}
 
 		cycle_count_ += cycles;
