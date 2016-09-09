@@ -9,16 +9,14 @@
 #include "bitutil.h"
 #include "shiftrotate.h"
 
-uint8_t cycles1[] = { 0 };
-uint8_t cycles2[] = { 0 };
-
 namespace gb
 {
 	CPU::CPU() :
 		mmu_(),
 		alu_(af_.lo),
 		halted_(false),
-		cycle_count_(0)
+		cycle_count_(0),
+		debug_mode_(false)
 	{
 		reset();
 	}
@@ -36,7 +34,7 @@ namespace gb
 			decode1(opcode);
 
 			// look up the number of cycles for this opcode
-			cycles = cycles1[opcode];
+			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE1).cycles;
 		}
 		else
 		{
@@ -46,7 +44,7 @@ namespace gb
 			decode2(opcode);
 
 			// look up the number of cycles for this opcode
-			cycles = cycles2[opcode];
+			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 		}
 
 		cycle_count_ += cycles;
@@ -56,6 +54,11 @@ namespace gb
 
 	void CPU::decode1(uint8_t opcode)
 	{
+		static uint16_t old_pc;
+
+		// store current program counter location so it can be reused for disassembly output
+		old_pc = pc_.val;
+
 		switch (opcode)
 		{
 		case 0x00:
@@ -477,16 +480,28 @@ namespace gb
 
 		// conditional jumps
 		case 0xC2: // JP NZ,nn
-			if (IS_CLR(af_.lo, Flags::Z)) jp(load16Imm());
+			if (IS_CLR(af_.lo, Flags::Z))
+				jp(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xCA: // JP Z,nn
-			if (IS_SET(af_.lo, Flags::Z)) jp(load16Imm());
+			if (IS_SET(af_.lo, Flags::Z)) 
+				jp(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xD2: // JP NC,nn
-			if (IS_CLR(af_.lo, Flags::C)) jp(load16Imm());
+			if (IS_CLR(af_.lo, Flags::C)) 
+				jp(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xDA: // JP C,nn
-			if (IS_SET(af_.lo, Flags::C)) jp(load16Imm());
+			if (IS_SET(af_.lo, Flags::C)) 
+				jp(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 
 		// relative jumps
@@ -496,16 +511,28 @@ namespace gb
 
 		// relative conditional jumps
 		case 0x20: // JR NZ,n
-			if (IS_CLR(af_.lo, Flags::Z)) jr((int8_t)load8Imm());
+			if (IS_CLR(af_.lo, Flags::Z))
+				jr((int8_t)load8Imm());
+			else
+				pc_.val++; // skip next byte
 			break;
 		case 0x28: // JR Z,n
-			if (IS_SET(af_.lo, Flags::Z)) jr((int8_t)load8Imm());
+			if (IS_SET(af_.lo, Flags::Z)) 
+				jr((int8_t)load8Imm());
+			else
+				pc_.val++; // skip next byte
 			break;
 		case 0x30: // JR NC,n
-			if(IS_CLR(af_.lo, Flags::C)) jr((int8_t)load8Imm());
+			if(IS_CLR(af_.lo, Flags::C)) 
+				jr((int8_t)load8Imm());
+			else
+				pc_.val++; // skip next byte
 			break;
 		case 0x38: // JR C,n
-			if (IS_SET(af_.lo, Flags::C)) jr((int8_t)load8Imm());
+			if (IS_SET(af_.lo, Flags::C)) 
+				jr((int8_t)load8Imm());
+			else
+				pc_.val++; // skip next byte
 			break;
 
 		/* Call */
@@ -515,16 +542,28 @@ namespace gb
 
 		// call condition
 		case 0xC4: // CALL NZ,nn
-			if (IS_CLR(af_.lo, Flags::Z)) call(load16Imm());
+			if (IS_CLR(af_.lo, Flags::Z))
+				call(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xCC: // CALL Z,nn
-			if (IS_SET(af_.lo, Flags::Z)) call(load16Imm());
+			if (IS_SET(af_.lo, Flags::Z)) 
+				call(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xD4: // CALL NC,nn
-			if (IS_CLR(af_.lo, Flags::C)) call(load16Imm());
+			if (IS_CLR(af_.lo, Flags::C)) 
+				call(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xDC: // CALL C,nn
-			if (IS_SET(af_.lo, Flags::C)) call(load16Imm());
+			if (IS_SET(af_.lo, Flags::C)) 
+				call(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 
 		/* Returns */
@@ -866,6 +905,11 @@ namespace gb
 			std::cout << "Unimplemented Instruction: " << std::hex << opcode << std::endl;
 			throw std::runtime_error("");
 			break;
+		}
+
+		if (debug_mode_)
+		{
+			printDisassembly(opcode, old_pc, OpcodePage::PAGE1);
 		}
 	}
 
@@ -1722,6 +1766,56 @@ namespace gb
 			throw std::runtime_error("");
 			break;
 		}
+
+		if (debug_mode_)
+		{
+		}
+	}
+
+	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
+	{
+		const int spaces_before_registers = 13;
+		char str[32];
+
+		OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
+
+		if (opcodeinfo.userdata == OperandType::NONE)
+		{
+			std::sprintf(str, opcodeinfo.disassembly);
+		}
+		else
+		{
+			if (opcodeinfo.userdata == OperandType::IMM8)
+			{
+				uint8_t userdata = mmu_.read(userdata_addr);
+				std::sprintf(str, opcodeinfo.disassembly, userdata);
+			}
+			else // OperandType::IMM16 
+			{
+				uint8_t lo = mmu_.read(userdata_addr);
+				uint8_t hi = mmu_.read(userdata_addr + 1);
+
+				std::sprintf(str, opcodeinfo.disassembly, WORD(hi, lo));
+			}
+		}
+
+		std::string padding(spaces_before_registers - std::strlen(str), ' ');
+
+		// print debug info
+		std::printf("%X: %s%s| PC: %04X, A: %02X, B: %02X, C: %02X, D: %02X, E: %02X, H: %02X, L: %02X, SP: %04X\n", 
+			userdata_addr - 1, 
+			str, 
+			padding.c_str(),
+			pc_.val,
+			af_.hi,
+			bc_.hi,
+			bc_.lo,
+			de_.hi,
+			de_.lo,
+			hl_.hi,
+			hl_.lo,
+			sp_.val
+		);
 	}
 
 	uint8_t CPU::load8Imm()
@@ -1900,6 +1994,11 @@ namespace gb
 		cycle_count_ = 0;
 		halted_ = false;
 		stopped_ = false;
+	}
+
+	void CPU::setDebugMode(bool debug_mode)
+	{
+		debug_mode_ = debug_mode;
 	}
 
     bool CPU::isHalted() const

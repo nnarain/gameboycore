@@ -5,6 +5,7 @@ namespace gb
 {
     Gameboy::Gameboy()
     {
+		cpu_.setDebugMode(true);
     }
 
     void Gameboy::update()
