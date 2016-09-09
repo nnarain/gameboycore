@@ -1804,7 +1804,7 @@ namespace gb
 		std::string padding(spaces_before_registers - std::strlen(str), ' ');
 
 		// print debug info
-		std::printf("%X: %s%s| PC: %04X, A: %02X, B: %02X, C: %02X, D: %02X, E: %02X, H: %02X, L: %02X, SP: %04X\n", 
+		std::printf("%X: %s%s| PC: %04X, A: %02X, B: %02X, C: %02X, D: %02X, E: %02X, H: %02X, L: %02X, SP: %04X | F: %02X | IF: %02X, IE: %02X\n", 
 			userdata_addr - 1, 
 			str, 
 			padding.c_str(),
@@ -1816,7 +1816,10 @@ namespace gb
 			de_.lo,
 			hl_.hi,
 			hl_.lo,
-			sp_.val
+			sp_.val,
+			af_.lo,
+			mmu_.read(0xFF0F),
+			mmu_.read(0xFFFF)
 		);
 	}
 
