@@ -2,6 +2,7 @@
 #include "gameboy/cpu.h"
 
 #include <stdexcept>
+#include <string>
 #include <iostream>
 
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
