@@ -148,6 +148,7 @@ namespace gb
 		bool halted_;
 		bool stopped_;
 		bool debug_mode_;
+		bool interrupt_master_enable_;
 
 		uint16_t cycle_count_;
     };

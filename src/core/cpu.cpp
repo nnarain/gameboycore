@@ -647,10 +647,10 @@ namespace gb
 
 		/* Disable and Enable Interrupt */
 		case 0xF3: // DI
-			// TODO
+			interrupt_master_enable_ = false;
 			break;
 		case 0xFB: // EI
-			// TODO
+			interrupt_master_enable_ = true;
 			break;
 
 		/* Arithmetic Operations */
@@ -1997,8 +1997,9 @@ namespace gb
 		pc_.val = memorymap::PROGRAM_START;
 
 		cycle_count_ = 0;
-		halted_ = false;
-		stopped_ = false;
+		halted_                  = false;
+		stopped_                 = false;
+		interrupt_master_enable_ = false;
 	}
 
 	void CPU::setDebugMode(bool debug_mode)
