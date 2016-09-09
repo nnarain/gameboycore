@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <cstring>
 #include <iostream>
 
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
