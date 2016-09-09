@@ -480,16 +480,28 @@ namespace gb
 
 		// conditional jumps
 		case 0xC2: // JP NZ,nn
-			if (IS_CLR(af_.lo, Flags::Z)) jp(load16Imm());
+			if (IS_CLR(af_.lo, Flags::Z))
+				jp(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xCA: // JP Z,nn
-			if (IS_SET(af_.lo, Flags::Z)) jp(load16Imm());
+			if (IS_SET(af_.lo, Flags::Z)) 
+				jp(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xD2: // JP NC,nn
-			if (IS_CLR(af_.lo, Flags::C)) jp(load16Imm());
+			if (IS_CLR(af_.lo, Flags::C)) 
+				jp(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 		case 0xDA: // JP C,nn
-			if (IS_SET(af_.lo, Flags::C)) jp(load16Imm());
+			if (IS_SET(af_.lo, Flags::C)) 
+				jp(load16Imm());
+			else
+				pc_.val += 2;
 			break;
 
 		// relative jumps

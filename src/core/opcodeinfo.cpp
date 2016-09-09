@@ -38,7 +38,7 @@ namespace gb
 		{ 0, "ld E,%02X",  OperandType::IMM8 }, // 0x1E
 		{ 0, "rra",        }, // 0x1F
 
-		{ 0, "jr NZ,%04X", OperandType::IMM16      }, // 0x20
+		{ 0, "jr NZ,%02X", OperandType::IMM8      }, // 0x20
 		{ 0, "ld HL,%04X",  OperandType::IMM16 }, // 0x21
 		{ 0, "ld (HL+),A", }, // 0x22
 		{ 0, "inc HL",     }, // 0x23

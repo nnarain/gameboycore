@@ -93,7 +93,7 @@ void disassembly(const std::vector<uint8_t>& rom, const std::string& output_file
 		OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
 
 		// program counter to line
-		line << std::hex << program_counter;
+		line << std::uppercase << std::hex << program_counter;
 		// disassemble the opcode and operands
 		std::string assembly = opcodeToAssembly(opcodeinfo, program_counter, rom);
 
