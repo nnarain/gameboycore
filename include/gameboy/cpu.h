@@ -12,6 +12,9 @@
 #endif
 
 #include "gameboy/mmu.h"
+#include "gameboy/alu.h"
+#include "gameboy/opcodeinfo.h"
+
 #include <stdint.h>
 
 namespace gb
@@ -62,11 +65,17 @@ namespace gb
         const MMU& getMMU() const;
 		MMU& getMMU();
 
+		void setDebugMode(bool debug_mode);
+
 		Status getStatus() const;
 
 	private:
 		void decode1(uint8_t opcode);
 		void decode2(uint8_t opcode);
+
+		void printDisassembly(uint8_t opcode, uint16_t userdata_ptr, OpcodePage page);
+
+		/* Instruction Implementation Helper Functions */
 
 		/**
 			Load 8 bit integer immediately from memory
@@ -110,6 +119,21 @@ namespace gb
 		void ret();
 		void reti();
 
+		/**
+			Swap nybbles in byte
+		*/
+		uint8_t swap(uint8_t);
+
+		/**
+			Decimal Adjust Register A
+		*/
+		void daa();
+
+		/**
+			Bit
+		*/
+		void bit(uint8_t val, uint8_t bit);
+
 	private:
 		Register af_;
 		Register bc_;
@@ -119,8 +143,11 @@ namespace gb
 		Register pc_;
 
 		MMU mmu_;
+		ALU alu_;
+
 		bool halted_;
 		bool stopped_;
+		bool debug_mode_;
 
 		uint16_t cycle_count_;
     };

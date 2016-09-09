@@ -16,6 +16,7 @@ if(GTEST_FOUND)
 
 	include_directories(
 		../include/
+		../src/core/
 		include/
 		${GTEST_INCLUDE_DIRS}
 	)
@@ -24,11 +25,15 @@ if(GTEST_FOUND)
 	add_gtest(gameboy_tests
 		test_entry.cpp
 		test_mmu.cpp
+		test_alu.cpp
 		test_load_instructions.cpp
+		test_arithmetic_instructions.cpp
 		test_inc_dec_instructions.cpp
 		test_stack_instructions.cpp
 		test_jump_instructions.cpp
 		test_call_instructions.cpp
+		test_shift_rotate_instructions.cpp
+		test_misc.cpp
 	)
 
 	# make check target to run gtests manually

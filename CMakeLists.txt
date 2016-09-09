@@ -25,19 +25,25 @@ endif(IS_BIG_ENDIAN)
 set(GAMEBOYCORE
     src/core/gameboy.cpp
     src/core/cpu.cpp
+	src/core/alu.cpp
     src/core/mmu.cpp
     src/core/cartinfo.cpp
+	src/core/shiftrotate.cpp
+	src/core/opcodeinfo.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
 	include/gameboy/cpu.h
+	include/gameboy/alu.h
 	include/gameboy/mmu.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h
 	include/gameboy/cartinfo.h
+	include/gameboy/opcodeinfo.h
 	
 	src/core/bitutil.h
+	src/core/shiftrotate.h
 )
 
 # set flags for g++/gcc compiler
@@ -65,6 +71,14 @@ add_executable(${PROJECT_NAME}
 )
 target_link_libraries(${PROJECT_NAME}
     gbcore
+)
+
+# disassembler 
+add_executable(gbdisassembler
+	src/disassembler/disassembler.cpp
+)
+target_link_libraries(gbdisassembler
+	gbcore
 )
 
 # ROM reader utility
