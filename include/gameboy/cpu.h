@@ -54,6 +54,24 @@ namespace gb
 			C = 1 << 4
 		};
 
+		enum class InterruptMask
+		{
+			VBLANK                   = 1 << 0,
+			LCDC_STAT                = 1 << 1,
+			TIME_OVERFLOW            = 1 << 2,
+			SERIAL_TRANSFER_COMPLETE = 1 << 3,
+			JOYPAD                   = 1 << 4
+		};
+
+		enum class InterruptVector
+		{
+			VBLANK                   = 0x0040,
+			LCDC_STAT                = 0x0048,
+			TIME_OVERFLOW            = 0x0050,
+			SERIAL_TRANSFER_COMPLETE = 0x0058,
+			JOYPAD                   = 0x0060
+		};
+
     public:
         CPU();
 
@@ -72,6 +90,9 @@ namespace gb
 	private:
 		void decode1(uint8_t opcode);
 		void decode2(uint8_t opcode);
+
+		void checkInterrupts();
+		void interrupt(InterruptVector);
 
 		void printDisassembly(uint8_t opcode, uint16_t userdata_ptr, OpcodePage page);
 

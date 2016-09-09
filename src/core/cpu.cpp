@@ -51,7 +51,7 @@ namespace gb
 
 		cycle_count_ += cycles;
 
-		// TODO: determine what interrupts should fire
+		checkInterrupts();
 	}
 
 	void CPU::decode1(uint8_t opcode)
@@ -1772,6 +1772,21 @@ namespace gb
 		if (debug_mode_)
 		{
 		}
+	}
+
+	void CPU::checkInterrupts()
+	{
+		if (interrupt_master_enable_)
+		{
+		}
+	}
+
+	void CPU::interrupt(InterruptVector vector)
+	{
+		interrupt_master_enable_ = false;
+
+		push(pc_.val);
+		pc_.val = static_cast<uint16_t>(vector);
 	}
 
 	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
