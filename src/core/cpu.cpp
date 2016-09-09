@@ -1774,30 +1774,48 @@ namespace gb
 
 	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
 	{
+		const int spaces_before_registers = 13;
+		char str[32];
+
 		OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
 
 		if (opcodeinfo.userdata == OperandType::NONE)
 		{
-			std::printf(opcodeinfo.disassembly);
+			std::sprintf(str, opcodeinfo.disassembly);
 		}
 		else
 		{
 			if (opcodeinfo.userdata == OperandType::IMM8)
 			{
 				uint8_t userdata = mmu_.read(userdata_addr);
-				std::printf(opcodeinfo.disassembly, userdata);
+				std::sprintf(str, opcodeinfo.disassembly, userdata);
 			}
 			else // OperandType::IMM16 
 			{
 				uint8_t lo = mmu_.read(userdata_addr);
 				uint8_t hi = mmu_.read(userdata_addr + 1);
 
-				std::printf(opcodeinfo.disassembly, WORD(hi, lo));
+				std::sprintf(str, opcodeinfo.disassembly, WORD(hi, lo));
 			}
 		}
 
-		std::printf("         | pc: %04X", userdata_addr - 1);
-		std::printf("\n");
+		std::string padding(spaces_before_registers - std::strlen(str), ' ');
+
+		// print debug info
+		std::printf("%X: %s%s| PC: %04X, A: %02X, B: %02X, C: %02X, D: %02X, E: %02X, H: %02X, L: %02X, SP: %04X\n", 
+			userdata_addr - 1, 
+			str, 
+			padding.c_str(),
+			pc_.val,
+			af_.hi,
+			bc_.hi,
+			bc_.lo,
+			de_.hi,
+			de_.lo,
+			hl_.hi,
+			hl_.lo,
+			sp_.val
+		);
 	}
 
 	uint8_t CPU::load8Imm()
