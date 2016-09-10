@@ -168,8 +168,12 @@ namespace gb
 
 		bool halted_;
 		bool stopped_;
-		bool debug_mode_;
+
 		bool interrupt_master_enable_;
+		int interrupt_master_enable_pending_;
+		int interrupt_master_disable_pending_;
+
+		bool debug_mode_;
 
 		uint16_t cycle_count_;
     };

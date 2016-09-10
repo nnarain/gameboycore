@@ -647,10 +647,10 @@ namespace gb
 
 		/* Disable and Enable Interrupt */
 		case 0xF3: // DI
-			interrupt_master_enable_ = false;
+			interrupt_master_disable_pending_ = 0;
 			break;
 		case 0xFB: // EI
-			interrupt_master_enable_ = true;
+			interrupt_master_enable_pending_ = 0;
 			break;
 
 		/* Arithmetic Operations */
@@ -1776,6 +1776,28 @@ namespace gb
 
 	void CPU::checkInterrupts()
 	{
+		// when EI or DI is used to change the IME the change takes effect after the next instruction is executed
+
+		if (interrupt_master_disable_pending_ > 0)
+		{
+			interrupt_master_disable_pending_++;
+			if (interrupt_master_disable_pending_ == 2)
+			{
+				interrupt_master_enable_ = false;
+				interrupt_master_disable_pending_ = -1;
+			}
+		}
+
+		if (interrupt_master_disable_pending_ > 0)
+		{
+			interrupt_master_enable_pending_++;
+			if (interrupt_master_enable_pending_ == 2)
+			{
+				interrupt_master_enable_ = true;
+				interrupt_master_enable_pending_ = -1;
+			}
+		}
+
 		if (interrupt_master_enable_)
 		{
 		}
@@ -2015,6 +2037,8 @@ namespace gb
 		halted_                  = false;
 		stopped_                 = false;
 		interrupt_master_enable_ = false;
+		interrupt_master_enable_pending_ = -1;
+		interrupt_master_disable_pending_ = -1;
 	}
 
 	void CPU::setDebugMode(bool debug_mode)
