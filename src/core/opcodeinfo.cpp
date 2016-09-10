@@ -61,7 +61,7 @@ namespace gb
 		{ 0, "inc SP",     }, // 0x33
 		{ 0, "inc (HL)",    }, // 0x34
 		{ 0, "dec (HL)",   }, // 0x35
-		{ 0, "ld (HL)", OperandType::IMM8   }, // 0x36
+		{ 0, "ld (HL),%02X", OperandType::IMM8   }, // 0x36
 		{ 0, "scf",        }, // 0x37
 		{ 0, "jr C,%02X",  OperandType::IMM8 }, // 0x38
 		{ 0, "add HL,SP", }, // 0x39
@@ -231,7 +231,7 @@ namespace gb
 		{ 0, "invalid"     }, // 0xD3
 		{ 0, "call NC,%04X",   OperandType::IMM16 }, // 0xD4
 		{ 0, "push DE",    }, // 0xD5
-		{ 0, "sub", OperandType::IMM8       }, // 0xD6
+		{ 0, "sub %02X", OperandType::IMM8       }, // 0xD6
 		{ 0, "rst 10",      }, // 0xD7
 		{ 0, "ret C",      }, // 0xD8
 		{ 0, "reti",       }, // 0xD9
