@@ -30,12 +30,14 @@ set(GAMEBOYCORE
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp
 	src/core/opcodeinfo.cpp
+	src/core/lcd_controller.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
 	include/gameboy/cpu.h
 	include/gameboy/alu.h
 	include/gameboy/mmu.h
+	include/gameboy/lcd_controller.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h
