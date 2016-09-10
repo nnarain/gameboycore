@@ -101,7 +101,7 @@ namespace gb
 			mmu_.write(load8Imm(), hl_.val);
 			break;
 
-			// load 16 bit immediate
+		// load 16 bit immediate
 		case 0x01: // LD BC,d16
 			bc_.val = load16Imm();
 			break;
@@ -115,7 +115,23 @@ namespace gb
 			sp_.val = load16Imm();
 			break;
 
-			// transfer (Register to register, memory to register)
+		// load A into memory
+		case 0x02:
+			mmu_.write(af_.lo, bc_.val);
+			break;
+		case 0x12:
+			mmu_.write(af_.lo, de_.val);
+			break;
+
+		// load A from memory
+		case 0x0A: // LD A,(BC)
+			af_.lo = mmu_.read(bc_.val);
+			break;
+		case 0x1A: // LD A,(DE)
+			af_.lo = mmu_.read(de_.val);
+			break;
+
+		// transfer (Register to register, memory to register)
 		case 0x40: // LD B,B
 			bc_.hi = bc_.hi;
 			break;
@@ -715,6 +731,20 @@ namespace gb
 			alu_.add(af_.hi, load8Imm());
 			break;
 
+		// 16 bit addition
+		case 0x09: // ADD HL,BC
+			alu_.add(hl_.val, bc_.val);
+			break; 
+		case 0x19: // ADD HL,DE
+			alu_.add(hl_.val, de_.val);
+			break;
+		case 0x29: // ADD HL,HL
+			alu_.add(hl_.val, hl_.val);
+			break;
+		case 0x39: // ADD HL,SP
+			alu_.add(hl_.val, sp_.val);
+			break;
+
 		case 0xE8: // ADD SP,n
 			alu_.addr(sp_.val, (int8_t)load8Imm());
 			break;
@@ -907,7 +937,7 @@ namespace gb
 			break;
 
 		default:
-			std::cout << "Unimplemented Instruction: " << std::hex << opcode << std::endl;
+			std::cout << "Unimplemented Instruction: $" << std::hex << (int)opcode << std::endl;
 			throw std::runtime_error("");
 			break;
 		}

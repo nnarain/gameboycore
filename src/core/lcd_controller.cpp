@@ -14,12 +14,28 @@ namespace gb
 		lyc_ (mmu.get(LCDRegister::LYC)),
 		state_(State::MODE2),
 		line_count_(0),
-		mode_count_(0)
+		mode_count_(0),
+		is_enabled_(false)
 	{
 	}
 
 	void LCDController::clock(uint8_t cycles)
 	{
+		// check if the controller is enabled
+		if (lcdc_ & LCDCBits::ENABLE)
+		{
+			if(!is_enabled_)
+				ly_ = 0;
+
+			is_enabled_ = true;
+		}
+		else
+		{
+			is_enabled_ = false;
+		}
+
+		if (!is_enabled_) return;
+
 		// increment counters
 		line_count_ += cycles;
 		mode_count_ += cycles;
@@ -67,6 +83,12 @@ namespace gb
 			}
 			break;
 		}
+
+		// set LYC = LY bit
+		if (ly_ == lyc_)
+			SET(stat_, StatBits::LYCLY);
+		else
+			CLR(stat_, StatBits::LYCLY);
 	}
 
 	void LCDController::transitionState(State newState)

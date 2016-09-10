@@ -28,6 +28,16 @@ namespace gb
 			LYC  = 0xFF45
 		};
 
+		enum LCDCBits
+		{
+			ENABLE = (1 << 7)
+		};
+
+		enum StatBits
+		{
+			LYCLY = (1 << 2)
+		};
+
 		enum class State
 		{
 			MODE0 = 0, MODE1 = 1, MODE2 = 2, MODE3 = 3
@@ -61,6 +71,8 @@ namespace gb
 
 		// current LCD controller state
 		State state_;
+
+		bool is_enabled_;
 	};
 }
 
