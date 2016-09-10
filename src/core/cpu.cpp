@@ -16,6 +16,7 @@ namespace gb
 	CPU::CPU() :
 		mmu_(),
 		alu_(af_.lo),
+		lcd_(mmu_),
 		halted_(false),
 		cycle_count_(0),
 		debug_mode_(false)
@@ -50,6 +51,8 @@ namespace gb
 		}
 
 		cycle_count_ += cycles;
+
+		lcd_.clock(cycles);
 
 		checkInterrupts();
 	}

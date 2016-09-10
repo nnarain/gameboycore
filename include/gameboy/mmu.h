@@ -25,11 +25,28 @@ namespace gb
         MMU();
         ~MMU();
 
+		/**
+			Load memory
+		*/
         void load(uint8_t* rom, uint32_t size);
 
+		/**
+			@return the value of memory at the psecified location
+		*/
         uint8_t read(uint16_t) const;
+		/**
+			Write a byte to the specified location
+		*/
         void write(uint8_t value, uint16_t addr);
+		/**
+			Write a word to the specified location
+		*/
 		void write(uint16_t value, uint16_t addr);
+
+		/**
+			@return a reference to a memory location
+		*/
+		uint8_t& get(uint16_t);
 
 		unsigned int numBanks() const;
 

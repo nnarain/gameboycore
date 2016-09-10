@@ -45,6 +45,11 @@ namespace gb
 		memory_[addr + 1] = hi;
 	}
 
+	uint8_t& MMU::get(uint16_t addr)
+	{
+		return memory_[addr];
+	}
+
 	void MMU::loadROMBanks(uint8_t rom_size, uint8_t * rom)
 	{
 		static unsigned int rom_banks1[] = {

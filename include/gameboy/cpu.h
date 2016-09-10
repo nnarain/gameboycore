@@ -15,6 +15,8 @@
 #include "gameboy/alu.h"
 #include "gameboy/opcodeinfo.h"
 
+#include "gameboy/lcd_controller.h"
+
 #include <stdint.h>
 
 namespace gb
@@ -165,6 +167,8 @@ namespace gb
 
 		MMU mmu_;
 		ALU alu_;
+
+		LCDController lcd_;
 
 		bool halted_;
 		bool stopped_;
