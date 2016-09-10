@@ -49,7 +49,7 @@ namespace gb
 		{ 0, "jr Z,%02X",  OperandType::IMM8 }, // 0x28
 		{ 0, "add HL,HL",  }, // 0x29
 		{ 0, "ld A,(HL+)", }, // 0x2A
-		{ 0, "de cHL",     }, // 0x2B
+		{ 0, "dec HL",     }, // 0x2B
 		{ 0, "inc L",      }, // 0x2C
 		{ 0, "dec L",      }, // 0x2D
 		{ 0, "ld L,%02X",  OperandType::IMM8 }, // 0x2E
@@ -59,9 +59,9 @@ namespace gb
 		{ 0, "ld SP,%04X", OperandType::IMM16 }, // 0x31
 		{ 0, "ld (HL-),A", }, // 0x32
 		{ 0, "inc SP",     }, // 0x33
-		{ 0, "in (HL)",    }, // 0x34
+		{ 0, "inc (HL)",    }, // 0x34
 		{ 0, "dec (HL)",   }, // 0x35
-		{ 0, "ld (HL)",    }, // 0x36
+		{ 0, "ld (HL)", OperandType::IMM8   }, // 0x36
 		{ 0, "scf",        }, // 0x37
 		{ 0, "jr C,%02X",  OperandType::IMM8 }, // 0x38
 		{ 0, "add HL,SP", }, // 0x39
@@ -231,7 +231,7 @@ namespace gb
 		{ 0, "invalid"     }, // 0xD3
 		{ 0, "call NC,%04X",   OperandType::IMM16 }, // 0xD4
 		{ 0, "push DE",    }, // 0xD5
-		{ 0, "sub",        }, // 0xD6
+		{ 0, "sub", OperandType::IMM8       }, // 0xD6
 		{ 0, "rst 10",      }, // 0xD7
 		{ 0, "ret C",      }, // 0xD8
 		{ 0, "reti",       }, // 0xD9
