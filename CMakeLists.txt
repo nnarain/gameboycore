@@ -4,7 +4,9 @@
 # @author Natesh Narain <nnaraindev@gmail.com>
 #
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 project(gameboy)
 
@@ -70,12 +72,15 @@ add_library(gbcore
 )
 
 # main emulator executable
+find_package(SFML REQUIRED COMPONENTS system window graphics)
+
 add_executable(${PROJECT_NAME}
     src/gameboy/emulator.cpp
 	src/gameboy/window.h
 )
 target_link_libraries(${PROJECT_NAME}
     gbcore
+	${SFML_LIBRARIES}
 )
 
 # disassembler 
