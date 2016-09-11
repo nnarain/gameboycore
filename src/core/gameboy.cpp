@@ -29,9 +29,9 @@ namespace gb
 		return cpu_;
 	}
 
-	Display Gameboy::getDisplay()
+	TileRAM Gameboy::getTileRAM()
 	{
-		return Display(cpu_.getMMU());
+		return TileRAM(cpu_.getMMU());
 	}
 
 	bool Gameboy::isDone() const

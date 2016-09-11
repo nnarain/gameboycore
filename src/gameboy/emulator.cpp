@@ -4,7 +4,9 @@
 #include <fstream>
 #include <vector>
 
-#include "gameboy/gameboy.h"
+#include <gameboy/gameboy.h>
+
+#include "window.h"
 
 using namespace gb;
 
@@ -28,7 +30,7 @@ int main(int argc, char * argv[])
 		rom.clear();
 
 		// get a display info object
-		Display display = gameboy.getDisplay();
+		TileRAM tiles = gameboy.getTileRAM();
 		bool yes = false;
 
 		// start emulating
@@ -37,8 +39,6 @@ int main(int argc, char * argv[])
 			gameboy.update();
 
 			// TODO: render VRAM
-			if(yes)
-				display.printTileRAM();
 		}
     }
     else

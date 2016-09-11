@@ -31,7 +31,7 @@ set(GAMEBOYCORE
 	src/core/shiftrotate.cpp
 	src/core/opcodeinfo.cpp
 	src/core/lcd_controller.cpp
-	src/core/display.cpp
+	src/core/tileram.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
@@ -39,7 +39,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/alu.h
 	include/gameboy/mmu.h
 	include/gameboy/lcd_controller.h
-	include/gameboy/display.h
+	include/gameboy/tileram.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h
@@ -72,6 +72,7 @@ add_library(gbcore
 # main emulator executable
 add_executable(${PROJECT_NAME}
     src/gameboy/emulator.cpp
+	src/gameboy/window.h
 )
 target_link_libraries(${PROJECT_NAME}
     gbcore

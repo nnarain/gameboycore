@@ -10,6 +10,7 @@
 #include "gameboy/mmu.h"
 
 #include <cstdint>
+#include <vector>
 
 namespace gb
 {
@@ -18,19 +19,23 @@ namespace gb
 		uint8_t color[64];
 	};
 
-	class Display
+	class TileRAM
 	{
 	public:
-		Display(MMU& mmu);
-		~Display();
+		static const unsigned int NUM_TILES = 192;
+		static const unsigned int TILE_SIZE = 16;
 
-		void printTileRAM();
+	public:
+		TileRAM(MMU& mmu);
+		~TileRAM();
+
+		std::vector<Tile> getTiles();
 
 	private:
 		void setRow(Tile& tile, uint8_t msb, uint8_t lsb, int row);
 
 	private:
-		uint8_t* vram_;
+		uint8_t* tile_ram_;
 	};
 
 }

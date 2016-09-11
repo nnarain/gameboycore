@@ -7,7 +7,7 @@
 #define GAMEBOY_H
 
 #include "gameboy/cpu.h"
-#include "gameboy/display.h"
+#include "gameboy/tileram.h"
 
 #include <stdint.h>
 
@@ -32,7 +32,7 @@ namespace gb
 
 		const CPU& getCPU() const;
 
-		Display getDisplay();
+		TileRAM getTileRAM();
 
 		bool isDone() const;
     private:
