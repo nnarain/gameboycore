@@ -5,7 +5,7 @@ namespace gb
 {
     Gameboy::Gameboy()
     {
-		cpu_.setDebugMode(true);
+		cpu_.setDebugMode(false);
     }
 
     void Gameboy::update()
@@ -27,6 +27,11 @@ namespace gb
 	const CPU& Gameboy::getCPU() const
 	{
 		return cpu_;
+	}
+
+	Display Gameboy::getDisplay()
+	{
+		return Display(cpu_.getMMU());
 	}
 
 	bool Gameboy::isDone() const

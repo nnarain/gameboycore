@@ -31,6 +31,7 @@ set(GAMEBOYCORE
 	src/core/shiftrotate.cpp
 	src/core/opcodeinfo.cpp
 	src/core/lcd_controller.cpp
+	src/core/display.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
@@ -38,6 +39,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/alu.h
 	include/gameboy/mmu.h
 	include/gameboy/lcd_controller.h
+	include/gameboy/display.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h

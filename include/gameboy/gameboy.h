@@ -7,6 +7,8 @@
 #define GAMEBOY_H
 
 #include "gameboy/cpu.h"
+#include "gameboy/display.h"
+
 #include <stdint.h>
 
 namespace gb
@@ -29,6 +31,8 @@ namespace gb
 		void reset();
 
 		const CPU& getCPU() const;
+
+		Display getDisplay();
 
 		bool isDone() const;
     private:
