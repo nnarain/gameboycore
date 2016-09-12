@@ -10,7 +10,7 @@ namespace gb
 
     void Gameboy::update()
     {
-		cpu_.tick();
+		cpu_.step();
     }
 
     void Gameboy::loadROM(uint8_t* rom, uint32_t size)

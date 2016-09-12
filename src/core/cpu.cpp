@@ -24,7 +24,7 @@ namespace gb
 		reset();
 	}
 
-	void CPU::tick()
+	void CPU::step()
 	{
 		// fetch next opcode
 		uint8_t opcode = mmu_.read(pc_.val++);

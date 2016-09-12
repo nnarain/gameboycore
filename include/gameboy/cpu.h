@@ -77,7 +77,7 @@ namespace gb
     public:
         CPU();
 
-        void tick();
+        void step();
 
 		void reset();
 

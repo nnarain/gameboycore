@@ -70,10 +70,11 @@ private:
 		
 		std::vector<gb::Tile> tiles = tile_ram_.getTiles();
 
-		const int width = 120;
-		const int height = 120;
+		int tile_x     = 0;
+		int tile_y     = 0;
+		int tile_count = 0;
 
-		for (int idx = 0; idx < 1; ++idx)
+		for (int idx = 0; idx < tiles.size(); ++idx)
 		{
 			gb::Tile tile = tiles[idx];
 
@@ -83,10 +84,42 @@ private:
 				for (int col = 0; col < 8; ++col)
 				{
 					sf::Color color = getColor(tile.color[pixel++]);
-					writePixel(pixel_data, col, row, color);
+					writePixel(pixel_data, tile_x + col, tile_y + row, color);
 				}
 			}
+
+			tile_x += 8;
+			tile_count++;
+			if (tile_count >= 15)
+			{
+				tile_y += 8;
+				tile_x     = 0;
+				tile_count = 0;
+			}
 		}
+
+		/*
+		for (gb::Tile& tile : tiles)
+		{
+		int pixel = 0;
+		for (int row = tile_pixel_offset_y; row < tile_pixel_offset_y + 8; ++row)
+		{
+		for (int col = tile_pixel_offset_x; col < tile_pixel_offset_x + 8; ++col)
+		{
+		sf::Color color = getColor(tile.color[pixel++]);
+		writePixel(pixel_data, col, row, color);
+		}
+		}
+
+		tile_pixel_offset_x += 8;
+		tile_count++;
+		if (tile_count >= 15)
+		{
+		tile_pixel_offset_y += 8;
+		tile_pixel_offset_x = 0;
+		}
+		}
+		*/
 
 		// update the tileset texture
 		tileset_texture_.update(&pixel_data[0]);
