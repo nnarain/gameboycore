@@ -74,10 +74,8 @@ private:
 		int tile_y     = 0;
 		int tile_count = 0;
 
-		for (int idx = 0; idx < tiles.size(); ++idx)
+		for (gb::Tile& tile : tiles)
 		{
-			gb::Tile tile = tiles[idx];
-
 			int pixel = 0;
 			for (int row = 0; row < 8; ++row)
 			{
@@ -97,29 +95,6 @@ private:
 				tile_count = 0;
 			}
 		}
-
-		/*
-		for (gb::Tile& tile : tiles)
-		{
-		int pixel = 0;
-		for (int row = tile_pixel_offset_y; row < tile_pixel_offset_y + 8; ++row)
-		{
-		for (int col = tile_pixel_offset_x; col < tile_pixel_offset_x + 8; ++col)
-		{
-		sf::Color color = getColor(tile.color[pixel++]);
-		writePixel(pixel_data, col, row, color);
-		}
-		}
-
-		tile_pixel_offset_x += 8;
-		tile_count++;
-		if (tile_count >= 15)
-		{
-		tile_pixel_offset_y += 8;
-		tile_pixel_offset_x = 0;
-		}
-		}
-		*/
 
 		// update the tileset texture
 		tileset_texture_.update(&pixel_data[0]);
