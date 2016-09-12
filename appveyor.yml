@@ -9,6 +9,7 @@ clone_folder: c:\projects\gameboy
 
 environment:
   GTEST_ROOT: c:\libs\googletest
+  SFML_ROOT: c:\libs\sfml
 
 install:
   - echo "Installing Google Test"
@@ -19,6 +20,14 @@ install:
   - msbuild googletest-distribution.sln /verbosity:quiet
   - msbuild INSTALL.vcxproj /verbosity:quiet
   - set PATH=%PATH%;%GTEST_ROOT%\lib
+  
+  - echo "Installing SFML"
+  - git clone https://github.com/SFML/SFML.git c:\tmp\sfml
+  - cd c:\tmp\sfml && mkdir build && cd build
+  - cmake .. -DCMAKE_INSTALL_PREFIX=c:\libs\sfml
+  - msbuild SFML.sln /verbosity:quiet
+  - msbuild INSTALL.vcxproj /verbosity:quiet
+  - set PATH=%PATH%;%SFML_ROOT%
 
 before_build:
   - echo "Generating Visual Studio Solution..."
