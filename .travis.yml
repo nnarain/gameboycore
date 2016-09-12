@@ -14,6 +14,12 @@ before_install:
 
 install:
 - install_general
+- echo "Installing SFML"
+- git clone https://github.com/SFML/SFML.git
+- mkdir SFML/build && cd SFML/build
+- cmake ..
+- make && sudo make install
+- cd -
 
 script:
 - mkdir build && cd build
