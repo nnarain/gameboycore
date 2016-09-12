@@ -29,16 +29,15 @@ int main(int argc, char * argv[])
 		// after loading ROM into Gameboy, release loaded image
 		rom.clear();
 
-		// get a display info object
+		// setup render window
 		TileRAM tiles = gameboy.getTileRAM();
-		bool yes = false;
+		Window window(tiles);
 
 		// start emulating
-		while (!gameboy.isDone()) 
+		while (!gameboy.isDone() && window.isOpen()) 
 		{
 			gameboy.update();
-
-			// TODO: render VRAM
+			window.update();
 		}
     }
     else

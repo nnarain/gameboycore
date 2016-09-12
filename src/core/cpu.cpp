@@ -54,10 +54,6 @@ namespace gb
 
 		lcd_.clock(cycles);
 
-		if (pc_.val == 0x282A) {
-			std::cout << "Finished loading tiles" << std::endl;
-		}
-
 		checkInterrupts();
 	}
 
