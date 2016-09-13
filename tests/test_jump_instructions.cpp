@@ -30,7 +30,7 @@ TEST(JumpInstructions, BaseJump)
 	Gameboy gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.pc.val, 0x151);
+	EXPECT_EQ(status.pc.val, 0x150);
 }
 
 TEST(JumpInstructions, ZFlag)
@@ -54,7 +54,7 @@ TEST(JumpInstructions, ZFlag)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x301);
+	EXPECT_EQ(status.pc.val, 0x300);
 }
 
 // TODO: Test C Flag Condition
@@ -77,7 +77,7 @@ TEST(JumpInstructions, RelativeBase)
 	Gameboy gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.pc.val, 0x1FF);
+	EXPECT_EQ(status.pc.val, 0x1FE);
 }
 
 TEST(JumpInstructions, RelativeZFlag)
@@ -101,7 +101,7 @@ TEST(JumpInstructions, RelativeZFlag)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x178);
+	EXPECT_EQ(status.pc.val, 0x177);
 }
 
 

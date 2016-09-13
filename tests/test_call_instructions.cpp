@@ -34,7 +34,7 @@ TEST(CallInstructions, BaseCall)
 	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.pc.val, 0x251);
+	EXPECT_EQ(status.pc.val, 0x250);
 	EXPECT_EQ(status.sp.val, 0xFFFC);
 	EXPECT_EQ(mmu.read(status.sp.val + 1), 0x01);
 	EXPECT_EQ(mmu.read(status.sp.val + 0), 0x53);
@@ -56,7 +56,7 @@ TEST(CallInstructions, ZFlag)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x251);
+	EXPECT_EQ(status.pc.val, 0x250);
 	EXPECT_EQ(status.sp.val, 0xFFFC);
 	EXPECT_EQ(mmu.read(status.sp.val + 1), 0x01);
 	EXPECT_EQ(mmu.read(status.sp.val + 0), 0x56);
@@ -79,6 +79,6 @@ TEST(CallInstructions, Return)
 	Gameboy gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.pc.val, 0x154);
+	EXPECT_EQ(status.pc.val, 0x153);
 	EXPECT_EQ(status.sp.val, 0xFFFE);
 }

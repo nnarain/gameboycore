@@ -24,7 +24,7 @@ namespace gb
 		reset();
 	}
 
-	void CPU::tick()
+	void CPU::step()
 	{
 		// fetch next opcode
 		uint8_t opcode = mmu_.read(pc_.val++);
@@ -71,6 +71,7 @@ namespace gb
 			break;
 		case 0x10:
 			stopped_ = true;
+			pc_.val++;
 			break;
 
 		/* Load Instructions */
@@ -117,18 +118,18 @@ namespace gb
 
 		// load A into memory
 		case 0x02:
-			mmu_.write(af_.lo, bc_.val);
+			mmu_.write(af_.hi, bc_.val);
 			break;
 		case 0x12:
-			mmu_.write(af_.lo, de_.val);
+			mmu_.write(af_.hi, de_.val);
 			break;
 
 		// load A from memory
 		case 0x0A: // LD A,(BC)
-			af_.lo = mmu_.read(bc_.val);
+			af_.hi = mmu_.read(bc_.val);
 			break;
 		case 0x1A: // LD A,(DE)
-			af_.lo = mmu_.read(de_.val);
+			af_.hi = mmu_.read(de_.val);
 			break;
 
 		// transfer (Register to register, memory to register)
@@ -488,6 +489,7 @@ namespace gb
 
 		case 0x76:
 			halted_ = true;
+			pc_.val--;
 			break;
 
 		/* Jumps */

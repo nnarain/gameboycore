@@ -50,6 +50,11 @@ namespace gb
 		return memory_[addr];
 	}
 
+	uint8_t* MMU::getptr(uint16_t addr)
+	{
+		return &memory_[addr];
+	}
+
 	void MMU::loadROMBanks(uint8_t rom_size, uint8_t * rom)
 	{
 		static unsigned int rom_banks1[] = {

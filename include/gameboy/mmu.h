@@ -48,6 +48,10 @@ namespace gb
 		*/
 		uint8_t& get(uint16_t);
 
+		/**
+		*/
+		uint8_t* getptr(uint16_t);
+
 		unsigned int numBanks() const;
 
 	private:
