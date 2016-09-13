@@ -34,6 +34,8 @@ int main(int argc, char * argv[])
 		Window window(tiles);
 
 		// start emulating
+		gameboy.setStepCount(256);
+		
 		while (!gameboy.isDone() && window.isOpen()) 
 		{
 			gameboy.update();

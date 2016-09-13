@@ -6,6 +6,9 @@
 
 #include <gameboy/tileram.h>
 
+/**
+	\brief Create and update texture of the gameboy's tileset
+*/
 class TilesetTexture
 {
 public:

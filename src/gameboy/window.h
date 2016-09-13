@@ -15,6 +15,9 @@
 
 #include "tileset_texture.h"
 
+/**
+	\brief Emulator Window
+*/
 class Window
 {
 public:

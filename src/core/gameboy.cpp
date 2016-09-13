@@ -3,14 +3,18 @@
 
 namespace gb
 {
-    Gameboy::Gameboy()
+    Gameboy::Gameboy() :
+		step_count_(1)
     {
 		cpu_.setDebugMode(false);
     }
 
     void Gameboy::update()
     {
-		cpu_.step();
+		for (int i = 0; i < step_count_; i++)
+		{
+			cpu_.step();
+		}
     }
 
     void Gameboy::loadROM(uint8_t* rom, uint32_t size)
@@ -22,6 +26,11 @@ namespace gb
 	void Gameboy::reset()
 	{
 		cpu_.reset();
+	}
+
+	void Gameboy::setStepCount(unsigned int step_count)
+	{
+		step_count_ = step_count;
 	}
 
 	const CPU& Gameboy::getCPU() const

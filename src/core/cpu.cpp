@@ -489,6 +489,7 @@ namespace gb
 
 		case 0x76:
 			halted_ = true;
+			pc_.val--;
 			break;
 
 		/* Jumps */
