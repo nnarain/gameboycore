@@ -4,7 +4,9 @@
 #include <fstream>
 #include <vector>
 
-#include "gameboy/gameboy.h"
+#include <gameboy/gameboy.h>
+
+#include "window.h"
 
 using namespace gb;
 
@@ -27,12 +29,17 @@ int main(int argc, char * argv[])
 		// after loading ROM into Gameboy, release loaded image
 		rom.clear();
 
+		// setup render window
+		TileRAM tiles = gameboy.getTileRAM();
+		Window window(tiles);
+
 		// start emulating
-		while (!gameboy.isDone()) 
+		gameboy.setStepCount(256);
+		
+		while (!gameboy.isDone() && window.isOpen()) 
 		{
 			gameboy.update();
-
-			// TODO: render VRAM
+			window.update();
 		}
     }
     else

@@ -21,7 +21,7 @@ namespace gb
 		{ 8, "ld C,%02X",  OperandType::IMM8 }, // 0x0E
 		{ 4, "rrca",       }, // 0x0F
 
-		{ 4, "stop",       }, // 0x10
+		{ 4, "stop %02X", OperandType::IMM8       }, // 0x10
 		{ 12, "ld DE,%04X",   OperandType::IMM16 }, // 0x11
 		{ 8, "ld (DE),A",  }, // 0x12
 		{ 8, "inc DE",     }, // 0x13

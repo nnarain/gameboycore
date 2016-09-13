@@ -7,6 +7,8 @@
 #define GAMEBOY_H
 
 #include "gameboy/cpu.h"
+#include "gameboy/tileram.h"
+
 #include <stdint.h>
 
 namespace gb
@@ -28,10 +30,18 @@ namespace gb
 
 		void reset();
 
+		/**
+			Set number of cpu steps to perform before update terminates.
+		*/
+		void setStepCount(unsigned int step_count);
+
 		const CPU& getCPU() const;
+
+		TileRAM getTileRAM();
 
 		bool isDone() const;
     private:
+		unsigned int step_count_;
     };
 }
 
