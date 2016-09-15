@@ -8,17 +8,16 @@
 #define GAMEBOY_DISPLAY_H
 
 #include "gameboy/mmu.h"
+#include "gameboy/tile.h"
 
 #include <cstdint>
 #include <vector>
 
 namespace gb
 {
-	struct Tile
-	{
-		uint8_t color[64];
-	};
-
+	/**
+		\brief Class that knows how to read Tile RAM in the Gameboy memory map
+	*/
 	class TileRAM
 	{
 	public:

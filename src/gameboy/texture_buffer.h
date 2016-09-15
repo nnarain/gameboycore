@@ -4,6 +4,8 @@
 #include <vector>
 #include <cstdint>
 
+#include "gameboy/tile.h"
+
 /**
 	\brief	Write Colors to a Pixel Buffer
 */
@@ -21,6 +23,21 @@ public:
 		height_(height),
 		buffer_(width * height * PIXEL_SIZE, fill)
 	{
+	}
+
+	template<typename PixelT>
+	void write(gb::Tile& tile, unsigned int x, unsigned int y, PixelT* palette)
+	{
+		unsigned int pixel = 0;
+
+		for (unsigned int row = 0; row < 8; ++row)
+		{
+			for (unsigned int col = 0; col < 8; ++col)
+			{
+				PixelT& color = palette[tile.color[pixel++]];
+				write(x + col, y + row, color);
+			}
+		}
 	}
 
 	template<typename PixelT>

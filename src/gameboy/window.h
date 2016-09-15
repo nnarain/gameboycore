@@ -22,11 +22,12 @@ class Window
 {
 public:
 	Window(gb::TileRAM& tile_ram) :
-		window_(sf::VideoMode(250, 250), "Gameboy Emulator"),
+		window_(sf::VideoMode(800, 600), "Gameboy Emulator"),
 		tileset_(tile_ram)
 	{
 		tileset_sprite_.setTexture(tileset_.getTexture());
-		tileset_sprite_.setPosition(10, 10);
+		tileset_sprite_.setPosition(150, 50);
+		tileset_sprite_.setScale(4, 4);
 	}
 
 	void update()
