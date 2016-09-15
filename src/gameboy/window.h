@@ -40,6 +40,7 @@ public:
 			case sf::Event::Closed:
 				window_.close();
 				break;
+				// TODO: add other enum values here
 			}
 		}
 

@@ -6,6 +6,8 @@
 
 #include <gameboy/tileram.h>
 
+#include "texture_buffer.h"
+
 /**
 	\brief Create and update texture of the gameboy's tileset
 */
@@ -25,8 +27,9 @@ public:
 
 	void update()
 	{
-		std::vector<sf::Uint8> pixel_data(120 * 120 * 4, 255);
+	//	std::vector<sf::Uint8> pixel_data(120 * 120 * 4, 255);
 
+		TextureBuffer texture_buffer(120, 120, 255);
 		std::vector<gb::Tile> tiles = tile_ram_.getTiles();
 
 		int tile_x = 0;
@@ -41,7 +44,7 @@ public:
 				for (int col = 0; col < 8; ++col)
 				{
 					sf::Color color = getColor(tile.color[pixel++]);
-					writePixel(pixel_data, tile_x + col, tile_y + row, color);
+					texture_buffer.write(tile_x + col, tile_y + row, color);
 				}
 			}
 
@@ -56,7 +59,7 @@ public:
 		}
 
 		// update the tileset texture
-		texture_.update(&pixel_data[0]);
+		texture_.update((sf::Uint8*)texture_buffer.get());
 	}
 
 	sf::Texture& getTexture()
