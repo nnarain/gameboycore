@@ -2129,6 +2129,11 @@ namespace gb
 		return lcd_;
 	}
 
+	LCDController& CPU::getLCDController()
+	{
+		return lcd_;
+	}
+
 	CPU::Status CPU::getStatus() const
 	{
 		Status status;

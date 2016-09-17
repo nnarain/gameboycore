@@ -86,6 +86,7 @@ namespace gb
 		MMU& getMMU();
 
 		const LCDController& getLCDController() const;
+		LCDController& getLCDController();
 
 		void setDebugMode(bool debug_mode);
 

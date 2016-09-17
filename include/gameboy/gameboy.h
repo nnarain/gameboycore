@@ -43,6 +43,8 @@ namespace gb
 		TileRAM getTileRAM();
 		TileMap getTileMap();
 
+		LCDController& getController();
+
 
 		bool isDone() const;
     private:
