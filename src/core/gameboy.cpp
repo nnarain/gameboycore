@@ -28,6 +28,11 @@ namespace gb
 		cpu_.reset();
 	}
 
+	void Gameboy::setDebugMode(bool debug)
+	{
+		cpu_.setDebugMode(debug);
+	}
+
 	void Gameboy::setStepCount(unsigned int step_count)
 	{
 		step_count_ = step_count;

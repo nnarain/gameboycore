@@ -52,6 +52,11 @@ namespace gb
 			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 		}
 
+		if (pc_.val == 0xFFB6)
+		{
+			std::cout << "hi" << std::endl;
+		}
+
 		cycle_count_ += cycles;
 
 		lcd_.clock(cycles);
@@ -954,6 +959,11 @@ namespace gb
 
 	void CPU::decode2(uint8_t opcode)
 	{
+		static uint16_t old_pc;
+
+		// store current program counter location so it can be reused for disassembly output
+		old_pc = pc_.val;
+
 		uint8_t tmp;
 
 		switch (opcode)
@@ -1808,6 +1818,7 @@ namespace gb
 
 		if (debug_mode_)
 		{
+			printDisassembly(opcode, old_pc, OpcodePage::PAGE2);
 		}
 	}
 

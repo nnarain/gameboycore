@@ -31,6 +31,8 @@ namespace gb
 
 		void reset();
 
+		void setDebugMode(bool debug);
+
 		/**
 			Set number of cpu steps to perform before update terminates.
 		*/
