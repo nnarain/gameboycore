@@ -57,6 +57,8 @@ namespace gb
 	private:
 		void loadROMBanks(uint8_t rom_size, uint8_t * rom);
 		void copyROMToBanks(unsigned int num_banks, uint8_t* rom);
+
+		void oamTransfer(uint8_t base);
 		
     };
 }
