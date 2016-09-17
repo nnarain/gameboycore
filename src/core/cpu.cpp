@@ -52,11 +52,6 @@ namespace gb
 			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 		}
 
-		if (pc_.val == 0xFFB6)
-		{
-			std::cout << "hi" << std::endl;
-		}
-
 		cycle_count_ += cycles;
 
 		lcd_.clock(cycles);
@@ -1954,7 +1949,10 @@ namespace gb
 
 		i++;
 
-		if (i == 0) SET(af_.lo, Flags::Z);
+		if (i == 0)
+			SET(af_.lo, Flags::Z);
+		else
+			CLR(af_.lo, Flags::Z);
 		CLR(af_.lo, Flags::N);
 		if (half_carry)
 			SET(af_.lo, Flags::H);
@@ -1973,7 +1971,10 @@ namespace gb
 
 		d--;
 
-		if (d == 0) SET(af_.lo, Flags::Z);
+		if (d == 0)
+			SET(af_.lo, Flags::Z);
+		else
+			CLR(af_.lo, Flags::Z);
 		SET(af_.lo, Flags::N);
 		if (half_carry)
 			SET(af_.lo, Flags::H);
