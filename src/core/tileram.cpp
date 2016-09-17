@@ -1,16 +1,48 @@
 
 #include "gameboy/tileram.h"
 #include "gameboy/memorymap.h"
+#include "gameboy/lcd_controller.h"
 
-#include <iostream>
+#include <stdexcept>
 
 namespace gb
 {
-	TileRAM::TileRAM(MMU& mmu) :
-		tile_ram_(mmu.getptr(0x8000))
+	TileRAM::TileRAM(MMU& mmu, const LCDController& lcd) : 
+		tile_ram_(mmu.getptr(0x8000)), 
+		mmu_(mmu),
+		lcd_(lcd)
 	{
 	}
 	
+	Tile TileRAM::getTile(uint8_t tilenum)
+	{
+		uint16_t tile_addr;
+		if (lcd_.getCharacterDataMode() == LCDController::CharacterDataMode::UNSIGNED)
+		{
+			tile_addr = getTileAddress<uint8_t>(0x8000, tilenum);
+		}
+		else
+		{
+			tile_addr = getTileAddress<int8_t>(0x9000, tilenum);
+		}
+
+		uint8_t* tile_ptr = mmu_.getptr(tile_addr);
+
+		Tile tile;
+		int row = 0;
+
+		for (int i = 0; i < TILE_SIZE; i += 2)
+		{
+			uint8_t lsb = tile_ptr[i + 0];
+			uint8_t msb = tile_ptr[i + 1];
+
+			setRow(tile, msb, lsb, row);
+			row++;
+		}
+
+		return tile;
+	}
+
 	std::vector<Tile> TileRAM::getTiles()
 	{
 		std::vector<Tile> tiles;
@@ -34,18 +66,6 @@ namespace gb
 
 			tiles.push_back(tile);
 		}
-
-		/*
-		int row = 0;
-		for (int i = 0; i < 16; i += 2)
-		{
-		uint8_t lsb = tile_ram_[i + 0];
-		uint8_t msb = tile_ram_[i + 1];
-
-		setRow(tile, msb, lsb, row);
-		row++;
-		}
-		*/
 
 		return tiles;
 	}

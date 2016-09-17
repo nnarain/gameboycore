@@ -8,6 +8,7 @@
 
 #include "gameboy/cpu.h"
 #include "gameboy/tileram.h"
+#include "gameboy/tilemap.h"
 
 #include <stdint.h>
 
@@ -38,6 +39,8 @@ namespace gb
 		const CPU& getCPU() const;
 
 		TileRAM getTileRAM();
+		TileMap getTileMap();
+
 
 		bool isDone() const;
     private:

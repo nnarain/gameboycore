@@ -104,6 +104,44 @@ namespace gb
 		mode_count_ = 0;
 	}
 
+	LCDController::BackgroundMapData LCDController::getBackgroundMapLocation() const
+	{
+		if (lcdc_ & LCDCBits::BG_CODE_AREA)
+		{
+			// if bit is set
+			return BackgroundMapData::BG_DATA_2;
+		}
+		else
+		{
+			return BackgroundMapData::BG_DATA_1;
+		}
+	}
+
+	LCDController::BackgroundMapData LCDController::getWindowOverlayLocation() const
+	{
+		if (lcdc_ & LCDCBits::WINDOW_CODE_AREA)
+		{
+			// if bit is set
+			return BackgroundMapData::BG_DATA_2;
+		}
+		else
+		{
+			return BackgroundMapData::BG_DATA_1;
+		}
+	}
+
+	LCDController::CharacterDataMode LCDController::getCharacterDataMode() const
+	{
+		if (lcdc_ & LCDCBits::CHARACTER_DATA)
+		{
+			return CharacterDataMode::UNSIGNED;
+		}
+		else
+		{
+			return CharacterDataMode::SIGNED;
+		}
+	}
+
 	LCDController::~LCDController()
 	{
 	}

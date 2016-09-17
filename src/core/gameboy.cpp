@@ -40,7 +40,13 @@ namespace gb
 
 	TileRAM Gameboy::getTileRAM()
 	{
-		return TileRAM(cpu_.getMMU());
+		return TileRAM(cpu_.getMMU(), cpu_.getLCDController());
+	}
+
+	TileMap Gameboy::getTileMap()
+	{
+		const LCDController& lcd = cpu_.getLCDController();
+		return TileMap(TileRAM(cpu_.getMMU(), lcd), cpu_.getMMU(), lcd);
 	}
 
 	bool Gameboy::isDone() const

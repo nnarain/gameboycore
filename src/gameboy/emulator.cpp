@@ -30,8 +30,10 @@ int main(int argc, char * argv[])
 		rom.clear();
 
 		// setup render window
-		TileRAM tiles = gameboy.getTileRAM();
-		Window window(tiles);
+		Window window(gameboy);
+
+		// TMP
+		// load background data with fake data
 
 		// start emulating
 		gameboy.setStepCount(256);

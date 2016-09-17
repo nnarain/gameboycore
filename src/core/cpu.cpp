@@ -2095,6 +2095,11 @@ namespace gb
 		return mmu_;
 	}
 
+	const LCDController& CPU::getLCDController() const
+	{
+		return lcd_;
+	}
+
 	CPU::Status CPU::getStatus() const
 	{
 		Status status;
