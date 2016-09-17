@@ -7,6 +7,7 @@
 #define GAMEBOY_LCD_CONTROLLER_H
 
 #include "gameboy/mmu.h"
+#include "gameboy/interrupt_provider.h"
 
 #include <cstdint>
 
@@ -60,7 +61,10 @@ namespace gb
 
 		enum class State
 		{
-			MODE0 = 0, MODE1 = 1, MODE2 = 2, MODE3 = 3
+			MODE0 = 0, // H Blank
+			MODE1 = 1, // V Blank
+			MODE2 = 2, // OAM 
+			MODE3 = 3  // Transferring to LCD driver
 		};
 
 	public:
@@ -97,6 +101,9 @@ namespace gb
 		State state_;
 
 		bool is_enabled_;
+
+		InterruptProvider lcd_stat_provider_;
+		InterruptProvider vblank_provider_;
 	};
 }
 

@@ -56,7 +56,7 @@ namespace gb
 			C = 1 << 4
 		};
 
-		enum class InterruptMask
+		enum InterruptMask
 		{
 			VBLANK                   = 1 << 0,
 			LCDC_STAT                = 1 << 1,
@@ -96,7 +96,7 @@ namespace gb
 		void decode2(uint8_t opcode);
 
 		void checkInterrupts();
-		void interrupt(InterruptVector);
+		void interrupt(InterruptVector, InterruptMask);
 
 		void printDisassembly(uint8_t opcode, uint16_t userdata_ptr, OpcodePage page);
 
@@ -182,6 +182,9 @@ namespace gb
 		bool debug_mode_;
 
 		uint16_t cycle_count_;
+
+		uint8_t& interrupt_enable_;
+		uint8_t& interrupt_flags_;
     };
 }
 

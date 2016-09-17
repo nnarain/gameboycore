@@ -32,9 +32,6 @@ int main(int argc, char * argv[])
 		// setup render window
 		Window window(gameboy);
 
-		// TMP
-		// load background data with fake data
-
 		// start emulating
 		gameboy.setStepCount(256);
 		

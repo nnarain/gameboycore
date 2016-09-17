@@ -15,7 +15,9 @@ namespace gb
 		state_(State::MODE2),
 		line_count_(0),
 		mode_count_(0),
-		is_enabled_(false)
+		is_enabled_(false),
+		lcd_stat_provider_(mmu, InterruptProvider::Interrupt::LCDSTAT),
+		vblank_provider_(mmu, InterruptProvider::Interrupt::VBLANK)
 	{
 	}
 
@@ -85,10 +87,19 @@ namespace gb
 		}
 
 		// set LYC = LY bit
-		if (ly_ == lyc_)
+		if (ly_ == lyc_) 
+		{
 			SET(stat_, StatBits::LYCLY);
-		else
+
+			if (IS_BIT_SET(lcdc_, 6))
+			{
+				lcd_stat_provider_.set();
+			}
+		}
+		else 
+		{
 			CLR(stat_, StatBits::LYCLY);
+		}
 	}
 
 	void LCDController::transitionState(State newState)
@@ -98,9 +109,23 @@ namespace gb
 		// set mode flag in status register
 		FORCE(stat_, 0x03, mode_flag);
 
-		// set interrupts
+		// interrupt selection mask
+		uint8_t mask = (1 << (3 + static_cast<uint8_t>(newState)));
 
-		//
+		if (lcdc_ & mask)
+		{
+			// if the transition state is not a v-blank
+			if (newState != State::MODE1)
+			{
+				lcd_stat_provider_.set();
+			}
+			else // is v-blank
+			{
+				vblank_provider_.set();
+			}
+		}
+
+		state_ = newState;
 		mode_count_ = 0;
 	}
 

@@ -19,7 +19,9 @@ namespace gb
 		lcd_(mmu_),
 		halted_(false),
 		cycle_count_(0),
-		debug_mode_(false)
+		debug_mode_(false),
+		interrupt_flags_(mmu_.get(memorymap::INTERRUPT_FLAG)),
+		interrupt_enable_(mmu_.get(memorymap::INTERRUPT_ENABLE))
 	{
 		reset();
 	}
@@ -1813,7 +1815,7 @@ namespace gb
 	{
 		// when EI or DI is used to change the IME the change takes effect after the next instruction is executed
 
-		if (interrupt_master_disable_pending_ > 0)
+		if (interrupt_master_disable_pending_ >= 0)
 		{
 			interrupt_master_disable_pending_++;
 			if (interrupt_master_disable_pending_ == 2)
@@ -1823,7 +1825,7 @@ namespace gb
 			}
 		}
 
-		if (interrupt_master_disable_pending_ > 0)
+		if (interrupt_master_enable_pending_ >= 0)
 		{
 			interrupt_master_enable_pending_++;
 			if (interrupt_master_enable_pending_ == 2)
@@ -1835,15 +1837,30 @@ namespace gb
 
 		if (interrupt_master_enable_)
 		{
+			// mask off disabled interrupts
+			uint8_t pending_interrupts = interrupt_flags_ & interrupt_enable_;
+
+			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))                   
+				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
+			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))                
+				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
+			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))            
+				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
+			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE)) 
+				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
+			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))                   
+				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
 		}
 	}
 
-	void CPU::interrupt(InterruptVector vector)
+	void CPU::interrupt(InterruptVector vector, InterruptMask mask)
 	{
 		interrupt_master_enable_ = false;
 
 		push(pc_.val);
 		pc_.val = static_cast<uint16_t>(vector);
+
+		CLR(interrupt_flags_, mask);
 	}
 
 	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
@@ -2017,7 +2034,7 @@ namespace gb
 	void CPU::reti()
 	{
 		ret();
-		// TODO: Enable Interrutps
+		interrupt_master_enable_ = true;
 	}
 
 	uint8_t CPU::swap(uint8_t byte)
