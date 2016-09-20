@@ -32,22 +32,20 @@ namespace gb
 
     void MMU::write(uint8_t value, uint16_t addr)
     {
-		switch (addr)
+		if (addr >= 0x00 && addr <= 0x7FFF)
 		{
-		// value was written to the DMA register
-		case memorymap::DMA_REGISTER:
+			// in ROM
+			// TODO: Bank switch
+		}
+		else if (addr == memorymap::DMA_REGISTER)
+		{
 			oamTransfer(value);
-			break;
 		}
-
-		// TODO: remove
-		if (addr == 0x9821 && value == 0x1D)
+		else
 		{
-			int x = 0;
+			// TODO: implement ROM bank switching
+			memory_[addr] = value;
 		}
-
-        // TODO: implement ROM bank switching
-        memory_[addr] = value;
     }
 
 	void MMU::write(uint16_t value, uint16_t addr)
