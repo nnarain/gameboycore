@@ -40,6 +40,12 @@ namespace gb
 			break;
 		}
 
+		// TODO: remove
+		if (addr == 0x9821 && value == 0x1D)
+		{
+			int x = 0;
+		}
+
         // TODO: implement ROM bank switching
         memory_[addr] = value;
     }

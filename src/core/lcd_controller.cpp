@@ -10,8 +10,8 @@ namespace gb
 	LCDController::LCDController(MMU& mmu) :
 		lcdc_(mmu.get(LCDRegister::LCDC)),
 		stat_(mmu.get(LCDRegister::STAT)),
-		ly_  (mmu.get(LCDRegister::LY)),
-		lyc_ (mmu.get(LCDRegister::LYC)),
+		ly_(mmu.get(LCDRegister::LY)),
+		lyc_(mmu.get(LCDRegister::LYC)),
 		state_(State::MODE2),
 		line_count_(0),
 		mode_count_(0),
@@ -26,7 +26,7 @@ namespace gb
 		// check if the controller is enabled
 		if (lcdc_ & LCDCBits::ENABLE)
 		{
-			if(!is_enabled_)
+			if (!is_enabled_)
 				ly_ = 0;
 
 			is_enabled_ = true;
@@ -87,7 +87,7 @@ namespace gb
 		}
 
 		// set LYC = LY bit
-		if (ly_ == lyc_) 
+		if (ly_ == lyc_)
 		{
 			SET(stat_, StatBits::LYCLY);
 
@@ -96,7 +96,7 @@ namespace gb
 				lcd_stat_provider_.set();
 			}
 		}
-		else 
+		else
 		{
 			CLR(stat_, StatBits::LYCLY);
 		}
@@ -125,13 +125,18 @@ namespace gb
 			}
 		}
 
+		if (newState == State::MODE1)
+		{
+			callback_();
+		}
+
 		state_ = newState;
 		mode_count_ = 0;
 	}
 
 	LCDController::BackgroundMapData LCDController::getBackgroundMapLocation() const
 	{
-		if (lcdc_ & LCDCBits::BG_CODE_AREA)
+		if (IS_SET(lcdc_, LCDCBits::BG_CODE_AREA))
 		{
 			// if bit is set
 			return BackgroundMapData::BG_DATA_2;
@@ -144,7 +149,7 @@ namespace gb
 
 	LCDController::BackgroundMapData LCDController::getWindowOverlayLocation() const
 	{
-		if (lcdc_ & LCDCBits::WINDOW_CODE_AREA)
+		if (IS_SET(lcdc_, LCDCBits::WINDOW_CODE_AREA))
 		{
 			// if bit is set
 			return BackgroundMapData::BG_DATA_2;
@@ -157,14 +162,40 @@ namespace gb
 
 	LCDController::CharacterDataMode LCDController::getCharacterDataMode() const
 	{
-		if (lcdc_ & LCDCBits::CHARACTER_DATA)
+		// TOOD: remove
+		if (lcdc_ != 0x80)
+		{
+			int x = 0;
+		}
+
+		if (IS_SET(lcdc_, LCDCBits::CHARACTER_DATA))
 		{
 			return CharacterDataMode::UNSIGNED;
 		}
 		else
 		{
-			return CharacterDataMode::SIGNED;
+			return CharacterDataMode::UNSIGNED;
 		}
+	}
+
+	bool LCDController::isEnabled() const
+	{
+		return IS_SET(lcdc_, LCDCBits::ENABLE) != 0;
+	}
+
+	bool LCDController::isBackgroundEnabled() const
+	{
+		return IS_SET(lcdc_, LCDCBits::BG_DISPLAY_ON) != 0;
+	}
+
+	bool LCDController::isWindowOverlayEnabled() const
+	{
+		return IS_SET(lcdc_, LCDCBits::WINDOW_ON) != 0;
+	}
+
+	void LCDController::setVBlankCallback(Callback callback)
+	{
+		callback_ = callback;
 	}
 
 	LCDController::~LCDController()

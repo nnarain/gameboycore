@@ -52,14 +52,17 @@ public:
 		}
 
 		window_.clear();
-
 //		tileset_.update();
-		background_texture_.update();
+//		background_texture_.update();
 
 		//window_.draw(tileset_sprite_);
 		window_.draw(background_sprite_);
-
 		window_.display();
+	}
+
+	void updateTextures()
+	{
+		background_texture_.update();
 	}
 
 	bool isOpen()
