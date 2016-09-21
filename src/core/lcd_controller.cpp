@@ -91,7 +91,7 @@ namespace gb
 		{
 			SET(stat_, StatBits::LYCLY);
 
-			if (IS_BIT_SET(lcdc_, 6))
+			if (IS_BIT_SET(stat_, 6))
 			{
 				lcd_stat_provider_.set();
 			}
@@ -112,7 +112,7 @@ namespace gb
 		// interrupt selection mask
 		uint8_t mask = (1 << (3 + static_cast<uint8_t>(newState)));
 
-		if (lcdc_ & mask)
+		if (stat_ & mask)
 		{
 			// if the transition state is not a v-blank
 			if (newState != State::MODE1)
@@ -128,6 +128,7 @@ namespace gb
 		if (newState == State::MODE1)
 		{
 			callback_();
+			vblank_provider_.set();
 		}
 
 		state_ = newState;
@@ -162,19 +163,13 @@ namespace gb
 
 	LCDController::CharacterDataMode LCDController::getCharacterDataMode() const
 	{
-		// TOOD: remove
-		if (lcdc_ != 0x80)
-		{
-			int x = 0;
-		}
-
 		if (IS_SET(lcdc_, LCDCBits::CHARACTER_DATA))
 		{
 			return CharacterDataMode::UNSIGNED;
 		}
 		else
 		{
-			return CharacterDataMode::UNSIGNED;
+			return CharacterDataMode::UNSIGNED; // TODO: this is changed
 		}
 	}
 

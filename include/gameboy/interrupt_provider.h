@@ -25,7 +25,8 @@ namespace gb
 
 	public:
 		InterruptProvider(MMU& mmu, Interrupt interrupt) :
-			flags_(mmu.get(memorymap::INTERRUPT_FLAG))
+			flags_(mmu.get(memorymap::INTERRUPT_FLAG)),
+			interrupt_(interrupt)
 		{
 		}
 
@@ -39,7 +40,7 @@ namespace gb
 		}
 
 	private:
-		uint8_t flags_;
+		uint8_t& flags_;
 		Interrupt interrupt_;
 	};
 

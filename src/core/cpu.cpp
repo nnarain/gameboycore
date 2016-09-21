@@ -56,13 +56,8 @@ namespace gb
 
 		lcd_.clock(cycles);
 
-		//		std::vector<uint16_t> breakpoints = {
-		//			0x2B8, 0x0403, 0x473, 0x4DC, 0x742, 0x926, 0x10C6, 0x1204, 0x1376, 0x13A2, 0x1455, 0x14E8,
-		//			0x160D, 0x16C3, 0x1B3B, 0x2882
-		//		};
-
 		std::vector<uint16_t> breakpoints = {
-			0x374, 0x352, 0x02D3, 0x2000
+			
 		};
 
 		for (uint16_t addr : breakpoints)
@@ -70,11 +65,6 @@ namespace gb
 			if (pc_.val == addr) {
 				int x = 0;
 			}
-		}
-
-		if (pc_.val >= 0x419 && pc_.val <= 0x45A)
-		{
-			int x = 0;
 		}
 
 		checkInterrupts();

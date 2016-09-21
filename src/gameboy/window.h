@@ -23,7 +23,7 @@ class Window
 {
 public:
 	Window(gb::Gameboy& gameboy) :
-		window_(sf::VideoMode(800, 600), "Gameboy Emulator"),
+		window_(sf::VideoMode(325, 300), "Tis Emulator"),
 		tileset_(gameboy.getTileRAM()),
 		background_texture_(gameboy.getTileMap(), gb::TileMap::Map::BACKGROUND)
 	{
@@ -32,7 +32,7 @@ public:
 		tileset_sprite_.setScale(4, 4);
 
 		background_sprite_.setTexture(background_texture_.getTexture());
-		background_sprite_.setPosition(10, 10);
+		background_sprite_.setPosition(0, 0);
 		background_sprite_.setScale(2, 2);
 	}
 
@@ -52,8 +52,8 @@ public:
 		}
 
 		window_.clear();
-//		tileset_.update();
-//		background_texture_.update();
+		//tileset_.update();
+		//background_texture_.update();
 
 		//window_.draw(tileset_sprite_);
 		window_.draw(background_sprite_);

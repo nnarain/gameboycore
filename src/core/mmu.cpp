@@ -32,7 +32,7 @@ namespace gb
 
     void MMU::write(uint8_t value, uint16_t addr)
     {
-		if (addr >= 0x00 && addr <= 0x7FFF)
+		if (addr >= 0x0000 && addr <= 0x7FFF)
 		{
 			// in ROM
 			// TODO: Bank switch
@@ -43,6 +43,8 @@ namespace gb
 		}
 		else
 		{
+			if (addr == 0xFF80) return; // TODO: remove
+
 			// TODO: implement ROM bank switching
 			memory_[addr] = value;
 		}
