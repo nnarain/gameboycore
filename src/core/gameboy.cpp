@@ -28,6 +28,11 @@ namespace gb
 		cpu_.reset();
 	}
 
+	void Gameboy::setDebugMode(bool debug)
+	{
+		cpu_.setDebugMode(debug);
+	}
+
 	void Gameboy::setStepCount(unsigned int step_count)
 	{
 		step_count_ = step_count;
@@ -40,7 +45,18 @@ namespace gb
 
 	TileRAM Gameboy::getTileRAM()
 	{
-		return TileRAM(cpu_.getMMU());
+		return TileRAM(cpu_.getMMU(), cpu_.getLCDController());
+	}
+
+	TileMap Gameboy::getTileMap()
+	{
+		const LCDController& lcd = cpu_.getLCDController();
+		return TileMap(TileRAM(cpu_.getMMU(), lcd), cpu_.getMMU(), lcd);
+	}
+
+	LCDController& Gameboy::getLCDController()
+	{
+		return cpu_.getLCDController();
 	}
 
 	bool Gameboy::isDone() const

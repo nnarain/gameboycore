@@ -10,12 +10,14 @@ namespace gb
 	LCDController::LCDController(MMU& mmu) :
 		lcdc_(mmu.get(LCDRegister::LCDC)),
 		stat_(mmu.get(LCDRegister::STAT)),
-		ly_  (mmu.get(LCDRegister::LY)),
-		lyc_ (mmu.get(LCDRegister::LYC)),
+		ly_(mmu.get(LCDRegister::LY)),
+		lyc_(mmu.get(LCDRegister::LYC)),
 		state_(State::MODE2),
 		line_count_(0),
 		mode_count_(0),
-		is_enabled_(false)
+		is_enabled_(false),
+		lcd_stat_provider_(mmu, InterruptProvider::Interrupt::LCDSTAT),
+		vblank_provider_(mmu, InterruptProvider::Interrupt::VBLANK)
 	{
 	}
 
@@ -24,7 +26,7 @@ namespace gb
 		// check if the controller is enabled
 		if (lcdc_ & LCDCBits::ENABLE)
 		{
-			if(!is_enabled_)
+			if (!is_enabled_)
 				ly_ = 0;
 
 			is_enabled_ = true;
@@ -86,9 +88,18 @@ namespace gb
 
 		// set LYC = LY bit
 		if (ly_ == lyc_)
+		{
 			SET(stat_, StatBits::LYCLY);
+
+			if (IS_BIT_SET(stat_, 6))
+			{
+				lcd_stat_provider_.set();
+			}
+		}
 		else
+		{
 			CLR(stat_, StatBits::LYCLY);
+		}
 	}
 
 	void LCDController::transitionState(State newState)
@@ -98,10 +109,88 @@ namespace gb
 		// set mode flag in status register
 		FORCE(stat_, 0x03, mode_flag);
 
-		// set interrupts
+		// interrupt selection mask
+		uint8_t mask = (1 << (3 + static_cast<uint8_t>(newState)));
 
-		//
+		if (stat_ & mask)
+		{
+			// if the transition state is not a v-blank
+			if (newState != State::MODE1)
+			{
+				lcd_stat_provider_.set();
+			}
+			else // is v-blank
+			{
+				vblank_provider_.set();
+			}
+		}
+
+		if (newState == State::MODE1)
+		{
+			callback_();
+			vblank_provider_.set(); // TODO: enable this again
+		}
+
+		state_ = newState;
 		mode_count_ = 0;
+	}
+
+	LCDController::BackgroundMapData LCDController::getBackgroundMapLocation() const
+	{
+		if (IS_SET(lcdc_, LCDCBits::BG_CODE_AREA))
+		{
+			// if bit is set
+			return BackgroundMapData::BG_DATA_2;
+		}
+		else
+		{
+			return BackgroundMapData::BG_DATA_1;
+		}
+	}
+
+	LCDController::BackgroundMapData LCDController::getWindowOverlayLocation() const
+	{
+		if (IS_SET(lcdc_, LCDCBits::WINDOW_CODE_AREA))
+		{
+			// if bit is set
+			return BackgroundMapData::BG_DATA_2;
+		}
+		else
+		{
+			return BackgroundMapData::BG_DATA_1;
+		}
+	}
+
+	LCDController::CharacterDataMode LCDController::getCharacterDataMode() const
+	{
+		if (IS_SET(lcdc_, LCDCBits::CHARACTER_DATA))
+		{
+			return CharacterDataMode::UNSIGNED;
+		}
+		else
+		{
+			return CharacterDataMode::SIGNED;
+		}
+	}
+
+	bool LCDController::isEnabled() const
+	{
+		return IS_SET(lcdc_, LCDCBits::ENABLE) != 0;
+	}
+
+	bool LCDController::isBackgroundEnabled() const
+	{
+		return IS_SET(lcdc_, LCDCBits::BG_DISPLAY_ON) != 0;
+	}
+
+	bool LCDController::isWindowOverlayEnabled() const
+	{
+		return IS_SET(lcdc_, LCDCBits::WINDOW_ON) != 0;
+	}
+
+	void LCDController::setVBlankCallback(Callback callback)
+	{
+		callback_ = callback;
 	}
 
 	LCDController::~LCDController()

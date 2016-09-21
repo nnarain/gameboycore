@@ -6,6 +6,8 @@
 
 #include <gameboy/tileram.h>
 
+#include "texture_buffer.h"
+
 /**
 	\brief Create and update texture of the gameboy's tileset
 */
@@ -25,25 +27,23 @@ public:
 
 	void update()
 	{
-		std::vector<sf::Uint8> pixel_data(120 * 120 * 4, 255);
+		static sf::Color palette[] = {
+			{ 255, 255, 255, 255 },
+			{ 192, 192, 192, 255 },
+			{ 96,  96,  96, 255 },
+			{ 0,   0,   0, 255 }
+		};
 
+		TextureBuffer texture_buffer(120, 120, 255);
 		std::vector<gb::Tile> tiles = tile_ram_.getTiles();
 
-		int tile_x = 0;
-		int tile_y = 0;
-		int tile_count = 0;
+		int tile_x     = 0; // pixel offset x for tile
+		int tile_y     = 0; // pixel offset y for tile
+		int tile_count = 0; // count of tiles per row
 
 		for (gb::Tile& tile : tiles)
 		{
-			int pixel = 0;
-			for (int row = 0; row < 8; ++row)
-			{
-				for (int col = 0; col < 8; ++col)
-				{
-					sf::Color color = getColor(tile.color[pixel++]);
-					writePixel(pixel_data, tile_x + col, tile_y + row, color);
-				}
-			}
+			texture_buffer.write(tile, tile_x, tile_y, palette);
 
 			tile_x += 8;
 			tile_count++;
@@ -56,37 +56,12 @@ public:
 		}
 
 		// update the tileset texture
-		texture_.update(&pixel_data[0]);
+		texture_.update((sf::Uint8*)texture_buffer.get());
 	}
 
 	sf::Texture& getTexture()
 	{
 		return texture_;
-	}
-
-private:
-	void writePixel(std::vector<sf::Uint8>& pixels, int x, int y, sf::Color c)
-	{
-		const unsigned int pixels_per_row = 120; // pixels per row
-
-		int byte_offset = ((y * pixels_per_row) + x) * 4;
-
-		pixels[byte_offset + 0] = c.r;
-		pixels[byte_offset + 1] = c.g;
-		pixels[byte_offset + 2] = c.b;
-		pixels[byte_offset + 3] = c.a;
-	}
-
-	sf::Color getColor(uint8_t idx)
-	{
-		static sf::Color colors[] = {
-			{ 255, 255, 255, 255 },
-			{ 192, 192, 192, 255 },
-			{  96,  96,  96, 255 },
-			{   0,   0,   0, 255 }
-		};
-
-		return colors[idx];
 	}
 
 private:

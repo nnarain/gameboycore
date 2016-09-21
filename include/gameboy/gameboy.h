@@ -8,6 +8,7 @@
 
 #include "gameboy/cpu.h"
 #include "gameboy/tileram.h"
+#include "gameboy/tilemap.h"
 
 #include <stdint.h>
 
@@ -30,6 +31,8 @@ namespace gb
 
 		void reset();
 
+		void setDebugMode(bool debug);
+
 		/**
 			Set number of cpu steps to perform before update terminates.
 		*/
@@ -38,6 +41,10 @@ namespace gb
 		const CPU& getCPU() const;
 
 		TileRAM getTileRAM();
+		TileMap getTileMap();
+
+		LCDController& getLCDController();
+
 
 		bool isDone() const;
     private:

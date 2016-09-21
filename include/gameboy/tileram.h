@@ -8,17 +8,17 @@
 #define GAMEBOY_DISPLAY_H
 
 #include "gameboy/mmu.h"
+#include "gameboy/tile.h"
+#include "gameboy/lcd_controller.h"
 
 #include <cstdint>
 #include <vector>
 
 namespace gb
 {
-	struct Tile
-	{
-		uint8_t color[64];
-	};
-
+	/**
+		\brief Class that knows how to read Tile RAM in the Gameboy memory map
+	*/
 	class TileRAM
 	{
 	public:
@@ -26,16 +26,25 @@ namespace gb
 		static const unsigned int TILE_SIZE = 16;
 
 	public:
-		TileRAM(MMU& mmu);
+		TileRAM(MMU& mmu, const LCDController& lcd);
 		~TileRAM();
 
+		Tile getTile(uint8_t tilenum);
 		std::vector<Tile> getTiles();
+
+		template<typename T>
+		uint16_t getTileAddress(int32_t base_addr, uint8_t tilenum)
+		{
+			return (uint16_t)(base_addr + ((T)tilenum * TILE_SIZE));
+		}
 
 	private:
 		void setRow(Tile& tile, uint8_t msb, uint8_t lsb, int row);
 
 	private:
 		uint8_t* tile_ram_;
+		MMU& mmu_;
+		const LCDController& lcd_;
 	};
 
 }

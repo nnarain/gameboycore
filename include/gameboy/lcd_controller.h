@@ -7,7 +7,9 @@
 #define GAMEBOY_LCD_CONTROLLER_H
 
 #include "gameboy/mmu.h"
+#include "gameboy/interrupt_provider.h"
 
+#include <functional>
 #include <cstdint>
 
 namespace gb
@@ -17,6 +19,21 @@ namespace gb
 	*/
 	class LCDController
 	{
+	public:
+		enum class BackgroundMapData
+		{
+			BG_DATA_1, // $9800 - $9BFF
+			BG_DATA_2  // $9C00 - $9FFF
+		};
+
+		enum class CharacterDataMode
+		{
+			SIGNED,   // $8800 - $97FF
+			UNSIGNED  // $8000 - $8FFF
+		};
+
+		using Callback = std::function < void() >;
+
 	private:
 		enum LCDRegister
 		{
@@ -30,7 +47,14 @@ namespace gb
 
 		enum LCDCBits
 		{
-			ENABLE = (1 << 7)
+			ENABLE                = (1 << 7),
+			WINDOW_CODE_AREA      = (1 << 6),
+			WINDOW_ON             = (1 << 5),
+			CHARACTER_DATA        = (1 << 4),
+			BG_CODE_AREA          = (1 << 3),
+			OBJ_BLOCK_COMPOSITION = (1 << 2),
+			OBJ_ON                = (1 << 1),
+			BG_DISPLAY_ON         = (1 << 0)
 		};
 
 		enum StatBits
@@ -40,7 +64,10 @@ namespace gb
 
 		enum class State
 		{
-			MODE0 = 0, MODE1 = 1, MODE2 = 2, MODE3 = 3
+			MODE0 = 0, // H Blank
+			MODE1 = 1, // V Blank
+			MODE2 = 2, // OAM 
+			MODE3 = 3  // Transferring to LCD driver
 		};
 
 	public:
@@ -51,6 +78,16 @@ namespace gb
 			Inform the controller of the elapsed time
 		*/
 		void clock(uint8_t cycles);
+
+		void setVBlankCallback(Callback callback);
+
+		bool isEnabled() const;
+		bool isBackgroundEnabled() const;
+		bool isWindowOverlayEnabled() const;
+
+		BackgroundMapData getBackgroundMapLocation() const;
+		BackgroundMapData getWindowOverlayLocation() const;
+		CharacterDataMode getCharacterDataMode() const;
 
 	private:
 		void transitionState(State newState);
@@ -73,6 +110,11 @@ namespace gb
 		State state_;
 
 		bool is_enabled_;
+
+		InterruptProvider lcd_stat_provider_;
+		InterruptProvider vblank_provider_;
+
+		Callback callback_;
 	};
 }
 

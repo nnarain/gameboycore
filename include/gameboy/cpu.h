@@ -56,7 +56,7 @@ namespace gb
 			C = 1 << 4
 		};
 
-		enum class InterruptMask
+		enum InterruptMask
 		{
 			VBLANK                   = 1 << 0,
 			LCDC_STAT                = 1 << 1,
@@ -85,6 +85,9 @@ namespace gb
         const MMU& getMMU() const;
 		MMU& getMMU();
 
+		const LCDController& getLCDController() const;
+		LCDController& getLCDController();
+
 		void setDebugMode(bool debug_mode);
 
 		Status getStatus() const;
@@ -94,7 +97,7 @@ namespace gb
 		void decode2(uint8_t opcode);
 
 		void checkInterrupts();
-		void interrupt(InterruptVector);
+		void interrupt(InterruptVector, InterruptMask);
 
 		void printDisassembly(uint8_t opcode, uint16_t userdata_ptr, OpcodePage page);
 
@@ -157,6 +160,10 @@ namespace gb
 		*/
 		void bit(uint8_t val, uint8_t bit);
 
+		/**
+		*/
+		void setFlag(uint8_t mask, bool set);
+
 	private:
 		Register af_;
 		Register bc_;
@@ -180,6 +187,9 @@ namespace gb
 		bool debug_mode_;
 
 		uint16_t cycle_count_;
+
+		uint8_t& interrupt_enable_;
+		uint8_t& interrupt_flags_;
     };
 }
 

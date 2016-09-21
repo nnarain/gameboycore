@@ -1,5 +1,6 @@
 #include "gameboy/mmu.h"
 #include "gameboy/mbc.h"
+#include "bitutil.h"
 
 #include <cstring>
 
@@ -11,6 +12,7 @@ namespace gb
     MMU::MMU() :
 		memory_(0xFFFF + 1)
     {
+
     }
 
     MMU::~MMU()
@@ -32,8 +34,24 @@ namespace gb
 
     void MMU::write(uint8_t value, uint16_t addr)
     {
-        // TODO: implement ROM bank switching
-        memory_[addr] = value;
+		if (addr >= 0x0000 && addr <= 0x7FFF)
+		{
+			// in ROM
+			// TODO: Bank switch
+		}
+		else if (addr == memorymap::DMA_REGISTER)
+		{
+			oamTransfer(value);
+		}
+		else if (addr == memorymap::JOYPAD_REGISTER)
+		{
+			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
+		}
+		else
+		{
+			// TODO: implement ROM bank switching
+			memory_[addr] = value;
+		}
     }
 
 	void MMU::write(uint16_t value, uint16_t addr)
@@ -110,6 +128,20 @@ namespace gb
 
 			std::memcpy(&bank[0], current_bank, BANK_SIZE);
 		}
+	}
+
+	void MMU::oamTransfer(uint8_t base)
+	{
+		// increments of $100 bytes
+		uint16_t addr = ((base & 0xFF) << 8) | 0x0000;
+
+		// OAM base address
+		uint16_t oam_base = memorymap::OAM_START;
+
+		// size of OAM RAM
+		uint16_t oam_size = RANGE(OAM);
+
+		std::memcpy(getptr(oam_base), getptr(addr), oam_size);
 	}
 
 	unsigned int MMU::numBanks() const

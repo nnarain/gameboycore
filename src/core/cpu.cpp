@@ -19,7 +19,9 @@ namespace gb
 		lcd_(mmu_),
 		halted_(false),
 		cycle_count_(0),
-		debug_mode_(false)
+		debug_mode_(false),
+		interrupt_flags_(mmu_.get(memorymap::INTERRUPT_FLAG)),
+		interrupt_enable_(mmu_.get(memorymap::INTERRUPT_ENABLE))
 	{
 		reset();
 	}
@@ -53,6 +55,17 @@ namespace gb
 		cycle_count_ += cycles;
 
 		lcd_.clock(cycles);
+
+		std::vector<uint16_t> breakpoints = {
+			0x40F
+		};
+
+		for (uint16_t addr : breakpoints)
+		{
+			if (pc_.val == addr) {
+				int x = 0;
+			}
+		}
 
 		checkInterrupts();
 	}
@@ -345,16 +358,16 @@ namespace gb
 
 		// IN/OUT Instructions. Load and Store to IO Registers (immediate or using C register). IO Offset is $FF00
 		case 0xE0: // LDH (a8),A
-			out(load8Imm());
+			out(0xFF00 + load8Imm());
 			break;
 		case 0xF0: // LDH A,(a8)
-			in(load8Imm());
+			in(0xFF00 + load8Imm());
 			break;
 		case 0xE2: // LD (C),A
-			out(bc_.lo);
+			out(0xFF00 + bc_.lo);
 			break;
 		case 0xF2: // LD A,(C)
-			in(bc_.lo);
+			in(0xFF00 + bc_.lo);
 			break;
 		case 0xEA: // LD (a16),A
 			out(load16Imm());
@@ -489,7 +502,7 @@ namespace gb
 
 		case 0x76:
 			halted_ = true;
-			pc_.val--;
+			pc_.val--; // TODO: implement halt mode
 			break;
 
 		/* Jumps */
@@ -952,6 +965,11 @@ namespace gb
 
 	void CPU::decode2(uint8_t opcode)
 	{
+		static uint16_t old_pc;
+
+		// store current program counter location so it can be reused for disassembly output
+		old_pc = pc_.val;
+
 		uint8_t tmp;
 
 		switch (opcode)
@@ -1806,6 +1824,7 @@ namespace gb
 
 		if (debug_mode_)
 		{
+			printDisassembly(opcode, old_pc, OpcodePage::PAGE2);
 		}
 	}
 
@@ -1813,7 +1832,7 @@ namespace gb
 	{
 		// when EI or DI is used to change the IME the change takes effect after the next instruction is executed
 
-		if (interrupt_master_disable_pending_ > 0)
+		if (interrupt_master_disable_pending_ >= 0)
 		{
 			interrupt_master_disable_pending_++;
 			if (interrupt_master_disable_pending_ == 2)
@@ -1823,7 +1842,7 @@ namespace gb
 			}
 		}
 
-		if (interrupt_master_disable_pending_ > 0)
+		if (interrupt_master_enable_pending_ >= 0)
 		{
 			interrupt_master_enable_pending_++;
 			if (interrupt_master_enable_pending_ == 2)
@@ -1835,15 +1854,30 @@ namespace gb
 
 		if (interrupt_master_enable_)
 		{
+			// mask off disabled interrupts
+			uint8_t pending_interrupts = interrupt_flags_ & interrupt_enable_;
+
+			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))                   
+				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
+			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))                
+				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
+			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))            
+				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
+			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE)) 
+				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
+			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))                   
+				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
 		}
 	}
 
-	void CPU::interrupt(InterruptVector vector)
+	void CPU::interrupt(InterruptVector vector, InterruptMask mask)
 	{
 		interrupt_master_enable_ = false;
 
 		push(pc_.val);
 		pc_.val = static_cast<uint16_t>(vector);
+
+		CLR(interrupt_flags_, mask);
 	}
 
 	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
@@ -1876,7 +1910,7 @@ namespace gb
 		std::string padding(spaces_before_registers - std::strlen(str), ' ');
 
 		// print debug info
-		std::printf("%X: %s%s| PC: %04X, A: %02X, B: %02X, C: %02X, D: %02X, E: %02X, H: %02X, L: %02X, SP: %04X | F: %02X | IF: %02X, IE: %02X\n", 
+		std::printf("%04X: %s%s| PC: %04X, A: %02X, BC: %02X%02X, DE: %02X%02X, HL: %02X%02X | SP: %04X -> %04X | F: %02X | IF: %02X, IE: %02X\n", 
 			userdata_addr - 1, 
 			str, 
 			padding.c_str(),
@@ -1889,6 +1923,7 @@ namespace gb
 			hl_.hi,
 			hl_.lo,
 			sp_.val,
+			WORD(mmu_.read(sp_.val + 1), mmu_.read(sp_.val)),
 			af_.lo,
 			mmu_.read(0xFF0F),
 			mmu_.read(0xFFFF)
@@ -1908,16 +1943,16 @@ namespace gb
 		return WORD(hi, lo);
 	}
 
-	void CPU::in(uint16_t offset)
+	void CPU::in(uint16_t addr)
 	{
 		// read from offset into IO registers
-		af_.hi = mmu_.read(0xFF00 + offset);
+		af_.hi = mmu_.read(addr);
 	}
 
-	void CPU::out(uint16_t offset)
+	void CPU::out(uint16_t addr)
 	{
 		// write out to the IO registers given the offset
-		mmu_.write(af_.hi, 0xFF00 + offset);
+		mmu_.write(af_.hi, addr);
 	}
 
 	void CPU::inc(uint8_t& i)
@@ -1926,12 +1961,9 @@ namespace gb
 
 		i++;
 
-		if (i == 0) SET(af_.lo, Flags::Z);
-		CLR(af_.lo, Flags::N);
-		if (half_carry)
-			SET(af_.lo, Flags::H);
-		else
-			CLR(af_.lo, Flags::H);
+		setFlag(CPU::Flags::Z, i == 0);
+		setFlag(CPU::Flags::N, false);
+		setFlag(CPU::Flags::H, half_carry);
 	}
 
 	void CPU::inc(uint16_t& i)
@@ -1941,16 +1973,13 @@ namespace gb
 
 	void CPU::dec(uint8_t& d)
 	{
-		bool half_carry = IS_HALF_CARRY(d, -1);
+		bool half_carry = IS_HALF_BORROW(d, 1);
 
 		d--;
 
-		if (d == 0) SET(af_.lo, Flags::Z);
-		SET(af_.lo, Flags::N);
-		if (half_carry)
-			SET(af_.lo, Flags::H);
-		else
-			CLR(af_.lo, Flags::H);
+		setFlag(CPU::Flags::Z, d == 0);
+		setFlag(CPU::Flags::N, true);
+		setFlag(CPU::Flags::H, half_carry);
 	}
 
 	void CPU::dec(uint16_t& d)
@@ -2017,7 +2046,7 @@ namespace gb
 	void CPU::reti()
 	{
 		ret();
-		// TODO: Enable Interrutps
+		interrupt_master_enable_ = true;
 	}
 
 	uint8_t CPU::swap(uint8_t byte)
@@ -2027,14 +2056,10 @@ namespace gb
 
 		uint8_t newByte = (lo << 4) | hi;
 
-		if (newByte == 0)
-			SET(af_.lo, CPU::Flags::Z);
-		else
-			CLR(af_.lo, CPU::Flags::Z);
-
-		CLR(af_.lo, CPU::Flags::N);
-		CLR(af_.lo, CPU::Flags::H);
-		CLR(af_.lo, CPU::Flags::C);
+		setFlag(CPU::Flags::Z, newByte == 0);
+		setFlag(CPU::Flags::N, false);
+		setFlag(CPU::Flags::H, false);
+		setFlag(CPU::Flags::C, false);
 
 		return newByte;
 	}
@@ -2046,17 +2071,21 @@ namespace gb
 
 	void CPU::bit(uint8_t val, uint8_t n)
 	{
-		if (IS_BIT_SET(val, n))
+		setFlag(CPU::Flags::Z, IS_BIT_SET(val, n) == 0);
+		setFlag(CPU::Flags::H, true);
+		setFlag(CPU::Flags::N, false);
+	}
+
+	void CPU::setFlag(uint8_t mask, bool set)
+	{
+		if (set)
 		{
-			CLR(af_.lo, Flags::Z);
+			SET(af_.lo, mask);
 		}
 		else
 		{
-			SET(af_.lo, Flags::Z);
+			CLR(af_.lo, mask);
 		}
-
-		SET(af_.lo, Flags::H);
-		CLR(af_.lo, Flags::N);
 	}
 
 	void CPU::reset()
@@ -2093,6 +2122,16 @@ namespace gb
 	MMU& CPU::getMMU()
 	{
 		return mmu_;
+	}
+
+	const LCDController& CPU::getLCDController() const
+	{
+		return lcd_;
+	}
+
+	LCDController& CPU::getLCDController()
+	{
+		return lcd_;
 	}
 
 	CPU::Status CPU::getStatus() const

@@ -7,6 +7,9 @@ include_directories(
 add_executable(${PROJECT_NAME}
     emulator.cpp
 	window.h
+	tileset_texture.h
+	tilemap_texture.h
+	texture_buffer.h
 )
 target_link_libraries(${PROJECT_NAME}
     gbcore
