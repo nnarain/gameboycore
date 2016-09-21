@@ -1,5 +1,6 @@
 #include "gameboy/mmu.h"
 #include "gameboy/mbc.h"
+#include "bitutil.h"
 
 #include <cstring>
 
@@ -11,6 +12,7 @@ namespace gb
     MMU::MMU() :
 		memory_(0xFFFF + 1)
     {
+
     }
 
     MMU::~MMU()
@@ -32,16 +34,24 @@ namespace gb
 
     void MMU::write(uint8_t value, uint16_t addr)
     {
-		switch (addr)
+		if (addr >= 0x0000 && addr <= 0x7FFF)
 		{
-		// value was written to the DMA register
-		case memorymap::DMA_REGISTER:
-			oamTransfer(value);
-			break;
+			// in ROM
+			// TODO: Bank switch
 		}
-
-        // TODO: implement ROM bank switching
-        memory_[addr] = value;
+		else if (addr == memorymap::DMA_REGISTER)
+		{
+			oamTransfer(value);
+		}
+		else if (addr == memorymap::JOYPAD_REGISTER)
+		{
+			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
+		}
+		else
+		{
+			// TODO: implement ROM bank switching
+			memory_[addr] = value;
+		}
     }
 
 	void MMU::write(uint16_t value, uint16_t addr)

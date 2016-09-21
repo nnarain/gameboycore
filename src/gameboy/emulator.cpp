@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <functional>
 
 #include <gameboy/gameboy.h>
 
@@ -32,8 +33,11 @@ int main(int argc, char * argv[])
 		// setup render window
 		Window window(gameboy);
 
+		// lcd callback
+		gameboy.getLCDController().setVBlankCallback(std::bind(&Window::updateTextures, &window));
+
 		// start emulating
-		gameboy.setStepCount(256);
+		gameboy.setStepCount(512);
 		gameboy.setDebugMode(false);
 		
 		while (!gameboy.isDone() && window.isOpen()) 

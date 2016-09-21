@@ -160,6 +160,10 @@ namespace gb
 		*/
 		void bit(uint8_t val, uint8_t bit);
 
+		/**
+		*/
+		void setFlag(uint8_t mask, bool set);
+
 	private:
 		Register af_;
 		Register bc_;

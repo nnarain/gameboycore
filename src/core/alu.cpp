@@ -122,11 +122,7 @@ namespace gb
 	{
 		a ^= n;
 
-		if (a == 0)
-			SET(flags_, ALU::Flags::Z);
-		else
-			CLR(flags_, ALU::Flags::Z);
-
+		setFlag(ALU::Flags::Z, (a == 0));
 		setFlag(ALU::Flags::N, false);
 		setFlag(ALU::Flags::H, false);
 		setFlag(ALU::Flags::C, false);

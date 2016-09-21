@@ -9,6 +9,7 @@
 #include "gameboy/mmu.h"
 #include "gameboy/interrupt_provider.h"
 
+#include <functional>
 #include <cstdint>
 
 namespace gb
@@ -30,6 +31,8 @@ namespace gb
 			SIGNED,   // $8800 - $97FF
 			UNSIGNED  // $8000 - $8FFF
 		};
+
+		using Callback = std::function < void() >;
 
 	private:
 		enum LCDRegister
@@ -76,6 +79,12 @@ namespace gb
 		*/
 		void clock(uint8_t cycles);
 
+		void setVBlankCallback(Callback callback);
+
+		bool isEnabled() const;
+		bool isBackgroundEnabled() const;
+		bool isWindowOverlayEnabled() const;
+
 		BackgroundMapData getBackgroundMapLocation() const;
 		BackgroundMapData getWindowOverlayLocation() const;
 		CharacterDataMode getCharacterDataMode() const;
@@ -104,6 +113,8 @@ namespace gb
 
 		InterruptProvider lcd_stat_provider_;
 		InterruptProvider vblank_provider_;
+
+		Callback callback_;
 	};
 }
 
