@@ -278,27 +278,27 @@ namespace gb
 	};
 
 	static const OpcodeInfo opcodeinfo2[] = {
-		{ 8, "RLC B" },
-		{ 8, "RLC C" },
-		{ 8, "RLC D" },
-		{ 8, "RLC E" },
-		{ 8, "RLC H" },
-		{ 8, "RLC L" },
-		{ 16, "RLC (HL)" },
-		{ 8, "RLC A" },
+		{ 8, "RLC B" }, // 00
+		{ 8, "RLC C" }, // 01
+		{ 8, "RLC D" }, // 02
+		{ 8, "RLC E" }, // 03
+		{ 8, "RLC H" }, // 04
+		{ 8, "RLC L" },     // 05
+		{ 16, "RLC (HL)" }, // 06
+		{ 8, "RLC A" },     // 07
 
-		{ 8, "RRC B" },
-		{ 8, "RRC C" },
-		{ 8, "RRC D" },
-		{ 8, "RRC E" },
-		{ 8, "RRC H" },
-		{ 8, "RRC L" },
-		{ 16, "RRC (HL)" },
-		{ 8, "RRC A" },
+		{ 8, "RRC B" }, // 08
+		{ 8, "RRC C" }, // 09
+		{ 8, "RRC D" }, // 0A
+		{ 8, "RRC E" }, // 0B
+		{ 8, "RRC H" }, // 0C
+		{ 8, "RRC L" }, // 0D
+		{ 16, "RRC (HL)" }, // 0E
+		{ 8, "RRC A" }, // 0F
 
-		{ 8, "RL B" },
-		{ 8, "RL C" },
-		{ 8, "RL D" },
+		{ 8, "RL B" }, // 10
+		{ 8, "RL C" }, // 11
+		{ 8, "RL D" }, // 12
 		{ 8, "RL E" },
 		{ 8, "RL H" },
 		{ 8, "RL L" },

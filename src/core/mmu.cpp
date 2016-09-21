@@ -43,7 +43,12 @@ namespace gb
 		}
 		else
 		{
-			if (addr == 0xFF80) return; // TODO: remove
+		//	if (addr == 0xFF80) return; // TODO: remove
+
+			if (addr == 0xFF80)
+			{
+				int x = 0;
+			}
 
 			// TODO: implement ROM bank switching
 			memory_[addr] = value;

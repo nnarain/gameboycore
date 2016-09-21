@@ -57,7 +57,7 @@ namespace gb
 		lcd_.clock(cycles);
 
 		std::vector<uint16_t> breakpoints = {
-			
+			0x40F
 		};
 
 		for (uint16_t addr : breakpoints)
@@ -502,7 +502,7 @@ namespace gb
 
 		case 0x76:
 			halted_ = true;
-			pc_.val--;
+			pc_.val--; // TODO: implement halt mode
 			break;
 
 		/* Jumps */

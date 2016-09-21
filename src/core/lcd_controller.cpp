@@ -128,7 +128,7 @@ namespace gb
 		if (newState == State::MODE1)
 		{
 			callback_();
-			vblank_provider_.set();
+		//	vblank_provider_.set(); // TODO: enable this again
 		}
 
 		state_ = newState;
@@ -169,7 +169,7 @@ namespace gb
 		}
 		else
 		{
-			return CharacterDataMode::UNSIGNED; // TODO: this is changed
+			return CharacterDataMode::SIGNED;
 		}
 	}
 
