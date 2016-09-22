@@ -54,6 +54,11 @@ namespace gb
 		return TileMap(TileRAM(cpu_.getMMU(), lcd), cpu_.getMMU(), lcd);
 	}
 
+	OAM Gameboy::getOAM()
+	{
+		return OAM{ cpu_.getMMU() };
+	}
+
 	LCDController& Gameboy::getLCDController()
 	{
 		return cpu_.getLCDController();

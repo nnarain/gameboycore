@@ -9,6 +9,7 @@
 #include "gameboy/cpu.h"
 #include "gameboy/tileram.h"
 #include "gameboy/tilemap.h"
+#include "gameboy/oam.h"
 
 #include <stdint.h>
 
@@ -42,6 +43,7 @@ namespace gb
 
 		TileRAM getTileRAM();
 		TileMap getTileMap();
+		OAM getOAM();
 
 		LCDController& getLCDController();
 

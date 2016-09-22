@@ -14,7 +14,7 @@ namespace gb
 	{
 	}
 	
-	Tile TileRAM::getTile(uint8_t tilenum)
+	Tile TileRAM::getTile(uint8_t tilenum) const
 	{
 		uint16_t tile_addr;
 		if (lcd_.getCharacterDataMode() == LCDController::CharacterDataMode::UNSIGNED)
@@ -70,7 +70,7 @@ namespace gb
 		return tiles;
 	}
 
-	void TileRAM::setRow(Tile& tile, uint8_t msb, uint8_t lsb, int row)
+	void TileRAM::setRow(Tile& tile, uint8_t msb, uint8_t lsb, int row) const
 	{
 		int offset = row * 8;
 

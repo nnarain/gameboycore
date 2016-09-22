@@ -29,17 +29,17 @@ namespace gb
 		TileRAM(MMU& mmu, const LCDController& lcd);
 		~TileRAM();
 
-		Tile getTile(uint8_t tilenum);
+		Tile getTile(uint8_t tilenum) const;
 		std::vector<Tile> getTiles();
 
 		template<typename T>
-		uint16_t getTileAddress(int32_t base_addr, uint8_t tilenum)
+		uint16_t getTileAddress(int32_t base_addr, uint8_t tilenum) const
 		{
 			return (uint16_t)(base_addr + ((T)tilenum * TILE_SIZE));
 		}
 
 	private:
-		void setRow(Tile& tile, uint8_t msb, uint8_t lsb, int row);
+		void setRow(Tile& tile, uint8_t msb, uint8_t lsb, int row) const;
 
 	private:
 		uint8_t* tile_ram_;
