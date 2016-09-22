@@ -36,8 +36,8 @@ TEST(LoadInstructionsTest, Load8BitImmediate)
 		0x0E, 0x03, // LD C,3
 		0x16, 0x04, // LD D,4
 		0x1E, 0x05, // LD E,5
-		0x26, 0x06, // LD H,6
-		0x2E, 0x07, // LD L,7
+		0x26, 0xC0, // LD H,6
+		0x2E, 0x00, // LD L,7
 		0x36, 0x08, // LD (HL),$08
 
 		0x76        // halt
@@ -53,8 +53,8 @@ TEST(LoadInstructionsTest, Load8BitImmediate)
 	EXPECT_EQ(status.bc.lo, 3);
 	EXPECT_EQ(status.de.hi, 4);
 	EXPECT_EQ(status.de.lo, 5);
-	EXPECT_EQ(status.hl.hi, 6);
-	EXPECT_EQ(status.hl.lo, 7);
+	EXPECT_EQ(status.hl.hi, 0xC0);
+	EXPECT_EQ(status.hl.lo, 0x00);
 	EXPECT_EQ(mmu.read(status.hl.val), 0x08);
 }
 
@@ -354,7 +354,7 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 	CodeGenerator code;
 
 	code.block(
-		0x21, 0x50, 0x02,	// LD HL, $250
+		0x21, 0x00, 0xC0,	// LD HL, $250
 		0x06, 0x05,			// LD B,5
 		0x70,				// LD (HL),B
 
@@ -362,11 +362,11 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 	);
 	status = run(gameboy, code.rom());
 
-	EXPECT_EQ(mmu.read(0x250), 0x05);
+	EXPECT_EQ(mmu.read(0xC000), 0x05);
 
 	code.reset();
 	code.block(
-		0x21, 0x51, 0x02,	// LD HL, $251
+		0x21, 0x01, 0xC0,	// LD HL, $251
 		0x0E, 0x05,			// LD C,5
 		0x71,				// LD (HL),C
 
@@ -374,11 +374,11 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 	);
 	status = run(gameboy, code.rom());
 
-	EXPECT_EQ(mmu.read(0x251), 0x05);
+	EXPECT_EQ(mmu.read(0xC001), 0x05);
 
 	code.reset();
 	code.block(
-		0x21, 0x52, 0x02,	// LD HL, $252
+		0x21, 0x02, 0xC0,	// LD HL, $252
 		0x16, 0x05,			// LD D,5
 		0x72,				// LD (HL),D
 
@@ -386,11 +386,11 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 	);
 	status = run(gameboy, code.rom());
 
-	EXPECT_EQ(mmu.read(0x252), 0x05);
+	EXPECT_EQ(mmu.read(0xC002), 0x05);
 
 	code.reset();
 	code.block(
-		0x21, 0x53, 0x02,	// LD HL, $253
+		0x21, 0x03, 0xC0,	// LD HL, $253
 		0x1E, 0x05,			// LD E,5
 		0x73,				// LD (HL),E
 
@@ -398,31 +398,7 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 	);
 	status = run(gameboy, code.rom());
 
-	EXPECT_EQ(mmu.read(0x253), 0x05);
-
-	code.reset();
-	code.block(
-		0x21, 0x54, 0x02,	// LD HL, $254
-		0x26, 0x02,			// LD H,5
-		0x74,				// LD (HL),H
-
-		0x76
-	);
-	status = run(gameboy, code.rom());
-
-	EXPECT_EQ(mmu.read(0x254), 0x02);
-
-	code.reset();
-	code.block(
-		0x21, 0x55, 0x02,	// LD HL, $254
-		0x2E, 0x55,			// LD L,5
-		0x75,				// LD (HL),L
-
-		0x76
-	);
-	status = run(gameboy, code.rom());
-
-	EXPECT_EQ(mmu.read(0x255), 0x55);
+	EXPECT_EQ(mmu.read(0xC003), 0x05);
 }
 
 TEST(LoadInstructionsTest, LoadMemoryIncDec)
@@ -435,7 +411,7 @@ TEST(LoadInstructionsTest, LoadMemoryIncDec)
 
 	code.block(
 		0x3E, 0x05,			// LD A,5
-		0x21, 0x50, 0x02,	// LD HL,$250
+		0x21, 0x00, 0xC0,	// LD HL,$250
 		0x22,				// LD (HL+1),A
 		0x3E, 0x06,			// LD A,6
 		0x32,				// LD (HL-1),A
@@ -445,9 +421,9 @@ TEST(LoadInstructionsTest, LoadMemoryIncDec)
 	status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 6);
-	EXPECT_EQ(status.hl.val, 0x250);
-	EXPECT_EQ(mmu.read(0x250), 5);
-	EXPECT_EQ(mmu.read(0x251), 6);
+	EXPECT_EQ(status.hl.val, 0xC000);
+	EXPECT_EQ(mmu.read(0xC000), 5);
+	EXPECT_EQ(mmu.read(0xC001), 6);
 }
 
 TEST(LoadInstructionsTest, LoadRegisterIncDec)

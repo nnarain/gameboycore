@@ -154,7 +154,7 @@ TEST(IncDecInstructions, IncMemory)
 {
 	CodeGenerator code;
 	code.block(
-		0x21, 0x50, 0x02,	// LD HL,$250
+		0x21, 0x00, 0xC0,	// LD HL,$250
 
 		0x35,				// DEC (HL)
 
@@ -166,14 +166,14 @@ TEST(IncDecInstructions, IncMemory)
 	const MMU& mmu = gameboy.getCPU().getMMU();
 	(void)run(gameboy, code.rom());
 
-	EXPECT_EQ(mmu.read(0x250), 0xFF);
+	EXPECT_EQ(mmu.read(0xC000), 0xFF);
 }
 
 TEST(IncDecInstructions, DecMemory)
 {
 	CodeGenerator code;
 	code.block(
-		0x21, 0x50, 0x02,	// LD HL,$250
+		0x21, 0x00, 0xC0,	// LD HL,$250
 
 		0x34,				// INC (HL)
 
@@ -185,7 +185,7 @@ TEST(IncDecInstructions, DecMemory)
 	const MMU& mmu = gameboy.getCPU().getMMU();
 	(void)run(gameboy, code.rom());
 
-	EXPECT_EQ(mmu.read(0x250), 0x01);
+	EXPECT_EQ(mmu.read(0xC000), 0x01);
 }
 
 

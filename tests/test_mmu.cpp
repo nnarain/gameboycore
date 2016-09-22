@@ -60,9 +60,9 @@ TEST(MMUTest, Write8Bit)
 	mmu.load(&rom[0], rom.size());
 
 	uint8_t b = 0x35;
-	mmu.write(b, 0x512);
+	mmu.write(b, 0xC000);
 
-	EXPECT_EQ(mmu.read(0x512), 0x35);
+	EXPECT_EQ(mmu.read(0xC000), 0x35);
 }
 
 TEST(MMUTest, Write16Bit)
