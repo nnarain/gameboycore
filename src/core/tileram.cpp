@@ -43,9 +43,9 @@ namespace gb
 		return tile;
 	}
 
-	Tile TileRAM::getSpriteTile(uint8_t tilenum) const
+	Tile TileRAM::getSpriteTile(const Sprite& sprite) const
 	{
-		auto tile_ptr = mmu_.getptr(getTileAddress<uint8_t>(0x8000, tilenum));
+		auto tile_ptr = mmu_.getptr(getTileAddress<uint8_t>(0x8000, sprite.tile));
 
 		Tile tile;
 		auto row = 0;
@@ -57,6 +57,62 @@ namespace gb
 
 			setRow(tile, msb, lsb, row);
 			row++;
+		}
+
+		// apply sprite attributes
+		if (sprite.isVerticallyFlipped())
+			tile = flipV(tile);
+		if (sprite.isHorizontallyFlipped())
+			tile = flipH(tile);
+
+		return tile;
+	}
+
+	Tile TileRAM::flipV(const Tile& old) const
+	{
+		static const auto NUM_ROWS = 8;
+		static const auto PIXELS_PER_ROW = 8;
+
+		Tile tile;
+
+		for (auto row = 0; row < NUM_ROWS; ++row)
+		{
+			auto target_row = NUM_ROWS - row;
+
+			auto old_idx = (row * PIXELS_PER_ROW);
+			auto target_idx = (target_row * PIXELS_PER_ROW);
+
+			tile.color[target_idx + 0] = old.color[old_idx + 0];
+			tile.color[target_idx + 1] = old.color[old_idx + 1];
+			tile.color[target_idx + 2] = old.color[old_idx + 2];
+			tile.color[target_idx + 3] = old.color[old_idx + 3];
+			tile.color[target_idx + 4] = old.color[old_idx + 4];
+			tile.color[target_idx + 5] = old.color[old_idx + 5];
+			tile.color[target_idx + 6] = old.color[old_idx + 6];
+			tile.color[target_idx + 7] = old.color[old_idx + 7];
+		}
+
+		return tile;
+	}
+
+	Tile TileRAM::flipH(const Tile& old) const
+	{
+		static const auto NUM_COLS = 8;
+		static const auto NUM_ROWS = 8;
+		static const auto PIXELS_PER_ROW = 8;
+
+		Tile tile;
+
+		for (auto col = 0; col < NUM_COLS; ++col)
+		{
+			auto old_idx = col;
+			auto target_idx = NUM_COLS - col;
+
+			for (auto row = 0; row < NUM_ROWS; ++row)
+			{
+				auto row_offset = (row * PIXELS_PER_ROW) - 1;
+				tile.color[target_idx + row_offset] = old.color[old_idx + row_offset];
+			}
 		}
 
 		return tile;

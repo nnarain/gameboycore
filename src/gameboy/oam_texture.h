@@ -35,7 +35,7 @@ public:
 
 		for (auto sprite : sprites)
 		{
-			auto tile = tileram.getSpriteTile(sprite.tile);
+			auto tile = tileram.getSpriteTile(sprite);
 
 			if (sprite.x == 0 || sprite.y == 0) continue;
 

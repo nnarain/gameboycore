@@ -9,6 +9,7 @@
 
 #include "gameboy/mmu.h"
 #include "gameboy/tile.h"
+#include "gameboy/sprite.h"
 #include "gameboy/lcd_controller.h"
 
 #include <cstdint>
@@ -30,7 +31,7 @@ namespace gb
 		~TileRAM();
 
 		Tile getTile(uint8_t tilenum) const;
-		Tile getSpriteTile(uint8_t tilenum) const;
+		Tile getSpriteTile(const Sprite& sprite) const;
 		std::vector<Tile> getTiles();
 
 		template<typename T>
@@ -41,6 +42,9 @@ namespace gb
 
 	private:
 		void setRow(Tile& tile, uint8_t msb, uint8_t lsb, int row) const;
+
+		Tile flipV(const Tile& old) const;
+		Tile flipH(const Tile& old) const;
 
 	private:
 		uint8_t* tile_ram_;

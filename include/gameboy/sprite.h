@@ -13,12 +13,23 @@ namespace gb
 	/**
 		Sprite object that are stored in OAM
 	*/
-	struct Sprite
+	class Sprite
 	{
+	public:
 		uint8_t y;
 		uint8_t x;
 		uint8_t tile;
 		uint8_t attr;
+
+		bool isHorizontallyFlipped() const
+		{
+			return (attr & (1 << 5)) != 0;
+		}
+
+		bool isVerticallyFlipped() const
+		{
+			return (attr & (1 << 6)) != 0;
+		}
 	};
 }
 
