@@ -15,19 +15,19 @@ namespace gb
 	class OAM
 	{
 	public:
-		OAM(MMU& mmu) : mmu_{mmu}
+		OAM(MMU& mmu) : mmu_{ mmu }
 		{
 		}
 
 		Sprite getSprite(uint8_t idx) const
 		{
-			auto ptr = mmu_.getptr(memorymap::OAM_START + (idx * sizeof(Sprite)));
+			auto sprite_base = memorymap::OAM_START + (idx * sizeof(Sprite));
 
 			Sprite sprite;
-			sprite.y    = ptr[0];
-			sprite.x    = ptr[1];
-			sprite.tile = ptr[2];
-			sprite.attr = ptr[3];
+			sprite.y    = mmu_.read(sprite_base + 0);
+			sprite.x    = mmu_.read(sprite_base + 1);
+			sprite.tile = mmu_.read(sprite_base + 2);
+			sprite.attr = mmu_.read(sprite_base + 3);
 
 			return sprite;
 		}

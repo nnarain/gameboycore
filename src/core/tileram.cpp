@@ -43,6 +43,25 @@ namespace gb
 		return tile;
 	}
 
+	Tile TileRAM::getSpriteTile(uint8_t tilenum) const
+	{
+		auto tile_ptr = mmu_.getptr(getTileAddress<uint8_t>(0x8000, tilenum));
+
+		Tile tile;
+		auto row = 0;
+
+		for (auto i = 0; i < TILE_SIZE; i += 2)
+		{
+			uint8_t lsb = tile_ptr[i + 0];
+			uint8_t msb = tile_ptr[i + 1];
+
+			setRow(tile, msb, lsb, row);
+			row++;
+		}
+
+		return tile;
+	}
+
 	std::vector<Tile> TileRAM::getTiles()
 	{
 		std::vector<Tile> tiles;

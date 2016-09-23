@@ -32,10 +32,16 @@ public:
 		TextureBuffer texture_buffer{ 256, 256, 0 };
 
 		auto sprites = oam_.getSprites();
+
 		for (auto sprite : sprites)
 		{
-			auto tile = tileram.getTile(sprite.tile);
-			texture_buffer.write(tile, sprite.x, sprite.y, palette);
+			auto tile = tileram.getSpriteTile(sprite.tile);
+
+			if (sprite.x == 0 || sprite.y == 0) continue;
+
+			uint8_t x_coord = sprite.x - 8;
+			uint8_t y_coord = sprite.y - 16;
+			texture_buffer.write(tile, x_coord, y_coord, palette);
 		}
 
 		texture_.update(texture_buffer.get());
@@ -52,7 +58,7 @@ public:
 
 private:
 	sf::Texture texture_;
-	gb::OAM& oam_;
+	gb::OAM oam_;
 };
 
 #endif

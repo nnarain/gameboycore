@@ -49,7 +49,6 @@ namespace gb
 		}
 		else
 		{
-			// TODO: implement ROM bank switching
 			memory_[addr] = value;
 		}
     }
@@ -135,13 +134,7 @@ namespace gb
 		// increments of $100 bytes
 		uint16_t addr = ((base & 0xFF) << 8) | 0x0000;
 
-		// OAM base address
-		uint16_t oam_base = memorymap::OAM_START;
-
-		// size of OAM RAM
-		uint16_t oam_size = RANGE(OAM);
-
-		std::memcpy(getptr(oam_base), getptr(addr), oam_size);
+		std::memcpy(getptr(memorymap::OAM_START), getptr(addr), RANGE(OAM));
 	}
 
 	unsigned int MMU::numBanks() const

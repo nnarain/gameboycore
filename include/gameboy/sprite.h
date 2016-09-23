@@ -1,3 +1,8 @@
+
+/**
+	@author Natesh Narain <nnaraindev@gmail.com>
+*/
+
 #ifndef GAMEBOY_SPRITE_H
 #define GAMEBOY_SPRITE_H
 
@@ -5,6 +10,9 @@
 
 namespace gb
 {
+	/**
+		Sprite object that are stored in OAM
+	*/
 	struct Sprite
 	{
 		uint8_t y;

@@ -23,6 +23,7 @@ namespace gb
 
     public:
         MMU();
+		MMU(const MMU&) = delete;
         ~MMU();
 
 		/**

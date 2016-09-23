@@ -30,6 +30,7 @@ namespace gb
 		~TileRAM();
 
 		Tile getTile(uint8_t tilenum) const;
+		Tile getSpriteTile(uint8_t tilenum) const;
 		std::vector<Tile> getTiles();
 
 		template<typename T>
