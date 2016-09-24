@@ -13,9 +13,7 @@
 
 #include <stdexcept>
 
-#include "tileset_texture.h"
-#include "tilemap_texture.h"
-#include "oam_texture.h"
+#include "screen_renderer.h"
 
 /**
 	\brief Emulator Window
@@ -25,17 +23,8 @@ class Window
 public:
 	Window(gb::Gameboy& gameboy) :
 		window_(sf::VideoMode(325, 300), "Tis Emulator"),
-		tileram_{gameboy.getTileRAM()},
-		background_texture_(gameboy.getTileMap(), gb::TileMap::Map::BACKGROUND),
-		oam_texture_{gameboy.getOAM()}
+		screen_renderer_{gameboy}
 	{
-		background_sprite_.setTexture(background_texture_.getTexture());
-		background_sprite_.setPosition(0, 0);
-		background_sprite_.setScale(2, 2);
-
-		oam_sprite_.setTexture(oam_texture_.getTexture());
-		oam_sprite_.setPosition(0, 0);
-		oam_sprite_.setScale(2, 2);
 	}
 
 	void update()
@@ -54,15 +43,13 @@ public:
 		}
 
 		window_.clear(sf::Color(255, 0, 0, 255));
-		window_.draw(background_sprite_);
-		window_.draw(oam_sprite_);
+		screen_renderer_.draw(window_);
 		window_.display();
 	}
 
 	void updateTextures()
 	{
-		background_texture_.update();
-		oam_texture_.update(tileram_);
+		screen_renderer_.update();
 	}
 
 	bool isOpen()
@@ -80,14 +67,7 @@ private:
 
 private:
 	sf::RenderWindow window_;
-
-	gb::TileRAM tileram_;
-
-	TileMapTexture background_texture_;
-	sf::Sprite background_sprite_;
-
-	OAMTexture oam_texture_;
-	sf::Sprite oam_sprite_;
+	ScreenRenderer screen_renderer_;
 };
 
 
