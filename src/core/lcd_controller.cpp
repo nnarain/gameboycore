@@ -178,6 +178,11 @@ namespace gb
 		return IS_SET(lcdc_, LCDCBits::ENABLE) != 0;
 	}
 
+	bool LCDController::isSpritesEnabled() const
+	{
+		return IS_SET(lcdc_, LCDCBits::OBJ_ON) != 0;
+	}
+
 	bool LCDController::isBackgroundEnabled() const
 	{
 		return IS_SET(lcdc_, LCDCBits::BG_DISPLAY_ON) != 0;

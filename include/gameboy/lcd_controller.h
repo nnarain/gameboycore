@@ -82,6 +82,7 @@ namespace gb
 		void setVBlankCallback(Callback callback);
 
 		bool isEnabled() const;
+		bool isSpritesEnabled() const;
 		bool isBackgroundEnabled() const;
 		bool isWindowOverlayEnabled() const;
 
