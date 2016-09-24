@@ -25,12 +25,14 @@ public:
 	ScreenRenderer(gb::Gameboy& gameboy) :
 		lcd_{gameboy.getLCDController()},
 		tilemap_{gameboy.getTileMap()},
-		tileram_{gameboy.getTileRAM()}
+		tileram_{gameboy.getTileRAM()},
+		oam_{gameboy.getOAM()}
 	{
 		if (!screen_texture_.create(256, 256))
 			throw std::runtime_error("Could not create texture");
 
 		screen_sprite_.setTexture(screen_texture_);
+		screen_sprite_.setScale(2, 2);
 	}
 
 	void draw(sf::RenderWindow& window)
@@ -56,11 +58,19 @@ public:
 
 		if (window_overlay_on)
 		{
-			// TODO
+			auto tiles = tilemap_.getMapData(tileram_, gb::TileMap::Map::WINDOW_OVERLAY);
+			drawBackgroundData(buffer, tiles);
 		}
 
 		if (sprites_on)
 		{
+			auto sprites = oam_.getSprites();
+			std::reverse(sprites.begin(), sprites.end());
+
+			for (auto sprite : sprites)
+			{
+				buffer.write(sprite, tileram_);
+			}
 		}
 
 		screen_texture_.update(buffer.get());
@@ -107,6 +117,7 @@ private:
 	gb::LCDController& lcd_; // LCD proxy?
 	gb::TileMap tilemap_;
 	gb::TileRAM tileram_;
+	gb::OAM     oam_;
 };
 
 #endif // EMULATOR_SCREEN_RENDERER_H
