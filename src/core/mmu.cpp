@@ -29,6 +29,11 @@ namespace gb
 
     uint8_t MMU::read(uint16_t addr) const
     {
+		if (addr == 0xFF04)
+		{
+			int x = 0;
+		}
+
         return memory_[addr];
     }
 
@@ -49,6 +54,11 @@ namespace gb
 		}
 		else
 		{
+			if (addr == memorymap::DIVIDER_REGISER)
+			{
+				int x = 0;
+			}
+
 			memory_[addr] = value;
 		}
     }

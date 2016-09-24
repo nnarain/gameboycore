@@ -26,14 +26,9 @@ public:
 	Window(gb::Gameboy& gameboy) :
 		window_(sf::VideoMode(325, 300), "Tis Emulator"),
 		tileram_{gameboy.getTileRAM()},
-		tileset_(gameboy.getTileRAM()),
 		background_texture_(gameboy.getTileMap(), gb::TileMap::Map::BACKGROUND),
 		oam_texture_{gameboy.getOAM()}
 	{
-		tileset_sprite_.setTexture(tileset_.getTexture());
-		tileset_sprite_.setPosition(150, 50);
-		tileset_sprite_.setScale(4, 4);
-
 		background_sprite_.setTexture(background_texture_.getTexture());
 		background_sprite_.setPosition(0, 0);
 		background_sprite_.setScale(2, 2);
@@ -58,7 +53,7 @@ public:
 			}
 		}
 
-		window_.clear();
+		window_.clear(sf::Color(255, 0, 0, 255));
 		window_.draw(background_sprite_);
 		window_.draw(oam_sprite_);
 		window_.display();
@@ -87,9 +82,6 @@ private:
 	sf::RenderWindow window_;
 
 	gb::TileRAM tileram_;
-	
-	TilesetTexture tileset_;
-	sf::Sprite tileset_sprite_;
 
 	TileMapTexture background_texture_;
 	sf::Sprite background_sprite_;

@@ -23,7 +23,7 @@ public:
 	void update(const gb::TileRAM& tileram)
 	{
 		static sf::Color palette[] = {
-			{ 255, 255, 255, 255 },
+			{ 0, 0, 0, 0 },
 			{ 192, 192, 192, 255 },
 			{ 96,  96,  96, 255 },
 			{ 0,   0,   0, 255 }
@@ -33,14 +33,19 @@ public:
 
 		auto sprites = oam_.getSprites();
 
+		std::reverse(sprites.begin(), sprites.end());
+
 		for (auto sprite : sprites)
 		{
 			auto tile = tileram.getSpriteTile(sprite);
 
-			if (sprite.x == 0 || sprite.y == 0) continue;
+			uint8_t x_coord = sprite.x - 8 - 8;
+			uint8_t y_coord = sprite.y - 16 - 8;
 
-			uint8_t x_coord = sprite.x - 8;
-			uint8_t y_coord = sprite.y - 16;
+			if (x_coord == 0 || x_coord >= 168) continue;
+			if (y_coord == 0 || y_coord >= 160) continue;
+			//if (!sprite.hasPriority()) continue;
+
 			texture_buffer.write(tile, x_coord, y_coord, palette);
 		}
 

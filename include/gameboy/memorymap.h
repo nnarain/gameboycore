@@ -82,6 +82,8 @@ namespace gb{
 
 			JOYPAD_REGISTER = 0xFF00,
 
+			DIVIDER_REGISER = 0xFF04,
+
 			DMA_REGISTER = 0xFF46,
 
 			HIGH_RAM_START = 0xFF80,

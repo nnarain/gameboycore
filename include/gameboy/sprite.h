@@ -21,14 +21,19 @@ namespace gb
 		uint8_t tile;
 		uint8_t attr;
 
-		bool isHorizontallyFlipped() const
+		constexpr bool isHorizontallyFlipped() const
 		{
 			return (attr & (1 << 5)) != 0;
 		}
 
-		bool isVerticallyFlipped() const
+		constexpr bool isVerticallyFlipped() const
 		{
 			return (attr & (1 << 6)) != 0;
+		}
+
+		constexpr bool hasPriority() const
+		{
+			return (attr & (1 << 7)) == 0;
 		}
 	};
 }

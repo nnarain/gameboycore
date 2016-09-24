@@ -21,7 +21,7 @@ namespace gb
 
 		Sprite getSprite(uint8_t idx) const
 		{
-			auto sprite_base = memorymap::OAM_START + (idx * sizeof(Sprite));
+			auto sprite_base = memorymap::OAM_START + (idx * 4);
 
 			Sprite sprite;
 			sprite.y    = mmu_.read(sprite_base + 0);
