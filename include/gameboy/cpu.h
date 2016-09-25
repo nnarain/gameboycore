@@ -190,6 +190,8 @@ namespace gb
 
 		uint8_t& interrupt_enable_;
 		uint8_t& interrupt_flags_;
+
+		Register* div_;
     };
 }
 

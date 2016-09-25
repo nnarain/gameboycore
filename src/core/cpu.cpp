@@ -52,7 +52,7 @@ namespace gb
 			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 		}
 
-		cycle_count_ += cycles;
+		div_->lo += cycles;
 
 		lcd_.clock(cycles);
 
@@ -2098,11 +2098,13 @@ namespace gb
 		pc_.val = memorymap::PROGRAM_START;
 
 		cycle_count_ = 0;
-		halted_                  = false;
-		stopped_                 = false;
+		halted_ = false;
+		stopped_ = false;
 		interrupt_master_enable_ = false;
 		interrupt_master_enable_pending_ = -1;
 		interrupt_master_disable_pending_ = -1;
+
+		div_ = (Register*)mmu_.getptr(memorymap::DIVIDER_LO_REGISTER);
 	}
 
 	void CPU::setDebugMode(bool debug_mode)

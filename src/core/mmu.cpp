@@ -59,6 +59,11 @@ namespace gb
 				int x = 0;
 			}
 
+			if (addr >= 0xC000 && addr <= 0xC09F)
+			{
+				int x = 0;
+			}
+
 			memory_[addr] = value;
 		}
     }

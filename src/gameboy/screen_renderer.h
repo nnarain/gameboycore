@@ -46,9 +46,9 @@ public:
 		TextureBuffer buffer(256, 256, 0);
 
 		// grab flags for what maps are being drawn
-		bool background_on = lcd_.isBackgroundEnabled();
+		bool background_on     = lcd_.isBackgroundEnabled();
 		bool window_overlay_on = lcd_.isWindowOverlayEnabled();
-		bool sprites_on = lcd_.isSpritesEnabled();
+		bool sprites_on        = lcd_.isSpritesEnabled();
 
 		if (background_on)
 		{
