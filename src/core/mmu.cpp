@@ -49,7 +49,11 @@ namespace gb
 		}
 		else
 		{
-			// TODO: implement ROM bank switching
+			if (addr >= 0xC010 && addr <= 0xC02C)
+			{
+				int x = value;
+			}
+
 			memory_[addr] = value;
 		}
     }
@@ -76,7 +80,7 @@ namespace gb
 	void MMU::loadROMBanks(uint8_t rom_size, uint8_t * rom)
 	{
 		static unsigned int rom_banks1[] = {
-			2, 4, 8, 16, 32, 64, 128, 256 
+			2, 4, 8, 16, 32, 64, 128, 256
 		};
 		static unsigned int rom_banks2[] = {
 			72, 80, 96
@@ -94,7 +98,7 @@ namespace gb
 			// since there are always 2 available in the $0000 - $3FFF range
 			unsigned int switchable_rom_banks = cartridge_rom_banks - 2;
 
-			if (cartridge_rom_banks != 0) 
+			if (cartridge_rom_banks != 0)
 			{
 				rom_banks_.clear();
 				rom_banks_.resize(switchable_rom_banks);
@@ -135,13 +139,7 @@ namespace gb
 		// increments of $100 bytes
 		uint16_t addr = ((base & 0xFF) << 8) | 0x0000;
 
-		// OAM base address
-		uint16_t oam_base = memorymap::OAM_START;
-
-		// size of OAM RAM
-		uint16_t oam_size = RANGE(OAM);
-
-		std::memcpy(getptr(oam_base), getptr(addr), oam_size);
+		std::memcpy(getptr(memorymap::OAM_START), getptr(addr), memorymap::OAM_END - memorymap::OAM_START);
 	}
 
 	unsigned int MMU::numBanks() const

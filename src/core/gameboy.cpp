@@ -11,7 +11,7 @@ namespace gb
 
     void Gameboy::update()
     {
-		for (int i = 0; i < step_count_; i++)
+		for (auto i = 0u; i < step_count_; i++)
 		{
 			cpu_.step();
 		}
@@ -52,6 +52,11 @@ namespace gb
 	{
 		const LCDController& lcd = cpu_.getLCDController();
 		return TileMap(TileRAM(cpu_.getMMU(), lcd), cpu_.getMMU(), lcd);
+	}
+
+	OAM Gameboy::getOAM()
+	{
+		return OAM{ cpu_.getMMU() };
 	}
 
 	LCDController& Gameboy::getLCDController()

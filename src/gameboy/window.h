@@ -13,8 +13,7 @@
 
 #include <stdexcept>
 
-#include "tileset_texture.h"
-#include "tilemap_texture.h"
+#include "screen_renderer.h"
 
 /**
 	\brief Emulator Window
@@ -24,16 +23,8 @@ class Window
 public:
 	Window(gb::Gameboy& gameboy) :
 		window_(sf::VideoMode(325, 300), "Tis Emulator"),
-		tileset_(gameboy.getTileRAM()),
-		background_texture_(gameboy.getTileMap(), gb::TileMap::Map::BACKGROUND)
+		screen_renderer_{gameboy}
 	{
-		tileset_sprite_.setTexture(tileset_.getTexture());
-		tileset_sprite_.setPosition(150, 50);
-		tileset_sprite_.setScale(4, 4);
-
-		background_sprite_.setTexture(background_texture_.getTexture());
-		background_sprite_.setPosition(0, 0);
-		background_sprite_.setScale(2, 2);
 	}
 
 	void update()
@@ -47,22 +38,54 @@ public:
 			case sf::Event::Closed:
 				window_.close();
 				break;
-				// TODO: add other enum values here
+			case sf::Event::Resized:
+				break;
+			case sf::Event::LostFocus:
+				break;
+			case sf::Event::GainedFocus:
+				break;
+			case sf::Event::TextEntered:
+				break;
+			case sf::Event::KeyPressed:
+				break;
+			case sf::Event::KeyReleased:
+				break;
+			case sf::Event::MouseWheelMoved:
+				break;
+			case sf::Event::MouseButtonPressed:
+				break;
+			case sf::Event::MouseButtonReleased:
+				break;
+			case sf::Event::MouseMoved:
+				break;
+			case sf::Event::MouseEntered:
+				break;
+			case sf::Event::MouseLeft:
+				break;
+			case sf::Event::JoystickButtonPressed:
+				break;
+			case sf::Event::JoystickButtonReleased:
+				break;
+			case sf::Event::JoystickMoved:
+				break;
+			case sf::Event::JoystickConnected:
+				break;
+			case sf::Event::JoystickDisconnected:
+				break;
+			case sf::Event::Count:
+				std::runtime_error("Invalid event type");
+				break;
 			}
 		}
 
-		window_.clear();
-		//tileset_.update();
-		//background_texture_.update();
-
-		//window_.draw(tileset_sprite_);
-		window_.draw(background_sprite_);
+		window_.clear(sf::Color(255, 0, 0, 255));
+		screen_renderer_.draw(window_);
 		window_.display();
 	}
 
 	void updateTextures()
 	{
-		background_texture_.update();
+		screen_renderer_.update();
 	}
 
 	bool isOpen()
@@ -80,15 +103,8 @@ private:
 
 private:
 	sf::RenderWindow window_;
-	
-	TilesetTexture tileset_;
-	sf::Sprite tileset_sprite_;
-
-	TileMapTexture background_texture_;
-	sf::Sprite background_sprite_;
-
+	ScreenRenderer screen_renderer_;
 };
 
 
 #endif // EMULATOR_WINDOW_H
-

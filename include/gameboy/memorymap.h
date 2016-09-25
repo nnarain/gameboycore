@@ -7,8 +7,6 @@
 #ifndef GAMEBOY_MEMORYMAP_H
 #define GAMEBOY_MEMORYMAP_H
 
-#define RANGE(name) ((memorymap:: ## name ## _END) - (memorymap:: ## name ## _START))
-
 namespace gb{
 	namespace memorymap{
 		enum {
@@ -81,6 +79,9 @@ namespace gb{
 			OAM_END = 0xFE9F,
 
 			JOYPAD_REGISTER = 0xFF00,
+
+			DIVIDER_LO_REGISTER = 0xFF03,
+			DIVIDER_REGISER = 0xFF04,
 
 			DMA_REGISTER = 0xFF46,
 

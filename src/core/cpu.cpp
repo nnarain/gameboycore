@@ -18,10 +18,15 @@ namespace gb
 		alu_(af_.lo),
 		lcd_(mmu_),
 		halted_(false),
-		cycle_count_(0),
+		stopped_(false),
+		interrupt_master_enable_(false),
+		interrupt_master_enable_pending_(-1),
+		interrupt_master_disable_pending_(-1),
 		debug_mode_(false),
+		cycle_count_(0),
 		interrupt_flags_(mmu_.get(memorymap::INTERRUPT_FLAG)),
-		interrupt_enable_(mmu_.get(memorymap::INTERRUPT_ENABLE))
+		interrupt_enable_(mmu_.get(memorymap::INTERRUPT_ENABLE)),
+		div_(nullptr)
 	{
 		reset();
 	}
@@ -52,12 +57,12 @@ namespace gb
 			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 		}
 
-		cycle_count_ += cycles;
+		div_->lo += cycles;
 
 		lcd_.clock(cycles);
 
 		std::vector<uint16_t> breakpoints = {
-			0x40F
+			0x2B4F
 		};
 
 		for (uint16_t addr : breakpoints)
@@ -522,19 +527,19 @@ namespace gb
 				pc_.val += 2;
 			break;
 		case 0xCA: // JP Z,nn
-			if (IS_SET(af_.lo, Flags::Z)) 
+			if (IS_SET(af_.lo, Flags::Z))
 				jp(load16Imm());
 			else
 				pc_.val += 2;
 			break;
 		case 0xD2: // JP NC,nn
-			if (IS_CLR(af_.lo, Flags::C)) 
+			if (IS_CLR(af_.lo, Flags::C))
 				jp(load16Imm());
 			else
 				pc_.val += 2;
 			break;
 		case 0xDA: // JP C,nn
-			if (IS_SET(af_.lo, Flags::C)) 
+			if (IS_SET(af_.lo, Flags::C))
 				jp(load16Imm());
 			else
 				pc_.val += 2;
@@ -553,19 +558,19 @@ namespace gb
 				pc_.val++; // skip next byte
 			break;
 		case 0x28: // JR Z,n
-			if (IS_SET(af_.lo, Flags::Z)) 
+			if (IS_SET(af_.lo, Flags::Z))
 				jr((int8_t)load8Imm());
 			else
 				pc_.val++; // skip next byte
 			break;
 		case 0x30: // JR NC,n
-			if(IS_CLR(af_.lo, Flags::C)) 
+			if(IS_CLR(af_.lo, Flags::C))
 				jr((int8_t)load8Imm());
 			else
 				pc_.val++; // skip next byte
 			break;
 		case 0x38: // JR C,n
-			if (IS_SET(af_.lo, Flags::C)) 
+			if (IS_SET(af_.lo, Flags::C))
 				jr((int8_t)load8Imm());
 			else
 				pc_.val++; // skip next byte
@@ -584,19 +589,19 @@ namespace gb
 				pc_.val += 2;
 			break;
 		case 0xCC: // CALL Z,nn
-			if (IS_SET(af_.lo, Flags::Z)) 
+			if (IS_SET(af_.lo, Flags::Z))
 				call(load16Imm());
 			else
 				pc_.val += 2;
 			break;
 		case 0xD4: // CALL NC,nn
-			if (IS_CLR(af_.lo, Flags::C)) 
+			if (IS_CLR(af_.lo, Flags::C))
 				call(load16Imm());
 			else
 				pc_.val += 2;
 			break;
 		case 0xDC: // CALL C,nn
-			if (IS_SET(af_.lo, Flags::C)) 
+			if (IS_SET(af_.lo, Flags::C))
 				call(load16Imm());
 			else
 				pc_.val += 2;
@@ -719,37 +724,37 @@ namespace gb
 
 		// add with carry
 		case 0x8F: // ADC A,A
-			alu_.add(af_.hi, af_.hi);
+			alu_.addc(af_.hi, af_.hi);
 			break;
 		case 0x88: // ADC A,B
-			alu_.add(af_.hi, bc_.hi);
+			alu_.addc(af_.hi, bc_.hi);
 			break;
 		case 0x89: // ADC A,C
-			alu_.add(af_.hi, bc_.lo);
+			alu_.addc(af_.hi, bc_.lo);
 			break;
 		case 0x8A: // ADC A,D
-			alu_.add(af_.hi, de_.hi);
+			alu_.addc(af_.hi, de_.hi);
 			break;
 		case 0x8B: // ADC A,E
-			alu_.add(af_.hi, de_.lo);
+			alu_.addc(af_.hi, de_.lo);
 			break;
 		case 0x8C: // ADC A,H
-			alu_.add(af_.hi, hl_.hi);
+			alu_.addc(af_.hi, hl_.hi);
 			break;
 		case 0x8D: // ADC A,L
-			alu_.add(af_.hi, hl_.lo);
+			alu_.addc(af_.hi, hl_.lo);
 			break;
 		case 0x8E: // ADC A,(HL)
-			alu_.add(af_.hi, mmu_.read(hl_.val));
+			alu_.addc(af_.hi, mmu_.read(hl_.val));
 			break;
 		case 0xCE: // ADC A,n
-			alu_.add(af_.hi, load8Imm());
+			alu_.addc(af_.hi, load8Imm());
 			break;
 
 		// 16 bit addition
 		case 0x09: // ADD HL,BC
 			alu_.add(hl_.val, bc_.val);
-			break; 
+			break;
 		case 0x19: // ADD HL,DE
 			alu_.add(hl_.val, de_.val);
 			break;
@@ -1857,15 +1862,15 @@ namespace gb
 			// mask off disabled interrupts
 			uint8_t pending_interrupts = interrupt_flags_ & interrupt_enable_;
 
-			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))                   
+			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
 				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
-			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))                
+			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
 				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
-			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))            
+			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))
 				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
-			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE)) 
+			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
 				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
-			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))                   
+			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))
 				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
 		}
 	}
@@ -1898,7 +1903,7 @@ namespace gb
 				uint8_t userdata = mmu_.read(userdata_addr);
 				std::sprintf(str, opcodeinfo.disassembly, userdata);
 			}
-			else // OperandType::IMM16 
+			else // OperandType::IMM16
 			{
 				uint8_t lo = mmu_.read(userdata_addr);
 				uint8_t hi = mmu_.read(userdata_addr + 1);
@@ -1910,9 +1915,9 @@ namespace gb
 		std::string padding(spaces_before_registers - std::strlen(str), ' ');
 
 		// print debug info
-		std::printf("%04X: %s%s| PC: %04X, A: %02X, BC: %02X%02X, DE: %02X%02X, HL: %02X%02X | SP: %04X -> %04X | F: %02X | IF: %02X, IE: %02X\n", 
-			userdata_addr - 1, 
-			str, 
+		std::printf("%04X: %s%s| PC: %04X, A: %02X, BC: %02X%02X, DE: %02X%02X, HL: %02X%02X | SP: %04X -> %04X | F: %02X | IF: %02X, IE: %02X\n",
+			userdata_addr - 1,
+			str,
 			padding.c_str(),
 			pc_.val,
 			af_.hi,
@@ -2098,11 +2103,13 @@ namespace gb
 		pc_.val = memorymap::PROGRAM_START;
 
 		cycle_count_ = 0;
-		halted_                  = false;
-		stopped_                 = false;
+		halted_ = false;
+		stopped_ = false;
 		interrupt_master_enable_ = false;
 		interrupt_master_enable_pending_ = -1;
 		interrupt_master_disable_pending_ = -1;
+
+		div_ = (Register*)mmu_.getptr(memorymap::DIVIDER_LO_REGISTER);
 	}
 
 	void CPU::setDebugMode(bool debug_mode)

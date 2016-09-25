@@ -38,13 +38,14 @@ TEST(ALUTests, AddWithCarry)
 	uint8_t flags = CPU::Flags::C;
 	ALU alu(flags);
 
-	uint8_t a = 0x16;
+	uint8_t a = 0x6F;
 	alu.addc(a, 0x10);
 
-	EXPECT_EQ(a, 0x27);
+	EXPECT_EQ(a, 0x80);
 	EXPECT_EQ(flags & CPU::Flags::N, 0);
 	EXPECT_EQ(flags & CPU::Flags::C, 0);
 	EXPECT_EQ(flags & CPU::Flags::Z, 0);
+	EXPECT_EQ(flags & CPU::Flags::H, CPU::Flags::H);
 }
 
 TEST(ALUTests, AddRelative)
