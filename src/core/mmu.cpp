@@ -49,11 +49,6 @@ namespace gb
 		}
 		else
 		{
-			if (addr >= 0xC010 && addr <= 0xC02C)
-			{
-				int x = value;
-			}
-
 			memory_[addr] = value;
 		}
     }

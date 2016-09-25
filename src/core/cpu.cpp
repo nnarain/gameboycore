@@ -62,7 +62,7 @@ namespace gb
 		lcd_.clock(cycles);
 
 		std::vector<uint16_t> breakpoints = {
-			0x2B4F
+			
 		};
 
 		for (uint16_t addr : breakpoints)

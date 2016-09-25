@@ -128,7 +128,7 @@ namespace gb
 		if (newState == State::MODE1)
 		{
 			callback_();
-			vblank_provider_.set(); // TODO: enable this again
+			vblank_provider_.set();
 		}
 
 		state_ = newState;
