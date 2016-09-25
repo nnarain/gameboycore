@@ -12,9 +12,9 @@ namespace gb
 		stat_(mmu.get(LCDRegister::STAT)),
 		ly_(mmu.get(LCDRegister::LY)),
 		lyc_(mmu.get(LCDRegister::LYC)),
-		state_(State::MODE2),
 		line_count_(0),
 		mode_count_(0),
+		state_(State::MODE2),
 		is_enabled_(false),
 		lcd_stat_provider_(mmu, InterruptProvider::Interrupt::LCDSTAT),
 		vblank_provider_(mmu, InterruptProvider::Interrupt::VBLANK)
