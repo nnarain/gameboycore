@@ -7,13 +7,13 @@
 
 namespace gb
 {
-	TileRAM::TileRAM(MMU& mmu, const LCDController& lcd) : 
-		tile_ram_(mmu.getptr(0x8000)), 
+	TileRAM::TileRAM(MMU& mmu, const LCDController& lcd) :
+		tile_ram_(mmu.getptr(0x8000)),
 		mmu_(mmu),
 		lcd_(lcd)
 	{
 	}
-	
+
 	Tile TileRAM::getTile(uint8_t tilenum) const
 	{
 		uint16_t tile_addr;
@@ -31,7 +31,7 @@ namespace gb
 		Tile tile;
 		int row = 0;
 
-		for (int i = 0; i < TILE_SIZE; i += 2)
+		for (auto i = 0u; i < TILE_SIZE; i += 2)
 		{
 			uint8_t lsb = tile_ptr[i + 0];
 			uint8_t msb = tile_ptr[i + 1];
@@ -50,7 +50,7 @@ namespace gb
 		Tile tile;
 		auto row = 0;
 
-		for (auto i = 0; i < TILE_SIZE; i += 2)
+		for (auto i = 0u; i < TILE_SIZE; i += 2)
 		{
 			uint8_t lsb = tile_ptr[i + 0];
 			uint8_t msb = tile_ptr[i + 1];
@@ -122,15 +122,15 @@ namespace gb
 	{
 		std::vector<Tile> tiles;
 
-		for (int i = 0; i < NUM_TILES; i++)
+		for (auto i = 0u; i < NUM_TILES; i++)
 		{
 			unsigned int offset = i * TILE_SIZE;
 			uint8_t* current_tile_ptr = tile_ram_ + offset;
 
 			Tile tile;
 			int row = 0;
-			
-			for (int j = 0; j < TILE_SIZE; j += 2)
+
+			for (auto j = 0u; j < TILE_SIZE; j += 2)
 			{
 				uint8_t lsb = current_tile_ptr[j + 0];
 				uint8_t msb = current_tile_ptr[j + 1];
