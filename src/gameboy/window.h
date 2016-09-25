@@ -22,7 +22,7 @@ class Window
 {
 public:
 	Window(gb::Gameboy& gameboy) :
-		window_(sf::VideoMode(325, 300), "Tis Emulator"),
+		window_(sf::VideoMode(320, 297), "Tis Emulator"),
 		screen_renderer_{gameboy}
 	{
 	}
