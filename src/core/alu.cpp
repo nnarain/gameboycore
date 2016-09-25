@@ -57,10 +57,10 @@ namespace gb
 
 	void ALU::addc(uint8_t& a, uint8_t n)
 	{
-		bool is_half_carry = IS_HALF_CARRY(a, n);
-		bool is_full_carry = IS_FULL_CARRY(a, n);
-
 		uint8_t carry = (IS_SET(flags_, ALU::Flags::C)) ? 1 : 0;
+
+		bool is_half_carry = IS_HALF_CARRY(a, (n + carry));
+		bool is_full_carry = IS_FULL_CARRY(a, (n + carry));
 
 		a += (n + carry);
 

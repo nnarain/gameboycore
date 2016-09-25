@@ -57,7 +57,7 @@ namespace gb
 		lcd_.clock(cycles);
 
 		std::vector<uint16_t> breakpoints = {
-			0x0B19, 0x1BCA, 0x1BDE, 0x209E, 0x6843, 0x6854
+			0x2B4F
 		};
 
 		for (uint16_t addr : breakpoints)
@@ -719,31 +719,31 @@ namespace gb
 
 		// add with carry
 		case 0x8F: // ADC A,A
-			alu_.add(af_.hi, af_.hi);
+			alu_.addc(af_.hi, af_.hi);
 			break;
 		case 0x88: // ADC A,B
-			alu_.add(af_.hi, bc_.hi);
+			alu_.addc(af_.hi, bc_.hi);
 			break;
 		case 0x89: // ADC A,C
-			alu_.add(af_.hi, bc_.lo);
+			alu_.addc(af_.hi, bc_.lo);
 			break;
 		case 0x8A: // ADC A,D
-			alu_.add(af_.hi, de_.hi);
+			alu_.addc(af_.hi, de_.hi);
 			break;
 		case 0x8B: // ADC A,E
-			alu_.add(af_.hi, de_.lo);
+			alu_.addc(af_.hi, de_.lo);
 			break;
 		case 0x8C: // ADC A,H
-			alu_.add(af_.hi, hl_.hi);
+			alu_.addc(af_.hi, hl_.hi);
 			break;
 		case 0x8D: // ADC A,L
-			alu_.add(af_.hi, hl_.lo);
+			alu_.addc(af_.hi, hl_.lo);
 			break;
 		case 0x8E: // ADC A,(HL)
-			alu_.add(af_.hi, mmu_.read(hl_.val));
+			alu_.addc(af_.hi, mmu_.read(hl_.val));
 			break;
 		case 0xCE: // ADC A,n
-			alu_.add(af_.hi, load8Imm());
+			alu_.addc(af_.hi, load8Imm());
 			break;
 
 		// 16 bit addition
