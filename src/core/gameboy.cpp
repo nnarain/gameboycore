@@ -11,7 +11,7 @@ namespace gb
 
     void Gameboy::update()
     {
-		for (int i = 0; i < step_count_; i++)
+		for (auto i = 0u; i < step_count_; i++)
 		{
 			cpu_.step();
 		}

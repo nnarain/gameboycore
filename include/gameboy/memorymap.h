@@ -7,8 +7,6 @@
 #ifndef GAMEBOY_MEMORYMAP_H
 #define GAMEBOY_MEMORYMAP_H
 
-#define RANGE(name) ((memorymap:: ## name ## _END) - (memorymap:: ## name ## _START))
-
 namespace gb{
 	namespace memorymap{
 		enum {

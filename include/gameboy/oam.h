@@ -15,7 +15,7 @@ namespace gb
 	class OAM
 	{
 	public:
-		OAM(MMU& mmu) : mmu_{ mmu }
+		OAM(MMU& mmu) : mmu_(mmu)
 		{
 		}
 

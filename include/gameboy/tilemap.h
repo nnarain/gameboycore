@@ -70,7 +70,7 @@ namespace gb
 
 	public:
 
-		TileMap(TileRAM& tileram, const MMU& mmu, const LCDController& lcd) : 
+		TileMap(const TileRAM& tileram, const MMU& mmu, const LCDController& lcd) : 
 			tileram_(tileram),
 			mmu_(mmu),
 			lcd_(lcd)

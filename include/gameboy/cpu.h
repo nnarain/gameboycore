@@ -116,7 +116,7 @@ namespace gb
 		void out(uint16_t offset);
 
 		/**
-			INC/DEC 
+			INC/DEC
 		*/
 		void inc(uint8_t&);
 		void inc(uint16_t&);
@@ -188,8 +188,8 @@ namespace gb
 
 		uint16_t cycle_count_;
 
+        uint8_t& interrupt_flags_;
 		uint8_t& interrupt_enable_;
-		uint8_t& interrupt_flags_;
 
 		Register* div_;
     };

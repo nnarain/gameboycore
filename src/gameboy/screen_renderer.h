@@ -23,10 +23,10 @@ class ScreenRenderer
 {
 public:
 	ScreenRenderer(gb::Gameboy& gameboy) :
-		lcd_{gameboy.getLCDController()},
-		tilemap_{gameboy.getTileMap()},
-		tileram_{gameboy.getTileRAM()},
-		oam_{gameboy.getOAM()}
+		lcd_(gameboy.getLCDController()),
+		tilemap_(gameboy.getTileMap()),
+		tileram_(gameboy.getTileRAM()),
+		oam_(gameboy.getOAM())
 	{
 		if (!screen_texture_.create(256, 256))
 			throw std::runtime_error("Could not create texture");
