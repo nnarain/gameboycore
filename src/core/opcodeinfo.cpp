@@ -165,14 +165,14 @@ namespace gb
 		{ 4, "sub L",      }, // 0x95
 		{ 8, "sub (HL)",   }, // 0x96
 		{ 4, "sub A",      }, // 0x97
-		{ 4, "subc A,B",   }, // 0x98
-		{ 4, "subc A,C",   }, // 0x99
-		{ 4, "subc A,D",   }, // 0x9A
-		{ 4, "subc A,E",   }, // 0x9B
-		{ 4, "subc A,H",   }, // 0x9C
-		{ 4, "subc A,L",   }, // 0x9D
-		{ 8, "subc A,(HL)",}, // 0x9E
-		{ 4, "subc A,A",   }, // 0x9F
+		{ 4, "sbc A,B",   }, // 0x98
+		{ 4, "sbc A,C",   }, // 0x99
+		{ 4, "sbc A,D",   }, // 0x9A
+		{ 4, "sbc A,E",   }, // 0x9B
+		{ 4, "sbc A,H",   }, // 0x9C
+		{ 4, "sbc A,L",   }, // 0x9D
+		{ 8, "sbc A,(HL)",}, // 0x9E
+		{ 4, "sbc A,A",   }, // 0x9F
 
 		{ 4, "and B",      }, // 0xA0
 		{ 4, "and C",      }, // 0xA1
