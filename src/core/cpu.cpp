@@ -2071,7 +2071,75 @@ namespace gb
 
 	void CPU::daa()
 	{
-		// TODO
+		bool z = IS_SET(af_.lo, CPU::Flags::Z) != 0;
+		bool n = IS_SET(af_.lo, CPU::Flags::N) != 0;
+		bool h = IS_SET(af_.lo, CPU::Flags::H) != 0;
+		bool c = IS_SET(af_.lo, CPU::Flags::C) != 0;
+
+		if (n)
+		{
+			// was a form of subtraction instruction
+
+			// offset values
+			uint8_t offsets[] = {
+				0x00, 0xFA, 0xA0, 0x9A
+			};
+
+			// get index
+			uint8_t idx = (((uint8_t)c) << 1) | (uint8_t)h;
+			// get offset
+			uint8_t offset = offsets[idx];
+
+			af_.hi += offset;
+
+			setFlag(CPU::Flags::C, c);
+		}
+		else
+		{
+			// was a form of addition instruction
+			
+			// get hi and lo nybbles of A
+			uint8_t hi = (af_.hi & 0xF0) >> 4;
+			uint8_t lo = (af_.lo & 0x0F);
+
+			uint8_t offset_hi = 0;
+			uint8_t offset_lo = 0;
+
+			if (!c)
+			{
+				if (hi >= 0x09)
+					offset_hi = 6;
+
+				if ((lo >= 0x0A) || h)
+					offset_lo = 6;
+
+				uint8_t offset = NYB_CAT(offset_hi, offset_lo);
+				bool carry = IS_FULL_CARRY(af_.hi, offset);
+
+				af_.hi += offset;
+
+				setFlag(CPU::Flags::C, carry);
+			}
+			else
+			{
+				offset_hi = 6;
+
+				if ((lo >= 0x0A) || h)
+				{
+					offset_lo = 6;
+				}
+
+				af_.hi += NYB_CAT(hi, lo);
+
+				setFlag(CPU::Flags::C, true);
+			}
+
+		}
+
+
+		setFlag(CPU::Flags::Z, af_.hi == 0);
+		setFlag(CPU::Flags::H, false);
+		
 	}
 
 	void CPU::bit(uint8_t val, uint8_t n)
