@@ -47,9 +47,57 @@ TEST(JumpInstructions, ZFlag)
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
 	EXPECT_EQ(status.pc.val, 0x300);
+
+	code.reset();
+
+	code.block(
+		0x06, 0x01,			// LD B,1
+		0x05,				// DEC B
+		0xC2, 0x50, 0x02,	// JP NZ,$250
+		0x76				// halt
+	);
+
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.pc.val, 0x156);
 }
 
-// TODO: Test C Flag Condition
+TEST(JumpInstructions, CFlag)
+{
+	CodeGenerator code;
+	code.block(
+		0x37,				// SCF
+		0xDA, 0x50, 0x02	// JP C,$250
+	);
+	code.address(0x250);
+	code.block(
+		0x3F,				// CCF
+		0xD2, 0x00, 0x03	// JP NC,$300
+	);
+	code.address(0x300);
+	code.block(
+		0x76				// halt
+	);
+
+	Gameboy gameboy;
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
+	EXPECT_EQ(status.pc.val, 0x300);
+
+	code.reset();
+
+	code.block(
+		0xDA, 0x50, 0x02,	// JP C,$250
+		0x76				// halt
+	);
+
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
+	EXPECT_EQ(status.pc.val, 0x153);
+}
 
 TEST(JumpInstructions, RelativeBase)
 {
