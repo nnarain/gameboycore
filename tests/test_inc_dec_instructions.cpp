@@ -213,9 +213,7 @@ TEST(IncDecInstructions, HalfCarryFlag)
 	CodeGenerator code;
 	code.block(
 		0x06, 0x0F,			// LD B,$0F
-
 		0x04,				// INC B
-
 		0x76				// halt
 	);
 
@@ -227,4 +225,21 @@ TEST(IncDecInstructions, HalfCarryFlag)
 	EXPECT_EQ(status.af.lo & CPU::Flags::N, 0);
 }
 
-// TODO: Half Carry with DEC
+TEST(IncDecInstructions, HalfBorrow)
+{
+	CodeGenerator code;
+	code.block(
+		0x06, 0x10,			// LD B,$10
+		0x05,				// DEC B
+		0x76				// halt
+	);
+
+
+	Gameboy gameboy;
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
+	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.af.lo & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(status.af.lo & CPU::Flags::Z, 0);
+}
