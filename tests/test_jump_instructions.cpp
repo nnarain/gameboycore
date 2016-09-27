@@ -124,7 +124,7 @@ TEST(JumpInstructions, RelativeZFlag)
 {
 	CodeGenerator code;
 	code.block(
-		0x20, 0x10			// JR $10 -> $162
+		0x20, 0x10			// JR NZ,$10 -> $162
 	);
 	code.address(0x162);
 	code.block(
@@ -145,4 +145,26 @@ TEST(JumpInstructions, RelativeZFlag)
 }
 
 
-// TODO Test Relative Jump with C flag
+TEST(JumpInstructions, RelativeCFlag)
+{
+	CodeGenerator code;
+	code.block(
+		0x37,				// SCF
+		0x38, 0x10			// JR C,$10 -> $163
+	);
+	code.address(0x163);
+	code.block(
+		0x3F,				// CCF
+		0x38, 0x10			// JR C,$10
+	);
+	code.address(0x166);
+	code.block(
+		0x76				// halt
+	);
+
+	Gameboy gameboy;
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
+	EXPECT_EQ(status.pc.val, 0x166);
+}
