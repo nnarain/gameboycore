@@ -2212,12 +2212,13 @@ namespace gb
 	CPU::Status CPU::getStatus() const
 	{
 		Status status;
-		status.af = af_;
-		status.bc = bc_;
-		status.de = de_;
-		status.hl = hl_;
-		status.sp = sp_;
-		status.pc = pc_;
+		status.af   = af_;
+		status.bc   = bc_;
+		status.de   = de_;
+		status.hl   = hl_;
+		status.sp   = sp_;
+		status.pc   = pc_;
+		status.halt = halted_;
 
 		return status;
 	}

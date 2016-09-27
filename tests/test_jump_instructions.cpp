@@ -1,24 +1,15 @@
 
+/**
+	\author Natesh Narain <nnaraindev@gmail.com>
+*/
+
 #include <gtest/gtest.h>
+#include "test_helper.h"
 #include "util/codegenerator.h"
 
 #include <gameboy/gameboy.h>
 
 using namespace gb;
-
-static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
-{
-	gameboy.loadROM(&rom[0], rom.size());
-
-	while (!gameboy.isDone())
-		gameboy.update();
-
-	CPU::Status status = gameboy.getCPU().getStatus();
-
-	gameboy.reset();
-
-	return status;
-}
 
 TEST(JumpInstructions, BaseJump)
 {
@@ -31,6 +22,7 @@ TEST(JumpInstructions, BaseJump)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.pc.val, 0x150);
+	EXPECT_EQ(status.halt, true);
 }
 
 TEST(JumpInstructions, ZFlag)

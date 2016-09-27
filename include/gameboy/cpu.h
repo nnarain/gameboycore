@@ -46,6 +46,7 @@ namespace gb
 			Register hl;
 			Register sp;
 			Register pc;
+			bool halt;
 		};
 
 		enum Flags
