@@ -944,16 +944,16 @@ namespace gb
 		/* Rotate A*/
 
 		case 0x07: // RLCA
-			af_.hi = rotateLeft(af_.hi, 1, af_.lo);
+			af_.hi = rlca(af_.hi, af_.lo);
 			break;
 		case 0x17: // RLA
-			af_.hi = rotateLeftCarry(af_.hi, 1, af_.lo);
+			af_.hi = rla(af_.hi, af_.lo);
 			break;
 		case 0x0F: // RRCA
-			af_.hi = rotateRight(af_.hi, 1, af_.lo);
+			af_.hi = rrca(af_.hi, af_.lo);
 			break;
 		case 0x1F: // RRA
-			af_.hi = rotateRightCarry(af_.hi, 1, af_.lo);
+			af_.hi = rra(af_.hi, af_.lo);
 			break;
 
 		default:

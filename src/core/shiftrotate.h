@@ -10,6 +10,15 @@
 
 namespace gb
 {
+	uint8_t rlca(uint8_t val, uint8_t& flags);
+
+	uint8_t rla(uint8_t val, uint8_t& flags);
+
+
+	uint8_t rrca(uint8_t val, uint8_t& flags);
+
+	uint8_t rra(uint8_t val, uint8_t& flags);
+
 	/**
 		Rotate bits left and set carry flags
 	*/

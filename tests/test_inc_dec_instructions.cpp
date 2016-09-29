@@ -6,25 +6,12 @@
 */
 
 #include <gtest/gtest.h>
+#include "test_helper.h"
 #include "util/codegenerator.h"
 
 #include <gameboy/gameboy.h>
 
 using namespace gb;
-
-static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
-{
-	gameboy.loadROM(&rom[0], rom.size());
-
-	while (!gameboy.isDone())
-		gameboy.update();
-
-	CPU::Status status = gameboy.getCPU().getStatus();
-
-	gameboy.reset();
-
-	return status;
-}
 
 TEST(IncDecInstructions, Inc16Bit)
 {
