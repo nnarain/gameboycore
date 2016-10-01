@@ -31,7 +31,8 @@ namespace gb
 		r = (val << 1) | bit7;
 
 		flags = 0; // clear N, Z and H
-		flags |= (bit7 << C_BIT);
+	//	flags |= (bit7 << C_BIT);
+		setFlag(flags, C_MASK, bit7 == 1);
 
 		return r;
 	}
@@ -159,9 +160,6 @@ namespace gb
 		r = (val << n);
 
 		flags = 0;
-		//flags |= (bit7 << C_BIT);
-
-		//if (r == 0) flags |= Z_MASK;
 		setFlag(flags, C_MASK, bit7 == 1);
 		setFlag(flags, Z_MASK, r == 0);
 
