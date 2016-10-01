@@ -1,24 +1,11 @@
 
 #include <gtest/gtest.h>
+#include "test_helper.h"
 #include "util/codegenerator.h"
 
 #include <gameboy/gameboy.h>
 
 using namespace gb;
-
-static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
-{
-	gameboy.loadROM(&rom[0], rom.size());
-
-	while (!gameboy.isDone())
-		gameboy.update();
-
-	CPU::Status status = gameboy.getCPU().getStatus();
-
-	gameboy.reset();
-
-	return status;
-}
 
 TEST(MiscInstructions, Swap)
 {
@@ -83,10 +70,30 @@ TEST(MiscInstructions, SetCarry)
 	code.block(
 		0x37,
 		0x76        // halt
-		);
+	);
 
 	Gameboy gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::C, CPU::Flags::C);
+}
+
+TEST(MiscInstructions, DAA)
+{
+	CodeGenerator code;
+	code.block(
+		0x3E, 0x45,	// LD A,$45
+		0x06, 0x38, // LD B,$06
+		0x80,		// ADD A,B
+		0x27,		// DAA
+		0x76        // halt
+	);
+
+	Gameboy gameboy;
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.hi, 0x7D);
+	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
+	EXPECT_EQ(status.af.lo & CPU::Flags::Z, 0);
+	EXPECT_EQ(status.af.lo & CPU::Flags::H, 0);
 }

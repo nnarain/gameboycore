@@ -23,6 +23,8 @@ if(GTEST_FOUND)
 
 	# add gtests
 	add_gtest(gameboy_tests
+		# source
+		test_helper.cpp
 		test_entry.cpp
 		test_mmu.cpp
 		test_alu.cpp
@@ -34,8 +36,12 @@ if(GTEST_FOUND)
 		test_call_instructions.cpp
 		test_shift_rotate_instructions.cpp
 		test_misc.cpp
-		
+		test_invalid_opcodes.cpp
 		test_tilemap_iterator.cpp
+		
+		# headers
+		include/test_helper.h
+		include/util/codegenerator.h
 	)
 
 	# make check target to run gtests manually

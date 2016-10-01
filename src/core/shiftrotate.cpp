@@ -10,6 +10,78 @@
 
 namespace gb
 {
+	static void setFlag(uint8_t& flags, uint8_t mask, bool set)
+	{
+		if (set)
+		{
+			SET(flags, mask);
+		}
+		else
+		{
+			CLR(flags, mask);
+		}
+	}
+
+	uint8_t rlca(uint8_t val, uint8_t& flags)
+	{
+		uint8_t r = 0;
+
+		uint8_t bit7 = (IS_BIT_SET(val, 7)) ? 1 : 0;
+
+		r = (val << 1) | bit7;
+
+		flags = 0; // clear N, Z and H
+	//	flags |= (bit7 << C_BIT);
+		setFlag(flags, C_MASK, bit7 == 1);
+
+		return r;
+	}
+
+	uint8_t rla(uint8_t val, uint8_t& flags)
+	{
+		uint8_t r = 0;
+		uint8_t c = (IS_BIT_SET(flags, C_BIT)) ? 1 : 0;
+
+		uint8_t bit7 = (IS_BIT_SET(val, 7)) ? 1 : 0;
+
+		r = (val << 1) | c;
+
+		flags = 0;
+		flags |= (bit7 << C_BIT);
+
+		return r;
+	}
+
+
+	uint8_t rrca(uint8_t val, uint8_t& flags)
+	{
+		uint8_t r = 0;
+
+		uint8_t bit0 = (IS_BIT_SET(val, 0)) ? 1 : 0;
+
+		r = (val >> 1) | (bit0 << 7);
+
+		flags = 0; // clear N, Z and H
+		flags |= (bit0 << C_BIT);
+
+		return r;
+	}
+
+	uint8_t rra(uint8_t val, uint8_t& flags)
+	{
+		uint8_t r = 0;
+		uint8_t c = (IS_BIT_SET(flags, C_BIT)) ? 1 : 0;
+
+		uint8_t bit0 = (IS_BIT_SET(val, 0)) ? 1 : 0;
+
+		r = (val >> 1) | (c << 7);
+
+		flags = 0;
+		flags |= (bit0 << C_BIT);
+
+		return r;
+	}
+
 	uint8_t rotateLeft(uint8_t val, uint8_t n, uint8_t& flags)
 	{
 		uint8_t r = 0;
@@ -19,7 +91,10 @@ namespace gb
 		r = (val << n) | bit7;
 
 		flags = 0; // clear N, Z and H
-		flags |= (bit7 << C_BIT);
+		//flags |= (bit7 << C_BIT);
+
+		setFlag(flags, C_MASK, bit7 == 1);
+		setFlag(flags, Z_MASK, r == 0);
 
 		return r;
 	}
@@ -34,7 +109,10 @@ namespace gb
 		r = (val << n) | c;
 
 		flags = 0;
-		flags |= (bit7 << C_BIT);
+		//flags |= (bit7 << C_BIT);
+
+		setFlag(flags, C_MASK, bit7 == 1);
+		setFlag(flags, Z_MASK, r == 0);
 
 		return r;
 	}
@@ -48,7 +126,10 @@ namespace gb
 		r = (val >> n) | (bit0 << 7);
 
 		flags = 0; // clear N, Z and H
-		flags |= (bit0 << C_BIT);
+		//flags |= (bit0 << C_BIT);
+
+		setFlag(flags, C_MASK, bit0 == 1);
+		setFlag(flags, Z_MASK, r == 0);
 
 		return r;
 	}
@@ -63,7 +144,10 @@ namespace gb
 		r = (val >> n) | (c << 7);
 
 		flags = 0;
-		flags |= (bit0 << C_BIT);
+		//flags |= (bit0 << C_BIT);
+
+		setFlag(flags, C_MASK, bit0 == 1);
+		setFlag(flags, Z_MASK, r == 0);
 
 		return r;
 	}
@@ -76,9 +160,8 @@ namespace gb
 		r = (val << n);
 
 		flags = 0;
-		flags |= (bit7 << C_BIT);
-
-		if (r == 0) flags |= Z_MASK;
+		setFlag(flags, C_MASK, bit7 == 1);
+		setFlag(flags, Z_MASK, r == 0);
 
 		return r;
 	}
@@ -91,9 +174,12 @@ namespace gb
 		r = (val >> n) | (val & 0x80);
 
 		flags = 0;
-		flags |= (bit0 << C_BIT);
+	//	flags |= (bit0 << C_BIT);
 
-		if (r == 0) flags |= Z_MASK;
+	//	if (r == 0) flags |= Z_MASK;
+
+		setFlag(flags, C_MASK, bit0 == 1);
+		setFlag(flags, Z_MASK, r == 0);
 
 		return r;
 	}
@@ -106,9 +192,12 @@ namespace gb
 		r = (val >> n);
 
 		flags = 0;
-		flags |= (bit0 << C_BIT);
+	//	flags |= (bit0 << C_BIT);
 
-		if (r == 0) flags |= Z_MASK;
+	//	if (r == 0) flags |= Z_MASK;
+
+		setFlag(flags, C_MASK, bit0 == 1);
+		setFlag(flags, Z_MASK, r == 0);
 
 		return r;
 	}
