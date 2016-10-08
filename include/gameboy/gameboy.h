@@ -10,6 +10,7 @@
 #include "gameboy/tileram.h"
 #include "gameboy/tilemap.h"
 #include "gameboy/oam.h"
+#include "gameboy/joypad.h"
 
 #include <stdint.h>
 
@@ -47,6 +48,7 @@ namespace gb
 
 		LCDController& getLCDController();
 
+		Joypad getJoypad();
 
 		bool isDone() const;
     private:

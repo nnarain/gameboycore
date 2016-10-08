@@ -32,6 +32,23 @@ namespace gb
         return memory_[addr];
     }
 
+	uint8_t MMU::read(uint16_t addr)
+	{
+		if (read_handlers_.find(addr) != read_handlers_.end())
+		{
+			return read_handlers_[addr]();
+		}
+		else
+		{
+			if (addr == 0xFF81)
+			{
+				int x = 0;
+			}
+
+			return memory_[addr];
+		}
+	}
+
     void MMU::write(uint8_t value, uint16_t addr)
     {
 		if (addr >= 0x0000 && addr <= 0x7FFF)
@@ -43,13 +60,22 @@ namespace gb
 		{
 			oamTransfer(value);
 		}
-		else if (addr == memorymap::JOYPAD_REGISTER)
-		{
-			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
-		}
+//		else if (addr == memorymap::JOYPAD_REGISTER)
+//		{
+//			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
+//		}
 		else
 		{
-			memory_[addr] = value;
+			if (write_handlers_.find(addr) != write_handlers_.end())
+			{
+				write_handlers_[addr](value);
+			}
+			else
+			{
+				memory_[addr] = value;
+			}
+
+			//memory_[addr] = value;
 		}
     }
 
@@ -60,6 +86,16 @@ namespace gb
 
 		memory_[addr]     = lo;
 		memory_[addr + 1] = hi;
+	}
+
+	void MMU::addWriteHandler(uint16_t addr, MemoryWriteHandler handler)
+	{
+		write_handlers_[addr] = handler;
+	}
+
+	void MMU::addReadHandler(uint16_t addr, MemoryReadHandler handler)
+	{
+		read_handlers_[addr] = handler;
 	}
 
 	uint8_t& MMU::get(uint16_t addr)
