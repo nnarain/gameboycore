@@ -12,7 +12,7 @@ namespace gb
     MMU::MMU() :
 		memory_(0xFFFF + 1)
     {
-
+		memory_[memorymap::JOYPAD_REGISTER] = 0xFF;
     }
 
     MMU::~MMU()
