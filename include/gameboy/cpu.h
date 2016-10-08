@@ -15,6 +15,8 @@
 #include "gameboy/alu.h"
 #include "gameboy/opcodeinfo.h"
 
+#include "gameboy/lcd_controller.h"
+
 #include <stdint.h>
 
 namespace gb
@@ -44,6 +46,7 @@ namespace gb
 			Register hl;
 			Register sp;
 			Register pc;
+			bool halt;
 		};
 
 		enum Flags
@@ -54,16 +57,37 @@ namespace gb
 			C = 1 << 4
 		};
 
+		enum InterruptMask
+		{
+			VBLANK                   = 1 << 0,
+			LCDC_STAT                = 1 << 1,
+			TIME_OVERFLOW            = 1 << 2,
+			SERIAL_TRANSFER_COMPLETE = 1 << 3,
+			JOYPAD                   = 1 << 4
+		};
+
+		enum class InterruptVector
+		{
+			VBLANK                   = 0x0040,
+			LCDC_STAT                = 0x0048,
+			TIME_OVERFLOW            = 0x0050,
+			SERIAL_TRANSFER_COMPLETE = 0x0058,
+			JOYPAD                   = 0x0060
+		};
+
     public:
         CPU();
 
-        void tick();
+        void step();
 
 		void reset();
 
         bool isHalted() const;
         const MMU& getMMU() const;
 		MMU& getMMU();
+
+		const LCDController& getLCDController() const;
+		LCDController& getLCDController();
 
 		void setDebugMode(bool debug_mode);
 
@@ -72,6 +96,9 @@ namespace gb
 	private:
 		void decode1(uint8_t opcode);
 		void decode2(uint8_t opcode);
+
+		void checkInterrupts();
+		void interrupt(InterruptVector, InterruptMask);
 
 		void printDisassembly(uint8_t opcode, uint16_t userdata_ptr, OpcodePage page);
 
@@ -90,7 +117,7 @@ namespace gb
 		void out(uint16_t offset);
 
 		/**
-			INC/DEC 
+			INC/DEC
 		*/
 		void inc(uint8_t&);
 		void inc(uint16_t&);
@@ -134,6 +161,10 @@ namespace gb
 		*/
 		void bit(uint8_t val, uint8_t bit);
 
+		/**
+		*/
+		void setFlag(uint8_t mask, bool set);
+
 	private:
 		Register af_;
 		Register bc_;
@@ -145,11 +176,23 @@ namespace gb
 		MMU mmu_;
 		ALU alu_;
 
+		LCDController lcd_;
+
 		bool halted_;
 		bool stopped_;
+
+		bool interrupt_master_enable_;
+		int interrupt_master_enable_pending_;
+		int interrupt_master_disable_pending_;
+
 		bool debug_mode_;
 
 		uint16_t cycle_count_;
+
+        uint8_t& interrupt_flags_;
+		uint8_t& interrupt_enable_;
+
+		Register* div_;
     };
 }
 

@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <cstdint>
@@ -68,12 +69,20 @@ void disassembly(const std::vector<uint8_t>& rom, const std::string& output_file
 	std::ofstream list_file(output_file);
 	
 	// start at address $150
-	uint16_t program_counter = 0x150;
+	uint16_t program_counter = 0x0000;
 	std::size_t size = rom.size();
 
 	// process every byte in the file
 	while (program_counter < size)
 	{
+		// check if the program counter is in the cartridge header range
+		if (program_counter >= 0x0104 && program_counter <= 0x014F)
+		{
+			// jump to end of cartridge header
+			program_counter = 0x0150;
+			continue;
+		}
+
 		// contain the disassembled string
 		std::stringstream line;
 
@@ -85,7 +94,7 @@ void disassembly(const std::vector<uint8_t>& rom, const std::string& output_file
 		if (opcode == 0xCB)
 		{
 			// fetch extended opcode
-			opcode = rom[program_counter];
+			opcode = rom[program_counter + 1];
 			page = OpcodePage::PAGE2;
 		}
 
@@ -93,7 +102,7 @@ void disassembly(const std::vector<uint8_t>& rom, const std::string& output_file
 		OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
 
 		// program counter to line
-		line << std::uppercase << std::hex << program_counter;
+		line << std::uppercase << std::setfill('0') << std::setw(4) << std::hex << program_counter;
 		// disassemble the opcode and operands
 		std::string assembly = opcodeToAssembly(opcodeinfo, program_counter, rom);
 

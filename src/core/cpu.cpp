@@ -16,14 +16,22 @@ namespace gb
 	CPU::CPU() :
 		mmu_(),
 		alu_(af_.lo),
+		lcd_(mmu_),
 		halted_(false),
+		stopped_(false),
+		interrupt_master_enable_(false),
+		interrupt_master_enable_pending_(-1),
+		interrupt_master_disable_pending_(-1),
+		debug_mode_(false),
 		cycle_count_(0),
-		debug_mode_(false)
+		interrupt_flags_(mmu_.get(memorymap::INTERRUPT_FLAG)),
+		interrupt_enable_(mmu_.get(memorymap::INTERRUPT_ENABLE)),
+		div_(nullptr)
 	{
 		reset();
 	}
 
-	void CPU::tick()
+	void CPU::step()
 	{
 		// fetch next opcode
 		uint8_t opcode = mmu_.read(pc_.val++);
@@ -49,9 +57,11 @@ namespace gb
 			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 		}
 
-		cycle_count_ += cycles;
+		div_->lo += cycles;
 
-		// TODO: determine what interrupts should fire
+		lcd_.clock(cycles);
+
+		checkInterrupts();
 	}
 
 	void CPU::decode1(uint8_t opcode)
@@ -68,6 +78,7 @@ namespace gb
 			break;
 		case 0x10:
 			stopped_ = true;
+			pc_.val++;
 			break;
 
 		/* Load Instructions */
@@ -98,7 +109,7 @@ namespace gb
 			mmu_.write(load8Imm(), hl_.val);
 			break;
 
-			// load 16 bit immediate
+		// load 16 bit immediate
 		case 0x01: // LD BC,d16
 			bc_.val = load16Imm();
 			break;
@@ -112,7 +123,23 @@ namespace gb
 			sp_.val = load16Imm();
 			break;
 
-			// transfer (Register to register, memory to register)
+		// load A into memory
+		case 0x02:
+			mmu_.write(af_.hi, bc_.val);
+			break;
+		case 0x12:
+			mmu_.write(af_.hi, de_.val);
+			break;
+
+		// load A from memory
+		case 0x0A: // LD A,(BC)
+			af_.hi = mmu_.read(bc_.val);
+			break;
+		case 0x1A: // LD A,(DE)
+			af_.hi = mmu_.read(de_.val);
+			break;
+
+		// transfer (Register to register, memory to register)
 		case 0x40: // LD B,B
 			bc_.hi = bc_.hi;
 			break;
@@ -325,16 +352,16 @@ namespace gb
 
 		// IN/OUT Instructions. Load and Store to IO Registers (immediate or using C register). IO Offset is $FF00
 		case 0xE0: // LDH (a8),A
-			out(load8Imm());
+			out(0xFF00 + load8Imm());
 			break;
 		case 0xF0: // LDH A,(a8)
-			in(load8Imm());
+			in(0xFF00 + load8Imm());
 			break;
 		case 0xE2: // LD (C),A
-			out(bc_.lo);
+			out(0xFF00 + bc_.lo);
 			break;
 		case 0xF2: // LD A,(C)
-			in(bc_.lo);
+			in(0xFF00 + bc_.lo);
 			break;
 		case 0xEA: // LD (a16),A
 			out(load16Imm());
@@ -469,6 +496,7 @@ namespace gb
 
 		case 0x76:
 			halted_ = true;
+			pc_.val--; // TODO: implement halt mode
 			break;
 
 		/* Jumps */
@@ -488,19 +516,19 @@ namespace gb
 				pc_.val += 2;
 			break;
 		case 0xCA: // JP Z,nn
-			if (IS_SET(af_.lo, Flags::Z)) 
+			if (IS_SET(af_.lo, Flags::Z))
 				jp(load16Imm());
 			else
 				pc_.val += 2;
 			break;
 		case 0xD2: // JP NC,nn
-			if (IS_CLR(af_.lo, Flags::C)) 
+			if (IS_CLR(af_.lo, Flags::C))
 				jp(load16Imm());
 			else
 				pc_.val += 2;
 			break;
 		case 0xDA: // JP C,nn
-			if (IS_SET(af_.lo, Flags::C)) 
+			if (IS_SET(af_.lo, Flags::C))
 				jp(load16Imm());
 			else
 				pc_.val += 2;
@@ -519,19 +547,19 @@ namespace gb
 				pc_.val++; // skip next byte
 			break;
 		case 0x28: // JR Z,n
-			if (IS_SET(af_.lo, Flags::Z)) 
+			if (IS_SET(af_.lo, Flags::Z))
 				jr((int8_t)load8Imm());
 			else
 				pc_.val++; // skip next byte
 			break;
 		case 0x30: // JR NC,n
-			if(IS_CLR(af_.lo, Flags::C)) 
+			if(IS_CLR(af_.lo, Flags::C))
 				jr((int8_t)load8Imm());
 			else
 				pc_.val++; // skip next byte
 			break;
 		case 0x38: // JR C,n
-			if (IS_SET(af_.lo, Flags::C)) 
+			if (IS_SET(af_.lo, Flags::C))
 				jr((int8_t)load8Imm());
 			else
 				pc_.val++; // skip next byte
@@ -550,19 +578,19 @@ namespace gb
 				pc_.val += 2;
 			break;
 		case 0xCC: // CALL Z,nn
-			if (IS_SET(af_.lo, Flags::Z)) 
+			if (IS_SET(af_.lo, Flags::Z))
 				call(load16Imm());
 			else
 				pc_.val += 2;
 			break;
 		case 0xD4: // CALL NC,nn
-			if (IS_CLR(af_.lo, Flags::C)) 
+			if (IS_CLR(af_.lo, Flags::C))
 				call(load16Imm());
 			else
 				pc_.val += 2;
 			break;
 		case 0xDC: // CALL C,nn
-			if (IS_SET(af_.lo, Flags::C)) 
+			if (IS_SET(af_.lo, Flags::C))
 				call(load16Imm());
 			else
 				pc_.val += 2;
@@ -647,10 +675,10 @@ namespace gb
 
 		/* Disable and Enable Interrupt */
 		case 0xF3: // DI
-			// TODO
+			interrupt_master_disable_pending_ = 0;
 			break;
 		case 0xFB: // EI
-			// TODO
+			interrupt_master_enable_pending_ = 0;
 			break;
 
 		/* Arithmetic Operations */
@@ -685,31 +713,45 @@ namespace gb
 
 		// add with carry
 		case 0x8F: // ADC A,A
-			alu_.add(af_.hi, af_.hi);
+			alu_.addc(af_.hi, af_.hi);
 			break;
 		case 0x88: // ADC A,B
-			alu_.add(af_.hi, bc_.hi);
+			alu_.addc(af_.hi, bc_.hi);
 			break;
 		case 0x89: // ADC A,C
-			alu_.add(af_.hi, bc_.lo);
+			alu_.addc(af_.hi, bc_.lo);
 			break;
 		case 0x8A: // ADC A,D
-			alu_.add(af_.hi, de_.hi);
+			alu_.addc(af_.hi, de_.hi);
 			break;
 		case 0x8B: // ADC A,E
-			alu_.add(af_.hi, de_.lo);
+			alu_.addc(af_.hi, de_.lo);
 			break;
 		case 0x8C: // ADC A,H
-			alu_.add(af_.hi, hl_.hi);
+			alu_.addc(af_.hi, hl_.hi);
 			break;
 		case 0x8D: // ADC A,L
-			alu_.add(af_.hi, hl_.lo);
+			alu_.addc(af_.hi, hl_.lo);
 			break;
 		case 0x8E: // ADC A,(HL)
-			alu_.add(af_.hi, mmu_.read(hl_.val));
+			alu_.addc(af_.hi, mmu_.read(hl_.val));
 			break;
 		case 0xCE: // ADC A,n
-			alu_.add(af_.hi, load8Imm());
+			alu_.addc(af_.hi, load8Imm());
+			break;
+
+		// 16 bit addition
+		case 0x09: // ADD HL,BC
+			alu_.add(hl_.val, bc_.val);
+			break;
+		case 0x19: // ADD HL,DE
+			alu_.add(hl_.val, de_.val);
+			break;
+		case 0x29: // ADD HL,HL
+			alu_.add(hl_.val, hl_.val);
+			break;
+		case 0x39: // ADD HL,SP
+			alu_.add(hl_.val, sp_.val);
 			break;
 
 		case 0xE8: // ADD SP,n
@@ -891,20 +933,20 @@ namespace gb
 		/* Rotate A*/
 
 		case 0x07: // RLCA
-			af_.hi = rotateLeft(af_.hi, 1, af_.lo);
+			af_.hi = rlca(af_.hi, af_.lo);
 			break;
 		case 0x17: // RLA
-			af_.hi = rotateLeftCarry(af_.hi, 1, af_.lo);
+			af_.hi = rla(af_.hi, af_.lo);
 			break;
 		case 0x0F: // RRCA
-			af_.hi = rotateRight(af_.hi, 1, af_.lo);
+			af_.hi = rrca(af_.hi, af_.lo);
 			break;
 		case 0x1F: // RRA
-			af_.hi = rotateRightCarry(af_.hi, 1, af_.lo);
+			af_.hi = rra(af_.hi, af_.lo);
 			break;
 
 		default:
-			std::cout << "Unimplemented Instruction: " << std::hex << opcode << std::endl;
+			std::cout << "Unimplemented Instruction: $" << std::hex << (int)opcode << std::endl;
 			throw std::runtime_error("");
 			break;
 		}
@@ -917,6 +959,11 @@ namespace gb
 
 	void CPU::decode2(uint8_t opcode)
 	{
+		static uint16_t old_pc;
+
+		// store current program counter location so it can be reused for disassembly output
+		old_pc = pc_.val;
+
 		uint8_t tmp;
 
 		switch (opcode)
@@ -1157,183 +1204,183 @@ namespace gb
 			break;
 		// bit 1
 		case 0x48: // BIT 1,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 1);
 			break;
 		case 0x49: // BIT 1,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 1);
 			break;
 		case 0x4A: // BIT 1,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 1);
 			break;
 		case 0x4B: // BIT 1,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 1);
 			break;
 		case 0x4C: // BIT 1,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 1);
 			break;
 		case 0x4D: // BIT 1,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 1);
 			break;
 		case 0x4E: // BIT 1,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 1);
 			break;
 		case 0x4F: // BIT 1,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 1);
 			break;
 
 		// bit 2
 		case 0x50: // BIT 2,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 2);
 			break;
 		case 0x51: // BIT 2,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 2);
 			break;
 		case 0x52: // BIT 2,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 2);
 			break;
 		case 0x53: // BIT 2,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 2);
 			break;
 		case 0x54: // BIT 2,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 2);
 			break;
 		case 0x55: // BIT 2,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 2);
 			break;
 		case 0x56: // BIT 2,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 2);
 			break;
 		case 0x57: // BIT 2,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 2);
 			break;
 
 		// bit 3
 		case 0x58: // BIT 3,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 3);
 			break;
 		case 0x59: // BIT 3,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 3);
 			break;
 		case 0x5A: // BIT 3,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 3);
 			break;
 		case 0x5B: // BIT 3,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 3);
 			break;
 		case 0x5C: // BIT 3,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 3);
 			break;
 		case 0x5D: // BIT 3,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 3);
 			break;
 		case 0x5E: // BIT 3,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 3);
 			break;
 		case 0x5F: // BIT 3,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 3);
 			break;
 
 		// bit 4
 		case 0x60: // BIT 4,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 4);
 			break;
 		case 0x61: // BIT 4,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 4);
 			break;
 		case 0x62: // BIT 4,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 4);
 			break;
 		case 0x63: // BIT 4,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 4);
 			break;
 		case 0x64: // BIT 4,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 4);
 			break;
 		case 0x65: // BIT 4,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 4);
 			break;
 		case 0x66: // BIT 4,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 4);
 			break;
 		case 0x67: // BIT 4,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 4);
 			break;
 
 		// bit 5
 		case 0x68: // BIT 5,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 5);
 			break;
 		case 0x69: // BIT 5,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 5);
 			break;
 		case 0x6A: // BIT 5,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 5);
 			break;
 		case 0x6B: // BIT 5,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 5);
 			break;
 		case 0x6C: // BIT 5,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 5);
 			break;
 		case 0x6D: // BIT 5,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 5);
 			break;
 		case 0x6E: // BIT 5,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 5);
 			break;
 		case 0x6F: // BIT 5,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 5);
 			break;
 
 		// bit 6
-		case 0x70: // BIT 0,B
-			bit(bc_.hi, 0);
+		case 0x70: // BIT 6,B
+			bit(bc_.hi, 6);
 			break;
-		case 0x71: // BIT 0,C
-			bit(bc_.lo, 0);
+		case 0x71: // BIT 6,C
+			bit(bc_.lo, 6);
 			break;
-		case 0x72: // BIT 0,D
-			bit(de_.hi, 0);
+		case 0x72: // BIT 6,D
+			bit(de_.hi, 6);
 			break;
-		case 0x73: // BIT 0,E
-			bit(de_.lo, 0);
+		case 0x73: // BIT 6,E
+			bit(de_.lo, 6);
 			break;
-		case 0x74: // BIT 0,H
-			bit(hl_.hi, 0);
+		case 0x74: // BIT 6,H
+			bit(hl_.hi, 6);
 			break;
-		case 0x75: // BIT 0,L
-			bit(hl_.lo, 0);
+		case 0x75: // BIT 6,L
+			bit(hl_.lo, 6);
 			break;
-		case 0x76: // BIT 0,(HL)
-			bit(mmu_.read(hl_.val), 0);
+		case 0x76: // BIT 6,(HL)
+			bit(mmu_.read(hl_.val), 6);
 			break;
-		case 0x77: // BIT 0,A
-			bit(af_.hi, 0);
+		case 0x77: // BIT 6,A
+			bit(af_.hi, 6);
 			break;
 		// bit 7
-		case 0x78: // BIT 1,B
-			bit(bc_.hi, 0);
+		case 0x78: // BIT 7,B
+			bit(bc_.hi, 7);
 			break;
-		case 0x79: // BIT 1,C
-			bit(bc_.lo, 0);
+		case 0x79: // BIT 7,C
+			bit(bc_.lo, 7);
 			break;
-		case 0x7A: // BIT 1,D
-			bit(de_.hi, 0);
+		case 0x7A: // BIT 7,D
+			bit(de_.hi, 7);
 			break;
-		case 0x7B: // BIT 1,E
-			bit(de_.lo, 0);
+		case 0x7B: // BIT 7,E
+			bit(de_.lo, 7);
 			break;
-		case 0x7C: // BIT 1,H
-			bit(hl_.hi, 0);
+		case 0x7C: // BIT 7,H
+			bit(hl_.hi, 7);
 			break;
-		case 0x7D: // BIT 1,L
-			bit(hl_.lo, 0);
+		case 0x7D: // BIT 7,L
+			bit(hl_.lo, 7);
 			break;
-		case 0x7E: // BIT 1,(HL)
-			bit(mmu_.read(hl_.val), 0);
+		case 0x7E: // BIT 7,(HL)
+			bit(mmu_.read(hl_.val), 7);
 			break;
-		case 0x7F: // BIT 1,A
-			bit(af_.hi, 0);
+		case 0x7F: // BIT 7,A
+			bit(af_.hi, 7);
 			break;
 
 		/* Reset */
@@ -1771,7 +1818,60 @@ namespace gb
 
 		if (debug_mode_)
 		{
+			printDisassembly(opcode, old_pc, OpcodePage::PAGE2);
 		}
+	}
+
+	void CPU::checkInterrupts()
+	{
+		// when EI or DI is used to change the IME the change takes effect after the next instruction is executed
+
+		if (interrupt_master_disable_pending_ >= 0)
+		{
+			interrupt_master_disable_pending_++;
+			if (interrupt_master_disable_pending_ == 2)
+			{
+				interrupt_master_enable_ = false;
+				interrupt_master_disable_pending_ = -1;
+			}
+		}
+
+		if (interrupt_master_enable_pending_ >= 0)
+		{
+			interrupt_master_enable_pending_++;
+			if (interrupt_master_enable_pending_ == 2)
+			{
+				interrupt_master_enable_ = true;
+				interrupt_master_enable_pending_ = -1;
+			}
+		}
+
+		if (interrupt_master_enable_)
+		{
+			// mask off disabled interrupts
+			uint8_t pending_interrupts = interrupt_flags_ & interrupt_enable_;
+
+			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
+				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
+			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
+				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
+			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))
+				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
+			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
+				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
+			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))
+				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
+		}
+	}
+
+	void CPU::interrupt(InterruptVector vector, InterruptMask mask)
+	{
+		interrupt_master_enable_ = false;
+
+		push(pc_.val);
+		pc_.val = static_cast<uint16_t>(vector);
+
+		CLR(interrupt_flags_, mask);
 	}
 
 	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
@@ -1792,7 +1892,7 @@ namespace gb
 				uint8_t userdata = mmu_.read(userdata_addr);
 				std::sprintf(str, opcodeinfo.disassembly, userdata);
 			}
-			else // OperandType::IMM16 
+			else // OperandType::IMM16
 			{
 				uint8_t lo = mmu_.read(userdata_addr);
 				uint8_t hi = mmu_.read(userdata_addr + 1);
@@ -1804,9 +1904,9 @@ namespace gb
 		std::string padding(spaces_before_registers - std::strlen(str), ' ');
 
 		// print debug info
-		std::printf("%X: %s%s| PC: %04X, A: %02X, B: %02X, C: %02X, D: %02X, E: %02X, H: %02X, L: %02X, SP: %04X\n", 
-			userdata_addr - 1, 
-			str, 
+		std::printf("%04X: %s%s| PC: %04X, A: %02X, BC: %02X%02X, DE: %02X%02X, HL: %02X%02X | SP: %04X -> %04X | F: %02X | IF: %02X, IE: %02X\n",
+			userdata_addr - 1,
+			str,
 			padding.c_str(),
 			pc_.val,
 			af_.hi,
@@ -1816,7 +1916,11 @@ namespace gb
 			de_.lo,
 			hl_.hi,
 			hl_.lo,
-			sp_.val
+			sp_.val,
+			WORD(mmu_.read(sp_.val + 1), mmu_.read(sp_.val)),
+			af_.lo,
+			mmu_.read(0xFF0F),
+			mmu_.read(0xFFFF)
 		);
 	}
 
@@ -1833,16 +1937,16 @@ namespace gb
 		return WORD(hi, lo);
 	}
 
-	void CPU::in(uint16_t offset)
+	void CPU::in(uint16_t addr)
 	{
 		// read from offset into IO registers
-		af_.hi = mmu_.read(0xFF00 + offset);
+		af_.hi = mmu_.read(addr);
 	}
 
-	void CPU::out(uint16_t offset)
+	void CPU::out(uint16_t addr)
 	{
 		// write out to the IO registers given the offset
-		mmu_.write(af_.hi, 0xFF00 + offset);
+		mmu_.write(af_.hi, addr);
 	}
 
 	void CPU::inc(uint8_t& i)
@@ -1851,12 +1955,9 @@ namespace gb
 
 		i++;
 
-		if (i == 0) SET(af_.lo, Flags::Z);
-		CLR(af_.lo, Flags::N);
-		if (half_carry)
-			SET(af_.lo, Flags::H);
-		else
-			CLR(af_.lo, Flags::H);
+		setFlag(CPU::Flags::Z, i == 0);
+		setFlag(CPU::Flags::N, false);
+		setFlag(CPU::Flags::H, half_carry);
 	}
 
 	void CPU::inc(uint16_t& i)
@@ -1866,16 +1967,13 @@ namespace gb
 
 	void CPU::dec(uint8_t& d)
 	{
-		bool half_carry = IS_HALF_CARRY(d, -1);
+		bool half_carry = IS_HALF_BORROW(d, 1);
 
 		d--;
 
-		if (d == 0) SET(af_.lo, Flags::Z);
-		SET(af_.lo, Flags::N);
-		if (half_carry)
-			SET(af_.lo, Flags::H);
-		else
-			CLR(af_.lo, Flags::H);
+		setFlag(CPU::Flags::Z, d == 0);
+		setFlag(CPU::Flags::N, true);
+		setFlag(CPU::Flags::H, half_carry);
 	}
 
 	void CPU::dec(uint16_t& d)
@@ -1942,7 +2040,7 @@ namespace gb
 	void CPU::reti()
 	{
 		ret();
-		// TODO: Enable Interrutps
+		interrupt_master_enable_ = true;
 	}
 
 	uint8_t CPU::swap(uint8_t byte)
@@ -1952,36 +2050,106 @@ namespace gb
 
 		uint8_t newByte = (lo << 4) | hi;
 
-		if (newByte == 0)
-			SET(af_.lo, CPU::Flags::Z);
-		else
-			CLR(af_.lo, CPU::Flags::Z);
-
-		CLR(af_.lo, CPU::Flags::N);
-		CLR(af_.lo, CPU::Flags::H);
-		CLR(af_.lo, CPU::Flags::C);
+		setFlag(CPU::Flags::Z, newByte == 0);
+		setFlag(CPU::Flags::N, false);
+		setFlag(CPU::Flags::H, false);
+		setFlag(CPU::Flags::C, false);
 
 		return newByte;
 	}
 
 	void CPU::daa()
 	{
-		// TODO
+		bool z = IS_SET(af_.lo, CPU::Flags::Z) != 0;
+		bool n = IS_SET(af_.lo, CPU::Flags::N) != 0;
+		bool h = IS_SET(af_.lo, CPU::Flags::H) != 0;
+		bool c = IS_SET(af_.lo, CPU::Flags::C) != 0;
+
+		if (n)
+		{
+			// was a form of subtraction instruction
+
+			// offset values
+			uint8_t offsets[] = {
+				0x00, 0xFA, 0xA0, 0x9A
+			};
+
+			// get index
+			uint8_t idx = (((uint8_t)c) << 1) | (uint8_t)h;
+			// get offset
+			uint8_t offset = offsets[idx];
+
+			af_.hi += offset;
+
+			setFlag(CPU::Flags::C, c);
+		}
+		else
+		{
+			// was a form of addition instruction
+			
+			// get hi and lo nybbles of A
+			uint8_t hi = (af_.hi & 0xF0) >> 4;
+			uint8_t lo = (af_.lo & 0x0F);
+
+			uint8_t offset_hi = 0;
+			uint8_t offset_lo = 0;
+
+			if (!c)
+			{
+				if (hi >= 0x09)
+					offset_hi = 6;
+
+				if ((lo >= 0x0A) || h)
+					offset_lo = 6;
+
+				uint8_t offset = NYB_CAT(offset_hi, offset_lo);
+				bool carry = IS_FULL_CARRY(af_.hi, offset);
+
+				af_.hi += offset;
+
+				setFlag(CPU::Flags::C, carry);
+			}
+			else
+			{
+				offset_hi = 6;
+
+				if ((lo >= 0x0A) || h)
+				{
+					offset_lo = 6;
+				}
+
+				af_.hi += NYB_CAT(hi, lo);
+
+				setFlag(CPU::Flags::C, true);
+			}
+
+		}
+
+
+		setFlag(CPU::Flags::Z, af_.hi == 0);
+		setFlag(CPU::Flags::H, false);
+		
 	}
 
 	void CPU::bit(uint8_t val, uint8_t n)
 	{
-		if (IS_BIT_SET(val, n))
+		uint8_t b = (val & BV(n)) >> n;
+
+		setFlag(CPU::Flags::Z, b == 0);
+		setFlag(CPU::Flags::H, true);
+		setFlag(CPU::Flags::N, false);
+	}
+
+	void CPU::setFlag(uint8_t mask, bool set)
+	{
+		if (set)
 		{
-			CLR(af_.lo, Flags::Z);
+			SET(af_.lo, mask);
 		}
 		else
 		{
-			SET(af_.lo, Flags::Z);
+			CLR(af_.lo, mask);
 		}
-
-		SET(af_.lo, Flags::H);
-		CLR(af_.lo, Flags::N);
 	}
 
 	void CPU::reset()
@@ -1996,6 +2164,11 @@ namespace gb
 		cycle_count_ = 0;
 		halted_ = false;
 		stopped_ = false;
+		interrupt_master_enable_ = false;
+		interrupt_master_enable_pending_ = -1;
+		interrupt_master_disable_pending_ = -1;
+
+		div_ = (Register*)mmu_.getptr(memorymap::DIVIDER_LO_REGISTER);
 	}
 
 	void CPU::setDebugMode(bool debug_mode)
@@ -2017,15 +2190,26 @@ namespace gb
 		return mmu_;
 	}
 
+	const LCDController& CPU::getLCDController() const
+	{
+		return lcd_;
+	}
+
+	LCDController& CPU::getLCDController()
+	{
+		return lcd_;
+	}
+
 	CPU::Status CPU::getStatus() const
 	{
 		Status status;
-		status.af = af_;
-		status.bc = bc_;
-		status.de = de_;
-		status.hl = hl_;
-		status.sp = sp_;
-		status.pc = pc_;
+		status.af   = af_;
+		status.bc   = bc_;
+		status.de   = de_;
+		status.hl   = hl_;
+		status.sp   = sp_;
+		status.pc   = pc_;
+		status.halt = halted_;
 
 		return status;
 	}

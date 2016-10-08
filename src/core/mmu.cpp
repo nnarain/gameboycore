@@ -1,5 +1,6 @@
 #include "gameboy/mmu.h"
 #include "gameboy/mbc.h"
+#include "bitutil.h"
 
 #include <cstring>
 
@@ -11,6 +12,7 @@ namespace gb
     MMU::MMU() :
 		memory_(0xFFFF + 1)
     {
+
     }
 
     MMU::~MMU()
@@ -30,10 +32,46 @@ namespace gb
         return memory_[addr];
     }
 
+	uint8_t MMU::read(uint16_t addr)
+	{
+		if (read_handlers_.find(addr) != read_handlers_.end())
+		{
+			return read_handlers_[addr]();
+		}
+		else
+		{
+			return memory_[addr];
+		}
+	}
+
     void MMU::write(uint8_t value, uint16_t addr)
     {
-        // TODO: implement ROM bank switching
-        memory_[addr] = value;
+		if (addr >= 0x0000 && addr <= 0x7FFF)
+		{
+			// in ROM
+			// TODO: Bank switch
+		}
+		else if (addr == memorymap::DMA_REGISTER)
+		{
+			oamTransfer(value);
+		}
+//		else if (addr == memorymap::JOYPAD_REGISTER)
+//		{
+//			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
+//		}
+		else
+		{
+			if (write_handlers_.find(addr) != write_handlers_.end())
+			{
+				write_handlers_[addr](value);
+			}
+			else
+			{
+				memory_[addr] = value;
+			}
+
+			//memory_[addr] = value;
+		}
     }
 
 	void MMU::write(uint16_t value, uint16_t addr)
@@ -45,10 +83,30 @@ namespace gb
 		memory_[addr + 1] = hi;
 	}
 
+	void MMU::addWriteHandler(uint16_t addr, MemoryWriteHandler handler)
+	{
+		write_handlers_[addr] = handler;
+	}
+
+	void MMU::addReadHandler(uint16_t addr, MemoryReadHandler handler)
+	{
+		read_handlers_[addr] = handler;
+	}
+
+	uint8_t& MMU::get(uint16_t addr)
+	{
+		return memory_[addr];
+	}
+
+	uint8_t* MMU::getptr(uint16_t addr)
+	{
+		return &memory_[addr];
+	}
+
 	void MMU::loadROMBanks(uint8_t rom_size, uint8_t * rom)
 	{
 		static unsigned int rom_banks1[] = {
-			2, 4, 8, 16, 32, 64, 128, 256 
+			2, 4, 8, 16, 32, 64, 128, 256
 		};
 		static unsigned int rom_banks2[] = {
 			72, 80, 96
@@ -66,7 +124,7 @@ namespace gb
 			// since there are always 2 available in the $0000 - $3FFF range
 			unsigned int switchable_rom_banks = cartridge_rom_banks - 2;
 
-			if (cartridge_rom_banks != 0) 
+			if (cartridge_rom_banks != 0)
 			{
 				rom_banks_.clear();
 				rom_banks_.resize(switchable_rom_banks);
@@ -100,6 +158,14 @@ namespace gb
 
 			std::memcpy(&bank[0], current_bank, BANK_SIZE);
 		}
+	}
+
+	void MMU::oamTransfer(uint8_t base)
+	{
+		// increments of $100 bytes
+		uint16_t addr = ((base & 0xFF) << 8) | 0x0000;
+
+		std::memcpy(getptr(memorymap::OAM_START), getptr(addr), memorymap::OAM_END - memorymap::OAM_START);
 	}
 
 	unsigned int MMU::numBanks() const

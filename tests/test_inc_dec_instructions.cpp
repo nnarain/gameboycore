@@ -6,25 +6,12 @@
 */
 
 #include <gtest/gtest.h>
+#include "test_helper.h"
 #include "util/codegenerator.h"
 
 #include <gameboy/gameboy.h>
 
 using namespace gb;
-
-static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
-{
-	gameboy.loadROM(&rom[0], rom.size());
-
-	while (!gameboy.isDone())
-		gameboy.update();
-
-	CPU::Status status = gameboy.getCPU().getStatus();
-
-	gameboy.reset();
-
-	return status;
-}
 
 TEST(IncDecInstructions, Inc16Bit)
 {
@@ -154,7 +141,7 @@ TEST(IncDecInstructions, IncMemory)
 {
 	CodeGenerator code;
 	code.block(
-		0x21, 0x50, 0x02,	// LD HL,$250
+		0x21, 0x00, 0xC0,	// LD HL,$250
 
 		0x35,				// DEC (HL)
 
@@ -166,14 +153,14 @@ TEST(IncDecInstructions, IncMemory)
 	const MMU& mmu = gameboy.getCPU().getMMU();
 	(void)run(gameboy, code.rom());
 
-	EXPECT_EQ(mmu.read(0x250), 0xFF);
+	EXPECT_EQ(mmu.read(0xC000), 0xFF);
 }
 
 TEST(IncDecInstructions, DecMemory)
 {
 	CodeGenerator code;
 	code.block(
-		0x21, 0x50, 0x02,	// LD HL,$250
+		0x21, 0x00, 0xC0,	// LD HL,$250
 
 		0x34,				// INC (HL)
 
@@ -185,7 +172,7 @@ TEST(IncDecInstructions, DecMemory)
 	const MMU& mmu = gameboy.getCPU().getMMU();
 	(void)run(gameboy, code.rom());
 
-	EXPECT_EQ(mmu.read(0x250), 0x01);
+	EXPECT_EQ(mmu.read(0xC000), 0x01);
 }
 
 
@@ -213,9 +200,7 @@ TEST(IncDecInstructions, HalfCarryFlag)
 	CodeGenerator code;
 	code.block(
 		0x06, 0x0F,			// LD B,$0F
-
 		0x04,				// INC B
-
 		0x76				// halt
 	);
 
@@ -227,4 +212,21 @@ TEST(IncDecInstructions, HalfCarryFlag)
 	EXPECT_EQ(status.af.lo & CPU::Flags::N, 0);
 }
 
-// TODO: Half Carry with DEC
+TEST(IncDecInstructions, HalfBorrow)
+{
+	CodeGenerator code;
+	code.block(
+		0x06, 0x10,			// LD B,$10
+		0x05,				// DEC B
+		0x76				// halt
+	);
+
+
+	Gameboy gameboy;
+	CPU::Status status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
+	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.af.lo & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(status.af.lo & CPU::Flags::Z, 0);
+}

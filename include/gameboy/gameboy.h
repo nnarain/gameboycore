@@ -7,6 +7,11 @@
 #define GAMEBOY_H
 
 #include "gameboy/cpu.h"
+#include "gameboy/tileram.h"
+#include "gameboy/tilemap.h"
+#include "gameboy/oam.h"
+#include "gameboy/joypad.h"
+
 #include <stdint.h>
 
 namespace gb
@@ -28,10 +33,26 @@ namespace gb
 
 		void reset();
 
+		void setDebugMode(bool debug);
+
+		/**
+			Set number of cpu steps to perform before update terminates.
+		*/
+		void setStepCount(unsigned int step_count);
+
 		const CPU& getCPU() const;
+
+		TileRAM getTileRAM();
+		TileMap getTileMap();
+		OAM getOAM();
+
+		LCDController& getLCDController();
+
+		Joypad getJoypad();
 
 		bool isDone() const;
     private:
+		unsigned int step_count_;
     };
 }
 

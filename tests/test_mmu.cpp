@@ -6,6 +6,21 @@
 
 using namespace gb;
 
+static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
+{
+	gameboy.loadROM(&rom[0], rom.size());
+
+	while (!gameboy.isDone())
+		gameboy.update();
+
+	CPU::Status status = gameboy.getCPU().getStatus();
+
+	gameboy.reset();
+
+	return status;
+}
+
+
 TEST(MMUTest, Load)
 {
 	CodeGenerator code;
@@ -45,9 +60,9 @@ TEST(MMUTest, Write8Bit)
 	mmu.load(&rom[0], rom.size());
 
 	uint8_t b = 0x35;
-	mmu.write(b, 0x512);
+	mmu.write(b, 0xC000);
 
-	EXPECT_EQ(mmu.read(0x512), 0x35);
+	EXPECT_EQ(mmu.read(0xC000), 0x35);
 }
 
 TEST(MMUTest, Write16Bit)
@@ -64,4 +79,39 @@ TEST(MMUTest, Write16Bit)
 
 	EXPECT_EQ(mmu.read(0x512), 0xAD);
 	EXPECT_EQ(mmu.read(0x513), 0xDE);
+}
+
+TEST(MMUTest, DMA)
+{
+	CodeGenerator code;
+	code.block(
+		0x21, 0x00, 0xC0,		// LD HL,$C000
+		0x3E, 0x01,				// LD A,1
+		0x22,					// LD (HL+),A
+		0x3C,					// INC A
+		0x22,					// LD (HL+),A
+		0x3C,					// INC A
+		0x22,					// LD (HL+),A
+		0x3C,					// INC A
+		0x22,					// LD (HL+),A
+		0x3C,					// INC A
+		0x22,					// LD (HL+),A
+		0x3C,					// INC A
+
+		0x3E, 0xC0,				// LD A,$C0
+		0xE0, 0x46,				// LDH (46),A -> LD (FF46),A -> LD (DMA),A
+
+		0x76
+	);
+
+	Gameboy gameboy;
+	(void)run(gameboy, code.rom());
+
+	const MMU& mmu = gameboy.getCPU().getMMU();
+
+	EXPECT_EQ(mmu.read(memorymap::OAM_START + 0), 1);
+	EXPECT_EQ(mmu.read(memorymap::OAM_START + 1), 2);
+	EXPECT_EQ(mmu.read(memorymap::OAM_START + 2), 3);
+	EXPECT_EQ(mmu.read(memorymap::OAM_START + 3), 4);
+	EXPECT_EQ(mmu.read(memorymap::OAM_START + 4), 5);
 }
