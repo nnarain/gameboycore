@@ -94,7 +94,7 @@ void disassembly(const std::vector<uint8_t>& rom, const std::string& output_file
 		if (opcode == 0xCB)
 		{
 			// fetch extended opcode
-			opcode = rom[program_counter];
+			opcode = rom[program_counter + 1];
 			page = OpcodePage::PAGE2;
 		}
 
