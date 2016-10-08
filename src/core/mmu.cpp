@@ -40,11 +40,6 @@ namespace gb
 		}
 		else
 		{
-			if (addr == 0xFF81)
-			{
-				int x = 0;
-			}
-
 			return memory_[addr];
 		}
 	}

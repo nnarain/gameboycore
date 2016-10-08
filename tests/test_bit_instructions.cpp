@@ -12,8 +12,6 @@ using namespace gb;
 
 TEST(BitInstructions, CheckBit)
 {
-	// TODO: this fails
-
 	CodeGenerator code;
 	code.block(
 		0x3E, 0x80,		// LD A,$80
