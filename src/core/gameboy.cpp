@@ -64,6 +64,11 @@ namespace gb
 		return cpu_.getLCDController();
 	}
 
+	Joypad Gameboy::getJoypad()
+	{
+		return Joypad(cpu_.getMMU());
+	}
+
 	bool Gameboy::isDone() const
 	{
 		return cpu_.isHalted();

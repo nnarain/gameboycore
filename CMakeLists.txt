@@ -44,6 +44,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/tileram.h
 	include/gameboy/tilemap.h
 	include/gameboy/tile.h
+	include/gameboy/joypad.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h

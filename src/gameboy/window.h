@@ -22,8 +22,9 @@ class Window
 {
 public:
 	Window(gb::Gameboy& gameboy) :
-		window_(sf::VideoMode(320, 297), "Tis Emulator"),
-		screen_renderer_{gameboy}
+		window_(sf::VideoMode(320, 297), "Karp"),
+		screen_renderer_{gameboy},
+		joypad_{gameboy.getJoypad()}
 	{
 	}
 
@@ -31,6 +32,7 @@ public:
 	{
 		// pump event loop
 		sf::Event event;
+		
 		while (window_.pollEvent(event))
 		{
 			switch (event.type)
@@ -47,8 +49,10 @@ public:
 			case sf::Event::TextEntered:
 				break;
 			case sf::Event::KeyPressed:
+				handleKeyPressed(event.key.code);
 				break;
 			case sf::Event::KeyReleased:
+				handleKeyReleased(event.key.code);
 				break;
 			case sf::Event::MouseWheelMoved:
 				break;
@@ -99,11 +103,83 @@ public:
 
 private:
 
+	void handleKeyPressed(sf::Keyboard::Key key)
+	{
+		switch (key)
+		{
+		case sf::Keyboard::Key::W:
+			joypad_.press(gb::Joypad::Key::UP);
+			break;
+		case sf::Keyboard::Key::A:
+			joypad_.press(gb::Joypad::Key::LEFT);
+			break;
+		case sf::Keyboard::Key::D:
+			joypad_.press(gb::Joypad::Key::RIGHT);
+			break;
+		case sf::Keyboard::Key::S:
+			joypad_.press(gb::Joypad::Key::DOWN);
+			break;
 
+		case sf::Keyboard::RShift:
+			joypad_.press(gb::Joypad::Key::START);
+			break;
+		case sf::Keyboard::Return:
+			joypad_.press(gb::Joypad::Key::SELECT);
+			break;
+
+		case sf::Keyboard::J:
+			joypad_.press(gb::Joypad::Key::A);
+			break;
+		case sf::Keyboard::K:
+			joypad_.press(gb::Joypad::Key::B);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	void handleKeyReleased(sf::Keyboard::Key key)
+	{
+		switch (key)
+		{
+		case sf::Keyboard::Key::W:
+			joypad_.release(gb::Joypad::Key::UP);
+			break;
+		case sf::Keyboard::Key::A:
+			joypad_.release(gb::Joypad::Key::LEFT);
+			break;
+		case sf::Keyboard::Key::D:
+			joypad_.release(gb::Joypad::Key::RIGHT);
+			break;
+		case sf::Keyboard::Key::S:
+			joypad_.release(gb::Joypad::Key::DOWN);
+			break;
+
+		case sf::Keyboard::RShift:
+			joypad_.release(gb::Joypad::Key::START);
+			break;
+		case sf::Keyboard::Return:
+			joypad_.release(gb::Joypad::Key::SELECT);
+			break;
+
+		case sf::Keyboard::J:
+			joypad_.release(gb::Joypad::Key::A);
+			break;
+		case sf::Keyboard::K:
+			joypad_.release(gb::Joypad::Key::B);
+			break;
+
+		default:
+			break;
+		}
+	}
 
 private:
 	sf::RenderWindow window_;
 	ScreenRenderer screen_renderer_;
+
+	gb::Joypad joypad_;
 };
 
 

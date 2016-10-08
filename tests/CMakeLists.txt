@@ -35,6 +35,7 @@ if(GTEST_FOUND)
 		test_jump_instructions.cpp
 		test_call_instructions.cpp
 		test_shift_rotate_instructions.cpp
+		test_bit_instructions.cpp
 		test_misc.cpp
 		test_invalid_opcodes.cpp
 		test_tilemap_iterator.cpp

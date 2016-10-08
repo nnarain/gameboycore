@@ -7,7 +7,9 @@
 #define GAMEBOY_MMU_H
 
 #include <vector>
-#include <stdint.h>
+#include <cstdint>
+#include <functional>
+#include <map>
 
 #include "gameboy/cartinfo.h"
 
@@ -15,11 +17,12 @@ namespace gb
 {
     class MMU
     {
+	public:
+		using MemoryWriteHandler = std::function<void(uint8_t)>;
+		using MemoryReadHandler = std::function<uint8_t()>;
+
     private:
 		using ROMBank = std::vector<uint8_t>;
-
-        std::vector<uint8_t> memory_;
-		std::vector<ROMBank> rom_banks_;
 
     public:
         MMU();
@@ -35,6 +38,7 @@ namespace gb
 			@return the value of memory at the psecified location
 		*/
         uint8_t read(uint16_t) const;
+		uint8_t read(uint16_t);
 		/**
 			Write a byte to the specified location
 		*/
@@ -43,6 +47,13 @@ namespace gb
 			Write a word to the specified location
 		*/
 		void write(uint16_t value, uint16_t addr);
+
+		/**
+			
+		*/
+		void addWriteHandler(uint16_t addr, MemoryWriteHandler handler);
+
+		void addReadHandler(uint16_t addr, MemoryReadHandler handler);
 
 		/**
 			@return a reference to a memory location
@@ -60,6 +71,14 @@ namespace gb
 		void copyROMToBanks(unsigned int num_banks, uint8_t* rom);
 
 		void oamTransfer(uint8_t base);
+
+	private:
+
+		std::vector<uint8_t> memory_;
+		std::vector<ROMBank> rom_banks_;
+
+		std::map<uint16_t, MemoryWriteHandler> write_handlers_;
+		std::map<uint16_t, MemoryReadHandler>  read_handlers_;
 		
     };
 }

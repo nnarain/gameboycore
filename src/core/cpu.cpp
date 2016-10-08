@@ -61,17 +61,6 @@ namespace gb
 
 		lcd_.clock(cycles);
 
-		std::vector<uint16_t> breakpoints = {
-			
-		};
-
-		for (uint16_t addr : breakpoints)
-		{
-			if (pc_.val == addr) {
-				int x = 0;
-			}
-		}
-
 		checkInterrupts();
 	}
 
@@ -1215,183 +1204,183 @@ namespace gb
 			break;
 		// bit 1
 		case 0x48: // BIT 1,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 1);
 			break;
 		case 0x49: // BIT 1,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 1);
 			break;
 		case 0x4A: // BIT 1,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 1);
 			break;
 		case 0x4B: // BIT 1,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 1);
 			break;
 		case 0x4C: // BIT 1,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 1);
 			break;
 		case 0x4D: // BIT 1,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 1);
 			break;
 		case 0x4E: // BIT 1,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 1);
 			break;
 		case 0x4F: // BIT 1,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 1);
 			break;
 
 		// bit 2
 		case 0x50: // BIT 2,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 2);
 			break;
 		case 0x51: // BIT 2,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 2);
 			break;
 		case 0x52: // BIT 2,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 2);
 			break;
 		case 0x53: // BIT 2,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 2);
 			break;
 		case 0x54: // BIT 2,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 2);
 			break;
 		case 0x55: // BIT 2,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 2);
 			break;
 		case 0x56: // BIT 2,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 2);
 			break;
 		case 0x57: // BIT 2,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 2);
 			break;
 
 		// bit 3
 		case 0x58: // BIT 3,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 3);
 			break;
 		case 0x59: // BIT 3,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 3);
 			break;
 		case 0x5A: // BIT 3,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 3);
 			break;
 		case 0x5B: // BIT 3,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 3);
 			break;
 		case 0x5C: // BIT 3,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 3);
 			break;
 		case 0x5D: // BIT 3,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 3);
 			break;
 		case 0x5E: // BIT 3,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 3);
 			break;
 		case 0x5F: // BIT 3,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 3);
 			break;
 
 		// bit 4
 		case 0x60: // BIT 4,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 4);
 			break;
 		case 0x61: // BIT 4,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 4);
 			break;
 		case 0x62: // BIT 4,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 4);
 			break;
 		case 0x63: // BIT 4,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 4);
 			break;
 		case 0x64: // BIT 4,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 4);
 			break;
 		case 0x65: // BIT 4,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 4);
 			break;
 		case 0x66: // BIT 4,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 4);
 			break;
 		case 0x67: // BIT 4,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 4);
 			break;
 
 		// bit 5
 		case 0x68: // BIT 5,B
-			bit(bc_.hi, 0);
+			bit(bc_.hi, 5);
 			break;
 		case 0x69: // BIT 5,C
-			bit(bc_.lo, 0);
+			bit(bc_.lo, 5);
 			break;
 		case 0x6A: // BIT 5,D
-			bit(de_.hi, 0);
+			bit(de_.hi, 5);
 			break;
 		case 0x6B: // BIT 5,E
-			bit(de_.lo, 0);
+			bit(de_.lo, 5);
 			break;
 		case 0x6C: // BIT 5,H
-			bit(hl_.hi, 0);
+			bit(hl_.hi, 5);
 			break;
 		case 0x6D: // BIT 5,L
-			bit(hl_.lo, 0);
+			bit(hl_.lo, 5);
 			break;
 		case 0x6E: // BIT 5,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_.read(hl_.val), 5);
 			break;
 		case 0x6F: // BIT 5,A
-			bit(af_.hi, 0);
+			bit(af_.hi, 5);
 			break;
 
 		// bit 6
-		case 0x70: // BIT 0,B
-			bit(bc_.hi, 0);
+		case 0x70: // BIT 6,B
+			bit(bc_.hi, 6);
 			break;
-		case 0x71: // BIT 0,C
-			bit(bc_.lo, 0);
+		case 0x71: // BIT 6,C
+			bit(bc_.lo, 6);
 			break;
-		case 0x72: // BIT 0,D
-			bit(de_.hi, 0);
+		case 0x72: // BIT 6,D
+			bit(de_.hi, 6);
 			break;
-		case 0x73: // BIT 0,E
-			bit(de_.lo, 0);
+		case 0x73: // BIT 6,E
+			bit(de_.lo, 6);
 			break;
-		case 0x74: // BIT 0,H
-			bit(hl_.hi, 0);
+		case 0x74: // BIT 6,H
+			bit(hl_.hi, 6);
 			break;
-		case 0x75: // BIT 0,L
-			bit(hl_.lo, 0);
+		case 0x75: // BIT 6,L
+			bit(hl_.lo, 6);
 			break;
-		case 0x76: // BIT 0,(HL)
-			bit(mmu_.read(hl_.val), 0);
+		case 0x76: // BIT 6,(HL)
+			bit(mmu_.read(hl_.val), 6);
 			break;
-		case 0x77: // BIT 0,A
-			bit(af_.hi, 0);
+		case 0x77: // BIT 6,A
+			bit(af_.hi, 6);
 			break;
 		// bit 7
-		case 0x78: // BIT 1,B
-			bit(bc_.hi, 0);
+		case 0x78: // BIT 7,B
+			bit(bc_.hi, 7);
 			break;
-		case 0x79: // BIT 1,C
-			bit(bc_.lo, 0);
+		case 0x79: // BIT 7,C
+			bit(bc_.lo, 7);
 			break;
-		case 0x7A: // BIT 1,D
-			bit(de_.hi, 0);
+		case 0x7A: // BIT 7,D
+			bit(de_.hi, 7);
 			break;
-		case 0x7B: // BIT 1,E
-			bit(de_.lo, 0);
+		case 0x7B: // BIT 7,E
+			bit(de_.lo, 7);
 			break;
-		case 0x7C: // BIT 1,H
-			bit(hl_.hi, 0);
+		case 0x7C: // BIT 7,H
+			bit(hl_.hi, 7);
 			break;
-		case 0x7D: // BIT 1,L
-			bit(hl_.lo, 0);
+		case 0x7D: // BIT 7,L
+			bit(hl_.lo, 7);
 			break;
-		case 0x7E: // BIT 1,(HL)
-			bit(mmu_.read(hl_.val), 0);
+		case 0x7E: // BIT 7,(HL)
+			bit(mmu_.read(hl_.val), 7);
 			break;
-		case 0x7F: // BIT 1,A
-			bit(af_.hi, 0);
+		case 0x7F: // BIT 7,A
+			bit(af_.hi, 7);
 			break;
 
 		/* Reset */
@@ -2144,7 +2133,9 @@ namespace gb
 
 	void CPU::bit(uint8_t val, uint8_t n)
 	{
-		setFlag(CPU::Flags::Z, IS_BIT_SET(val, n) == 0);
+		uint8_t b = (val & BV(n)) >> n;
+
+		setFlag(CPU::Flags::Z, b == 0);
 		setFlag(CPU::Flags::H, true);
 		setFlag(CPU::Flags::N, false);
 	}
