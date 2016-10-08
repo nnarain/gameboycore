@@ -34,6 +34,8 @@ set(GAMEBOYCORE
 	src/core/opcodeinfo.cpp
 	src/core/lcd_controller.cpp
 	src/core/tileram.cpp
+	src/core/tilemap.cpp
+	src/core/joypad.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
