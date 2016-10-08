@@ -7,6 +7,7 @@
 #define GAMEBOY_JOYPAD_H
 
 #include "gameboy/mmu.h"
+#include "gameboy/interrupt_provider.h"
 
 #include <functional>
 
@@ -27,7 +28,11 @@ namespace gb
 			START  = 7
 		};
 
-		Joypad(MMU& mmu) : mmu_(mmu), reg_(mmu.get(memorymap::JOYPAD_REGISTER)), keys_(0xFF)
+		Joypad(MMU& mmu) : 
+			mmu_(mmu),
+			reg_(mmu.get(memorymap::JOYPAD_REGISTER)),
+			keys_(0xFF),
+			interrupt_provider_(mmu, InterruptProvider::Interrupt::JOYPAD)
 		{
 			// add handlers
 			mmu_.addReadHandler(memorymap::JOYPAD_REGISTER, std::bind(&Joypad::readJoypad, this));
@@ -37,6 +42,7 @@ namespace gb
 		void press(Key key)
 		{
 			keys_ &= ~(1 << static_cast<uint8_t>(key));
+			interrupt_provider_.set();
 		}
 
 		void release(Key key)
@@ -67,6 +73,8 @@ namespace gb
 		MMU& mmu_;
 		uint8_t& reg_;
 		uint8_t keys_;
+
+		InterruptProvider interrupt_provider_;
 	};
 }
 
