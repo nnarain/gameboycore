@@ -57,7 +57,7 @@ namespace gb
 			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 		}
 
-		div_->lo += cycles;
+		div_->val += cycles;
 
 		lcd_.clock(cycles);
 

@@ -12,7 +12,7 @@ namespace gb
     MMU::MMU() :
 		memory_(0xFFFF + 1)
     {
-
+		memory_[memorymap::JOYPAD_REGISTER] = 0xFF;
     }
 
     MMU::~MMU()
@@ -55,10 +55,15 @@ namespace gb
 		{
 			oamTransfer(value);
 		}
-//		else if (addr == memorymap::JOYPAD_REGISTER)
-//		{
-//			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
-//		}
+		else if (addr == memorymap::JOYPAD_REGISTER)
+		{
+			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
+		}
+		else if (addr == memorymap::DIVIDER_REGISER)
+		{
+			// writing any value to this register clears it to 0
+			memory_[addr] = 0;
+		}
 		else
 		{
 			if (write_handlers_.find(addr) != write_handlers_.end())
@@ -69,8 +74,6 @@ namespace gb
 			{
 				memory_[addr] = value;
 			}
-
-			//memory_[addr] = value;
 		}
     }
 
