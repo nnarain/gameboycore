@@ -38,6 +38,7 @@ if(GTEST_FOUND)
 		test_bit_instructions.cpp
 		test_misc.cpp
 		test_invalid_opcodes.cpp
+		test_joypad.cpp
 		test_tilemap_iterator.cpp
 		
 		# headers
