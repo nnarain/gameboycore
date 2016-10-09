@@ -15,7 +15,6 @@ namespace gb
 	{
 		// add handlers
 		mmu_.addReadHandler(memorymap::JOYPAD_REGISTER, std::bind(&Joypad::readJoypad, this));
-		mmu_.addWriteHandler(memorymap::JOYPAD_REGISTER, std::bind(&Joypad::writeJoypad, this, std::placeholders::_1));
 	}
 
 	Joypad::~Joypad()

@@ -55,10 +55,10 @@ namespace gb
 		{
 			oamTransfer(value);
 		}
-//		else if (addr == memorymap::JOYPAD_REGISTER)
-//		{
-//			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
-//		}
+		else if (addr == memorymap::JOYPAD_REGISTER)
+		{
+			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
+		}
 		else if (addr == memorymap::DIVIDER_REGISER)
 		{
 			// writing any value to this register clears it to 0
@@ -74,8 +74,6 @@ namespace gb
 			{
 				memory_[addr] = value;
 			}
-
-			//memory_[addr] = value;
 		}
     }
 
