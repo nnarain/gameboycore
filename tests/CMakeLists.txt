@@ -39,7 +39,6 @@ if(GTEST_FOUND)
 		test_misc.cpp
 		test_invalid_opcodes.cpp
 		test_joypad.cpp
-		test_tilemap_iterator.cpp
 		
 		# headers
 		include/test_helper.h
