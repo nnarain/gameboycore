@@ -5,7 +5,7 @@
 
 #include "test_helper.h"
 
-gb::CPU::Status run(gb::Gameboy& gameboy, std::vector<uint8_t>& rom)
+gb::CPU::Status run(gb::Gameboy& gameboy, std::vector<uint8_t>& rom, bool reset)
 {
 	gameboy.loadROM(&rom[0], rom.size());
 
@@ -14,7 +14,8 @@ gb::CPU::Status run(gb::Gameboy& gameboy, std::vector<uint8_t>& rom)
 
 	gb::CPU::Status status = gameboy.getCPU().getStatus();
 
-	gameboy.reset();
+	if(reset)
+		gameboy.reset();
 
 	return status;
 }
