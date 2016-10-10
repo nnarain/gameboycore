@@ -87,5 +87,11 @@ add_subdirectory(tests)
 # install core
 install(
 	TARGETS gbcore
-	ARCHIVE DESTINATION bin
+	ARCHIVE DESTINATION lib
+)
+
+# install headers
+install(
+	DIRECTORY include
+	DESTINATION .
 )

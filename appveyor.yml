@@ -47,7 +47,7 @@ after_build:
   - dir
 
 artifacts:
-- path: .\gameboy.zip
+- path: gameboy.zip
   name: gameboy
   
 deploy:
