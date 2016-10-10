@@ -20,6 +20,7 @@ namespace gb
             &image[memorymap::GAME_TITLE_START],
             memorymap::GAME_TITLE_END - memorymap::GAME_TITLE_START
         );
+		info.game_title[(memorymap::GAME_TITLE_END - memorymap::GAME_TITLE_START)] = '\0';
 
         return info;
     }
