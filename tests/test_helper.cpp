@@ -9,8 +9,10 @@ gb::CPU::Status run(gb::Gameboy& gameboy, std::vector<uint8_t>& rom, bool reset)
 {
 	gameboy.loadROM(&rom[0], rom.size());
 
-	while (!gameboy.isDone())
+	do
+	{
 		gameboy.update();
+	} while (!gameboy.isDone());
 
 	gb::CPU::Status status = gameboy.getCPU().getStatus();
 

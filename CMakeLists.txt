@@ -47,6 +47,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/tilemap.h
 	include/gameboy/tile.h
 	include/gameboy/joypad.h
+	include/gameboy/interrupt_provider.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h

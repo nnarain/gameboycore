@@ -40,7 +40,7 @@ namespace gb
 		*/
 		void setStepCount(unsigned int step_count);
 
-		const CPU& getCPU() const;
+		CPU& getCPU();
 
 		TileRAM getTileRAM();
 		TileMap getTileMap();

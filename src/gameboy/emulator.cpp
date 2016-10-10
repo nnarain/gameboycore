@@ -40,7 +40,7 @@ int main(int argc, char * argv[])
 		gameboy.setStepCount(512);
 		gameboy.setDebugMode(false);
 		
-		while (!gameboy.isDone() && window.isOpen()) 
+		while (window.isOpen()) 
 		{
 			gameboy.update();
 			window.update();

@@ -47,6 +47,7 @@ namespace gb
 			Register sp;
 			Register pc;
 			bool halt;
+			bool stopped;
 		};
 
 		enum Flags
@@ -98,6 +99,7 @@ namespace gb
 		void decode2(uint8_t opcode);
 
 		void checkInterrupts();
+		void checkPowerMode();
 		void interrupt(InterruptVector, InterruptMask);
 
 		void printDisassembly(uint8_t opcode, uint16_t userdata_ptr, OpcodePage page);

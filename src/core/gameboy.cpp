@@ -38,7 +38,7 @@ namespace gb
 		step_count_ = step_count;
 	}
 
-	const CPU& Gameboy::getCPU() const
+	CPU& Gameboy::getCPU()
 	{
 		return cpu_;
 	}

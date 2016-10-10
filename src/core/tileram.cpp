@@ -77,7 +77,7 @@ namespace gb
 
 		for (auto row = 0; row < NUM_ROWS; ++row)
 		{
-			auto target_row = NUM_ROWS - row;
+			auto target_row = NUM_ROWS - row - 1;
 
 			auto old_idx = (row * PIXELS_PER_ROW);
 			auto target_idx = (target_row * PIXELS_PER_ROW);
