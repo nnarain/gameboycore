@@ -40,10 +40,10 @@ build:
 
 after_build:
   - C:\projects\gameboy\build\tests\Debug\gameboy_tests.exe
-  - C:\projects\gameboy\build\INSTALL.vcxproj
+  - msbuild C:\projects\gameboy\build\INSTALL.vcxproj
   - copy c:\libs\sfml\bin\* c:\gameboy
   - pwd
-  - 7z a gameboy.zip -r c:\projects\install
+  - 7z a -tzip gameboy.zip c:\projects\install\*
 
 artifacts:
 - path: .\gameboy.zip
