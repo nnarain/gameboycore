@@ -67,6 +67,7 @@ namespace gb
 			lcd_.clock(cycles);
 		}
 
+		checkPowerMode();
 		checkInterrupts();
 	}
 
@@ -1857,10 +1858,6 @@ namespace gb
 		{
 			// mask off disabled interrupts
 			uint8_t pending_interrupts = interrupt_flags_ & interrupt_enable_;
-
-			// check if an interrupt occured, if yes, bring out of halt mode
-			if (pending_interrupts != 0 && !stopped_)
-				halted_ = false;
 				
 			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
 				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
@@ -1870,13 +1867,28 @@ namespace gb
 				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
 			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
 				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
-
 			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD)) 
-			{
 				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
+		}
+	}
 
+	void CPU::checkPowerMode()
+	{
+		uint8_t pending_interrupts = interrupt_enable_ & interrupt_flags_;
+
+		if (!stopped_)
+		{
+			if (pending_interrupts != 0)
+			{
+				halted_ = false;
+			}
+		}
+		else
+		{
+			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))
+			{
 				stopped_ = false;
-				halted_  = false;
+				halted_ = false;
 			}
 		}
 	}
