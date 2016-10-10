@@ -80,7 +80,6 @@ add_library(gbcore
 )
 
 add_subdirectory(src/gameboy)
-add_subdirectory(src/disassembler)
 
 enable_testing()
 add_subdirectory(tests)
