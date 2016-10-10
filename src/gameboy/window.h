@@ -157,10 +157,10 @@ private:
 			break;
 
 		case sf::Keyboard::RShift:
-			joypad_.release(gb::Joypad::Key::START);
+			joypad_.release(gb::Joypad::Key::SELECT);
 			break;
 		case sf::Keyboard::Return:
-			joypad_.release(gb::Joypad::Key::SELECT);
+			joypad_.release(gb::Joypad::Key::START);
 			break;
 
 		case sf::Keyboard::J:
