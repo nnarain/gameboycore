@@ -59,3 +59,55 @@ TEST(LowPowerTest, HaltResume)
 
 	EXPECT_EQ(status.af.hi, 0x50);
 }
+
+TEST(LowPowerTest, Stop)
+{
+	Gameboy gameboy;
+
+	CodeGenerator code;
+	code.block(
+		0x10, 0x00, // stop
+		0x76
+	);
+
+	auto status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.stopped, true);
+	EXPECT_EQ(status.halt, true);
+}
+
+TEST(LowPowerTest, StopResume)
+{
+	Gameboy gameboy;
+
+	CodeGenerator code;
+	code.block(
+		0xFB,			// EI
+		0x3E, 0x10,		// LD A,$10
+		0xE0, 0xFF,		// LDH (FF),A ; enable joypad interrupt
+		0x10, 0x00,		// stop
+		0x3E, 0x50,		// LD A,$50
+		0x76			// halt
+	);
+	// joypad interrupt handler
+	code.address(0x60);
+	code.block(
+		0x3E, 0x50,
+		0x76
+	);
+
+	InterruptProvider interrupt{ gameboy.getCPU().getMMU(), InterruptProvider::Interrupt::JOYPAD };
+
+	auto status = run(gameboy, code.rom(), false);
+	const auto& mmu = gameboy.getCPU().getMMU();
+
+	EXPECT_EQ(status.halt, true);
+	EXPECT_EQ(status.stopped, true);
+	EXPECT_EQ(status.af.hi, 0x10);
+	EXPECT_EQ(mmu.read(0xFFFF), 0x10);
+
+	interrupt.set();
+	status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.hi, 0x50);
+}

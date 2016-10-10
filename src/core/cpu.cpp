@@ -79,9 +79,10 @@ namespace gb
 
 		switch (opcode)
 		{
+		// NOP
 		case 0x00:
-			// NOP
 			break;
+		// STOP
 		case 0x10:
 			stopped_ = true;
 			halted_ = true;
@@ -1873,9 +1874,9 @@ namespace gb
 			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD)) 
 			{
 				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
-				
+
 				stopped_ = false;
-				halted_ = false;
+				halted_  = false;
 			}
 		}
 	}
@@ -2219,13 +2220,14 @@ namespace gb
 	CPU::Status CPU::getStatus() const
 	{
 		Status status;
-		status.af   = af_;
-		status.bc   = bc_;
-		status.de   = de_;
-		status.hl   = hl_;
-		status.sp   = sp_;
-		status.pc   = pc_;
-		status.halt = halted_;
+		status.af      = af_;
+		status.bc      = bc_;
+		status.de      = de_;
+		status.hl      = hl_;
+		status.sp      = sp_;
+		status.pc      = pc_;
+		status.halt    = halted_;
+		status.stopped = stopped_;
 
 		return status;
 	}
