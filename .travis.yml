@@ -22,7 +22,7 @@ script:
 - make && make check
 
 after_success:
-  - tar -cvf gameboy.tar.gz build/gameboy build/libgbcore.a build/rominfo
+  - tar -cvf gameboy.tar.gz build/gameboy build/libgbcore.a
 
 deploy:
   provider: releases
