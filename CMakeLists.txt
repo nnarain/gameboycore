@@ -81,7 +81,6 @@ add_library(gbcore
 
 add_subdirectory(src/gameboy)
 add_subdirectory(src/disassembler)
-add_subdirectory(src/rominfo)
 
 enable_testing()
 add_subdirectory(tests)
