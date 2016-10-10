@@ -92,6 +92,7 @@ namespace gb
 
 	private:
 		void transitionState(State newState);
+		void configure(uint8_t value);
 
 	private:
 		/* References to Gameboy LCD registers */

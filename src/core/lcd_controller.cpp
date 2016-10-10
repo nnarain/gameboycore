@@ -1,5 +1,9 @@
-#include "gameboy/lcd_controller.h"
 
+/**
+	\author Natesh Narain <nnaraindev@gmail.com>
+*/
+
+#include "gameboy/lcd_controller.h"
 #include "bitutil.h"
 
 #define SCAN_LINE_CYCLES 456
@@ -8,10 +12,10 @@
 namespace gb
 {
 	LCDController::LCDController(MMU& mmu) :
-		lcdc_(mmu.get(LCDRegister::LCDC)),
-		stat_(mmu.get(LCDRegister::STAT)),
-		ly_(mmu.get(LCDRegister::LY)),
-		lyc_(mmu.get(LCDRegister::LYC)),
+		lcdc_(mmu.get(memorymap::LCDC_REGISTER)),
+		stat_(mmu.get(memorymap::LCD_STAT_REGISTER)),
+		ly_  (mmu.get(memorymap::LY_REGISTER)),
+		lyc_ (mmu.get(memorymap::LYC_REGISTER)),
 		line_count_(0),
 		mode_count_(0),
 		state_(State::MODE2),
@@ -19,24 +23,12 @@ namespace gb
 		lcd_stat_provider_(mmu, InterruptProvider::Interrupt::LCDSTAT),
 		vblank_provider_(mmu, InterruptProvider::Interrupt::VBLANK)
 	{
+		mmu.addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&LCDController::configure, this, std::placeholders::_1));
 	}
 
 	void LCDController::clock(uint8_t cycles)
 	{
 		// check if the controller is enabled
-		if (lcdc_ & LCDCBits::ENABLE)
-		{
-			if (!is_enabled_)
-				ly_ = 0;
-
-			is_enabled_ = true;
-		}
-		else
-		{
-			is_enabled_ = false;
-		}
-
-		if (!is_enabled_) return;
 
 		// increment counters
 		line_count_ += cycles;
@@ -133,6 +125,18 @@ namespace gb
 
 		state_ = newState;
 		mode_count_ = 0;
+	}
+
+	void LCDController::configure(uint8_t value)
+	{
+		bool enable = IS_SET(value, LCDCBits::ENABLE) != 0;
+
+		if (enable && !is_enabled_)
+			ly_ = 0;
+
+		is_enabled_ = enable;
+
+		lcdc_ = value;
 	}
 
 	LCDController::BackgroundMapData LCDController::getBackgroundMapLocation() const
