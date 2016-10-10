@@ -83,3 +83,9 @@ add_subdirectory(src/gameboy)
 
 enable_testing()
 add_subdirectory(tests)
+
+# install core
+install(
+	TARGETS gbcore
+	ARCHIVE DESTINATION bin
+)
