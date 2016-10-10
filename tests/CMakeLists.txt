@@ -39,6 +39,7 @@ if(GTEST_FOUND)
 		test_misc.cpp
 		test_invalid_opcodes.cpp
 		test_joypad.cpp
+		test_low_power_mode.cpp
 		
 		# headers
 		include/test_helper.h

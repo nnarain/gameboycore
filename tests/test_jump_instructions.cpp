@@ -21,7 +21,7 @@ TEST(JumpInstructions, BaseJump)
 	Gameboy gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.pc.val, 0x150);
+	EXPECT_EQ(status.pc.val, 0x151);
 	EXPECT_EQ(status.halt, true);
 }
 
@@ -46,7 +46,7 @@ TEST(JumpInstructions, ZFlag)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x300);
+	EXPECT_EQ(status.pc.val, 0x301);
 
 	code.reset();
 
@@ -60,7 +60,7 @@ TEST(JumpInstructions, ZFlag)
 	status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x156);
+	EXPECT_EQ(status.pc.val, 0x157);
 }
 
 TEST(JumpInstructions, CFlag)
@@ -84,7 +84,7 @@ TEST(JumpInstructions, CFlag)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
-	EXPECT_EQ(status.pc.val, 0x300);
+	EXPECT_EQ(status.pc.val, 0x301);
 
 	code.reset();
 
@@ -96,7 +96,7 @@ TEST(JumpInstructions, CFlag)
 	status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
-	EXPECT_EQ(status.pc.val, 0x153);
+	EXPECT_EQ(status.pc.val, 0x154);
 }
 
 TEST(JumpInstructions, RelativeBase)
@@ -117,7 +117,7 @@ TEST(JumpInstructions, RelativeBase)
 	Gameboy gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.pc.val, 0x1FE);
+	EXPECT_EQ(status.pc.val, 0x1FF);
 }
 
 TEST(JumpInstructions, RelativeZFlag)
@@ -141,7 +141,7 @@ TEST(JumpInstructions, RelativeZFlag)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x177);
+	EXPECT_EQ(status.pc.val, 0x178);
 }
 
 
@@ -166,5 +166,5 @@ TEST(JumpInstructions, RelativeCFlag)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
-	EXPECT_EQ(status.pc.val, 0x166);
+	EXPECT_EQ(status.pc.val, 0x167);
 }

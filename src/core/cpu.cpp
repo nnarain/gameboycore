@@ -33,33 +33,39 @@ namespace gb
 
 	void CPU::step()
 	{
-		// fetch next opcode
-		uint8_t opcode = mmu_.read(pc_.val++);
-		uint8_t cycles;
+		uint8_t cycles = 1;
 
-		// $CB means decode from the second page of instructions
-		if (opcode != 0xCB)
+		if (!halted_)
 		{
-			// decode from first page
-			decode1(opcode);
+			// fetch next opcode
+			uint8_t opcode = mmu_.read(pc_.val++);
 
-			// look up the number of cycles for this opcode
-			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE1).cycles;
+			// $CB means decode from the second page of instructions
+			if (opcode != 0xCB)
+			{
+				// decode from first page
+				decode1(opcode);
+
+				// look up the number of cycles for this opcode
+				cycles = getOpcodeInfo(opcode, OpcodePage::PAGE1).cycles;
+			}
+			else
+			{
+				// read the second page opcode
+				opcode = mmu_.read(pc_.val++);
+				// decode from second page
+				decode2(opcode);
+
+				// look up the number of cycles for this opcode
+				cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
+			}
 		}
-		else
+
+		if (!stopped_)
 		{
-			// read the second page opcode
-			opcode = mmu_.read(pc_.val++);
-			// decode from second page
-			decode2(opcode);
-
-			// look up the number of cycles for this opcode
-			cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
+			div_->val += cycles;
+			lcd_.clock(cycles);
 		}
-
-		div_->val += cycles;
-
-		lcd_.clock(cycles);
 
 		checkInterrupts();
 	}
@@ -73,11 +79,13 @@ namespace gb
 
 		switch (opcode)
 		{
+		// NOP
 		case 0x00:
-			// NOP
 			break;
+		// STOP
 		case 0x10:
 			stopped_ = true;
+			halted_ = true;
 			pc_.val++;
 			break;
 
@@ -496,7 +504,6 @@ namespace gb
 
 		case 0x76:
 			halted_ = true;
-			pc_.val--; // TODO: implement halt mode
 			break;
 
 		/* Jumps */
@@ -1851,6 +1858,10 @@ namespace gb
 			// mask off disabled interrupts
 			uint8_t pending_interrupts = interrupt_flags_ & interrupt_enable_;
 
+			// check if an interrupt occured, if yes, bring out of halt mode
+			if (pending_interrupts != 0 && !stopped_)
+				halted_ = false;
+				
 			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
 				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
 			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
@@ -1859,8 +1870,14 @@ namespace gb
 				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
 			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
 				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
-			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))
+
+			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD)) 
+			{
 				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
+
+				stopped_ = false;
+				halted_  = false;
+			}
 		}
 	}
 
@@ -2203,13 +2220,14 @@ namespace gb
 	CPU::Status CPU::getStatus() const
 	{
 		Status status;
-		status.af   = af_;
-		status.bc   = bc_;
-		status.de   = de_;
-		status.hl   = hl_;
-		status.sp   = sp_;
-		status.pc   = pc_;
-		status.halt = halted_;
+		status.af      = af_;
+		status.bc      = bc_;
+		status.de      = de_;
+		status.hl      = hl_;
+		status.sp      = sp_;
+		status.pc      = pc_;
+		status.halt    = halted_;
+		status.stopped = stopped_;
 
 		return status;
 	}
