@@ -32,7 +32,7 @@ install:
 before_build:
   - cd c:\projects\gameboy
   - mkdir build && cd build
-  - cmake -G "Visual Studio 14 2015" .. -DCMAKE_INSTALL_PREFIX=c:\gameboy
+  - cmake -G "Visual Studio 14 2015" .. -DCMAKE_INSTALL_PREFIX=c:\projects\install
 
 build:
   project: c:\projects\gameboy\build\gameboy.sln
@@ -43,7 +43,7 @@ after_build:
   - C:\projects\gameboy\build\INSTALL.vcxproj
   - copy c:\libs\sfml\bin\* c:\gameboy
   - pwd
-  - 7z a gameboy.zip -r c:\gameboy
+  - 7z a gameboy.zip -r c:\projects\install
 
 artifacts:
 - path: .\gameboy.zip
