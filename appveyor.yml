@@ -30,10 +30,9 @@ install:
   - set PATH=%PATH%;%SFML_ROOT%
 
 before_build:
-  - echo "Generating Visual Studio Solution..."
   - cd c:\projects\gameboy
   - mkdir build && cd build
-  - cmake -G "Visual Studio 14 2015" ..
+  - cmake -G "Visual Studio 14 2015" .. -DCMAKE_INSTALL_PREFIX=c:\projects\install
 
 build:
   project: c:\projects\gameboy\build\gameboy.sln
@@ -41,3 +40,25 @@ build:
 
 after_build:
   - C:\projects\gameboy\build\tests\Debug\gameboy_tests.exe
+  - msbuild C:\projects\gameboy\build\INSTALL.vcxproj /verbosity:quiet
+  - copy c:\libs\sfml\bin\* c:\projects\install\bin
+  - pwd
+  - 7z a -tzip gameboy.zip c:\projects\install\*
+  - dir
+
+artifacts:
+- path: .\build\gameboy.zip
+  name: gameboy
+  
+deploy:
+  provider: GitHub
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  description: 'v$(APPVEYOR_REPO_TAG_NAME)'
+  auth_token:
+    secure: +F7/lKFe9fc9q4w0lCpc9tR1H4JucHiE7WuevfJCaWOeU/5ul8QojqNACB6ODFgT
+  artifact: gameboy
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true
+  force_update: true 
