@@ -43,6 +43,7 @@ namespace gb
 		void setStepCount(unsigned int step_count);
 
 		CPU& getCPU();
+		MMU::Ptr getMMU();
 
 		TileRAM getTileRAM();
 		TileMap getTileMap();

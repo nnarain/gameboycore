@@ -32,7 +32,7 @@ namespace gb
 
 	void Gameboy::reset()
 	{
-		cpu_.reset();
+		cpu_->reset();
 	}
 
 	void Gameboy::setDebugMode(bool debug)
@@ -48,6 +48,11 @@ namespace gb
 	CPU& Gameboy::getCPU()
 	{
 		return *cpu_.get();
+	}
+
+	MMU::Ptr Gameboy::getMMU()
+	{
+		return mmu_;
 	}
 
 	TileRAM Gameboy::getTileRAM()

@@ -33,8 +33,8 @@ TEST(MiscInstructions, Swap)
 	);
 
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status = run(gameboy, code.rom());
+	const MMU& mmu = gameboy.getCPU().getMMU();
 
 	EXPECT_EQ(status.af.hi, 0x21);
 	EXPECT_EQ(status.bc.hi, 0x43);

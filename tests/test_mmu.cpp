@@ -75,10 +75,10 @@ TEST(MMUTest, Write16Bit)
 	mmu.load(&rom[0], rom.size());
 
 	uint16_t b = 0xDEAD;
-	mmu.write(b, 0x512);
+	mmu.write(b, 0xC000);
 
-	EXPECT_EQ(mmu.read(0x512), 0xAD);
-	EXPECT_EQ(mmu.read(0x513), 0xDE);
+	EXPECT_EQ(mmu.read(0xC000), 0xAD);
+	EXPECT_EQ(mmu.read(0xC001), 0xDE);
 }
 
 TEST(MMUTest, DMA)

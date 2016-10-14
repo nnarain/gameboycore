@@ -113,8 +113,8 @@ namespace gb
 
 	//	memory_[addr]     = lo;
 	//	memory_[addr + 1] = hi;
-		mbc_->write(lo, addr    );
-		mbc_->write(hi, addr + 1);
+		write(lo, addr + 0);
+		write(hi, addr + 1);
 	}
 
 	void MMU::addWriteHandler(uint16_t addr, MemoryWriteHandler handler)
