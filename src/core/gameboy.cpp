@@ -24,10 +24,10 @@ namespace gb
     //    MMU& mmu = cpu_->getMMU();
     //    mmu.load(rom, size);
 
-		mmu_ = std::make_shared<MMU>();
+		mmu_.reset(new MMU());
 		mmu_->load(rom, size);
 
-		cpu_ = std::make_unique<CPU>(mmu_);
+		cpu_.reset(new CPU(mmu_));
     }
 
 	void Gameboy::reset()
