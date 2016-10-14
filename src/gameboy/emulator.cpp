@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <functional>
+#include <stdexcept>
 
 #include <gameboy/gameboy.h>
 
@@ -24,26 +25,34 @@ int main(int argc, char * argv[])
     std::vector<uint8_t> rom;
     if(loadGB(std::string(argv[1]), rom))
     {
-        Gameboy gameboy;
-        gameboy.loadROM(&rom[0], rom.size());
-
-		// after loading ROM into Gameboy, release loaded image
-		rom.clear();
-
-		// setup render window
-		Window window(gameboy);
-
-		// lcd callback
-		gameboy.getLCDController().setVBlankCallback(std::bind(&Window::updateTextures, &window));
-
-		// start emulating
-		gameboy.setStepCount(512);
-		gameboy.setDebugMode(false);
-		
-		while (window.isOpen()) 
+		try
 		{
-			gameboy.update();
-			window.update();
+			Gameboy gameboy;
+			gameboy.loadROM(&rom[0], rom.size());
+
+			// after loading ROM into Gameboy, release loaded image
+			rom.clear();
+
+			// setup render window
+			Window window(gameboy);
+
+			// lcd callback
+			gameboy.getLCDController().setVBlankCallback(std::bind(&Window::updateTextures, &window));
+
+			// start emulating
+			gameboy.setStepCount(512);
+			gameboy.setDebugMode(false);
+
+			while (window.isOpen())
+			{
+				gameboy.update();
+				window.update();
+			}
+		}
+		catch (std::runtime_error& e)
+		{
+			std::cerr << e.what() << std::endl;
+			return 1;
 		}
     }
     else

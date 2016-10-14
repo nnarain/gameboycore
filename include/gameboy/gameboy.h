@@ -22,7 +22,9 @@ namespace gb
     class Gameboy
     {
     private:
-        CPU cpu_;
+     //   CPU cpu_;
+		CPU::Ptr cpu_;
+		MMU::Ptr mmu_;
 
     public:
         Gameboy();

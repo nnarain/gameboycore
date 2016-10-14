@@ -1,5 +1,10 @@
+
+/**
+	\author Natesh Narain <nnaraindev@gmail.com>
+*/
+
 #include "gameboy/mmu.h"
-#include "gameboy/mbc.h"
+#include "gameboy/mbc1.h"
 #include "bitutil.h"
 
 #include <cstring>
@@ -22,14 +27,35 @@ namespace gb
     void MMU::load(uint8_t* rom, uint32_t size)
     {
 		RomParser parser;
-		CartInfo info = parser.parse(rom);
+		CartInfo header = parser.parse(rom);
 
-		loadROMBanks(info.rom_size, rom);
+		switch (static_cast<MBC::Type>(header.type))
+		{
+		// Supports MBC1
+		// Note: MBC1 handles the ROM only case
+		case MBC::Type::ROM_ONLY:
+		case MBC::Type::MBC1:
+		case MBC::Type::MBC1_RAM:
+		case MBC::Type::MBC1_RAM_BAT:
+			mbc_ = std::make_unique<MBC1>(rom, size, header.rom_size, header.ram_size);
+			break;
+
+		// TODO: MBC2
+		// TODO: MBC3
+		// TODO: MBC5
+
+		default:
+			throw std::runtime_error("Unsupported cartridge type :(");
+			break;
+		}
+
+		// TODO: remove
+	//	loadROMBanks(header.rom_size, rom);
     }
 
     uint8_t MMU::read(uint16_t addr) const
     {
-        return memory_[addr];
+		return mbc_->read(addr);
     }
 
 	uint8_t MMU::read(uint16_t addr)
@@ -40,7 +66,7 @@ namespace gb
 		}
 		else
 		{
-			return memory_[addr];
+			return mbc_->read(addr);
 		}
 	}
 
@@ -57,12 +83,14 @@ namespace gb
 		}
 		else if (addr == memorymap::JOYPAD_REGISTER)
 		{
-			memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
+		//	memory_[addr] = value | 0x0F; // first 4 bits of joypad input are pulled high
+			mbc_->write(value | 0x0F, addr);
 		}
 		else if (addr == memorymap::DIVIDER_REGISER)
 		{
 			// writing any value to this register clears it to 0
-			memory_[addr] = 0;
+		//	memory_[addr] = 0;
+			mbc_->write(0, addr);
 		}
 		else
 		{
@@ -72,7 +100,8 @@ namespace gb
 			}
 			else
 			{
-				memory_[addr] = value;
+			//	memory_[addr] = value;
+				mbc_->write(value, addr);
 			}
 		}
     }
@@ -82,8 +111,10 @@ namespace gb
 		uint8_t hi = (value & 0xFF00) >> 8;
 		uint8_t lo = (value & 0x00FF);
 
-		memory_[addr]     = lo;
-		memory_[addr + 1] = hi;
+	//	memory_[addr]     = lo;
+	//	memory_[addr + 1] = hi;
+		mbc_->write(lo, addr    );
+		mbc_->write(hi, addr + 1);
 	}
 
 	void MMU::addWriteHandler(uint16_t addr, MemoryWriteHandler handler)
@@ -98,12 +129,19 @@ namespace gb
 
 	uint8_t& MMU::get(uint16_t addr)
 	{
-		return memory_[addr];
+	//	return memory_[addr];
+		return mbc_->get(addr);
 	}
 
 	uint8_t* MMU::getptr(uint16_t addr)
 	{
-		return &memory_[addr];
+	//	return &memory_[addr];
+		return mbc_->getptr(addr);
+	}
+
+	void MMU::loadMBC(const CartInfo& header)
+	{
+		// TODO: remove
 	}
 
 	void MMU::loadROMBanks(uint8_t rom_size, uint8_t * rom)
@@ -119,7 +157,7 @@ namespace gb
 		std::memcpy(&memory_[0], rom, 2 * BANK_SIZE);
 
 		// load additional, switchable banks
-		if (rom_size <= mbc::ROM_256KB)
+		if (rom_size <= static_cast<uint8_t>(MBC::Type::ROM_256KB))
 		{
 			// look up the total number of banks this cartridge has
 			unsigned int cartridge_rom_banks = rom_banks1[rom_size];
