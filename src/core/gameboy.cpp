@@ -1,6 +1,8 @@
 
 #include "gameboy/gameboy.h"
 
+#include <memory>
+
 namespace gb
 {
     Gameboy::Gameboy() :
