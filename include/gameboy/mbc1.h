@@ -15,13 +15,23 @@ namespace gb
 {
 	class MBC1 : public MBC
 	{
+	private:
 		static constexpr unsigned int KILO_BYTE = 1024;
 		static constexpr unsigned int BANK_SIZE = (16 * KILO_BYTE);
+
+		/*!
+			RAM or ROM bank switching mode
+		*/
+		enum class MemoryMode
+		{
+			ROM = 0, RAM = 1 ///< determines how address range $4000 - $5000 is used
+		};
 
 	public:
 		MBC1(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size) :
 			rom_idx_(0),
-			ram_idx_(0)
+			ram_idx_(0),
+			rom_idx_upper_bits_(0)
 		{
 			loadROM(rom, size, rom_size);
 			loadRAM(ram_size);
@@ -29,13 +39,11 @@ namespace gb
 
 		virtual void write(uint8_t value, uint16_t addr)
 		{
-			if (addr >= 0x0000 && addr <= 0x3FFF)
+			if (addr >= 0x0000 && addr <= 0x7FFF)
 			{
-			//	rom0_[addr] = value;
-			}
-			else if (addr >= 0x4000 && addr <= 0x7FFF)
-			{
-			//	switchable_rom_[rom_idx_][addr - 0x4000] = value;
+				// write to ROM
+				// handle write to MBC control registers
+				control(value, addr);
 			}
 			else if (addr >= 0x8000 && addr <= 0x9FFF)
 			{
@@ -134,7 +142,60 @@ namespace gb
 			return nullptr;
 		}
 
+		virtual void control(uint8_t value, uint16_t addr)
+		{
+			if (addr >= 0x0000 && addr <= 0x1FFF)
+			{
+				xram_enable_ = (value == 0x0A);
+			}
+			else if (addr >= 0x2000 && addr <= 0x3FFF)
+			{
+				selectRomBank(value);
+			}
+			else if (addr >= 0x4000 && addr <= 0x5FFF)
+			{
+				if (mode_ == MemoryMode::ROM)
+				{
+					rom_idx_upper_bits_ = value & 0x03;
+				}
+				else
+				{
+					selectRamBank(value);
+				}
+			}
+			else if (addr >= 0x6000 && addr <= 0x7FFF)
+			{
+				mode_ = static_cast<MemoryMode>(value);
+			}
+		}
+
 	private:
+		void selectRomBank(uint8_t rom_bank_number)
+		{
+			auto bank_number = 0u;
+
+			// potentially remap the rom bank number
+			switch (rom_bank_number)
+			{
+			case 0x00:
+			case 0x20:
+			case 0x40:
+			case 0x60:
+				bank_number = rom_bank_number + 1;
+				break;
+			default:
+				bank_number = rom_bank_number;
+				break;
+			}
+
+			rom_idx_ = (rom_idx_upper_bits_ << 5) | bank_number;
+		}
+
+		void selectRamBank(uint8_t ram_bank_number)
+		{
+			ram_idx_ = ram_bank_number & 0x03;
+		}
+
 		void loadROM(uint8_t* rom, uint32_t size, uint8_t rom_size)
 		{
 			// lookup tables for number of ROM banks cartridge has
@@ -210,11 +271,15 @@ namespace gb
 		MBC::Bank  ram1_;            ///< $8000 - $9FFF
 		MBC::Banks switchable_ram1_; ///< $A000 - $BFFF
 		MBC::Bank  ram2_;            ///< $C000 - $CFFF
-		MBC::Banks switchable_ram2_; ///< $D000 - $DFFF (CGB Only)
+		MBC::Banks switchable_ram2_; ///< $D000 - $DFFF (Switchable in CGB mode Only)
 		MBC::Bank  ram3_;            ///< $E000 - $FFFF
 
 		unsigned int rom_idx_;
+		unsigned int rom_idx_upper_bits_; // bit 5 and 6
+
 		unsigned int ram_idx_;
+
+		MemoryMode mode_;
 	};
 }
 

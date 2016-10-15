@@ -76,7 +76,8 @@ namespace gb
 		using Banks = std::vector<Bank>;
 
 	public:
-		MBC()
+		MBC() :
+			xram_enable_{false}
 		{
 		}
 
@@ -86,11 +87,16 @@ namespace gb
 
 		/* Interface Functions */
 
+		virtual void control(uint8_t value, uint16_t addr) = 0;
+
 		virtual void write(uint8_t value, uint16_t addr) = 0;
 		virtual uint8_t read(uint16_t addr) const = 0;
 
 		virtual uint8_t& get(uint16_t addr) = 0;
 		virtual uint8_t* getptr(uint16_t addr) = 0;
+
+	protected:
+		bool xram_enable_;
 	};
 }
 
