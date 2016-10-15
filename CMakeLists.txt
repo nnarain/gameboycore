@@ -51,6 +51,7 @@ set(GAMEBOYCORE_HEADERS
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h
+	include/gameboy/mbc1.h
 	include/gameboy/cartinfo.h
 	include/gameboy/opcodeinfo.h
 

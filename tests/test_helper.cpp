@@ -5,9 +5,10 @@
 
 #include "test_helper.h"
 
-gb::CPU::Status run(gb::Gameboy& gameboy, std::vector<uint8_t>& rom, bool reset)
+gb::CPU::Status run(gb::Gameboy& gameboy, std::vector<uint8_t>& rom, bool reset, bool reload)
 {
-	gameboy.loadROM(&rom[0], rom.size());
+	if(reload)
+		gameboy.loadROM(&rom[0], rom.size());
 
 	do
 	{

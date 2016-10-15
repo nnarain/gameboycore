@@ -17,7 +17,8 @@
 
 #include "gameboy/lcd_controller.h"
 
-#include <stdint.h>
+#include <cstdint>
+#include <memory>
 
 namespace gb
 {
@@ -76,8 +77,10 @@ namespace gb
 			JOYPAD                   = 0x0060
 		};
 
+		using Ptr = std::unique_ptr<CPU>;
+
     public:
-        CPU();
+        CPU(MMU::Ptr& mmu);
 
         void step();
 
@@ -175,7 +178,7 @@ namespace gb
 		Register sp_;
 		Register pc_;
 
-		MMU mmu_;
+		MMU::Ptr mmu_;
 		ALU alu_;
 
 		LCDController lcd_;

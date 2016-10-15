@@ -22,7 +22,7 @@ class Window
 {
 public:
 	Window(gb::Gameboy& gameboy) :
-		window_(sf::VideoMode(320, 297), "Karp"),
+		window_(sf::VideoMode(320, 297), "Emulator"),
 		screen_renderer_{gameboy},
 		joypad_{gameboy.getJoypad()}
 	{

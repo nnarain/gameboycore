@@ -11,6 +11,7 @@
 #include <functional>
 #include <map>
 
+#include "gameboy/mbc.h"
 #include "gameboy/cartinfo.h"
 
 namespace gb
@@ -18,6 +19,8 @@ namespace gb
     class MMU
     {
 	public:
+		using Ptr = std::shared_ptr<MMU>;
+
 		using MemoryWriteHandler = std::function<void(uint8_t)>;
 		using MemoryReadHandler = std::function<uint8_t()>;
 
@@ -67,12 +70,11 @@ namespace gb
 		unsigned int numBanks() const;
 
 	private:
-		void loadROMBanks(uint8_t rom_size, uint8_t * rom);
-		void copyROMToBanks(unsigned int num_banks, uint8_t* rom);
-
 		void oamTransfer(uint8_t base);
 
 	private:
+
+		MBC::Ptr mbc_;
 
 		std::vector<uint8_t> memory_;
 		std::vector<ROMBank> rom_banks_;

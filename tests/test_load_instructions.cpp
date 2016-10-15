@@ -5,25 +5,12 @@
 */
 
 #include <gtest/gtest.h>
+#include "test_helper.h"
 #include "util/codegenerator.h"
 
 #include <gameboy/gameboy.h>
 
 using namespace gb;
-
-static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
-{
-	gameboy.loadROM(&rom[0], rom.size());
-
-	while (!gameboy.isDone())
-		gameboy.update();
-
-	CPU::Status status = gameboy.getCPU().getStatus();
-
-	gameboy.reset();
-
-	return status;
-}
 
 TEST(LoadInstructionsTest, Load8BitImmediate)
 {
@@ -45,9 +32,10 @@ TEST(LoadInstructionsTest, Load8BitImmediate)
 
 	
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status = run(gameboy, code.rom());
 	
+	const MMU& mmu = gameboy.getCPU().getMMU();
+
 	EXPECT_EQ(status.af.hi, 1);
 	EXPECT_EQ(status.bc.hi, 2);
 	EXPECT_EQ(status.bc.lo, 3);
@@ -348,8 +336,9 @@ TEST(LoadInstructionsTest, LoadRegisterFromMemory)
 TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 {
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	
 	CPU::Status status;
+	MMU::Ptr mmu;
 
 	CodeGenerator code;
 
@@ -361,8 +350,9 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 		0x76
 	);
 	status = run(gameboy, code.rom());
+	mmu = gameboy.getMMU();
 
-	EXPECT_EQ(mmu.read(0xC000), 0x05);
+	EXPECT_EQ(mmu->read(0xC000), 0x05);
 
 	code.reset();
 	code.block(
@@ -373,8 +363,9 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 		0x76
 	);
 	status = run(gameboy, code.rom());
+	mmu = gameboy.getMMU();
 
-	EXPECT_EQ(mmu.read(0xC001), 0x05);
+	EXPECT_EQ(mmu->read(0xC001), 0x05);
 
 	code.reset();
 	code.block(
@@ -385,8 +376,9 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 		0x76
 	);
 	status = run(gameboy, code.rom());
+	mmu = gameboy.getMMU();
 
-	EXPECT_EQ(mmu.read(0xC002), 0x05);
+	EXPECT_EQ(mmu->read(0xC002), 0x05);
 
 	code.reset();
 	code.block(
@@ -397,14 +389,14 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 		0x76
 	);
 	status = run(gameboy, code.rom());
+	mmu = gameboy.getMMU();
 
-	EXPECT_EQ(mmu.read(0xC003), 0x05);
+	EXPECT_EQ(mmu->read(0xC003), 0x05);
 }
 
 TEST(LoadInstructionsTest, LoadMemoryIncDec)
 {
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status;
 
 	CodeGenerator code;
@@ -418,7 +410,9 @@ TEST(LoadInstructionsTest, LoadMemoryIncDec)
 
 		0x76
 	);
+
 	status = run(gameboy, code.rom());
+	const MMU& mmu = gameboy.getCPU().getMMU();
 
 	EXPECT_EQ(status.af.hi, 6);
 	EXPECT_EQ(status.hl.val, 0xC000);
@@ -489,7 +483,6 @@ TEST(LoadInstructionsTest, In)
 TEST(LoadInstructionsTest, Out)
 {
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status;
 
 	CodeGenerator code;
@@ -504,6 +497,7 @@ TEST(LoadInstructionsTest, Out)
 	);
 
 	status = run(gameboy, code.rom());
+	const MMU& mmu = gameboy.getCPU().getMMU();
 
 	EXPECT_EQ(mmu.read(0xFF05), 0xFF);
 }

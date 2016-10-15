@@ -150,8 +150,8 @@ TEST(IncDecInstructions, IncMemory)
 
 
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	(void)run(gameboy, code.rom());
+	const MMU& mmu = gameboy.getCPU().getMMU();
 
 	EXPECT_EQ(mmu.read(0xC000), 0xFF);
 }
@@ -169,8 +169,8 @@ TEST(IncDecInstructions, DecMemory)
 
 
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	(void)run(gameboy, code.rom());
+	const MMU& mmu = gameboy.getCPU().getMMU();
 
 	EXPECT_EQ(mmu.read(0xC000), 0x01);
 }

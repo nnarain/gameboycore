@@ -12,6 +12,6 @@
 
 #include "util/codegenerator.h"
 
-gb::CPU::Status run(gb::Gameboy& gameboy, std::vector<uint8_t>& rom, bool reset = true);
+gb::CPU::Status run(gb::Gameboy& gameboy, std::vector<uint8_t>& rom, bool reset = true, bool reload = true);
 
 #endif // TEST_HELPER_H
