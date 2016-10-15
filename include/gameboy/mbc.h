@@ -48,6 +48,7 @@ namespace gb
 			XRAM_ENABLE = 0x0A,   ///< Enable external RAM
 			XRAM_BANK_SIZE = 0x1FFF, ///< External RAM banks are 8 KB in size
 
+			/*
 			ROM_32KB = 0x00,
 			ROM_64KB = 0x01,
 			ROM_128KB = 0x02,
@@ -59,6 +60,22 @@ namespace gb
 			ROM_1_1MB = 0x52,
 			ROM_1_2MB = 0x53,
 			ROM_1_5MB = 0x54
+			*/
+		};
+
+		enum class ROM
+		{
+			KB32  = 0x00,
+			KB64  = 0x01,
+			KB128 = 0x02,
+			KB256 = 0x03,
+			KB512 = 0x04,
+			MB1   = 0x05,
+			MB2   = 0x06,
+			MB4   = 0x07,
+			MB1_1 = 0x52,
+			MB1_2 = 0x53,
+			MB1_5 = 0x54
 		};
 
 		enum class XRAM

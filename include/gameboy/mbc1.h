@@ -117,7 +117,15 @@ namespace gb
 
 		virtual uint8_t* getptr(uint16_t addr)
 		{
-			if (addr >= 0x8000 && addr <= 0x9FFF)
+			if (addr >= 0x0000 && addr <= 0x3FFF)
+			{
+				return &rom0_[addr];
+			}
+			else if (addr >= 0x4000 && addr <= 0x7FFF)
+			{
+				return &switchable_rom_[rom_idx_][addr - 0x4000];
+			}
+			else if (addr >= 0x8000 && addr <= 0x9FFF)
 			{
 				return &ram1_[addr - 0x8000];
 			}
@@ -188,7 +196,7 @@ namespace gb
 				break;
 			}
 
-			rom_idx_ = (rom_idx_upper_bits_ << 5) | bank_number;
+			rom_idx_ = ((rom_idx_upper_bits_ << 5) | bank_number) - 1;
 		}
 
 		void selectRamBank(uint8_t ram_bank_number)
@@ -216,7 +224,7 @@ namespace gb
 
 			auto switchable_rom_banks = 0;
 
-			if (rom_size <= static_cast<uint8_t>(MBC::Type::ROM_256KB))
+			if (rom_size <= static_cast<uint8_t>(MBC::ROM::MB4))
 			{
 				// look up the total number of banks this cartridge has
 				auto cartridge_rom_banks = rom_banks1[rom_size];

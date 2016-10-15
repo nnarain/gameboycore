@@ -70,12 +70,7 @@ namespace gb
 		unsigned int numBanks() const;
 
 	private:
-		void loadROMBanks(uint8_t rom_size, uint8_t * rom);
-		void copyROMToBanks(unsigned int num_banks, uint8_t* rom);
-
 		void oamTransfer(uint8_t base);
-
-		void loadMBC(const CartInfo& header);
 
 	private:
 

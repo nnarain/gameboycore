@@ -67,6 +67,18 @@ namespace gb
 			lcd_.clock(cycles);
 		}
 
+		auto breakpoints = std::vector<unsigned int>{
+			0x3f6d
+		};
+
+		for (auto addr : breakpoints)
+		{
+			if (addr == pc_.val)
+			{
+				int x = 0;
+			}
+		}
+
 		checkPowerMode();
 		checkInterrupts();
 	}
