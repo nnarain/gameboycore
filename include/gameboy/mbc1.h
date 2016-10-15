@@ -31,8 +31,8 @@ namespace gb
 	public:
 		MBC1(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size) :
 			rom_idx_(0),
-			ram_idx_(0),
-			rom_idx_upper_bits_(0)
+			rom_idx_upper_bits_(0),
+			ram_idx_(0)
 		{
 			loadROM(rom, size, rom_size);
 			loadRAM(ram_size);
