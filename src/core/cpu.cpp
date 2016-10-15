@@ -2089,7 +2089,6 @@ namespace gb
 
 	void CPU::daa()
 	{
-		bool z = IS_SET(af_.lo, CPU::Flags::Z) != 0;
 		bool n = IS_SET(af_.lo, CPU::Flags::N) != 0;
 		bool h = IS_SET(af_.lo, CPU::Flags::H) != 0;
 		bool c = IS_SET(af_.lo, CPU::Flags::C) != 0;
