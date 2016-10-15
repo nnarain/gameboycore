@@ -37,7 +37,7 @@ namespace gb
 		case MBC::Type::MBC1:
 		case MBC::Type::MBC1_RAM:
 		case MBC::Type::MBC1_RAM_BAT:
-			mbc_ = std::make_unique<MBC1>(rom, size, header.rom_size, header.ram_size);
+			mbc_.reset(new MBC1(rom, size, header.rom_size, header.ram_size));
 			break;
 
 		// TODO: MBC2

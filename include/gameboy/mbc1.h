@@ -10,6 +10,7 @@
 #include "gameboy/mbc.h"
 
 #include <vector>
+#include <cstring>
 
 namespace gb
 {
