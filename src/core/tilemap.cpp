@@ -3,10 +3,12 @@
 
 namespace gb
 {
-	TileMap::TileMap(const TileRAM& tileram, const MMU& mmu, const LCDController& lcd) :
+	TileMap::TileMap(const TileRAM& tileram, MMU& mmu, const LCDController& lcd) :
 		tileram_(tileram),
 		mmu_(mmu),
-		lcd_(lcd)
+		lcd_(lcd),
+		scx_(mmu.get(memorymap::SCX_REGISTER)),
+		scy_(mmu.get(memorymap::SCY_REGISTER))
 	{
 	}
 
@@ -40,15 +42,26 @@ namespace gb
 
 	std::vector<Tile> TileMap::getMapData(TileRAM tileram, uint16_t start, uint16_t end) const
 	{
+		static constexpr auto tiles_per_row = 32;
+		static constexpr auto tiles_per_col = 32;
+		static constexpr auto tile_width    = 8;
+		static constexpr auto tile_height   = 8;
+
 		std::vector<Tile> tiles;
 
-		for (auto addr = start; addr <= end; ++addr)
-		{
-			// read the tile number from memory
-			auto tilenum = mmu_.read(addr);
+		auto start_row = scy_ / tile_height;
+		auto start_col = scx_ / tile_width;
 
-			// fetch from tile ram and push onto vector
-			tiles.push_back(tileram.getTile(tilenum));
+		for (auto row = start_row; row < start_row + 18; ++row)
+		{
+			for (auto col = start_col; col < start_col + 20; ++col)
+			{
+				auto tile_offset = start + (tiles_per_row * (row % tiles_per_row)) + (col % tiles_per_col);
+
+				auto tilenum = mmu_.read(tile_offset);
+
+				tiles.push_back(tileram_.getTile(tilenum));
+			}
 		}
 
 		return tiles;
