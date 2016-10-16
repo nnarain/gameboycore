@@ -16,6 +16,7 @@
 #include "gameboy/opcodeinfo.h"
 
 #include "gameboy/lcd_controller.h"
+#include "gameboy/timer.h"
 
 #include <cstdint>
 #include <memory>
@@ -182,6 +183,7 @@ namespace gb
 		ALU alu_;
 
 		LCDController lcd_;
+		Timer timer_;
 
 		bool halted_;
 		bool stopped_;
