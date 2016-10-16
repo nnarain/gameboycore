@@ -52,7 +52,7 @@ public:
 
 		// grab flags for what maps are being drawn
 		bool background_on     = lcd_.isBackgroundEnabled();
-		bool window_overlay_on = lcd_.isWindowOverlayEnabled();
+		bool window_overlay_on = false;//lcd_.isWindowOverlayEnabled(); // TODO: fix this
 		bool sprites_on        = lcd_.isSpritesEnabled();
 
 		if (background_on)
