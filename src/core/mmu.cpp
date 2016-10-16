@@ -14,10 +14,8 @@ static const unsigned int BANK_SIZE = (16 * KILO_BYTE);
 
 namespace gb
 {
-    MMU::MMU() :
-		memory_(0xFFFF + 1)
+    MMU::MMU()
     {
-		memory_[memorymap::JOYPAD_REGISTER] = 0xFF;
     }
 
     MMU::~MMU()
@@ -49,8 +47,8 @@ namespace gb
 			break;
 		}
 
-		// TODO: remove
-	//	loadROMBanks(header.rom_size, rom);
+		// initialize joypad keys to not pressed
+		mbc_->write(0x0F, memorymap::JOYPAD_REGISTER);
     }
 
     uint8_t MMU::read(uint16_t addr) const
@@ -132,10 +130,5 @@ namespace gb
 		uint16_t addr = ((base & 0xFF) << 8) | 0x0000;
 
 		std::memcpy(getptr(memorymap::OAM_START), getptr(addr), memorymap::OAM_END - memorymap::OAM_START);
-	}
-
-	unsigned int MMU::numBanks() const
-	{
-		return rom_banks_.size();
 	}
 }

@@ -67,17 +67,11 @@ namespace gb
 		*/
 		uint8_t* getptr(uint16_t);
 
-		unsigned int numBanks() const;
-
 	private:
 		void oamTransfer(uint8_t base);
 
 	private:
-
 		MBC::Ptr mbc_;
-
-		std::vector<uint8_t> memory_;
-		std::vector<ROMBank> rom_banks_;
 
 		std::map<uint16_t, MemoryWriteHandler> write_handlers_;
 		std::map<uint16_t, MemoryReadHandler>  read_handlers_;
