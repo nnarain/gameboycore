@@ -21,6 +21,11 @@
 */
 class ScreenRenderer
 {
+	static constexpr auto TILES_PER_ROW = 20;
+	static constexpr auto TILES_PER_COL = 18;
+	static constexpr auto WIDTH         = TILES_PER_ROW * 8;
+	static constexpr auto HEIGHT        = TILES_PER_COL * 8;
+
 public:
 	ScreenRenderer(gb::Gameboy& gameboy) :
 		lcd_(gameboy.getLCDController()),
@@ -28,7 +33,7 @@ public:
 		tileram_(gameboy.getTileRAM()),
 		oam_(gameboy.getOAM())
 	{
-		if (!screen_texture_.create(256, 256))
+		if (!screen_texture_.create(WIDTH, HEIGHT))
 			throw std::runtime_error("Could not create texture");
 
 		screen_sprite_.setTexture(screen_texture_);
@@ -43,7 +48,7 @@ public:
 	void update()
 	{
 		// create a buffer for the new pixel data
-		TextureBuffer buffer(256, 256, 0);
+		TextureBuffer buffer(WIDTH, HEIGHT, 0);
 
 		// grab flags for what maps are being drawn
 		bool background_on     = lcd_.isBackgroundEnabled();
@@ -101,7 +106,7 @@ private:
 
 			tile_x += 8;
 			tile_count++;
-			if (tile_count >= 32)
+			if (tile_count >= TILES_PER_ROW)
 			{
 				tile_y += 8;
 				tile_x = 0;

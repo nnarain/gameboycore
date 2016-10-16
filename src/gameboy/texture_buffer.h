@@ -35,13 +35,13 @@ public:
 	template<typename PixelT>
 	void write(gb::Tile& tile, unsigned int x, unsigned int y, PixelT* palette)
 	{
-		unsigned int pixel = 0;
+		auto pixel = 0;
 
-		for (unsigned int row = 0; row < 8; ++row)
+		for (auto row = 0; row < 8; ++row)
 		{
-			for (unsigned int col = 0; col < 8; ++col)
+			for (auto col = 0; col < 8; ++col)
 			{
-				PixelT& color = palette[tile.color[pixel++]];
+				auto& color = palette[tile.color[pixel++]];
 				write(x + col, y + row, color);
 			}
 		}
