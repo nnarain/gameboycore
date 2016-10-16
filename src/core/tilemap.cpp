@@ -18,22 +18,22 @@ namespace gb
 		{
 			if (lcd_.getBackgroundMapLocation() == LCDController::BackgroundMapData::BG_DATA_1)
 			{
-				return getMapData(tileram, memorymap::BG_MAP_DATA_1_START, memorymap::BG_MAP_DATA_1_END);//Iterator(memorymap::BG_MAP_DATA_1_START, memorymap::BG_MAP_DATA_1_END, tileram_, mmu_);
+				return getMapData(tileram, memorymap::BG_MAP_DATA_1_START, memorymap::BG_MAP_DATA_1_END);
 			}
 			else
 			{
-				return getMapData(tileram, memorymap::BG_MAP_DATA_2_START, memorymap::BG_MAP_DATA_2_END);//Iterator(memorymap::BG_MAP_DATA_2_START, memorymap::BG_MAP_DATA_2_END, tileram_, mmu_);
+				return getMapData(tileram, memorymap::BG_MAP_DATA_2_START, memorymap::BG_MAP_DATA_2_END);
 			}
 		}
 		else // map == WINDOW_OVERLAY
 		{
 			if (lcd_.getWindowOverlayLocation() == LCDController::BackgroundMapData::BG_DATA_1)
 			{
-				return getMapData(tileram, memorymap::BG_MAP_DATA_1_START, memorymap::BG_MAP_DATA_1_END);//Iterator(memorymap::BG_MAP_DATA_1_START, memorymap::BG_MAP_DATA_1_END, tileram_, mmu_);
+				return getMapData(tileram, memorymap::BG_MAP_DATA_1_START, memorymap::BG_MAP_DATA_1_END);
 			}
 			else
 			{
-				return getMapData(tileram, memorymap::BG_MAP_DATA_2_START, memorymap::BG_MAP_DATA_2_END); //Iterator(memorymap::BG_MAP_DATA_2_START, memorymap::BG_MAP_DATA_2_END, tileram_, mmu_);
+				return getMapData(tileram, memorymap::BG_MAP_DATA_2_START, memorymap::BG_MAP_DATA_2_END);
 			}
 		}
 	}
