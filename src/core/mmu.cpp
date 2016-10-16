@@ -127,7 +127,7 @@ namespace gb
 	void MMU::oamTransfer(uint8_t base)
 	{
 		// increments of $100 bytes
-		uint16_t addr = ((base & 0xFF) << 8) | 0x0000;
+		uint16_t addr = ((base & 0x00FF) << 8);
 
 		std::memcpy(getptr(memorymap::OAM_START), getptr(addr), memorymap::OAM_END - memorymap::OAM_START);
 	}

@@ -23,6 +23,7 @@ namespace gb
 
 	private:
 		MMU& mmu_;
+		uint8_t& lcdc_;
 	};
 }
 
