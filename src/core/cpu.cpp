@@ -17,6 +17,7 @@ namespace gb
 		mmu_(mmu),
 		alu_(af_.lo),
 		lcd_(*mmu_.get()),
+		timer_(*mmu.get()),
 		halted_(false),
 		stopped_(false),
 		interrupt_master_enable_(false),
@@ -65,6 +66,19 @@ namespace gb
 		{
 			div_->val += cycles;
 			lcd_.clock(cycles);
+			timer_.clock(cycles);
+		}
+
+		auto bp = std::vector<unsigned>{
+			0x009D
+		};
+
+		for (auto addr : bp)
+		{
+			if (pc_.val == addr)
+			{
+				int x = 0;
+			}
 		}
 
 		checkPowerMode();
