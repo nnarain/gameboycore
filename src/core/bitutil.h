@@ -63,7 +63,7 @@
 #define IS_FULL_CARRY16(x, y) ((( ( (x)&0x0FFFF ) + ( ((y)&0x0FFFF) )  ) & 0x10000 ) != 0)
 
 #define IS_HALF_BORROW(x, y) (  ((x)&0x0F) < ((y)&0x0F)  )
-#define IS_FULL_BORROW(x, y) (  ((x)&0xF0) < ((y)&0xF0)  )
+#define IS_FULL_BORROW(x, y) (  ((x)&0xFF) < ((y)&0xFF)  )
 
 
 #endif // BITUTIL_H
