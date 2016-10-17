@@ -511,7 +511,8 @@ namespace gb
 			mmu_->write(sp_.val, load16Imm());
 			break;
 		case 0xF8: // LD HL,SP+r8
-			hl_.val = (uint16_t)((int16_t)sp_.val + (int8_t)load8Imm());
+			//hl_.val = (uint16_t)((int16_t)sp_.val + (int8_t)load8Imm());
+			hl_.val = ldHLSPe();
 			break;
 		case 0xF9: // LD SP,HL
 			sp_.val = hl_.val;
@@ -2171,6 +2172,22 @@ namespace gb
 		setFlag(CPU::Flags::Z, af_.hi == 0);
 		setFlag(CPU::Flags::H, false);
 
+	}
+
+	uint16_t CPU::ldHLSPe()
+	{
+		int e = (int)load8Imm();
+		int r = sp_.val + e;
+
+		const bool is_half_carry = IS_HALF_CARRY16(sp_.val, e);
+		const bool is_full_carry = (sp_.val + e) > 0xFFFF;
+
+		setFlag(Flags::Z, false);
+		setFlag(Flags::N, false);
+		setFlag(Flags::H, is_half_carry);
+		setFlag(Flags::C, is_full_carry);
+
+		return (uint16_t)r;
 	}
 
 	void CPU::bit(uint8_t val, uint8_t n)
