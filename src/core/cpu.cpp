@@ -2176,18 +2176,16 @@ namespace gb
 
 	uint16_t CPU::ldHLSPe()
 	{
-		int e = (int)load8Imm();
-		int r = sp_.val + e;
+		int8_t e = (int8_t)load8Imm();
+		int result = sp_.val + e;
 
-		const bool is_half_carry = IS_HALF_CARRY16(sp_.val, e);
-		const bool is_full_carry = (sp_.val + e) > 0xFFFF;
+		setFlag(Flags::C, ((sp_.val ^ e ^ (result & 0xFFFF)) & 0x100) == 0x100);
+		setFlag(Flags::H, ((sp_.val ^ e ^ (result & 0xFFFF)) & 0x10) == 0x10);
 
-		setFlag(Flags::Z, false);
-		setFlag(Flags::N, false);
-		setFlag(Flags::H, is_half_carry);
-		setFlag(Flags::C, is_full_carry);
+		setFlag(ALU::Flags::Z, false);
+		setFlag(ALU::Flags::N, false);
 
-		return (uint16_t)r;
+		return (uint16_t)result;
 	}
 
 	void CPU::bit(uint8_t val, uint8_t n)
