@@ -22,7 +22,7 @@ class Window
 {
 public:
 	Window(gb::Gameboy& gameboy) :
-		window_(sf::VideoMode(160 * 2, 144 * 2), "Emulator"),
+		window_(sf::VideoMode(160 * 2, 144 * 2), "Dotrix [beta]"),
 		screen_renderer_{gameboy},
 		joypad_{gameboy.getJoypad()}
 	{
