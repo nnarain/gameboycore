@@ -65,7 +65,6 @@
 #define IS_HALF_BORROW(x, y) (  ((x)&0x0F) < ((y)&0x0F)  )
 #define IS_FULL_BORROW(x, y) (  ((x)&0xFF) < ((y)&0xFF)  )
 
-
 #endif // BITUTIL_H
 
 

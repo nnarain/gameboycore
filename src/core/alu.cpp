@@ -50,17 +50,16 @@ namespace gb
 
 	void ALU::addc(uint8_t& a, uint8_t n)
 	{
-		uint8_t carry = (IS_SET(flags_, ALU::Flags::C)) ? 1 : 0;
+		int carry = (IS_SET(flags_, ALU::Flags::C)) ? 1 : 0;
 
-		bool is_half_carry = IS_HALF_CARRY(a, (n + carry));
-		bool is_full_carry = IS_FULL_CARRY(a, (n + carry));
+		int result = (int)a + (int)n + carry;
 
-		a += (n + carry);
-
-		setFlag(ALU::Flags::H, is_half_carry);
-		setFlag(ALU::Flags::C, is_full_carry);
-		setFlag(ALU::Flags::Z, (a == 0));
+		setFlag(ALU::Flags::H, ((a & 0x0F) + (n & 0x0F) + carry) > 0x0F);
+		setFlag(ALU::Flags::C, result > 0xFF);
+		setFlag(ALU::Flags::Z, ((uint8_t)result == 0));
 		setFlag(ALU::Flags::N, false);
+
+		a = (uint8_t)result;
 	}
 
 	void ALU::sub(uint8_t& a, uint8_t n)
