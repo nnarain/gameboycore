@@ -503,6 +503,7 @@ namespace gb
 			break;
 		case 0xF1: // POP AF
 			af_.val = pop();
+			af_.lo &= 0xF0; // explicitly clear lower 4 bits
 			break;
 
 		// Load

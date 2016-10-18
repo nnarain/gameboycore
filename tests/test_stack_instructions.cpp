@@ -62,3 +62,24 @@ TEST(StackInstructions, LoadHLwithSPRelative)
 
 	EXPECT_EQ(status.hl.val, 0xFFFD);
 }
+
+TEST(StackInstructions, PopAF)
+{
+	CodeGenerator code;
+	code.block(
+		0x3E, 0x45,			// LD A,$45
+		0x37,				// SCF
+		0xF5,				// PUSH AF
+		0xF0, 0xFC,			// LDH A,(FC)
+		0xF6, 0x01,			// OR $01
+		0xE0, 0xFC,			// LDH (FC),A
+		0xF1,				// POP AF
+		0x76
+	);
+
+	Gameboy gameboy;
+	auto status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.hi, 0x45);
+	EXPECT_EQ(status.af.lo, CPU::Flags::C);
+}
