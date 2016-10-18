@@ -92,8 +92,8 @@ TEST(ALUTests, AddRelative)
 	alu.addr(sp, -2);
 
 	EXPECT_EQ(sp, 0xFFF6);
-	EXPECT_EQ(flags & CPU::Flags::H, 0);
-	EXPECT_EQ(flags & CPU::Flags::C, 0);
+	EXPECT_EQ(flags & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(flags & CPU::Flags::C, CPU::Flags::C);
 	EXPECT_EQ(flags & CPU::Flags::N, 0);
 }
 

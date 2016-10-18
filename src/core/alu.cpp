@@ -37,23 +37,13 @@ namespace gb
 
 	void ALU::addr(uint16_t& sp, int8_t n)
 	{
-		bool is_half_carry = false;
-		bool is_full_carry = false;
+		int result = sp + n;
+			
+		setFlag(Flags::C, ((sp ^ n ^ (result & 0xFFFF)) & 0x100) == 0x100);
+		setFlag(Flags::H, ((sp ^ n ^ (result & 0xFFFF)) & 0x10) == 0x10);
 
-		// TODO: Sketchy...
-//		if (n > 0)
-//		{
-//			is_half_carry = IS_HALF_CARRY(sp, n);
-//			is_full_carry = IS_FULL_CARRY(sp, n);
-//		}
+		sp = (uint16_t)result;
 
-		is_full_carry = ((int32_t)sp + (int32_t)n) > 0xFFFF;
-		is_half_carry = IS_HALF_CARRY(sp, n);
-
-		sp = (uint16_t)(((int)sp + (int)n) % 0xFFFF);
-
-		setFlag(ALU::Flags::H, is_half_carry);
-		setFlag(ALU::Flags::C, is_full_carry);
 		setFlag(ALU::Flags::Z, false);
 		setFlag(ALU::Flags::N, false);
 	}
