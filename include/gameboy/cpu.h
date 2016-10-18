@@ -163,6 +163,10 @@ namespace gb
 		void daa();
 
 		/**
+		*/
+		uint16_t ldHLSPe();
+
+		/**
 			Bit
 		*/
 		void bit(uint8_t val, uint8_t bit);

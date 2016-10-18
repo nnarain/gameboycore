@@ -70,7 +70,7 @@ namespace gb
 		}
 
 		auto bp = std::vector<unsigned>{
-			0x009D
+			0x4319
 		};
 
 		for (auto addr : bp)
@@ -503,6 +503,7 @@ namespace gb
 			break;
 		case 0xF1: // POP AF
 			af_.val = pop();
+			af_.lo &= 0xF0; // explicitly clear lower 4 bits
 			break;
 
 		// Load
@@ -511,7 +512,8 @@ namespace gb
 			mmu_->write(sp_.val, load16Imm());
 			break;
 		case 0xF8: // LD HL,SP+r8
-			hl_.val = (uint16_t)((int16_t)sp_.val + (int8_t)load8Imm());
+			//hl_.val = (uint16_t)((int16_t)sp_.val + (int8_t)load8Imm());
+			hl_.val = ldHLSPe();
 			break;
 		case 0xF9: // LD SP,HL
 			sp_.val = hl_.val;
@@ -2171,6 +2173,20 @@ namespace gb
 		setFlag(CPU::Flags::Z, af_.hi == 0);
 		setFlag(CPU::Flags::H, false);
 
+	}
+
+	uint16_t CPU::ldHLSPe()
+	{
+		int8_t e = (int8_t)load8Imm();
+		int result = sp_.val + e;
+
+		setFlag(Flags::C, ((sp_.val ^ e ^ (result & 0xFFFF)) & 0x100) == 0x100);
+		setFlag(Flags::H, ((sp_.val ^ e ^ (result & 0xFFFF)) & 0x10) == 0x10);
+
+		setFlag(ALU::Flags::Z, false);
+		setFlag(ALU::Flags::N, false);
+
+		return (uint16_t)result;
 	}
 
 	void CPU::bit(uint8_t val, uint8_t n)

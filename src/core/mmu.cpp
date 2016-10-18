@@ -8,6 +8,7 @@
 #include "bitutil.h"
 
 #include <cstring>
+#include <iostream>
 
 static const unsigned int KILO_BYTE = 1024;
 static const unsigned int BANK_SIZE = (16 * KILO_BYTE);
@@ -81,6 +82,13 @@ namespace gb
 		else if (addr == memorymap::DIVIDER_REGISER)
 		{
 			mbc_->write(0, addr);
+		}
+		else if (addr == memorymap::SC_REGISTER)
+		{
+			if (value == 0x81)
+			{
+				std::cout << (char)mbc_->read(memorymap::SB_REGISTER);
+			}
 		}
 		else
 		{
