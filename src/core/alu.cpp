@@ -41,13 +41,16 @@ namespace gb
 		bool is_full_carry = false;
 
 		// TODO: Sketchy...
-		if (n > 0)
-		{
-			is_half_carry = IS_HALF_CARRY(sp, n);
-			is_full_carry = IS_FULL_CARRY(sp, n);
-		}
+//		if (n > 0)
+//		{
+//			is_half_carry = IS_HALF_CARRY(sp, n);
+//			is_full_carry = IS_FULL_CARRY(sp, n);
+//		}
 
-		sp += n;
+		is_full_carry = ((int32_t)sp + (int32_t)n) > 0xFFFF;
+		is_half_carry = IS_HALF_CARRY(sp, n);
+
+		sp = (uint16_t)(((int)sp + (int)n) % 0xFFFF);
 
 		setFlag(ALU::Flags::H, is_half_carry);
 		setFlag(ALU::Flags::C, is_full_carry);

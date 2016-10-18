@@ -70,7 +70,7 @@ namespace gb
 		}
 
 		auto bp = std::vector<unsigned>{
-			0x009D
+			0x4319
 		};
 
 		for (auto addr : bp)
