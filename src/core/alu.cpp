@@ -77,15 +77,14 @@ namespace gb
 
 	void ALU::subc(uint8_t& a, uint8_t n)
 	{
-		bool is_half_borrow = IS_HALF_BORROW(a, n);
-		bool is_full_borrow = IS_FULL_BORROW(a, n);
+		int carry = (IS_SET(flags_, ALU::Flags::C)) ? 1 : 0;
+		int result = (int)a - n - carry;
 
-		uint8_t carry = (IS_SET(flags_, ALU::Flags::C)) ? 1 : 0;
+		setFlag(ALU::Flags::C, result < 0);
+		setFlag(ALU::Flags::H, ((a & 0x0F) - (n & 0x0F) - carry) < 0);
 
-		a -= (n + carry);
+		a = (uint8_t)result;
 
-		setFlag(ALU::Flags::H, is_half_borrow);
-		setFlag(ALU::Flags::C, is_full_borrow);
 		setFlag(ALU::Flags::Z, (a == 0));
 		setFlag(ALU::Flags::N, true);
 	}
