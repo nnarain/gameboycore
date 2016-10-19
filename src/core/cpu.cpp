@@ -13,10 +13,11 @@
 
 namespace gb
 {
-	CPU::CPU() :
-		mmu_(),
+	CPU::CPU(MMU::Ptr& mmu) :
+		mmu_(mmu),
 		alu_(af_.lo),
-		lcd_(mmu_),
+		lcd_(*mmu_.get()),
+		timer_(*mmu.get()),
 		halted_(false),
 		stopped_(false),
 		interrupt_master_enable_(false),
@@ -24,8 +25,8 @@ namespace gb
 		interrupt_master_disable_pending_(-1),
 		debug_mode_(false),
 		cycle_count_(0),
-		interrupt_flags_(mmu_.get(memorymap::INTERRUPT_FLAG)),
-		interrupt_enable_(mmu_.get(memorymap::INTERRUPT_ENABLE)),
+		interrupt_flags_(mmu_->get(memorymap::INTERRUPT_FLAG)),
+		interrupt_enable_(mmu_->get(memorymap::INTERRUPT_ENABLE)),
 		div_(nullptr)
 	{
 		reset();
@@ -38,7 +39,7 @@ namespace gb
 		if (!halted_)
 		{
 			// fetch next opcode
-			uint8_t opcode = mmu_.read(pc_.val++);
+			uint8_t opcode = mmu_->read(pc_.val++);
 
 			// $CB means decode from the second page of instructions
 			if (opcode != 0xCB)
@@ -52,7 +53,7 @@ namespace gb
 			else
 			{
 				// read the second page opcode
-				opcode = mmu_.read(pc_.val++);
+				opcode = mmu_->read(pc_.val++);
 				// decode from second page
 				decode2(opcode);
 
@@ -65,6 +66,7 @@ namespace gb
 		{
 			div_->val += cycles;
 			lcd_.clock(cycles);
+			timer_.clock(cycles);
 		}
 
 		checkPowerMode();
@@ -115,7 +117,7 @@ namespace gb
 			hl_.lo = load8Imm();
 			break;
 		case 0x36: // LD (HL),d8
-			mmu_.write(load8Imm(), hl_.val);
+			mmu_->write(load8Imm(), hl_.val);
 			break;
 
 		// load 16 bit immediate
@@ -134,18 +136,18 @@ namespace gb
 
 		// load A into memory
 		case 0x02:
-			mmu_.write(af_.hi, bc_.val);
+			mmu_->write(af_.hi, bc_.val);
 			break;
 		case 0x12:
-			mmu_.write(af_.hi, de_.val);
+			mmu_->write(af_.hi, de_.val);
 			break;
 
 		// load A from memory
 		case 0x0A: // LD A,(BC)
-			af_.hi = mmu_.read(bc_.val);
+			af_.hi = mmu_->read(bc_.val);
 			break;
 		case 0x1A: // LD A,(DE)
-			af_.hi = mmu_.read(de_.val);
+			af_.hi = mmu_->read(de_.val);
 			break;
 
 		// transfer (Register to register, memory to register)
@@ -168,7 +170,7 @@ namespace gb
 			bc_.hi = hl_.lo;
 			break;
 		case 0x46: // LD B,(HL)
-			bc_.hi = mmu_.read(hl_.val);
+			bc_.hi = mmu_->read(hl_.val);
 			break;
 		case 0x47: // LD B,A
 			bc_.hi = af_.hi;
@@ -192,7 +194,7 @@ namespace gb
 			bc_.lo = hl_.lo;
 			break;
 		case 0x4E: // LD C,(HL)
-			bc_.lo = mmu_.read(hl_.val);
+			bc_.lo = mmu_->read(hl_.val);
 			break;
 		case 0x4F: // LD C,A
 			bc_.lo = af_.hi;
@@ -217,7 +219,7 @@ namespace gb
 			de_.hi = hl_.lo;
 			break;
 		case 0x56: // LD D,(HL)
-			de_.hi = mmu_.read(hl_.val);
+			de_.hi = mmu_->read(hl_.val);
 			break;
 		case 0x57: // LD D,A
 			de_.hi = af_.hi;
@@ -241,7 +243,7 @@ namespace gb
 			de_.lo = hl_.lo;
 			break;
 		case 0x5E: // LD E,(HL)
-			de_.lo = mmu_.read(hl_.val);
+			de_.lo = mmu_->read(hl_.val);
 			break;
 		case 0x5F: // LD E,A
 			de_.lo = af_.hi;
@@ -266,7 +268,7 @@ namespace gb
 			hl_.hi = hl_.lo;
 			break;
 		case 0x66: // LD H,(HL)
-			hl_.hi = mmu_.read(hl_.val);
+			hl_.hi = mmu_->read(hl_.val);
 			break;
 		case 0x67: // LD H,A
 			hl_.hi = af_.hi;
@@ -290,7 +292,7 @@ namespace gb
 			hl_.lo = hl_.lo;
 			break;
 		case 0x6E: // LD L,(HL)
-			hl_.lo = mmu_.read(hl_.val);
+			hl_.lo = mmu_->read(hl_.val);
 			break;
 		case 0x6F: // LD L,A
 			hl_.lo = af_.hi;
@@ -315,7 +317,7 @@ namespace gb
 			af_.hi = hl_.lo;
 			break;
 		case 0x7E: // LD A,(HL)
-			af_.hi = mmu_.read(hl_.val);
+			af_.hi = mmu_->read(hl_.val);
 			break;
 		case 0x7F: // LD A,A
 			af_.hi = af_.hi;
@@ -323,40 +325,40 @@ namespace gb
 
 			// register to memory
 		case 0x70: // LD (HL),B
-			mmu_.write(bc_.hi, hl_.val);
+			mmu_->write(bc_.hi, hl_.val);
 			break;
 		case 0x71: // LD (HL),C
-			mmu_.write(bc_.lo, hl_.val);
+			mmu_->write(bc_.lo, hl_.val);
 			break;
 		case 0x72: // LD (HL),D
-			mmu_.write(de_.hi, hl_.val);
+			mmu_->write(de_.hi, hl_.val);
 			break;
 		case 0x73: // LD (HL),E
-			mmu_.write(de_.lo, hl_.val);
+			mmu_->write(de_.lo, hl_.val);
 			break;
 		case 0x74: // LD (HL),H
-			mmu_.write(hl_.hi, hl_.val);
+			mmu_->write(hl_.hi, hl_.val);
 			break;
 		case 0x75: // LD (HL),L
-			mmu_.write(hl_.lo, hl_.val);
+			mmu_->write(hl_.lo, hl_.val);
 			break;
 		case 0x77: // LD (HL),A
-			mmu_.write(af_.hi, hl_.val);
+			mmu_->write(af_.hi, hl_.val);
 			break;
 
 		// Load Increment/Decrement
 		// (HL+/-) <- A & A <- (HL+/-)
 		case 0x22: // LD (HL+),A
-			mmu_.write(af_.hi, hl_.val++);
+			mmu_->write(af_.hi, hl_.val++);
 			break;
 		case 0x32: // LD (HL-),A
-			mmu_.write(af_.hi, hl_.val--);
+			mmu_->write(af_.hi, hl_.val--);
 			break;
 		case 0x2A: // LD A,(HL+)
-			af_.hi = mmu_.read(hl_.val++);
+			af_.hi = mmu_->read(hl_.val++);
 			break;
 		case 0x3A: // LD A,(HL-)
-			af_.hi = mmu_.read(hl_.val--);
+			af_.hi = mmu_->read(hl_.val--);
 			break;
 
 		// IN/OUT Instructions. Load and Store to IO Registers (immediate or using C register). IO Offset is $FF00
@@ -489,15 +491,17 @@ namespace gb
 			break;
 		case 0xF1: // POP AF
 			af_.val = pop();
+			af_.lo &= 0xF0; // explicitly clear lower 4 bits
 			break;
 
 		// Load
 
 		case 0x08: // LD (a16),SP
-			mmu_.write(sp_.val, load16Imm());
+			mmu_->write(sp_.val, load16Imm());
 			break;
 		case 0xF8: // LD HL,SP+r8
-			hl_.val = (uint16_t)((int16_t)sp_.val + (int8_t)load8Imm());
+			//hl_.val = (uint16_t)((int16_t)sp_.val + (int8_t)load8Imm());
+			hl_.val = ldHLSPe();
 			break;
 		case 0xF9: // LD SP,HL
 			sp_.val = hl_.val;
@@ -713,7 +717,7 @@ namespace gb
 			alu_.add(af_.hi, hl_.lo);
 			break;
 		case 0x86: // ADD A,(HL)
-			alu_.add(af_.hi, mmu_.read(hl_.val));
+			alu_.add(af_.hi, mmu_->read(hl_.val));
 			break;
 		case 0xC6: // ADD A,n
 			alu_.add(af_.hi, load8Imm());
@@ -742,7 +746,7 @@ namespace gb
 			alu_.addc(af_.hi, hl_.lo);
 			break;
 		case 0x8E: // ADC A,(HL)
-			alu_.addc(af_.hi, mmu_.read(hl_.val));
+			alu_.addc(af_.hi, mmu_->read(hl_.val));
 			break;
 		case 0xCE: // ADC A,n
 			alu_.addc(af_.hi, load8Imm());
@@ -789,7 +793,7 @@ namespace gb
 			alu_.sub(af_.hi, hl_.lo);
 			break;
 		case 0x96: // SUB A,(HL)
-			alu_.sub(af_.hi, mmu_.read(hl_.val));
+			alu_.sub(af_.hi, mmu_->read(hl_.val));
 			break;
 		case 0xD6: // SUB A,n
 			alu_.sub(af_.hi, load8Imm());
@@ -818,7 +822,7 @@ namespace gb
 			alu_.subc(af_.hi, hl_.lo);
 			break;
 		case 0x9E: // SBC A,(HL)
-			alu_.subc(af_.hi, mmu_.read(hl_.val));
+			alu_.subc(af_.hi, mmu_->read(hl_.val));
 			break;
 		case 0xDE: // SBC A,n
 			alu_.subc(af_.hi, load8Imm());
@@ -847,7 +851,7 @@ namespace gb
 			alu_.anda(af_.hi, hl_.lo);
 			break;
 		case 0xA6: // AND A,(HL)
-			alu_.anda(af_.hi, mmu_.read(hl_.val));
+			alu_.anda(af_.hi, mmu_->read(hl_.val));
 			break;
 		case 0xE6: // AND A,n
 			alu_.anda(af_.hi, load8Imm());
@@ -875,7 +879,7 @@ namespace gb
 			alu_.ora(af_.hi, hl_.lo);
 			break;
 		case 0xB6: // OR A,(HL)
-			alu_.ora(af_.hi, mmu_.read(hl_.val));
+			alu_.ora(af_.hi, mmu_->read(hl_.val));
 			break;
 		case 0xF6: // OR A,n
 			alu_.ora(af_.hi, load8Imm());
@@ -903,7 +907,7 @@ namespace gb
 			alu_.xora(af_.hi, hl_.lo);
 			break;
 		case 0xAE: // XOR A,(HL)
-			alu_.xora(af_.hi, mmu_.read(hl_.val));
+			alu_.xora(af_.hi, mmu_->read(hl_.val));
 			break;
 		case 0xEE: // OR A,n
 			alu_.xora(af_.hi, load8Imm());
@@ -932,7 +936,7 @@ namespace gb
 			alu_.compare(af_.hi, hl_.lo);
 			break;
 		case 0xBE: // CP A,(HL)
-			alu_.compare(af_.hi, mmu_.read(hl_.val));
+			alu_.compare(af_.hi, mmu_->read(hl_.val));
 			break;
 		case 0xFE: // CP A,n
 			alu_.compare(af_.hi, load8Imm());
@@ -999,7 +1003,7 @@ namespace gb
 			hl_.lo = swap(hl_.lo);
 			break;
 		case 0x36: // SWAP (HL)
-			mmu_.write(swap(mmu_.read(hl_.val)), hl_.val);
+			mmu_->write(swap(mmu_->read(hl_.val)), hl_.val);
 			break;
 
 		/* Rotate */
@@ -1023,7 +1027,7 @@ namespace gb
 			hl_.lo = rotateLeft(hl_.lo, 1, af_.lo);
 			break;
 		case 0x06: // RLC (HL)
-			mmu_.write(rotateLeft(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			mmu_->write(rotateLeft(mmu_->read(hl_.val), 1, af_.lo), hl_.val);
 			break;
 		case 0x07: // RLC A
 			af_.hi = rotateLeft(af_.hi, 1, af_.lo);
@@ -1048,7 +1052,7 @@ namespace gb
 			hl_.lo = rotateRight(hl_.lo, 1, af_.lo);
 			break;
 		case 0x0E: // RRC (HL)
-			mmu_.write(rotateRight(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			mmu_->write(rotateRight(mmu_->read(hl_.val), 1, af_.lo), hl_.val);
 			break;
 		case 0x0F: // RRC A
 			af_.hi = rotateRight(af_.hi, 1, af_.lo);
@@ -1075,7 +1079,7 @@ namespace gb
 			hl_.lo = rotateLeftCarry(hl_.lo, 1, af_.lo);
 			break;
 		case 0x16: // RL (HL)
-			mmu_.write(rotateLeftCarry(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			mmu_->write(rotateLeftCarry(mmu_->read(hl_.val), 1, af_.lo), hl_.val);
 			break;
 		case 0x17: // RL A
 			af_.hi = rotateLeftCarry(af_.hi, 1, af_.lo);
@@ -1100,7 +1104,7 @@ namespace gb
 			hl_.lo = rotateRightCarry(hl_.lo, 1, af_.lo);
 			break;
 		case 0x1E: // RR (HL)
-			mmu_.write(rotateRightCarry(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			mmu_->write(rotateRightCarry(mmu_->read(hl_.val), 1, af_.lo), hl_.val);
 			break;
 		case 0x1F: // RR A
 			af_.hi = rotateRightCarry(af_.hi, 1, af_.lo);
@@ -1127,7 +1131,7 @@ namespace gb
 			hl_.lo = shiftLeft(hl_.lo, 1, af_.lo);
 			break;
 		case 0x26: // SLA (HL)
-			mmu_.write(shiftLeft(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			mmu_->write(shiftLeft(mmu_->read(hl_.val), 1, af_.lo), hl_.val);
 			break;
 		case 0x27: // SLA A
 			af_.hi = shiftLeft(af_.hi, 1, af_.lo);
@@ -1152,7 +1156,7 @@ namespace gb
 			hl_.lo = shiftRightA(hl_.lo, 1, af_.lo);
 			break;
 		case 0x2E: // SRA (HL)
-			mmu_.write(shiftRightA(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			mmu_->write(shiftRightA(mmu_->read(hl_.val), 1, af_.lo), hl_.val);
 			break;
 		case 0x2F: // SRA A
 			af_.hi = shiftRightA(af_.hi, 1, af_.lo);
@@ -1177,7 +1181,7 @@ namespace gb
 			hl_.lo = shiftRightL(hl_.lo, 1, af_.lo);
 			break;
 		case 0x3E: // SRL (HL)
-			mmu_.write(shiftRightL(mmu_.read(hl_.val), 1, af_.lo), hl_.val);
+			mmu_->write(shiftRightL(mmu_->read(hl_.val), 1, af_.lo), hl_.val);
 			break;
 		case 0x3F: // SRL A
 			af_.hi = shiftRightL(af_.hi, 1, af_.lo);
@@ -1205,7 +1209,7 @@ namespace gb
 			bit(hl_.lo, 0);
 			break;
 		case 0x46: // BIT 0,(HL)
-			bit(mmu_.read(hl_.val), 0);
+			bit(mmu_->read(hl_.val), 0);
 			break;
 		case 0x47: // BIT 0,A
 			bit(af_.hi, 0);
@@ -1230,7 +1234,7 @@ namespace gb
 			bit(hl_.lo, 1);
 			break;
 		case 0x4E: // BIT 1,(HL)
-			bit(mmu_.read(hl_.val), 1);
+			bit(mmu_->read(hl_.val), 1);
 			break;
 		case 0x4F: // BIT 1,A
 			bit(af_.hi, 1);
@@ -1256,7 +1260,7 @@ namespace gb
 			bit(hl_.lo, 2);
 			break;
 		case 0x56: // BIT 2,(HL)
-			bit(mmu_.read(hl_.val), 2);
+			bit(mmu_->read(hl_.val), 2);
 			break;
 		case 0x57: // BIT 2,A
 			bit(af_.hi, 2);
@@ -1282,7 +1286,7 @@ namespace gb
 			bit(hl_.lo, 3);
 			break;
 		case 0x5E: // BIT 3,(HL)
-			bit(mmu_.read(hl_.val), 3);
+			bit(mmu_->read(hl_.val), 3);
 			break;
 		case 0x5F: // BIT 3,A
 			bit(af_.hi, 3);
@@ -1308,7 +1312,7 @@ namespace gb
 			bit(hl_.lo, 4);
 			break;
 		case 0x66: // BIT 4,(HL)
-			bit(mmu_.read(hl_.val), 4);
+			bit(mmu_->read(hl_.val), 4);
 			break;
 		case 0x67: // BIT 4,A
 			bit(af_.hi, 4);
@@ -1334,7 +1338,7 @@ namespace gb
 			bit(hl_.lo, 5);
 			break;
 		case 0x6E: // BIT 5,(HL)
-			bit(mmu_.read(hl_.val), 5);
+			bit(mmu_->read(hl_.val), 5);
 			break;
 		case 0x6F: // BIT 5,A
 			bit(af_.hi, 5);
@@ -1360,7 +1364,7 @@ namespace gb
 			bit(hl_.lo, 6);
 			break;
 		case 0x76: // BIT 6,(HL)
-			bit(mmu_.read(hl_.val), 6);
+			bit(mmu_->read(hl_.val), 6);
 			break;
 		case 0x77: // BIT 6,A
 			bit(af_.hi, 6);
@@ -1385,7 +1389,7 @@ namespace gb
 			bit(hl_.lo, 7);
 			break;
 		case 0x7E: // BIT 7,(HL)
-			bit(mmu_.read(hl_.val), 7);
+			bit(mmu_->read(hl_.val), 7);
 			break;
 		case 0x7F: // BIT 7,A
 			bit(af_.hi, 7);
@@ -1411,9 +1415,9 @@ namespace gb
 			CLR_BIT(hl_.lo, 0);
 			break;
 		case 0x86: // RES 0,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			CLR_BIT(tmp, 0);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0x87: // RES 0,A
 			CLR_BIT(af_.hi, 0);
@@ -1437,9 +1441,9 @@ namespace gb
 			CLR_BIT(hl_.lo, 1);
 			break;
 		case 0x8E: // RES 1,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			CLR_BIT(tmp, 1);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0x8F: // RES 1,A
 			CLR_BIT(af_.hi, 1);
@@ -1464,9 +1468,9 @@ namespace gb
 			CLR_BIT(hl_.lo, 2);
 			break;
 		case 0x96: // RES 2,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			CLR_BIT(tmp, 2);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0x97: // RES 2,A
 			CLR_BIT(af_.hi, 2);
@@ -1490,9 +1494,9 @@ namespace gb
 			CLR_BIT(hl_.lo, 3);
 			break;
 		case 0x9E: // RES 3,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			CLR_BIT(tmp, 3);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0x9F: // RES 3,A
 			CLR_BIT(af_.hi, 3);
@@ -1517,9 +1521,9 @@ namespace gb
 			CLR_BIT(hl_.lo, 4);
 			break;
 		case 0xA6: // RES 4,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			CLR_BIT(tmp, 4);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xA7: // RES 4,A
 			CLR_BIT(af_.hi, 4);
@@ -1543,9 +1547,9 @@ namespace gb
 			CLR_BIT(hl_.lo, 5);
 			break;
 		case 0xAE: // RES 5,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			CLR_BIT(tmp, 5);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xAF: // RES 5,A
 			CLR_BIT(af_.hi, 5);
@@ -1570,9 +1574,9 @@ namespace gb
 			CLR_BIT(hl_.lo, 6);
 			break;
 		case 0xB6: // RES 6,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			CLR_BIT(tmp, 6);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xB7: // RES 6,A
 			CLR_BIT(af_.hi, 6);
@@ -1596,9 +1600,9 @@ namespace gb
 			CLR_BIT(hl_.lo, 7);
 			break;
 		case 0xBE: // RES 7,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			CLR_BIT(tmp, 7);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xBF: // RES 7,A
 			CLR_BIT(af_.hi, 7);
@@ -1625,9 +1629,9 @@ namespace gb
 			SET_BIT(hl_.lo, 0);
 			break;
 		case 0xC6: // SET 0,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			SET_BIT(tmp, 0);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xC7: // SET 0,A
 			SET_BIT(af_.hi, 0);
@@ -1651,9 +1655,9 @@ namespace gb
 			SET_BIT(hl_.lo, 1);
 			break;
 		case 0xCE: // SET 1,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			SET_BIT(tmp, 1);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xCF: // SET 1,A
 			SET_BIT(af_.hi, 1);
@@ -1678,9 +1682,9 @@ namespace gb
 			SET_BIT(hl_.lo, 2);
 			break;
 		case 0xD6: // SET 2,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			SET_BIT(tmp, 2);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xD7: // SET 2,A
 			SET_BIT(af_.hi, 2);
@@ -1704,9 +1708,9 @@ namespace gb
 			SET_BIT(hl_.lo, 3);
 			break;
 		case 0xDE: // SET 3,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			SET_BIT(tmp, 3);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xDF: // SET 3,A
 			SET_BIT(af_.hi, 3);
@@ -1731,9 +1735,9 @@ namespace gb
 			SET_BIT(hl_.lo, 4);
 			break;
 		case 0xE6: // SET 4,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			SET_BIT(tmp, 4);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xE7: // SET 4,A
 			SET_BIT(af_.hi, 4);
@@ -1757,9 +1761,9 @@ namespace gb
 			SET_BIT(hl_.lo, 5);
 			break;
 		case 0xEE: // SET 5,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			SET_BIT(tmp, 5);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xEF: // SET 5,A
 			SET_BIT(af_.hi, 5);
@@ -1784,9 +1788,9 @@ namespace gb
 			SET_BIT(hl_.lo, 6);
 			break;
 		case 0xF6: // SET 6,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			SET_BIT(tmp, 6);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xF7: // SET 6,A
 			SET_BIT(af_.hi, 6);
@@ -1810,9 +1814,9 @@ namespace gb
 			SET_BIT(hl_.lo, 7);
 			break;
 		case 0xFE: // SET 7,(HL)
-			tmp = mmu_.read(hl_.val);
+			tmp = mmu_->read(hl_.val);
 			SET_BIT(tmp, 7);
-			mmu_.write(tmp, hl_.val);
+			mmu_->write(tmp, hl_.val);
 			break;
 		case 0xFF: // SET 7,A
 			SET_BIT(af_.hi, 7);
@@ -1858,7 +1862,7 @@ namespace gb
 		{
 			// mask off disabled interrupts
 			uint8_t pending_interrupts = interrupt_flags_ & interrupt_enable_;
-				
+
 			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
 				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
 			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
@@ -1867,7 +1871,7 @@ namespace gb
 				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
 			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
 				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
-			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD)) 
+			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))
 				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
 		}
 	}
@@ -1918,13 +1922,13 @@ namespace gb
 		{
 			if (opcodeinfo.userdata == OperandType::IMM8)
 			{
-				uint8_t userdata = mmu_.read(userdata_addr);
+				uint8_t userdata = mmu_->read(userdata_addr);
 				std::sprintf(str, opcodeinfo.disassembly, userdata);
 			}
 			else // OperandType::IMM16
 			{
-				uint8_t lo = mmu_.read(userdata_addr);
-				uint8_t hi = mmu_.read(userdata_addr + 1);
+				uint8_t lo = mmu_->read(userdata_addr);
+				uint8_t hi = mmu_->read(userdata_addr + 1);
 
 				std::sprintf(str, opcodeinfo.disassembly, WORD(hi, lo));
 			}
@@ -1946,16 +1950,16 @@ namespace gb
 			hl_.hi,
 			hl_.lo,
 			sp_.val,
-			WORD(mmu_.read(sp_.val + 1), mmu_.read(sp_.val)),
+			WORD(mmu_->read(sp_.val + 1), mmu_->read(sp_.val)),
 			af_.lo,
-			mmu_.read(0xFF0F),
-			mmu_.read(0xFFFF)
+			mmu_->read(0xFF0F),
+			mmu_->read(0xFFFF)
 		);
 	}
 
 	uint8_t CPU::load8Imm()
 	{
-		return mmu_.read(pc_.val++);
+		return mmu_->read(pc_.val++);
 	}
 
 	uint16_t CPU::load16Imm()
@@ -1969,13 +1973,13 @@ namespace gb
 	void CPU::in(uint16_t addr)
 	{
 		// read from offset into IO registers
-		af_.hi = mmu_.read(addr);
+		af_.hi = mmu_->read(addr);
 	}
 
 	void CPU::out(uint16_t addr)
 	{
 		// write out to the IO registers given the offset
-		mmu_.write(af_.hi, addr);
+		mmu_->write(af_.hi, addr);
 	}
 
 	void CPU::inc(uint8_t& i)
@@ -2012,16 +2016,16 @@ namespace gb
 
 	void CPU::inca(uint16_t addr)
 	{
-		uint8_t b = mmu_.read(addr);
+		uint8_t b = mmu_->read(addr);
 		inc(b);
-		mmu_.write(b, addr);
+		mmu_->write(b, addr);
 	}
 
 	void CPU::deca(uint16_t addr)
 	{
-		uint8_t b = mmu_.read(addr);
+		uint8_t b = mmu_->read(addr);
 		dec(b);
-		mmu_.write(b, addr);
+		mmu_->write(b, addr);
 	}
 
 	void CPU::push(uint16_t value)
@@ -2029,16 +2033,16 @@ namespace gb
 		uint8_t hi = (value & 0xFF00) >> 8;
 		uint8_t lo = (value & 0x00FF);
 
-		mmu_.write(hi, sp_.val - 1);
-		mmu_.write(lo, sp_.val - 2);
+		mmu_->write(hi, sp_.val - 1);
+		mmu_->write(lo, sp_.val - 2);
 
 		sp_.val -= 2;
 	}
 
 	uint16_t CPU::pop()
 	{
-		uint8_t lo = mmu_.read(sp_.val);
-		uint8_t hi = mmu_.read(sp_.val + 1);
+		uint8_t lo = mmu_->read(sp_.val);
+		uint8_t hi = mmu_->read(sp_.val + 1);
 
 		sp_.val += 2;
 
@@ -2089,7 +2093,7 @@ namespace gb
 
 	void CPU::daa()
 	{
-		bool z = IS_SET(af_.lo, CPU::Flags::Z) != 0;
+		/*
 		bool n = IS_SET(af_.lo, CPU::Flags::N) != 0;
 		bool h = IS_SET(af_.lo, CPU::Flags::H) != 0;
 		bool c = IS_SET(af_.lo, CPU::Flags::C) != 0;
@@ -2115,7 +2119,7 @@ namespace gb
 		else
 		{
 			// was a form of addition instruction
-			
+
 			// get hi and lo nybbles of A
 			uint8_t hi = (af_.hi & 0xF0) >> 4;
 			uint8_t lo = (af_.lo & 0x0F);
@@ -2157,7 +2161,64 @@ namespace gb
 
 		setFlag(CPU::Flags::Z, af_.hi == 0);
 		setFlag(CPU::Flags::H, false);
-		
+		*/
+
+		bool n = IS_SET(af_.lo, CPU::Flags::N) != 0;
+		bool h = IS_SET(af_.lo, CPU::Flags::H) != 0;
+		bool c = IS_SET(af_.lo, CPU::Flags::C) != 0;
+
+		int a = (int) af_.hi;
+
+		if (!n)
+		{
+			if (c || (a > 0x99)) {
+				a = (a + 0x60) & 0xFF;
+				setFlag(Flags::C, true);
+			}
+			if (h || ((a & 0x0F) > 9)) {
+				a = (a + 0x06) & 0xFF;
+				setFlag(Flags::H, false);
+			}
+		}
+		else if(c && h)
+		{
+			a = (a + 0x9A) & 0xFF;
+			setFlag(Flags::H, false);
+		}
+		else if (c)
+		{
+			a = (a + 0xA0) & 0xFF;
+		}
+		else if (h)
+		{
+			a = (a + 0xFA) & 0xFF;
+			setFlag(Flags::H, false);
+		}
+
+		setFlag(Flags::Z, a == 0);
+
+	//	setFlag(Flags::H, false);
+	//	setFlag(Flags::C, (a & 0x100) == 0x100);
+
+		//a &= 0xFF;
+	
+	//	setFlag(Flags::Z, a == 0);
+
+		af_.hi = (uint8_t)a;
+	}
+
+	uint16_t CPU::ldHLSPe()
+	{
+		int8_t e = (int8_t)load8Imm();
+		int result = sp_.val + e;
+
+		setFlag(Flags::C, ((sp_.val ^ e ^ (result & 0xFFFF)) & 0x100) == 0x100);
+		setFlag(Flags::H, ((sp_.val ^ e ^ (result & 0xFFFF)) & 0x10) == 0x10);
+
+		setFlag(ALU::Flags::Z, false);
+		setFlag(ALU::Flags::N, false);
+
+		return (uint16_t)result;
 	}
 
 	void CPU::bit(uint8_t val, uint8_t n)
@@ -2197,7 +2258,7 @@ namespace gb
 		interrupt_master_enable_pending_ = -1;
 		interrupt_master_disable_pending_ = -1;
 
-		div_ = (Register*)mmu_.getptr(memorymap::DIVIDER_LO_REGISTER);
+		div_ = (Register*)mmu_->getptr(memorymap::DIVIDER_LO_REGISTER);
 	}
 
 	void CPU::setDebugMode(bool debug_mode)
@@ -2212,11 +2273,11 @@ namespace gb
 
     const MMU& CPU::getMMU() const
     {
-        return mmu_;
+        return *mmu_.get();
     }
 	MMU& CPU::getMMU()
 	{
-		return mmu_;
+		return *mmu_.get();
 	}
 
 	const LCDController& CPU::getLCDController() const

@@ -16,8 +16,10 @@
 #include "gameboy/opcodeinfo.h"
 
 #include "gameboy/lcd_controller.h"
+#include "gameboy/timer.h"
 
-#include <stdint.h>
+#include <cstdint>
+#include <memory>
 
 namespace gb
 {
@@ -76,8 +78,10 @@ namespace gb
 			JOYPAD                   = 0x0060
 		};
 
+		using Ptr = std::unique_ptr<CPU>;
+
     public:
-        CPU();
+        CPU(MMU::Ptr& mmu);
 
         void step();
 
@@ -159,6 +163,10 @@ namespace gb
 		void daa();
 
 		/**
+		*/
+		uint16_t ldHLSPe();
+
+		/**
 			Bit
 		*/
 		void bit(uint8_t val, uint8_t bit);
@@ -175,10 +183,11 @@ namespace gb
 		Register sp_;
 		Register pc_;
 
-		MMU mmu_;
+		MMU::Ptr mmu_;
 		ALU alu_;
 
 		LCDController lcd_;
+		Timer timer_;
 
 		bool halted_;
 		bool stopped_;

@@ -6,6 +6,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+set(CMAKE_MODULE_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 project(gameboy)
@@ -36,6 +37,7 @@ set(GAMEBOYCORE
 	src/core/tileram.cpp
 	src/core/tilemap.cpp
 	src/core/joypad.cpp
+	src/core/oam.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
@@ -45,12 +47,15 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/lcd_controller.h
 	include/gameboy/tileram.h
 	include/gameboy/tilemap.h
+	include/gameboy/oam.h
 	include/gameboy/tile.h
 	include/gameboy/joypad.h
+	include/gameboy/timer.h
 	include/gameboy/interrupt_provider.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h
+	include/gameboy/mbc1.h
 	include/gameboy/cartinfo.h
 	include/gameboy/opcodeinfo.h
 
@@ -62,11 +67,15 @@ set(GAMEBOYCORE_HEADERS
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -Wno-format-security")
 elseif(MSVC)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_CRT_SECURE_NO_WARNINGS")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -D_CRT_SECURE_NO_WARNINGS")
 endif()
+
+include(version-config)
+generate_version_info()
 
 include_directories(
     include/
+	${CMAKE_BINARY_DIR}
 )
 
 add_definitions(
@@ -88,10 +97,31 @@ add_subdirectory(tests)
 install(
 	TARGETS gbcore
 	ARCHIVE DESTINATION lib
+	COMPONENT development
 )
 
 # install headers
 install(
 	DIRECTORY include
 	DESTINATION .
+	COMPONENT development
 )
+
+# Installation
+include(get-version-config)
+get_version()
+
+set(CPACK_PACKAGE_NAME "dotrix")
+set(CPACK_PACKAGE_VENDOR "nnarain")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Gameboy emulator and library")
+set(CPACK_PACKAGE_VERSION "${VERSION}")
+set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "dotrix")
+
+set(CPACK_COMPONENT_DEVELOPMENT_DISPLAY_NAME "Development")
+set(CPACK_COMPONENT_PROGRAMS_DISPLAY_NAME "Programs")
+
+include(CPack)
+

@@ -33,8 +33,8 @@ TEST(MiscInstructions, Swap)
 	);
 
 	Gameboy gameboy;
-	const MMU& mmu = gameboy.getCPU().getMMU();
 	CPU::Status status = run(gameboy, code.rom());
+	const MMU& mmu = gameboy.getCPU().getMMU();
 
 	EXPECT_EQ(status.af.hi, 0x21);
 	EXPECT_EQ(status.bc.hi, 0x43);
@@ -83,7 +83,7 @@ TEST(MiscInstructions, DAA)
 	CodeGenerator code;
 	code.block(
 		0x3E, 0x45,	// LD A,$45
-		0x06, 0x38, // LD B,$06
+		0x06, 0x38, // LD B,$38
 		0x80,		// ADD A,B
 		0x27,		// DAA
 		0x76        // halt
@@ -92,7 +92,7 @@ TEST(MiscInstructions, DAA)
 	Gameboy gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 0x7D);
+	EXPECT_EQ(status.af.hi, 0x83);
 	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, 0);
 	EXPECT_EQ(status.af.lo & CPU::Flags::H, 0);

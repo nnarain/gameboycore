@@ -22,7 +22,9 @@ namespace gb
     class Gameboy
     {
     private:
-        CPU cpu_;
+     //   CPU cpu_;
+		CPU::Ptr cpu_;
+		MMU::Ptr mmu_;
 
     public:
         Gameboy();
@@ -41,6 +43,7 @@ namespace gb
 		void setStepCount(unsigned int step_count);
 
 		CPU& getCPU();
+		MMU::Ptr getMMU();
 
 		TileRAM getTileRAM();
 		TileMap getTileMap();

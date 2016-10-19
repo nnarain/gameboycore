@@ -1,22 +1,42 @@
 find_package(SFML REQUIRED COMPONENTS system window graphics)
 
+get_filename_component(SFML_PATH ${SFML_INCLUDE_DIR} DIRECTORY)
+
 include_directories(
 	${SFML_INCLUDE_DIR}
 )
 
-add_executable(${PROJECT_NAME}
+add_executable(dotrix
     emulator.cpp
 	window.h
 	screen_renderer.h
 	texture_buffer.h
 )
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(dotrix
     gbcore
 	${SFML_LIBRARIES}
 )
 
+add_dependencies(dotrix version)
+
 # install targets
 install(
-	TARGETS ${PROJECT_NAME}
+	TARGETS dotrix
 	RUNTIME DESTINATION bin
+	COMPONENT programs
 )
+
+# install sfml libraries
+if(WIN32)
+	install(
+		FILES
+			${SFML_PATH}/bin/openal32.dll
+			${SFML_PATH}/bin/sfml-audio-d-2.dll
+			${SFML_PATH}/bin/sfml-graphics-d-2.dll
+			${SFML_PATH}/bin/sfml-network-d-2.dll
+			${SFML_PATH}/bin/sfml-system-d-2.dll
+			${SFML_PATH}/bin/sfml-window-d-2.dll
+		DESTINATION bin
+		COMPONENT programs
+	)
+endif(WIN32)

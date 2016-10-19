@@ -41,6 +41,8 @@ if(GTEST_FOUND)
 		test_joypad.cpp
 		test_low_power_mode.cpp
 		
+		test_mbc1.cpp
+		
 		# headers
 		include/test_helper.h
 		include/util/codegenerator.h

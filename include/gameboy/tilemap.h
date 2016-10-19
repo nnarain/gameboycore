@@ -28,7 +28,7 @@ namespace gb
 
 	public:
 
-		TileMap(const TileRAM& tileram, const MMU& mmu, const LCDController& lcd);
+		TileMap(const TileRAM& tileram, MMU& mmu, const LCDController& lcd);
 		~TileMap();
 
 		std::vector<Tile> getMapData(TileRAM tileram, Map map) const;
@@ -38,6 +38,9 @@ namespace gb
 		TileRAM tileram_;
 		const MMU& mmu_;
 		const LCDController lcd_;
+
+		uint8_t& scx_;
+		uint8_t& scy_;
 	};
 }
 

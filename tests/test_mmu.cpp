@@ -20,19 +20,6 @@ static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
 	return status;
 }
 
-
-TEST(MMUTest, Load)
-{
-	CodeGenerator code;
-
-	auto rom = code.rom();
-
-	MMU mmu;
-	mmu.load(&rom[0], rom.size());
-	
-	EXPECT_EQ(mmu.numBanks(), 0);
-}
-
 // TODO: MMU Bank loading and ROM bank switching tests
 
 TEST(MMUTest, Read)
@@ -75,10 +62,10 @@ TEST(MMUTest, Write16Bit)
 	mmu.load(&rom[0], rom.size());
 
 	uint16_t b = 0xDEAD;
-	mmu.write(b, 0x512);
+	mmu.write(b, 0xC000);
 
-	EXPECT_EQ(mmu.read(0x512), 0xAD);
-	EXPECT_EQ(mmu.read(0x513), 0xDE);
+	EXPECT_EQ(mmu.read(0xC000), 0xAD);
+	EXPECT_EQ(mmu.read(0xC001), 0xDE);
 }
 
 TEST(MMUTest, DMA)

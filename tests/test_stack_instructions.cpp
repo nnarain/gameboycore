@@ -5,25 +5,11 @@
 */
 
 #include <gtest/gtest.h>
-#include "util/codegenerator.h"
+#include "test_helper.h"
 
 #include <gameboy/gameboy.h>
 
 using namespace gb;
-
-static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
-{
-	gameboy.loadROM(&rom[0], rom.size());
-
-	while (!gameboy.isDone())
-		gameboy.update();
-
-	CPU::Status status = gameboy.getCPU().getStatus();
-
-	gameboy.reset();
-
-	return status;
-}
 
 TEST(StackInstructions, PushPop)
 {
@@ -75,4 +61,25 @@ TEST(StackInstructions, LoadHLwithSPRelative)
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.hl.val, 0xFFFD);
+}
+
+TEST(StackInstructions, PopAF)
+{
+	CodeGenerator code;
+	code.block(
+		0x3E, 0x45,			// LD A,$45
+		0x37,				// SCF
+		0xF5,				// PUSH AF
+		0xF0, 0xFC,			// LDH A,(FC)
+		0xF6, 0x01,			// OR $01
+		0xE0, 0xFC,			// LDH (FC),A
+		0xF1,				// POP AF
+		0x76
+	);
+
+	Gameboy gameboy;
+	auto status = run(gameboy, code.rom());
+
+	EXPECT_EQ(status.af.hi, 0x45);
+	EXPECT_EQ(status.af.lo, CPU::Flags::C);
 }
