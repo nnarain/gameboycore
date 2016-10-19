@@ -69,18 +69,6 @@ namespace gb
 			timer_.clock(cycles);
 		}
 
-		auto bp = std::vector<unsigned>{
-			0x4319
-		};
-
-		for (auto addr : bp)
-		{
-			if (pc_.val == addr)
-			{
-				int x = 0;
-			}
-		}
-
 		checkPowerMode();
 		checkInterrupts();
 	}
