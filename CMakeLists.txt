@@ -6,6 +6,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+set(CMAKE_MODULE_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 project(gameboy)
@@ -69,8 +70,12 @@ elseif(MSVC)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -D_CRT_SECURE_NO_WARNINGS")
 endif()
 
+include(version-config)
+generate_version_info()
+
 include_directories(
     include/
+	${CMAKE_BINARY_DIR}
 )
 
 add_definitions(
@@ -92,10 +97,31 @@ add_subdirectory(tests)
 install(
 	TARGETS gbcore
 	ARCHIVE DESTINATION lib
+	COMPONENT development
 )
 
 # install headers
 install(
 	DIRECTORY include
 	DESTINATION .
+	COMPONENT development
 )
+
+# Installation
+include(get-version-config)
+get_version()
+
+set(CPACK_PACKAGE_NAME "dotrix")
+set(CPACK_PACKAGE_VENDOR "nnarain")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Gameboy emulator and library")
+set(CPACK_PACKAGE_VERSION "${VERSION}")
+set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "dotrix")
+
+set(CPACK_COMPONENT_DEVELOPMENT_DISPLAY_NAME "Development")
+set(CPACK_COMPONENT_PROGRAMS_DISPLAY_NAME "Programs")
+
+include(CPack)
+

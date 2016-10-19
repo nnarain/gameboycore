@@ -10,6 +10,8 @@
 
 #include "window.h"
 
+#include "version.h"
+
 using namespace gb;
 
 static bool loadGB(const std::string&, std::vector<uint8_t>&);
@@ -21,6 +23,11 @@ int main(int argc, char * argv[])
         std::cout << "Usage: " << argv[0] << " <romfile>" << std::endl;
         return 1;
     }
+
+	if (std::string(argv[1]) == "-v")
+	{
+		std::cout << version::get() << std::endl;
+	}
 
     std::vector<uint8_t> rom;
     if(loadGB(std::string(argv[1]), rom))

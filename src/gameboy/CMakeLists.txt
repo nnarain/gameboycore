@@ -4,19 +4,22 @@ include_directories(
 	${SFML_INCLUDE_DIR}
 )
 
-add_executable(${PROJECT_NAME}
+add_executable(dotrix
     emulator.cpp
 	window.h
 	screen_renderer.h
 	texture_buffer.h
 )
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(dotrix
     gbcore
 	${SFML_LIBRARIES}
 )
 
+add_dependencies(dotrix version)
+
 # install targets
 install(
-	TARGETS ${PROJECT_NAME}
+	TARGETS dotrix
 	RUNTIME DESTINATION bin
+	COMPONENT programs
 )
