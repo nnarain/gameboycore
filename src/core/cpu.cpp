@@ -2105,6 +2105,7 @@ namespace gb
 
 	void CPU::daa()
 	{
+		/*
 		bool n = IS_SET(af_.lo, CPU::Flags::N) != 0;
 		bool h = IS_SET(af_.lo, CPU::Flags::H) != 0;
 		bool c = IS_SET(af_.lo, CPU::Flags::C) != 0;
@@ -2172,7 +2173,50 @@ namespace gb
 
 		setFlag(CPU::Flags::Z, af_.hi == 0);
 		setFlag(CPU::Flags::H, false);
+		*/
 
+		bool n = IS_SET(af_.lo, CPU::Flags::N) != 0;
+		bool h = IS_SET(af_.lo, CPU::Flags::H) != 0;
+		bool c = IS_SET(af_.lo, CPU::Flags::C) != 0;
+
+		int a = (int) af_.hi;
+
+		if (!n)
+		{
+			if (c || (a > 0x99)) {
+				a = (a + 0x60) & 0xFF;
+				setFlag(Flags::C, true);
+			}
+			if (h || ((a & 0x0F) > 9)) {
+				a = (a + 0x06) & 0xFF;
+				setFlag(Flags::H, false);
+			}
+		}
+		else if(c && h)
+		{
+			a = (a + 0x9A) & 0xFF;
+			setFlag(Flags::H, false);
+		}
+		else if (c)
+		{
+			a = (a + 0xA0) & 0xFF;
+		}
+		else if (h)
+		{
+			a = (a + 0xFA) & 0xFF;
+			setFlag(Flags::H, false);
+		}
+
+		setFlag(Flags::Z, a == 0);
+
+	//	setFlag(Flags::H, false);
+	//	setFlag(Flags::C, (a & 0x100) == 0x100);
+
+		//a &= 0xFF;
+	
+	//	setFlag(Flags::Z, a == 0);
+
+		af_.hi = (uint8_t)a;
 	}
 
 	uint16_t CPU::ldHLSPe()
