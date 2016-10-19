@@ -40,13 +40,11 @@ build:
 
 after_build:
   - C:\projects\gameboy\build\tests\Debug\gameboy_tests.exe
-  - msbuild C:\projects\gameboy\build\INSTALL.vcxproj /verbosity:quiet
-  - copy c:\libs\sfml\bin\* c:\projects\install\bin
-  - 7z a -tzip gameboy.zip c:\projects\install\*
+  - msbuild C:\projects\gameboy\build\PACKAGE.vcxproj /verbosity:quiet
 
 artifacts:
-- path: .\build\gameboy.zip
-  name: gameboy
+- path: .\build\dotrix-*-win32.exe
+  name: installer
   
 deploy:
   provider: GitHub
@@ -54,7 +52,7 @@ deploy:
   description: 'v$(APPVEYOR_REPO_TAG_NAME)'
   auth_token:
     secure: +F7/lKFe9fc9q4w0lCpc9tR1H4JucHiE7WuevfJCaWOeU/5ul8QojqNACB6ODFgT
-  artifact: gameboy
+  artifact: installer
   draft: false
   prerelease: false
   on:
