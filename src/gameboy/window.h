@@ -12,6 +12,7 @@
 #include <gameboy/tileram.h>
 
 #include <stdexcept>
+#include <string>
 
 #include "screen_renderer.h"
 
@@ -21,8 +22,8 @@
 class Window
 {
 public:
-	Window(gb::Gameboy& gameboy) :
-		window_(sf::VideoMode(160 * 2, 144 * 2), "Dotrix [beta]"),
+	Window(gb::Gameboy& gameboy, const std::string& title) :
+		window_(sf::VideoMode(160 * 2, 144 * 2), title),
 		screen_renderer_{gameboy},
 		joypad_{gameboy.getJoypad()}
 	{
