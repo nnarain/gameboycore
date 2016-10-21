@@ -26,7 +26,7 @@ namespace gb
 		mmu.addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&LCDController::configure, this, std::placeholders::_1));
 	}
 
-	void LCDController::clock(uint8_t cycles)
+	void LCDController::clock(uint8_t cycles, bool ime)
 	{
 		// check if the controller is enabled
 
@@ -50,30 +50,30 @@ namespace gb
 			{
 				if (ly_ >= 144)
 				{
-					transitionState(State::MODE1);
+					transitionState(State::MODE1, ime);
 				}
 				else
 				{
-					transitionState(State::MODE2);
+					transitionState(State::MODE2, ime);
 				}
 			}
 			break;
 		case State::MODE1: // V-Blank
 			if (mode_count_ > 4560)
 			{
-				transitionState(State::MODE2);
+				transitionState(State::MODE2, ime);
 			}
 			break;
 		case State::MODE2:
 			if (mode_count_ > 77)
 			{
-				transitionState(State::MODE3);
+				transitionState(State::MODE3, ime);
 			}
 			break;
 		case State::MODE3:
 			if (mode_count_ > 169)
 			{
-				transitionState(State::MODE0);
+				transitionState(State::MODE0, ime);
 			}
 			break;
 		}
@@ -85,7 +85,8 @@ namespace gb
 
 			if (IS_BIT_SET(stat_, 6))
 			{
-				lcd_stat_provider_.set();
+				if(ime)
+					lcd_stat_provider_.set();
 			}
 		}
 		else
@@ -94,7 +95,7 @@ namespace gb
 		}
 	}
 
-	void LCDController::transitionState(State newState)
+	void LCDController::transitionState(State newState, bool ime)
 	{
 		uint8_t mode_flag = static_cast<uint8_t>(newState);
 
@@ -109,7 +110,8 @@ namespace gb
 			// if the transition state is not a v-blank
 			if (newState != State::MODE1)
 			{
-				lcd_stat_provider_.set();
+				if(ime)
+					lcd_stat_provider_.set();
 			}
 			else // is v-blank
 			{
