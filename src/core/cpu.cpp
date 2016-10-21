@@ -65,7 +65,7 @@ namespace gb
 		if (!stopped_)
 		{
 			div_->val += cycles;
-			lcd_.clock(cycles);
+			lcd_.clock(cycles, interrupt_master_enable_);
 			timer_.clock(cycles);
 		}
 
@@ -1868,8 +1868,7 @@ namespace gb
 			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
 				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
 			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))
-				//interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
-				;
+				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
 			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
 				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
 			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))
