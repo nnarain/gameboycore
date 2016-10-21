@@ -1868,7 +1868,8 @@ namespace gb
 			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
 				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
 			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))
-				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
+				//interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
+				;
 			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
 				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
 			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))
@@ -1952,8 +1953,8 @@ namespace gb
 			sp_.val,
 			WORD(mmu_->read(sp_.val + 1), mmu_->read(sp_.val)),
 			af_.lo,
-			mmu_->read(0xFF0F),
-			mmu_->read(0xFFFF)
+			interrupt_flags_,
+			interrupt_enable_
 		);
 	}
 

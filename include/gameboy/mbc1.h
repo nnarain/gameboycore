@@ -159,7 +159,7 @@ namespace gb
 			}
 			else if (addr >= 0x2000 && addr <= 0x3FFF)
 			{
-				selectRomBank(value);
+				selectRomBank(value & 0x1F);
 			}
 			else if (addr >= 0x4000 && addr <= 0x5FFF)
 			{
@@ -169,19 +169,22 @@ namespace gb
 				}
 				else
 				{
-					selectRamBank(value);
+					selectRamBank(value & 0x3);
 				}
 			}
 			else if (addr >= 0x6000 && addr <= 0x7FFF)
 			{
 				mode_ = static_cast<MemoryMode>(value);
+
+				if (mode_ == MemoryMode::RAM)
+					rom_idx_upper_bits_ = 0;
 			}
 		}
 
 	private:
 		void selectRomBank(uint8_t rom_bank_number)
 		{
-			auto bank_number = 0u;
+			auto bank_number = ((rom_idx_upper_bits_ << 5) | rom_bank_number);
 
 			// potentially remap the rom bank number
 			switch (rom_bank_number)
@@ -190,19 +193,19 @@ namespace gb
 			case 0x20:
 			case 0x40:
 			case 0x60:
-				bank_number = rom_bank_number + 1;
+				bank_number++;
 				break;
 			default:
-				bank_number = rom_bank_number;
+				// ...
 				break;
 			}
 
-			rom_idx_ = ((rom_idx_upper_bits_ << 5) | bank_number) - 1;
+			rom_idx_ = bank_number - 1;
 		}
 
 		void selectRamBank(uint8_t ram_bank_number)
 		{
-			ram_idx_ = ram_bank_number & 0x03;
+			ram_idx_ = ram_bank_number;
 		}
 
 		void loadROM(uint8_t* rom, uint32_t size, uint8_t rom_size)
@@ -218,7 +221,8 @@ namespace gb
 			uint32_t offset = 0;
 
 			// allocate memory for this bank
-			rom0_.resize(0x3FFF - 0x0000 + 1);
+			//rom0_.resize(0x3FFF - 0x0000 + 1);
+			rom0_.resize(BANK_SIZE);
 
 			std::memcpy(&rom0_[0], rom, rom0_.size());
 			offset += rom0_.size();
