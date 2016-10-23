@@ -12,6 +12,7 @@
 #endif
 
 #include "gameboy/mmu.h"
+#include "gameboy/gpu.h"
 #include "gameboy/alu.h"
 #include "gameboy/opcodeinfo.h"
 
@@ -81,7 +82,7 @@ namespace gb
 		using Ptr = std::unique_ptr<CPU>;
 
     public:
-        CPU(MMU::Ptr& mmu);
+        CPU(const MMU::Ptr& mmu, const GPU::Ptr gpu);
 
         void step();
 
@@ -188,6 +189,7 @@ namespace gb
 		Register pc_;
 
 		MMU::Ptr mmu_;
+		GPU::Ptr gpu_;
 		ALU alu_;
 
 		LCDController lcd_;

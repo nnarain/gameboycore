@@ -44,6 +44,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/cpu.h
 	include/gameboy/alu.h
 	include/gameboy/mmu.h
+	include/gameboy/gpu.h
 	include/gameboy/lcd_controller.h
 	include/gameboy/tileram.h
 	include/gameboy/tilemap.h
@@ -52,6 +53,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/joypad.h
 	include/gameboy/timer.h
 	include/gameboy/interrupt_provider.h
+	include/gameboy/pixel.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h

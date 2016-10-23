@@ -13,8 +13,9 @@
 
 namespace gb
 {
-	CPU::CPU(MMU::Ptr& mmu) :
+	CPU::CPU(const MMU::Ptr& mmu, const GPU::Ptr gpu) :
 		mmu_(mmu),
+		gpu_(gpu),
 		alu_(af_.lo),
 		lcd_(*mmu_.get()),
 		timer_(*mmu.get()),
@@ -66,7 +67,8 @@ namespace gb
 		if (!stopped_)
 		{
 			div_->val += cycles;
-			lcd_.clock(cycles, interrupt_master_enable_);
+		//	lcd_.clock(cycles, interrupt_master_enable_);
+			gpu_->update(cycles, interrupt_master_enable_);
 			timer_.clock(cycles);
 		}
 
