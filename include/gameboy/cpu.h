@@ -173,6 +173,10 @@ namespace gb
 
 		/**
 		*/
+		void stop();
+
+		/**
+		*/
 		void setFlag(uint8_t mask, bool set);
 
 	private:
@@ -204,6 +208,8 @@ namespace gb
 		uint8_t& interrupt_enable_;
 
 		Register* div_;
+
+		bool cgb_mode_;
     };
 }
 
