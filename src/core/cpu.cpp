@@ -27,7 +27,8 @@ namespace gb
 		cycle_count_(0),
 		interrupt_flags_(mmu_->get(memorymap::INTERRUPT_FLAG)),
 		interrupt_enable_(mmu_->get(memorymap::INTERRUPT_ENABLE)),
-		div_(nullptr)
+		div_(nullptr),
+		cgb_mode_(false)
 	{
 		reset();
 	}
@@ -65,7 +66,7 @@ namespace gb
 		if (!stopped_)
 		{
 			div_->val += cycles;
-			lcd_.clock(cycles);
+			lcd_.clock(cycles, interrupt_master_enable_);
 			timer_.clock(cycles);
 		}
 
@@ -87,9 +88,7 @@ namespace gb
 			break;
 		// STOP
 		case 0x10:
-			stopped_ = true;
-			halted_ = true;
-			pc_.val++;
+			stop();
 			break;
 
 		/* Load Instructions */
@@ -1863,16 +1862,20 @@ namespace gb
 			// mask off disabled interrupts
 			uint8_t pending_interrupts = interrupt_flags_ & interrupt_enable_;
 
-			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
-				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
-			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
-				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
-			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))
-				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
-			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
-				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
 			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))
 				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
+
+			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
+				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
+			
+			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))
+				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
+			
+			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
+				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
+			
+			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
+				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
 		}
 	}
 
@@ -1952,8 +1955,8 @@ namespace gb
 			sp_.val,
 			WORD(mmu_->read(sp_.val + 1), mmu_->read(sp_.val)),
 			af_.lo,
-			mmu_->read(0xFF0F),
-			mmu_->read(0xFFFF)
+			interrupt_flags_,
+			interrupt_enable_
 		);
 	}
 
@@ -2230,6 +2233,26 @@ namespace gb
 		setFlag(CPU::Flags::N, false);
 	}
 
+	void CPU::stop()
+	{
+		if (cgb_mode_)
+		{
+			// TODO: CGB support
+		}
+		else
+		{
+			// TODO: Remove the KEY1 check
+			auto key1_reg = mmu_->read(memorymap::KEY1_REGISER);
+
+			// check for preparing speed switch
+			if (key1_reg & 0x01) return;
+
+			stopped_ = true;
+			halted_ = true;
+			pc_.val++;
+		}
+	}
+
 	void CPU::setFlag(uint8_t mask, bool set)
 	{
 		if (set)
@@ -2259,6 +2282,9 @@ namespace gb
 		interrupt_master_disable_pending_ = -1;
 
 		div_ = (Register*)mmu_->getptr(memorymap::DIVIDER_LO_REGISTER);
+
+		// set normal speed mode of CGB
+		mmu_->write((uint8_t)0x00, memorymap::KEY1_REGISER);
 	}
 
 	void CPU::setDebugMode(bool debug_mode)

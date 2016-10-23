@@ -41,7 +41,9 @@ int main(int argc, char * argv[])
 			rom.clear();
 
 			// setup render window
-			Window window(gameboy);
+			std::string title = "Dotrix-" + version::get() + " [Beta]";
+
+			Window window(gameboy, title);
 
 			// lcd callback
 			gameboy.getLCDController().setVBlankCallback(std::bind(&Window::updateTextures, &window));

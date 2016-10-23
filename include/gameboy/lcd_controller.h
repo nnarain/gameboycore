@@ -77,7 +77,7 @@ namespace gb
 		/**
 			Inform the controller of the elapsed time
 		*/
-		void clock(uint8_t cycles);
+		void clock(uint8_t cycles, bool ime);
 
 		void setVBlankCallback(Callback callback);
 
@@ -91,7 +91,7 @@ namespace gb
 		CharacterDataMode getCharacterDataMode() const;
 
 	private:
-		void transitionState(State newState);
+		void transitionState(State newState, bool ime);
 		void configure(uint8_t value);
 
 	private:

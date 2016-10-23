@@ -43,6 +43,8 @@ namespace gb
 				auto sprite2 = sprite;
 				sprite2.tile++;
 				sprite2.y += 8;
+
+				sprites.push_back(sprite2);
 			}
 		}
 
