@@ -27,7 +27,8 @@ namespace gb
 		cycle_count_(0),
 		interrupt_flags_(mmu_->get(memorymap::INTERRUPT_FLAG)),
 		interrupt_enable_(mmu_->get(memorymap::INTERRUPT_ENABLE)),
-		div_(nullptr)
+		div_(nullptr),
+		cgb_mode_(false)
 	{
 		reset();
 	}
@@ -87,9 +88,7 @@ namespace gb
 			break;
 		// STOP
 		case 0x10:
-			stopped_ = true;
-			halted_ = true;
-			pc_.val++;
+			stop();
 			break;
 
 		/* Load Instructions */
@@ -2234,6 +2233,26 @@ namespace gb
 		setFlag(CPU::Flags::N, false);
 	}
 
+	void CPU::stop()
+	{
+		if (cgb_mode_)
+		{
+			// TODO: CGB support
+		}
+		else
+		{
+			// TODO: Remove the KEY1 check
+			auto key1_reg = mmu_->read(memorymap::KEY1_REGISER);
+
+			// check for preparing speed switch
+			if (key1_reg & 0x01) return;
+
+			stopped_ = true;
+			halted_ = true;
+			pc_.val++;
+		}
+	}
+
 	void CPU::setFlag(uint8_t mask, bool set)
 	{
 		if (set)
@@ -2263,6 +2282,9 @@ namespace gb
 		interrupt_master_disable_pending_ = -1;
 
 		div_ = (Register*)mmu_->getptr(memorymap::DIVIDER_LO_REGISTER);
+
+		// set normal speed mode of CGB
+		mmu_->write((uint8_t)0x00, memorymap::KEY1_REGISER);
 	}
 
 	void CPU::setDebugMode(bool debug_mode)

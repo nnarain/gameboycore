@@ -97,6 +97,8 @@ namespace gb{
 			LY_REGISTER = 0xFF44,
 			LYC_REGISTER = 0xFF45,
 
+			KEY1_REGISER = 0xFF4D,
+
 			DMA_REGISTER = 0xFF46,
 
 			HIGH_RAM_START = 0xFF80,
