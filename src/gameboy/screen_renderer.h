@@ -31,7 +31,8 @@ public:
 		lcd_(gameboy.getLCDController()),
 		tilemap_(gameboy.getTileMap()),
 		tileram_(gameboy.getTileRAM()),
-		oam_(gameboy.getOAM())
+		oam_(gameboy.getOAM()),
+		frame_buffer_(WIDTH, HEIGHT, 0)
 	{
 		if (!screen_texture_.create(WIDTH, HEIGHT))
 			throw std::runtime_error("Could not create texture");
@@ -81,6 +82,24 @@ public:
 		screen_texture_.update(buffer.get());
 	}
 
+	void renderScanline(const gb::GPU::Scanline& scaneline, int line)
+	{
+		auto col = 0;
+
+		for (const auto& pixel : scaneline)
+		{
+			sf::Color color;
+			color.r = pixel.r;
+			color.g = pixel.g;
+			color.b = pixel.b;
+			color.a = 255;
+
+			frame_buffer_.write(col++, line, color);
+		}
+
+		screen_texture_.update(frame_buffer_.get());
+	}
+
 	~ScreenRenderer()
 	{
 	}
@@ -118,6 +137,7 @@ private:
 private:
 	sf::Sprite screen_sprite_;
 	sf::Texture screen_texture_;
+	TextureBuffer frame_buffer_;
 
 	gb::LCDController& lcd_; // LCD proxy?
 	gb::TileMap tilemap_;

@@ -27,6 +27,13 @@ public:
 		screen_renderer_{gameboy},
 		joypad_{gameboy.getJoypad()}
 	{
+		gameboy.getGPU()->setRenderCallback(
+			std::bind(
+				&ScreenRenderer::renderScanline,
+				&screen_renderer_,
+				std::placeholders::_1, std::placeholders::_2
+			)
+		);
 	}
 
 	void update()

@@ -59,7 +59,7 @@ namespace gb
 	public:
 		using Ptr = std::shared_ptr<GPU>;
 
-		using Scanline               = std::array<Pixel, 120>;
+		using Scanline               = std::array<Pixel, 160>;
 		using RenderScanlineCallback = std::function<void(const Scanline&, int linenum)>;
 
 	public:
@@ -107,7 +107,9 @@ namespace gb
 			switch (mode_)
 			{
 			case Mode::HBLANK:
-				if (line_ > VBLANK_LINE)
+				line_ = (line_ + 1) % LINE_MAX;
+
+				if (line_ >= VBLANK_LINE)
 				{
 					mode_ = Mode::VBLANK;
 					cycles_to_next_state_ = VBLANK_CYCLES;
@@ -122,6 +124,7 @@ namespace gb
 				// vblank interrupt
 				mode_ = Mode::OAM;
 				cycles_to_next_state_ = OAM_ACCESS_CYCLES;
+				line_ = 0;
 				break;
 			case Mode::OAM:
 				// set new cycle wait time
@@ -160,6 +163,9 @@ namespace gb
 
 			// update stat register
 			mmu_->write(stat, memorymap::LCD_STAT_REGISTER);
+
+			// update LY register
+			mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
 		}
 
 		void renderScanline()
@@ -174,14 +180,16 @@ namespace gb
 
 			Scanline scanline;
 
-			// ...
+			for (auto& pixel : scanline)
+			{
+				pixel.r = 255;
+				pixel.g = 255;
+				pixel.b = 255;
+			}
 
 			// send scan line to the renderer
-			if(render_scanline_)
+			if(render_scanline_ && line_ < VBLANK_LINE)
 				render_scanline_(scanline, line_);
-
-			line_++;
-			mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
 		}
 
 		void configure(uint8_t value)
