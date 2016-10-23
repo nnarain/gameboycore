@@ -1863,16 +1863,20 @@ namespace gb
 			// mask off disabled interrupts
 			uint8_t pending_interrupts = interrupt_flags_ & interrupt_enable_;
 
-			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
-				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
-			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
-				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
-			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))
-				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
-			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
-				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
 			if (IS_SET(pending_interrupts, InterruptMask::JOYPAD))
 				interrupt(InterruptVector::JOYPAD, InterruptMask::JOYPAD);
+
+			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
+				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
+			
+			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))
+				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
+			
+			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
+				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
+			
+			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
+				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
 		}
 	}
 
