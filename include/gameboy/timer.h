@@ -47,17 +47,18 @@ namespace gb
 				{
 					counter_ = modulo_;
 					timer_interrupt_.set();
+				}
+				else
+				{
+					counter_++;
 					cycle_count_ = 0;
 				}
-
-				count_to_tick_ = 0;
-				counter_++;
 			}
 		}
 
 		void configure(uint8_t value)
 		{
-			static constexpr uint32_t SYTSEM_FREQ = 4000000u;
+			static constexpr uint32_t SYTSEM_FREQ = 4200000u;
 			static constexpr uint32_t freq_selection[] = {
 				0x4096u,
 				0x262144u,
