@@ -121,7 +121,7 @@ namespace gb
 
 		if (newState == State::MODE1)
 		{
-			callback_();
+		//	callback_();
 			vblank_provider_.set();
 		}
 

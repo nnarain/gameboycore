@@ -10,11 +10,13 @@
 #include "gameboy/memorymap.h"
 #include "gameboy/pixel.h"
 #include "gameboy/interrupt_provider.h"
+#include "gameboy/tilemap.h"
 
 #include <memory>
 #include <cstdint>
 #include <functional>
 #include <array>
+#include <iostream>
 
 namespace gb
 {
@@ -27,7 +29,8 @@ namespace gb
 		static constexpr auto VBLANK_CYCLES       = 4560;
 		static constexpr auto OAM_ACCESS_CYCLES   = 83;
 		static constexpr auto LCD_TRANSFER_CYCLES = 175;
-
+		
+		static constexpr auto LINE_CYCLES = 456;
 		static constexpr auto VBLANK_LINE = 144;
 		static constexpr auto LINE_MAX    = 153;
 
@@ -37,23 +40,6 @@ namespace gb
 			VBLANK,
 			OAM,
 			LCD
-		};
-
-		enum LCDCBits
-		{
-			ENABLE = (1 << 7),
-			WINDOW_CODE_AREA = (1 << 6),
-			WINDOW_ON = (1 << 5),
-			CHARACTER_DATA = (1 << 4),
-			BG_CODE_AREA = (1 << 3),
-			OBJ_BLOCK_COMPOSITION = (1 << 2),
-			OBJ_ON = (1 << 1),
-			BG_DISPLAY_ON = (1 << 0)
-		};
-
-		enum StatBits
-		{
-			LYCLY = (1 << 2)
 		};
 
 	public:
@@ -69,9 +55,9 @@ namespace gb
 			is_enabled_(false),
 			cycles_to_next_state_(OAM_ACCESS_CYCLES),
 			cycle_count_(0),
-			line_(0)
+			line_(0),
+			line_count_(0)
 		{
-		//	mmu_->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&GPU::configure, this, std::placeholders::_1));
 		}
 
 		void update(uint8_t cycles, bool ime)
@@ -87,6 +73,21 @@ namespace gb
 
 				// transition to next LCD driver mode.
 				transitionState(ime);
+			}
+
+			if (mode_ == Mode::VBLANK)
+			{
+				line_count_ += cycles;
+
+				if (line_count_ >= LINE_CYCLES)
+				{
+					line_ = (line_ + 1) % LINE_MAX;
+					line_count_ = 0;
+
+					mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
+
+					// TODO: LYC compare?
+				}
 			}
 		}
 
@@ -152,11 +153,11 @@ namespace gb
 
 			if ((uint8_t)line_ == lyc)
 			{
-				stat |= StatBits::LYCLY;
+				stat |= memorymap::Stat::LYCLY;
 			}
 			else
 			{
-				stat &= (~StatBits::LYCLY);
+				stat &= ~(memorymap::Stat::LYCLY);
 			}
 
 			checkInterrupts(stat, ime);
@@ -180,11 +181,26 @@ namespace gb
 
 			Scanline scanline;
 
-			for (auto& pixel : scanline)
+			TileMap tilemap(*mmu_.get());
+
+			// get background tile line
+			TileRAM::TileLine background = tilemap.getTileLine(line_, TileMap::Map::BACKGROUND);
+
+			// get window overlay tile line
+			// ...
+
+			// get sprites
+			// ...
+
+			// compute a scan line
+			for (auto pixel_idx = 0u; pixel_idx < scanline.size(); ++pixel_idx)
 			{
-				pixel.r = 255;
-				pixel.g = 255;
-				pixel.b = 255;
+				auto tile_idx = pixel_idx / 8;
+				auto color_idx = pixel_idx % 8;
+
+				auto color = background[tile_idx][color_idx];
+
+				scanline[pixel_idx] = palette[color];
 			}
 
 			// send scan line to the renderer
@@ -194,7 +210,7 @@ namespace gb
 
 		void configure(uint8_t value)
 		{
-			bool enable = (value & LCDCBits::ENABLE) != 0;
+			bool enable = (value & memorymap::LCDC::ENABLE) != 0;
 
 			if (enable && !is_enabled_)
 				line_ = 0;
@@ -210,7 +226,7 @@ namespace gb
 			InterruptProvider stat_provider  { *mmu_.get(), InterruptProvider::Interrupt::LCDSTAT };
 
 			// check the lyc=ly flag
-			if (stat & StatBits::LYCLY)
+			if (stat & memorymap::Stat::LYCLY)
 			{
 				if (ime)
 					stat_provider.set();
@@ -222,7 +238,12 @@ namespace gb
 			if (stat & mask)
 			{
 				if (ime)
-					vblank_provider.set();
+					stat_provider.set();
+			}
+
+			if (mode_ == Mode::VBLANK)
+			{
+				vblank_provider.set();
 			}
 		}
 
@@ -235,6 +256,7 @@ namespace gb
 		int cycles_to_next_state_;
 		int cycle_count_;
 		int line_;
+		int line_count_;
 		RenderScanlineCallback render_scanline_;
 	};
 }

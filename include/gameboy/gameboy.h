@@ -52,8 +52,6 @@ namespace gb
 		TileMap getTileMap();
 		OAM getOAM();
 
-		LCDController& getLCDController();
-
 		Joypad getJoypad();
 
 		bool isDone() const;

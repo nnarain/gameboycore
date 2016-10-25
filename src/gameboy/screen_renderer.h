@@ -28,7 +28,6 @@ class ScreenRenderer
 
 public:
 	ScreenRenderer(gb::Gameboy& gameboy) :
-		lcd_(gameboy.getLCDController()),
 		tilemap_(gameboy.getTileMap()),
 		tileram_(gameboy.getTileRAM()),
 		oam_(gameboy.getOAM()),
@@ -52,9 +51,9 @@ public:
 		TextureBuffer buffer(WIDTH, HEIGHT, 0);
 
 		// grab flags for what maps are being drawn
-		bool background_on     = lcd_.isBackgroundEnabled();
-		bool window_overlay_on = false;//lcd_.isWindowOverlayEnabled(); // TODO: fix this
-		bool sprites_on        = lcd_.isSpritesEnabled();
+		bool background_on     = true;
+		bool window_overlay_on = false;
+		bool sprites_on        = true;
 
 		if (background_on)
 		{
@@ -139,7 +138,6 @@ private:
 	sf::Texture screen_texture_;
 	TextureBuffer frame_buffer_;
 
-	gb::LCDController& lcd_; // LCD proxy?
 	gb::TileMap tilemap_;
 	gb::TileRAM tileram_;
 	gb::OAM     oam_;

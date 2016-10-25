@@ -89,23 +89,40 @@ namespace gb{
 			TIMER_COUNTER_REGISTER = 0xFF05,
 			TIMER_MODULO_REGISTER = 0xFF06,
 			TIMER_CONTROLLER_REGISTER = 0xFF07,
-
-			LCDC_REGISTER = 0xFF40,
+			  
+			LCDC_REGISTER     = 0xFF40,
 			LCD_STAT_REGISTER = 0xFF41,
-			SCY_REGISTER = 0xFF42,
-			SCX_REGISTER = 0xFF43,
-			LY_REGISTER = 0xFF44,
-			LYC_REGISTER = 0xFF45,
+			SCY_REGISTER      = 0xFF42,
+			SCX_REGISTER      = 0xFF43,
+			LY_REGISTER       = 0xFF44,
+			LYC_REGISTER      = 0xFF45,
 
-			KEY1_REGISER = 0xFF4D,
+			KEY1_REGISER            = 0xFF4D,
 
-			DMA_REGISTER = 0xFF46,
+			DMA_REGISTER            = 0xFF46,
 
-			HIGH_RAM_START = 0xFF80,
-			HIGH_RAM_END = 0xFFFE,
+			HIGH_RAM_START          = 0xFF80,
+			HIGH_RAM_END            = 0xFFFE,
 
-			INTERRUPT_ENABLE = 0xFFFF,
-			INTERRUPT_FLAG = 0xFF0F
+			INTERRUPT_ENABLE        = 0xFFFF,
+			INTERRUPT_FLAG          = 0xFF0F
+		};
+
+		enum LCDC
+		{
+			ENABLE                = (1 << 7),
+			WINDOW_CODE_AREA      = (1 << 6),
+			WINDOW_ON             = (1 << 5),
+			CHARACTER_DATA        = (1 << 4),
+			BG_CODE_AREA          = (1 << 3),
+			OBJ_BLOCK_COMPOSITION = (1 << 2),
+			OBJ_ON                = (1 << 1),
+			BG_DISPLAY_ON         = (1 << 0)
+		};
+
+		enum Stat
+		{
+			LYCLY = (1 << 2)
 		};
 	}
 }

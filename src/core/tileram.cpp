@@ -7,16 +7,16 @@
 
 namespace gb
 {
-	TileRAM::TileRAM(MMU& mmu, const LCDController& lcd) :
+	TileRAM::TileRAM(MMU& mmu) :
 		tile_ram_(mmu.getptr(0x8000)),
-		mmu_(mmu),
-		lcd_(lcd)
+		mmu_(mmu)
 	{
 	}
 
 	Tile TileRAM::getTile(uint8_t tilenum) const
 	{
-		uint16_t tile_addr;
+		uint16_t tile_addr = 0;
+	/*
 		if (lcd_.getCharacterDataMode() == LCDController::CharacterDataMode::UNSIGNED)
 		{
 			tile_addr = getTileAddress<uint8_t>(0x8000, tilenum);
@@ -25,7 +25,7 @@ namespace gb
 		{
 			tile_addr = getTileAddress<int8_t>(0x9000, tilenum);
 		}
-
+	*/
 		uint8_t* tile_ptr = mmu_.getptr(tile_addr);
 
 		Tile tile;
@@ -41,6 +41,29 @@ namespace gb
 		}
 
 		return tile;
+	}
+
+	TileRAM::TileRow TileRAM::getRow(uint8_t tilenum, bool umode)
+	{
+		TileRow row;
+
+		// get the tile address depending on whether current using unsigned mode or signed mode
+		uint16_t addr = (umode) 
+						? getTileAddress<uint8_t>(0x8000, tilenum) 
+						: getTileAddress<int8_t> (0x9000, tilenum);
+
+		auto lsb = mmu_.read(addr + 0);
+		auto msb = mmu_.read(addr + 1);
+
+		for (auto i = (int)(row.size() - 1); i >= 0; --i)
+		{
+			uint8_t mask = (1 << i);
+			uint8_t color = (((msb & mask) >> i) << 1) | ((lsb & mask) >> i);
+
+			row[i] = color;
+		}
+
+		return row;
 	}
 
 	Tile TileRAM::getSpriteTile(const Sprite& sprite) const

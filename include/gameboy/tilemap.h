@@ -28,16 +28,22 @@ namespace gb
 
 	public:
 
-		TileMap(const TileRAM& tileram, MMU& mmu, const LCDController& lcd);
+		// TODO: remove this constructor
+		TileMap(MMU& mmu);
+
 		~TileMap();
 
 		std::vector<Tile> getMapData(TileRAM tileram, Map map) const;
 		std::vector<Tile> getMapData(TileRAM tileram, uint16_t start, uint16_t end) const;
 
+		TileRAM::TileLine getTileLine(int line, Map map);
+
+	private:
+		uint16_t getAddress(Map map);
+
 	private:
 		TileRAM tileram_;
 		const MMU& mmu_;
-		const LCDController lcd_;
 
 		uint8_t& scx_;
 		uint8_t& scy_;

@@ -95,11 +95,6 @@ public:
 		window_.display();
 	}
 
-	void updateTextures()
-	{
-		screen_renderer_.update();
-	}
-
 	bool isOpen()
 	{
 		return window_.isOpen();
