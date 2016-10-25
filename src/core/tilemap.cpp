@@ -85,16 +85,17 @@ namespace gb
 
 		TileRAM::TileLine tileline;
 
-		auto row = ((scy_ + line) / tile_height);
-		auto start_col = scx_ / tile_width;
+		auto tile_row = line/tile_height;//((scy_ + line) / tile_height);
+		auto start_col = 0;//scx_ / tile_width;
+		auto pixel_row = line % tile_height;
 
 		auto idx = 0;
 		for (auto col = start_col; col < start_col + 20; ++col)
 		{
-			auto tile_offset = start + (tiles_per_row * (row % tiles_per_row)) + (col % tiles_per_col);
+			auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (col % tiles_per_col);
 			auto tilenum = mmu_.read(tile_offset);
 
-			tileline[idx++] = tileram_.getRow(tilenum, umode);
+			tileline[idx++] = tileram_.getRow(pixel_row, tilenum, umode);
 		}
 
 		return tileline;

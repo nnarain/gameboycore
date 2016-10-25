@@ -23,7 +23,8 @@ namespace gb
 		/* Map types */
 		enum class Map
 		{
-			BACKGROUND, WINDOW_OVERLAY
+			BACKGROUND     = (1<<3),
+			WINDOW_OVERLAY = (1<<6)
 		};
 
 	public:

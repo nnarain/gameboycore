@@ -30,6 +30,7 @@ set(GAMEBOYCORE
     src/core/cpu.cpp
 	src/core/alu.cpp
     src/core/mmu.cpp
+	src/core/gpu.cpp
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp
 	src/core/opcodeinfo.cpp

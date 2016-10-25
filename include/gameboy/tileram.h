@@ -39,7 +39,7 @@ namespace gb
 		Tile getSpriteTile(const Sprite& sprite) const;
 		std::vector<Tile> getTiles();
 
-		TileRow getRow(uint8_t tilenum, bool umode);
+		TileRow getRow(int row, uint8_t tilenum, bool umode);
 
 		template<typename T>
 		uint16_t getTileAddress(int32_t base_addr, uint8_t tilenum) const

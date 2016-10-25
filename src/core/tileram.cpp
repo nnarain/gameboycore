@@ -43,27 +43,29 @@ namespace gb
 		return tile;
 	}
 
-	TileRAM::TileRow TileRAM::getRow(uint8_t tilenum, bool umode)
+	TileRAM::TileRow TileRAM::getRow(int row, uint8_t tilenum, bool umode)
 	{
-		TileRow row;
+		TileRow tile_row;
 
 		// get the tile address depending on whether current using unsigned mode or signed mode
 		uint16_t addr = (umode) 
 						? getTileAddress<uint8_t>(0x8000, tilenum) 
 						: getTileAddress<int8_t> (0x9000, tilenum);
 
-		auto lsb = mmu_.read(addr + 0);
-		auto msb = mmu_.read(addr + 1);
+		auto row_offset = row * 2;
+		auto lsb = mmu_.read(addr + row_offset);
+		auto msb = mmu_.read(addr + row_offset + 1);
 
-		for (auto i = (int)(row.size() - 1); i >= 0; --i)
+		auto idx = 0;
+		for (auto bit = (int)(tile_row.size() - 1); bit >= 0; --bit)
 		{
-			uint8_t mask = (1 << i);
-			uint8_t color = (((msb & mask) >> i) << 1) | ((lsb & mask) >> i);
+			uint8_t mask = (1 << bit);
+			uint8_t color = (((msb & mask) >> bit) << 1) | ((lsb & mask) >> bit);
 
-			row[i] = color;
+			tile_row[idx++] = color;
 		}
 
-		return row;
+		return tile_row;
 	}
 
 	Tile TileRAM::getSpriteTile(const Sprite& sprite) const
