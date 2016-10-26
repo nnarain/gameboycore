@@ -1,5 +1,7 @@
 #include "gameboy/gpu.h"
 
+#include "bitutil.h"
+
 namespace gb
 {
 	static constexpr auto HBLANK_CYCLES = 207;
@@ -140,14 +142,22 @@ namespace gb
 		};
 
 		Scanline scanline;
-
 		TileMap tilemap(*mmu_.get());
 
+		// get lcd config
+		const auto lcdc = mmu_->read(memorymap::LCDC_REGISTER);
+
+		const auto background_enabled = IS_SET(lcdc, memorymap::LCDC::BG_DISPLAY_ON) != 0;
+		const auto window_enabled     = IS_SET(lcdc, memorymap::LCDC::WINDOW_ON) != 0;
+		const auto sprites_enabled    = IS_SET(lcdc, memorymap::LCDC::OBJ_ON) != 0;
+
 		// get background tile line
-		TileRAM::TileLine background = tilemap.getTileLine(line_, TileMap::Map::BACKGROUND);
+		const TileRAM::TileLine background = tilemap.getMapLine(TileMap::Map::BACKGROUND, line_);
 
 		// get window overlay tile line
-		// ...
+		const TileRAM::TileLine window = tilemap.getMapLine(TileMap::Map::WINDOW_OVERLAY, line_ - 16); // TODO: why the -16?
+		const auto wx = mmu_->read(memorymap::WX_REGISTER);
+		const auto wy = mmu_->read(memorymap::WY_REGISTER);
 
 		// get sprites
 		// ...
@@ -158,7 +168,20 @@ namespace gb
 			auto tile_idx = pixel_idx / 8;
 			auto color_idx = pixel_idx % 8;
 
-			auto color = background[tile_idx][color_idx];
+			auto color = 0u;
+			auto background_color = 0;
+			auto window_color = 0;
+			
+			if(background_enabled)
+				background_color = background[tile_idx][color_idx];
+
+			if (window_enabled)
+				window_color = window[tile_idx][color_idx];
+
+			if (line_ >= wy && pixel_idx >= (wx - 7))
+				color = window_color;
+			else
+				color = background_color;
 
 			scanline[pixel_idx] = palette[color];
 		}

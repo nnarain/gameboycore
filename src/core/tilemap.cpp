@@ -73,7 +73,20 @@ namespace gb
 		return tiles;
 	}
 
-	TileRAM::TileLine TileMap::getTileLine(int line, Map map)
+	TileRAM::TileLine TileMap::getMapLine(Map map, int line)
+	{
+		uint8_t x_offset = (map == Map::BACKGROUND)
+							? mmu_.read(memorymap::SCX_REGISTER)
+							: mmu_.read(memorymap::WX_REGISTER);
+
+		uint8_t y_offset = (map == Map::BACKGROUND)
+							? mmu_.read(memorymap::SCY_REGISTER)
+							: mmu_.read(memorymap::WY_REGISTER);
+
+		return getTileLine(map, line, x_offset, y_offset);
+	}
+
+	TileRAM::TileLine TileMap::getTileLine(Map map, int line, uint8_t x_offset, uint8_t y_offset)
 	{
 		static constexpr auto tiles_per_row = 32;
 		static constexpr auto tiles_per_col = 32;
@@ -85,8 +98,8 @@ namespace gb
 
 		TileRAM::TileLine tileline;
 
-		auto tile_row = line/tile_height;//((scy_ + line) / tile_height);
-		auto start_col = 0;//scx_ / tile_width;
+		auto tile_row  = ((y_offset + line) / tile_height);
+		auto start_col = x_offset / tile_width;
 		auto pixel_row = line % tile_height;
 
 		auto idx = 0;

@@ -37,7 +37,8 @@ namespace gb
 		std::vector<Tile> getMapData(TileRAM tileram, Map map) const;
 		std::vector<Tile> getMapData(TileRAM tileram, uint16_t start, uint16_t end) const;
 
-		TileRAM::TileLine getTileLine(int line, Map map);
+		TileRAM::TileLine getMapLine(Map map, int line);
+		TileRAM::TileLine getTileLine(Map map, int line, uint8_t x_offset, uint8_t y_offset);
 
 	private:
 		uint16_t getAddress(Map map);
