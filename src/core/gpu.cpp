@@ -1,4 +1,5 @@
 #include "gameboy/gpu.h"
+#include "gameboy/palette.h"
 
 #include "bitutil.h"
 
@@ -133,17 +134,11 @@ namespace gb
 
 	void GPU::renderScanline()
 	{
-		// default color palette
-		static const Pixel palette[] = {
-			Pixel(255),
-			Pixel(192),
-			Pixel(96),
-			Pixel(0)
-		};
-
 		Scanline scanline;
 		std::array<uint8_t, 160> color_line;
 		TileMap tilemap(*mmu_.get());
+
+		auto background_palette = Palette::get(mmu_->read(memorymap::BGP_REGISTER));
 
 		// get lcd config
 		const auto lcdc = mmu_->read(memorymap::LCDC_REGISTER);
@@ -179,10 +174,11 @@ namespace gb
 				color = background_color;
 
 			color_line[pixel_idx] = color;
-			scanline[pixel_idx] = palette[color];
+			scanline[pixel_idx] = background_palette[color];
 		}
 
-		tilemap.drawSprites(scanline, color_line, line_, &palette[0]);
+		if(sprites_enabled)
+			tilemap.drawSprites(scanline, color_line, line_, &background_palette[0]);
 
 		// send scan line to the renderer
 		if (render_scanline_ && line_ < VBLANK_LINE)

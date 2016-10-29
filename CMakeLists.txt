@@ -54,6 +54,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/interrupt_provider.h
 	include/gameboy/pixel.h
 	include/gameboy/sprite.h
+	include/gameboy/palette.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h

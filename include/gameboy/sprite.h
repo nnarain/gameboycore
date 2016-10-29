@@ -37,6 +37,11 @@ namespace gb
 		{
 			return (attr & (1 << 7)) == 0;
 		}
+
+		constexpr uint8_t paletteOBP0() const
+		{
+			return !!(attr & (1 << 4));
+		}
 	};
 }
 

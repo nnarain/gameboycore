@@ -97,6 +97,10 @@ namespace gb{
 			LY_REGISTER       = 0xFF44,
 			LYC_REGISTER      = 0xFF45,
 
+			BGP_REGISTER = 0xFF47,
+			OBP0_REGISTER = 0xFF48,
+			OBP1_REGISTER = 0xFF49,
+
 			WY_REGISTER = 0xFF4A,
 			WX_REGISTER = 0xFF4B,
 
