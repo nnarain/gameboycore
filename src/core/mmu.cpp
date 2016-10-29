@@ -59,9 +59,9 @@ namespace gb
 
 	uint8_t MMU::read(uint16_t addr)
 	{
-		if (read_handlers_.find(addr) != read_handlers_.end())
+		if (addr >= 0xFF00 && addr <= 0xFF7F && read_handlers_[addr - 0xFF00])
 		{
-			return read_handlers_[addr]();
+			return read_handlers_[addr - 0xFF00]();
 		}
 		else
 		{
@@ -92,9 +92,9 @@ namespace gb
 		}
 		else
 		{
-			if (write_handlers_.find(addr) != write_handlers_.end())
+			if (addr >= 0xFF00 && addr <= 0xFF7F && write_handlers_[addr - 0xFF00])
 			{
-				write_handlers_[addr](value);
+				write_handlers_[addr - 0xFF00](value);
 			}
 			else
 			{
@@ -114,12 +114,12 @@ namespace gb
 
 	void MMU::addWriteHandler(uint16_t addr, MemoryWriteHandler handler)
 	{
-		write_handlers_[addr] = handler;
+		write_handlers_[addr - 0xFF00] = handler;
 	}
 
 	void MMU::addReadHandler(uint16_t addr, MemoryReadHandler handler)
 	{
-		read_handlers_[addr] = handler;
+		read_handlers_[addr - 0xFF00] = handler;
 	}
 
 	uint8_t& MMU::get(uint16_t addr)
