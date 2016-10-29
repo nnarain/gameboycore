@@ -1,7 +1,6 @@
 
 #include "gameboy/tileram.h"
 #include "gameboy/memorymap.h"
-#include "gameboy/lcd_controller.h"
 
 #include <stdexcept>
 

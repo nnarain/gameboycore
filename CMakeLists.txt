@@ -34,7 +34,6 @@ set(GAMEBOYCORE
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp
 	src/core/opcodeinfo.cpp
-	src/core/lcd_controller.cpp
 	src/core/tileram.cpp
 	src/core/tilemap.cpp
 	src/core/joypad.cpp
@@ -46,7 +45,6 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/alu.h
 	include/gameboy/mmu.h
 	include/gameboy/gpu.h
-	include/gameboy/lcd_controller.h
 	include/gameboy/tileram.h
 	include/gameboy/tilemap.h
 	include/gameboy/oam.h

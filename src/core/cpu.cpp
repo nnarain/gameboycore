@@ -17,7 +17,6 @@ namespace gb
 		mmu_(mmu),
 		gpu_(gpu),
 		alu_(af_.lo),
-		lcd_(*mmu_.get()),
 		timer_(*mmu.get()),
 		halted_(false),
 		stopped_(false),
@@ -2305,16 +2304,6 @@ namespace gb
 	MMU& CPU::getMMU()
 	{
 		return *mmu_.get();
-	}
-
-	const LCDController& CPU::getLCDController() const
-	{
-		return lcd_;
-	}
-
-	LCDController& CPU::getLCDController()
-	{
-		return lcd_;
 	}
 
 	CPU::Status CPU::getStatus() const

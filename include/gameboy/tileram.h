@@ -10,7 +10,6 @@
 #include "gameboy/mmu.h"
 #include "gameboy/tile.h"
 #include "gameboy/sprite.h"
-#include "gameboy/lcd_controller.h"
 
 #include <cstdint>
 #include <vector>
