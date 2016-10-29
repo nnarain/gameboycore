@@ -122,7 +122,7 @@ namespace gb
 		return tileline;
 	}
 
-	void TileMap::drawSprites(std::array<Pixel, 160>& scanline, int line, const Pixel* palette)
+	void TileMap::drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line, const Pixel* palette)
 	{
 		OAM oam{ mmu_ };
 
@@ -159,6 +159,12 @@ namespace gb
 					if (sprite.hasPriority())
 					{
 						if(pixel_row[i] != 0)
+							scanline[x + i] = palette[pixel_row[i]];
+					}
+					else
+					{
+						// if priority is to th background the sprite is behind colors 1-3
+						if (color_line[x + i] == 0)
 							scanline[x + i] = palette[pixel_row[i]];
 					}
 				}

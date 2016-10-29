@@ -43,7 +43,7 @@ namespace gb
 		Line getMapLine(Map map, int line);
 		Line getTileLine(Map map, int line, uint8_t x_offset, uint8_t y_offset);
 
-		void drawSprites(std::array<Pixel, 160>& scanline, int line, const Pixel* palette);
+		void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line, const Pixel* palette);
 
 	private:
 		uint16_t getAddress(Map map);

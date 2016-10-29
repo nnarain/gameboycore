@@ -142,6 +142,7 @@ namespace gb
 		};
 
 		Scanline scanline;
+		std::array<uint8_t, 160> color_line;
 		TileMap tilemap(*mmu_.get());
 
 		// get lcd config
@@ -177,10 +178,11 @@ namespace gb
 			else
 				color = background_color;
 
+			color_line[pixel_idx] = color;
 			scanline[pixel_idx] = palette[color];
 		}
 
-		tilemap.drawSprites(scanline, line_, &palette[0]); 
+		tilemap.drawSprites(scanline, color_line, line_, &palette[0]);
 
 		// send scan line to the renderer
 		if (render_scanline_ && line_ < VBLANK_LINE)
