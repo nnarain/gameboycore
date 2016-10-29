@@ -40,67 +40,69 @@ namespace gb
 
 		virtual void write(uint8_t value, uint16_t addr)
 		{
-			if (addr >= 0x0000 && addr <= 0x7FFF)
+			switch (addr & 0xF000)
 			{
-				// write to ROM
-				// handle write to MBC control registers
+			case 0x0000:
+			case 0x1000:
+			case 0x2000:
+			case 0x3000:
+			case 0x4000:
+			case 0x5000:
+			case 0x6000:
+			case 0x7000:
 				control(value, addr);
-			}
-			else if (addr >= 0x8000 && addr <= 0x9FFF)
-			{
+				break;
+			case 0x8000:
+			case 0x9000:
 				ram1_[addr - 0x8000] = value;
-			}
-			else if (addr >= 0xA000 && addr <= 0xBFFF)
-			{
+				break;
+			case 0xA000:
+			case 0xB000:
 				switchable_ram1_[ram_idx_][addr - 0xA000] = value;
-			}
-			else if (addr >= 0xC000 && addr <= 0xCFFF)
-			{
+				break;
+			case 0xC000:
 				ram2_[addr - 0xC000] = value;
-			}
-			else if (addr >= 0xD000 && addr <= 0xDFFF)
-			{
-				// TODO: CGB support
+				break;
+			case 0xD000:
 				switchable_ram2_[0][addr - 0xD000] = value;
-			}
-			else
-			{
+				break;
+			case 0xE000:
+			case 0xF000:
 				ram3_[addr - 0xE000] = value;
+				break;
 			}
 		}
 
 		virtual uint8_t read(uint16_t addr) const
 		{
-			if (addr >= 0x0000 && addr <= 0x3FFF)
+			switch (addr & 0xF000)
 			{
+			case 0x0000:
+			case 0x1000:
+			case 0x2000:
+			case 0x3000:
 				return rom0_[addr];
-			}
-			else if (addr >= 0x4000 && addr <= 0x7FFF)
-			{
+			case 0x4000:
+			case 0x5000:
+			case 0x6000:
+			case 0x7000:
 				return switchable_rom_[rom_idx_][addr - 0x4000];
-			}
-			else if (addr >= 0x8000 && addr <= 0x9FFF)
-			{
+			case 0x8000:
+			case 0x9000:
 				return ram1_[addr - 0x8000];
-			}
-			else if (addr >= 0xA000 && addr <= 0xBFFF)
-			{
+			case 0xA000:
+			case 0xB000:
 				return switchable_ram1_[ram_idx_][addr - 0xA000];
-			}
-			else if (addr >= 0xC000 && addr <= 0xCFFF)
-			{
+			case 0xC000:
 				return ram2_[addr - 0xC000];
-			}
-			else if (addr >= 0xD000 && addr <= 0xDFFF)
-			{
+			case 0xD000:
 				// TODO: CGB support
 				return switchable_ram2_[0][addr - 0xD000];
-			}
-			else
-			{
+			case 0xE000:
+			case 0xF000:
 				return ram3_[addr - 0xE000];
 			}
-
+			
 			// Should not get here
 			// TODO: assert
 			return 0;
@@ -118,33 +120,31 @@ namespace gb
 
 		virtual uint8_t* getptr(uint16_t addr)
 		{
-			if (addr >= 0x0000 && addr <= 0x3FFF)
+			switch (addr & 0xF000)
 			{
+			case 0x0000:
+			case 0x1000:
+			case 0x2000:
+			case 0x3000:
 				return &rom0_[addr];
-			}
-			else if (addr >= 0x4000 && addr <= 0x7FFF)
-			{
+			case 0x4000:
+			case 0x5000:
+			case 0x6000:
+			case 0x7000:
 				return &switchable_rom_[rom_idx_][addr - 0x4000];
-			}
-			else if (addr >= 0x8000 && addr <= 0x9FFF)
-			{
+			case 0x8000:
+			case 0x9000:
 				return &ram1_[addr - 0x8000];
-			}
-			else if (addr >= 0xA000 && addr <= 0xBFFF)
-			{
+			case 0xA000:
+			case 0xB000:
 				return &switchable_ram1_[ram_idx_][addr - 0xA000];
-			}
-			else if (addr >= 0xC000 && addr <= 0xCFFF)
-			{
+			case 0xC000:
 				return &ram2_[addr - 0xC000];
-			}
-			else if (addr >= 0xD000 && addr <= 0xDFFF)
-			{
+			case 0xD000:
 				// TODO: CGB support
 				return &switchable_ram2_[0][addr - 0xD000];
-			}
-			else
-			{
+			case 0xE000:
+			case 0xF000:
 				return &ram3_[addr - 0xE000];
 			}
 

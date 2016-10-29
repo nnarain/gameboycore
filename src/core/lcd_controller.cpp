@@ -23,7 +23,6 @@ namespace gb
 		lcd_stat_provider_(mmu, InterruptProvider::Interrupt::LCDSTAT),
 		vblank_provider_(mmu, InterruptProvider::Interrupt::VBLANK)
 	{
-		mmu.addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&LCDController::configure, this, std::placeholders::_1));
 	}
 
 	void LCDController::clock(uint8_t cycles, bool ime)
