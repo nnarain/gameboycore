@@ -118,7 +118,7 @@ namespace gb{
 			WINDOW_ON             = (1 << 5),
 			CHARACTER_DATA        = (1 << 4),
 			BG_CODE_AREA          = (1 << 3),
-			OBJ_BLOCK_COMPOSITION = (1 << 2),
+			OBJ_8x16              = (1 << 2),
 			OBJ_ON                = (1 << 1),
 			BG_DISPLAY_ON         = (1 << 0)
 		};

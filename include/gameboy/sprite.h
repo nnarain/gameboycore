@@ -21,6 +21,8 @@ namespace gb
 		uint8_t tile;
 		uint8_t attr;
 
+		uint8_t height;
+
 		constexpr bool isHorizontallyFlipped() const
 		{
 			return (attr & (1 << 5)) != 0;

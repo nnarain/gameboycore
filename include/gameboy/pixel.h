@@ -22,7 +22,7 @@ namespace gb
 		{
 		}
 
-		Pixel(uint8_t v) : r(v), g(v), b(v)
+		explicit Pixel(uint8_t v) : r(v), g(v), b(v)
 		{
 		}
 

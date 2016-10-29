@@ -1,5 +1,6 @@
 
 #include "gameboy/tilemap.h"
+#include "gameboy/oam.h"
 #include "bitutil.h"
 
 namespace gb
@@ -73,7 +74,7 @@ namespace gb
 		return tiles;
 	}
 
-	TileRAM::TileLine TileMap::getMapLine(Map map, int line)
+	TileMap::Line TileMap::getMapLine(Map map, int line)
 	{
 		uint8_t x_offset = (map == Map::BACKGROUND)
 							? mmu_.read(memorymap::SCX_REGISTER)
@@ -86,7 +87,7 @@ namespace gb
 		return getTileLine(map, line, x_offset, y_offset);
 	}
 
-	TileRAM::TileLine TileMap::getTileLine(Map map, int line, uint8_t x_offset, uint8_t y_offset)
+	TileMap::Line TileMap::getTileLine(Map map, int line, uint8_t x_offset, uint8_t y_offset)
 	{
 		static constexpr auto tiles_per_row = 32;
 		static constexpr auto tiles_per_col = 32;
@@ -96,7 +97,7 @@ namespace gb
 		auto start = getAddress(map);
 		auto umode = (mmu_.read(memorymap::LCDC_REGISTER) & memorymap::LCDC::CHARACTER_DATA) != 0;
 
-		TileRAM::TileLine tileline;
+		TileMap::Line tileline;
 
 		auto tile_row  = ((y_offset + line) / tile_height);
 		auto start_col = x_offset / tile_width;
@@ -108,10 +109,61 @@ namespace gb
 			auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (col % tiles_per_col);
 			auto tilenum = mmu_.read(tile_offset);
 
-			tileline[idx++] = tileram_.getRow(pixel_row, tilenum, umode);
+			const auto row = tileram_.getRow(pixel_row, tilenum, umode);
+
+			for (const auto pixel : row)
+			{
+				tileline[idx++] = pixel;
+			}
 		}
 
 		return tileline;
+	}
+
+	void TileMap::drawSprites(std::array<Pixel, 160>& scanline, int line, const Pixel* palette)
+	{
+		OAM oam{ mmu_ };
+
+		auto sprites = oam.getSprites();
+		auto count = 0;
+
+		for (const auto& sprite : sprites)
+		{
+			if (count > 10) break;
+
+			auto x = sprite.x - 8;
+			auto y = sprite.y - 16;
+
+			// check for out of bounds coordinates
+			if (x <= 0 || x >= 168) continue;
+			if (y <= 0 || y >= 160) continue;
+
+			// check if the sprite contains the line
+			if (line >= y && line < y + sprite.height)
+			{				
+				// get the pixel row in tile
+				auto row = line - y;
+
+				if (sprite.isVerticallyFlipped())
+					row = sprite.height - row;
+
+				auto pixel_row = tileram_.getRow(row, sprite.tile, true);
+
+				if (sprite.isHorizontallyFlipped())
+					std::reverse(pixel_row.begin(), pixel_row.end());
+
+				for (auto i = 0; i < 8 && x + i < 160; ++i)
+				{
+					if (sprite.hasPriority())
+					{
+						if(pixel_row[i] != 0)
+							scanline[x + i] = palette[pixel_row[i]];
+					}
+				}
+
+				count++;
+			}
+		}
 	}
 
 	uint16_t TileMap::getAddress(Map map)

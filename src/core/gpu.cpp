@@ -152,31 +152,25 @@ namespace gb
 		const auto sprites_enabled    = IS_SET(lcdc, memorymap::LCDC::OBJ_ON) != 0;
 
 		// get background tile line
-		const TileRAM::TileLine background = tilemap.getMapLine(TileMap::Map::BACKGROUND, line_);
+		const auto background = tilemap.getMapLine(TileMap::Map::BACKGROUND, line_);
 
 		// get window overlay tile line
-		const TileRAM::TileLine window = tilemap.getMapLine(TileMap::Map::WINDOW_OVERLAY, line_ - 16); // TODO: why the -16?
+		const auto window = tilemap.getMapLine(TileMap::Map::WINDOW_OVERLAY, line_ - 16); // TODO: why the -16?
 		const auto wx = mmu_->read(memorymap::WX_REGISTER);
 		const auto wy = mmu_->read(memorymap::WY_REGISTER);
-
-		// get sprites
-		// ...
 
 		// compute a scan line
 		for (auto pixel_idx = 0u; pixel_idx < scanline.size(); ++pixel_idx)
 		{
-			auto tile_idx = pixel_idx / 8;
-			auto color_idx = pixel_idx % 8;
-
 			auto color = 0u;
 			auto background_color = 0;
 			auto window_color = 0;
 			
 			if(background_enabled)
-				background_color = background[tile_idx][color_idx];
+				background_color = background[pixel_idx];
 
 			if (window_enabled)
-				window_color = window[tile_idx][color_idx];
+				window_color = window[pixel_idx];
 
 			if (line_ >= wy && pixel_idx >= (wx - 7))
 				color = window_color;
@@ -185,6 +179,8 @@ namespace gb
 
 			scanline[pixel_idx] = palette[color];
 		}
+
+		tilemap.drawSprites(scanline, line_, &palette[0]); 
 
 		// send scan line to the renderer
 		if (render_scanline_ && line_ < VBLANK_LINE)

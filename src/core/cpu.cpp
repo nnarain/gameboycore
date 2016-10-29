@@ -67,7 +67,6 @@ namespace gb
 		if (!stopped_)
 		{
 			div_->val += cycles;
-		//	lcd_.clock(cycles, interrupt_master_enable_);
 			gpu_->update(cycles, interrupt_master_enable_);
 			timer_.clock(cycles);
 		}
