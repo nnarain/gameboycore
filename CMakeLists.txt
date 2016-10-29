@@ -30,10 +30,10 @@ set(GAMEBOYCORE
     src/core/cpu.cpp
 	src/core/alu.cpp
     src/core/mmu.cpp
+	src/core/gpu.cpp
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp
 	src/core/opcodeinfo.cpp
-	src/core/lcd_controller.cpp
 	src/core/tileram.cpp
 	src/core/tilemap.cpp
 	src/core/joypad.cpp
@@ -44,7 +44,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/cpu.h
 	include/gameboy/alu.h
 	include/gameboy/mmu.h
-	include/gameboy/lcd_controller.h
+	include/gameboy/gpu.h
 	include/gameboy/tileram.h
 	include/gameboy/tilemap.h
 	include/gameboy/oam.h
@@ -52,6 +52,9 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/joypad.h
 	include/gameboy/timer.h
 	include/gameboy/interrupt_provider.h
+	include/gameboy/pixel.h
+	include/gameboy/sprite.h
+	include/gameboy/palette.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h

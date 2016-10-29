@@ -27,6 +27,13 @@ public:
 		screen_renderer_{gameboy},
 		joypad_{gameboy.getJoypad()}
 	{
+		gameboy.getGPU()->setRenderCallback(
+			std::bind(
+				&ScreenRenderer::renderScanline,
+				&screen_renderer_,
+				std::placeholders::_1, std::placeholders::_2
+			)
+		);
 	}
 
 	void update()
@@ -86,11 +93,6 @@ public:
 		window_.clear(sf::Color(255, 0, 0, 255));
 		screen_renderer_.draw(window_);
 		window_.display();
-	}
-
-	void updateTextures()
-	{
-		screen_renderer_.update();
 	}
 
 	bool isOpen()

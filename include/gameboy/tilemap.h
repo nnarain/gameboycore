@@ -7,9 +7,10 @@
 #define GAMEBOY_TILEMAP_H
 
 #include "gameboy/tileram.h"
-#include "gameboy/lcd_controller.h"
+#include "gameboy/pixel.h"
 #include "gameboy/memorymap.h"
 
+#include <array>
 #include <cstdint>
 
 namespace gb
@@ -23,21 +24,28 @@ namespace gb
 		/* Map types */
 		enum class Map
 		{
-			BACKGROUND, WINDOW_OVERLAY
+			BACKGROUND     = (1<<3),
+			WINDOW_OVERLAY = (1<<6)
 		};
+
+		using Line = std::array<uint8_t, 160>;
 
 	public:
 
-		TileMap(const TileRAM& tileram, MMU& mmu, const LCDController& lcd);
+		TileMap(MMU& mmu);
 		~TileMap();
 
-		std::vector<Tile> getMapData(TileRAM tileram, Map map) const;
-		std::vector<Tile> getMapData(TileRAM tileram, uint16_t start, uint16_t end) const;
+		Line getMapLine(Map map, int line);
+		Line getTileLine(Map map, int line, uint8_t x_offset, uint8_t y_offset);
+
+		void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line);
+
+	private:
+		uint16_t getAddress(Map map);
 
 	private:
 		TileRAM tileram_;
-		const MMU& mmu_;
-		const LCDController lcd_;
+		MMU& mmu_;
 
 		uint8_t& scx_;
 		uint8_t& scy_;
