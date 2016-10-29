@@ -20,14 +20,12 @@ namespace gb
 
     void Gameboy::loadROM(uint8_t* rom, uint32_t size)
     {
-		// TODO: load this as vector
-    //    MMU& mmu = cpu_->getMMU();
-    //    mmu.load(rom, size);
-
 		mmu_.reset(new MMU());
 		mmu_->load(rom, size);
 
-		cpu_.reset(new CPU(mmu_));
+		gpu_.reset(new GPU(mmu_));
+
+		cpu_.reset(new CPU(mmu_, gpu_));
     }
 
 	void Gameboy::reset()
@@ -55,25 +53,24 @@ namespace gb
 		return mmu_;
 	}
 
+	GPU::Ptr Gameboy::getGPU()
+	{
+		return gpu_;
+	}
+
 	TileRAM Gameboy::getTileRAM()
 	{
-		return TileRAM(cpu_->getMMU(), cpu_->getLCDController());
+		return TileRAM(cpu_->getMMU());
 	}
 
 	TileMap Gameboy::getTileMap()
 	{
-		const LCDController& lcd = cpu_->getLCDController();
-		return TileMap(TileRAM(*mmu_.get(), lcd), *mmu_.get(), lcd);
+		return TileMap(*mmu_.get());
 	}
 
 	OAM Gameboy::getOAM()
 	{
 		return OAM{ *mmu_.get() };
-	}
-
-	LCDController& Gameboy::getLCDController()
-	{
-		return cpu_->getLCDController();
 	}
 
 	Joypad Gameboy::getJoypad()

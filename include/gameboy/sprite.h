@@ -21,6 +21,8 @@ namespace gb
 		uint8_t tile;
 		uint8_t attr;
 
+		uint8_t height;
+
 		constexpr bool isHorizontallyFlipped() const
 		{
 			return (attr & (1 << 5)) != 0;
@@ -34,6 +36,11 @@ namespace gb
 		constexpr bool hasPriority() const
 		{
 			return (attr & (1 << 7)) == 0;
+		}
+
+		constexpr uint8_t paletteOBP0() const
+		{
+			return !!(attr & (1 << 4));
 		}
 	};
 }

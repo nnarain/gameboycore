@@ -45,9 +45,6 @@ int main(int argc, char * argv[])
 
 			Window window(gameboy, title);
 
-			// lcd callback
-			gameboy.getLCDController().setVBlankCallback(std::bind(&Window::updateTextures, &window));
-
 			// start emulating
 			gameboy.setStepCount(512);
 			gameboy.setDebugMode(false);

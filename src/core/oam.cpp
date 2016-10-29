@@ -4,8 +4,7 @@
 namespace gb
 {
 	OAM::OAM(MMU& mmu) : 
-		mmu_(mmu),
-		lcdc_(mmu.get(memorymap::LCDC_REGISTER))
+		mmu_(mmu)
 	{
 	}
 
@@ -14,12 +13,14 @@ namespace gb
 		// get location of sprite in memory
 		auto sprite_base = memorymap::OAM_START + (idx * 4);
 
+		auto ptr = mmu_.getptr(sprite_base);
+
 		// read OAM attributes from OAM table
 		Sprite sprite;
-		sprite.y    = mmu_.read(sprite_base + 0);
-		sprite.x    = mmu_.read(sprite_base + 1);
-		sprite.tile = mmu_.read(sprite_base + 2);
-		sprite.attr = mmu_.read(sprite_base + 3);
+		sprite.y    = ptr[0];
+		sprite.x    = ptr[1];
+		sprite.tile = ptr[2];
+		sprite.attr = ptr[3];
 
 		return sprite;
 	}
@@ -27,7 +28,8 @@ namespace gb
 	std::vector<Sprite> OAM::getSprites() const
 	{
 		// check if sprites are 8x16 or 8x8
-		const bool mode_8x16 = IS_BIT_SET(lcdc_, 2) != 0;
+		auto lcdc = mmu_.read(memorymap::LCDC_REGISTER);
+		const bool mode_8x16 = IS_SET(lcdc, memorymap::LCDC::OBJ_8x16) != 0;
 
 		std::vector<Sprite> sprites;
 
@@ -35,17 +37,17 @@ namespace gb
 		for (auto i = 0; i < num_sprites; ++i)
 		{
 			auto sprite = getSprite(i);
-			sprites.push_back(sprite);
-
+			
 			if (mode_8x16)
 			{
-				// if in 8x16 create another sprite with the following tile number and offset y coordinate
-				auto sprite2 = sprite;
-				sprite2.tile++;
-				sprite2.y += 8;
-
-				sprites.push_back(sprite2);
+				sprite.height = 16;
 			}
+			else
+			{
+				sprite.height = 8;
+			}
+
+			sprites.push_back(sprite);
 		}
 
 		return sprites;

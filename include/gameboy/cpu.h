@@ -12,10 +12,9 @@
 #endif
 
 #include "gameboy/mmu.h"
+#include "gameboy/gpu.h"
 #include "gameboy/alu.h"
 #include "gameboy/opcodeinfo.h"
-
-#include "gameboy/lcd_controller.h"
 #include "gameboy/timer.h"
 
 #include <cstdint>
@@ -81,7 +80,7 @@ namespace gb
 		using Ptr = std::unique_ptr<CPU>;
 
     public:
-        CPU(MMU::Ptr& mmu);
+        CPU(const MMU::Ptr& mmu, const GPU::Ptr gpu);
 
         void step();
 
@@ -90,9 +89,6 @@ namespace gb
         bool isHalted() const;
         const MMU& getMMU() const;
 		MMU& getMMU();
-
-		const LCDController& getLCDController() const;
-		LCDController& getLCDController();
 
 		void setDebugMode(bool debug_mode);
 
@@ -188,9 +184,9 @@ namespace gb
 		Register pc_;
 
 		MMU::Ptr mmu_;
+		GPU::Ptr gpu_;
 		ALU alu_;
 
-		LCDController lcd_;
 		Timer timer_;
 
 		bool halted_;

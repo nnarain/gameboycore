@@ -6,13 +6,13 @@
 #ifndef GAMEBOY_MMU_H
 #define GAMEBOY_MMU_H
 
-#include <vector>
-#include <cstdint>
-#include <functional>
-#include <map>
-
 #include "gameboy/mbc.h"
 #include "gameboy/cartinfo.h"
+
+#include <vector>
+#include <functional>
+#include <array>
+#include <cstdint>
 
 namespace gb
 {
@@ -73,8 +73,8 @@ namespace gb
 	private:
 		MBC::Ptr mbc_;
 
-		std::map<uint16_t, MemoryWriteHandler> write_handlers_;
-		std::map<uint16_t, MemoryReadHandler>  read_handlers_;
+		std::array<MemoryWriteHandler, 0x80> write_handlers_;
+		std::array<MemoryReadHandler, 0x80>  read_handlers_;
 		
     };
 }

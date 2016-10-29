@@ -7,6 +7,8 @@
 #define GAMEBOY_H
 
 #include "gameboy/cpu.h"
+#include "gameboy/mmu.h"
+#include "gameboy/gpu.h"
 #include "gameboy/tileram.h"
 #include "gameboy/tilemap.h"
 #include "gameboy/oam.h"
@@ -22,9 +24,9 @@ namespace gb
     class Gameboy
     {
     private:
-     //   CPU cpu_;
 		CPU::Ptr cpu_;
 		MMU::Ptr mmu_;
+		GPU::Ptr gpu_;
 
     public:
         Gameboy();
@@ -44,12 +46,11 @@ namespace gb
 
 		CPU& getCPU();
 		MMU::Ptr getMMU();
+		GPU::Ptr getGPU();
 
 		TileRAM getTileRAM();
 		TileMap getTileMap();
 		OAM getOAM();
-
-		LCDController& getLCDController();
 
 		Joypad getJoypad();
 
