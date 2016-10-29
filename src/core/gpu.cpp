@@ -178,7 +178,7 @@ namespace gb
 		}
 
 		if(sprites_enabled)
-			tilemap.drawSprites(scanline, color_line, line_, &background_palette[0]);
+			tilemap.drawSprites(scanline, color_line, line_);
 
 		// send scan line to the renderer
 		if (render_scanline_ && line_ < VBLANK_LINE)
