@@ -2,6 +2,8 @@
 
 #include "bitutil.h"
 
+#include <algorithm>
+
 namespace gb
 {
 	static constexpr auto HBLANK_CYCLES = 207;
