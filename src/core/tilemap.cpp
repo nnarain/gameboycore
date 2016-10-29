@@ -3,6 +3,8 @@
 #include "gameboy/oam.h"
 #include "bitutil.h"
 
+#include <algorithm>
+
 namespace gb
 {
 	TileMap::TileMap(MMU& mmu) :
