@@ -1,6 +1,8 @@
 
 #include "gameboy/tilemap.h"
 #include "gameboy/oam.h"
+#include "gameboy/palette.h"
+
 #include "bitutil.h"
 
 #include <algorithm>
@@ -122,9 +124,12 @@ namespace gb
 		return tileline;
 	}
 
-	void TileMap::drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line, const Pixel* palette)
+	void TileMap::drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line, const Pixel* palette_)
 	{
 		OAM oam{ mmu_ };
+		
+		auto palette0 = Palette::get(mmu_.read(memorymap::OBP0_REGISTER));
+		auto palette1 = Palette::get(mmu_.read(memorymap::OBP1_REGISTER));
 
 		auto sprites = oam.getSprites();
 		auto count = 0;
@@ -153,6 +158,9 @@ namespace gb
 
 				if (sprite.isHorizontallyFlipped())
 					std::reverse(pixel_row.begin(), pixel_row.end());
+
+				// get color palette for this sprite
+				const auto& palette = (sprite.paletteOBP0()) ? palette0 : palette1;
 
 				for (auto i = 0; i < 8 && x + i < 160; ++i)
 				{
