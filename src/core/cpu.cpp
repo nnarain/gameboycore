@@ -524,28 +524,44 @@ namespace gb
 
 		// conditional jumps
 		case 0xC2: // JP NZ,nn
-			if (IS_CLR(af_.lo, Flags::Z))
+			if (IS_CLR(af_.lo, Flags::Z)){
 				jp(load16Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val += 2;
+				cycles = opcode_page1[opcode];
+			}
 			break;
 		case 0xCA: // JP Z,nn
-			if (IS_SET(af_.lo, Flags::Z))
+			if (IS_SET(af_.lo, Flags::Z)){
 				jp(load16Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val += 2;
+				cycles = opcode_page1[opcode];
+			}
 			break;
 		case 0xD2: // JP NC,nn
-			if (IS_CLR(af_.lo, Flags::C))
+			if (IS_CLR(af_.lo, Flags::C)){
 				jp(load16Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val += 2;
+				cycles = opcode_page1[opcode];
+			}
 			break;
 		case 0xDA: // JP C,nn
-			if (IS_SET(af_.lo, Flags::C))
+			if (IS_SET(af_.lo, Flags::C)){
 				jp(load16Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val += 2;
+				cycles = opcode_page1[opcode];
+			}
 			break;
 
 		// relative jumps
@@ -555,28 +571,40 @@ namespace gb
 
 		// relative conditional jumps
 		case 0x20: // JR NZ,n
-			if (IS_CLR(af_.lo, Flags::Z))
+			if (IS_CLR(af_.lo, Flags::Z)){
 				jr((int8_t)load8Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val++; // skip next byte
+			}
 			break;
 		case 0x28: // JR Z,n
-			if (IS_SET(af_.lo, Flags::Z))
+			if (IS_SET(af_.lo, Flags::Z)){
 				jr((int8_t)load8Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val++; // skip next byte
+			}
 			break;
 		case 0x30: // JR NC,n
-			if(IS_CLR(af_.lo, Flags::C))
+			if (IS_CLR(af_.lo, Flags::C)){
 				jr((int8_t)load8Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val++; // skip next byte
+			}
 			break;
 		case 0x38: // JR C,n
-			if (IS_SET(af_.lo, Flags::C))
+			if (IS_SET(af_.lo, Flags::C)){
 				jr((int8_t)load8Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val++; // skip next byte
+			}
 			break;
 
 		/* Call */
@@ -586,28 +614,40 @@ namespace gb
 
 		// call condition
 		case 0xC4: // CALL NZ,nn
-			if (IS_CLR(af_.lo, Flags::Z))
+			if (IS_CLR(af_.lo, Flags::Z)){
 				call(load16Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val += 2;
+			}
 			break;
 		case 0xCC: // CALL Z,nn
-			if (IS_SET(af_.lo, Flags::Z))
+			if (IS_SET(af_.lo, Flags::Z)){
 				call(load16Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val += 2;
+			}
 			break;
 		case 0xD4: // CALL NC,nn
-			if (IS_CLR(af_.lo, Flags::C))
+			if (IS_CLR(af_.lo, Flags::C)){
 				call(load16Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val += 2;
+			}
 			break;
 		case 0xDC: // CALL C,nn
-			if (IS_SET(af_.lo, Flags::C))
+			if (IS_SET(af_.lo, Flags::C)){
 				call(load16Imm());
-			else
+				cycles = opcode_page1_branch[opcode];
+			}
+			else{
 				pc_.val += 2;
+			}
 			break;
 
 		/* Returns */
@@ -617,16 +657,28 @@ namespace gb
 
 		// conditional returns
 		case 0xC0: // RET NZ
-			if (IS_CLR(af_.lo, Flags::Z)) ret();
+			if (IS_CLR(af_.lo, Flags::Z)){
+				ret();
+				cycles = opcode_page1_branch[opcode];
+			}
 			break;
 		case 0xC8: // RET Z
-			if (IS_SET(af_.lo, Flags::Z)) ret();
+			if (IS_SET(af_.lo, Flags::Z)){
+				ret();
+				cycles = opcode_page1_branch[opcode];
+			}
 			break;
 		case 0xD0: // RET NC
-			if (IS_CLR(af_.lo, Flags::C)) ret();
+			if (IS_CLR(af_.lo, Flags::C)){
+				ret();
+				cycles = opcode_page1_branch[opcode];
+			}
 			break;
 		case 0xD8: // RET C
-			if (IS_SET(af_.lo, Flags::C)) ret();
+			if (IS_SET(af_.lo, Flags::C)){
+				ret();
+				cycles = opcode_page1_branch[opcode];
+			}
 			break;
 
 		// return from interrupt
@@ -1879,13 +1931,13 @@ namespace gb
 
 			if (IS_SET(pending_interrupts, InterruptMask::SERIAL_TRANSFER_COMPLETE))
 				interrupt(InterruptVector::SERIAL_TRANSFER_COMPLETE, InterruptMask::SERIAL_TRANSFER_COMPLETE);
-			
+
 			if (IS_SET(pending_interrupts, InterruptMask::TIME_OVERFLOW))
 				interrupt(InterruptVector::TIME_OVERFLOW, InterruptMask::TIME_OVERFLOW);
-			
+
 			if (IS_SET(pending_interrupts, InterruptMask::LCDC_STAT))
 				interrupt(InterruptVector::LCDC_STAT, InterruptMask::LCDC_STAT);
-			
+
 			if (IS_SET(pending_interrupts, InterruptMask::VBLANK))
 				interrupt(InterruptVector::VBLANK, InterruptMask::VBLANK);
 		}
@@ -2216,7 +2268,7 @@ namespace gb
 	//	setFlag(Flags::C, (a & 0x100) == 0x100);
 
 		//a &= 0xFF;
-	
+
 	//	setFlag(Flags::Z, a == 0);
 
 		af_.hi = (uint8_t)a;
