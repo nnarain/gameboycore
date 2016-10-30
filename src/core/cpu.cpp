@@ -82,6 +82,8 @@ namespace gb
 		// store current program counter location so it can be reused for disassembly output
 		old_pc = pc_.val;
 
+		int cycles = -1;
+
 		switch (opcode)
 		{
 		// NOP
@@ -968,7 +970,12 @@ namespace gb
 			printDisassembly(opcode, old_pc, OpcodePage::PAGE1);
 		}
 
-		return opcode_page1[opcode];
+		if (cycles == -1)
+		{
+			cycles = opcode_page1[opcode];
+		}
+
+		return (uint8_t)cycles;
 	}
 
 	uint8_t CPU::decode2(uint8_t opcode)
