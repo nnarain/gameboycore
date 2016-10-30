@@ -95,8 +95,8 @@ namespace gb
 		Status getStatus() const;
 
 	private:
-		void decode1(uint8_t opcode);
-		void decode2(uint8_t opcode);
+		uint8_t decode1(uint8_t opcode);
+		uint8_t decode2(uint8_t opcode);
 
 		void checkInterrupts();
 		void checkPowerMode();

@@ -1,15 +1,16 @@
 
 #include "gameboy/cpu.h"
+#include "gameboy/opcode_cycles.h"
 
 #include <stdexcept>
 #include <string>
 #include <cstring>
 #include <iostream>
 
-#define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
-
 #include "bitutil.h"
 #include "shiftrotate.h"
+
+#define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
 
 namespace gb
 {
@@ -46,20 +47,20 @@ namespace gb
 			if (opcode != 0xCB)
 			{
 				// decode from first page
-				decode1(opcode);
+				cycles = decode1(opcode);
 
 				// look up the number of cycles for this opcode
-				cycles = getOpcodeInfo(opcode, OpcodePage::PAGE1).cycles;
+				//cycles = getOpcodeInfo(opcode, OpcodePage::PAGE1).cycles;
 			}
 			else
 			{
 				// read the second page opcode
 				opcode = mmu_->read(pc_.val++);
 				// decode from second page
-				decode2(opcode);
+				cycles = decode2(opcode);
 
 				// look up the number of cycles for this opcode
-				cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
+				//cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 			}
 		}
 
@@ -74,7 +75,7 @@ namespace gb
 		checkInterrupts();
 	}
 
-	void CPU::decode1(uint8_t opcode)
+	uint8_t CPU::decode1(uint8_t opcode)
 	{
 		static uint16_t old_pc;
 
@@ -966,9 +967,11 @@ namespace gb
 		{
 			printDisassembly(opcode, old_pc, OpcodePage::PAGE1);
 		}
+
+		return opcode_page1[opcode];
 	}
 
-	void CPU::decode2(uint8_t opcode)
+	uint8_t CPU::decode2(uint8_t opcode)
 	{
 		static uint16_t old_pc;
 
@@ -1831,6 +1834,8 @@ namespace gb
 		{
 			printDisassembly(opcode, old_pc, OpcodePage::PAGE2);
 		}
+
+		return opcode_page2[opcode];
 	}
 
 	void CPU::checkInterrupts()
