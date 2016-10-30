@@ -31,8 +31,10 @@ namespace gb
 	public:
 		MBC1(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size) :
 			rom_idx_(0),
-			rom_idx_upper_bits_(0),
-			ram_idx_(0)
+			rom_bank_lower_bits_(0),
+			rom_bank_upper_bits_(0),
+			ram_idx_(0),
+			mode_(MemoryMode::ROM)
 		{
 			loadROM(rom, size, rom_size);
 			loadRAM(ram_size);
@@ -58,7 +60,8 @@ namespace gb
 				break;
 			case 0xA000:
 			case 0xB000:
-				switchable_ram1_[ram_idx_][addr - 0xA000] = value;
+				if (xram_enable_)
+					switchable_ram1_[ram_idx_][addr - 0xA000] = value;
 				break;
 			case 0xC000:
 				ram2_[addr - 0xC000] = value;
@@ -92,7 +95,10 @@ namespace gb
 				return ram1_[addr - 0x8000];
 			case 0xA000:
 			case 0xB000:
-				return switchable_ram1_[ram_idx_][addr - 0xA000];
+				if (xram_enable_)
+					return switchable_ram1_[ram_idx_][addr - 0xA000];
+				else
+					return 0xFF;
 			case 0xC000:
 				return ram2_[addr - 0xC000];
 			case 0xD000:
@@ -155,17 +161,28 @@ namespace gb
 		{
 			if (addr >= 0x0000 && addr <= 0x1FFF)
 			{
-				xram_enable_ = (value == 0x0A);
+				xram_enable_ = ((value & 0x0F) == 0x0A);
 			}
 			else if (addr >= 0x2000 && addr <= 0x3FFF)
 			{
-				selectRomBank(value & 0x1F);
+				rom_bank_lower_bits_ = value & 0x1F;
+
+				if (mode_ == MemoryMode::ROM)
+				{
+					selectRomBank(rom_bank_lower_bits_, rom_bank_upper_bits_);
+				}
+				else
+				{
+					rom_bank_upper_bits_ = 0;
+					selectRomBank(rom_bank_lower_bits_, rom_bank_upper_bits_);
+				}
 			}
 			else if (addr >= 0x4000 && addr <= 0x5FFF)
 			{
 				if (mode_ == MemoryMode::ROM)
 				{
-					rom_idx_upper_bits_ = value & 0x03;
+					rom_bank_upper_bits_ = value & 0x03;
+					selectRomBank(rom_bank_lower_bits_, rom_bank_upper_bits_);
 				}
 				else
 				{
@@ -174,20 +191,23 @@ namespace gb
 			}
 			else if (addr >= 0x6000 && addr <= 0x7FFF)
 			{
-				mode_ = static_cast<MemoryMode>(value);
+				mode_ = static_cast<MemoryMode>(value & 0x01);
 
 				if (mode_ == MemoryMode::RAM)
-					rom_idx_upper_bits_ = 0;
+				{
+					rom_bank_upper_bits_ = 0;
+					selectRomBank(rom_bank_lower_bits_, rom_bank_upper_bits_);
+				}
 			}
 		}
 
 	private:
-		void selectRomBank(uint8_t rom_bank_number)
+		void selectRomBank(uint8_t lo, uint8_t hi)
 		{
-			auto bank_number = ((rom_idx_upper_bits_ << 5) | rom_bank_number);
+			auto bank_number = ((hi << 5) | lo);
 
 			// potentially remap the rom bank number
-			switch (rom_bank_number)
+			switch (bank_number)
 			{
 			case 0x00:
 			case 0x20:
@@ -288,7 +308,8 @@ namespace gb
 		MBC::Bank  ram3_;            ///< $E000 - $FFFF
 
 		unsigned int rom_idx_;
-		unsigned int rom_idx_upper_bits_; // bit 5 and 6
+		unsigned int rom_bank_lower_bits_; // bit 0 - 4
+		unsigned int rom_bank_upper_bits_; // bit 5 and 6
 
 		unsigned int ram_idx_;
 
