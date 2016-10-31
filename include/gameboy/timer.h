@@ -55,7 +55,7 @@ namespace gb
 				// M clock increments at 1/4 the T clock rate
 				m_clock_ += cycles;
 
-				if (m_clock_ >= 4)
+				while (m_clock_ >= 4)
 				{
 					m_clock_ -= 4;
 
