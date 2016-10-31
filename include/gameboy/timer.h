@@ -61,13 +61,11 @@ namespace gb
 
 					// source clock for timers increments at 1/4 of the M clock
 					base_clock_++;
-
-
 				}
 
 				auto threshold = freqs[controller_ & 0x03];
 
-				if (base_clock_ >= threshold)
+				while (base_clock_ >= threshold)
 				{
 					base_clock_ -= threshold;
 
