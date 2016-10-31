@@ -35,8 +35,8 @@ namespace gb
 		TileMap(MMU& mmu);
 		~TileMap();
 
-		Line getMapLine(Map map, int line);
-		Line getTileLine(Map map, int line, uint8_t x_offset, uint8_t y_offset);
+		Line getBackground(int line);
+		Line getWindowOverlay(int line);
 
 		void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line);
 
