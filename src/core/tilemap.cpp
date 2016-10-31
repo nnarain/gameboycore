@@ -64,6 +64,40 @@ namespace gb
 		return tileline;
 	}
 
+	TileMap::Line TileMap::getWindowOverlay(int line)
+	{
+		static constexpr auto tiles_per_row = 32;
+		static constexpr auto tiles_per_col = 32;
+		static constexpr auto tile_width = 8;
+		static constexpr auto tile_height = 8;
+
+		TileMap::Line tileline{};
+
+		auto wy = mmu_.read(memorymap::WY_REGISTER);
+		auto umode = (mmu_.read(memorymap::LCDC_REGISTER) & memorymap::LCDC::CHARACTER_DATA) != 0;
+
+		auto window_row = line - wy;
+		auto tile_row = window_row / tile_height;
+		auto idx = 0;
+
+		auto start = getAddress(Map::WINDOW_OVERLAY);
+
+		for (auto tile_col = 0; tile_col < 20; ++tile_col)
+		{
+			auto tile_offset = start + ((tiles_per_row * tile_row) + tile_col);
+			auto tilenum = mmu_.read(tile_offset);
+
+			const auto pixel_row = tileram_.getRow(line % tile_height, tilenum, umode);
+
+			for (const auto pixel : pixel_row)
+			{
+				tileline[idx++] = pixel;
+			}
+		}
+
+		return tileline;
+	}
+
 	void TileMap::drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line)
 	{
 		OAM oam{ mmu_ };

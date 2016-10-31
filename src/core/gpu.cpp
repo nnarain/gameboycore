@@ -151,7 +151,7 @@ namespace gb
 		const auto background = tilemap.getMapLine(TileMap::Map::BACKGROUND, line_);
 
 		// get window overlay tile line
-		const auto window = tilemap.getMapLine(TileMap::Map::WINDOW_OVERLAY, line_ - 16); // TODO: why the -16?
+		const auto window = tilemap.getWindowOverlay(line_);//tilemap.getMapLine(TileMap::Map::WINDOW_OVERLAY, line_ - 0); // TODO: why the -16?
 		const auto wx = mmu_->read(memorymap::WX_REGISTER);
 		const auto wy = mmu_->read(memorymap::WY_REGISTER);
 
@@ -159,19 +159,13 @@ namespace gb
 		for (auto pixel_idx = 0u; pixel_idx < scanline.size(); ++pixel_idx)
 		{
 			auto color = 0u;
-			auto background_color = 0;
-			auto window_color = 0;
-			
-			if(background_enabled)
-				background_color = background[pixel_idx];
 
-			if (window_enabled)
-				window_color = window[pixel_idx];
-
-			if (line_ >= wy && pixel_idx >= (wx - 7))
-				color = window_color;
+			if (window_enabled && line_ >= (int)wy && pixel_idx >= (wx - 7))
+				color = window[pixel_idx];
+			else if (background_enabled)
+				color = background[pixel_idx];
 			else
-				color = background_color;
+				color = 0;
 
 			color_line[pixel_idx] = color;
 			scanline[pixel_idx] = background_palette[color];
