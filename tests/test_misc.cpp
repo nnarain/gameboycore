@@ -16,7 +16,7 @@ TEST(MiscInstructions, Swap)
 		0x0E, 0x56, // LD C,$56
 		0x16, 0x78, // LD D,$78
 		0x1E, 0x9A, // LD E,$9A
-		0x26, 0xBC, // LD H,$BC
+		0x26, 0xC0, // LD H,$C0
 		0x2E, 0xDE, // LD L,$DE
 		0x36, 0xF0, // LD (HL),$F0
 
@@ -41,9 +41,9 @@ TEST(MiscInstructions, Swap)
 	EXPECT_EQ(status.bc.lo, 0x65);
 	EXPECT_EQ(status.de.hi, 0x87);
 	EXPECT_EQ(status.de.lo, 0xA9);
-	EXPECT_EQ(status.hl.hi, 0xCB);
+	EXPECT_EQ(status.hl.hi, 0x0C);
 	EXPECT_EQ(status.hl.lo, 0xED);
-	EXPECT_EQ(mmu.read(0xBCDE), 0x0F);
+	EXPECT_EQ(mmu.read(0xC0DE), 0x0F);
 }
 
 TEST(MiscInstructions, ComplementA)
