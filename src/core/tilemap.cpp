@@ -17,34 +17,24 @@ namespace gb
 	{
 	}
 
-
-	TileMap::Line TileMap::getMapLine(Map map, int line)
-	{
-		uint8_t x_offset = (map == Map::BACKGROUND)
-							? mmu_.read(memorymap::SCX_REGISTER)
-							: mmu_.read(memorymap::WX_REGISTER);
-
-		uint8_t y_offset = (map == Map::BACKGROUND)
-							? mmu_.read(memorymap::SCY_REGISTER)
-							: mmu_.read(memorymap::WY_REGISTER);
-
-		return getTileLine(map, line, x_offset, y_offset);
-	}
-
-	TileMap::Line TileMap::getTileLine(Map map, int line, uint8_t x_offset, uint8_t y_offset)
+	TileMap::Line TileMap::getBackground(int line)
 	{
 		static constexpr auto tiles_per_row = 32;
 		static constexpr auto tiles_per_col = 32;
 		static constexpr auto tile_width    = 8;
 		static constexpr auto tile_height   = 8;
 
-		auto start = getAddress(map);
+		auto start = getAddress(Map::BACKGROUND);
 		auto umode = (mmu_.read(memorymap::LCDC_REGISTER) & memorymap::LCDC::CHARACTER_DATA) != 0;
 
 		TileMap::Line tileline;
 
-		auto tile_row  = ((y_offset + line) / tile_height);
-		auto start_col = x_offset / tile_width;
+		auto scx = mmu_.read(memorymap::SCX_REGISTER);
+		auto scy = mmu_.read(memorymap::SCY_REGISTER);
+
+
+		auto tile_row  = ((scy + line) / tile_height);
+		auto start_col = scx / tile_width;
 		auto pixel_row = line % tile_height;
 
 		auto idx = 0;

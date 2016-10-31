@@ -148,7 +148,7 @@ namespace gb
 		const auto sprites_enabled    = IS_SET(lcdc, memorymap::LCDC::OBJ_ON) != 0;
 
 		// get background tile line
-		const auto background = tilemap.getMapLine(TileMap::Map::BACKGROUND, line_);
+		const auto background = tilemap.getBackground(line_);
 
 		// get window overlay tile line
 		const auto window = tilemap.getWindowOverlay(line_);//tilemap.getMapLine(TileMap::Map::WINDOW_OVERLAY, line_ - 0); // TODO: why the -16?
