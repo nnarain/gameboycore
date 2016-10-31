@@ -47,10 +47,7 @@ namespace gb
 			if (opcode != 0xCB)
 			{
 				// decode from first page
-				cycles = decode1(opcode);
-
-				// look up the number of cycles for this opcode
-				//cycles = getOpcodeInfo(opcode, OpcodePage::PAGE1).cycles;
+				cycles = decode1(opcode);;
 			}
 			else
 			{
@@ -58,15 +55,11 @@ namespace gb
 				opcode = mmu_->read(pc_.val++);
 				// decode from second page
 				cycles = decode2(opcode);
-
-				// look up the number of cycles for this opcode
-				//cycles = getOpcodeInfo(opcode, OpcodePage::PAGE2).cycles;
 			}
 		}
 
 		if (!stopped_)
 		{
-			div_->val += cycles;
 			gpu_->update(cycles, interrupt_master_enable_);
 			timer_.clock(cycles);
 		}
