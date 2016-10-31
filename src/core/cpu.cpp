@@ -61,7 +61,7 @@ namespace gb
 		if (!stopped_)
 		{
 			gpu_->update(cycles, interrupt_master_enable_);
-			timer_.clock(cycles);
+			timer_.update(cycles);
 		}
 
 		checkPowerMode();

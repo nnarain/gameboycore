@@ -38,6 +38,7 @@ set(GAMEBOYCORE
 	src/core/tilemap.cpp
 	src/core/joypad.cpp
 	src/core/oam.cpp
+	src/core/timer.cpp
 )
 set(GAMEBOYCORE_HEADERS
 	include/gameboy/gameboy.h
