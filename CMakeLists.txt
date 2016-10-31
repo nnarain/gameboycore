@@ -61,6 +61,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/mbc1.h
 	include/gameboy/cartinfo.h
 	include/gameboy/opcodeinfo.h
+	include/gameboy/opcode_cycles.h
 
 	src/core/bitutil.h
 	src/core/shiftrotate.h
