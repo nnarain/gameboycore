@@ -203,8 +203,6 @@ namespace gb
         uint8_t& interrupt_flags_;
 		uint8_t& interrupt_enable_;
 
-		Register* div_;
-
 		bool cgb_mode_;
     };
 }

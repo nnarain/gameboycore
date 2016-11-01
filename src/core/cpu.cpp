@@ -28,7 +28,6 @@ namespace gb
 		cycle_count_(0),
 		interrupt_flags_(mmu_->get(memorymap::INTERRUPT_FLAG)),
 		interrupt_enable_(mmu_->get(memorymap::INTERRUPT_ENABLE)),
-		div_(nullptr),
 		cgb_mode_(false)
 	{
 		reset();
@@ -47,7 +46,7 @@ namespace gb
 			if (opcode != 0xCB)
 			{
 				// decode from first page
-				cycles = decode1(opcode);;
+				cycles = decode1(opcode);
 			}
 			else
 			{
@@ -2337,8 +2336,6 @@ namespace gb
 		interrupt_master_enable_ = false;
 		interrupt_master_enable_pending_ = -1;
 		interrupt_master_disable_pending_ = -1;
-
-		div_ = (Register*)mmu_->getptr(memorymap::DIVIDER_LO_REGISTER);
 
 		// set normal speed mode of CGB
 		mmu_->write((uint8_t)0x00, memorymap::KEY1_REGISER);
