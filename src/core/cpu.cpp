@@ -60,7 +60,7 @@ namespace gb
 
 		if (!stopped_)
 		{
-			gpu_->update(cycles, interrupt_master_enable_);
+			gpu_->update(cycles * 4, interrupt_master_enable_);
 			timer_.update(cycles);
 		}
 
