@@ -46,7 +46,7 @@ namespace gb
 			if (opcode != 0xCB)
 			{
 				// decode from first page
-				cycles = decode1(opcode);
+				cycles = decode1(opcode);;
 			}
 			else
 			{

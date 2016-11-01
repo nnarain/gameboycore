@@ -24,7 +24,7 @@ namespace gb
 		Timer(MMU& mmu);
 		~Timer();
 
-		void update(uint8_t cycles);
+		void update(const uint8_t cycles);
 
 	private:
 		uint8_t& controller_; // TAC
@@ -32,7 +32,7 @@ namespace gb
 		uint8_t& modulo_;     // TMA
 		uint8_t& divider_;    // DIV
 
-		uint8_t m_clock_;
+		uint32_t m_clock_;
 		uint8_t base_clock_;
 		uint8_t div_clock_;
 

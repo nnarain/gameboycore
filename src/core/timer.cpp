@@ -14,7 +14,7 @@ namespace gb
 	{
 	}
 
-	void Timer::update(uint8_t cycles)
+	void Timer::update(const uint8_t machine_cycles)
 	{
 		// check for timer register steps
 		if (controller_ & 0x04)
@@ -27,21 +27,21 @@ namespace gb
 			};
 
 			// M clock increments at 1/4 the T clock rate
-			m_clock_ += cycles;
+			m_clock_ += machine_cycles * 4;
 
-			while (m_clock_ >= 4)
+//			while (m_clock_ >= 4)
+//			{
+//				m_clock_ -= 4;
+//
+//				// source clock for timers increments at 1/4 of the M clock
+//				base_clock_++;
+//			}
+
+			auto threshold = freqs[controller_ & 0x03] * 4;
+
+			while (m_clock_ >= threshold)
 			{
-				m_clock_ -= 4;
-
-				// source clock for timers increments at 1/4 of the M clock
-				base_clock_++;
-			}
-
-			auto threshold = freqs[controller_ & 0x03];
-
-			while (base_clock_ >= threshold)
-			{
-				base_clock_ -= threshold;
+				m_clock_ -= threshold;
 
 				if (counter_ == 0xFF)
 				{
@@ -56,7 +56,7 @@ namespace gb
 		}
 
 		// Divider Register
-		div_clock_ += cycles;
+		div_clock_ += machine_cycles;
 		if (div_clock_ >= 16)
 		{
 			div_clock_ -= 16;
