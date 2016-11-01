@@ -116,7 +116,7 @@ namespace gb
 				auto row = line - y;
 
 				if (sprite.isVerticallyFlipped())
-					row = sprite.height - row;
+					row = sprite.height - row - 1;
 
 				auto pixel_row = tileram_.getRow(row, sprite.tile, true);
 
