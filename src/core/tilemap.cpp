@@ -102,12 +102,13 @@ namespace gb
 		{
 			if (count > 10) break;
 
-			auto x = sprite.x - 8;
-			auto y = sprite.y - 16;
 
 			// check for out of bounds coordinates
-			if (x <= 0 || x >= 168) continue;
-			if (y <= 0 || y >= 160) continue;
+			if (sprite.x == 0 || sprite.x >= 168) continue;
+			if (sprite.y == 0 || sprite.y >= 160) continue;
+
+			auto x = sprite.x - 8;
+			auto y = sprite.y - 16;
 
 			// check if the sprite contains the line
 			if (line >= y && line < y + sprite.height)
@@ -126,8 +127,10 @@ namespace gb
 				// get color palette for this sprite
 				const auto& palette = (sprite.paletteOBP0() == 0) ? palette0 : palette1;
 
-				for (auto i = 0; i < 8 && x + i < 160; ++i)
+				for (auto i = 0; i < 8; ++i)
 				{
+					if ((x + i) < 0 || (x + i) >= 160) continue;
+
 					if (sprite.hasPriority())
 					{
 						if(pixel_row[i] != 0)
