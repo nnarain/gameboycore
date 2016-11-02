@@ -7,7 +7,7 @@ namespace gb
 		counter_(mmu.get(memorymap::TIMER_COUNTER_REGISTER)),
 		modulo_(mmu.get(memorymap::TIMER_MODULO_REGISTER)),
 		divider_(mmu.get(memorymap::DIVIDER_REGISER)),
-		m_clock_(0),
+		t_clock_(0),
 		base_clock_(0),
 		div_clock_(0),
 		timer_interrupt_(mmu, InterruptProvider::Interrupt::TIMER)
@@ -16,53 +16,58 @@ namespace gb
 
 	void Timer::update(const uint8_t machine_cycles)
 	{
-		// check for timer register steps
+		// M clock increments at 1/4 the T clock rate
+		t_clock_ += machine_cycles * 4;
+
+		// timer ticks occur at 1/16 the CPU cycles
+		while (t_clock_ >= 16)
+		{
+			t_clock_ -= 16;
+			tick();
+		}
+	}
+
+	void Timer::tick()
+	{
+		// base clock dividers
+		static constexpr int freqs[] = {
+			64, // 4   KHz
+			1,  // 262 KHz (base)
+			4,  // 65  KHz
+			16  // 16  KHz
+		};
+
+		base_clock_++;
+		div_clock_++;
+
+		// do divider clock
+		if (div_clock_ == 16)
+		{
+			divider_++;
+			div_clock_ = 0;
+		}
+
+		// only if timer is enabled
 		if (controller_ & 0x04)
 		{
-			static constexpr uint8_t freqs[] = {
-				64, // 4   KHz
-				1,  // 262 KHz (base)
-				4,  // 65  KHz
-				16  // 16  KHz
-			};
+			// get frequency 
+			auto freq = freqs[controller_ & 0x03];
 
-			// M clock increments at 1/4 the T clock rate
-			m_clock_ += machine_cycles * 4;
-
-//			while (m_clock_ >= 4)
-//			{
-//				m_clock_ -= 4;
-//
-//				// source clock for timers increments at 1/4 of the M clock
-//				base_clock_++;
-//			}
-
-			auto threshold = freqs[controller_ & 0x03] * 4;
-
-			while (m_clock_ >= threshold)
+			// increment counter
+			while (base_clock_ >= freq)
 			{
-				m_clock_ -= threshold;
+				base_clock_ -= freq;
 
 				if (counter_ == 0xFF)
 				{
 					counter_ = modulo_;
 					timer_interrupt_.set();
 				}
-				else
+				else 
 				{
 					counter_++;
 				}
 			}
-		}
-
-		// Divider Register
-		div_clock_ += machine_cycles;
-		if (div_clock_ >= 16)
-		{
-			div_clock_ -= 16;
-			// divider increments at 1/16 the base clock frequency
-			divider_++;
-			div_clock_ = 0;
 		}
 	}
 

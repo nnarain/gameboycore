@@ -35,7 +35,7 @@ namespace gb
 
 	void CPU::step()
 	{
-		uint8_t cycles = 1;
+		cycle_count_ = 0;
 
 		if (!halted_)
 		{
@@ -46,25 +46,32 @@ namespace gb
 			if (opcode != 0xCB)
 			{
 				// decode from first page
-				cycles = decode1(opcode);;
+				cycle_count_ += decode1(opcode);;
 			}
 			else
 			{
 				// read the second page opcode
 				opcode = mmu_->read(pc_.val++);
 				// decode from second page
-				cycles = decode2(opcode);
+				cycle_count_ += decode2(opcode);
 			}
 		}
-
-		if (!stopped_)
+		else
 		{
-			gpu_->update(cycles * 4, interrupt_master_enable_);
-			timer_.update(cycles);
+			cycle_count_ += 1;
 		}
 
 		checkPowerMode();
 		checkInterrupts();
+
+		auto cpu_cycles   = cycle_count_ * 4;
+		auto instr_cycles = cycle_count_;
+
+		if (!stopped_)
+		{
+			gpu_->update(cpu_cycles, interrupt_master_enable_);
+			timer_.update(instr_cycles);
+		}
 	}
 
 	uint8_t CPU::decode1(uint8_t opcode)
@@ -1964,6 +1971,8 @@ namespace gb
 		pc_.val = static_cast<uint16_t>(vector);
 
 		CLR(interrupt_flags_, mask);
+
+		cycle_count_ += 5;
 	}
 
 	void CPU::printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)

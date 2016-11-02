@@ -198,7 +198,7 @@ namespace gb
 
 		bool debug_mode_;
 
-		uint16_t cycle_count_;
+		int cycle_count_;
 
         uint8_t& interrupt_flags_;
 		uint8_t& interrupt_enable_;

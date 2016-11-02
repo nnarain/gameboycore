@@ -27,14 +27,16 @@ namespace gb
 		void update(const uint8_t cycles);
 
 	private:
+		void tick();
+
 		uint8_t& controller_; // TAC
 		uint8_t& counter_;    // TIMA
 		uint8_t& modulo_;     // TMA
 		uint8_t& divider_;    // DIV
 
-		uint32_t m_clock_;
-		uint8_t base_clock_;
-		uint8_t div_clock_;
+		int t_clock_;
+		int base_clock_;
+		int div_clock_;
 
 		InterruptProvider timer_interrupt_;
 	};
