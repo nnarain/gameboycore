@@ -34,11 +34,11 @@ namespace gb
 
 
 		auto tile_row  = ((scy + line) / tile_height);
-		auto start_col = scx / tile_width;
-		auto pixel_row = line % tile_height;
+		auto start_tile_col = scx / tile_width;
+		auto pixel_row = (scy + line) % tile_height;
 
 		auto idx = 0;
-		for (auto col = start_col; col < start_col + 20; ++col)
+		for (auto col = start_tile_col; col < start_tile_col + 20; ++col)
 		{
 			auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (col % tiles_per_col);
 			auto tilenum = mmu_.read(tile_offset);
