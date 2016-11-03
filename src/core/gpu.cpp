@@ -160,7 +160,7 @@ namespace gb
 		{
 			auto color = 0u;
 
-			if (window_enabled && line_ >= (int)wy && pixel_idx >= (wx - 7))
+			if (window_enabled && line_ >= (int)wy && pixel_idx >= (int)(wx - 7))
 				color = window[pixel_idx];
 			else if (background_enabled)
 				color = background[pixel_idx];
