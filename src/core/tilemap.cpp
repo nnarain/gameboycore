@@ -34,20 +34,25 @@ namespace gb
 
 
 		auto tile_row  = ((scy + line) / tile_height);
-		auto start_col = scx / tile_width;
-		auto pixel_row = line % tile_height;
+		auto start_tile_col = scx / tile_width;
+		auto pixel_row = (scy + line) % tile_height;
 
 		auto idx = 0;
-		for (auto col = start_col; col < start_col + 20; ++col)
+		for (auto tile_col = start_tile_col; tile_col < start_tile_col + 21; ++tile_col)
 		{
-			auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (col % tiles_per_col);
+			auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (tile_col % tiles_per_col);
 			auto tilenum = mmu_.read(tile_offset);
 
 			const auto row = tileram_.getRow(pixel_row, tilenum, umode);
 
-			for (const auto pixel : row)
+			auto pixel_col = tile_col * tile_width;
+
+			for (auto i = 0u; i < row.size(); ++i)
 			{
-				tileline[idx++] = pixel;
+				// TODO: this can be improved
+				if(pixel_col >= scx && pixel_col <= scx + 160 && idx < 160)
+					tileline[idx++] = row[i];
+				pixel_col++;
 			}
 		}
 
