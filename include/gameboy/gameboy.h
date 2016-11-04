@@ -9,9 +9,7 @@
 #include "gameboy/cpu.h"
 #include "gameboy/mmu.h"
 #include "gameboy/gpu.h"
-#include "gameboy/tileram.h"
-#include "gameboy/tilemap.h"
-#include "gameboy/oam.h"
+#include "gameboy/apu.h"
 #include "gameboy/joypad.h"
 
 #include <stdint.h>
@@ -27,6 +25,7 @@ namespace gb
 		CPU::Ptr cpu_;
 		MMU::Ptr mmu_;
 		GPU::Ptr gpu_;
+		APU::Ptr apu_;
 
     public:
         Gameboy();
@@ -47,10 +46,7 @@ namespace gb
 		CPU& getCPU();
 		MMU::Ptr getMMU();
 		GPU::Ptr getGPU();
-
-		TileRAM getTileRAM();
-		TileMap getTileMap();
-		OAM getOAM();
+		APU::Ptr getAPU();
 
 		Joypad getJoypad();
 

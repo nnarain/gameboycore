@@ -14,9 +14,10 @@
 
 namespace gb
 {
-	CPU::CPU(const MMU::Ptr& mmu, const GPU::Ptr gpu) :
+	CPU::CPU(const MMU::Ptr& mmu, const GPU::Ptr& gpu, const APU::Ptr& apu) :
 		mmu_(mmu),
 		gpu_(gpu),
+		apu_(apu),
 		alu_(af_.lo),
 		timer_(*mmu.get()),
 		halted_(false),
