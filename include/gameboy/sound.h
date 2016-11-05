@@ -2,6 +2,7 @@
 #define GAMEBOY_SOUND_H
 
 #include "gameboy/mmu.h"
+#include "gameboy/channel.h"
 
 #include <cstdint>
 
@@ -11,12 +12,13 @@ namespace gb
 		\class Sound
 		\brief Wraps sound channels 1 and 2
 	*/
-	class Sound
+	class Sound : public Channel
 	{
 	public:
 
-		Sound(MMU::Ptr& mmu, uint16_t base) :
-			mmu_(mmu)
+		Sound(MMU::Ptr& mmu, uint16_t base, bool sweep = true) :
+			mmu_(mmu),
+			has_sweep_(sweep)
 		{
 		}
 
@@ -26,6 +28,7 @@ namespace gb
 
 	private:
 		MMU::Ptr& mmu_;
+		bool has_sweep_;
 	};
 }
 

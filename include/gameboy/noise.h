@@ -17,7 +17,7 @@ namespace gb
 		\class Noise
 		\brief Generate white noise
 	*/
-	class Noise
+	class Noise : public Channel
 	{
 	public:
 		Noise(MMU::Ptr& mmu) : 

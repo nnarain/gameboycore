@@ -44,6 +44,7 @@ int main(int argc, char * argv[])
 			std::string title = "Dotrix-" + version::get() + " [Beta]";
 
 			Window window(gameboy, title);
+			window.start();
 
 			// start emulating
 			gameboy.setStepCount(512);

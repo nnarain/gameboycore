@@ -17,7 +17,7 @@ namespace gb
 		\class Wave
 		\brief Wave register
 	*/
-	class Wave
+	class Wave : public Channel
 	{
 	public:
 		Wave(MMU::Ptr& mmu) : mmu_(mmu)

@@ -15,6 +15,7 @@
 #include <string>
 
 #include "screen_renderer.h"
+#include "audio.h"
 
 /**
 	\brief Emulator Window
@@ -34,6 +35,22 @@ public:
 				std::placeholders::_1, std::placeholders::_2
 			)
 		);
+
+		gameboy.getAPU()->setAudioSampleCallback(
+			std::bind(
+				&Audio::apuCallback,
+				&audio_,
+				std::placeholders::_1, std::placeholders::_2
+			)
+		);
+	}
+
+	/**
+		Start one off operations
+	*/
+	void start()
+	{
+		audio_.play();
 	}
 
 	void update()
@@ -93,6 +110,11 @@ public:
 		window_.clear(sf::Color(255, 0, 0, 255));
 		screen_renderer_.draw(window_);
 		window_.display();
+
+		if (audio_.getStatus() == Audio::Playing)
+		{
+			std::cout << "Playing" << std::endl;
+		}
 	}
 
 	bool isOpen()
@@ -181,6 +203,7 @@ private:
 private:
 	sf::RenderWindow window_;
 	ScreenRenderer screen_renderer_;
+	Audio audio_;
 
 	gb::Joypad joypad_;
 };

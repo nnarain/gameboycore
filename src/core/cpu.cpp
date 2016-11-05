@@ -71,6 +71,7 @@ namespace gb
 		if (!stopped_)
 		{
 			gpu_->update(cpu_cycles, interrupt_master_enable_);
+			apu_->update(cpu_cycles);
 			timer_.update(instr_cycles);
 		}
 	}

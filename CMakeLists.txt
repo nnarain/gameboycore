@@ -60,6 +60,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/sound.h
 	include/gameboy/noise.h
 	include/gameboy/wave.h
+	include/gameboy/channel.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h
