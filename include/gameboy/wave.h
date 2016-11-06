@@ -20,7 +20,9 @@ namespace gb
 	class Wave : public Channel
 	{
 	public:
-		Wave(MMU::Ptr& mmu) : mmu_(mmu)
+		Wave(MMU::Ptr& mmu) : 
+			Channel(mmu->get(memorymap::NR31_REGISTER), 0xFF),
+			mmu_(mmu)
 		{
 		}
 

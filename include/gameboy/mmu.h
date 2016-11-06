@@ -21,7 +21,7 @@ namespace gb
 	public:
 		using Ptr = std::shared_ptr<MMU>;
 
-		using MemoryWriteHandler = std::function<void(uint8_t)>;
+		using MemoryWriteHandler = std::function<void(uint8_t, uint16_t)>;
 		using MemoryReadHandler = std::function<uint8_t()>;
 
     private:

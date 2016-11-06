@@ -17,6 +17,7 @@ namespace gb
 	public:
 
 		Sound(MMU::Ptr& mmu, uint16_t base, bool sweep = true) :
+			Channel(mmu->get(base + 1), 0x3F),
 			mmu_(mmu),
 			has_sweep_(sweep)
 		{

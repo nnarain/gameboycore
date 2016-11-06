@@ -90,11 +90,21 @@ namespace gb
 				std::cout << (char)mbc_->read(memorymap::SB_REGISTER);
 			}
 		}
+		else if (addr >= memorymap::NR10_REGISTER && addr < memorymap::NR52_REGISTER)
+		{
+			// APU register writes are ignore if the APU is disabled
+			auto sound_enable = mbc_->read(memorymap::NR52_REGISTER);
+
+			if (sound_enable & 0x80)
+			{
+				mbc_->write(value, addr);
+			}
+		}
 		else
 		{
 			if (addr >= 0xFF00 && addr <= 0xFF7F && write_handlers_[addr - 0xFF00])
 			{
-				write_handlers_[addr - 0xFF00](value);
+				write_handlers_[addr - 0xFF00](value, addr);
 			}
 			else
 			{

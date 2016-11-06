@@ -18,9 +18,12 @@ namespace gb
 	class Channel
 	{
 	public:
-		Channel() :
+		Channel(uint8_t& length_counter, uint8_t length_mask) :
+			length_counter_(length_counter),
+			length_mask_(length_mask),
 			volume_unit_(0),
-			timer_(0)
+			timer_(0),
+			enabled_(false)
 		{
 		}
 
@@ -34,6 +37,7 @@ namespace gb
 			// 256 Hz
 			if (timer_ % 2 == 0)
 			{
+				lengthCounterTick();
 			}
 
 			// 128 Hz
@@ -45,6 +49,7 @@ namespace gb
 			if (timer_ % 8 == 0)
 			{
 
+				// update volume unit
 
 				timer_ = 0;
 			}
@@ -55,13 +60,36 @@ namespace gb
 			return volume_unit_;
 		}
 
+		bool isEnabled() const
+		{
+			return enabled_;
+		}
+
 		~Channel()
 		{
 		}
 
 	private:
+
+		void lengthCounterTick()
+		{
+			auto value = length_counter_ & length_mask_;
+			value--;
+
+			if (value == 0)
+			{
+				enabled_ = false;
+			}
+
+			length_counter_ = (length_counter_ & ~length_mask_) | value;
+		}
+
+	private:
+		uint8_t& length_counter_;
+		uint8_t length_mask_;
 		uint16_t volume_unit_;
 		int timer_;
+		bool enabled_;
 	};
 }
 

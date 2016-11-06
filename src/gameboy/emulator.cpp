@@ -18,6 +18,7 @@ static bool loadGB(const std::string&, std::vector<uint8_t>&);
 
 int main(int argc, char * argv[])
 {
+
     if(argc < 2)
     {
         std::cout << "Usage: " << argv[0] << " <romfile>" << std::endl;
@@ -48,7 +49,7 @@ int main(int argc, char * argv[])
 
 			// start emulating
 			gameboy.setStepCount(512);
-			gameboy.setDebugMode(false);
+			gameboy.setDebugMode(true);
 
 			while (window.isOpen())
 			{

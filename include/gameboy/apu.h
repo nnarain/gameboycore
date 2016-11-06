@@ -54,11 +54,12 @@ namespace gb
 
 			if (has512Tick())
 			{
+				sound1_.update();
+				sound2_.update();
+				wave_.update();
 				noise_.update();
 
 				timer_ -= CYCLES_512HZ;
-
-				send_audio_sample_(0xFFFF, 0xFFFF);
 			}
 		}
 
@@ -72,6 +73,11 @@ namespace gb
 		}
 
 	private:
+		void writeHandler(uint8_t value, uint16_t addr)
+		{
+
+		}
+
 		bool has512Tick()
 		{
 			return timer_ >= CYCLES_512HZ;

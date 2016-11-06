@@ -110,11 +110,6 @@ public:
 		window_.clear(sf::Color(255, 0, 0, 255));
 		screen_renderer_.draw(window_);
 		window_.display();
-
-		if (audio_.getStatus() == Audio::Playing)
-		{
-			std::cout << "Playing" << std::endl;
-		}
 	}
 
 	bool isOpen()
