@@ -69,13 +69,16 @@ namespace gb
 
 	private:
 		void oamTransfer(uint8_t base);
+		void loadResetValues();
+		void initWriteMasks();
 
 	private:
 		MBC::Ptr mbc_;
 
 		std::array<MemoryWriteHandler, 0x80> write_handlers_;
 		std::array<MemoryReadHandler, 0x80>  read_handlers_;
-		
+
+		std::array<uint8_t, 0x80> apu_read_masks;
     };
 }
 
