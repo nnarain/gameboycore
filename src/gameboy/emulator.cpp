@@ -49,7 +49,7 @@ int main(int argc, char * argv[])
 
 			// start emulating
 			gameboy.setStepCount(512);
-			gameboy.setDebugMode(true);
+			gameboy.setDebugMode(false);
 
 			while (window.isOpen())
 			{

@@ -74,6 +74,11 @@ namespace gb
 			apu_->update(cpu_cycles);
 			timer_.update(instr_cycles);
 		}
+
+		if (pc_.val == 0xC1AD)
+		{
+			int x = 0;
+		}
 	}
 
 	uint8_t CPU::decode1(uint8_t opcode)

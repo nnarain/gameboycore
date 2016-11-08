@@ -184,8 +184,7 @@ namespace gb
 		mbc_->write(0xBF, memorymap::NR44_REGISTER);
 		mbc_->write(0x77, memorymap::NR50_REGISTER);
 		mbc_->write(0xF3, memorymap::NR51_REGISTER);
-
-		mbc_->write(0xF1, 0xFF26); // TODO: super gameboy mode
+		mbc_->write(0xF1, memorymap::NR52_REGISTER); // TODO: super gameboy mode
 
 		mbc_->write(0x91, memorymap::LCDC_REGISTER);
 		mbc_->write(0x00, memorymap::SCY_REGISTER);
