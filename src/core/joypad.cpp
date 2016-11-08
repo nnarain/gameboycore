@@ -34,12 +34,21 @@ namespace gb
 
 	uint8_t Joypad::readJoypad()
 	{
-		// first 2 bits of high nybble is group selection
-		uint8_t group = ((~(reg_ >> 4)) & 0x03) - 1;
+		uint8_t hi = (reg_ & 0xF0);
 
-		uint8_t selection = (keys_ >> (group * 4)) & 0x0F;
+		if ((hi & 0x30) == 0x10 || (hi & 0x30) == 0x20)
+		{
+			// first 2 bits of high nybble is group selection
+			uint8_t group = ((~(reg_ >> 4)) & 0x03) - 1;
 
-		return (reg_ & 0xF0) | selection;
+			uint8_t selection = (keys_ >> (group * 4)) & 0x0F;
+
+			return (reg_ & 0xF0) | selection;
+		}
+		else
+		{
+			return reg_ | 0x0F;
+		}
 	}
 
 	void Joypad::writeJoypad(uint8_t value)
