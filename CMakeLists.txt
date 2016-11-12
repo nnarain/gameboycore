@@ -114,9 +114,9 @@ set_target_properties(${PROJECT_NAME}-s PROPERTIES
 	COMPILE_FLAGS "-DGAMEBOYCORE_STATIC"
 )
 
-if(NOT NO_GUI)
+if(WITH_GUI AND WITH_GUI STREQUAL "ON")
 	add_subdirectory(src/example)
-endif(NOT NO_GUI)
+endif(WITH_GUI AND WITH_GUI STREQUAL "ON")
 
 enable_testing()
 add_subdirectory(tests)
