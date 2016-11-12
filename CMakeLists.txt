@@ -25,6 +25,10 @@ else(IS_BIG_ENDIAN)
 endif(IS_BIG_ENDIAN)
 
 # Core sources for Gameboy emulation
+set(GAMEBOYCORE_API_HEADERS
+	
+)
+
 set(GAMEBOYCORE
     src/core/gameboy.cpp
     src/core/cpu.cpp
@@ -40,7 +44,9 @@ set(GAMEBOYCORE
 	src/core/oam.cpp
 	src/core/timer.cpp
 )
+
 set(GAMEBOYCORE_HEADERS
+	${GAMEBOYCORE_API_HEADERS}
 	include/gameboy/gameboy.h
 	include/gameboy/cpu.h
 	include/gameboy/alu.h
@@ -93,12 +99,14 @@ add_definitions(
 )
 
 # Gameboy Core Library
-add_library(gbcore
+add_library(gbcore SHARED
     ${GAMEBOYCORE}
 	${GAMEBOYCORE_HEADERS}
 )
 
-add_subdirectory(src/gameboy)
+if(NOT NO_GUI)
+	add_subdirectory(src/gameboy)
+endif(NOT NO_GUI)
 
 enable_testing()
 add_subdirectory(tests)
@@ -107,13 +115,15 @@ add_subdirectory(tests)
 install(
 	TARGETS gbcore
 	ARCHIVE DESTINATION lib
+	LIBRARY DESTINATION lib
+	RUNTIME DESTINATION bin
 	COMPONENT development
 )
 
 # install headers
 install(
-	DIRECTORY include
-	DESTINATION .
+	FILES ${GAMEBOYCORE_API_HEADERS}
+	DESTINATION include/gameboycore
 	COMPONENT development
 )
 
@@ -121,14 +131,14 @@ install(
 include(get-version-config)
 get_version()
 
-set(CPACK_PACKAGE_NAME "dotrix")
+set(CPACK_PACKAGE_NAME "gameboycore")
 set(CPACK_PACKAGE_VENDOR "nnarain")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Gameboy emulator and library")
 set(CPACK_PACKAGE_VERSION "${VERSION}")
 set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "dotrix")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "gameboycore")
 
 set(CPACK_COMPONENT_DEVELOPMENT_DISPLAY_NAME "Development")
 set(CPACK_COMPONENT_PROGRAMS_DISPLAY_NAME "Programs")
