@@ -1,5 +1,5 @@
 
-#include "gameboy/alu.h"
+#include "gameboycore/alu.h"
 
 #include "bitutil.h"
 

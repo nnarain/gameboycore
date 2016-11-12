@@ -1,5 +1,5 @@
 
-#include "gameboy/opcodeinfo.h"
+#include "gameboycore/opcodeinfo.h"
 
 namespace gb
 {

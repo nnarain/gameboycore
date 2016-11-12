@@ -1,6 +1,6 @@
 
-#include "gameboy/cartinfo.h"
-#include "gameboy/mbc.h"
+#include "gameboycore/cartinfo.h"
+#include "gameboycore/mbc.h"
 #include <cstring>
 
 namespace gb

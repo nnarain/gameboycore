@@ -1,4 +1,4 @@
-#include "gameboy/oam.h"
+#include "gameboycore/oam.h"
 #include "bitutil.h"
 
 namespace gb

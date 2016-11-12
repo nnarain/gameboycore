@@ -3,7 +3,7 @@
 #include "test_helper.h"
 #include "util/codegenerator.h"
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 using namespace gb;
 
@@ -16,7 +16,7 @@ TEST(MiscInstructions, Swap)
 		0x0E, 0x56, // LD C,$56
 		0x16, 0x78, // LD D,$78
 		0x1E, 0x9A, // LD E,$9A
-		0x26, 0xBC, // LD H,$BC
+		0x26, 0xC0, // LD H,$C0
 		0x2E, 0xDE, // LD L,$DE
 		0x36, 0xF0, // LD (HL),$F0
 
@@ -32,18 +32,18 @@ TEST(MiscInstructions, Swap)
 		0x76        // halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	auto mmu = gameboy.getMMU();
 
-	EXPECT_EQ(status.af.hi, 0x21);
-	EXPECT_EQ(status.bc.hi, 0x43);
-	EXPECT_EQ(status.bc.lo, 0x65);
-	EXPECT_EQ(status.de.hi, 0x87);
-	EXPECT_EQ(status.de.lo, 0xA9);
-	EXPECT_EQ(status.hl.hi, 0xCB);
-	EXPECT_EQ(status.hl.lo, 0xED);
-	EXPECT_EQ(mmu.read(0xBCDE), 0x0F);
+	EXPECT_EQ(status.a, 0x21);
+	EXPECT_EQ(status.b, 0x43);
+	EXPECT_EQ(status.c, 0x65);
+	EXPECT_EQ(status.d, 0x87);
+	EXPECT_EQ(status.e, 0xA9);
+	EXPECT_EQ(status.h, 0x0C);
+	EXPECT_EQ(status.l, 0xED);
+	EXPECT_EQ(mmu->read(0xC0DE), 0x0F);
 }
 
 TEST(MiscInstructions, ComplementA)
@@ -56,12 +56,12 @@ TEST(MiscInstructions, ComplementA)
 		0x76        // halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 0xFF);
-	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
-	EXPECT_EQ(status.af.lo & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(status.a, 0xFF);
+	EXPECT_EQ(status.f & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.f & CPU::Flags::N, CPU::Flags::N);
 }
 
 TEST(MiscInstructions, SetCarry)
@@ -72,10 +72,10 @@ TEST(MiscInstructions, SetCarry)
 		0x76        // halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::C, CPU::Flags::C);
+	EXPECT_EQ(status.f & CPU::Flags::C, CPU::Flags::C);
 }
 
 TEST(MiscInstructions, DAA)
@@ -89,11 +89,11 @@ TEST(MiscInstructions, DAA)
 		0x76        // halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 0x83);
-	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, 0);
-	EXPECT_EQ(status.af.lo & CPU::Flags::H, 0);
+	EXPECT_EQ(status.a, 0x83);
+	EXPECT_EQ(status.f & CPU::Flags::C, 0);
+	EXPECT_EQ(status.f & CPU::Flags::Z, 0);
+	EXPECT_EQ(status.f & CPU::Flags::H, 0);
 }

@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.0)
 set(CMAKE_MODULE_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
-project(gameboy)
+project(gameboycore)
 
 # test endianness of system
 include(TestBigEndian)
@@ -25,12 +25,24 @@ else(IS_BIG_ENDIAN)
 endif(IS_BIG_ENDIAN)
 
 # Core sources for Gameboy emulation
+set(GAMEBOYCORE_API_HEADERS
+	include/gameboycore/gameboycore_api.h
+	include/gameboycore/gameboycore.h
+	include/gameboycore/cpu.h
+	include/gameboycore/mmu.h
+	include/gameboycore/gpu.h
+	include/gameboycore/apu.h
+	include/gameboycore/joypad.h
+	include/gameboycore/pixel.h
+)
+
 set(GAMEBOYCORE
-    src/core/gameboy.cpp
+    src/core/gameboycore.cpp
     src/core/cpu.cpp
 	src/core/alu.cpp
     src/core/mmu.cpp
 	src/core/gpu.cpp
+	src/core/apu.cpp
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp
 	src/core/opcodeinfo.cpp
@@ -38,30 +50,30 @@ set(GAMEBOYCORE
 	src/core/tilemap.cpp
 	src/core/joypad.cpp
 	src/core/oam.cpp
+	src/core/timer.cpp
 )
+
 set(GAMEBOYCORE_HEADERS
-	include/gameboy/gameboy.h
-	include/gameboy/cpu.h
-	include/gameboy/alu.h
-	include/gameboy/mmu.h
-	include/gameboy/gpu.h
-	include/gameboy/tileram.h
-	include/gameboy/tilemap.h
-	include/gameboy/oam.h
-	include/gameboy/tile.h
-	include/gameboy/joypad.h
-	include/gameboy/timer.h
-	include/gameboy/interrupt_provider.h
-	include/gameboy/pixel.h
-	include/gameboy/sprite.h
-	include/gameboy/palette.h
-
-	include/gameboy/memorymap.h
-	include/gameboy/mbc.h
-	include/gameboy/mbc1.h
-	include/gameboy/cartinfo.h
-	include/gameboy/opcodeinfo.h
-
+	${GAMEBOYCORE_API_HEADERS}
+	include/gameboycore/alu.h
+	include/gameboycore/tileram.h
+	include/gameboycore/tilemap.h
+	include/gameboycore/oam.h
+	include/gameboycore/tile.h
+	include/gameboycore/timer.h
+	include/gameboycore/interrupt_provider.h
+	include/gameboycore/sprite.h
+	include/gameboycore/palette.h
+	include/gameboycore/sound.h
+	include/gameboycore/noise.h
+	include/gameboycore/wave.h
+	include/gameboycore/channel.h
+	include/gameboycore/memorymap.h
+	include/gameboycore/mbc.h
+	include/gameboycore/mbc1.h
+	include/gameboycore/cartinfo.h
+	include/gameboycore/opcodeinfo.h
+	include/gameboycore/opcode_cycles.h
 	src/core/bitutil.h
 	src/core/shiftrotate.h
 )
@@ -86,27 +98,42 @@ add_definitions(
 )
 
 # Gameboy Core Library
-add_library(gbcore
+add_library(${PROJECT_NAME} SHARED
     ${GAMEBOYCORE}
 	${GAMEBOYCORE_HEADERS}
 )
+set_target_properties(${PROJECT_NAME} PROPERTIES
+	COMPILE_FLAGS "-DGAMEBOYCORE_EXPORT"
+)
 
-add_subdirectory(src/gameboy)
+add_library(${PROJECT_NAME}-s STATIC
+    ${GAMEBOYCORE}
+	${GAMEBOYCORE_HEADERS}
+)
+set_target_properties(${PROJECT_NAME}-s PROPERTIES
+	COMPILE_FLAGS "-DGAMEBOYCORE_STATIC"
+)
+
+if(WITH_GUI AND WITH_GUI STREQUAL "ON")
+	add_subdirectory(src/example)
+endif(WITH_GUI AND WITH_GUI STREQUAL "ON")
 
 enable_testing()
 add_subdirectory(tests)
 
 # install core
 install(
-	TARGETS gbcore
+	TARGETS ${PROJECT_NAME} ${PROJECT_NAME}-s
 	ARCHIVE DESTINATION lib
+	LIBRARY DESTINATION lib
+	RUNTIME DESTINATION bin
 	COMPONENT development
 )
 
 # install headers
 install(
-	DIRECTORY include
-	DESTINATION .
+	FILES ${GAMEBOYCORE_API_HEADERS}
+	DESTINATION include/gameboycore
 	COMPONENT development
 )
 
@@ -114,14 +141,14 @@ install(
 include(get-version-config)
 get_version()
 
-set(CPACK_PACKAGE_NAME "dotrix")
+set(CPACK_PACKAGE_NAME "gameboycore")
 set(CPACK_PACKAGE_VENDOR "nnarain")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Gameboy emulator and library")
 set(CPACK_PACKAGE_VERSION "${VERSION}")
 set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "dotrix")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "gameboycore")
 
 set(CPACK_COMPONENT_DEVELOPMENT_DISPLAY_NAME "Development")
 set(CPACK_COMPONENT_PROGRAMS_DISPLAY_NAME "Programs")

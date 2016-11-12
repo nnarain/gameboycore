@@ -19,13 +19,13 @@ TEST(BitInstructions, CheckBit)
 		0x76			// halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 0x80);
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, 0);
-	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
-	EXPECT_EQ(status.af.lo & CPU::Flags::N, 0);
+	EXPECT_EQ(status.a, 0x80);
+	EXPECT_EQ(status.f & CPU::Flags::Z, 0);
+	EXPECT_EQ(status.f & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.f & CPU::Flags::N, 0);
 
 	code.reset();
 
@@ -37,9 +37,9 @@ TEST(BitInstructions, CheckBit)
 
 	status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.hl.lo, 0xEF);
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
-	EXPECT_EQ(status.af.lo & CPU::Flags::N, 0);
+	EXPECT_EQ(status.l, 0xEF);
+	EXPECT_EQ(status.f & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.f & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.f & CPU::Flags::N, 0);
 }
 

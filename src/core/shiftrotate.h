@@ -3,10 +3,10 @@
 	@author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef SHIFT_ROTATE_H
-#define SHIFT_ROTATE_H
+#ifndef GAMEBOYCORE_SHIFT_ROTATE_H
+#define GAMEBOYCORE_SHIFT_ROTATE_H
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace gb
 {

@@ -1,24 +1,11 @@
 
 #include <gtest/gtest.h>
+#include "test_helper.h"
 #include "util/codegenerator.h"
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 using namespace gb;
-
-static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
-{
-	gameboy.loadROM(&rom[0], rom.size());
-
-	while (!gameboy.isDone())
-		gameboy.update();
-
-	CPU::Status status = gameboy.getCPU().getStatus();
-
-	gameboy.reset();
-
-	return status;
-}
 
 // TODO: MMU Bank loading and ROM bank switching tests
 
@@ -91,14 +78,14 @@ TEST(MMUTest, DMA)
 		0x76
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	(void)run(gameboy, code.rom());
 
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	auto mmu = gameboy.getMMU();
 
-	EXPECT_EQ(mmu.read(memorymap::OAM_START + 0), 1);
-	EXPECT_EQ(mmu.read(memorymap::OAM_START + 1), 2);
-	EXPECT_EQ(mmu.read(memorymap::OAM_START + 2), 3);
-	EXPECT_EQ(mmu.read(memorymap::OAM_START + 3), 4);
-	EXPECT_EQ(mmu.read(memorymap::OAM_START + 4), 5);
+	EXPECT_EQ(mmu->read(memorymap::OAM_START + 0), 1);
+	EXPECT_EQ(mmu->read(memorymap::OAM_START + 1), 2);
+	EXPECT_EQ(mmu->read(memorymap::OAM_START + 2), 3);
+	EXPECT_EQ(mmu->read(memorymap::OAM_START + 3), 4);
+	EXPECT_EQ(mmu->read(memorymap::OAM_START + 4), 5);
 }

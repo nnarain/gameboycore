@@ -1,7 +1,7 @@
 
-#include "gameboy/tilemap.h"
-#include "gameboy/oam.h"
-#include "gameboy/palette.h"
+#include "gameboycore/tilemap.h"
+#include "gameboycore/oam.h"
+#include "gameboycore/palette.h"
 
 #include "bitutil.h"
 
@@ -17,45 +17,74 @@ namespace gb
 	{
 	}
 
-
-	TileMap::Line TileMap::getMapLine(Map map, int line)
-	{
-		uint8_t x_offset = (map == Map::BACKGROUND)
-							? mmu_.read(memorymap::SCX_REGISTER)
-							: mmu_.read(memorymap::WX_REGISTER);
-
-		uint8_t y_offset = (map == Map::BACKGROUND)
-							? mmu_.read(memorymap::SCY_REGISTER)
-							: mmu_.read(memorymap::WY_REGISTER);
-
-		return getTileLine(map, line, x_offset, y_offset);
-	}
-
-	TileMap::Line TileMap::getTileLine(Map map, int line, uint8_t x_offset, uint8_t y_offset)
+	TileMap::Line TileMap::getBackground(int line)
 	{
 		static constexpr auto tiles_per_row = 32;
 		static constexpr auto tiles_per_col = 32;
 		static constexpr auto tile_width    = 8;
 		static constexpr auto tile_height   = 8;
 
-		auto start = getAddress(map);
+		auto start = getAddress(Map::BACKGROUND);
 		auto umode = (mmu_.read(memorymap::LCDC_REGISTER) & memorymap::LCDC::CHARACTER_DATA) != 0;
 
 		TileMap::Line tileline;
 
-		auto tile_row  = ((y_offset + line) / tile_height);
-		auto start_col = x_offset / tile_width;
-		auto pixel_row = line % tile_height;
+		auto scx = mmu_.read(memorymap::SCX_REGISTER);
+		auto scy = mmu_.read(memorymap::SCY_REGISTER);
+
+
+		auto tile_row  = ((scy + line) / tile_height);
+		auto start_tile_col = scx / tile_width;
+		auto pixel_row = (scy + line) % tile_height;
 
 		auto idx = 0;
-		for (auto col = start_col; col < start_col + 20; ++col)
+		for (auto tile_col = start_tile_col; tile_col < start_tile_col + 21; ++tile_col)
 		{
-			auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (col % tiles_per_col);
+			auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (tile_col % tiles_per_col);
 			auto tilenum = mmu_.read(tile_offset);
 
 			const auto row = tileram_.getRow(pixel_row, tilenum, umode);
 
-			for (const auto pixel : row)
+			auto pixel_col = tile_col * tile_width;
+
+			for (auto i = 0u; i < row.size(); ++i)
+			{
+				// TODO: this can be improved
+				if(pixel_col >= scx && pixel_col <= scx + 160 && idx < 160)
+					tileline[idx++] = row[i];
+				pixel_col++;
+			}
+		}
+
+		return tileline;
+	}
+
+	TileMap::Line TileMap::getWindowOverlay(int line)
+	{
+		static constexpr auto tiles_per_row = 32;
+		static constexpr auto tiles_per_col = 32;
+		static constexpr auto tile_width = 8;
+		static constexpr auto tile_height = 8;
+
+		TileMap::Line tileline{};
+
+		auto wy = mmu_.read(memorymap::WY_REGISTER);
+		auto umode = (mmu_.read(memorymap::LCDC_REGISTER) & memorymap::LCDC::CHARACTER_DATA) != 0;
+
+		auto window_row = line - wy;
+		auto tile_row = window_row / tile_height;
+		auto idx = 0;
+
+		auto start = getAddress(Map::WINDOW_OVERLAY);
+
+		for (auto tile_col = 0; tile_col < 20; ++tile_col)
+		{
+			auto tile_offset = start + ((tiles_per_row * tile_row) + tile_col);
+			auto tilenum = mmu_.read(tile_offset);
+
+			const auto pixel_row = tileram_.getRow(line % tile_height, tilenum, umode);
+
+			for (const auto pixel : pixel_row)
 			{
 				tileline[idx++] = pixel;
 			}
@@ -78,12 +107,13 @@ namespace gb
 		{
 			if (count > 10) break;
 
-			auto x = sprite.x - 8;
-			auto y = sprite.y - 16;
 
 			// check for out of bounds coordinates
-			if (x <= 0 || x >= 168) continue;
-			if (y <= 0 || y >= 160) continue;
+			if (sprite.x == 0 || sprite.x >= 168) continue;
+			if (sprite.y == 0 || sprite.y >= 160) continue;
+
+			auto x = sprite.x - 8;
+			auto y = sprite.y - 16;
 
 			// check if the sprite contains the line
 			if (line >= y && line < y + sprite.height)
@@ -92,7 +122,7 @@ namespace gb
 				auto row = line - y;
 
 				if (sprite.isVerticallyFlipped())
-					row = sprite.height - row;
+					row = sprite.height - row - 1;
 
 				auto pixel_row = tileram_.getRow(row, sprite.tile, true);
 
@@ -102,8 +132,10 @@ namespace gb
 				// get color palette for this sprite
 				const auto& palette = (sprite.paletteOBP0() == 0) ? palette0 : palette1;
 
-				for (auto i = 0; i < 8 && x + i < 160; ++i)
+				for (auto i = 0; i < 8; ++i)
 				{
+					if ((x + i) < 0 || (x + i) >= 160) continue;
+
 					if (sprite.hasPriority())
 					{
 						if(pixel_row[i] != 0)

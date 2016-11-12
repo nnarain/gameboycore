@@ -10,7 +10,10 @@ if(GTEST_FOUND)
 
 	macro(add_gtest name)
 		add_executable(${name} ${ARGN})
-		target_link_libraries(${name} gbcore ${GTEST_BOTH_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+		set_target_properties(${name} PROPERTIES
+			COMPILE_FLAGS "-DGAMEBOYCORE_STATIC"
+		)
+		target_link_libraries(${name} gameboycore-s ${GTEST_BOTH_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 		add_test(${name} ${name})
 	endmacro(add_gtest)
 

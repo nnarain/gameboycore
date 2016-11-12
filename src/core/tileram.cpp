@@ -1,6 +1,6 @@
 
-#include "gameboy/tileram.h"
-#include "gameboy/memorymap.h"
+#include "gameboycore/tileram.h"
+#include "gameboycore/memorymap.h"
 
 #include <stdexcept>
 
