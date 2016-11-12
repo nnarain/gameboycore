@@ -16,7 +16,7 @@ static void testInvalidOpcode(uint8_t opcode)
 		0x76
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	(void)run(gameboy, code.rom());
 }
 

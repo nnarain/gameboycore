@@ -19,7 +19,7 @@ TEST(BitInstructions, CheckBit)
 		0x76			// halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 0x80);

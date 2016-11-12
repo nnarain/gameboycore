@@ -8,7 +8,7 @@
 #include "test_helper.h"
 #include "util/codegenerator.h"
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 using namespace gb;
 
@@ -31,7 +31,7 @@ TEST(LoadInstructionsTest, Load8BitImmediate)
 	);
 
 	
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 	
 	const MMU& mmu = gameboy.getCPU().getMMU();
@@ -61,7 +61,7 @@ TEST(LoadInstructionsTest, Load16BitImmediate)
 	);
 
 	
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 	
 	EXPECT_EQ(status.bc.val, 0x1234);
@@ -81,7 +81,7 @@ TEST(LoadInstructionsTest, Transfer)
 		0x76
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status;
 	
 	status = run(gameboy, code.rom());
@@ -318,7 +318,7 @@ TEST(LoadInstructionsTest, LoadRegisterFromMemory)
 	code.address(0x250);
 	code.block(0xAE);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status;
 
 	status = run(gameboy, code.rom());
@@ -335,7 +335,7 @@ TEST(LoadInstructionsTest, LoadRegisterFromMemory)
 
 TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	
 	CPU::Status status;
 	MMU::Ptr mmu;
@@ -396,7 +396,7 @@ TEST(LoadInstructionsTest, LoadMemoryFromRegister)
 
 TEST(LoadInstructionsTest, LoadMemoryIncDec)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status;
 
 	CodeGenerator code;
@@ -422,7 +422,7 @@ TEST(LoadInstructionsTest, LoadMemoryIncDec)
 
 TEST(LoadInstructionsTest, LoadRegisterIncDec)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status;
 
 	CodeGenerator code;
@@ -459,7 +459,7 @@ TEST(LoadInstructionsTest, LoadRegisterIncDec)
 
 TEST(LoadInstructionsTest, In) 
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status;
 
 	CodeGenerator code;
@@ -482,7 +482,7 @@ TEST(LoadInstructionsTest, In)
 
 TEST(LoadInstructionsTest, Out)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status;
 
 	CodeGenerator code;

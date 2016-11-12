@@ -8,7 +8,7 @@
 #include <cstring>
 #include <iostream>
 
-#include <gameboy/memorymap.h>
+#include <gameboycore/memorymap.h>
 
 class CodeGenerator 
 {

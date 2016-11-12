@@ -1,8 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#include <gameboy/alu.h>
-#include <gameboy/cpu.h>
+#include <gameboycore/alu.h>
+#include <gameboycore/cpu.h>
 
 using namespace gb;
 

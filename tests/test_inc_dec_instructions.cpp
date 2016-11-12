@@ -9,7 +9,7 @@
 #include "test_helper.h"
 #include "util/codegenerator.h"
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 using namespace gb;
 
@@ -30,7 +30,7 @@ TEST(IncDecInstructions, Inc16Bit)
 		0x76				// halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.bc.val, 0x1235);
@@ -56,7 +56,7 @@ TEST(IncDecInstructions, Dec16Bit)
 		0x76				// halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.bc.val, 0x1233);
@@ -89,7 +89,7 @@ TEST(IncDecInstructions, Inc8Bit)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 2);
@@ -125,7 +125,7 @@ TEST(IncDecInstructions, Dec8Bit)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 0);
@@ -149,7 +149,7 @@ TEST(IncDecInstructions, IncMemory)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	(void)run(gameboy, code.rom());
 	const MMU& mmu = gameboy.getCPU().getMMU();
 
@@ -168,7 +168,7 @@ TEST(IncDecInstructions, DecMemory)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	(void)run(gameboy, code.rom());
 	const MMU& mmu = gameboy.getCPU().getMMU();
 
@@ -188,7 +188,7 @@ TEST(IncDecInstructions, ZeroFlag)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
@@ -205,7 +205,7 @@ TEST(IncDecInstructions, HalfCarryFlag)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
@@ -222,7 +222,7 @@ TEST(IncDecInstructions, HalfBorrow)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);

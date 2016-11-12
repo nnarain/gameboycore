@@ -3,7 +3,7 @@
 #include "test_helper.h"
 #include "util/codegenerator.h"
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 using namespace gb;
 
@@ -32,7 +32,7 @@ TEST(MiscInstructions, Swap)
 		0x76        // halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 	const MMU& mmu = gameboy.getCPU().getMMU();
 
@@ -56,7 +56,7 @@ TEST(MiscInstructions, ComplementA)
 		0x76        // halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 0xFF);
@@ -72,7 +72,7 @@ TEST(MiscInstructions, SetCarry)
 		0x76        // halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.lo & CPU::Flags::C, CPU::Flags::C);
@@ -89,7 +89,7 @@ TEST(MiscInstructions, DAA)
 		0x76        // halt
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 0x83);

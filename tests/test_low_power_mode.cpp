@@ -13,7 +13,7 @@ using namespace gb;
 
 TEST(LowPowerTest, Halt)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 
 	CodeGenerator code;
 	code.block(
@@ -27,7 +27,7 @@ TEST(LowPowerTest, Halt)
 
 TEST(LowPowerTest, HaltResume)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 
 	CodeGenerator code;
 	code.block(
@@ -61,7 +61,7 @@ TEST(LowPowerTest, HaltResume)
 
 TEST(LowPowerTest, Stop)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 
 	CodeGenerator code;
 	code.block(
@@ -94,7 +94,7 @@ TEST(LowPowerTest, StopResume)
 	);
 
 	
-	Gameboy gameboy;
+	GameboyCore gameboy;
 
 	auto status = run(gameboy, code.rom(), false);
 	InterruptProvider interrupt{ gameboy.getCPU().getMMU(), InterruptProvider::Interrupt::JOYPAD };

@@ -6,7 +6,7 @@
 #include <functional>
 #include <stdexcept>
 
-#include <gameboycore/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 #include "window.h"
 
@@ -35,7 +35,7 @@ int main(int argc, char * argv[])
     {
 		try
 		{
-			Gameboy gameboy;
+			GameboyCore gameboy;
 			gameboy.loadROM(&rom[0], rom.size());
 
 			// after loading ROM into Gameboy, release loaded image
@@ -47,13 +47,11 @@ int main(int argc, char * argv[])
 			Window window(gameboy, title);
 			window.start();
 
-			// start emulating
-			gameboy.setStepCount(512);
 			gameboy.setDebugMode(false);
 
 			while (window.isOpen())
 			{
-				gameboy.update();
+				gameboy.update(512);
 				window.update();
 			}
 		}

@@ -14,7 +14,7 @@ add_executable(example
 	audio.h
 )
 target_link_libraries(example
-    gbcore
+    gameboycore
 	${SFML_LIBRARIES}
 )
 

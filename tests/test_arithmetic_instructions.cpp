@@ -5,25 +5,11 @@
 */
 
 #include <gtest/gtest.h>
-#include "util/codegenerator.h"
+#include "test_helper.h"
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 using namespace gb;
-
-static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
-{
-	gameboy.loadROM(&rom[0], rom.size());
-
-	while (!gameboy.isDone())
-		gameboy.update();
-
-	CPU::Status status = gameboy.getCPU().getStatus();
-
-	gameboy.reset();
-
-	return status;
-}
 
 TEST(ArithmeticTests, AddOverflow)
 {
@@ -40,7 +26,7 @@ TEST(ArithmeticTests, AddOverflow)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 0x00);
@@ -62,7 +48,7 @@ TEST(ArithmeticTests, AddHalfCarry)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.af.hi, 0x10);

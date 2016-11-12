@@ -5,7 +5,7 @@
 #include "util/codegenerator.h"
 
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 using namespace gb;
 
@@ -19,7 +19,7 @@ TEST(CallInstructions, BaseCall)
 	code.address(0x250);
 	code.block(0x76);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 	const MMU& mmu = gameboy.getCPU().getMMU();
 
@@ -40,7 +40,7 @@ TEST(CallInstructions, ZFlag)
 	code.address(0x250);
 	code.block(0x76);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 	MMU::Ptr mmu = gameboy.getMMU();
 
@@ -78,7 +78,7 @@ TEST(CallInstructions, CFlag)
 	code.address(0x250);
 	code.block(0x76);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 	MMU::Ptr mmu = gameboy.getMMU();
 
@@ -119,7 +119,7 @@ TEST(CallInstructions, Return)
 		0xC9				// RET
 	);
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
 	EXPECT_EQ(status.pc.val, 0x154);

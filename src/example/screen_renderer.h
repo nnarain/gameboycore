@@ -7,7 +7,7 @@
 #ifndef EMULATOR_SCREEN_RENDERER_H
 #define EMULATOR_SCREEN_RENDERER_H
 
-#include <gameboycore/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -27,7 +27,7 @@ class ScreenRenderer
 	static constexpr auto HEIGHT        = TILES_PER_COL * 8;
 
 public:
-	ScreenRenderer(gb::Gameboy& gameboy) :
+	ScreenRenderer(gb::GameboyCore& gameboy) :
 		frame_buffer_(WIDTH, HEIGHT, 0)
 	{
 		if (!screen_texture_.create(WIDTH, HEIGHT))

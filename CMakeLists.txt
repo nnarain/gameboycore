@@ -26,11 +26,16 @@ endif(IS_BIG_ENDIAN)
 
 # Core sources for Gameboy emulation
 set(GAMEBOYCORE_API_HEADERS
-	
+	include/gameboycore/gameboycore.h
+	include/gameboycore/cpu.h
+	include/gameboycore/mmu.h
+	include/gameboycore/gpu.h
+	include/gameboycore/apu.h
+	include/gameboycore/joypad.h
 )
 
 set(GAMEBOYCORE
-    src/core/gameboy.cpp
+    src/core/gameboycore.cpp
     src/core/cpu.cpp
 	src/core/alu.cpp
     src/core/mmu.cpp
@@ -47,17 +52,11 @@ set(GAMEBOYCORE
 
 set(GAMEBOYCORE_HEADERS
 	${GAMEBOYCORE_API_HEADERS}
-	include/gameboycore/gameboy.h
-	include/gameboycore/cpu.h
 	include/gameboycore/alu.h
-	include/gameboycore/mmu.h
-	include/gameboycore/gpu.h
-	include/gameboycore/apu.h
 	include/gameboycore/tileram.h
 	include/gameboycore/tilemap.h
 	include/gameboycore/oam.h
 	include/gameboycore/tile.h
-	include/gameboycore/joypad.h
 	include/gameboycore/timer.h
 	include/gameboycore/interrupt_provider.h
 	include/gameboycore/pixel.h
@@ -67,14 +66,12 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboycore/noise.h
 	include/gameboycore/wave.h
 	include/gameboycore/channel.h
-
 	include/gameboycore/memorymap.h
 	include/gameboycore/mbc.h
 	include/gameboycore/mbc1.h
 	include/gameboycore/cartinfo.h
 	include/gameboycore/opcodeinfo.h
 	include/gameboycore/opcode_cycles.h
-
 	src/core/bitutil.h
 	src/core/shiftrotate.h
 )
@@ -99,9 +96,13 @@ add_definitions(
 )
 
 # Gameboy Core Library
-add_library(gbcore SHARED
+add_library(${PROJECT_NAME} SHARED
     ${GAMEBOYCORE}
 	${GAMEBOYCORE_HEADERS}
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+	COMPILE_FLAGS "-DGAMEBOYCORE_EXPORT"
 )
 
 if(NOT NO_GUI)
@@ -113,7 +114,7 @@ add_subdirectory(tests)
 
 # install core
 install(
-	TARGETS gbcore
+	TARGETS ${PROJECT_NAME}
 	ARCHIVE DESTINATION lib
 	LIBRARY DESTINATION lib
 	RUNTIME DESTINATION bin

@@ -6,6 +6,8 @@
 #ifndef GAMEBOYCORE_H
 #define GAMEBOYCORE_H
 
+#include "gameboycore/gameboycore_api.h"
+
 #include "gameboycore/cpu.h"
 #include "gameboycore/mmu.h"
 #include "gameboycore/gpu.h"
@@ -19,29 +21,19 @@ namespace gb
     /**
         \brief Encapsulation for Gameboy emulation
     */
-    class Gameboy
+    class GAMEBOYCORE_API GameboyCore
     {
-    private:
-		CPU::Ptr cpu_;
-		MMU::Ptr mmu_;
-		GPU::Ptr gpu_;
-		APU::Ptr apu_;
-
     public:
-        Gameboy();
+		GameboyCore();
+		~GameboyCore();
 
-        void update();
+        void update(int steps = 1);
 
         void loadROM(uint8_t* rom, uint32_t size);
 
 		void reset();
 
 		void setDebugMode(bool debug);
-
-		/**
-			Set number of cpu steps to perform before update terminates.
-		*/
-		void setStepCount(unsigned int step_count);
 
 		CPU& getCPU();
 		MMU::Ptr getMMU();
@@ -51,8 +43,10 @@ namespace gb
 		Joypad getJoypad();
 
 		bool isDone() const;
-    private:
-		unsigned int step_count_;
+
+	private:
+		class Impl;
+		Impl* impl_;
     };
 }
 
