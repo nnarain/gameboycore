@@ -7,6 +7,8 @@
 #include <gtest/gtest.h>
 #include "test_helper.h"
 
+#include <gameboycore/interrupt_provider.h>
+
 #include <iostream>
 
 using namespace gb;

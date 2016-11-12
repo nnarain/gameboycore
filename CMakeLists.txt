@@ -33,6 +33,7 @@ set(GAMEBOYCORE_API_HEADERS
 	include/gameboycore/gpu.h
 	include/gameboycore/apu.h
 	include/gameboycore/joypad.h
+	include/gameboycore/pixel.h
 )
 
 set(GAMEBOYCORE
@@ -61,7 +62,6 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboycore/tile.h
 	include/gameboycore/timer.h
 	include/gameboycore/interrupt_provider.h
-	include/gameboycore/pixel.h
 	include/gameboycore/sprite.h
 	include/gameboycore/palette.h
 	include/gameboycore/sound.h
