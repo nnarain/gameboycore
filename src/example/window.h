@@ -128,30 +128,30 @@ private:
 		switch (key)
 		{
 		case sf::Keyboard::Key::W:
-			joypad_.press(gb::Joypad::Key::UP);
+			joypad_->press(gb::Joy::Key::UP);
 			break;
 		case sf::Keyboard::Key::A:
-			joypad_.press(gb::Joypad::Key::LEFT);
+			joypad_->press(gb::Joy::Key::LEFT);
 			break;
 		case sf::Keyboard::Key::D:
-			joypad_.press(gb::Joypad::Key::RIGHT);
+			joypad_->press(gb::Joy::Key::RIGHT);
 			break;
 		case sf::Keyboard::Key::S:
-			joypad_.press(gb::Joypad::Key::DOWN);
+			joypad_->press(gb::Joy::Key::DOWN);
 			break;
 
 		case sf::Keyboard::RShift:
-			joypad_.press(gb::Joypad::Key::SELECT);
+			joypad_->press(gb::Joy::Key::SELECT);
 			break;
 		case sf::Keyboard::Return:
-			joypad_.press(gb::Joypad::Key::START);
+			joypad_->press(gb::Joy::Key::START);
 			break;
 
 		case sf::Keyboard::J:
-			joypad_.press(gb::Joypad::Key::A);
+			joypad_->press(gb::Joy::Key::A);
 			break;
 		case sf::Keyboard::K:
-			joypad_.press(gb::Joypad::Key::B);
+			joypad_->press(gb::Joy::Key::B);
 			break;
 
 		default:
@@ -164,30 +164,30 @@ private:
 		switch (key)
 		{
 		case sf::Keyboard::Key::W:
-			joypad_.release(gb::Joypad::Key::UP);
+			joypad_->release(gb::Joy::Key::UP);
 			break;
 		case sf::Keyboard::Key::A:
-			joypad_.release(gb::Joypad::Key::LEFT);
+			joypad_->release(gb::Joy::Key::LEFT);
 			break;
 		case sf::Keyboard::Key::D:
-			joypad_.release(gb::Joypad::Key::RIGHT);
+			joypad_->release(gb::Joy::Key::RIGHT);
 			break;
 		case sf::Keyboard::Key::S:
-			joypad_.release(gb::Joypad::Key::DOWN);
+			joypad_->release(gb::Joy::Key::DOWN);
 			break;
 
 		case sf::Keyboard::RShift:
-			joypad_.release(gb::Joypad::Key::SELECT);
+			joypad_->release(gb::Joy::Key::SELECT);
 			break;
 		case sf::Keyboard::Return:
-			joypad_.release(gb::Joypad::Key::START);
+			joypad_->release(gb::Joy::Key::START);
 			break;
 
 		case sf::Keyboard::J:
-			joypad_.release(gb::Joypad::Key::A);
+			joypad_->release(gb::Joy::Key::A);
 			break;
 		case sf::Keyboard::K:
-			joypad_.release(gb::Joypad::Key::B);
+			joypad_->release(gb::Joy::Key::B);
 			break;
 
 		default:
@@ -200,7 +200,7 @@ private:
 	ScreenRenderer screen_renderer_;
 	Audio audio_;
 
-	gb::Joypad joypad_;
+	gb::Joy::Ptr joypad_;
 };
 
 

@@ -39,8 +39,7 @@ namespace gb
 		MMU::Ptr getMMU();
 		GPU::Ptr getGPU();
 		APU::Ptr getAPU();
-
-		Joypad getJoypad();
+		Joy::Ptr getJoypad();
 
 		bool isDone() const;
 

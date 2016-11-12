@@ -14,6 +14,7 @@ namespace gb
 		MMU::Ptr mmu;
 		GPU::Ptr gpu;
 		APU::Ptr apu;
+		Joy::Ptr joy;
 
 		void loadROM(uint8_t* rom, uint32_t size)
 		{
@@ -24,6 +25,8 @@ namespace gb
 			apu.reset(new APU(mmu));
 
 			cpu.reset(new CPU(mmu, gpu, apu));
+
+			joy.reset(new Joy(*mmu));
 		}
 	};
 
@@ -82,9 +85,9 @@ namespace gb
 		return impl_->apu;
 	}
 
-	Joypad GameboyCore::getJoypad()
+	Joy::Ptr GameboyCore::getJoypad()
 	{
-		return Joypad(*impl_->mmu.get());
+		return impl_->joy;
 	}
 
 	bool GameboyCore::isDone() const

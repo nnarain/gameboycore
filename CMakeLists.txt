@@ -123,7 +123,7 @@ add_subdirectory(tests)
 
 # install core
 install(
-	TARGETS ${PROJECT_NAME}
+	TARGETS ${PROJECT_NAME} ${PROJECT_NAME}-s
 	ARCHIVE DESTINATION lib
 	LIBRARY DESTINATION lib
 	RUNTIME DESTINATION bin

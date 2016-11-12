@@ -6,14 +6,15 @@
 #ifndef GAMEBOYCORE_JOYPAD_H
 #define GAMEBOYCORE_JOYPAD_H
 
+#include "gameboycore/gameboycore_api.h"
 #include "gameboycore/mmu.h"
-#include "gameboycore/interrupt_provider.h"
 
 #include <functional>
+#include <memory>
 
 namespace gb
 {
-	class Joypad
+	class GAMEBOYCORE_API Joy
 	{
 	public:
 		enum class Key
@@ -28,23 +29,17 @@ namespace gb
 			START  = 7
 		};
 
-		Joypad(MMU& mmu);
-		~Joypad();
+		using Ptr = std::shared_ptr<Joy>;
+
+		Joy(MMU& mmu);
+		~Joy();
 
 		void press(Key key);
-
 		void release(Key key);
 
-		uint8_t readJoypad();
-
-		void writeJoypad(uint8_t value);
-
 	private:
-		MMU& mmu_;
-		uint8_t& reg_;
-		uint8_t keys_;
-
-		InterruptProvider interrupt_provider_;
+		class Impl;
+		Impl* impl_;
 	};
 }
 
