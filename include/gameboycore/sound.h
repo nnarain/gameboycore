@@ -1,8 +1,8 @@
-#ifndef GAMEBOY_SOUND_H
-#define GAMEBOY_SOUND_H
+#ifndef GAMEBOYCORE_SOUND_H
+#define GAMEBOYCORE_SOUND_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/channel.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/channel.h"
 
 #include <cstdint>
 
@@ -33,4 +33,4 @@ namespace gb
 	};
 }
 
-#endif // GAMEBOY_SOUND_H
+#endif // GAMEBOYCORE_SOUND_H

@@ -3,11 +3,11 @@
 	@author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef GAMEBOY_JOYPAD_H
-#define GAMEBOY_JOYPAD_H
+#ifndef GAMEBOYCORE_JOYPAD_H
+#define GAMEBOYCORE_JOYPAD_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/interrupt_provider.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/interrupt_provider.h"
 
 #include <functional>
 

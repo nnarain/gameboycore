@@ -6,8 +6,8 @@
 #ifndef GAMEBOY_WAVE_H
 #define GAMEBOY_WAVE_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/memorymap.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/memorymap.h"
 
 #include <cstdint>
 
@@ -35,4 +35,4 @@ namespace gb
 	};
 }
 
-#endif // GAMEBOY_WAVE_H
+#endif // GAMEBOYCORE_WAVE_H

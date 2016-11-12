@@ -9,7 +9,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-#include <gameboy/tileram.h>
+#include <gameboycore/tileram.h>
 
 #include <stdexcept>
 #include <string>

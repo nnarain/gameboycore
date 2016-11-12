@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.0)
 set(CMAKE_MODULE_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
-project(gameboy)
+project(gameboycore)
 
 # test endianness of system
 include(TestBigEndian)
@@ -47,33 +47,33 @@ set(GAMEBOYCORE
 
 set(GAMEBOYCORE_HEADERS
 	${GAMEBOYCORE_API_HEADERS}
-	include/gameboy/gameboy.h
-	include/gameboy/cpu.h
-	include/gameboy/alu.h
-	include/gameboy/mmu.h
-	include/gameboy/gpu.h
-	include/gameboy/apu.h
-	include/gameboy/tileram.h
-	include/gameboy/tilemap.h
-	include/gameboy/oam.h
-	include/gameboy/tile.h
-	include/gameboy/joypad.h
-	include/gameboy/timer.h
-	include/gameboy/interrupt_provider.h
-	include/gameboy/pixel.h
-	include/gameboy/sprite.h
-	include/gameboy/palette.h
-	include/gameboy/sound.h
-	include/gameboy/noise.h
-	include/gameboy/wave.h
-	include/gameboy/channel.h
+	include/gameboycore/gameboy.h
+	include/gameboycore/cpu.h
+	include/gameboycore/alu.h
+	include/gameboycore/mmu.h
+	include/gameboycore/gpu.h
+	include/gameboycore/apu.h
+	include/gameboycore/tileram.h
+	include/gameboycore/tilemap.h
+	include/gameboycore/oam.h
+	include/gameboycore/tile.h
+	include/gameboycore/joypad.h
+	include/gameboycore/timer.h
+	include/gameboycore/interrupt_provider.h
+	include/gameboycore/pixel.h
+	include/gameboycore/sprite.h
+	include/gameboycore/palette.h
+	include/gameboycore/sound.h
+	include/gameboycore/noise.h
+	include/gameboycore/wave.h
+	include/gameboycore/channel.h
 
-	include/gameboy/memorymap.h
-	include/gameboy/mbc.h
-	include/gameboy/mbc1.h
-	include/gameboy/cartinfo.h
-	include/gameboy/opcodeinfo.h
-	include/gameboy/opcode_cycles.h
+	include/gameboycore/memorymap.h
+	include/gameboycore/mbc.h
+	include/gameboycore/mbc1.h
+	include/gameboycore/cartinfo.h
+	include/gameboycore/opcodeinfo.h
+	include/gameboycore/opcode_cycles.h
 
 	src/core/bitutil.h
 	src/core/shiftrotate.h
@@ -105,7 +105,7 @@ add_library(gbcore SHARED
 )
 
 if(NOT NO_GUI)
-	add_subdirectory(src/gameboy)
+	add_subdirectory(src/example)
 endif(NOT NO_GUI)
 
 enable_testing()

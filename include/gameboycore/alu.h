@@ -3,10 +3,10 @@
 	@author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef GAMEBOY_ALU_H
-#define GAMEBOY_ALU_H
+#ifndef GAMEBOYCORE_ALU_H
+#define GAMEBOYCORE_ALU_H
 
-#include <stdint.h>
+#include <cstdint>
 
 /**
 	Contains Math and Logical operation
@@ -78,4 +78,4 @@ namespace gb
 	};
 
 }
-#endif // GAMEBOY_ALU_H
+#endif // GAMEBOYCORE_ALU_H

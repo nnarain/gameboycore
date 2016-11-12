@@ -3,7 +3,7 @@
 
 #include <SFML/Audio.hpp>
 
-#include <gameboy/apu.h>
+#include <gameboycore/apu.h>
 
 #include <array>
 #include <vector>

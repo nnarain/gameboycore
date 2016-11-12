@@ -1,5 +1,5 @@
-#ifndef GAMEBOY_TILE_H
-#define GAMEBOY_TILE_H
+#ifndef GAMEBOYCORE_TILE_H
+#define GAMEBOYCORE_TILE_H
 
 #include <cstdint>
 
@@ -11,4 +11,4 @@ namespace gb
 	};
 }
 
-#endif // !GAMEBOY_TILE_H
+#endif // GAMEBOYCORE_TILE_H

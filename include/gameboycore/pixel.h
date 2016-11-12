@@ -3,8 +3,8 @@
 	\date Oct 23 2016
 */
 
-#ifndef GAMEBOY_PIXEL_H
-#define GAMEBOY_PIXEL_H
+#ifndef GAMEBOYCORE_PIXEL_H
+#define GAMEBOYCORE_PIXEL_H
 
 #include <cstdint>
 
@@ -32,5 +32,5 @@ namespace gb
 	};
 }
 
-#endif // GAMEBOY_PIXEL_H
+#endif // GAMEBOYCORE_PIXEL_H
 

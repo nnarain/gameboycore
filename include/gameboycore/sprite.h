@@ -3,8 +3,8 @@
 	@author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef GAMEBOY_SPRITE_H
-#define GAMEBOY_SPRITE_H
+#ifndef GAMEBOYCORE_SPRITE_H
+#define GAMEBOYCORE_SPRITE_H
 
 #include <cstdint>
 
@@ -45,4 +45,4 @@ namespace gb
 	};
 }
 
-#endif // GAMEBOY_SPRITE_H
+#endif // GAMEBOYCORE_SPRITE_H

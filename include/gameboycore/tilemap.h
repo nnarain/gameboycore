@@ -3,12 +3,12 @@
 	@date Spet 15, 2016
 */
 
-#ifndef GAMEBOY_TILEMAP_H
-#define GAMEBOY_TILEMAP_H
+#ifndef GAMEBOYCORE_TILEMAP_H
+#define GAMEBOYCORE_TILEMAP_H
 
-#include "gameboy/tileram.h"
-#include "gameboy/pixel.h"
-#include "gameboy/memorymap.h"
+#include "gameboycore/tileram.h"
+#include "gameboycore/pixel.h"
+#include "gameboycore/memorymap.h"
 
 #include <array>
 #include <cstdint>
@@ -52,4 +52,4 @@ namespace gb
 	};
 }
 
-#endif // GAMEBOY_TILEMAP_H
+#endif // GAMEBOYCORE_TILEMAP_H

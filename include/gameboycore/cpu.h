@@ -3,20 +3,20 @@
     \author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef GAMEBOY_CPU_H
-#define GAMEBOY_CPU_H
+#ifndef GAMEBOYCORE_CPU_H
+#define GAMEBOYCORE_CPU_H
 
 // check endianness
 #if !defined(__BIGENDIAN__) && !defined(__LITTLEENDIAN__)
 #	error "Either __BIGENDIAN__ or __LITTLEENDIAN__ must be defined"
 #endif
 
-#include "gameboy/mmu.h"
-#include "gameboy/gpu.h"
-#include "gameboy/apu.h"
-#include "gameboy/alu.h"
-#include "gameboy/opcodeinfo.h"
-#include "gameboy/timer.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/gpu.h"
+#include "gameboycore/apu.h"
+#include "gameboycore/alu.h"
+#include "gameboycore/opcodeinfo.h"
+#include "gameboycore/timer.h"
 
 #include <cstdint>
 #include <memory>
@@ -210,4 +210,4 @@ namespace gb
     };
 }
 
-#endif // GAMEBOY_CPU_H
+#endif // GAMEBOYCORE_CPU_H

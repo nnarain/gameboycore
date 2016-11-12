@@ -3,8 +3,8 @@
 	\author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#include "gameboy/mmu.h"
-#include "gameboy/mbc1.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/mbc1.h"
 #include "bitutil.h"
 
 #include <cstring>

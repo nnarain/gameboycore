@@ -3,11 +3,11 @@
     \author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef GAMEBOY_MMU_H
-#define GAMEBOY_MMU_H
+#ifndef GAMEBOYCORE_MMU_H
+#define GAMEBOYCORE_MMU_H
 
-#include "gameboy/mbc.h"
-#include "gameboy/cartinfo.h"
+#include "gameboycore/mbc.h"
+#include "gameboycore/cartinfo.h"
 
 #include <vector>
 #include <functional>

@@ -6,9 +6,9 @@
 #ifndef GAMEBOY_TIMER_H
 #define GAMEBOY_TIMER_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/memorymap.h"
-#include "gameboy/interrupt_provider.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/memorymap.h"
+#include "gameboycore/interrupt_provider.h"
 
 #include <cstdint>
 #include <functional>
@@ -42,4 +42,4 @@ namespace gb
 	};
 }
 
-#endif // GAMEBOY_TIMER_H
+#endif // GAMEBOYCORE_TIMER_H

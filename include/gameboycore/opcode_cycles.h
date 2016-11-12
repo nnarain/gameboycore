@@ -5,8 +5,8 @@
 	\date   Oct 30, 2016
 */
 
-#ifndef GAMEBOY_OPCODE_CYCLES_H
-#define GAMEBOY_OPCODE_CYCLES_H
+#ifndef GAMEBOYCORE_OPCODE_CYCLES_H
+#define GAMEBOYCORE_OPCODE_CYCLES_H
 
 #include <cstdint>
 

@@ -1,5 +1,5 @@
 
-#include "gameboy/gameboy.h"
+#include "gameboycore/gameboy.h"
 
 #include <memory>
 

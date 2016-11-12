@@ -7,7 +7,7 @@
 #ifndef EMULATOR_SCREEN_RENDERER_H
 #define EMULATOR_SCREEN_RENDERER_H
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboy.h>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>

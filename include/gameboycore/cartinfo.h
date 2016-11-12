@@ -3,11 +3,11 @@
     @author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef GAMEBOY_CARTINFO_H
-#define GAMEBOY_CARTINFO_H
+#ifndef GAMEBOYCORE_CARTINFO_H
+#define GAMEBOYCORE_CARTINFO_H
 
-#include "gameboy/memorymap.h"
-#include <stdint.h>
+#include "gameboycore/memorymap.h"
+#include <cstdint>
 
 namespace gb
 {

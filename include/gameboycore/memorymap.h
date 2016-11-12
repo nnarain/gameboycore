@@ -4,8 +4,8 @@
 	@author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef GAMEBOY_MEMORYMAP_H
-#define GAMEBOY_MEMORYMAP_H
+#ifndef GAMEBOYCORE_MEMORYMAP_H
+#define GAMEBOYCORE_MEMORYMAP_H
 
 namespace gb{
 	namespace memorymap{
@@ -164,4 +164,4 @@ namespace gb{
 	}
 }
 
-#endif // GAMEBOY_MEMORYMAP_H
+#endif // GAMEBOYCORE_MEMORYMAP_H

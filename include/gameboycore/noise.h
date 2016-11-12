@@ -3,11 +3,11 @@
 	\date   Nov 3 2016
 */
 
-#ifndef GAMEBOY_NOISE_H
-#define GAMEBOY_NOISE_H
+#ifndef GAMEBOYCORE_NOISE_H
+#define GAMEBOYCORE_NOISE_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/memorymap.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/memorymap.h"
 
 #include <cstdint>
 

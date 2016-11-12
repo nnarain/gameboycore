@@ -1,4 +1,4 @@
-#include "gameboy/timer.h"
+#include "gameboycore/timer.h"
 
 namespace gb
 {

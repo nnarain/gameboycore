@@ -1,5 +1,5 @@
-#include "gameboy/gpu.h"
-#include "gameboy/palette.h"
+#include "gameboycore/gpu.h"
+#include "gameboycore/palette.h"
 
 #include "bitutil.h"
 

@@ -4,8 +4,8 @@
 	\date   Nov 5 2016
 */
 
-#ifndef GAMEBOY_CHANNEL_H
-#define GAMEBOY_CHANNEL_H
+#ifndef GAMEBOYCORE_CHANNEL_H
+#define GAMEBOYCORE_CHANNEL_H
 
 #include <cstdint>
 

@@ -1,9 +1,9 @@
-#ifndef GAMEBOY_OAM_H
-#define GAMEBOY_OAM_H
+#ifndef GAMEBOYCORE_OAM_H
+#define GAMEBOYCORE_OAM_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/memorymap.h"
-#include "gameboy/sprite.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/memorymap.h"
+#include "gameboycore/sprite.h"
 
 #include <vector>
 
@@ -26,4 +26,4 @@ namespace gb
 	};
 }
 
-#endif // GAMEBOY_OAM_H
+#endif // GAMEBOYCORE_OAM_H

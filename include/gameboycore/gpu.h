@@ -3,14 +3,14 @@
 	\date Oct 23 2016
 */
 
-#ifndef GAMEBOY_GPU_H
-#define GAMEBOY_GPU_H
+#ifndef GAMEBOYCORE_GPU_H
+#define GAMEBOYCORE_GPU_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/memorymap.h"
-#include "gameboy/pixel.h"
-#include "gameboy/interrupt_provider.h"
-#include "gameboy/tilemap.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/memorymap.h"
+#include "gameboycore/pixel.h"
+#include "gameboycore/interrupt_provider.h"
+#include "gameboycore/tilemap.h"
 
 #include <memory>
 #include <cstdint>

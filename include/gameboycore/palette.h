@@ -2,10 +2,10 @@
 	\author Natesh Narain
 */
 
-#ifndef GAMEBOY_PALETTE_H
-#define GAMEBOY_PALETTE_H
+#ifndef GAMEBOYCORE_PALETTE_H
+#define GAMEBOYCORE_PALETTE_H
 
-#include "gameboy/pixel.h"
+#include "gameboycore/pixel.h"
 
 #include <array>
 #include <cstdint>
@@ -42,4 +42,4 @@ namespace gb
 	};
 }
 
-#endif // GAMEBOY_PALETTE_H
+#endif // GAMEBOYCORE_PALETTE_H

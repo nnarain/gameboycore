@@ -1,8 +1,8 @@
-#ifndef GAMEBOY_INTERRUPT_PROVIDER_H
-#define GAMEBOY_INTERRUPT_PROVIDER_H
+#ifndef GAMEBOYCORE_INTERRUPT_PROVIDER_H
+#define GAMEBOYCORE_INTERRUPT_PROVIDER_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/memorymap.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/memorymap.h"
 
 #include <cstdint>
 

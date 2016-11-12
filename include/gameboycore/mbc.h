@@ -4,8 +4,8 @@
 	\date   Oct 11 2016
 */
 
-#ifndef GAMEBOY_MBC_H
-#define GAMEBOY_MBC_H
+#ifndef GAMEBOYCORE_MBC_H
+#define GAMEBOYCORE_MBC_H
 
 #include <cstdint>
 #include <vector>
@@ -117,4 +117,4 @@ namespace gb
 	};
 }
 
-#endif // GAMEBOY_MBC_H
+#endif // GAMEBOYCORE_MBC_H

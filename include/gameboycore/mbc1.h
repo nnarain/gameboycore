@@ -4,10 +4,10 @@
 	\date Oct 11 2016
 */
 
-#ifndef GAMEBOY_MBC1_H
-#define GAMEBOY_MBC1_H
+#ifndef GAMEBOYCORE_MBC1_H
+#define GAMEBOYCORE_MBC1_H
 
-#include "gameboy/mbc.h"
+#include "gameboycore/mbc.h"
 
 #include <vector>
 #include <cstring>

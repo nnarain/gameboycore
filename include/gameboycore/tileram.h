@@ -4,12 +4,12 @@
 */
 
 
-#ifndef GAMEBOY_DISPLAY_H
-#define GAMEBOY_DISPLAY_H
+#ifndef GAMEBOYCORE_DISPLAY_H
+#define GAMEBOYCORE_DISPLAY_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/tile.h"
-#include "gameboy/sprite.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/tile.h"
+#include "gameboycore/sprite.h"
 
 #include <cstdint>
 #include <vector>
@@ -59,4 +59,4 @@ namespace gb
 
 }
 
-#endif // GAMEBOY_DISPLAY_H
+#endif // GAMEBOYCORE_DISPLAY_H

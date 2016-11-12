@@ -9,10 +9,6 @@
 #include <vector>
 #include <cstdint>
 
-#include "gameboy/tileram.h"
-#include "gameboy/tile.h"
-#include "gameboy/sprite.h"
-
 /**
 	\brief	Write Colors to a Pixel Buffer
 */
@@ -33,21 +29,6 @@ public:
 	}
 
 	template<typename PixelT>
-	void write(gb::Tile& tile, unsigned int x, unsigned int y, PixelT* palette)
-	{
-		auto pixel = 0;
-
-		for (auto row = 0; row < 8; ++row)
-		{
-			for (auto col = 0; col < 8; ++col)
-			{
-				auto& color = palette[tile.color[pixel++]];
-				write(x + col, y + row, color);
-			}
-		}
-	}
-
-	template<typename PixelT>
 	void write(unsigned int x, unsigned int y, PixelT pixel)
 	{
 		const unsigned int pixels_per_row = width_;
@@ -58,28 +39,6 @@ public:
 		buffer_[byte_offset + 1] = pixel.g;
 		buffer_[byte_offset + 2] = pixel.b;
 		buffer_[byte_offset + 3] = pixel.a;
-	}
-
-	void write(gb::Sprite sprite, gb::TileRAM tileram)
-	{
-		static sf::Color palette[] = {
-			{ 255, 255, 255, 255 },
-			{ 192, 192, 192, 255 },
-			{ 96,  96,  96, 255 },
-			{ 0,   0,   0, 255 }
-		};
-
-		auto tile = tileram.getSpriteTile(sprite);
-
-		uint8_t x_coord = sprite.x - 8;
-		uint8_t y_coord = sprite.y - 16;
-
-		// do not render this sprite if out of bounds
-		if (x_coord == 0 || x_coord >= 168) return;
-		if (y_coord == 0 || y_coord >= 160) return;
-
-		// TODO: sprite priority
-		write(tile, x_coord, y_coord, palette);
 	}
 
 	uint8_t* get()

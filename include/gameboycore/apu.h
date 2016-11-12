@@ -4,14 +4,14 @@
 */
 
 
-#ifndef GAMEBOY_APU_H
-#define GAMEBOY_APU_H
+#ifndef GAMEBOYCORE_APU_H
+#define GAMEBOYCORE_APU_H
 
-#include "gameboy/mmu.h"
-#include "gameboy/channel.h"
-#include "gameboy/sound.h"
-#include "gameboy/wave.h"
-#include "gameboy/noise.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/channel.h"
+#include "gameboycore/sound.h"
+#include "gameboycore/wave.h"
+#include "gameboycore/noise.h"
 
 #include <memory>
 #include <functional>

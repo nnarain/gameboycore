@@ -3,14 +3,14 @@
     \author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef GAMEBOY_H
-#define GAMEBOY_H
+#ifndef GAMEBOYCORE_H
+#define GAMEBOYCORE_H
 
-#include "gameboy/cpu.h"
-#include "gameboy/mmu.h"
-#include "gameboy/gpu.h"
-#include "gameboy/apu.h"
-#include "gameboy/joypad.h"
+#include "gameboycore/cpu.h"
+#include "gameboycore/mmu.h"
+#include "gameboycore/gpu.h"
+#include "gameboycore/apu.h"
+#include "gameboycore/joypad.h"
 
 #include <stdint.h>
 
@@ -56,4 +56,4 @@ namespace gb
     };
 }
 
-#endif // GAMEBOY_H
+#endif // GAMEBOYCORE_H

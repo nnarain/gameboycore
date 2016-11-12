@@ -3,7 +3,7 @@
 	\date Oct 8 2016
 */
 
-#include "gameboy/joypad.h"
+#include "gameboycore/joypad.h"
 
 namespace gb
 {

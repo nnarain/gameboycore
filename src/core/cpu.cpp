@@ -1,6 +1,6 @@
 
-#include "gameboy/cpu.h"
-#include "gameboy/opcode_cycles.h"
+#include "gameboycore/cpu.h"
+#include "gameboycore/opcode_cycles.h"
 
 #include <stdexcept>
 #include <string>

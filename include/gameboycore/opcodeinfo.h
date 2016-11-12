@@ -5,8 +5,8 @@
 	@author Natesh Narain <nnaraindev@gmail.com>
 */
 
-#ifndef GAMEBOY_OPCODEINFO_H
-#define GAMEBOY_OPCODEINFO_H
+#ifndef GAMEBOYCORE_OPCODEINFO_H
+#define GAMEBOYCORE_OPCODEINFO_H
 
 #include <stdint.h>
 

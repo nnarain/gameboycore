@@ -6,7 +6,7 @@
 #include <functional>
 #include <stdexcept>
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboy.h>
 
 #include "window.h"
 

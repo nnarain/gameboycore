@@ -6,23 +6,23 @@ include_directories(
 	${SFML_INCLUDE_DIR}
 )
 
-add_executable(dotrix
+add_executable(example
     emulator.cpp
 	window.h
 	screen_renderer.h
 	texture_buffer.h
 	audio.h
 )
-target_link_libraries(dotrix
+target_link_libraries(example
     gbcore
 	${SFML_LIBRARIES}
 )
 
-add_dependencies(dotrix version)
+add_dependencies(example version)
 
 # install targets
 install(
-	TARGETS dotrix
+	TARGETS example
 	RUNTIME DESTINATION bin
 	COMPONENT programs
 )
