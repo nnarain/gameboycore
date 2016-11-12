@@ -39,7 +39,7 @@ build:
   verbosity: minimal
 
 after_build:
-  - C:\projects\gameboy\build\tests\Debug\gameboy_tests.exe
+  - C:\projects\gameboycore\build\tests\Debug\gameboy_tests.exe
   - msbuild C:\projects\gameboy\build\PACKAGE.vcxproj /verbosity:quiet
 
 artifacts:
