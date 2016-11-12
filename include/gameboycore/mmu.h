@@ -6,26 +6,21 @@
 #ifndef GAMEBOYCORE_MMU_H
 #define GAMEBOYCORE_MMU_H
 
-#include "gameboycore/mbc.h"
-#include "gameboycore/cartinfo.h"
+#include "gameboycore/gameboycore_api.h"
 
-#include <vector>
 #include <functional>
-#include <array>
 #include <cstdint>
+#include <memory>
 
 namespace gb
 {
-    class MMU
+    class GAMEBOYCORE_API MMU
     {
 	public:
 		using Ptr = std::shared_ptr<MMU>;
 
 		using MemoryWriteHandler = std::function<void(uint8_t, uint16_t)>;
 		using MemoryReadHandler = std::function<uint8_t()>;
-
-    private:
-		using ROMBank = std::vector<uint8_t>;
 
     public:
         MMU();
@@ -68,17 +63,8 @@ namespace gb
 		uint8_t* getptr(uint16_t);
 
 	private:
-		void oamTransfer(uint8_t base);
-		void loadResetValues();
-		void initWriteMasks();
-
-	private:
-		MBC::Ptr mbc_;
-
-		std::array<MemoryWriteHandler, 0x80> write_handlers_;
-		std::array<MemoryReadHandler, 0x80>  read_handlers_;
-
-		std::array<uint8_t, 0x80> apu_read_masks;
+		class Impl;
+		Impl* impl_;
     };
 }
 
