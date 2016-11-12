@@ -23,10 +23,10 @@ TEST(CallInstructions, BaseCall)
 	CPU::Status status = run(gameboy, code.rom());
 	auto mmu = gameboy.getMMU();
 
-	EXPECT_EQ(status.pc.val, 0x251);
-	EXPECT_EQ(status.sp.val, 0xFFFC);
-	EXPECT_EQ(mmu->read(status.sp.val + 1), 0x01);
-	EXPECT_EQ(mmu->read(status.sp.val + 0), 0x53);
+	EXPECT_EQ(status.pc, 0x251);
+	EXPECT_EQ(status.sp, 0xFFFC);
+	EXPECT_EQ(mmu->read(status.sp + 1), 0x01);
+	EXPECT_EQ(mmu->read(status.sp + 0), 0x53);
 }
 
 TEST(CallInstructions, ZFlag)
@@ -44,11 +44,11 @@ TEST(CallInstructions, ZFlag)
 	CPU::Status status = run(gameboy, code.rom());
 	MMU::Ptr mmu = gameboy.getMMU();
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x251);
-	EXPECT_EQ(status.sp.val, 0xFFFC);
-	EXPECT_EQ(mmu->read(status.sp.val + 1), 0x01);
-	EXPECT_EQ(mmu->read(status.sp.val + 0), 0x56);
+	EXPECT_EQ(status.f & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.pc, 0x251);
+	EXPECT_EQ(status.sp, 0xFFFC);
+	EXPECT_EQ(mmu->read(status.sp + 1), 0x01);
+	EXPECT_EQ(mmu->read(status.sp + 0), 0x56);
 
 	code.reset();
 
@@ -61,11 +61,11 @@ TEST(CallInstructions, ZFlag)
 	status = run(gameboy, code.rom());
 	mmu = gameboy.getMMU();
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, 0);
-	EXPECT_EQ(status.pc.val, 0x251);
-	EXPECT_EQ(status.sp.val, 0xFFFE);
-	EXPECT_EQ(mmu->read(status.sp.val + 1), 0x00);
-	EXPECT_EQ(mmu->read(status.sp.val + 0), 0x00);
+	EXPECT_EQ(status.f & CPU::Flags::Z, 0);
+	EXPECT_EQ(status.pc, 0x251);
+	EXPECT_EQ(status.sp, 0xFFFE);
+	EXPECT_EQ(mmu->read(status.sp + 1), 0x00);
+	EXPECT_EQ(mmu->read(status.sp + 0), 0x00);
 }
 
 TEST(CallInstructions, CFlag)
@@ -82,11 +82,11 @@ TEST(CallInstructions, CFlag)
 	CPU::Status status = run(gameboy, code.rom());
 	MMU::Ptr mmu = gameboy.getMMU();
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::C, CPU::Flags::C);
-	EXPECT_EQ(status.pc.val, 0x251);
-	EXPECT_EQ(status.sp.val, 0xFFFC);
-	EXPECT_EQ(mmu->read(status.sp.val + 1), 0x01);
-	EXPECT_EQ(mmu->read(status.sp.val + 0), 0x54);
+	EXPECT_EQ(status.f & CPU::Flags::C, CPU::Flags::C);
+	EXPECT_EQ(status.pc, 0x251);
+	EXPECT_EQ(status.sp, 0xFFFC);
+	EXPECT_EQ(mmu->read(status.sp + 1), 0x01);
+	EXPECT_EQ(mmu->read(status.sp + 0), 0x54);
 
 	code.reset();
 
@@ -100,11 +100,11 @@ TEST(CallInstructions, CFlag)
 	status = run(gameboy, code.rom());
 	mmu = gameboy.getMMU();
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
-	EXPECT_EQ(status.pc.val, 0x154);
-	EXPECT_EQ(status.sp.val, 0xFFFE);
-	EXPECT_EQ(mmu->read(status.sp.val + 1), 0x00);
-	EXPECT_EQ(mmu->read(status.sp.val + 0), 0x00);
+	EXPECT_EQ(status.f & CPU::Flags::C, 0);
+	EXPECT_EQ(status.pc, 0x154);
+	EXPECT_EQ(status.sp, 0xFFFE);
+	EXPECT_EQ(mmu->read(status.sp + 1), 0x00);
+	EXPECT_EQ(mmu->read(status.sp + 0), 0x00);
 }
 
 TEST(CallInstructions, Return)
@@ -122,6 +122,6 @@ TEST(CallInstructions, Return)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.pc.val, 0x154);
-	EXPECT_EQ(status.sp.val, 0xFFFE);
+	EXPECT_EQ(status.pc, 0x154);
+	EXPECT_EQ(status.sp, 0xFFFE);
 }

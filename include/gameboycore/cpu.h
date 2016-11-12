@@ -6,11 +6,6 @@
 #ifndef GAMEBOYCORE_CPU_H
 #define GAMEBOYCORE_CPU_H
 
-// check endianness
-#if !defined(__BIGENDIAN__) && !defined(__LITTLEENDIAN__)
-#	error "Either __BIGENDIAN__ or __LITTLEENDIAN__ must be defined"
-#endif
-
 #include "gameboycore/mmu.h"
 #include "gameboycore/gpu.h"
 #include "gameboycore/apu.h"
@@ -23,28 +18,28 @@ namespace gb
     class GAMEBOYCORE_API CPU
     {
 	public:
-		union Register
-		{
-			struct {
-#ifdef __LITTLEENDIAN__
-				uint8_t lo;
-				uint8_t hi;
-#else
-				uint8_t hi;
-				uint8_t lo;
-#endif
-			};
-			uint16_t val;
-		};
 
 		struct Status
 		{
-			Register af;
-			Register bc;
-			Register de;
-			Register hl;
-			Register sp;
-			Register pc;
+			uint16_t af;
+			uint8_t a;
+			uint8_t f;
+
+			uint16_t bc;
+			uint8_t b;
+			uint8_t c;
+
+			uint16_t de;
+			uint8_t d;
+			uint8_t e;
+
+			uint16_t hl;
+			uint8_t h;
+			uint8_t l;
+
+			uint16_t pc;
+			uint16_t sp;
+
 			bool halt;
 			bool stopped;
 		};

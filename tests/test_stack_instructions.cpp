@@ -41,10 +41,10 @@ TEST(StackInstructions, PushPop)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.bc.val, 0x1234);
-	EXPECT_EQ(status.de.val, 0x5678);
-	EXPECT_EQ(status.hl.val, 0x9ABC);
-	EXPECT_EQ(status.sp.val, 0xFFFE);
+	EXPECT_EQ(status.bc, 0x1234);
+	EXPECT_EQ(status.de, 0x5678);
+	EXPECT_EQ(status.hl, 0x9ABC);
+	EXPECT_EQ(status.sp, 0xFFFE);
 }
 
 TEST(StackInstructions, LoadHLwithSPRelative)
@@ -60,7 +60,7 @@ TEST(StackInstructions, LoadHLwithSPRelative)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.hl.val, 0xFFFD);
+	EXPECT_EQ(status.hl, 0xFFFD);
 }
 
 TEST(StackInstructions, PopAF)
@@ -80,6 +80,6 @@ TEST(StackInstructions, PopAF)
 	GameboyCore gameboy;
 	auto status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 0x45);
-	EXPECT_EQ(status.af.lo, CPU::Flags::C);
+	EXPECT_EQ(status.a, 0x45);
+	EXPECT_EQ(status.f, CPU::Flags::C);
 }

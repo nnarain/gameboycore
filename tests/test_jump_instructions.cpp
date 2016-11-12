@@ -21,7 +21,7 @@ TEST(JumpInstructions, BaseJump)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.pc.val, 0x151);
+	EXPECT_EQ(status.pc, 0x151);
 	EXPECT_EQ(status.halt, true);
 }
 
@@ -45,8 +45,8 @@ TEST(JumpInstructions, ZFlag)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x301);
+	EXPECT_EQ(status.f & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.pc, 0x301);
 
 	code.reset();
 
@@ -59,8 +59,8 @@ TEST(JumpInstructions, ZFlag)
 
 	status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x157);
+	EXPECT_EQ(status.f & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.pc, 0x157);
 }
 
 TEST(JumpInstructions, CFlag)
@@ -83,8 +83,8 @@ TEST(JumpInstructions, CFlag)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
-	EXPECT_EQ(status.pc.val, 0x301);
+	EXPECT_EQ(status.f & CPU::Flags::C, 0);
+	EXPECT_EQ(status.pc, 0x301);
 
 	code.reset();
 
@@ -95,8 +95,8 @@ TEST(JumpInstructions, CFlag)
 
 	status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
-	EXPECT_EQ(status.pc.val, 0x154);
+	EXPECT_EQ(status.f & CPU::Flags::C, 0);
+	EXPECT_EQ(status.pc, 0x154);
 }
 
 TEST(JumpInstructions, RelativeBase)
@@ -117,7 +117,7 @@ TEST(JumpInstructions, RelativeBase)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.pc.val, 0x1FF);
+	EXPECT_EQ(status.pc, 0x1FF);
 }
 
 TEST(JumpInstructions, RelativeZFlag)
@@ -140,8 +140,8 @@ TEST(JumpInstructions, RelativeZFlag)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.pc.val, 0x178);
+	EXPECT_EQ(status.f & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.pc, 0x178);
 }
 
 
@@ -165,6 +165,6 @@ TEST(JumpInstructions, RelativeCFlag)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
-	EXPECT_EQ(status.pc.val, 0x167);
+	EXPECT_EQ(status.f & CPU::Flags::C, 0);
+	EXPECT_EQ(status.pc, 0x167);
 }

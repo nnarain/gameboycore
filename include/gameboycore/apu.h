@@ -21,9 +21,9 @@ namespace gb
 	class GAMEBOYCORE_API APU
 	{
 	public:
-		static constexpr auto CHANNEL_COUNT = 2;
-		static constexpr auto SAMPLE_RATE = 44100;
-		static constexpr auto CYCLES_512HZ = 8203;
+		static constexpr int CHANNEL_COUNT = 2;
+		static constexpr int SAMPLE_RATE = 44100;
+		static constexpr int CYCLES_512HZ = 8203;
 
 	public:
 		using Ptr = std::shared_ptr<APU>;

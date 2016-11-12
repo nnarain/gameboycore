@@ -50,13 +50,13 @@ TEST(LowPowerTest, HaltResume)
 	auto mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.halt, true);
-	EXPECT_EQ(status.af.hi, 0x01);
+	EXPECT_EQ(status.a, 0x01);
 	EXPECT_EQ(mmu->read(0xFFFF), 0x01);
 
 	interrupt.set();
 	status = run(gameboy, code.rom(), true, false);
 
-	EXPECT_EQ(status.af.hi, 0x50);
+	EXPECT_EQ(status.a, 0x50);
 }
 
 TEST(LowPowerTest, Stop)
@@ -102,11 +102,11 @@ TEST(LowPowerTest, StopResume)
 
 	EXPECT_EQ(status.halt, true);
 	EXPECT_EQ(status.stopped, true);
-	EXPECT_EQ(status.af.hi, 0x10);
+	EXPECT_EQ(status.a, 0x10);
 	EXPECT_EQ(mmu->read(0xFFFF), 0x10);
 
 	interrupt.set();
 	status = run(gameboy, code.rom(), true, false);
 
-	EXPECT_EQ(status.af.hi, 0x50);
+	EXPECT_EQ(status.a, 0x50);
 }

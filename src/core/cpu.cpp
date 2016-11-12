@@ -13,6 +13,11 @@
 #include "bitutil.h"
 #include "shiftrotate.h"
 
+// check endianness
+#if !defined(__BIGENDIAN__) && !defined(__LITTLEENDIAN__)
+#	error "Either __BIGENDIAN__ or __LITTLEENDIAN__ must be defined"
+#endif
+
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
 
 namespace gb
@@ -22,6 +27,20 @@ namespace gb
 	class CPU::Impl
 	{
 	public:
+		union Register
+		{
+			struct {
+#ifdef __LITTLEENDIAN__
+				uint8_t lo;
+				uint8_t hi;
+#else
+				uint8_t hi;
+				uint8_t lo;
+#endif
+			};
+			uint16_t val;
+		};
+
 		enum InterruptMask
 		{
 			VBLANK = 1 << 0,
@@ -2318,12 +2337,20 @@ namespace gb
 		CPU::Status getStatus() const
 		{
 			Status status;
-			status.af = af_;
-			status.bc = bc_;
-			status.de = de_;
-			status.hl = hl_;
-			status.sp = sp_;
-			status.pc = pc_;
+			status.af = af_.val;
+			status.a = af_.hi;
+			status.f = af_.lo;
+			status.bc = bc_.val;
+			status.b = bc_.hi;
+			status.c = bc_.lo;
+			status.de = de_.val;
+			status.d = de_.hi;
+			status.e = de_.lo;
+			status.hl = hl_.val;
+			status.h = hl_.hi;
+			status.l = hl_.lo;
+			status.sp = sp_.val;
+			status.pc = pc_.val;
 			status.halt = halted_;
 			status.stopped = stopped_;
 

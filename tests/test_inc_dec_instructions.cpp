@@ -33,10 +33,10 @@ TEST(IncDecInstructions, Inc16Bit)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.bc.val, 0x1235);
-	EXPECT_EQ(status.de.val, 0x5679);
-	EXPECT_EQ(status.hl.val, 0x9ABD);
-	EXPECT_EQ(status.sp.val, 0xFFFF);
+	EXPECT_EQ(status.bc, 0x1235);
+	EXPECT_EQ(status.de, 0x5679);
+	EXPECT_EQ(status.hl, 0x9ABD);
+	EXPECT_EQ(status.sp, 0xFFFF);
 }
 
 TEST(IncDecInstructions, Dec16Bit)
@@ -59,10 +59,10 @@ TEST(IncDecInstructions, Dec16Bit)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.bc.val, 0x1233);
-	EXPECT_EQ(status.de.val, 0x5677);
-	EXPECT_EQ(status.hl.val, 0x9ABB);
-	EXPECT_EQ(status.sp.val, 0xFFFD);
+	EXPECT_EQ(status.bc, 0x1233);
+	EXPECT_EQ(status.de, 0x5677);
+	EXPECT_EQ(status.hl, 0x9ABB);
+	EXPECT_EQ(status.sp, 0xFFFD);
 }
 
 TEST(IncDecInstructions, Inc8Bit)
@@ -92,13 +92,13 @@ TEST(IncDecInstructions, Inc8Bit)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 2);
-	EXPECT_EQ(status.bc.hi, 3);
-	EXPECT_EQ(status.bc.lo, 4);
-	EXPECT_EQ(status.de.hi, 5);
-	EXPECT_EQ(status.de.lo, 6);
-	EXPECT_EQ(status.hl.hi, 7);
-	EXPECT_EQ(status.hl.lo, 8);
+	EXPECT_EQ(status.a, 2);
+	EXPECT_EQ(status.b, 3);
+	EXPECT_EQ(status.c, 4);
+	EXPECT_EQ(status.d, 5);
+	EXPECT_EQ(status.e, 6);
+	EXPECT_EQ(status.h, 7);
+	EXPECT_EQ(status.l, 8);
 }
 
 TEST(IncDecInstructions, Dec8Bit)
@@ -128,13 +128,13 @@ TEST(IncDecInstructions, Dec8Bit)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 0);
-	EXPECT_EQ(status.bc.hi, 1);
-	EXPECT_EQ(status.bc.lo, 2);
-	EXPECT_EQ(status.de.hi, 3);
-	EXPECT_EQ(status.de.lo, 4);
-	EXPECT_EQ(status.hl.hi, 5);
-	EXPECT_EQ(status.hl.lo, 6);
+	EXPECT_EQ(status.a, 0);
+	EXPECT_EQ(status.b, 1);
+	EXPECT_EQ(status.c, 2);
+	EXPECT_EQ(status.d, 3);
+	EXPECT_EQ(status.e, 4);
+	EXPECT_EQ(status.h, 5);
+	EXPECT_EQ(status.l, 6);
 }
 
 TEST(IncDecInstructions, IncMemory)
@@ -191,8 +191,8 @@ TEST(IncDecInstructions, ZeroFlag)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.af.lo & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(status.f & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.f & CPU::Flags::N, CPU::Flags::N);
 }
 
 TEST(IncDecInstructions, HalfCarryFlag)
@@ -208,8 +208,8 @@ TEST(IncDecInstructions, HalfCarryFlag)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
-	EXPECT_EQ(status.af.lo & CPU::Flags::N, 0);
+	EXPECT_EQ(status.f & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.f & CPU::Flags::N, 0);
 }
 
 TEST(IncDecInstructions, HalfBorrow)
@@ -225,8 +225,8 @@ TEST(IncDecInstructions, HalfBorrow)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.lo & CPU::Flags::C, 0);
-	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
-	EXPECT_EQ(status.af.lo & CPU::Flags::N, CPU::Flags::N);
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, 0);
+	EXPECT_EQ(status.f & CPU::Flags::C, 0);
+	EXPECT_EQ(status.f & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.f & CPU::Flags::N, CPU::Flags::N);
+	EXPECT_EQ(status.f & CPU::Flags::Z, 0);
 }
