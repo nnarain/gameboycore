@@ -9,7 +9,6 @@ clone_folder: c:\projects\gameboycore
 
 environment:
   GTEST_ROOT: c:\libs\googletest
-  SFML_ROOT: c:\libs\sfml
 
 install:
   - echo "Installing Google Test"
@@ -20,19 +19,11 @@ install:
   - msbuild googletest-distribution.sln /verbosity:quiet
   - msbuild INSTALL.vcxproj /verbosity:quiet
   - set PATH=%PATH%;%GTEST_ROOT%\lib
-  
-  - echo "Installing SFML"
-  - git clone https://github.com/SFML/SFML.git c:\tmp\sfml
-  - cd c:\tmp\sfml && mkdir build && cd build
-  - cmake .. -DCMAKE_INSTALL_PREFIX=c:\libs\sfml
-  - msbuild SFML.sln /verbosity:quiet
-  - msbuild INSTALL.vcxproj /verbosity:quiet
-  - set PATH=%PATH%;%SFML_ROOT%
 
 before_build:
   - cd c:\projects\gameboycore
   - mkdir build && cd build
-  - cmake -G "Visual Studio 14 2015" ..
+  - cmake -G "Visual Studio 14 2015" .. -DNO_GUI
 
 build:
   project: c:\projects\gameboycore\build\gameboycore.sln
@@ -40,7 +31,7 @@ build:
 
 after_build:
   - C:\projects\gameboycore\build\tests\Debug\gameboy_tests.exe
-  - msbuild C:\projects\gameboy\build\PACKAGE.vcxproj /verbosity:quiet
+  - msbuild C:\projects\gameboycore\build\PACKAGE.vcxproj /verbosity:quiet
 
 artifacts:
 - path: .\build\gameboycore-*-win32.exe
