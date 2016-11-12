@@ -14,9 +14,10 @@
 
 namespace gb
 {
-	CPU::CPU(const MMU::Ptr& mmu, const GPU::Ptr gpu) :
+	CPU::CPU(const MMU::Ptr& mmu, const GPU::Ptr& gpu, const APU::Ptr& apu) :
 		mmu_(mmu),
 		gpu_(gpu),
+		apu_(apu),
 		alu_(af_.lo),
 		timer_(*mmu.get()),
 		halted_(false),
@@ -70,7 +71,13 @@ namespace gb
 		if (!stopped_)
 		{
 			gpu_->update(cpu_cycles, interrupt_master_enable_);
+			apu_->update(cpu_cycles);
 			timer_.update(instr_cycles);
+		}
+
+		if (pc_.val == 0xC1AD)
+		{
+			int x = 0;
 		}
 	}
 

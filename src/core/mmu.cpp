@@ -50,6 +50,9 @@ namespace gb
 
 		// initialize joypad keys to not pressed
 		mbc_->write(0x0F, memorymap::JOYPAD_REGISTER);
+
+		loadResetValues();
+		initWriteMasks();
     }
 
     uint8_t MMU::read(uint16_t addr) const
@@ -65,7 +68,14 @@ namespace gb
 		}
 		else
 		{
-			return mbc_->read(addr);
+			auto value = mbc_->read(addr);
+
+			if (addr >= memorymap::NR10_REGISTER && addr <= memorymap::WAVE_PATTERN_RAM_END)
+			{
+				value |= apu_read_masks[addr - 0xFF00];
+			}
+
+			return value;
 		}
 	}
 
@@ -90,11 +100,21 @@ namespace gb
 				std::cout << (char)mbc_->read(memorymap::SB_REGISTER);
 			}
 		}
+		else if (addr >= memorymap::NR10_REGISTER && addr < memorymap::NR52_REGISTER)
+		{
+			// APU register writes are ignore if the APU is disabled
+			auto sound_enable = mbc_->read(memorymap::NR52_REGISTER);
+
+			if (sound_enable & 0x80)
+			{
+				mbc_->write(value, addr);
+			}
+		}
 		else
 		{
 			if (addr >= 0xFF00 && addr <= 0xFF7F && write_handlers_[addr - 0xFF00])
 			{
-				write_handlers_[addr - 0xFF00](value);
+				write_handlers_[addr - 0xFF00](value, addr);
 			}
 			else
 			{
@@ -138,5 +158,109 @@ namespace gb
 		uint16_t addr = ((base & 0x00FF) << 8);
 
 		std::memcpy(getptr(memorymap::OAM_START), getptr(addr), memorymap::OAM_END - memorymap::OAM_START);
+	}
+
+	void MMU::loadResetValues()
+	{
+		// load reset values into registers
+		mbc_->write(0x00, memorymap::TIMER_COUNTER_REGISTER);
+		mbc_->write(0x00, memorymap::TIMER_MODULO_REGISTER);
+		mbc_->write(0x00, memorymap::TIMER_CONTROLLER_REGISTER);
+
+		mbc_->write(0x80, memorymap::NR10_REGISTER);
+		mbc_->write(0xBF, memorymap::NR11_REGISTER);
+		mbc_->write(0xF3, memorymap::NR12_REGISTER);
+		mbc_->write(0xBF, memorymap::NR14_REGISTER);
+		mbc_->write(0x3F, memorymap::NR21_REGISTER);
+		mbc_->write(0x00, memorymap::NR22_REGISTER);
+		mbc_->write(0xBF, memorymap::NR24_REGISTER);
+		mbc_->write(0x7F, memorymap::NR30_REGISTER);
+		mbc_->write(0xFF, memorymap::NR31_REGISTER);
+		mbc_->write(0x9F, memorymap::NR32_REGISTER);
+		mbc_->write(0xBF, memorymap::NR33_REGISTER);
+		mbc_->write(0xFF, memorymap::NR41_REGISTER);
+		mbc_->write(0x00, memorymap::NR42_REGISTER);
+		mbc_->write(0x00, memorymap::NR43_REGISTER);
+		mbc_->write(0xBF, memorymap::NR44_REGISTER);
+		mbc_->write(0x77, memorymap::NR50_REGISTER);
+		mbc_->write(0xF3, memorymap::NR51_REGISTER);
+		mbc_->write(0xF1, memorymap::NR52_REGISTER); // TODO: super gameboy mode
+
+		mbc_->write(0x91, memorymap::LCDC_REGISTER);
+		mbc_->write(0x00, memorymap::SCY_REGISTER);
+		mbc_->write(0x00, memorymap::SCX_REGISTER);
+		mbc_->write(0x00, memorymap::LYC_REGISTER);
+		mbc_->write(0xFC, memorymap::BGP_REGISTER);
+		mbc_->write(0xFF, memorymap::OBP0_REGISTER);
+		mbc_->write(0xFF, memorymap::OBP1_REGISTER);
+		mbc_->write(0x00, memorymap::WX_REGISTER);
+		mbc_->write(0x00, memorymap::WY_REGISTER);
+		mbc_->write(0x00, memorymap::INTERRUPT_ENABLE);
+	}
+
+	void MMU::initWriteMasks()
+	{
+		// NR10 - NR14
+		apu_read_masks[0x10] = 0x80;
+		apu_read_masks[0x11] = 0x3F;
+		apu_read_masks[0x12] = 0x00;
+		apu_read_masks[0x13] = 0xFF;
+		apu_read_masks[0x14] = 0xBF;
+
+		// NR20 - NR24
+		apu_read_masks[0x15] = 0xFF;
+		apu_read_masks[0x16] = 0x3F;
+		apu_read_masks[0x17] = 0x00;
+		apu_read_masks[0x18] = 0xFF;
+		apu_read_masks[0x19] = 0xBF;
+
+		// NR30 - NR34
+		apu_read_masks[0x1A] = 0x7F;
+		apu_read_masks[0x1B] = 0xFF;
+		apu_read_masks[0x1C] = 0x9F;
+		apu_read_masks[0x1D] = 0xFF;
+		apu_read_masks[0x1E] = 0xBF;
+
+		// NR40 - NR44
+		apu_read_masks[0x1F] = 0xFF;
+		apu_read_masks[0x20] = 0xFF;
+		apu_read_masks[0x21] = 0x00;
+		apu_read_masks[0x22] = 0x00;
+		apu_read_masks[0x23] = 0xBF;
+
+		// NR50 - NR52
+		apu_read_masks[0x24] = 0x00;
+		apu_read_masks[0x25] = 0x00;
+		apu_read_masks[0x26] = 0x70;
+
+		//
+		apu_read_masks[0x27] = 0xFF;
+		apu_read_masks[0x28] = 0xFF;
+		apu_read_masks[0x29] = 0xFF;
+		apu_read_masks[0x2A] = 0xFF;
+		apu_read_masks[0x2B] = 0xFF;
+		apu_read_masks[0x2C] = 0xFF;
+		apu_read_masks[0x2D] = 0xFF;
+		apu_read_masks[0x2E] = 0xFF;
+		apu_read_masks[0x2F] = 0xFF;
+
+		// wave ram
+		apu_read_masks[0x30] = 0x00;
+		apu_read_masks[0x31] = 0x00;
+		apu_read_masks[0x32] = 0x00;
+		apu_read_masks[0x33] = 0x00;
+		apu_read_masks[0x34] = 0x00;
+		apu_read_masks[0x35] = 0x00;
+		apu_read_masks[0x36] = 0x00;
+		apu_read_masks[0x37] = 0x00;
+		apu_read_masks[0x38] = 0x00;
+		apu_read_masks[0x39] = 0x00;
+		apu_read_masks[0x3A] = 0x00;
+		apu_read_masks[0x3B] = 0x00;
+		apu_read_masks[0x3C] = 0x00;
+		apu_read_masks[0x3D] = 0x00;
+		apu_read_masks[0x3E] = 0x00;
+		apu_read_masks[0x3F] = 0x00;
+
 	}
 }

@@ -24,8 +24,9 @@ namespace gb
 		mmu_->load(rom, size);
 
 		gpu_.reset(new GPU(mmu_));
+		apu_.reset(new APU(mmu_));
 
-		cpu_.reset(new CPU(mmu_, gpu_));
+		cpu_.reset(new CPU(mmu_, gpu_, apu_));
     }
 
 	void Gameboy::reset()
@@ -58,19 +59,9 @@ namespace gb
 		return gpu_;
 	}
 
-	TileRAM Gameboy::getTileRAM()
+	APU::Ptr Gameboy::getAPU()
 	{
-		return TileRAM(cpu_->getMMU());
-	}
-
-	TileMap Gameboy::getTileMap()
-	{
-		return TileMap(*mmu_.get());
-	}
-
-	OAM Gameboy::getOAM()
-	{
-		return OAM{ *mmu_.get() };
+		return apu_;
 	}
 
 	Joypad Gameboy::getJoypad()

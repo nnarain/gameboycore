@@ -89,7 +89,37 @@ namespace gb{
 			TIMER_COUNTER_REGISTER = 0xFF05,
 			TIMER_MODULO_REGISTER = 0xFF06,
 			TIMER_CONTROLLER_REGISTER = 0xFF07,
+
+			NR10_REGISTER = 0xFF10, // Channel 1 Sweep
+			NR11_REGISTER = 0xFF11, // Channel 1 Sound length/Wave Pattern
+			NR12_REGISTER = 0xFF12, // Channel 1 Volume Envelop
+			NR13_REGISTER = 0xFF13, // Channel 1 Frequency LOW
+			NR14_REGISTER = 0xFF14, // Channel 1 Frequency HIGH
+
+			NR20_REGISTER = 0xFF15, // UNUSED
+			NR21_REGISTER = 0xFF16, // Channel 2 Sound length/Wave Pattern
+			NR22_REGISTER = 0xFF17, // Channel 2 Volume Envelop
+			NR23_REGISTER = 0xFF18, // Channel 2 Frequency LOW
+			NR24_REGISTER = 0xFF19, // Channel 2 Frequency HIGH
+
+			NR30_REGISTER = 0xFF1A, // Channel 3 ON/OFF
+			NR31_REGISTER = 0xFF1B, // Channel 3 Sound length
+			NR32_REGISTER = 0xFF1C, // Channel 3 Select Output Level
+			NR33_REGISTER = 0xFF1D, // Channel 3 Frequency LOW
+			NR34_REGISTER = 0xFF1E, // Channel 3 Frequency HIGH
+
+			NR41_REGISTER = 0xFF20, // Channel 4 Sound length
+			NR42_REGISTER = 0xFF21, // Channel 4 Volume Envelope
+			NR43_REGISTER = 0xFF22, // Channel 4 Polynomial Counter
+			NR44_REGISTER = 0xFF23, // Channel 4 Counter/consecutive selection
+
+			NR50_REGISTER = 0xFF24, // Sound Control Register ON/OFF / Volume Control
+			NR51_REGISTER = 0xFF25, // Output terminal selection
+			NR52_REGISTER = 0xFF26, // Sound On/Off
 			  
+			WAVE_PATTERN_RAM_START = 0xFF30,
+			WAVE_PATTERN_RAM_END   = 0xFF3F,
+
 			LCDC_REGISTER     = 0xFF40,
 			LCD_STAT_REGISTER = 0xFF41,
 			SCY_REGISTER      = 0xFF42,

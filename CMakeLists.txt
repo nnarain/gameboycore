@@ -46,6 +46,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/alu.h
 	include/gameboy/mmu.h
 	include/gameboy/gpu.h
+	include/gameboy/apu.h
 	include/gameboy/tileram.h
 	include/gameboy/tilemap.h
 	include/gameboy/oam.h
@@ -56,6 +57,10 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboy/pixel.h
 	include/gameboy/sprite.h
 	include/gameboy/palette.h
+	include/gameboy/sound.h
+	include/gameboy/noise.h
+	include/gameboy/wave.h
+	include/gameboy/channel.h
 
 	include/gameboy/memorymap.h
 	include/gameboy/mbc.h

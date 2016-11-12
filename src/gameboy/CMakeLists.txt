@@ -1,4 +1,4 @@
-find_package(SFML REQUIRED COMPONENTS system window graphics)
+find_package(SFML REQUIRED COMPONENTS system window graphics audio)
 
 get_filename_component(SFML_PATH ${SFML_INCLUDE_DIR} DIRECTORY)
 
@@ -11,6 +11,7 @@ add_executable(dotrix
 	window.h
 	screen_renderer.h
 	texture_buffer.h
+	audio.h
 )
 target_link_libraries(dotrix
     gbcore

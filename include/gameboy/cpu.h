@@ -13,6 +13,7 @@
 
 #include "gameboy/mmu.h"
 #include "gameboy/gpu.h"
+#include "gameboy/apu.h"
 #include "gameboy/alu.h"
 #include "gameboy/opcodeinfo.h"
 #include "gameboy/timer.h"
@@ -80,7 +81,7 @@ namespace gb
 		using Ptr = std::unique_ptr<CPU>;
 
     public:
-        CPU(const MMU::Ptr& mmu, const GPU::Ptr gpu);
+        CPU(const MMU::Ptr& mmu, const GPU::Ptr& gpu, const APU::Ptr& apu);
 
         void step();
 
@@ -185,6 +186,8 @@ namespace gb
 
 		MMU::Ptr mmu_;
 		GPU::Ptr gpu_;
+		APU::Ptr apu_;
+
 		ALU alu_;
 
 		Timer timer_;

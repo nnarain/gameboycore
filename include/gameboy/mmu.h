@@ -21,7 +21,7 @@ namespace gb
 	public:
 		using Ptr = std::shared_ptr<MMU>;
 
-		using MemoryWriteHandler = std::function<void(uint8_t)>;
+		using MemoryWriteHandler = std::function<void(uint8_t, uint16_t)>;
 		using MemoryReadHandler = std::function<uint8_t()>;
 
     private:
@@ -69,13 +69,16 @@ namespace gb
 
 	private:
 		void oamTransfer(uint8_t base);
+		void loadResetValues();
+		void initWriteMasks();
 
 	private:
 		MBC::Ptr mbc_;
 
 		std::array<MemoryWriteHandler, 0x80> write_handlers_;
 		std::array<MemoryReadHandler, 0x80>  read_handlers_;
-		
+
+		std::array<uint8_t, 0x80> apu_read_masks;
     };
 }
 
