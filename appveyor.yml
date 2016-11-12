@@ -5,7 +5,7 @@
 
 os: Visual Studio 2015
 
-clone_folder: c:\projects\gameboy
+clone_folder: c:\projects\gameboycore
 
 environment:
   GTEST_ROOT: c:\libs\googletest
@@ -30,12 +30,12 @@ install:
   - set PATH=%PATH%;%SFML_ROOT%
 
 before_build:
-  - cd c:\projects\gameboy
+  - cd c:\projects\gameboycore
   - mkdir build && cd build
-  - cmake -G "Visual Studio 14 2015" .. -DCMAKE_INSTALL_PREFIX=c:\projects\install
+  - cmake -G "Visual Studio 14 2015" ..
 
 build:
-  project: c:\projects\gameboy\build\gameboy.sln
+  project: c:\projects\gameboycore\build\gameboycore.sln
   verbosity: minimal
 
 after_build:
@@ -43,7 +43,7 @@ after_build:
   - msbuild C:\projects\gameboy\build\PACKAGE.vcxproj /verbosity:quiet
 
 artifacts:
-- path: .\build\dotrix-*-win32.exe
+- path: .\build\gameboycore-*-win32.exe
   name: installer
   
 deploy:
