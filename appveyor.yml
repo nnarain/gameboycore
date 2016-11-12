@@ -23,7 +23,7 @@ install:
 before_build:
   - cd c:\projects\gameboycore
   - mkdir build && cd build
-  - cmake -G "Visual Studio 14 2015" .. -DNO_GUI
+  - cmake .. -G "Visual Studio 14 2015" -DNO_GUI
 
 build:
   project: c:\projects\gameboycore\build\gameboycore.sln
