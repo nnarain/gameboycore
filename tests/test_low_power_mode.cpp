@@ -46,12 +46,12 @@ TEST(LowPowerTest, HaltResume)
 	);
 
 	auto status = run(gameboy, code.rom(), false);
-	InterruptProvider interrupt{ gameboy.getCPU().getMMU(), InterruptProvider::Interrupt::VBLANK };
-	const auto& mmu = gameboy.getCPU().getMMU();
+	InterruptProvider interrupt{ *gameboy.getMMU(), InterruptProvider::Interrupt::VBLANK };
+	auto mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.halt, true);
 	EXPECT_EQ(status.af.hi, 0x01);
-	EXPECT_EQ(mmu.read(0xFFFF), 0x01);
+	EXPECT_EQ(mmu->read(0xFFFF), 0x01);
 
 	interrupt.set();
 	status = run(gameboy, code.rom(), true, false);
@@ -97,7 +97,7 @@ TEST(LowPowerTest, StopResume)
 	GameboyCore gameboy;
 
 	auto status = run(gameboy, code.rom(), false);
-	InterruptProvider interrupt{ gameboy.getCPU().getMMU(), InterruptProvider::Interrupt::JOYPAD };
+	InterruptProvider interrupt{ *gameboy.getMMU(), InterruptProvider::Interrupt::JOYPAD };
 	auto mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.halt, true);

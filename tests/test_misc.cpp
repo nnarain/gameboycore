@@ -34,7 +34,7 @@ TEST(MiscInstructions, Swap)
 
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	auto mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.af.hi, 0x21);
 	EXPECT_EQ(status.bc.hi, 0x43);
@@ -43,7 +43,7 @@ TEST(MiscInstructions, Swap)
 	EXPECT_EQ(status.de.lo, 0xA9);
 	EXPECT_EQ(status.hl.hi, 0x0C);
 	EXPECT_EQ(status.hl.lo, 0xED);
-	EXPECT_EQ(mmu.read(0xC0DE), 0x0F);
+	EXPECT_EQ(mmu->read(0xC0DE), 0x0F);
 }
 
 TEST(MiscInstructions, ComplementA)

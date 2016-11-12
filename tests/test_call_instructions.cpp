@@ -21,12 +21,12 @@ TEST(CallInstructions, BaseCall)
 
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	auto mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.pc.val, 0x251);
 	EXPECT_EQ(status.sp.val, 0xFFFC);
-	EXPECT_EQ(mmu.read(status.sp.val + 1), 0x01);
-	EXPECT_EQ(mmu.read(status.sp.val + 0), 0x53);
+	EXPECT_EQ(mmu->read(status.sp.val + 1), 0x01);
+	EXPECT_EQ(mmu->read(status.sp.val + 0), 0x53);
 }
 
 TEST(CallInstructions, ZFlag)

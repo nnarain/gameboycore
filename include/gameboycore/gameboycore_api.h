@@ -9,8 +9,8 @@
 
 /* DLL Export/Import */
 
-#ifdef _MSC_VER
-#	ifdef GAMEBOYCORE_EXPORT
+#if defined(_MSC_VER) && !defined(GAMEBOYCORE_STATIC)
+#	if defined(GAMEBOYCORE_EXPORT)
 #		define GAMEBOYCORE_API __declspec(dllexport)
 #	else
 #		define GAMEBOYCORE_API __declspec(dllimport)

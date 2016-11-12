@@ -26,6 +26,7 @@ endif(IS_BIG_ENDIAN)
 
 # Core sources for Gameboy emulation
 set(GAMEBOYCORE_API_HEADERS
+	include/gameboycore/gameboycore_api.h
 	include/gameboycore/gameboycore.h
 	include/gameboycore/cpu.h
 	include/gameboycore/mmu.h
@@ -40,6 +41,7 @@ set(GAMEBOYCORE
 	src/core/alu.cpp
     src/core/mmu.cpp
 	src/core/gpu.cpp
+	src/core/apu.cpp
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp
 	src/core/opcodeinfo.cpp
@@ -100,9 +102,16 @@ add_library(${PROJECT_NAME} SHARED
     ${GAMEBOYCORE}
 	${GAMEBOYCORE_HEADERS}
 )
-
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	COMPILE_FLAGS "-DGAMEBOYCORE_EXPORT"
+)
+
+add_library(${PROJECT_NAME}-s STATIC
+    ${GAMEBOYCORE}
+	${GAMEBOYCORE_HEADERS}
+)
+set_target_properties(${PROJECT_NAME}-s PROPERTIES
+	COMPILE_FLAGS "-DGAMEBOYCORE_STATIC"
 )
 
 if(NOT NO_GUI)

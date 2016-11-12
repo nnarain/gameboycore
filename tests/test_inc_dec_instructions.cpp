@@ -151,9 +151,9 @@ TEST(IncDecInstructions, IncMemory)
 
 	GameboyCore gameboy;
 	(void)run(gameboy, code.rom());
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	auto mmu = gameboy.getMMU();
 
-	EXPECT_EQ(mmu.read(0xC000), 0xFF);
+	EXPECT_EQ(mmu->read(0xC000), 0xFF);
 }
 
 TEST(IncDecInstructions, DecMemory)
@@ -170,9 +170,9 @@ TEST(IncDecInstructions, DecMemory)
 
 	GameboyCore gameboy;
 	(void)run(gameboy, code.rom());
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	auto mmu = gameboy.getMMU();
 
-	EXPECT_EQ(mmu.read(0xC000), 0x01);
+	EXPECT_EQ(mmu->read(0xC000), 0x01);
 }
 
 

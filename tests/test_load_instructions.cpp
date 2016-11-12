@@ -34,7 +34,7 @@ TEST(LoadInstructionsTest, Load8BitImmediate)
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 	
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	auto mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.af.hi, 1);
 	EXPECT_EQ(status.bc.hi, 2);
@@ -43,7 +43,7 @@ TEST(LoadInstructionsTest, Load8BitImmediate)
 	EXPECT_EQ(status.de.lo, 5);
 	EXPECT_EQ(status.hl.hi, 0xC0);
 	EXPECT_EQ(status.hl.lo, 0x00);
-	EXPECT_EQ(mmu.read(status.hl.val), 0x08);
+	EXPECT_EQ(mmu->read(status.hl.val), 0x08);
 }
 
 TEST(LoadInstructionsTest, Load16BitImmediate)
@@ -412,12 +412,12 @@ TEST(LoadInstructionsTest, LoadMemoryIncDec)
 	);
 
 	status = run(gameboy, code.rom());
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	auto mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.af.hi, 6);
 	EXPECT_EQ(status.hl.val, 0xC000);
-	EXPECT_EQ(mmu.read(0xC000), 5);
-	EXPECT_EQ(mmu.read(0xC001), 6);
+	EXPECT_EQ(mmu->read(0xC000), 5);
+	EXPECT_EQ(mmu->read(0xC001), 6);
 }
 
 TEST(LoadInstructionsTest, LoadRegisterIncDec)
@@ -497,7 +497,7 @@ TEST(LoadInstructionsTest, Out)
 	);
 
 	status = run(gameboy, code.rom());
-	const MMU& mmu = gameboy.getCPU().getMMU();
+	auto mmu = gameboy.getMMU();
 
-	EXPECT_EQ(mmu.read(0xFF05), 0xFF);
+	EXPECT_EQ(mmu->read(0xFF05), 0xFF);
 }
