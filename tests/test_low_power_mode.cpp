@@ -7,13 +7,15 @@
 #include <gtest/gtest.h>
 #include "test_helper.h"
 
+#include <gameboycore/interrupt_provider.h>
+
 #include <iostream>
 
 using namespace gb;
 
 TEST(LowPowerTest, Halt)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 
 	CodeGenerator code;
 	code.block(
@@ -27,7 +29,7 @@ TEST(LowPowerTest, Halt)
 
 TEST(LowPowerTest, HaltResume)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 
 	CodeGenerator code;
 	code.block(
@@ -46,22 +48,22 @@ TEST(LowPowerTest, HaltResume)
 	);
 
 	auto status = run(gameboy, code.rom(), false);
-	InterruptProvider interrupt{ gameboy.getCPU().getMMU(), InterruptProvider::Interrupt::VBLANK };
-	const auto& mmu = gameboy.getCPU().getMMU();
+	InterruptProvider interrupt{ *gameboy.getMMU(), InterruptProvider::Interrupt::VBLANK };
+	auto mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.halt, true);
-	EXPECT_EQ(status.af.hi, 0x01);
-	EXPECT_EQ(mmu.read(0xFFFF), 0x01);
+	EXPECT_EQ(status.a, 0x01);
+	EXPECT_EQ(mmu->read(0xFFFF), 0x01);
 
 	interrupt.set();
 	status = run(gameboy, code.rom(), true, false);
 
-	EXPECT_EQ(status.af.hi, 0x50);
+	EXPECT_EQ(status.a, 0x50);
 }
 
 TEST(LowPowerTest, Stop)
 {
-	Gameboy gameboy;
+	GameboyCore gameboy;
 
 	CodeGenerator code;
 	code.block(
@@ -94,19 +96,19 @@ TEST(LowPowerTest, StopResume)
 	);
 
 	
-	Gameboy gameboy;
+	GameboyCore gameboy;
 
 	auto status = run(gameboy, code.rom(), false);
-	InterruptProvider interrupt{ gameboy.getCPU().getMMU(), InterruptProvider::Interrupt::JOYPAD };
+	InterruptProvider interrupt{ *gameboy.getMMU(), InterruptProvider::Interrupt::JOYPAD };
 	auto mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.halt, true);
 	EXPECT_EQ(status.stopped, true);
-	EXPECT_EQ(status.af.hi, 0x10);
+	EXPECT_EQ(status.a, 0x10);
 	EXPECT_EQ(mmu->read(0xFFFF), 0x10);
 
 	interrupt.set();
 	status = run(gameboy, code.rom(), true, false);
 
-	EXPECT_EQ(status.af.hi, 0x50);
+	EXPECT_EQ(status.a, 0x50);
 }

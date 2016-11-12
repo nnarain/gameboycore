@@ -1,7 +1,7 @@
 
-#include "gameboy/tilemap.h"
-#include "gameboy/oam.h"
-#include "gameboy/palette.h"
+#include "gameboycore/tilemap.h"
+#include "gameboycore/oam.h"
+#include "gameboycore/palette.h"
 
 #include "bitutil.h"
 

@@ -1,7 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#include "gameboy/cpu.h"
+#include "gameboycore/cpu.h"
 #include "shiftrotate.h"
 
 using namespace gb;

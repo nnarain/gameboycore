@@ -5,25 +5,11 @@
 */
 
 #include <gtest/gtest.h>
-#include "util/codegenerator.h"
+#include "test_helper.h"
 
-#include <gameboy/gameboy.h>
+#include <gameboycore/gameboycore.h>
 
 using namespace gb;
-
-static CPU::Status run(Gameboy& gameboy, std::vector<uint8_t>& rom)
-{
-	gameboy.loadROM(&rom[0], rom.size());
-
-	while (!gameboy.isDone())
-		gameboy.update();
-
-	CPU::Status status = gameboy.getCPU().getStatus();
-
-	gameboy.reset();
-
-	return status;
-}
 
 TEST(ArithmeticTests, AddOverflow)
 {
@@ -40,13 +26,13 @@ TEST(ArithmeticTests, AddOverflow)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 0x00);
-	EXPECT_EQ(status.af.lo & CPU::Flags::C, CPU::Flags::C);
-	EXPECT_EQ(status.af.lo & CPU::Flags::Z, CPU::Flags::Z);
-	EXPECT_EQ(status.af.lo & CPU::Flags::N, 0);
+	EXPECT_EQ(status.a, 0x00);
+	EXPECT_EQ(status.f & CPU::Flags::C, CPU::Flags::C);
+	EXPECT_EQ(status.f & CPU::Flags::Z, CPU::Flags::Z);
+	EXPECT_EQ(status.f & CPU::Flags::N, 0);
 }
 
 TEST(ArithmeticTests, AddHalfCarry)
@@ -62,10 +48,10 @@ TEST(ArithmeticTests, AddHalfCarry)
 	);
 
 
-	Gameboy gameboy;
+	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
 
-	EXPECT_EQ(status.af.hi, 0x10);
-	EXPECT_EQ(status.af.lo & CPU::Flags::H, CPU::Flags::H);
-	EXPECT_EQ(status.af.lo & CPU::Flags::N, 0);
+	EXPECT_EQ(status.a, 0x10);
+	EXPECT_EQ(status.f & CPU::Flags::H, CPU::Flags::H);
+	EXPECT_EQ(status.f & CPU::Flags::N, 0);
 }
