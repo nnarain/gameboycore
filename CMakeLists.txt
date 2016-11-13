@@ -118,8 +118,15 @@ if(WITH_GUI AND WITH_GUI STREQUAL "ON")
 	add_subdirectory(src/example)
 endif(WITH_GUI AND WITH_GUI STREQUAL "ON")
 
-enable_testing()
-add_subdirectory(tests)
+# Tests
+if(NOT DEFINED BUILD_TESTS)
+	set(BUILD_TESTS "ON")
+endif(NOT DEFINED BUILD_TESTS)
+
+if(BUILD_TESTS STREQUAL "ON")
+	enable_testing()
+	add_subdirectory(tests)
+endif(BUILD_TESTS STREQUAL "ON")
 
 # install core
 install(
