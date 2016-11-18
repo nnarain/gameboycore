@@ -1,10 +1,10 @@
 # Gameboy Core
-[![Build Status](https://travis-ci.org/nnarain/gameboy.svg?branch=develop)](https://travis-ci.org/nnarain/gameboy)
-[![Build status](https://ci.appveyor.com/api/projects/status/uywmihrydwdatjxr?svg=true)](https://ci.appveyor.com/project/nnarain/gameboy)
-[![GitHub issues](https://img.shields.io/github/issues/nnarain/gameboy.svg)](https://github.com/nnarain/gameboy/issues)
-[![GitHub release](https://img.shields.io/github/release/nnarain/gameboy.svg)](https://github.com/nnarain/gameboy/releases)
+[![Build Status](https://travis-ci.org/nnarain/gameboycore.svg?branch=develop)](https://travis-ci.org/nnarain/gameboycore)
+[![Build status](https://ci.appveyor.com/api/projects/status/uywmihrydwdatjxr?svg=true)](https://ci.appveyor.com/project/nnarain/gameboycore)
+[![GitHub issues](https://img.shields.io/github/issues/nnarain/gameboycore.svg)](https://github.com/nnarain/gameboycore/issues)
+[![GitHub release](https://img.shields.io/github/release/nnarain/gameboycore.svg)](https://github.com/nnarain/gameboycore/releases)
 
-Emulator for Gameboy
+Gameboy emulator library written in C++.
 
 Build
 -----
