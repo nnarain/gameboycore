@@ -30,12 +30,16 @@ namespace gb
 			cycles_to_next_state_(OAM_ACCESS_CYCLES),
 			cycle_count_(0),
 			line_(0),
-			line_count_(0)
+			line_count_(0),
+			lcdc_(mmu->get(memorymap::LCDC_REGISTER))
 		{
+			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::configure, this, std::placeholders::_1, std::placeholders::_2));
 		}
 
 		void update(uint8_t cycles, bool ime)
 		{
+			if (!is_enabled_) return;
+
 			// increment cycle count
 			cycle_count_ += cycles;
 
@@ -55,12 +59,13 @@ namespace gb
 
 				if (line_count_ >= LINE_CYCLES)
 				{
-					line_ = (line_ + 1) % LINE_MAX;
-					line_count_ = 0;
+					line_count_ -= LINE_CYCLES;
 
+					line_ = (line_ + 1) % LINE_MAX;
 					mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
 
-					// TODO: LYC compare?
+					compareLyToLyc(ime);
+					checkInterrupts(mmu_->read(memorymap::LCD_STAT_REGISTER), ime);
 				}
 			}
 		}
@@ -79,6 +84,7 @@ namespace gb
 			{
 			case Mode::HBLANK:
 				line_ = (line_ + 1) % LINE_MAX;
+				compareLyToLyc(ime);
 
 				if (line_ >= VBLANK_LINE)
 				{
@@ -118,7 +124,19 @@ namespace gb
 			// update mode in register
 			stat = (stat & ~(0x03)) | (static_cast<uint8_t>(mode_) & 0x03);
 
-			// check scan line and LYC register match
+			checkInterrupts(stat, ime);
+
+			// update stat register
+			mmu_->write(stat, memorymap::LCD_STAT_REGISTER);
+
+			// update LY register
+			mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
+		}
+
+		void compareLyToLyc(bool ime)
+		{
+			auto stat = mmu_->read(memorymap::LCD_STAT_REGISTER);
+
 			auto lyc = mmu_->read(memorymap::LYC_REGISTER);
 
 			if ((uint8_t)line_ == lyc)
@@ -129,14 +147,6 @@ namespace gb
 			{
 				stat &= ~(memorymap::Stat::LYCLY);
 			}
-
-			checkInterrupts(stat, ime);
-
-			// update stat register
-			mmu_->write(stat, memorymap::LCD_STAT_REGISTER);
-
-			// update LY register
-			mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
 		}
 
 		void renderScanline()
@@ -186,16 +196,20 @@ namespace gb
 				render_scanline_(scanline, line_);
 		}
 
-		void configure(uint8_t value)
+		void configure(uint8_t value, uint16_t addr)
 		{
 			bool enable = (value & memorymap::LCDC::ENABLE) != 0;
 
-			if (enable && !is_enabled_)
+			if (enable && !is_enabled_) 
+			{
 				line_ = 0;
+				line_count_ = 0;
+				cycle_count_ = 0;
+			}
 
 			is_enabled_ = enable;
 
-			mmu_->write(value, memorymap::LCDC_REGISTER);
+			lcdc_ = value;
 		}
 
 		void checkInterrupts(uint8_t stat, bool ime)
@@ -235,6 +249,7 @@ namespace gb
 		int cycle_count_;
 		int line_;
 		int line_count_;
+		uint8_t& lcdc_;
 		RenderScanlineCallback render_scanline_;
 	};
 
