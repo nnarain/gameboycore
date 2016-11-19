@@ -47,11 +47,11 @@ namespace gb
 
 		void setDebugMode(bool debug);
 
-		CPU& getCPU();
-		MMU::Ptr getMMU();
-		GPU::Ptr getGPU();
-		APU::Ptr getAPU();
-		Joy::Ptr getJoypad();
+		CPU::Ptr& getCPU();
+		MMU::Ptr& getMMU();
+		GPU::Ptr& getGPU();
+		APU::Ptr& getAPU();
+		Joy::Ptr& getJoypad();
 
 		bool isDone() const;
 

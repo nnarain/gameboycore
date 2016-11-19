@@ -21,7 +21,7 @@ TEST(CallInstructions, BaseCall)
 
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
-	auto mmu = gameboy.getMMU();
+	auto& mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.pc, 0x251);
 	EXPECT_EQ(status.sp, 0xFFFC);
@@ -42,13 +42,13 @@ TEST(CallInstructions, ZFlag)
 
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
-	MMU::Ptr mmu = gameboy.getMMU();
+	auto mmu = &gameboy.getMMU();
 
 	EXPECT_EQ(status.f & CPU::Flags::Z, CPU::Flags::Z);
 	EXPECT_EQ(status.pc, 0x251);
 	EXPECT_EQ(status.sp, 0xFFFC);
-	EXPECT_EQ(mmu->read(status.sp + 1), 0x01);
-	EXPECT_EQ(mmu->read(status.sp + 0), 0x56);
+	EXPECT_EQ((*mmu)->read(status.sp + 1), 0x01);
+	EXPECT_EQ((*mmu)->read(status.sp + 0), 0x56);
 
 	code.reset();
 
@@ -59,13 +59,13 @@ TEST(CallInstructions, ZFlag)
 	code.block(0x76);
 
 	status = run(gameboy, code.rom());
-	mmu = gameboy.getMMU();
+	mmu = &gameboy.getMMU();
 
 	EXPECT_EQ(status.f & CPU::Flags::Z, 0);
 	EXPECT_EQ(status.pc, 0x251);
 	EXPECT_EQ(status.sp, 0xFFFE);
-	EXPECT_EQ(mmu->read(status.sp + 1), 0x00);
-	EXPECT_EQ(mmu->read(status.sp + 0), 0x00);
+	EXPECT_EQ((*mmu)->read(status.sp + 1), 0x00);
+	EXPECT_EQ((*mmu)->read(status.sp + 0), 0x00);
 }
 
 TEST(CallInstructions, CFlag)
@@ -80,13 +80,13 @@ TEST(CallInstructions, CFlag)
 
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
-	MMU::Ptr mmu = gameboy.getMMU();
+	auto mmu = &gameboy.getMMU();
 
 	EXPECT_EQ(status.f & CPU::Flags::C, CPU::Flags::C);
 	EXPECT_EQ(status.pc, 0x251);
 	EXPECT_EQ(status.sp, 0xFFFC);
-	EXPECT_EQ(mmu->read(status.sp + 1), 0x01);
-	EXPECT_EQ(mmu->read(status.sp + 0), 0x54);
+	EXPECT_EQ((*mmu)->read(status.sp + 1), 0x01);
+	EXPECT_EQ((*mmu)->read(status.sp + 0), 0x54);
 
 	code.reset();
 
@@ -98,13 +98,13 @@ TEST(CallInstructions, CFlag)
 	code.block(0x76);
 
 	status = run(gameboy, code.rom());
-	mmu = gameboy.getMMU();
+	mmu = &gameboy.getMMU();
 
 	EXPECT_EQ(status.f & CPU::Flags::C, 0);
 	EXPECT_EQ(status.pc, 0x154);
 	EXPECT_EQ(status.sp, 0xFFFE);
-	EXPECT_EQ(mmu->read(status.sp + 1), 0x00);
-	EXPECT_EQ(mmu->read(status.sp + 0), 0x00);
+	EXPECT_EQ((*mmu)->read(status.sp + 1), 0x00);
+	EXPECT_EQ((*mmu)->read(status.sp + 0), 0x00);
 }
 
 TEST(CallInstructions, Return)

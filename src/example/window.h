@@ -200,7 +200,7 @@ private:
 	ScreenRenderer screen_renderer_;
 	Audio audio_;
 
-	gb::Joy::Ptr joypad_;
+	gb::Joy::Ptr& joypad_;
 };
 
 
