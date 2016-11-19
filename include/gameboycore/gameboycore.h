@@ -1,5 +1,5 @@
 /**
-    \file gameboy.h
+    \file gameboycore.h
     \author Natesh Narain <nnaraindev@gmail.com>
 */
 
@@ -18,8 +18,9 @@
 
 namespace gb
 {
-    /**
+    /*!
         \brief Encapsulation for Gameboy emulation
+        \class GameboyCore
     */
     class GAMEBOYCORE_API GameboyCore
     {
@@ -27,6 +28,9 @@ namespace gb
 		GameboyCore();
 		~GameboyCore();
 
+        /*!
+        	runs `steps` number of steps on the gameboycore
+        */
         void update(int steps = 1);
 
         void loadROM(uint8_t* rom, uint32_t size);

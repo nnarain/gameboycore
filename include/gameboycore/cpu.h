@@ -15,6 +15,9 @@
 
 namespace gb
 {
+    /*!
+        \class CPU
+    */
     class GAMEBOYCORE_API CPU
     {
 	public:
