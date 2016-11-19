@@ -27,47 +27,77 @@ namespace gb
 			mmu_(mmu),
 			mode_(Mode::OAM),
 			is_enabled_(false),
-			cycles_to_next_state_(OAM_ACCESS_CYCLES),
 			cycle_count_(0),
 			line_(0),
-			line_count_(0),
-			lcdc_(mmu->get(memorymap::LCDC_REGISTER))
+			vblank_provider_(*mmu.get(), InterruptProvider::Interrupt::VBLANK),
+			stat_provider_(*mmu.get(), InterruptProvider::Interrupt::LCDSTAT),
+			lcdc_(mmu->get(memorymap::LCDC_REGISTER)),
+			stat_(mmu->get(memorymap::LCD_STAT_REGISTER))
 		{
 			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::configure, this, std::placeholders::_1, std::placeholders::_2));
 		}
 
 		void update(uint8_t cycles, bool ime)
 		{
-			if (!is_enabled_) return;
+		//	if (!is_enabled_) return; // FIXME: some games don't with this enabled!
 
-			// increment cycle count
 			cycle_count_ += cycles;
 
-			// check if cycle time for the current state has elapsed
-			if (cycle_count_ >= cycles_to_next_state_)
+			switch (mode_)
 			{
-				// reset the cycle time
-				cycle_count_ -= cycles_to_next_state_;
+				case Mode::HBLANK:
+					// check if the HBLANK period is over
+					if (hasElapsed(HBLANK_CYCLES))
+					{
+						// render the current scan line
+						renderScanline();
+						// update the scan line
+						updateLY();
+						// check if LY matches LYC
+						compareLyToLyc(ime);
 
-				// transition to next LCD driver mode.
-				transitionState(ime);
+						// check if in VBlank mode
+						if (line_ == VBLANK_LINE)
+						{
+							mode_ = Mode::VBLANK;
+							vblank_provider_.set();
+						}
+						else
+						{
+							mode_ = Mode::OAM;
+						}
+
+						checkStatInterrupts(ime);
+					}
+					break;
+				case Mode::OAM:
+					if (hasElapsed(OAM_ACCESS_CYCLES))
+					{
+						mode_ = Mode::LCD;
+					}
+					break;
+				case Mode::LCD:
+					if (hasElapsed(LCD_TRANSFER_CYCLES))
+					{
+						mode_ = Mode::HBLANK;
+						checkStatInterrupts(ime);
+					}
+					break;
+				case Mode::VBLANK:
+					if (hasElapsed(LINE_CYCLES))
+					{
+						updateLY();
+						compareLyToLyc(ime);
+
+						if (line_ == 0)
+						{
+							mode_ = Mode::OAM;
+							checkStatInterrupts(ime);
+						}
+					}
+					break;
 			}
 
-			if (mode_ == Mode::VBLANK)
-			{
-				line_count_ += cycles;
-
-				if (line_count_ >= LINE_CYCLES)
-				{
-					line_count_ -= LINE_CYCLES;
-
-					line_ = (line_ + 1) % LINE_MAX;
-					mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
-
-					compareLyToLyc(ime);
-					checkInterrupts(mmu_->read(memorymap::LCD_STAT_REGISTER), ime);
-				}
-			}
 		}
 
 		void setRenderCallback(RenderScanlineCallback callback)
@@ -76,78 +106,6 @@ namespace gb
 		}
 
 	private:
-
-		void transitionState(bool ime)
-		{
-			// switch on the current mode and determine the next mode
-			switch (mode_)
-			{
-			case Mode::HBLANK:
-				line_ = (line_ + 1) % LINE_MAX;
-				compareLyToLyc(ime);
-
-				if (line_ >= VBLANK_LINE)
-				{
-					mode_ = Mode::VBLANK;
-					cycles_to_next_state_ = VBLANK_CYCLES;
-				}
-				else
-				{
-					mode_ = Mode::OAM;
-					cycles_to_next_state_ = OAM_ACCESS_CYCLES;
-				}
-				break;
-			case Mode::VBLANK:
-				// vblank interrupt
-				mode_ = Mode::OAM;
-				cycles_to_next_state_ = OAM_ACCESS_CYCLES;
-				line_ = 0;
-				break;
-			case Mode::OAM:
-				// set new cycle wait time
-				mode_ = Mode::LCD;
-				cycles_to_next_state_ = LCD_TRANSFER_CYCLES;
-				break;
-			case Mode::LCD:
-				// set new cycle wait time
-				mode_ = Mode::HBLANK;
-				cycles_to_next_state_ = HBLANK_CYCLES;
-
-				// compute the current scan line
-				renderScanline();
-				break;
-			}
-
-			// get lcd stat register
-			auto stat = mmu_->read(memorymap::LCD_STAT_REGISTER);
-
-			// update mode in register
-			stat = (stat & ~(0x03)) | (static_cast<uint8_t>(mode_) & 0x03);
-
-			checkInterrupts(stat, ime);
-
-			// update stat register
-			mmu_->write(stat, memorymap::LCD_STAT_REGISTER);
-
-			// update LY register
-			mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
-		}
-
-		void compareLyToLyc(bool ime)
-		{
-			auto stat = mmu_->read(memorymap::LCD_STAT_REGISTER);
-
-			auto lyc = mmu_->read(memorymap::LYC_REGISTER);
-
-			if ((uint8_t)line_ == lyc)
-			{
-				stat |= memorymap::Stat::LYCLY;
-			}
-			else
-			{
-				stat &= ~(memorymap::Stat::LYCLY);
-			}
-		}
 
 		void renderScanline()
 		{
@@ -161,8 +119,8 @@ namespace gb
 			const auto lcdc = mmu_->read(memorymap::LCDC_REGISTER);
 
 			const auto background_enabled = IS_SET(lcdc, memorymap::LCDC::BG_DISPLAY_ON) != 0;
-			const auto window_enabled = IS_SET(lcdc, memorymap::LCDC::WINDOW_ON) != 0;
-			const auto sprites_enabled = IS_SET(lcdc, memorymap::LCDC::OBJ_ON) != 0;
+			const auto window_enabled     = IS_SET(lcdc, memorymap::LCDC::WINDOW_ON)     != 0;
+			const auto sprites_enabled    = IS_SET(lcdc, memorymap::LCDC::OBJ_ON)        != 0;
 
 			// get background tile line
 			const auto background = tilemap.getBackground(line_);
@@ -196,6 +154,22 @@ namespace gb
 				render_scanline_(scanline, line_);
 		}
 
+		bool hasElapsed(int mode_cycles)
+		{
+			if (cycle_count_ >= mode_cycles)
+			{
+				cycle_count_ -= mode_cycles;
+				return true;
+			}
+			return false;
+		}
+
+		void updateLY()
+		{
+			line_ = (line_ + 1) % LINE_MAX;
+			mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
+		}
+
 		void configure(uint8_t value, uint16_t addr)
 		{
 			bool enable = (value & memorymap::LCDC::ENABLE) != 0;
@@ -203,7 +177,6 @@ namespace gb
 			if (enable && !is_enabled_) 
 			{
 				line_ = 0;
-				line_count_ = 0;
 				cycle_count_ = 0;
 			}
 
@@ -212,30 +185,40 @@ namespace gb
 			lcdc_ = value;
 		}
 
-		void checkInterrupts(uint8_t stat, bool ime)
+		void compareLyToLyc(bool ime)
 		{
-			InterruptProvider vblank_provider{ *mmu_.get(), InterruptProvider::Interrupt::VBLANK };
-			InterruptProvider stat_provider{ *mmu_.get(), InterruptProvider::Interrupt::LCDSTAT };
+			auto lyc = mmu_->read(memorymap::LYC_REGISTER);
 
-			// check the lyc=ly flag
-			if (stat & memorymap::Stat::LYCLY)
+			if ((uint8_t)line_ == lyc)
+			{
+				//stat_ |= memorymap::Stat::LYCLY;
+				SET(stat_, memorymap::Stat::LYCLY);
+			}
+			else
+			{
+				//stat_ &= ~(memorymap::Stat::LYCLY);
+				CLR(stat_, memorymap::Stat::LYCLY);
+			}
+
+			// check the ly=lyc flag
+			if (stat_ & memorymap::Stat::LYCLY)
 			{
 				if (ime)
-					stat_provider.set();
+					stat_provider_.set();
 			}
+		}
+
+		void checkStatInterrupts(bool ime)
+		{
+		//	InterruptProvider stat_provider{ *mmu_.get(), InterruptProvider::Interrupt::LCDSTAT };
 
 			// check mode selection interrupts
 			uint8_t mask = (1 << (3 + static_cast<uint8_t>(mode_)));
 
-			if (stat & mask)
+			if (stat_ & mask)
 			{
 				if (ime)
-					stat_provider.set();
-			}
-
-			if (mode_ == Mode::VBLANK)
-			{
-				vblank_provider.set();
+					stat_provider_.set();
 			}
 		}
 
@@ -245,11 +228,14 @@ namespace gb
 		bool is_enabled_;
 
 		Mode mode_;
-		int cycles_to_next_state_;
 		int cycle_count_;
 		int line_;
-		int line_count_;
 		uint8_t& lcdc_;
+		uint8_t& stat_;
+
+		InterruptProvider vblank_provider_;
+		InterruptProvider stat_provider_;
+
 		RenderScanlineCallback render_scanline_;
 	};
 
