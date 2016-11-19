@@ -25,8 +25,8 @@ class Window
 public:
 	Window(gb::GameboyCore& gameboy, const std::string& title) :
 		window_(sf::VideoMode(160 * 2, 144 * 2), title),
-		screen_renderer_{gameboy},
-		joypad_{gameboy.getJoypad()}
+		screen_renderer_(),
+		joypad_(gameboy.getJoypad())
 	{
 		gameboy.getGPU()->setRenderCallback(
 			std::bind(
