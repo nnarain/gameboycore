@@ -1,5 +1,5 @@
-# 
-# Appveyor build 
+#
+# Appveyor build
 #
 # @author Natesh Narain <nnaraindev@gmail.com>
 
@@ -23,7 +23,7 @@ install:
 before_build:
   - cd c:\projects\gameboycore
   - mkdir build && cd build
-  - cmake .. -DWITH_GUI="OFF"
+  - cmake .. -DBUILD_EXAMPLE="OFF" -DBUILD_DOCS="OFF"
 
 build:
   project: c:\projects\gameboycore\build\gameboycore.sln
@@ -36,7 +36,7 @@ after_build:
 artifacts:
 - path: .\build\gameboycore-*-win32.exe
   name: installer
-  
+
 deploy:
   provider: GitHub
   tag: $(APPVEYOR_REPO_TAG_NAME)
@@ -48,4 +48,4 @@ deploy:
   prerelease: false
   on:
     appveyor_repo_tag: true
-  force_update: true 
+  force_update: true

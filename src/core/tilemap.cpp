@@ -62,8 +62,6 @@ namespace gb
 	TileMap::Line TileMap::getWindowOverlay(int line)
 	{
 		static constexpr auto tiles_per_row = 32;
-		static constexpr auto tiles_per_col = 32;
-		static constexpr auto tile_width = 8;
 		static constexpr auto tile_height = 8;
 
 		TileMap::Line tileline{};
@@ -96,7 +94,7 @@ namespace gb
 	void TileMap::drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line)
 	{
 		OAM oam{ mmu_ };
-		
+
 		auto palette0 = Palette::get(mmu_.read(memorymap::OBP0_REGISTER));
 		auto palette1 = Palette::get(mmu_.read(memorymap::OBP1_REGISTER));
 
@@ -117,7 +115,7 @@ namespace gb
 
 			// check if the sprite contains the line
 			if (line >= y && line < y + sprite.height)
-			{				
+			{
 				// get the pixel row in tile
 				auto row = line - y;
 

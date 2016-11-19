@@ -65,27 +65,27 @@ namespace gb
 		impl_->cpu->setDebugMode(debug);
 	}
 
-	CPU& GameboyCore::getCPU()
+	CPU::Ptr& GameboyCore::getCPU()
 	{
-		return *impl_->cpu.get();
+		return impl_->cpu;
 	}
 
-	MMU::Ptr GameboyCore::getMMU()
+	MMU::Ptr& GameboyCore::getMMU()
 	{
 		return impl_->mmu;
 	}
 
-	GPU::Ptr GameboyCore::getGPU()
+	GPU::Ptr& GameboyCore::getGPU()
 	{
 		return impl_->gpu;
 	}
 
-	APU::Ptr GameboyCore::getAPU()
+	APU::Ptr& GameboyCore::getAPU()
 	{
 		return impl_->apu;
 	}
 
-	Joy::Ptr GameboyCore::getJoypad()
+	Joy::Ptr& GameboyCore::getJoypad()
 	{
 		return impl_->joy;
 	}

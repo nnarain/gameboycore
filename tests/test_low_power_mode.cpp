@@ -49,7 +49,7 @@ TEST(LowPowerTest, HaltResume)
 
 	auto status = run(gameboy, code.rom(), false);
 	InterruptProvider interrupt{ *gameboy.getMMU(), InterruptProvider::Interrupt::VBLANK };
-	auto mmu = gameboy.getMMU();
+	auto& mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.halt, true);
 	EXPECT_EQ(status.a, 0x01);
@@ -100,7 +100,7 @@ TEST(LowPowerTest, StopResume)
 
 	auto status = run(gameboy, code.rom(), false);
 	InterruptProvider interrupt{ *gameboy.getMMU(), InterruptProvider::Interrupt::JOYPAD };
-	auto mmu = gameboy.getMMU();
+	auto& mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.halt, true);
 	EXPECT_EQ(status.stopped, true);

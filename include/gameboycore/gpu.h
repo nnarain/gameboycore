@@ -1,4 +1,6 @@
 /**
+	\file gpu.h
+	\brief GPU emulation
 	\author Natesh Narain <nnaraindev@gmail.com>
 	\date Oct 23 2016
 */
@@ -19,32 +21,39 @@
 namespace gb
 {
 	/**
+		\class GPU
 		\brief Handle LCD state, compute scanlines and send to an external renderer
+		\ingroup API
 	*/
 	class GAMEBOYCORE_API GPU
 	{
-		enum class Mode
-		{
-			HBLANK,
-			VBLANK,
-			OAM,
-			LCD
-		};
-
 	public:
-		using Ptr = std::shared_ptr<GPU>;
+		//! Smart pointer type
+		using Ptr = std::unique_ptr<GPU>;
 
+		//! Array on Pixel objects representing a single scan line produced by the GPU
 		using Scanline               = std::array<Pixel, 160>;
+		/**
+			Callback function called by the GPU when it has produced a new scan line
+			Provides the Scanline and the line number
+		*/
 		using RenderScanlineCallback = std::function<void(const Scanline&, int linenum)>;
 
 	public:
-		GPU(const MMU::Ptr& mmu);
+		GPU(MMU::Ptr& mmu);
 		~GPU();
 
+		/**
+			Update the GPU with elasped cycles. Used by the CPU
+		*/
 		void update(uint8_t cycles, bool ime);
+		/**
+			Set the host system callback
+		*/
 		void setRenderCallback(RenderScanlineCallback callback);
 
 	private:
+		//! Private Implementation class
 		class Impl;
 		Impl* impl_;
 	};

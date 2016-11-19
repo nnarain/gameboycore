@@ -13,8 +13,11 @@ add_executable(example
 	texture_buffer.h
 	audio.h
 )
+set_target_properties(example PROPERTIES
+	COMPILE_FLAGS "-DGAMEBOYCORE_STATIC"
+)
 target_link_libraries(example
-    gameboycore
+    gameboycore-s
 	${SFML_LIBRARIES}
 )
 

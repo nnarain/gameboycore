@@ -15,7 +15,7 @@ gb::CPU::Status run(gb::GameboyCore& gameboy, std::vector<uint8_t>& rom, bool re
 		gameboy.update();
 	} while (!gameboy.isDone());
 
-	gb::CPU::Status status = gameboy.getCPU().getStatus();
+	gb::CPU::Status status = gameboy.getCPU()->getStatus();
 
 	if(reset)
 		gameboy.reset();

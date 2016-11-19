@@ -34,7 +34,7 @@ TEST(MiscInstructions, Swap)
 
 	GameboyCore gameboy;
 	CPU::Status status = run(gameboy, code.rom());
-	auto mmu = gameboy.getMMU();
+	auto& mmu = gameboy.getMMU();
 
 	EXPECT_EQ(status.a, 0x21);
 	EXPECT_EQ(status.b, 0x43);

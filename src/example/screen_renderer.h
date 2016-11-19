@@ -27,7 +27,7 @@ class ScreenRenderer
 	static constexpr auto HEIGHT        = TILES_PER_COL * 8;
 
 public:
-	ScreenRenderer(gb::GameboyCore& gameboy) :
+	ScreenRenderer() :
 		frame_buffer_(WIDTH, HEIGHT, 0)
 	{
 		if (!screen_texture_.create(WIDTH, HEIGHT))

@@ -10,9 +10,10 @@
 
 namespace gb
 {
+	//! Pixel type
 	struct Pixel
 	{
-		Pixel() : 
+		Pixel() :
 			r(0), g(0), b(0)
 		{
 		}
@@ -26,11 +27,10 @@ namespace gb
 		{
 		}
 
-		uint8_t r;
-		uint8_t g;
-		uint8_t b;
+		uint8_t r; ///< Red
+		uint8_t g; ///< Green
+		uint8_t b; ///< Blue
 	};
 }
 
 #endif // GAMEBOYCORE_PIXEL_H
-

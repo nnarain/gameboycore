@@ -81,7 +81,7 @@ TEST(MMUTest, DMA)
 	GameboyCore gameboy;
 	(void)run(gameboy, code.rom());
 
-	auto mmu = gameboy.getMMU();
+	auto& mmu = gameboy.getMMU();
 
 	EXPECT_EQ(mmu->read(memorymap::OAM_START + 0), 1);
 	EXPECT_EQ(mmu->read(memorymap::OAM_START + 1), 2);

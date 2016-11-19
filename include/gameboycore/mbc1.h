@@ -14,6 +14,10 @@
 
 namespace gb
 {
+	/**
+		\class MBC1
+		\brief Memory Bank Controller 1 Implementation
+	*/
 	class MBC1 : public MBC
 	{
 	private:
@@ -108,7 +112,7 @@ namespace gb
 			case 0xF000:
 				return ram3_[addr - 0xE000];
 			}
-			
+
 			// Should not get here
 			// TODO: assert
 			return 0;
@@ -275,7 +279,7 @@ namespace gb
 
 		void loadRAM(uint8_t ram_size)
 		{
-			//	XRAM_NONE = 0x00: 
+			//	XRAM_NONE = 0x00:
 			//	XRAM_2KB  = 0x01: $A000 - $A7FF
 			//	XRAM_8KB  = 0x02: $A000 - $BFFF
 			//	XRAM_32KB = 0x03: $A000 - $BFFF x4

@@ -42,7 +42,7 @@ int main(int argc, char * argv[])
 			rom.clear();
 
 			// setup render window
-			std::string title = "Dotrix-" + version::get() + " [Beta]";
+			std::string title = "Example " + version::get();
 
 			Window window(gameboy, title);
 			window.start();
