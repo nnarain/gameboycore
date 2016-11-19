@@ -1,5 +1,6 @@
 /**
     \file gameboycore.h
+    \brief Encapsulate Gameboy hardware
     \author Natesh Narain <nnaraindev@gmail.com>
 */
 
@@ -18,9 +19,10 @@
 
 namespace gb
 {
-    /*!
+    /**
         \brief Encapsulation for Gameboy emulation
         \class GameboyCore
+        \ingroup API
     */
     class GAMEBOYCORE_API GameboyCore
     {
@@ -28,13 +30,19 @@ namespace gb
 		GameboyCore();
 		~GameboyCore();
 
-        /*!
+        /**
         	runs `steps` number of steps on the gameboycore
         */
         void update(int steps = 1);
 
+        /**
+            Load byte buffer into virtual memory
+        */
         void loadROM(uint8_t* rom, uint32_t size);
 
+        /**
+            Reset the GameboyCore state
+        */
 		void reset();
 
 		void setDebugMode(bool debug);

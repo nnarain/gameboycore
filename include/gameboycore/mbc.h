@@ -1,5 +1,6 @@
 
 /**
+	\file mbc.h
 	\author Natesh Narain <nnaraindev@gmail.com>
 	\date   Oct 11 2016
 */
@@ -14,6 +15,7 @@
 namespace gb
 {
 	/**
+		\class MBC
 		\brief Memory Bank Controller Interface
 	*/
 	class MBC

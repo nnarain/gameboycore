@@ -1,5 +1,6 @@
 /**
     \file cpu.h
+    \brief Gameboy CPU
     \author Natesh Narain <nnaraindev@gmail.com>
 */
 
@@ -17,11 +18,13 @@ namespace gb
 {
     /*!
         \class CPU
+        \brief Emulates Gameboy CPU instructions
+        \ingroup API
     */
     class GAMEBOYCORE_API CPU
     {
 	public:
-
+        //! CPU state
 		struct Status
 		{
 			uint16_t af;
@@ -47,6 +50,7 @@ namespace gb
 			bool stopped;
 		};
 
+        //! Flags set by the most recent instruction
 		enum Flags
 		{
 			Z = 1 << 7,
@@ -55,23 +59,40 @@ namespace gb
 			C = 1 << 4
 		};
 
+        //! Smart pointer type
 		using Ptr = std::unique_ptr<CPU>;
 
     public:
         CPU(const MMU::Ptr& mmu, const GPU::Ptr& gpu, const APU::Ptr& apu);
 		~CPU();
 
+        /**
+            Run one CPU fetch, decode, execute cycle
+        */
         void step();
 
+        /**
+            Reset the CPU state
+        */
 		void reset();
 
+        /**
+            \return true if the CPU is halted
+        */
         bool isHalted() const;
 
+        /**
+            Set CPU debug mode
+        */
 		void setDebugMode(bool debug_mode);
 
+        /**
+            Get the current status of the CPU
+        */
 		Status getStatus() const;
 
 	private:
+        // Private implementation class
 		class Impl;
 		Impl* impl_;
     };

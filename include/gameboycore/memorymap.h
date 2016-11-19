@@ -1,16 +1,17 @@
 /**
-	Constants that define the CPU memory map
-
-	@author Natesh Narain <nnaraindev@gmail.com>
+	\file memorymap.h
+	\brief Constants that define the CPU memory map
+	\author Natesh Narain <nnaraindev@gmail.com>
 */
 
 #ifndef GAMEBOYCORE_MEMORYMAP_H
 #define GAMEBOYCORE_MEMORYMAP_H
 
 namespace gb{
+	//! Defines values for specific locations in the Gameboy memory map
 	namespace memorymap{
 		enum {
-			PERMANENT_ROM_BANK_START = 0x0000,
+			PERMANENT_ROM_BANK_START = 0x0000, ///<
 
 			INTERRUPT_HANDLER_VBLANK = 0x0040,
 			INTERRUPT_HANDLER_LCDSTAT = 0x0048,
@@ -116,7 +117,7 @@ namespace gb{
 			NR50_REGISTER = 0xFF24, // Sound Control Register ON/OFF / Volume Control
 			NR51_REGISTER = 0xFF25, // Output terminal selection
 			NR52_REGISTER = 0xFF26, // Sound On/Off
-			  
+
 			WAVE_PATTERN_RAM_START = 0xFF30,
 			WAVE_PATTERN_RAM_END   = 0xFF3F,
 
@@ -145,21 +146,23 @@ namespace gb{
 			INTERRUPT_FLAG          = 0xFF0F
 		};
 
+		//! LCDC Register bit masks
 		enum LCDC
 		{
-			ENABLE                = (1 << 7),
-			WINDOW_CODE_AREA      = (1 << 6),
-			WINDOW_ON             = (1 << 5),
-			CHARACTER_DATA        = (1 << 4),
-			BG_CODE_AREA          = (1 << 3),
-			OBJ_8x16              = (1 << 2),
-			OBJ_ON                = (1 << 1),
-			BG_DISPLAY_ON         = (1 << 0)
+			ENABLE                = (1 << 7), ///< LCD Controller enable
+			WINDOW_CODE_AREA      = (1 << 6), ///< Window map area selection
+			WINDOW_ON             = (1 << 5), ///< Window enable
+			CHARACTER_DATA        = (1 << 4), ///< Character map
+			BG_CODE_AREA          = (1 << 3), ///< Background map area selection
+			OBJ_8x16              = (1 << 2), ///< Sprite composition mode
+			OBJ_ON                = (1 << 1), ///< Sprite enable
+			BG_DISPLAY_ON         = (1 << 0)  ///< Background enable
 		};
 
+		//! LCDC Status Register bit masks
 		enum Stat
 		{
-			LYCLY = (1 << 2)
+			LYCLY = (1 << 2) ///< LY=LYC flag
 		};
 	}
 }

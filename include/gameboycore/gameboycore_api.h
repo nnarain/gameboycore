@@ -1,7 +1,10 @@
 
 /**
+    \file gameboycore_api.h
+    \brief Define export macros
 	\author Natesh Narain
 	\date Nov 12 2016
+    \defgroup API
 */
 
 #ifndef GAMEBOYCORE_API_H

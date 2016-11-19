@@ -23,6 +23,14 @@ namespace gb
 	class GPU::Impl
 	{
 	public:
+		enum class Mode
+		{
+			HBLANK,
+			VBLANK,
+			OAM,
+			LCD
+		};
+
 		Impl(const MMU::Ptr& mmu) :
 			mmu_(mmu),
 			mode_(Mode::OAM),

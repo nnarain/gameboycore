@@ -1,6 +1,6 @@
-
 /**
-	@author Natesh Narain <nnaraindev@gmail.com>
+	\file alu.h
+	\author Natesh Narain <nnaraindev@gmail.com>
 */
 
 #ifndef GAMEBOYCORE_ALU_H
@@ -13,6 +13,10 @@
 */
 namespace gb
 {
+	/*!
+		\class ALU
+		\brief Arithmetic and logic unit
+	*/
 	class ALU
 	{
 	public:
