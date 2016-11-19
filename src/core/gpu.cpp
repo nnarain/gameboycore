@@ -33,7 +33,6 @@ namespace gb
 
 		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
-			is_enabled_(false),
 			mode_(Mode::OAM),
 			cycle_count_(0),
 			line_(0),
@@ -47,7 +46,7 @@ namespace gb
 
 		void update(uint8_t cycles, bool ime)
 		{
-		//	if (!is_enabled_) return; // FIXME: some games don't with this enabled!
+			if (IS_CLR(lcdc_, memorymap::LCDC::ENABLE)) return; // FIXME: some games don't with this enabled!
 
 			cycle_count_ += cycles;
 
@@ -182,13 +181,11 @@ namespace gb
 		{
 			bool enable = (value & memorymap::LCDC::ENABLE) != 0;
 
-			if (enable && !is_enabled_)
+			if (enable && IS_CLR(lcdc_, memorymap::LCDC::ENABLE))
 			{
 				line_ = 0;
 				cycle_count_ = 0;
 			}
-
-			is_enabled_ = enable;
 
 			lcdc_ = value;
 		}
@@ -232,8 +229,6 @@ namespace gb
 
 	private:
 		MMU::Ptr& mmu_;
-
-		bool is_enabled_;
 
 		Mode mode_;
 		int cycle_count_;
