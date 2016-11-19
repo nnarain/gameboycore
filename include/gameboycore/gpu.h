@@ -29,7 +29,7 @@ namespace gb
 	{
 	public:
 		//! Smart pointer type
-		using Ptr = std::shared_ptr<GPU>;
+		using Ptr = std::unique_ptr<GPU>;
 
 		//! Array on Pixel objects representing a single scan line produced by the GPU
 		using Scanline               = std::array<Pixel, 160>;
@@ -40,7 +40,7 @@ namespace gb
 		using RenderScanlineCallback = std::function<void(const Scanline&, int linenum)>;
 
 	public:
-		GPU(const MMU::Ptr& mmu);
+		GPU(MMU::Ptr& mmu);
 		~GPU();
 
 		/**

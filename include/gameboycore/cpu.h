@@ -63,7 +63,7 @@ namespace gb
 		using Ptr = std::unique_ptr<CPU>;
 
     public:
-        CPU(const MMU::Ptr& mmu, const GPU::Ptr& gpu, const APU::Ptr& apu);
+        CPU(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu);
 		~CPU();
 
         /**

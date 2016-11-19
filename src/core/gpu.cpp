@@ -31,7 +31,7 @@ namespace gb
 			LCD
 		};
 
-		Impl(const MMU::Ptr& mmu) :
+		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
 			mode_(Mode::OAM),
 			is_enabled_(false),
@@ -231,7 +231,7 @@ namespace gb
 		}
 
 	private:
-		MMU::Ptr mmu_;
+		MMU::Ptr& mmu_;
 
 		bool is_enabled_;
 
@@ -249,7 +249,7 @@ namespace gb
 
 	/* Public Implementation */
 
-	GPU::GPU(const MMU::Ptr& mmu) :
+	GPU::GPU(MMU::Ptr& mmu) :
 		impl_(new Impl(mmu))
 	{
 	}

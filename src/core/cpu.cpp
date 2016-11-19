@@ -59,7 +59,7 @@ namespace gb
 			JOYPAD = 0x0060
 		};
 
-		Impl(const MMU::Ptr& mmu, const GPU::Ptr& gpu, const APU::Ptr& apu) :
+		Impl(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu) :
 			mmu_(mmu),
 			gpu_(gpu),
 			apu_(apu),
@@ -2360,9 +2360,9 @@ namespace gb
 		Register sp_;
 		Register pc_;
 
-		MMU::Ptr mmu_;
-		GPU::Ptr gpu_;
-		APU::Ptr apu_;
+		MMU::Ptr& mmu_;
+		GPU::Ptr& gpu_;
+		APU::Ptr& apu_;
 
 		ALU alu_;
 
@@ -2387,7 +2387,7 @@ namespace gb
 
 	/* Public Interface */
 
-	CPU::CPU(const MMU::Ptr& mmu, const GPU::Ptr& gpu, const APU::Ptr& apu) :
+	CPU::CPU(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu) :
 		impl_(new Impl(mmu, gpu, apu))
 	{
 		reset();
