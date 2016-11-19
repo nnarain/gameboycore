@@ -51,6 +51,7 @@ set(GAMEBOYCORE
 	src/core/joypad.cpp
 	src/core/oam.cpp
 	src/core/timer.cpp
+	src/core/mbc1.cpp
 )
 
 set(GAMEBOYCORE_HEADERS
