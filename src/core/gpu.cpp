@@ -33,14 +33,14 @@ namespace gb
 
 		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
-			mode_(Mode::OAM),
 			is_enabled_(false),
+			mode_(Mode::OAM),
 			cycle_count_(0),
 			line_(0),
-			vblank_provider_(*mmu.get(), InterruptProvider::Interrupt::VBLANK),
-			stat_provider_(*mmu.get(), InterruptProvider::Interrupt::LCDSTAT),
 			lcdc_(mmu->get(memorymap::LCDC_REGISTER)),
-			stat_(mmu->get(memorymap::LCD_STAT_REGISTER))
+			stat_(mmu->get(memorymap::LCD_STAT_REGISTER)),
+			vblank_provider_(*mmu.get(), InterruptProvider::Interrupt::VBLANK),
+			stat_provider_(*mmu.get(), InterruptProvider::Interrupt::LCDSTAT)
 		{
 			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::configure, this, std::placeholders::_1, std::placeholders::_2));
 		}
@@ -143,7 +143,7 @@ namespace gb
 			{
 				auto color = 0u;
 
-				if (window_enabled && line_ >= (int)wy && pixel_idx >= (int)(wx - 7))
+				if (window_enabled && line_ >= (int)wy && (int)pixel_idx >= (wx - 7))
 					color = window[pixel_idx];
 				else if (background_enabled)
 					color = background[pixel_idx];
@@ -182,7 +182,7 @@ namespace gb
 		{
 			bool enable = (value & memorymap::LCDC::ENABLE) != 0;
 
-			if (enable && !is_enabled_) 
+			if (enable && !is_enabled_)
 			{
 				line_ = 0;
 				cycle_count_ = 0;
