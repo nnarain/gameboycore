@@ -9,7 +9,8 @@
 namespace gb
 {
 	/**
-		Class used to set interrupt flag register for a single interrupt
+		\class InterruptProvider
+		\brief Used to set interrupt flag register for a single interrupt
 	*/
 	class InterruptProvider
 	{
@@ -30,6 +31,9 @@ namespace gb
 		{
 		}
 
+		/**
+			Set the interrupt
+		*/
 		void set()
 		{
 			flags_ |= static_cast<uint8_t>(interrupt_);

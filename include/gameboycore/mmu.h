@@ -1,5 +1,6 @@
 /**
     \file mmu.h
+    \brief Memory interface
     \author Natesh Narain <nnaraindev@gmail.com>
 */
 
@@ -14,9 +15,15 @@
 
 namespace gb
 {
+    /**
+        \class MMU
+        \brief Memory interface
+        \ingroup API
+    */
     class GAMEBOYCORE_API MMU
     {
 	public:
+        //! Smart pointer type
 		using Ptr = std::shared_ptr<MMU>;
 
 		using MemoryWriteHandler = std::function<void(uint8_t, uint16_t)>;
@@ -47,7 +54,7 @@ namespace gb
 		void write(uint16_t value, uint16_t addr);
 
 		/**
-			
+
 		*/
 		void addWriteHandler(uint16_t addr, MemoryWriteHandler handler);
 

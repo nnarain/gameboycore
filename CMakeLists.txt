@@ -167,3 +167,19 @@ set(CPACK_COMPONENT_PROGRAMS_DISPLAY_NAME "Programs")
 
 include(CPack)
 
+# documentation
+if(NOT DEFINED BUILD_DOCS)
+	set(BUILD_DOCS "OFF")
+endif(NOT DEFINED BUILD_DOCS)
+
+if(BUILD_DOCS STREQUAL "ON")
+    find_package(Doxygen)
+    if(DOXYGEN_FOUND)
+        configure_file(docs/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
+        add_custom_target(docs
+            ${DOXYGEN_EXECUTABLE} ${CMAKE_BINARY_DIR}/Doxyfile
+            WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+            COMMENT "Building documentation"
+        )
+    endif(DOXYGEN_FOUND)
+endif(BUILD_DOCS STREQUAL "ON")

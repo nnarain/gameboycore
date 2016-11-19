@@ -1,6 +1,8 @@
 
 /**
-	@author Natesh Narain <nnaraindev@gmail.com>
+	\file joypad.h
+	\brief Emulate Gameboy user input
+	\author Natesh Narain <nnaraindev@gmail.com>
 */
 
 #ifndef GAMEBOYCORE_JOYPAD_H
@@ -14,9 +16,15 @@
 
 namespace gb
 {
+	/**
+		\class Joy
+		\brief Emulate Gameboy Joypad
+		\ingroup API
+	*/
 	class GAMEBOYCORE_API Joy
 	{
 	public:
+		//! Keys on the Gameboy
 		enum class Key
 		{
 			RIGHT  = 0,
@@ -29,15 +37,23 @@ namespace gb
 			START  = 7
 		};
 
+		//! Smart pointer type
 		using Ptr = std::shared_ptr<Joy>;
 
 		Joy(MMU& mmu);
 		~Joy();
 
+		/**
+			Press Key on the Gameboy
+		*/
 		void press(Key key);
+		/**
+			Release Key on the Gameboy
+		*/
 		void release(Key key);
 
 	private:
+		//! Private Implementation
 		class Impl;
 		Impl* impl_;
 	};
