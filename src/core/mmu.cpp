@@ -37,14 +37,14 @@ namespace gb
 			RomParser parser;
 			CartInfo header = parser.parse(rom);
 
-			switch (static_cast<MBC::Type>(header.type))
+			switch (static_cast<detail::MBC::Type>(header.type))
 			{
-				// Supports MBC1
-				// Note: MBC1 handles the ROM only case
-			case MBC::Type::ROM_ONLY:
-			case MBC::Type::MBC1:
-			case MBC::Type::MBC1_RAM:
-			case MBC::Type::MBC1_RAM_BAT:
+			// Supports MBC1
+			// Note: MBC1 handles the ROM only case
+			case detail::MBC::Type::ROM_ONLY:
+			case detail::MBC::Type::MBC1:
+			case detail::MBC::Type::MBC1_RAM:
+			case detail::MBC::Type::MBC1_RAM_BAT:
 				mbc_.reset(new detail::MBC1(rom, size, header.rom_size, header.ram_size));
 				break;
 
@@ -248,7 +248,7 @@ namespace gb
 		}
 
 	public:
-		MBC::Ptr mbc_;
+		detail::MBC::Ptr mbc_;
 
 		std::array<MemoryWriteHandler, 0x80> write_handlers_;
 		std::array<MemoryReadHandler, 0x80>  read_handlers_;
