@@ -1,5 +1,7 @@
 #include "gameboycore/mbc.h"
 
+#include <cstring>
+
 namespace gb
 {
 	namespace detail

@@ -11,7 +11,6 @@
 #include "gameboycore/mbc.h"
 
 #include <vector>
-#include <cstring>
 
 namespace gb
 {
