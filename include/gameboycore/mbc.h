@@ -86,9 +86,6 @@ namespace gb
 		public:
 			using Ptr = std::unique_ptr<MBC>;
 
-			using Bank = std::vector<uint8_t>;
-			using Banks = std::vector<Bank>;
-
 		public:
 			MBC(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size);
 			virtual ~MBC();
@@ -98,6 +95,9 @@ namespace gb
 
 			uint8_t& get(uint16_t addr);
 			uint8_t* getptr(uint16_t addr);
+
+			std::vector<uint8_t> getRange(uint16_t start, uint16_t end) const;
+			void setMemory(uint16_t start, const std::vector<uint8_t>& mem);
 
 		protected:
 			/**

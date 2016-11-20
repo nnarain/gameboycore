@@ -1,5 +1,6 @@
 #include "gameboycore/mbc.h"
 
+#include <algorithm>
 #include <cstring>
 
 namespace gb
@@ -55,6 +56,19 @@ namespace gb
 		uint8_t* MBC::getptr(uint16_t addr)
 		{
 			return &memory_[getIndex(addr)];
+		}
+
+		std::vector<uint8_t> MBC::getRange(uint16_t start, uint16_t end) const
+		{
+			auto start_idx = getIndex(start);
+			auto end_idx = getIndex(end);
+			return std::vector<uint8_t>(memory_.begin() + start_idx, memory_.begin() + end_idx);
+		}
+
+		void MBC::setMemory(uint16_t start, const std::vector<uint8_t>& mem)
+		{
+			// TODO: error checks
+			std::copy(mem.begin(), mem.end(), memory_.begin() + getIndex(start));
 		}
 
 		int MBC::getIndex(uint16_t addr) const
