@@ -15,7 +15,7 @@
 #include "gameboycore/apu.h"
 #include "gameboycore/joypad.h"
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace gb
 {
