@@ -68,7 +68,7 @@ namespace gb
 		void MBC::setMemory(uint16_t start, const std::vector<uint8_t>& mem)
 		{
 			// TODO: error checks
-			std::copy(mem.begin(), mem.end(), memory_.begin() + start);
+			std::copy(mem.begin(), mem.end(), memory_.begin() + getIndex(start));
 		}
 
 		int MBC::getIndex(uint16_t addr) const
