@@ -39,10 +39,12 @@ set(GAMEBOYCORE_API_HEADERS
 set(GAMEBOYCORE
     src/core/gameboycore.cpp
     src/core/cpu.cpp
-	src/core/alu.cpp
     src/core/mmu.cpp
 	src/core/gpu.cpp
 	src/core/apu.cpp
+	src/core/mbc.cpp
+	src/core/mbc1.cpp
+	src/core/alu.cpp
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp
 	src/core/opcodeinfo.cpp

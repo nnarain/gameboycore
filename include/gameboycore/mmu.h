@@ -12,6 +12,7 @@
 #include <functional>
 #include <cstdint>
 #include <memory>
+#include <vector>
 
 namespace gb
 {
@@ -54,18 +55,40 @@ namespace gb
 		void write(uint16_t value, uint16_t addr);
 
 		/**
+			Add a IO write handler
 
+			\param addr IO address
+			\handler the handler
 		*/
 		void addWriteHandler(uint16_t addr, MemoryWriteHandler handler);
 
+		/**
+			Add an IO read handler
+
+			\param addr IO address
+			\param handler the handler
+		*/
 		void addReadHandler(uint16_t addr, MemoryReadHandler handler);
 
 		/**
-			@return a reference to a memory location
+			\return Battery RAM
+		*/
+		std::vector<uint8_t> getBatteryRam() const;
+
+		/**
+			Set battery RAM
+
+			\param buffer containing battery RAM
+		*/
+		void setBatteryRam(const std::vector<uint8_t>& battery_ram);
+
+		/**
+			\return a reference to a memory location
 		*/
 		uint8_t& get(uint16_t);
 
 		/**
+			\return point to memory location
 		*/
 		uint8_t* getptr(uint16_t);
 

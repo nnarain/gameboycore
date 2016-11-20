@@ -5,10 +5,11 @@
 
 #include "gameboycore/mmu.h"
 #include "gameboycore/mbc1.h"
-#include "bitutil.h"
-
 #include "gameboycore/mbc.h"
 #include "gameboycore/cartinfo.h"
+#include "gameboycore/memorymap.h"
+
+#include "bitutil.h"
 
 #include <cstring>
 #include <array>
@@ -37,15 +38,15 @@ namespace gb
 			RomParser parser;
 			CartInfo header = parser.parse(rom);
 
-			switch (static_cast<MBC::Type>(header.type))
+			switch (static_cast<detail::MBC::Type>(header.type))
 			{
-				// Supports MBC1
-				// Note: MBC1 handles the ROM only case
-			case MBC::Type::ROM_ONLY:
-			case MBC::Type::MBC1:
-			case MBC::Type::MBC1_RAM:
-			case MBC::Type::MBC1_RAM_BAT:
-				mbc_.reset(new MBC1(rom, size, header.rom_size, header.ram_size));
+			// Supports MBC1
+			// Note: MBC1 handles the ROM only case
+			case detail::MBC::Type::ROM_ONLY:
+			case detail::MBC::Type::MBC1:
+			case detail::MBC::Type::MBC1_RAM:
+			case detail::MBC::Type::MBC1_RAM_BAT:
+				mbc_.reset(new detail::MBC1(rom, size, header.rom_size, header.ram_size));
 				break;
 
 				// TODO: MBC2
@@ -142,6 +143,16 @@ namespace gb
 			uint16_t addr = ((base & 0x00FF) << 8);
 
 			std::memcpy(mbc_->getptr(memorymap::OAM_START), mbc_->getptr(addr), memorymap::OAM_END - memorymap::OAM_START);
+		}
+
+		std::vector<uint8_t> getBatteryRam() const
+		{
+			return mbc_->getRange(memorymap::EXTERNAL_RAM_START, memorymap::EXTERNAL_RAM_END+1);
+		}
+
+		void setBatteryRam(const std::vector<uint8_t>& battery_ram)
+		{
+			mbc_->setMemory(memorymap::EXTERNAL_RAM_START, battery_ram);
 		}
 
 		void loadResetValues()
@@ -248,7 +259,7 @@ namespace gb
 		}
 
 	public:
-		MBC::Ptr mbc_;
+		detail::MBC::Ptr mbc_;
 
 		std::array<MemoryWriteHandler, 0x80> write_handlers_;
 		std::array<MemoryReadHandler, 0x80>  read_handlers_;
@@ -302,6 +313,16 @@ namespace gb
 	void MMU::addReadHandler(uint16_t addr, MemoryReadHandler handler)
 	{
 		impl_->read_handlers_[addr - 0xFF00] = handler;
+	}
+
+	std::vector<uint8_t> MMU::getBatteryRam() const
+	{
+		return impl_->getBatteryRam();
+	}
+
+	void MMU::setBatteryRam(const std::vector<uint8_t>& battery_ram)
+	{
+		impl_->setBatteryRam(battery_ram);
 	}
 
 	uint8_t& MMU::get(uint16_t addr)
