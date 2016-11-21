@@ -71,6 +71,21 @@ namespace gb
 			std::copy(mem.begin(), mem.end(), memory_.begin() + getIndex(start));
 		}
 
+		int MBC::getRomBank() const
+		{
+			return rom_bank_;
+		}
+
+		int MBC::getRamBank() const
+		{
+			return ram_bank_;
+		}
+
+		bool MBC::isXramEnabled() const
+		{
+			return xram_enable_;
+		}
+
 		int MBC::getIndex(uint16_t addr) const
 		{
 			switch (addr & 0xF000)

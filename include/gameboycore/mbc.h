@@ -99,6 +99,10 @@ namespace gb
 			std::vector<uint8_t> getRange(uint16_t start, uint16_t end) const;
 			void setMemory(uint16_t start, const std::vector<uint8_t>& mem);
 
+			int getRomBank() const;
+			int getRamBank() const;
+			bool isXramEnabled() const;
+
 		protected:
 			/**
 				Called when a write to ROM occurs
