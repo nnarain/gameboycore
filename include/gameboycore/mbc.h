@@ -31,44 +31,44 @@ namespace gb
 		{
 		public:
 			enum class Type {
-				ROM_ONLY = 0x00,
-				MBC1 = 0x01,
-				MBC1_RAM = 0x02,
-				MBC1_RAM_BAT = 0x03,
-				MBC2 = 0x05,
-				MBC2_BAT = 0x06,
-				ROM_RAM = 0x08,
-				ROM_RAM_BAT = 0x09,
-				MMM01 = 0x0B,
-				MMM01_RAM = 0x0C,
-				MMM01_RAM_BAT = 0x0D,
-				MBC3_TIME_BAT = 0x0F,
-				MBC3_TIME_RAM_BAT = 0x10,
-				MBC3 = 0x11,
-				MBC3_RAM = 0x12,
-				MBC3_RAM_BAT = 0x13,
-				MBC4 = 0x15,
-				MBC4_RAM = 0x16,
-				MBC4_RAM_BAT = 0x17,
-				MBC5 = 0x19,
-				MBC5_RAM = 0x1A,
-				MBC5_RAM_BAT = 0x1B,
-				MBC5_RUMBLE = 0x1C,
-				MBC5_RUMBLE_RAM = 0x1D,
+				ROM_ONLY            = 0x00,
+				MBC1                = 0x01,
+				MBC1_RAM            = 0x02,
+				MBC1_RAM_BAT        = 0x03,
+				MBC2                = 0x05,
+				MBC2_BAT            = 0x06,
+				ROM_RAM             = 0x08,
+				ROM_RAM_BAT         = 0x09,
+				MMM01               = 0x0B,
+				MMM01_RAM           = 0x0C,
+				MMM01_RAM_BAT       = 0x0D,
+				MBC3_TIME_BAT       = 0x0F,
+				MBC3_TIME_RAM_BAT   = 0x10,
+				MBC3                = 0x11,
+				MBC3_RAM            = 0x12,
+				MBC3_RAM_BAT        = 0x13,
+				MBC4                = 0x15,
+				MBC4_RAM            = 0x16,
+				MBC4_RAM_BAT        = 0x17,
+				MBC5                = 0x19,
+				MBC5_RAM            = 0x1A,
+				MBC5_RAM_BAT        = 0x1B,
+				MBC5_RUMBLE         = 0x1C,
+				MBC5_RUMBLE_RAM     = 0x1D,
 				MBC5_RUMBLE_RAM_BAT = 0x1E
 			};
 
 			//! ROM types specified in cartridge header
 			enum class ROM
 			{
-				KB32 = 0x00,	///< 32  kB
-				KB64 = 0x01,	///< 64  kB
+				KB32  = 0x00,	///< 32  kB
+				KB64  = 0x01,	///< 64  kB
 				KB128 = 0x02,	///< 128 kB
 				KB256 = 0x03,	///< 256 kB
 				KB512 = 0x04,	///< 512 kB
-				MB1 = 0x05,		///< 1   MB
-				MB2 = 0x06,		///< 2   MB
-				MB4 = 0x07,		///< 4   MB
+				MB1   = 0x05,	///< 1   MB
+				MB2   = 0x06,	///< 2   MB
+				MB4   = 0x07,	///< 4   MB
 				MB1_1 = 0x52,	///< 1.1 MB
 				MB1_2 = 0x53,	///< 1.2 MB
 				MB1_5 = 0x54	///< 1.5 MB
@@ -78,8 +78,8 @@ namespace gb
 			enum class XRAM
 			{
 				NONE = 0x00, ///< No External RAM
-				KB2 = 0x01,  ///< 2 kB of External RAM
-				KB8 = 0x02,  ///< 8 kB of External RAM
+				KB2  = 0x01, ///< 2 kB of External RAM
+				KB8  = 0x02, ///< 8 kB of External RAM
 				KB32 = 0x03  ///< (4 x 8 kB) of External RAM
 			};
 
@@ -90,8 +90,8 @@ namespace gb
 			MBC(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size);
 			virtual ~MBC();
 
-			void write(uint8_t value, uint16_t addr);
-			uint8_t read(uint16_t addr) const;
+			virtual void write(uint8_t value, uint16_t addr);
+			virtual uint8_t read(uint16_t addr) const;
 
 			uint8_t& get(uint16_t addr);
 			uint8_t* getptr(uint16_t addr);

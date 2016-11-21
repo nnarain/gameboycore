@@ -4,8 +4,9 @@
 */
 
 #include "gameboycore/mmu.h"
-#include "gameboycore/mbc1.h"
 #include "gameboycore/mbc.h"
+#include "gameboycore/mbc1.h"
+#include "gameboycore/mbc2.h"
 #include "gameboycore/cartinfo.h"
 #include "gameboycore/memorymap.h"
 
@@ -49,8 +50,12 @@ namespace gb
 				mbc_.reset(new detail::MBC1(rom, size, header.rom_size, header.ram_size));
 				break;
 
-				// TODO: MBC2
+			case detail::MBC::Type::MBC2:
+			case detail::MBC::Type::MBC2_BAT:
+				mbc_.reset(new detail::MBC2(rom, size, header.rom_size, header.ram_size));
+				break;
 				// TODO: MBC3
+				// TODO: MBC4
 				// TODO: MBC5
 
 			default:
