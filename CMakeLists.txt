@@ -44,6 +44,8 @@ set(GAMEBOYCORE
 	src/core/apu.cpp
 	src/core/mbc.cpp
 	src/core/mbc1.cpp
+	src/core/mbc2.cpp
+	src/core/mbc3.cpp
 	src/core/alu.cpp
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp
@@ -73,6 +75,8 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboycore/memorymap.h
 	include/gameboycore/mbc.h
 	include/gameboycore/mbc1.h
+	include/gameboycore/mbc2.h
+	include/gameboycore/mbc3.h
 	include/gameboycore/cartinfo.h
 	include/gameboycore/opcodeinfo.h
 	include/gameboycore/opcode_cycles.h
