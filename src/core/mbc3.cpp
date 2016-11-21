@@ -1,0 +1,42 @@
+
+#include "gameboycore/mbc3.h"
+
+namespace gb
+{
+	namespace detail
+	{
+		MBC3::MBC3(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size) :
+			MBC(rom, size, rom_size, ram_size)
+		{
+		}
+
+		void MBC3::control(uint8_t value, uint16_t addr)
+		{
+			if (addr >= 0x0000 && addr <= 0x1FFF)
+			{
+				xram_enable_ = ((value & 0x0F) == 0x0A);
+			}
+			else if (addr >= 0x2000 && addr <= 0x3FFF)
+			{
+				auto bank_select = (value == 0) ? 1 : value;
+				rom_bank_ = bank_select - 1;
+			}
+			else if (addr >= 0x4000 && addr <= 0x5FFF)
+			{
+				// is a RAM bank number
+				if (value <= 0x03)
+				{
+					ram_bank_ = value & 0x0F;
+				}
+				else if (value >= 0x08 && value <= 0x0C)
+				{
+					// RTC
+				}
+			}
+		}
+
+		MBC3::~MBC3()
+		{
+		}
+	}
+}

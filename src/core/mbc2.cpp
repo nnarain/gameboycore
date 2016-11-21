@@ -25,8 +25,7 @@ namespace gb
 				// least significant bit of upper byte in address must be zero 
 				if (IS_CLR(addr, 0x0100))
 				{
-					if ((value & 0x0F) == 0x0A)
-						xram_enable_ = true;
+					xram_enable_ = ((value & 0x0F) == 0x0A);
 				}
 			}
 			else if (addr >= 0x2000 && addr <= 0x3FFF)
