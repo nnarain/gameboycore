@@ -1,4 +1,5 @@
 #include "gameboycore/mbc.h"
+#include "gameboycore/memorymap.h"
 
 #include <algorithm>
 #include <cstring>
@@ -69,6 +70,15 @@ namespace gb
 		{
 			// TODO: error checks
 			std::copy(mem.begin(), mem.end(), memory_.begin() + getIndex(start));
+		}
+
+		std::vector<uint8_t> MBC::getXram() const
+		{
+			// index the points around external RAM to capture all bank
+			auto start = getIndex(memorymap::EXTERNAL_RAM_START - 1) + 1;
+			auto end   = getIndex(memorymap::EXTERNAL_RAM_END + 1);
+
+			return std::vector<uint8_t>(memory_.begin() + start, memory_.begin() + end);
 		}
 
 		int MBC::getRomBank() const

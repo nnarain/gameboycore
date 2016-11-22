@@ -161,7 +161,7 @@ namespace gb
 
 		std::vector<uint8_t> getBatteryRam() const
 		{
-			return mbc_->getRange(memorymap::EXTERNAL_RAM_START, memorymap::EXTERNAL_RAM_END+1);
+			return mbc_->getXram();
 		}
 
 		void setBatteryRam(const std::vector<uint8_t>& battery_ram)
