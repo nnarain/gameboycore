@@ -99,6 +99,8 @@ namespace gb
 			std::vector<uint8_t> getRange(uint16_t start, uint16_t end) const;
 			void setMemory(uint16_t start, const std::vector<uint8_t>& mem);
 
+			std::vector<uint8_t> getXram() const;
+
 			int getRomBank() const;
 			int getRamBank() const;
 			bool isXramEnabled() const;
