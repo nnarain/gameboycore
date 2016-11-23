@@ -9,6 +9,8 @@
 #include "gameboycore/wave.h"
 #include "gameboycore/noise.h"
 
+#include "bitutil.h"
+
 #include <array>
 #include <cstring>
 
@@ -72,14 +74,27 @@ namespace gb
 
 		uint8_t read(uint16_t addr)
 		{
-			auto v = apuRead(addr) | extra_bits_[addr - APU_REG_BASE];
-			return v;
+			auto value = apuRead(addr) | extra_bits_[addr - APU_REG_BASE];
+
+			if (addr == memorymap::NR52_REGISTER)
+			{
+				// TODO: populate lower 4 bits dynamically
+				value &= 0xF0;
+			}
+
+			return value;
 		}
 
 		void write(uint8_t value, uint16_t addr)
 		{
 			if (addr == memorymap::NR52_REGISTER)
 			{
+				// check if APU is being disabled
+				if (IS_CLR(value, 0x80))
+				{
+					clearRegisters();
+				}
+
 				apuWrite(value, addr);
 			}
 			else
@@ -99,6 +114,14 @@ namespace gb
 		inline void apuWrite(uint8_t value, uint16_t addr)
 		{
 			apu_registers[addr - APU_REG_BASE] = value;
+		}
+
+		inline void clearRegisters()
+		{
+			for (auto i = APU_REG_BASE; i < memorymap::WAVE_PATTERN_RAM_START; ++i)
+			{
+				apuWrite(0, i);
+			}
 		}
 
 		void initExtraBits()
