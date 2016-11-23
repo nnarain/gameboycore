@@ -1,6 +1,9 @@
 /**
+	\file apu.h
+	\brief Audio Emulation
 	\author Natesh Narain <nnaraindev@gmail.com>
 	\date Nov 3 2016
+	\defgroup Audio
 */
 
 
@@ -19,13 +22,13 @@ namespace gb
 		\class APU
 		\brief Emulate Gameboy sound functions
 		\ingroup API
+		\ingroup Audio
 	*/
 	class GAMEBOYCORE_API APU
 	{
 	public:
 		static constexpr int CHANNEL_COUNT = 2;   ///< Number of audio channels the APU provides (Stereo sound: left, right)
 		static constexpr int SAMPLE_RATE = 44100; ///< Audio sample rate
-		static constexpr int CYCLES_512HZ = 8203;
 
 	public:
 		//! Smart pointer type

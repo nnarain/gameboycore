@@ -13,26 +13,30 @@
 
 namespace gb
 {
-	/**
-		\class Wave
-		\brief Wave register
-	*/
-	class Wave : public Channel
+	namespace detail
 	{
-	public:
-		Wave(MMU::Ptr& mmu) : 
-			Channel(mmu->get(memorymap::NR31_REGISTER), 0xFF),
-			mmu_(mmu)
+		/**
+			\class Wave
+			\brief Wave register
+			\ingroup Audio
+		*/
+		class Wave : public Channel
 		{
-		}
+		public:
+			Wave(MMU::Ptr& mmu) :
+				Channel(mmu->get(memorymap::NR31_REGISTER), 0xFF),
+				mmu_(mmu)
+			{
+			}
 
-		~Wave()
-		{
-		}
+			~Wave()
+			{
+			}
 
-	private:
-		MMU::Ptr& mmu_;
-	};
+		private:
+			MMU::Ptr& mmu_;
+		};
+	}
 }
 
 #endif // GAMEBOYCORE_WAVE_H
