@@ -31,10 +31,12 @@ namespace gb
 			}
 
 			/**
-			Updated at 512 Hz
+				Updated at 512 Hz
 			*/
 			void update()
 			{
+				if (!enabled_) return;
+
 				timer_++;
 
 				// 256 Hz
@@ -56,6 +58,11 @@ namespace gb
 
 					timer_ = 0;
 				}
+			}
+
+			void restart()
+			{
+				enabled_ = true;
 			}
 
 			uint16_t getVolumeUnit() const
@@ -89,7 +96,7 @@ namespace gb
 
 		private:
 			uint8_t& length_counter_;
-			uint8_t length_mask_;
+			const uint8_t length_mask_;
 			uint16_t volume_unit_;
 			int timer_;
 			bool enabled_;

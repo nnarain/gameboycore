@@ -26,8 +26,8 @@ namespace gb
 	public:
 		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
-			sound1_(mmu, memorymap::NR10_REGISTER),
-			sound2_(mmu, memorymap::NR20_REGISTER, false),
+			sound1_(apu_registers[memorymap::NR10_REGISTER - APU_REG_BASE]),
+			sound2_(apu_registers[memorymap::NR20_REGISTER - APU_REG_BASE], false),
 			wave_(mmu),
 			noise_(mmu),
 			timer_(0)
@@ -78,8 +78,12 @@ namespace gb
 
 			if (addr == memorymap::NR52_REGISTER)
 			{
-				// TODO: populate lower 4 bits dynamically
 				value &= 0xF0;
+
+				value |= sound1_.isEnabled() << 0;
+				value |= sound2_.isEnabled() << 1;
+				value |= wave_.isEnabled()   << 2;
+				value |= noise_.isEnabled()  << 3;
 			}
 
 			return value;
@@ -101,22 +105,43 @@ namespace gb
 			{
 				if (apuRead(memorymap::NR52_REGISTER) & 0x80)
 				{
+					// check if initializing a channel
+					switch (addr)
+					{
+					case memorymap::NR14_REGISTER:
+						if(IS_SET(value, 0x80))
+							sound1_.restart();
+						break;
+					case memorymap::NR24_REGISTER:
+						if (IS_SET(value, 0x80))
+							sound2_.restart();
+						break;
+					case memorymap::NR34_REGISTER:
+						if (IS_SET(value, 0x80))
+							wave_.restart();
+						break;
+					case memorymap::NR44_REGISTER:
+						if (IS_SET(value, 0x80))
+							noise_.restart();
+						break;
+					}
+
 					apuWrite(value, addr);
 				}
 			}
 		}
 
-		inline uint8_t apuRead(uint16_t addr)
+		uint8_t apuRead(uint16_t addr)
 		{
 			return apu_registers[addr - APU_REG_BASE];
 		}
 
-		inline void apuWrite(uint8_t value, uint16_t addr)
+		void apuWrite(uint8_t value, uint16_t addr)
 		{
 			apu_registers[addr - APU_REG_BASE] = value;
 		}
 
-		inline void clearRegisters()
+		void clearRegisters()
 		{
 			for (auto i = APU_REG_BASE; i < memorymap::WAVE_PATTERN_RAM_START; ++i)
 			{

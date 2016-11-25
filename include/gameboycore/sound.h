@@ -26,9 +26,8 @@ namespace gb
 		{
 		public:
 
-			Sound(MMU::Ptr& mmu, uint16_t base, bool sweep = true) :
-				Channel(mmu->get(base + 1), 0x3F),
-				mmu_(mmu),
+			Sound(uint8_t& length_counter, bool sweep = true) :
+				Channel(length_counter, 0x3F),
 				has_sweep_(sweep)
 			{
 			}
@@ -38,7 +37,6 @@ namespace gb
 			}
 
 		private:
-			MMU::Ptr& mmu_;
 			bool has_sweep_;
 		};
 	}
