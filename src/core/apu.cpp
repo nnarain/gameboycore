@@ -26,8 +26,8 @@ namespace gb
 	public:
 		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
-			sound1_(apu_registers[memorymap::NR10_REGISTER - APU_REG_BASE]),
-			sound2_(apu_registers[memorymap::NR20_REGISTER - APU_REG_BASE], false),
+			sound1_(apu_registers[memorymap::NR11_REGISTER - APU_REG_BASE]),
+			sound2_(apu_registers[memorymap::NR21_REGISTER - APU_REG_BASE], false),
 			wave_(mmu),
 			noise_(mmu),
 			timer_(0)
