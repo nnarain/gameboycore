@@ -6,11 +6,13 @@
 #include "gameboycore/apu.h"
 #include "gameboycore/channel.h"
 #include "gameboycore/sound.h"
-#include "gameboycore/wave.h"
-#include "gameboycore/noise.h"
+#include "gameboycore/memorymap.h"
+//#include "gameboycore/wave.h"
+//#include "gameboycore/noise.h"
 
 #include "bitutil.h"
 
+#include <algorithm>
 #include <array>
 #include <cstring>
 
@@ -20,19 +22,22 @@ namespace gb
 
 	class APU::Impl
 	{
-		static constexpr int CYCLES_512HZ = 8203;
+		//! Cycles for 512 Hz with ~4.2 MHz clock
+		static constexpr int CYCLES_512HZ = 8192;
+		//! Starting address of the APU registers
 		static constexpr int APU_REG_BASE = memorymap::NR10_REGISTER;
 
 	public:
 		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
-			sound1_(apu_registers[memorymap::NR11_REGISTER - APU_REG_BASE]),
-			sound2_(apu_registers[memorymap::NR21_REGISTER - APU_REG_BASE], false),
-			wave_(mmu),
-			noise_(mmu),
-			timer_(0)
+			sound1_(apu_registers[memorymap::NR14_REGISTER - APU_REG_BASE], apu_registers[memorymap::NR11_REGISTER - APU_REG_BASE]),
+			sound2_(apu_registers[memorymap::NR24_REGISTER - APU_REG_BASE], apu_registers[memorymap::NR21_REGISTER - APU_REG_BASE], false),
+//			wave_(mmu),
+//			noise_(mmu),
+			cycle_count_(0),
+			frame_sequencer_(0)
 		{
-			// the APU does weird things to memory so intercept all read/write attempts here
+			// intercept all read/write attempts here
 			for (int i = memorymap::NR10_REGISTER; i <= memorymap::WAVE_PATTERN_RAM_END; ++i)
 			{
 				mmu->addReadHandler(i, std::bind(&Impl::read, this, std::placeholders::_1));
@@ -40,7 +45,7 @@ namespace gb
 			}
 
 			// init register memory
-			std::memset(&apu_registers[0], 0, apu_registers.size());
+			std::fill(apu_registers.begin(), apu_registers.end(), 0);
 
 			// set extra read bits
 			initExtraBits();
@@ -48,16 +53,17 @@ namespace gb
 
 		void update(uint8_t cycles)
 		{
-			timer_ += cycles;
+			if (!isEnabled()) return;
 
-			if (has512Tick())
+			cycle_count_ += cycles;
+
+			if (has512Hz())
 			{
-				sound1_.update();
-				sound2_.update();
-				wave_  .update();
-				noise_ .update();
+				// decrement cycle counter
+				cycle_count_ -= CYCLES_512HZ;
 
-				timer_ -= CYCLES_512HZ;
+				// clock the frame sequencer
+				clockFrameSequencer();
 			}
 		}
 
@@ -67,9 +73,47 @@ namespace gb
 		}
 
 	private:
-		bool has512Tick()
+
+		void clockFrameSequencer()
 		{
-			return timer_ >= CYCLES_512HZ;
+			switch (frame_sequencer_++)
+			{
+			case 0:
+			case 2:
+				clockLength();
+				// TODO: Sweep
+				break;
+			case 4:
+				clockLength();
+				break;
+			case 6:
+				clockLength();
+				// TODO: Sweep
+				break;
+			case 7:
+				// TODO: volume
+
+				frame_sequencer_ = 0;
+				break;
+			}
+		}
+
+		void clockLength()
+		{
+			sound1_.clockLength();
+			sound2_.clockLength();
+		//	wave_  .lengthTick();
+		//	noise_ .lengthTick();
+		}
+
+		bool has512Hz()
+		{
+			return cycle_count_ >= CYCLES_512HZ;
+		}
+
+		bool isEnabled()
+		{
+			return IS_BIT_SET(apuRead(memorymap::NR52_REGISTER), 7) != 0;
 		}
 
 		uint8_t read(uint16_t addr)
@@ -82,8 +126,8 @@ namespace gb
 
 				value |= sound1_.isEnabled() << 0;
 				value |= sound2_.isEnabled() << 1;
-				value |= wave_.isEnabled()   << 2;
-				value |= noise_.isEnabled()  << 3;
+//				value |= wave_  .isEnabled() << 2;
+//				value |= noise_ .isEnabled() << 3;
 			}
 
 			return value;
@@ -105,24 +149,32 @@ namespace gb
 			{
 				if (apuRead(memorymap::NR52_REGISTER) & 0x80)
 				{
-					// check if initializing a channel
 					switch (addr)
 					{
+					/* Sound 1 */
+					case memorymap::NR11_REGISTER:
+						// set the sound length in the channel
+						sound1_.setLength(64 - (value & detail::Sound::LENGTH_MASK));
+						break;
 					case memorymap::NR14_REGISTER:
 						if(IS_SET(value, 0x80))
 							sound1_.restart();
+						break;
+					/* Sound 2 */
+					case memorymap::NR21_REGISTER:
+						sound2_.setLength(64 - (value & detail::Sound::LENGTH_MASK));
 						break;
 					case memorymap::NR24_REGISTER:
 						if (IS_SET(value, 0x80))
 							sound2_.restart();
 						break;
 					case memorymap::NR34_REGISTER:
-						if (IS_SET(value, 0x80))
-							wave_.restart();
+//						if (IS_SET(value, 0x80))
+//							wave_.restart();
 						break;
 					case memorymap::NR44_REGISTER:
-						if (IS_SET(value, 0x80))
-							noise_.restart();
+//						if (IS_SET(value, 0x80))
+//							noise_.restart();
 						break;
 					}
 
@@ -219,14 +271,17 @@ namespace gb
 
 		detail::Sound sound1_;
 		detail::Sound sound2_;
-		detail::Wave wave_;
-		detail::Noise noise_;
+//		detail::Wave wave_;
+//		detail::Noise noise_;
 
 		//! callback to host when an audio sample is computed
 		AudioSampleCallback send_audio_sample_;
 
+		//! APU cycle counter
+		int cycle_count_;
+
 		//! APU internal timer
-		int timer_;
+		int frame_sequencer_;
 
 		//! APU registers
 		std::array<uint8_t, 0x30> apu_registers;

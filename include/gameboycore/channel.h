@@ -1,5 +1,7 @@
 
 /**
+	\file channel.h
+	\brief Base class for Sound channel
 	\author Natesh Narain <nnaraindev@gmail.com>
 	\date   Nov 5 2016
 */
@@ -15,59 +17,28 @@ namespace gb
 	{
 		/**
 			\class Channel
-			\brief represents a Gameboy sound channel
+			\brief Base class for Sound channel
 			\ingroup Audio
 		*/
 		class Channel
 		{
 		public:
-			Channel(uint8_t& length_counter, uint8_t length_mask) :
-				length_counter_(length_counter),
+			Channel(uint8_t& nrx4, uint8_t& nrx1, uint8_t length_mask) :
+				nrx4_(nrx4),
+				nrx1_(nrx1),
 				length_mask_(length_mask),
-				volume_unit_(0),
-				timer_(0),
+				length_(0),
 				enabled_(false)
 			{
 			}
 
-			/**
-				Updated at 512 Hz
-			*/
-			void update()
+			~Channel()
 			{
-				if (!enabled_) return;
-
-				timer_++;
-
-				// 256 Hz
-				if (timer_ % 2 == 0)
-				{
-					lengthCounterTick();
-				}
-
-				// 128 Hz
-				if (timer_ % 4 == 0)
-				{
-				}
-
-				// 64 Hz
-				if (timer_ % 8 == 0)
-				{
-
-					// update volume unit
-
-					timer_ = 0;
-				}
 			}
 
-			void restart()
+			virtual void restart()
 			{
 				enabled_ = true;
-			}
-
-			uint16_t getVolumeUnit() const
-			{
-				return volume_unit_;
 			}
 
 			bool isEnabled() const
@@ -75,30 +46,44 @@ namespace gb
 				return enabled_;
 			}
 
-			~Channel()
+			uint8_t getLength() const
 			{
+				return length_;
 			}
 
-		private:
-
-			void lengthCounterTick()
+			void setLength(uint8_t l)
 			{
-				auto value = length_counter_ & length_mask_;
-				value--;
+				length_ = l;
+			}
 
-				if (value == 0)
+			void clockLength()
+			{
+				if (length_ > 0)
 				{
-					enabled_ = false;
-				}
+					length_--;
 
-				length_counter_ = (length_counter_ & ~length_mask_) | value;
+					if (length_ == 0)
+						enabled_ = false;
+				}
 			}
 
 		private:
-			uint8_t& length_counter_;
+			bool isContinuous() const
+			{
+				return (nrx4_ & 0x40) == 0;
+			}
+
+		protected:
+			//! NRx1 APU Register
+			uint8_t& nrx1_;
+			//! NRx4
+			uint8_t& nrx4_;
+			//! Length Data Mask
 			const uint8_t length_mask_;
-			uint16_t volume_unit_;
-			int timer_;
+
+			//! Length Counter
+			int length_;
+			//! Channel Enabled flag
 			bool enabled_;
 		};
 	}

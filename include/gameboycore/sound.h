@@ -1,6 +1,7 @@
 
 /**
 	\file sound.h
+	\brief Square wave generator
 	\author Natesh Narain <nnaraindev@gmail.com>
 	\date Nov 21 2016
 */
@@ -25,9 +26,12 @@ namespace gb
 		class Sound : public Channel
 		{
 		public:
+			static constexpr int LENGTH_MASK = 0x3F;
 
-			Sound(uint8_t& length_counter, bool sweep = true) :
-				Channel(length_counter, 0x3F),
+		public:
+
+			Sound(uint8_t& nrx4, uint8_t& nrx1, bool sweep = true) :
+				Channel(nrx4, nrx1, 0x3F),
 				has_sweep_(sweep)
 			{
 			}
