@@ -5,9 +5,9 @@
 
 #include "gameboycore/apu.h"
 #include "gameboycore/channel.h"
-#include "gameboycore/sound.h"
+#include "gameboycore/square.h"
 #include "gameboycore/memorymap.h"
-//#include "gameboycore/wave.h"
+#include "gameboycore/wave.h"
 //#include "gameboycore/noise.h"
 
 #include "bitutil.h"
@@ -30,9 +30,22 @@ namespace gb
 	public:
 		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
-			sound1_(apu_registers[memorymap::NR14_REGISTER - APU_REG_BASE], apu_registers[memorymap::NR11_REGISTER - APU_REG_BASE]),
-			sound2_(apu_registers[memorymap::NR24_REGISTER - APU_REG_BASE], apu_registers[memorymap::NR21_REGISTER - APU_REG_BASE], false),
-//			wave_(mmu),
+			square1_(
+				apu_registers[memorymap::NR11_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR12_REGISTER - APU_REG_BASE], 
+				apu_registers[memorymap::NR13_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR14_REGISTER - APU_REG_BASE]),
+			square2_(
+				apu_registers[memorymap::NR21_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR22_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR23_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR24_REGISTER - APU_REG_BASE], false),
+			wave_(
+				apu_registers[memorymap::NR30_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR31_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR22_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR33_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR34_REGISTER - APU_REG_BASE]),
 //			noise_(mmu),
 			cycle_count_(0),
 			frame_sequencer_(0)
@@ -100,10 +113,10 @@ namespace gb
 
 		void clockLength()
 		{
-			sound1_.clockLength();
-			sound2_.clockLength();
-		//	wave_  .lengthTick();
-		//	noise_ .lengthTick();
+			square1_.clockLength();
+			square2_.clockLength();
+			wave_   .clockLength();
+		//	noise_  .clockLength();
 		}
 
 		bool has512Hz()
@@ -124,9 +137,9 @@ namespace gb
 			{
 				value &= 0xF0;
 
-				value |= sound1_.isEnabled() << 0;
-				value |= sound2_.isEnabled() << 1;
-//				value |= wave_  .isEnabled() << 2;
+				value |= square1_.isEnabled() << 0;
+				value |= square2_.isEnabled() << 1;
+				value |= wave_   .isEnabled() << 2;
 //				value |= noise_ .isEnabled() << 3;
 			}
 
@@ -141,40 +154,51 @@ namespace gb
 				if (IS_CLR(value, 0x80))
 				{
 					clearRegisters();
+					frame_sequencer_ = 0;
 				}
 
 				apuWrite(value, addr);
 			}
 			else
 			{
-				if (apuRead(memorymap::NR52_REGISTER) & 0x80)
+				if (isEnabled())
 				{
 					switch (addr)
 					{
 					/* Sound 1 */
 					case memorymap::NR11_REGISTER:
 						// set the sound length in the channel
-						sound1_.setLength(64 - (value & detail::Sound::LENGTH_MASK));
+						square1_.setLength(64 - (value & detail::Square::LENGTH_MASK));
+						break;
+					case memorymap::NR12_REGISTER:
+						square1_.setDacPower(value >> 4);
 						break;
 					case memorymap::NR14_REGISTER:
 						if(IS_SET(value, 0x80))
-							sound1_.restart();
+							square1_.trigger();
 						break;
 					/* Sound 2 */
 					case memorymap::NR21_REGISTER:
-						sound2_.setLength(64 - (value & detail::Sound::LENGTH_MASK));
+						square2_.setLength(64 - (value & detail::Square::LENGTH_MASK));
+						break;
+					case memorymap::NR22_REGISTER:
+						square2_.setDacPower(value >> 4);
 						break;
 					case memorymap::NR24_REGISTER:
 						if (IS_SET(value, 0x80))
-							sound2_.restart();
+							square2_.trigger();
+						break;
+					/* Sound 3 */
+					case memorymap::NR31_REGISTER:
+						wave_.setLength(256 - (value & detail::Wave::LENGTH_MASK));
 						break;
 					case memorymap::NR34_REGISTER:
-//						if (IS_SET(value, 0x80))
-//							wave_.restart();
+						if (IS_SET(value, 0x80))
+							wave_.trigger();
 						break;
 					case memorymap::NR44_REGISTER:
 //						if (IS_SET(value, 0x80))
-//							noise_.restart();
+//							noise_.trigger();
 						break;
 					}
 
@@ -269,9 +293,9 @@ namespace gb
 	private:
 		MMU::Ptr& mmu_;
 
-		detail::Sound sound1_;
-		detail::Sound sound2_;
-//		detail::Wave wave_;
+		detail::Square square1_;
+		detail::Square square2_;
+		detail::Wave wave_;
 //		detail::Noise noise_;
 
 		//! callback to host when an audio sample is computed

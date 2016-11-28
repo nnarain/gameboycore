@@ -47,7 +47,7 @@ int main(int argc, char * argv[])
 			Window window(gameboy, title);
 			window.start();
 
-			gameboy.setDebugMode(false);
+			gameboy.setDebugMode(true);
 
 			while (window.isOpen())
 			{

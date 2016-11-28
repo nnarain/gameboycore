@@ -6,7 +6,7 @@
 #ifndef GAMEBOY_WAVE_H
 #define GAMEBOY_WAVE_H
 
-#include "gameboycore/mmu.h"
+#include "gameboycore/channel.h"
 #include "gameboycore/memorymap.h"
 
 #include <cstdint>
@@ -23,10 +23,26 @@ namespace gb
 		class Wave : public Channel
 		{
 		public:
-			Wave(MMU::Ptr& mmu) :
-				Channel(mmu->get(memorymap::NR31_REGISTER), 0xFF),
-				mmu_(mmu)
+			static const int LENGTH_MASK = 0xFF;
+
+		public:
+			Wave(uint8_t& nr30, uint8_t& nrx1, uint8_t& nrx2, uint8_t& nrx3, uint8_t& nrx4) :
+				Channel(nrx1, nrx2, nrx3, nrx4, 0xFF),
+				nr30_(nr30)
 			{
+			}
+
+			virtual void trigger()
+			{
+				if (length_ == 0)
+					length_ = 256;
+
+				Channel::trigger();
+			}
+
+			virtual bool isDacEnabled()
+			{
+				return (nr30_ & 0x80) != 0;
 			}
 
 			~Wave()
@@ -34,7 +50,7 @@ namespace gb
 			}
 
 		private:
-			MMU::Ptr& mmu_;
+			uint8_t& nr30_;
 		};
 	}
 }

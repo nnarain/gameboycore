@@ -68,7 +68,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboycore/interrupt_provider.h
 	include/gameboycore/sprite.h
 	include/gameboycore/palette.h
-	include/gameboycore/sound.h
+	include/gameboycore/square.h
 	include/gameboycore/noise.h
 	include/gameboycore/wave.h
 	include/gameboycore/channel.h
