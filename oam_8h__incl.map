@@ -1,0 +1,6 @@
+<map id="include/gameboycore/oam.h" name="include/gameboycore/oam.h">
+<area shape="rect" id="node2" href="$mmu_8h.html" title="Memory interface. " alt="" coords="197,96,341,123"/>
+<area shape="rect" id="node8" href="$memorymap_8h.html" title="Constants that define the CPU memory map. " alt="" coords="587,96,773,123"/>
+<area shape="rect" id="node9" href="$sprite_8h.html" title="gameboycore/sprite.h" alt="" coords="365,96,512,123"/>
+<area shape="rect" id="node3" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="5,171,187,213"/>
+</map>

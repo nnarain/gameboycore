@@ -1,0 +1,9 @@
+<map id="include/gameboycore/memorymap.h" name="include/gameboycore/memorymap.h">
+<area shape="rect" id="node2" href="$cartinfo_8h.html" title="include/gameboycore\l/cartinfo.h" alt="" coords="5,97,149,138"/>
+<area shape="rect" id="node3" href="$interrupt__provider_8h.html" title="include/gameboycore\l/interrupt_provider.h" alt="" coords="174,97,319,138"/>
+<area shape="rect" id="node4" href="$timer_8h.html" title="include/gameboycore\l/timer.h" alt="" coords="229,187,373,229"/>
+<area shape="rect" id="node5" href="$noise_8h.html" title="include/gameboycore\l/noise.h" alt="" coords="395,97,540,138"/>
+<area shape="rect" id="node6" href="$oam_8h.html" title="include/gameboycore\l/oam.h" alt="" coords="565,97,709,138"/>
+<area shape="rect" id="node7" href="$tilemap_8h.html" title="include/gameboycore\l/tilemap.h" alt="" coords="734,97,879,138"/>
+<area shape="rect" id="node8" href="$wave_8h.html" title="include/gameboycore\l/wave.h" alt="" coords="903,97,1048,138"/>
+</map>

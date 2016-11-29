@@ -1,0 +1,9 @@
+<map id="include/gameboycore/gameboycore.h" name="include/gameboycore/gameboycore.h">
+<area shape="rect" id="node2" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="920,321,1102,362"/>
+<area shape="rect" id="node3" href="$cpu_8h.html" title="Gameboy CPU. " alt="" coords="420,96,555,123"/>
+<area shape="rect" id="node4" href="$mmu_8h.html" title="Memory interface. " alt="" coords="678,245,822,272"/>
+<area shape="rect" id="node9" href="$gpu_8h.html" title="GPU emulation. " alt="" coords="420,171,555,197"/>
+<area shape="rect" id="node13" href="$apu_8h.html" title="gameboycore/apu.h" alt="" coords="682,171,816,197"/>
+<area shape="rect" id="node14" href="$joypad_8h.html" title="Emulate Gameboy user input. " alt="" coords="841,171,994,197"/>
+<area shape="rect" id="node10" href="$pixel_8h.html" title="gameboycore/pixel.h" alt="" coords="36,245,178,272"/>
+</map>
