@@ -22,6 +22,7 @@ script:
 - make && make check
 
 after_success:
+- pwd
 - ./scripts/travis_deploy_docs $TRAVIS_BRANCH $GITHUB_API_TOKEN
 - cd build
 - make package
