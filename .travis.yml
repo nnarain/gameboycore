@@ -11,6 +11,7 @@ before_install:
 - git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
 - cd ~/scripts/ && ./bootstrap && cd -
 - preinstall_general
+- install_docs
 
 install:
 - install_general
@@ -18,7 +19,7 @@ install:
 
 script:
 - mkdir build && cd build
-- cmake .. -DBUILD_EXAMPLE="OFF"
+- cmake .. -DBUILD_EXAMPLE="OFF" -DBUILD_DOCS="ON"
 - make && make check
 - cd ..
 

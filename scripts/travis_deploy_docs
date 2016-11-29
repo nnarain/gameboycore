@@ -37,7 +37,7 @@ git add . --all
 git commit -am "Documentation"
 
 # push
-git push -f -q https://nnarain:$API_TOKEN@github.com/gameboycore.git gh-pages
+git push -f -q https://nnarain:$API_TOKEN@github.com/nnarain/gameboycore.git gh-pages
 
 cd ../..
 
