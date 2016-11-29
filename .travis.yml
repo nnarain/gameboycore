@@ -20,9 +20,9 @@ script:
 - mkdir build && cd build
 - cmake .. -DBUILD_EXAMPLE="OFF"
 - make && make check
+- cd ..
 
 after_success:
-- pwd
 - ./scripts/travis_deploy_docs $TRAVIS_BRANCH $GITHUB_API_TOKEN
 - cd build
 - make package
