@@ -11,7 +11,7 @@ export BRANCH=$1
 export API_TOKEN=$2
 
 # only deploy on master branch commit
-if [[ "$BRANCH" != "master" ]]; then
+if [[ "$BRANCH" != "develop" ]]; then
 	exit 0
 fi
 
@@ -39,8 +39,8 @@ git commit -am "Documentation"
 # push
 git push -f -q https://nnarain:$API_TOKEN@github.com/gameboycore.git gh-pages
 
+cd ../..
+
 #---
 echo "Have a nice day"
 #---
-
-
