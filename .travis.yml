@@ -11,17 +11,20 @@ before_install:
 - git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
 - cd ~/scripts/ && ./bootstrap && cd -
 - preinstall_general
+- install_docs
 
 install:
 - install_general
-- sudo apt-get install libsfml-dev
+- chmod +x ./scripts/travis_deploy_docs
 
 script:
 - mkdir build && cd build
-- cmake .. -DCMAKE_INSTALL_PREFIX=~/install/gameboy
+- cmake .. -DBUILD_EXAMPLE="OFF" -DBUILD_DOCS="ON"
 - make && make check
+- cd ..
 
 after_success:
+- ./scripts/travis_deploy_docs $TRAVIS_BRANCH $GITHUB_API_TOKEN
 - cd build
 - make package
 - export ARTIFACTS=$(ls -d1 $PWD/*.tar.gz)
