@@ -6,8 +6,7 @@
 #ifndef GAMEBOYCORE_NOISE_H
 #define GAMEBOYCORE_NOISE_H
 
-#include "gameboycore/mmu.h"
-#include "gameboycore/memorymap.h"
+#include "gameboycore/channel.h"
 
 #include <cstdint>
 
@@ -23,12 +22,11 @@ namespace gb
 		class Noise : public Channel
 		{
 		public:
-			Noise(MMU::Ptr& mmu) :
-				Channel(mmu->get(memorymap::NR41_REGISTER), 0x3F),
-				mmu_(mmu),
-				envelope_(mmu->get(memorymap::NR42_REGISTER)),
-				frequency_(mmu->get(memorymap::NR43_REGISTER)),
-				counter_(mmu->get(memorymap::NR44_REGISTER))
+			static constexpr int LENGTH_MASK = 0x3F;
+
+		public:
+			Noise(uint8_t& nrx1, uint8_t& nrx2, uint8_t nrx3, uint8_t& nrx4) :
+				Channel(nrx1, nrx2, nrx3, nrx4)
 			{
 			}
 
@@ -37,11 +35,6 @@ namespace gb
 			}
 
 		private:
-			MMU::Ptr& mmu_;
-
-			uint8_t& envelope_;
-			uint8_t& frequency_;
-			uint8_t& counter_;
 		};
 	}
 }

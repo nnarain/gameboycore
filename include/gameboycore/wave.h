@@ -27,12 +27,12 @@ namespace gb
 
 		public:
 			Wave(uint8_t& nr30, uint8_t& nrx1, uint8_t& nrx2, uint8_t& nrx3, uint8_t& nrx4) :
-				Channel(nrx1, nrx2, nrx3, nrx4, 0xFF),
+				Channel(nrx1, nrx2, nrx3, nrx4),
 				nr30_(nr30)
 			{
 			}
 
-			virtual void trigger()
+			virtual void trigger() override
 			{
 				if (length_ == 0)
 					length_ = 256;
@@ -40,7 +40,7 @@ namespace gb
 				Channel::trigger();
 			}
 
-			virtual bool isDacEnabled()
+			virtual bool isDacEnabled() const override
 			{
 				return (nr30_ & 0x80) != 0;
 			}

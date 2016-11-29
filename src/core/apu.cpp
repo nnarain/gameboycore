@@ -8,7 +8,7 @@
 #include "gameboycore/square.h"
 #include "gameboycore/memorymap.h"
 #include "gameboycore/wave.h"
-//#include "gameboycore/noise.h"
+#include "gameboycore/noise.h"
 
 #include "bitutil.h"
 
@@ -43,10 +43,14 @@ namespace gb
 			wave_(
 				apu_registers[memorymap::NR30_REGISTER - APU_REG_BASE],
 				apu_registers[memorymap::NR31_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR22_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR32_REGISTER - APU_REG_BASE],
 				apu_registers[memorymap::NR33_REGISTER - APU_REG_BASE],
 				apu_registers[memorymap::NR34_REGISTER - APU_REG_BASE]),
-//			noise_(mmu),
+			noise_(
+				apu_registers[memorymap::NR41_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR42_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR43_REGISTER - APU_REG_BASE],
+				apu_registers[memorymap::NR44_REGISTER - APU_REG_BASE]),
 			cycle_count_(0),
 			frame_sequencer_(0)
 		{
@@ -116,7 +120,7 @@ namespace gb
 			square1_.clockLength();
 			square2_.clockLength();
 			wave_   .clockLength();
-		//	noise_  .clockLength();
+			noise_  .clockLength();
 		}
 
 		bool has512Hz()
@@ -140,7 +144,7 @@ namespace gb
 				value |= square1_.isEnabled() << 0;
 				value |= square2_.isEnabled() << 1;
 				value |= wave_   .isEnabled() << 2;
-//				value |= noise_ .isEnabled() << 3;
+				value |= noise_  .isEnabled() << 3;
 			}
 
 			return value;
@@ -177,6 +181,7 @@ namespace gb
 						if(IS_SET(value, 0x80))
 							square1_.trigger();
 						break;
+
 					/* Sound 2 */
 					case memorymap::NR21_REGISTER:
 						square2_.setLength(64 - (value & detail::Square::LENGTH_MASK));
@@ -188,7 +193,11 @@ namespace gb
 						if (IS_SET(value, 0x80))
 							square2_.trigger();
 						break;
+
 					/* Sound 3 */
+					case memorymap::NR30_REGISTER:
+						wave_.setDacPower(value & 0x80);
+						break;
 					case memorymap::NR31_REGISTER:
 						wave_.setLength(256 - (value & detail::Wave::LENGTH_MASK));
 						break;
@@ -196,9 +205,17 @@ namespace gb
 						if (IS_SET(value, 0x80))
 							wave_.trigger();
 						break;
+
+					/* Sound 4 */
+					case memorymap::NR41_REGISTER:
+						noise_.setLength(64 - (value & detail::Noise::LENGTH_MASK));
+						break;
+					case memorymap::NR42_REGISTER:
+						noise_.setDacPower(value >> 4);
+						break;
 					case memorymap::NR44_REGISTER:
-//						if (IS_SET(value, 0x80))
-//							noise_.trigger();
+						if (IS_SET(value, 0x80))
+							noise_.trigger();
 						break;
 					}
 
@@ -295,8 +312,8 @@ namespace gb
 
 		detail::Square square1_;
 		detail::Square square2_;
-		detail::Wave wave_;
-//		detail::Noise noise_;
+		detail::Wave   wave_;
+		detail::Noise  noise_;
 
 		//! callback to host when an audio sample is computed
 		AudioSampleCallback send_audio_sample_;

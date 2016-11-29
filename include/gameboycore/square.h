@@ -19,8 +19,8 @@ namespace gb
 	namespace detail
 	{
 		/**
-			\class Sound
-			\brief Wraps sound channels 1 and 2
+			\class Square
+			\brief Square wave generator channels
 			\ingroup Audio
 		*/
 		class Square : public Channel
@@ -31,7 +31,7 @@ namespace gb
 		public:
 
 			Square(uint8_t& nrx1, uint8_t& nrx2, uint8_t& nrx3, uint8_t& nrx4, bool sweep = true) :
-				Channel(nrx1, nrx2, nrx3, nrx4, 0x3F),
+				Channel(nrx1, nrx2, nrx3, nrx4),
 				has_sweep_(sweep)
 			{
 			}

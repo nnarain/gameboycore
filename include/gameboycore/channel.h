@@ -26,7 +26,7 @@ namespace gb
 			static constexpr int DAC_MASK = 0xF8;
 
 		public:
-			Channel(uint8_t& nrx1, uint8_t& nrx2, uint8_t& nrx3, uint8_t& nrx4, uint8_t length_mask) :
+			Channel(uint8_t& nrx1, uint8_t& nrx2, uint8_t& nrx3, uint8_t& nrx4) :
 				nrx1_(nrx1),
 				nrx2_(nrx2),
 				nrx3_(nrx3),
@@ -61,7 +61,7 @@ namespace gb
 				return length_;
 			}
 
-			void setLength(uint8_t length)
+			void setLength(int length)
 			{
 				length_ = length;
 			}
