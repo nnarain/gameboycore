@@ -31,9 +31,8 @@ namespace gb
 				nrx2_(nrx2),
 				nrx3_(nrx3),
 				nrx4_(nrx4),
-				length_(0),
-				enabled_(false),
-				dac_power_(0xF)
+				length_counter_(0),
+				enabled_(false)
 			{
 			}
 
@@ -47,8 +46,8 @@ namespace gb
 				if(isDacEnabled())
 					enabled_ = true;
 
-				if (length_ == 0)
-					length_ = 64;
+				if (length_counter_ == 0)
+					length_counter_ = 64;
 			}
 
 			bool isEnabled() const
@@ -58,18 +57,16 @@ namespace gb
 
 			uint8_t getLength() const
 			{
-				return length_;
+				return length_counter_;
 			}
 
 			void setLength(int length)
 			{
-				length_ = length;
+				length_counter_ = length;
 			}
 
 			void setDacPower(uint8_t p)
 			{
-			//	dac_power_ = (p & 0x0F);
-
 				if (p == 0)
 					enabled_ = false;
 			}
@@ -83,12 +80,12 @@ namespace gb
 			{
 				if (!isCounterMode()) return;
 
-				if (length_ > 0)
+				if (length_counter_ > 0)
 				{
-					length_--;
+					length_counter_--;
 				}
 
-				if (length_ == 0)
+				if (length_counter_ == 0)
 					enabled_ = false;
 			}
 
@@ -109,12 +106,9 @@ namespace gb
 			uint8_t& nrx4_;
 
 			//! Length Counter
-			int length_;
+			int length_counter_;
 			//! Channel Enabled flag
 			bool enabled_;
-
-			//! DAC output power
-			uint8_t dac_power_;
 		};
 	}
 }

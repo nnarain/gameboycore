@@ -34,8 +34,8 @@ namespace gb
 
 			virtual void trigger() override
 			{
-				if (length_ == 0)
-					length_ = 256;
+				if (length_counter_ == 0)
+					length_counter_ = 256;
 
 				Channel::trigger();
 			}
