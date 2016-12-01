@@ -1,5 +1,4 @@
 <map id="include/gameboycore/wave.h" name="include/gameboycore/wave.h">
-<area shape="rect" id="node2" href="$mmu_8h.html" title="Memory interface. " alt="" coords="293,96,437,123"/>
-<area shape="rect" id="node8" href="$memorymap_8h.html" title="Constants that define the CPU memory map. " alt="" coords="543,96,729,123"/>
-<area shape="rect" id="node3" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="5,171,187,213"/>
+<area shape="rect" id="node2" href="$channel_8h.html" title="Base class for Sound channel. " alt="" coords="5,96,164,123"/>
+<area shape="rect" id="node4" href="$memorymap_8h.html" title="Constants that define the CPU memory map. " alt="" coords="240,96,427,123"/>
 </map>

@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structgb_1_1CPU_1_1Status.html" title="CPU state. " alt="" coords="6,5,125,32"/>
+<area shape="rect" id="node1" href="$classgb_1_1detail_1_1Channel.html" title="Base class for Sound channel. " alt="" coords="5,56,136,83"/>
+<area shape="rect" id="node2" href="$classgb_1_1detail_1_1Noise.html" title="Generate white noise. " alt="" coords="188,5,305,32"/>
+<area shape="rect" id="node3" href="$classgb_1_1detail_1_1Square.html" title="Square wave generator channels. " alt="" coords="185,56,309,83"/>
+<area shape="rect" id="node4" href="$classgb_1_1detail_1_1Wave.html" title="Wave register. " alt="" coords="188,107,305,133"/>
 </map>

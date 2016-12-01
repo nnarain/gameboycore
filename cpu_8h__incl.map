@@ -1,7 +1,7 @@
 <map id="include/gameboycore/cpu.h" name="include/gameboycore/cpu.h">
 <area shape="rect" id="node2" href="$mmu_8h.html" title="Memory interface. " alt="" coords="279,171,423,197"/>
 <area shape="rect" id="node8" href="$gpu_8h.html" title="GPU emulation. " alt="" coords="527,96,661,123"/>
-<area shape="rect" id="node12" href="$apu_8h.html" title="gameboycore/apu.h" alt="" coords="283,96,417,123"/>
+<area shape="rect" id="node12" href="$apu_8h.html" title="Audio Emulation. " alt="" coords="283,96,417,123"/>
 <area shape="rect" id="node3" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="5,246,187,287"/>
 <area shape="rect" id="node9" href="$pixel_8h.html" title="gameboycore/pixel.h" alt="" coords="770,171,912,197"/>
 </map>

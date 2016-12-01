@@ -115,7 +115,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">   28</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">Ptr</a> = std::unique_ptr&lt;MMU&gt;;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">   30</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">MemoryWriteHandler</a> = std::function&lt;void(uint8_t, uint16_t)&gt;;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classgb_1_1MMU.html#a43864e73af90d00dfe8682ba594546c0">   31</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1MMU.html#a43864e73af90d00dfe8682ba594546c0">MemoryReadHandler</a> = std::function&lt;uint8_t()&gt;;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3">   31</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3">MemoryReadHandler</a>  = std::function&lt;uint8_t(uint16_t)&gt;;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="classgb_1_1MMU.html">MMU</a>();</div>
@@ -131,7 +131,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">void</span> addWriteHandler(uint16_t addr, <a class="code" href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">MemoryWriteHandler</a> handler);</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">void</span> addReadHandler(uint16_t addr, <a class="code" href="classgb_1_1MMU.html#a43864e73af90d00dfe8682ba594546c0">MemoryReadHandler</a> handler);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">void</span> addReadHandler(uint16_t addr, <a class="code" href="classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3">MemoryReadHandler</a> handler);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        std::vector&lt;uint8_t&gt; getBatteryRam() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
@@ -148,11 +148,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif // GAMEBOY_MMU_H</span></div>
-<div class="ttc" id="classgb_1_1MMU_html_a43864e73af90d00dfe8682ba594546c0"><div class="ttname"><a href="classgb_1_1MMU.html#a43864e73af90d00dfe8682ba594546c0">gb::MMU::MemoryReadHandler</a></div><div class="ttdeci">std::function&lt; uint8_t()&gt; MemoryReadHandler</div><div class="ttdef"><b>Definition:</b> mmu.h:31</div></div>
 <div class="ttc" id="gameboycore__api_8h_html_a30796a64a7a4bc4b2ae0623474940bfc"><div class="ttname"><a href="gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc">GAMEBOYCORE_API</a></div><div class="ttdeci">#define GAMEBOYCORE_API</div><div class="ttdef"><b>Definition:</b> gameboycore_api.h:22</div></div>
 <div class="ttc" id="classgb_1_1MMU_html_a3c5bbb8b8a9e3ed540d2f53e2ea0d8de"><div class="ttname"><a href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">gb::MMU::MemoryWriteHandler</a></div><div class="ttdeci">std::function&lt; void(uint8_t, uint16_t)&gt; MemoryWriteHandler</div><div class="ttdef"><b>Definition:</b> mmu.h:30</div></div>
 <div class="ttc" id="classgb_1_1MMU_html"><div class="ttname"><a href="classgb_1_1MMU.html">gb::MMU</a></div><div class="ttdoc">Memory interface. </div><div class="ttdef"><b>Definition:</b> mmu.h:24</div></div>
 <div class="ttc" id="classgb_1_1MMU_html_a0b9ef7456e322d90fe4d45b9ad42b990"><div class="ttname"><a href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">gb::MMU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; MMU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> mmu.h:28</div></div>
+<div class="ttc" id="classgb_1_1MMU_html_a9e94970b3d6f0349a9695d726ecaffa3"><div class="ttname"><a href="classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3">gb::MMU::MemoryReadHandler</a></div><div class="ttdeci">std::function&lt; uint8_t(uint16_t)&gt; MemoryReadHandler</div><div class="ttdef"><b>Definition:</b> mmu.h:31</div></div>
 <div class="ttc" id="gameboycore__api_8h_html"><div class="ttname"><a href="gameboycore__api_8h.html">gameboycore_api.h</a></div><div class="ttdoc">Define export macros. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
@@ -163,7 +163,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 29 2016 14:01:04 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 1 2016 03:24:38 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

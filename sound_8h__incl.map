@@ -1,5 +1,0 @@
-<map id="include/gameboycore/sound.h" name="include/gameboycore/sound.h">
-<area shape="rect" id="node2" href="$mmu_8h.html" title="Memory interface. " alt="" coords="277,96,421,123"/>
-<area shape="rect" id="node8" href="$channel_8h.html" title="gameboycore/channel.h" alt="" coords="496,96,655,123"/>
-<area shape="rect" id="node3" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="5,171,187,213"/>
-</map>

@@ -5,8 +5,8 @@ var searchData=
   ['new_5flicense_5fstart',['NEW_LICENSE_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ac4d0dcc5fab8239cb7ea87d7bd83b30f',1,'gb::memorymap']]],
   ['nintendo_5flogo_5fend',['NINTENDO_LOGO_END',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ab210f9c9731774b6dcf45fdfca5b004e',1,'gb::memorymap']]],
   ['nintendo_5flogo_5fstart',['NINTENDO_LOGO_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9aa6724ff06767c32f499378b61c8934eb',1,'gb::memorymap']]],
-  ['noise',['Noise',['../classgb_1_1Noise.html#a2502335c89b61da1c1fa477e4868ad41',1,'gb::Noise']]],
-  ['noise',['Noise',['../classgb_1_1Noise.html',1,'gb']]],
+  ['noise',['Noise',['../classgb_1_1detail_1_1Noise.html#a12fe30eab10ebad4aba00ea1bce1aeec',1,'gb::detail::Noise']]],
+  ['noise',['Noise',['../classgb_1_1detail_1_1Noise.html',1,'gb::detail']]],
   ['noise_2eh',['noise.h',['../noise_8h.html',1,'']]],
   ['none',['NONE',['../classgb_1_1detail_1_1MBC.html#a7409cc7c8ca37dc198047cf7820bd9c3ab50339a10e1de285ac99d4c3990b8693',1,'gb::detail::MBC::NONE()'],['../namespacegb.html#a740667f2e6fef8a534f950e30233432fab50339a10e1de285ac99d4c3990b8693',1,'gb::NONE()']]],
   ['nr10_5fregister',['NR10_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9abd6066aaaad7f6a2a32e5bd420a641ed',1,'gb::memorymap']]],
@@ -31,5 +31,9 @@ var searchData=
   ['nr50_5fregister',['NR50_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a4e7d5c2de4c934cbfba8993a863ed3f1',1,'gb::memorymap']]],
   ['nr51_5fregister',['NR51_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a702342ff86d57ceed6a39ec075e4af17',1,'gb::memorymap']]],
   ['nr52_5fregister',['NR52_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9aa680b2c8806e4d58664a9135134e6121',1,'gb::memorymap']]],
+  ['nrx1_5f',['nrx1_',['../classgb_1_1detail_1_1Channel.html#a67977f58516c7ae86eddc35279d88a8b',1,'gb::detail::Channel']]],
+  ['nrx2_5f',['nrx2_',['../classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955',1,'gb::detail::Channel']]],
+  ['nrx3_5f',['nrx3_',['../classgb_1_1detail_1_1Channel.html#ace282d41d19897b92d6c84e9cd9acf88',1,'gb::detail::Channel']]],
+  ['nrx4_5f',['nrx4_',['../classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a',1,'gb::detail::Channel']]],
   ['num_5ftiles',['NUM_TILES',['../classgb_1_1TileRAM.html#a99923e23192222b248f8e1aca4baf98a',1,'gb::TileRAM']]]
 ];

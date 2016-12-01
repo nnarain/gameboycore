@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['wave',['Wave',['../classgb_1_1Wave.html',1,'gb']]],
-  ['wave',['Wave',['../classgb_1_1Wave.html#a3fbebd4a63b9f9b0d27314d8b1c795ce',1,'gb::Wave']]],
+  ['wave',['Wave',['../classgb_1_1detail_1_1Wave.html',1,'gb::detail']]],
+  ['wave',['Wave',['../classgb_1_1detail_1_1Wave.html#a6fc05e27432bcd17d46efc6a49fd45b6',1,'gb::detail::Wave']]],
   ['wave_2eh',['wave.h',['../wave_8h.html',1,'']]],
   ['wave_5fpattern_5fram_5fend',['WAVE_PATTERN_RAM_END',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a31807fc1cd19cecf003846ddaf1c5a6c',1,'gb::memorymap']]],
   ['wave_5fpattern_5fram_5fstart',['WAVE_PATTERN_RAM_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a30b7a75d2da07c6b11352e078f3daafb',1,'gb::memorymap']]],

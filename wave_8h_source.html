@@ -100,40 +100,62 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef GAMEBOY_WAVE_H</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define GAMEBOY_WAVE_H</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mmu_8h.html">gameboycore/mmu.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="channel_8h.html">gameboycore/channel.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="memorymap_8h.html">gameboycore/memorymap.h</a>&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>gb</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classgb_1_1Wave.html">   20</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgb_1_1Wave.html">Wave</a> : <span class="keyword">public</span> <a class="code" href="classgb_1_1Channel.html">Channel</a></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classgb_1_1Wave.html#a3fbebd4a63b9f9b0d27314d8b1c795ce">   23</a></span>&#160;        <a class="code" href="classgb_1_1Wave.html#a3fbebd4a63b9f9b0d27314d8b1c795ce">Wave</a>(<a class="code" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a>&amp; mmu) : </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            <a class="code" href="classgb_1_1Channel.html">Channel</a>(mmu-&gt;get(memorymap::<a class="code" href="namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a0020445acd3e58abf807e59110f0c11b">NR31_REGISTER</a>), 0xFF),</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            mmu_(mmu)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classgb_1_1Wave.html#a527372ecd267e12991c57d6f008b53b8">   29</a></span>&#160;        <a class="code" href="classgb_1_1Wave.html#a527372ecd267e12991c57d6f008b53b8">~Wave</a>()</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a>&amp; mmu_;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    };</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_WAVE_H</span></div>
-<div class="ttc" id="classgb_1_1Wave_html_a527372ecd267e12991c57d6f008b53b8"><div class="ttname"><a href="classgb_1_1Wave.html#a527372ecd267e12991c57d6f008b53b8">gb::Wave::~Wave</a></div><div class="ttdeci">~Wave()</div><div class="ttdef"><b>Definition:</b> wave.h:29</div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">namespace </span>detail</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Wave.html">   23</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classgb_1_1detail_1_1Wave.html">Wave</a> : <span class="keyword">public</span> <a class="code" href="classgb_1_1detail_1_1Channel.html">Channel</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Wave.html#aa93b9ab5b0f17ff9862c3d76c305042b">   26</a></span>&#160;            <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classgb_1_1detail_1_1Wave.html#aa93b9ab5b0f17ff9862c3d76c305042b">LENGTH_MASK</a> = 0xFF;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Wave.html#a6fc05e27432bcd17d46efc6a49fd45b6">   29</a></span>&#160;            <a class="code" href="classgb_1_1detail_1_1Wave.html#a6fc05e27432bcd17d46efc6a49fd45b6">Wave</a>(uint8_t&amp; nr30, uint8_t&amp; nrx1, uint8_t&amp; nrx2, uint8_t&amp; nrx3, uint8_t&amp; nrx4) :</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html">Channel</a>(nrx1, nrx2, nrx3, nrx4),</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                nr30_(nr30)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Wave.html#a8d89a42430d2e154de283db616ab5bfa">   35</a></span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1Wave.html#a8d89a42430d2e154de283db616ab5bfa">trigger</a>()<span class="keyword"> override</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">            </span>{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> == 0)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> = 256;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#aa061f873ea09a8169b10341fd634873b">Channel::trigger</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Wave.html#ae0868df09ed834fbf326bd5c2e5ad1fe">   43</a></span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classgb_1_1detail_1_1Wave.html#ae0868df09ed834fbf326bd5c2e5ad1fe">isDacEnabled</a>()<span class="keyword"> const override</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">            </span>{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="keywordflow">return</span> (nr30_ &amp; 0x80) != 0;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Wave.html#a3389ea9dcae60a0db7b6965563653838">   48</a></span>&#160;            <a class="code" href="classgb_1_1detail_1_1Wave.html#a3389ea9dcae60a0db7b6965563653838">~Wave</a>()</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            uint8_t&amp; nr30_;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        };</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_WAVE_H</span></div>
+<div class="ttc" id="classgb_1_1detail_1_1Wave_html_aa93b9ab5b0f17ff9862c3d76c305042b"><div class="ttname"><a href="classgb_1_1detail_1_1Wave.html#aa93b9ab5b0f17ff9862c3d76c305042b">gb::detail::Wave::LENGTH_MASK</a></div><div class="ttdeci">static const int LENGTH_MASK</div><div class="ttdef"><b>Definition:</b> wave.h:26</div></div>
 <div class="ttc" id="memorymap_8h_html"><div class="ttname"><a href="memorymap_8h.html">memorymap.h</a></div><div class="ttdoc">Constants that define the CPU memory map. </div></div>
-<div class="ttc" id="classgb_1_1Channel_html"><div class="ttname"><a href="classgb_1_1Channel.html">gb::Channel</a></div><div class="ttdoc">represents a Gameboy sound channel </div><div class="ttdef"><b>Definition:</b> channel.h:18</div></div>
-<div class="ttc" id="classgb_1_1Wave_html_a3fbebd4a63b9f9b0d27314d8b1c795ce"><div class="ttname"><a href="classgb_1_1Wave.html#a3fbebd4a63b9f9b0d27314d8b1c795ce">gb::Wave::Wave</a></div><div class="ttdeci">Wave(MMU::Ptr &amp;mmu)</div><div class="ttdef"><b>Definition:</b> wave.h:23</div></div>
-<div class="ttc" id="mmu_8h_html"><div class="ttname"><a href="mmu_8h.html">mmu.h</a></div><div class="ttdoc">Memory interface. </div></div>
-<div class="ttc" id="namespacegb_1_1memorymap_html_a541e439c12650c3c851982ad846683b9a0020445acd3e58abf807e59110f0c11b"><div class="ttname"><a href="namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a0020445acd3e58abf807e59110f0c11b">gb::memorymap::NR31_REGISTER</a></div><div class="ttdef"><b>Definition:</b> memorymap.h:107</div></div>
-<div class="ttc" id="classgb_1_1Wave_html"><div class="ttname"><a href="classgb_1_1Wave.html">gb::Wave</a></div><div class="ttdoc">Wave register. </div><div class="ttdef"><b>Definition:</b> wave.h:20</div></div>
-<div class="ttc" id="classgb_1_1MMU_html_a0b9ef7456e322d90fe4d45b9ad42b990"><div class="ttname"><a href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">gb::MMU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; MMU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> mmu.h:28</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a7a89d3a9230f4fb3494054d653ad1277"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">gb::detail::Channel::length_counter_</a></div><div class="ttdeci">int length_counter_</div><div class="ttdoc">Length Counter. </div><div class="ttdef"><b>Definition:</b> channel.h:109</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Wave_html_a3389ea9dcae60a0db7b6965563653838"><div class="ttname"><a href="classgb_1_1detail_1_1Wave.html#a3389ea9dcae60a0db7b6965563653838">gb::detail::Wave::~Wave</a></div><div class="ttdeci">~Wave()</div><div class="ttdef"><b>Definition:</b> wave.h:48</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_aa061f873ea09a8169b10341fd634873b"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#aa061f873ea09a8169b10341fd634873b">gb::detail::Channel::trigger</a></div><div class="ttdeci">virtual void trigger()</div><div class="ttdef"><b>Definition:</b> channel.h:43</div></div>
+<div class="ttc" id="channel_8h_html"><div class="ttname"><a href="channel_8h.html">channel.h</a></div><div class="ttdoc">Base class for Sound channel. </div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Wave_html_a8d89a42430d2e154de283db616ab5bfa"><div class="ttname"><a href="classgb_1_1detail_1_1Wave.html#a8d89a42430d2e154de283db616ab5bfa">gb::detail::Wave::trigger</a></div><div class="ttdeci">virtual void trigger() override</div><div class="ttdef"><b>Definition:</b> wave.h:35</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Wave_html_a6fc05e27432bcd17d46efc6a49fd45b6"><div class="ttname"><a href="classgb_1_1detail_1_1Wave.html#a6fc05e27432bcd17d46efc6a49fd45b6">gb::detail::Wave::Wave</a></div><div class="ttdeci">Wave(uint8_t &amp;nr30, uint8_t &amp;nrx1, uint8_t &amp;nrx2, uint8_t &amp;nrx3, uint8_t &amp;nrx4)</div><div class="ttdef"><b>Definition:</b> wave.h:29</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html">gb::detail::Channel</a></div><div class="ttdoc">Base class for Sound channel. </div><div class="ttdef"><b>Definition:</b> channel.h:23</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Wave_html_ae0868df09ed834fbf326bd5c2e5ad1fe"><div class="ttname"><a href="classgb_1_1detail_1_1Wave.html#ae0868df09ed834fbf326bd5c2e5ad1fe">gb::detail::Wave::isDacEnabled</a></div><div class="ttdeci">virtual bool isDacEnabled() const override</div><div class="ttdef"><b>Definition:</b> wave.h:43</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Wave_html"><div class="ttname"><a href="classgb_1_1detail_1_1Wave.html">gb::detail::Wave</a></div><div class="ttdoc">Wave register. </div><div class="ttdef"><b>Definition:</b> wave.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
@@ -143,7 +165,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 29 2016 14:01:04 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 1 2016 03:24:38 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
