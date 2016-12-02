@@ -76,25 +76,17 @@ namespace gb
 			mbc_->write(0x0F, memorymap::JOYPAD_REGISTER);
 
 			loadResetValues();
-			initWriteMasks();
 		}
 	
 		uint8_t read(uint16_t addr)
 		{
 			if (addr >= 0xFF00 && addr <= 0xFF7F && read_handlers_[addr - 0xFF00])
 			{
-				return read_handlers_[addr - 0xFF00]();
+				return read_handlers_[addr - 0xFF00](addr);
 			}
 			else
 			{
-				auto value = mbc_->read(addr);
-
-				if (addr >= memorymap::NR10_REGISTER && addr <= memorymap::WAVE_PATTERN_RAM_END)
-				{
-					value |= apu_read_masks[addr - 0xFF00];
-				}
-
-				return value;
+				return mbc_->read(addr);
 			}
 		}
 
@@ -117,16 +109,6 @@ namespace gb
 				if (value == 0x81)
 				{
 					std::cout << (char)mbc_->read(memorymap::SB_REGISTER);
-				}
-			}
-			else if (addr >= memorymap::NR10_REGISTER && addr < memorymap::NR52_REGISTER)
-			{
-				// APU register writes are ignore if the APU is disabled
-				auto sound_enable = mbc_->read(memorymap::NR52_REGISTER);
-
-				if (sound_enable & 0x80)
-				{
-					mbc_->write(value, addr);
 				}
 			}
 			else
@@ -207,78 +189,11 @@ namespace gb
 			mbc_->write(0x00, memorymap::INTERRUPT_ENABLE);
 		}
 
-		void initWriteMasks()
-		{
-			// NR10 - NR14
-			apu_read_masks[0x10] = 0x80;
-			apu_read_masks[0x11] = 0x3F;
-			apu_read_masks[0x12] = 0x00;
-			apu_read_masks[0x13] = 0xFF;
-			apu_read_masks[0x14] = 0xBF;
-
-			// NR20 - NR24
-			apu_read_masks[0x15] = 0xFF;
-			apu_read_masks[0x16] = 0x3F;
-			apu_read_masks[0x17] = 0x00;
-			apu_read_masks[0x18] = 0xFF;
-			apu_read_masks[0x19] = 0xBF;
-
-			// NR30 - NR34
-			apu_read_masks[0x1A] = 0x7F;
-			apu_read_masks[0x1B] = 0xFF;
-			apu_read_masks[0x1C] = 0x9F;
-			apu_read_masks[0x1D] = 0xFF;
-			apu_read_masks[0x1E] = 0xBF;
-
-			// NR40 - NR44
-			apu_read_masks[0x1F] = 0xFF;
-			apu_read_masks[0x20] = 0xFF;
-			apu_read_masks[0x21] = 0x00;
-			apu_read_masks[0x22] = 0x00;
-			apu_read_masks[0x23] = 0xBF;
-
-			// NR50 - NR52
-			apu_read_masks[0x24] = 0x00;
-			apu_read_masks[0x25] = 0x00;
-			apu_read_masks[0x26] = 0x70;
-
-			//
-			apu_read_masks[0x27] = 0xFF;
-			apu_read_masks[0x28] = 0xFF;
-			apu_read_masks[0x29] = 0xFF;
-			apu_read_masks[0x2A] = 0xFF;
-			apu_read_masks[0x2B] = 0xFF;
-			apu_read_masks[0x2C] = 0xFF;
-			apu_read_masks[0x2D] = 0xFF;
-			apu_read_masks[0x2E] = 0xFF;
-			apu_read_masks[0x2F] = 0xFF;
-
-			// wave ram
-			apu_read_masks[0x30] = 0x00;
-			apu_read_masks[0x31] = 0x00;
-			apu_read_masks[0x32] = 0x00;
-			apu_read_masks[0x33] = 0x00;
-			apu_read_masks[0x34] = 0x00;
-			apu_read_masks[0x35] = 0x00;
-			apu_read_masks[0x36] = 0x00;
-			apu_read_masks[0x37] = 0x00;
-			apu_read_masks[0x38] = 0x00;
-			apu_read_masks[0x39] = 0x00;
-			apu_read_masks[0x3A] = 0x00;
-			apu_read_masks[0x3B] = 0x00;
-			apu_read_masks[0x3C] = 0x00;
-			apu_read_masks[0x3D] = 0x00;
-			apu_read_masks[0x3E] = 0x00;
-			apu_read_masks[0x3F] = 0x00;
-		}
-
 	public:
 		detail::MBC::Ptr mbc_;
 
 		std::array<MemoryWriteHandler, 0x80> write_handlers_;
 		std::array<MemoryReadHandler, 0x80>  read_handlers_;
-
-		std::array<uint8_t, 0x80> apu_read_masks;
 	};
 
 

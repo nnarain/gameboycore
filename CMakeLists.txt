@@ -68,7 +68,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboycore/interrupt_provider.h
 	include/gameboycore/sprite.h
 	include/gameboycore/palette.h
-	include/gameboycore/sound.h
+	include/gameboycore/square.h
 	include/gameboycore/noise.h
 	include/gameboycore/wave.h
 	include/gameboycore/channel.h
@@ -158,6 +158,11 @@ install(
 # Installation
 include(get-version-config)
 get_version()
+
+# if on windows package as zip, otherwise use defaults
+if(WIN32)
+    set(CPACK_GENERATOR "ZIP")
+endif(WIN32)
 
 set(CPACK_PACKAGE_NAME "gameboycore")
 set(CPACK_PACKAGE_VENDOR "nnarain")

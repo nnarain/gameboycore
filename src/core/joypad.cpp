@@ -20,7 +20,7 @@ namespace gb
 			interrupt_provider_(mmu, InterruptProvider::Interrupt::JOYPAD)
 		{
 			// add handlers
-			mmu_.addReadHandler(memorymap::JOYPAD_REGISTER, std::bind(&Impl::readJoypad, this));
+			mmu_.addReadHandler(memorymap::JOYPAD_REGISTER, std::bind(&Impl::readJoypad, this, std::placeholders::_1));
 		}
 
 		void press(Key key)
@@ -35,7 +35,7 @@ namespace gb
 		}
 
 	private:
-		uint8_t readJoypad()
+		uint8_t readJoypad(uint16_t addr)
 		{
 			uint8_t hi = (reg_ & 0xF0);
 
