@@ -10,11 +10,12 @@ namespace gb
 	class GameboyCore::Impl
 	{
 	public:
-		CPU::Ptr cpu;
-		MMU::Ptr mmu;
-		GPU::Ptr gpu;
-		APU::Ptr apu;
-		Joy::Ptr joy;
+		CPU::Ptr  cpu;
+		MMU::Ptr  mmu;
+		GPU::Ptr  gpu;
+		APU::Ptr  apu;
+		Joy::Ptr  joy;
+		Link::Ptr link;
 
 		void loadROM(uint8_t* rom, uint32_t size)
 		{
@@ -88,6 +89,11 @@ namespace gb
 	Joy::Ptr& GameboyCore::getJoypad()
 	{
 		return impl_->joy;
+	}
+
+	Link::Ptr& GameboyCore::getLink()
+	{
+		return impl_->link;
 	}
 
 	bool GameboyCore::isDone() const
