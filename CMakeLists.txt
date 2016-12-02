@@ -159,6 +159,11 @@ install(
 include(get-version-config)
 get_version()
 
+# if on windows package as zip, otherwise use defaults
+if(WIN32)
+    set(CPACK_GENERATOR "ZIP")
+endif(WIN32)
+
 set(CPACK_PACKAGE_NAME "gameboycore")
 set(CPACK_PACKAGE_VENDOR "nnarain")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Gameboy emulator and library")
