@@ -24,8 +24,9 @@ namespace gb
 
 			gpu.reset(new GPU(mmu));
 			apu.reset(new APU(mmu));
+			link.reset(new Link(mmu));
 
-			cpu.reset(new CPU(mmu, gpu, apu));
+			cpu.reset(new CPU(mmu, gpu, apu, link));
 
 			joy.reset(new Joy(*mmu));
 		}

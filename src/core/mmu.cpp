@@ -106,10 +106,6 @@ namespace gb
 			}
 			else if (addr == memorymap::SC_REGISTER)
 			{
-				if (value == 0x81)
-				{
-					std::cout << (char)mbc_->read(memorymap::SB_REGISTER);
-				}
 			}
 			else
 			{

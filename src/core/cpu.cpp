@@ -59,10 +59,11 @@ namespace gb
 			JOYPAD = 0x0060
 		};
 
-		Impl(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu) :
+		Impl(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu, Link::Ptr& link) :
 			mmu_(mmu),
 			gpu_(gpu),
 			apu_(apu),
+			link_(link),
 			alu_(af_.lo),
 			timer_(*mmu.get()),
 			halted_(false),
@@ -116,6 +117,7 @@ namespace gb
 			{
 				gpu_->update(cpu_cycles, interrupt_master_enable_);
 				apu_->update(cpu_cycles);
+				link_->update(cpu_cycles);
 				timer_.update(instr_cycles);
 			}
 		}
@@ -2360,9 +2362,10 @@ namespace gb
 		Register sp_;
 		Register pc_;
 
-		MMU::Ptr& mmu_;
-		GPU::Ptr& gpu_;
-		APU::Ptr& apu_;
+		MMU::Ptr&  mmu_;
+		GPU::Ptr&  gpu_;
+		APU::Ptr&  apu_;
+		Link::Ptr& link_;
 
 		ALU alu_;
 
@@ -2387,8 +2390,8 @@ namespace gb
 
 	/* Public Interface */
 
-	CPU::CPU(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu) :
-		impl_(new Impl(mmu, gpu, apu))
+	CPU::CPU(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu, Link::Ptr& link) :
+		impl_(new Impl(mmu, gpu, apu, link))
 	{
 		reset();
 	}

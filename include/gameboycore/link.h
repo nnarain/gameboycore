@@ -45,7 +45,7 @@ namespace gb
 		/**
 		
 		*/
-		void setOutboundCallback(const SendCallback& callback);
+		void setSendCallback(const SendCallback& callback);
 
 	private:
 		class Impl;
