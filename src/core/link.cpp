@@ -16,11 +16,13 @@ namespace gb
 
 		Impl(MMU::Ptr& mmu) : 
 			mmu_(mmu),
+			control_(mmu->get(memorymap::SC_REGISTER)),
 			serial_interrupt_{ *mmu.get(), InterruptProvider::Interrupt::SERIAL },
 			shift_clock_(0),
 			shift_counter_(0),
 			shift_clock_rate_(0),
-			start_transfer_(false)
+			byte_to_recieve_(0),
+			byte_to_transfer_(0)
 		{
 			// serial byte handlers
 			mmu->addReadHandler(memorymap::SB_REGISTER, std::bind(&Impl::recieveHandler, this, std::placeholders::_1));
@@ -36,7 +38,7 @@ namespace gb
 
 		void update(uint8_t cycles)
 		{
-			if (!start_transfer_) return;
+			if (!isTransferring()) return;
 
 			// increment shift clock
 			shift_clock_ += cycles;
@@ -49,44 +51,48 @@ namespace gb
 
 				if (shift_counter_ == 8)
 				{
-					if (send_queue_.size() > 0)
+					if(send_callback_)
+						send_callback_(byte_to_transfer_);
+
+					if (recieve_queue_.size() > 0)
 					{
-						auto value = send_queue_.front();
-						send_queue_.pop();
-
-						send_callback_(value);
-
-						serial_interrupt_.set();
-
-						shift_counter_ = 0;
+						byte_to_recieve_ = recieve_queue_.front();
+						recieve_queue_.pop();
 					}
+					else
+					{
+						byte_to_recieve_ = 0x00;
+					}
+
+					serial_interrupt_.set();
+
+					shift_counter_ = 0;
+
+					CLR(control_, memorymap::SC::TRANSFER);
 				}
 			}
 		}
 
 		void control(uint8_t value, uint16_t addr)
 		{
-			start_transfer_ = (value & 0x80) != 0;
-			shift_clock_rate_ = getTransferRate(value);
+			if (!isTransferring())
+			{
+				shift_clock_rate_ = getTransferRate(value);
+				control_ = value;
+			}
 		}
 
 		void sendHandler(uint8_t value, uint16_t addr)
 		{
-			send_queue_.push(value);
+			if (!isTransferring())
+			{
+				byte_to_transfer_ = value;
+			}
 		}
 
 		uint8_t recieveHandler(uint16_t addr)
 		{
-			if (recieve_queue_.size() > 0)
-			{
-				auto byte = recieve_queue_.front();
-				recieve_queue_.pop();
-				return byte;
-			}
-			else
-			{
-				return 0;
-			}
+			return byte_to_recieve_;
 		}
 
 		/**
@@ -112,12 +118,24 @@ namespace gb
 		}
 
 	private:
+
+		bool isTransferring()
+		{
+			return IS_SET(control_, memorymap::SC::TRANSFER) != 0;
+		}
+
+	private:
 		MMU::Ptr& mmu_;
+
+		//! Serial Control Register
+		uint8_t& control_;
 
 		//! Recieve queue
 		std::queue<uint8_t> recieve_queue_;
 		//! Send queue
-		std::queue<uint8_t> send_queue_;
+		uint8_t byte_to_transfer_;
+		//!
+		uint8_t byte_to_recieve_;
 
 		//! Sending data outbound to hosts
 		SendCallback send_callback_;
@@ -131,9 +149,6 @@ namespace gb
 		int shift_counter_;
 		//! Transfer rate
 		int shift_clock_rate_;
-
-		//! transfer started
-		bool start_transfer_;
 	};
 
 	/* Public Interface */

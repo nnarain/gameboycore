@@ -104,9 +104,6 @@ namespace gb
 			{
 				mbc_->write(0, addr);
 			}
-			else if (addr == memorymap::SC_REGISTER)
-			{
-			}
 			else
 			{
 				if (addr >= 0xFF00 && addr <= 0xFF7F && write_handlers_[addr - 0xFF00])

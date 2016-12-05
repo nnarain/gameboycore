@@ -65,6 +65,8 @@ int main(int argc, char * argv[])
 				gameboy1.getLink()->write(&byte, 1);
 			});
 
+			bool send = false;
+
 			while (window1.isOpen())
 			{
 				gameboy1.update(512);

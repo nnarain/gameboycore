@@ -164,6 +164,15 @@ namespace gb{
 		{
 			LYCLY = (1 << 2) ///< LY=LYC flag
 		};
+
+		//! Serial Control register bit masks
+		enum SC
+		{
+			TRANSFER    = (1 << 7), ///< Transfer start flag
+
+			SHIFT_CLOCK = (1 << 1), ///< Shift clock
+			CLOCK_MODE  = (1 << 0)  ///< 0-External Clock, 1-Internal Clock
+		};
 	}
 }
 
