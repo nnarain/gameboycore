@@ -30,7 +30,7 @@ public:
 	{
 		gameboy.getGPU()->setRenderCallback(
 			std::bind(
-				&ScreenRenderer::renderScanline,
+				&ScreenRenderer::gpuCallback,
 				&screen_renderer_,
 				std::placeholders::_1, std::placeholders::_2
 			)

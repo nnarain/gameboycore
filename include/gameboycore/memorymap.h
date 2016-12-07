@@ -168,10 +168,10 @@ namespace gb{
 		//! Serial Control register bit masks
 		enum SC
 		{
-			TRANSFER    = (1 << 7), ///< Transfer start flag
+			TRANSFER         = (1 << 7), ///< Transfer start flag
 
-			SHIFT_CLOCK = (1 << 1), ///< Shift clock
-			CLOCK_MODE  = (1 << 0)  ///< 0-External Clock, 1-Internal Clock
+			SHIFT_CLOCK_RATE = (1 << 1), ///< Shift clock
+			CLOCK_MODE       = (1 << 0)  ///< 0-External Clock, 1-Internal Clock
 		};
 	}
 }

@@ -25,11 +25,21 @@ namespace gb
 	class GAMEBOYCORE_API Link
 	{
 	public:
+		enum class Mode
+		{
+			INTERNAL, ///< Internal Clock Mode
+			EXTERNAL  ///< External Clock Mode
+		};
+
 		//! Smart pointer type
 		using Ptr = std::unique_ptr<Link>;
 
-		//! 
+		//! Send byte to host system
 		using SendCallback = std::function<void(uint8_t)>;
+		//! Host implements to tell Gameboy if another gameboy is ready to exchange bytes
+		using OpponentReadyCallback = std::function<bool()>;
+		//!
+		using ReadyCallback = std::function<void(uint8_t, Mode)>;
 
 	public:
 		Link(MMU::Ptr& mmu);
@@ -40,12 +50,11 @@ namespace gb
 		/**
 			Write a byte buffer into the core
 		*/
-		void write(uint8_t* buffer, std::size_t length);
+		void recieve(uint8_t byte);
 
-		/**
-		
-		*/
 		void setSendCallback(const SendCallback& callback);
+		void setOpponentReadyCallback(const OpponentReadyCallback& callback);
+		void setReadyCallback(const ReadyCallback& callback);
 
 	private:
 		class Impl;

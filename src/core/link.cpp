@@ -40,6 +40,20 @@ namespace gb
 		{
 			if (!isTransferring()) return;
 
+			// if using internal shift clock, run clocking logic
+			if (isUsingInternalClock())
+			{
+				internalClock(cycles);
+			}
+			else
+			{
+				// transferring in external clock mode, signal transfer ready
+				signalReady();
+			}
+		}
+
+		void internalClock(uint8_t cycles)
+		{
 			// increment shift clock
 			shift_clock_ += cycles;
 
@@ -51,24 +65,10 @@ namespace gb
 
 				if (shift_counter_ == 8)
 				{
-					if(send_callback_)
-						send_callback_(byte_to_transfer_);
-
-					if (recieve_queue_.size() > 0)
-					{
-						byte_to_recieve_ = recieve_queue_.front();
-						recieve_queue_.pop();
-					}
-					else
-					{
-						byte_to_recieve_ = 0x00;
-					}
-
-					serial_interrupt_.set();
+					// signal to the host system that this core is ready to do the transfer
+					signalReady();
 
 					shift_counter_ = 0;
-
-					CLR(control_, memorymap::SC::TRANSFER);
 				}
 			}
 		}
@@ -79,6 +79,10 @@ namespace gb
 			{
 				shift_clock_rate_ = getTransferRate(value);
 				control_ = value;
+			}
+			else
+			{
+				FORCE(control_, 0x03, value);
 			}
 		}
 
@@ -98,12 +102,41 @@ namespace gb
 		/**
 			Data into the core
 		*/
-		void write(uint8_t* buffer, std::size_t size)
+		void recieve(uint8_t byte)
 		{
-			for (auto i = 0u; i < size; ++i)
-			{
-				recieve_queue_.push(buffer[i]);
-			}
+			// recieve the byte
+			byte_to_recieve_ = byte;
+			// set serial interrupt
+			serial_interrupt_.set();
+			// clear transfer flag
+			CLR(control_, memorymap::SC::TRANSFER);
+		}
+
+		void setSendCallback(const SendCallback& callback)
+		{
+			send_callback_ = callback;
+		}
+
+		void setOpponentReadyCallback(const OpponentReadyCallback& callback)
+		{
+			opponent_ready_ = callback;
+		}
+
+		void setReadyCallback(const ReadyCallback& callback)
+		{
+			ready_callback_ = callback;
+		}
+
+	private:
+
+		bool isTransferring()
+		{
+			return IS_SET(control_, memorymap::SC::TRANSFER) != 0;
+		}
+
+		bool isUsingInternalClock()
+		{
+			return IS_SET(control_, memorymap::SC::CLOCK_MODE);
 		}
 
 		int getTransferRate(uint8_t sc)
@@ -112,16 +145,20 @@ namespace gb
 			return 8192;
 		}
 
-		void setSendCallback(const SendCallback& callback)
+		bool isOpponentReady()
 		{
-			send_callback_ = callback;
+			return (opponent_ready_) ? opponent_ready_() : false;
 		}
 
-	private:
-
-		bool isTransferring()
+		void signalReady()
 		{
-			return IS_SET(control_, memorymap::SC::TRANSFER) != 0;
+			if (ready_callback_)
+				ready_callback_(byte_to_transfer_, getLinkMode());
+		}
+
+		Mode getLinkMode()
+		{
+			return IS_SET(control_, memorymap::SC::CLOCK_MODE) ? Mode::INTERNAL : Mode::EXTERNAL;
 		}
 
 	private:
@@ -139,6 +176,10 @@ namespace gb
 
 		//! Sending data outbound to hosts
 		SendCallback send_callback_;
+		//!
+		OpponentReadyCallback opponent_ready_;
+		//!
+		ReadyCallback ready_callback_;
 
 		//! Serial interrupt provider
 		InterruptProvider serial_interrupt_;
@@ -163,14 +204,24 @@ namespace gb
 		impl_->update(cycles);
 	}
 
-	void Link::write(uint8_t* buffer, std::size_t length)
+	void Link::recieve(uint8_t byte)
 	{
-		impl_->write(buffer, length);
+		impl_->recieve(byte);
 	}
 
 	void Link::setSendCallback(const SendCallback& callback)
 	{
 		impl_->setSendCallback(callback);
+	}
+
+	void Link::setOpponentReadyCallback(const OpponentReadyCallback& callback)
+	{
+		impl_->setOpponentReadyCallback(callback);
+	}
+
+	void Link::setReadyCallback(const ReadyCallback& callback)
+	{
+		impl_->setReadyCallback(callback);
 	}
 
 	Link::~Link()

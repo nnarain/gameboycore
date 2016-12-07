@@ -4,6 +4,8 @@
 #include <fstream>
 #include <vector>
 #include <functional>
+#include <thread>
+#include <chrono>
 #include <stdexcept>
 
 #include <gameboycore/gameboycore.h>
@@ -13,6 +15,145 @@
 #include "version.h"
 
 using namespace gb;
+
+class GameboyThread
+{
+public:
+
+	GameboyThread(gb::GameboyCore& core) : core_(core)
+	{
+		running_ = true;
+		thread_ = std::thread(std::bind(&GameboyThread::run, this));
+	}
+
+	void run()
+	{
+		while (running_)
+		{
+			core_.update(512);
+
+			std::this_thread::sleep_for(std::chrono::milliseconds(5));
+		}
+	}
+
+	~GameboyThread()
+	{
+		running_ = false;
+		thread_.join();
+	}
+
+private:
+	gb::GameboyCore& core_;
+
+	std::thread thread_;
+	bool running_;
+};
+
+class LinkCable
+{
+	struct LinkData
+	{
+		LinkData() :
+			mode(Link::Mode::EXTERNAL),
+			byte(0),
+			ready(false)
+		{
+		}
+
+		Link::Mode mode;
+		uint8_t    byte;
+		bool       ready;
+	};
+
+public:
+
+	LinkCable(GameboyCore& core1, GameboyCore& core2) :
+		link1_(core1.getLink()),
+		link2_(core2.getLink())
+	{
+		link1_->setReadyCallback(std::bind(&LinkCable::link1ReadyCallback, this, std::placeholders::_1, std::placeholders::_2));
+		link2_->setReadyCallback(std::bind(&LinkCable::link2ReadyCallback, this, std::placeholders::_1, std::placeholders::_2));
+	}
+
+	~LinkCable()
+	{
+	}
+
+	void update()
+	{
+		if (link_data1_.ready && link_data2_.ready)
+		{
+			// both links indicate they are ready to transfer
+
+			if (link_data1_.mode != link_data2_.mode)
+			{
+				// link must be opposing modes.
+				// if both are external mode, there is no shift clock being generated
+				// if both are internal they are not in sync
+				doTransfer();
+			}
+			else
+			{
+				doTransfer();
+			}
+		}
+		else
+		{
+			// only one link is ready to tranfer, or neither are
+
+			if (link_data1_.ready)
+			{
+				if (link_data1_.mode == Link::Mode::INTERNAL)
+				{
+					// if this link is the master device, supply it with a $FF
+					link_data2_.byte = 0xFF;
+					doTransfer();
+				}
+			}
+
+			if (link_data2_.ready)
+			{
+				if (link_data2_.mode == Link::Mode::INTERNAL)
+				{
+					link_data1_.byte = 0xFF;
+					doTransfer();
+				}
+			}
+		}
+	}
+
+private:
+
+	void doTransfer()
+	{
+		link1_->recieve(link_data2_.byte);
+		link2_->recieve(link_data1_.byte);
+
+		link_data1_.ready = false;
+		link_data2_.ready = false;
+	}
+
+	void link1ReadyCallback(uint8_t byte, Link::Mode mode)
+	{
+		link_data1_.byte  = byte;
+		link_data1_.mode  = mode;
+		link_data1_.ready = true;
+	}
+
+	void link2ReadyCallback(uint8_t byte, Link::Mode mode)
+	{
+		link_data2_.byte = byte;
+		link_data2_.mode = mode;
+		link_data2_.ready = true;
+	}
+
+private:
+	gb::Link::Ptr& link1_;
+	gb::Link::Ptr& link2_;
+
+	LinkData link_data1_;
+	LinkData link_data2_;
+};
 
 static bool loadGB(GameboyCore& gameboy, const std::string& filename);
 static std::vector<uint8_t> loadFile(const std::string& file);
@@ -40,8 +181,8 @@ int main(int argc, char * argv[])
 
 	if (
 		loadGB(gameboy1, filename) && 
-		loadGB(gameboy2, filename
-		))
+		loadGB(gameboy2, filename)
+		)
 	{
 		try
 		{
@@ -57,20 +198,15 @@ int main(int argc, char * argv[])
 			gameboy1.setDebugMode(false);
 			gameboy2.setDebugMode(false);
 
-			gameboy1.getLink()->setSendCallback([&](uint8_t byte) {
-				gameboy2.getLink()->write(&byte, 1);
-			});
+			LinkCable cable(gameboy1, gameboy2);
 
-			gameboy2.getLink()->setSendCallback([&](uint8_t byte) {
-				gameboy1.getLink()->write(&byte, 1);
-			});
-
-			bool send = false;
+			GameboyThread core_thread1(gameboy1);
+			GameboyThread core_thread2(gameboy2);
 
 			while (window1.isOpen())
 			{
-				gameboy1.update(512);
-				gameboy2.update(512);
+				cable.update();
+
 				window1.update();
 				window2.update();
 			}
