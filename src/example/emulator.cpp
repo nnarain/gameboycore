@@ -53,6 +53,11 @@ private:
 
 class LinkCable
 {
+public:
+	using RecieveCallback = std::function<void(uint8_t)>;
+
+private:
+	//! Contains link ready status, byte ti transfer and clocking mode
 	struct LinkData
 	{
 		LinkData() :
@@ -69,12 +74,8 @@ class LinkCable
 
 public:
 
-	LinkCable(GameboyCore& core1, GameboyCore& core2) :
-		link1_(core1.getLink()),
-		link2_(core2.getLink())
+	LinkCable()
 	{
-		link1_->setReadyCallback(std::bind(&LinkCable::link1ReadyCallback, this, std::placeholders::_1, std::placeholders::_2));
-		link2_->setReadyCallback(std::bind(&LinkCable::link2ReadyCallback, this, std::placeholders::_1, std::placeholders::_2));
 	}
 
 	~LinkCable()
@@ -89,7 +90,7 @@ public:
 
 			if (link_data1_.mode != link_data2_.mode)
 			{
-				doTransfer();
+				transfer();
 			}
 		}
 		else
@@ -103,7 +104,7 @@ public:
 				{
 					// if this link is the master device, supply it with a $FF
 					link_data2_.byte = 0xFF;
-					doTransfer();
+					transfer();
 				}
 			}
 
@@ -112,28 +113,17 @@ public:
 				if (link_data2_.mode == Link::Mode::INTERNAL)
 				{
 					link_data1_.byte = 0xFF;
-					doTransfer();
+					transfer();
 				}
 			}
 			
 		}
 	}
 
-private:
-
-	void doTransfer()
-	{
-		link1_->recieve(link_data2_.byte);
-		link2_->recieve(link_data1_.byte);
-
-		link_data1_.ready = false;
-		link_data2_.ready = false;
-	}
-
 	void link1ReadyCallback(uint8_t byte, Link::Mode mode)
 	{
-		link_data1_.byte  = byte;
-		link_data1_.mode  = mode;
+		link_data1_.byte = byte;
+		link_data1_.mode = mode;
 		link_data1_.ready = true;
 	}
 
@@ -144,9 +134,33 @@ private:
 		link_data2_.ready = true;
 	}
 
+	void setLink1RecieveCallback(const RecieveCallback& callback)
+	{
+		recieve1_ = callback;
+	}
+
+	void setLink2RecieveCallback(const RecieveCallback& callback)
+	{
+		recieve2_ = callback;
+	}
+
 private:
-	gb::Link::Ptr& link1_;
-	gb::Link::Ptr& link2_;
+
+	void transfer()
+	{
+		if(recieve1_)
+			recieve1_(link_data2_.byte);
+		
+		if(recieve2_)
+			recieve2_(link_data1_.byte);
+
+		link_data1_.ready = false;
+		link_data2_.ready = false;
+	}
+
+private:
+	RecieveCallback recieve1_;
+	RecieveCallback recieve2_;
 
 	LinkData link_data1_;
 	LinkData link_data2_;
@@ -195,7 +209,17 @@ int main(int argc, char * argv[])
 			gameboy1.setDebugMode(false);
 			gameboy2.setDebugMode(false);
 
-			LinkCable cable(gameboy1, gameboy2);
+			// setup link cable
+			LinkCable cable;
+			gameboy1.getLink()->setReadyCallback(std::bind(&LinkCable::link1ReadyCallback, &cable, std::placeholders::_1, std::placeholders::_2));
+			gameboy2.getLink()->setReadyCallback(std::bind(&LinkCable::link2ReadyCallback, &cable, std::placeholders::_1, std::placeholders::_2));
+
+			cable.setLink1RecieveCallback([&](uint8_t byte) {
+				gameboy1.getLink()->recieve(byte);
+			});
+			cable.setLink2RecieveCallback([&](uint8_t byte) {
+				gameboy2.getLink()->recieve(byte);
+			});
 
 			GameboyThread core_thread1(gameboy1);
 			GameboyThread core_thread2(gameboy2);
