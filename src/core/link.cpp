@@ -22,7 +22,8 @@ namespace gb
 			shift_counter_(0),
 			shift_clock_rate_(0),
 			byte_to_recieve_(0),
-			byte_to_transfer_(0)
+			byte_to_transfer_(0),
+			waiting_(false)
 		{
 			// serial byte handlers
 			mmu->addReadHandler(memorymap::SB_REGISTER, std::bind(&Impl::recieveHandler, this, std::placeholders::_1));
@@ -30,6 +31,10 @@ namespace gb
 
 			// control callback
 			mmu->addWriteHandler(memorymap::SC_REGISTER, std::bind(&Impl::control, this, std::placeholders::_1, std::placeholders::_2));
+
+			// TODO: remove
+			static int id = 1;
+			id_ = id++;
 		}
 
 		~Impl()
@@ -41,13 +46,14 @@ namespace gb
 			if (!isTransferring()) return;
 
 			// if using internal shift clock, run clocking logic
-			if (isUsingInternalClock())
+			if (getLinkMode() == Link::Mode::INTERNAL)
 			{
 				internalClock(cycles);
 			}
 			else
 			{
 				// transferring in external clock mode, signal transfer ready
+				
 				signalReady();
 			}
 		}
@@ -75,15 +81,9 @@ namespace gb
 
 		void control(uint8_t value, uint16_t addr)
 		{
-			if (!isTransferring())
-			{
-				shift_clock_rate_ = getTransferRate(value);
-				control_ = value;
-			}
-			else
-			{
-				FORCE(control_, 0x03, value);
-			}
+			control_ = (control_ & 0x80) | 0x00 | value;
+
+			shift_clock_rate_ = getTransferRate(value);
 		}
 
 		void sendHandler(uint8_t value, uint16_t addr)
@@ -134,15 +134,10 @@ namespace gb
 			return IS_SET(control_, memorymap::SC::TRANSFER) != 0;
 		}
 
-		bool isUsingInternalClock()
-		{
-			return IS_SET(control_, memorymap::SC::CLOCK_MODE);
-		}
-
 		int getTransferRate(uint8_t sc)
 		{
 			// TODO: CGB speed modes
-			return 8192;
+			return 4194304 / 8192;
 		}
 
 		bool isOpponentReady()
@@ -152,8 +147,10 @@ namespace gb
 
 		void signalReady()
 		{
-			if (ready_callback_)
+			if (ready_callback_) 
+			{
 				ready_callback_(byte_to_transfer_, getLinkMode());
+			}
 		}
 
 		Mode getLinkMode()
@@ -190,6 +187,10 @@ namespace gb
 		int shift_counter_;
 		//! Transfer rate
 		int shift_clock_rate_;
+
+		bool waiting_;
+
+		int id_;
 	};
 
 	/* Public Interface */

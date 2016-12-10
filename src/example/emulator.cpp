@@ -34,6 +34,8 @@ public:
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(5));
 		}
+
+		std::cout << "Thread Exiting" << std::endl;
 	}
 
 	~GameboyThread()
@@ -87,13 +89,6 @@ public:
 
 			if (link_data1_.mode != link_data2_.mode)
 			{
-				// link must be opposing modes.
-				// if both are external mode, there is no shift clock being generated
-				// if both are internal they are not in sync
-				doTransfer();
-			}
-			else
-			{
 				doTransfer();
 			}
 		}
@@ -101,6 +96,7 @@ public:
 		{
 			// only one link is ready to tranfer, or neither are
 
+			
 			if (link_data1_.ready)
 			{
 				if (link_data1_.mode == Link::Mode::INTERNAL)
@@ -119,6 +115,7 @@ public:
 					doTransfer();
 				}
 			}
+			
 		}
 	}
 

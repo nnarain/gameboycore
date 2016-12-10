@@ -35,7 +35,7 @@ public:
 				std::placeholders::_1, std::placeholders::_2
 			)
 		);
-
+		/*
 		gameboy.getAPU()->setAudioSampleCallback(
 			std::bind(
 				&Audio::apuCallback,
@@ -43,6 +43,7 @@ public:
 				std::placeholders::_1, std::placeholders::_2
 			)
 		);
+		*/
 	}
 
 	/**
@@ -50,7 +51,7 @@ public:
 	*/
 	void start()
 	{
-		audio_.play();
+	//	audio_.play();
 	}
 
 	void update()
