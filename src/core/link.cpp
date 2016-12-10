@@ -5,6 +5,7 @@
 #include "bitutil.h"
 
 #include <queue>
+#include <iostream>
 
 namespace gb
 {
@@ -22,8 +23,7 @@ namespace gb
 			shift_counter_(0),
 			shift_clock_rate_(0),
 			byte_to_recieve_(0),
-			byte_to_transfer_(0),
-			waiting_(false)
+			byte_to_transfer_(0)
 		{
 			// serial byte handlers
 			mmu->addReadHandler(memorymap::SB_REGISTER, std::bind(&Impl::recieveHandler, this, std::placeholders::_1));
@@ -31,10 +31,6 @@ namespace gb
 
 			// control callback
 			mmu->addWriteHandler(memorymap::SC_REGISTER, std::bind(&Impl::control, this, std::placeholders::_1, std::placeholders::_2));
-
-			// TODO: remove
-			static int id = 1;
-			id_ = id++;
 		}
 
 		~Impl()
@@ -81,17 +77,14 @@ namespace gb
 
 		void control(uint8_t value, uint16_t addr)
 		{
-			control_ = (control_ & 0x80) | 0x00 | value;
+			control_ = (control_ & 0x80) | 0x02 | value;
 
 			shift_clock_rate_ = getTransferRate(value);
 		}
 
 		void sendHandler(uint8_t value, uint16_t addr)
 		{
-			if (!isTransferring())
-			{
-				byte_to_transfer_ = value;
-			}
+			byte_to_transfer_ = value;
 		}
 
 		uint8_t recieveHandler(uint16_t addr)
@@ -112,16 +105,6 @@ namespace gb
 			CLR(control_, memorymap::SC::TRANSFER);
 		}
 
-		void setSendCallback(const SendCallback& callback)
-		{
-			send_callback_ = callback;
-		}
-
-		void setOpponentReadyCallback(const OpponentReadyCallback& callback)
-		{
-			opponent_ready_ = callback;
-		}
-
 		void setReadyCallback(const ReadyCallback& callback)
 		{
 			ready_callback_ = callback;
@@ -140,11 +123,6 @@ namespace gb
 			return 4194304 / 8192;
 		}
 
-		bool isOpponentReady()
-		{
-			return (opponent_ready_) ? opponent_ready_() : false;
-		}
-
 		void signalReady()
 		{
 			if (ready_callback_) 
@@ -155,7 +133,14 @@ namespace gb
 
 		Mode getLinkMode()
 		{
-			return IS_SET(control_, memorymap::SC::CLOCK_MODE) ? Mode::INTERNAL : Mode::EXTERNAL;
+			if (IS_SET(control_, memorymap::SC::CLOCK_MODE))
+			{
+				return Mode::INTERNAL;
+			}
+			else
+			{
+				return Mode::EXTERNAL;
+			}
 		}
 
 	private:
@@ -164,18 +149,12 @@ namespace gb
 		//! Serial Control Register
 		uint8_t& control_;
 
-		//! Recieve queue
-		std::queue<uint8_t> recieve_queue_;
-		//! Send queue
+		//! Byte to be transfered to the opponent gameboy
 		uint8_t byte_to_transfer_;
-		//!
+		//! Byte recieved by the opponent gameboy
 		uint8_t byte_to_recieve_;
 
-		//! Sending data outbound to hosts
-		SendCallback send_callback_;
-		//!
-		OpponentReadyCallback opponent_ready_;
-		//!
+		//! ready callback
 		ReadyCallback ready_callback_;
 
 		//! Serial interrupt provider
@@ -183,14 +162,10 @@ namespace gb
 
 		//! Internal Timer
 		int shift_clock_;
-		//!
+		//! Count the shift clock overflows
 		int shift_counter_;
 		//! Transfer rate
 		int shift_clock_rate_;
-
-		bool waiting_;
-
-		int id_;
 	};
 
 	/* Public Interface */
@@ -208,16 +183,6 @@ namespace gb
 	void Link::recieve(uint8_t byte)
 	{
 		impl_->recieve(byte);
-	}
-
-	void Link::setSendCallback(const SendCallback& callback)
-	{
-		impl_->setSendCallback(callback);
-	}
-
-	void Link::setOpponentReadyCallback(const OpponentReadyCallback& callback)
-	{
-		impl_->setOpponentReadyCallback(callback);
 	}
 
 	void Link::setReadyCallback(const ReadyCallback& callback)

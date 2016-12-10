@@ -34,17 +34,16 @@ namespace gb
 		//! Smart pointer type
 		using Ptr = std::unique_ptr<Link>;
 
-		//! Send byte to host system
-		using SendCallback = std::function<void(uint8_t)>;
-		//! Host implements to tell Gameboy if another gameboy is ready to exchange bytes
-		using OpponentReadyCallback = std::function<bool()>;
-		//!
+		//! Callback to signal transfer ready status
 		using ReadyCallback = std::function<void(uint8_t, Mode)>;
 
 	public:
 		Link(MMU::Ptr& mmu);
 		~Link();
 
+		/**
+			Update with CPU cycles elapsed
+		*/
 		void update(uint8_t cycles);
 
 		/**
@@ -52,8 +51,9 @@ namespace gb
 		*/
 		void recieve(uint8_t byte);
 
-		void setSendCallback(const SendCallback& callback);
-		void setOpponentReadyCallback(const OpponentReadyCallback& callback);
+		/**
+			Signal that this core is ready to transfer a byte
+		*/
 		void setReadyCallback(const ReadyCallback& callback);
 
 	private:
