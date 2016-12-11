@@ -17,42 +17,6 @@
 
 using namespace gb;
 
-class GameboyThread
-{
-public:
-
-	GameboyThread(gb::GameboyCore& core) : core_(core)
-	{
-		running_ = true;
-		thread_ = std::thread(std::bind(&GameboyThread::run, this));
-	}
-
-	void run()
-	{
-		while (running_)
-		{
-			core_.update(512);
-
-			std::this_thread::sleep_for(std::chrono::milliseconds(5));
-		}
-
-		std::cout << "Thread Exiting" << std::endl;
-	}
-
-	~GameboyThread()
-	{
-		running_ = false;
-		thread_.join();
-	}
-
-private:
-	gb::GameboyCore& core_;
-
-	std::thread thread_;
-	bool running_;
-};
-
-
 
 static bool loadGB(GameboyCore& gameboy, const std::string& filename);
 static std::vector<uint8_t> loadFile(const std::string& file);
@@ -76,12 +40,8 @@ int main(int argc, char * argv[])
 	std::string filename(argv[1]);
 
 	GameboyCore gameboy1;
-	GameboyCore gameboy2;
 
-	if (
-		loadGB(gameboy1, filename) && 
-		loadGB(gameboy2, filename)
-		)
+	if (loadGB(gameboy1, filename))
 	{
 		try
 		{
@@ -91,33 +51,12 @@ int main(int argc, char * argv[])
 			Window window1(gameboy1, title + ": Window 1");
 			window1.start();
 
-			Window window2(gameboy2, title);
-			window2.start();
-
 			gameboy1.setDebugMode(false);
-			gameboy2.setDebugMode(false);
-
-			// setup link cable
-			LinkCable cable;
-			gameboy1.getLink()->setReadyCallback(std::bind(&LinkCable::link1ReadyCallback, &cable, std::placeholders::_1, std::placeholders::_2));
-			gameboy2.getLink()->setReadyCallback(std::bind(&LinkCable::link2ReadyCallback, &cable, std::placeholders::_1, std::placeholders::_2));
-
-			cable.setLink1RecieveCallback([&](uint8_t byte) {
-				gameboy1.getLink()->recieve(byte);
-			});
-			cable.setLink2RecieveCallback([&](uint8_t byte) {
-				gameboy2.getLink()->recieve(byte);
-			});
-
-			GameboyThread core_thread1(gameboy1);
-			GameboyThread core_thread2(gameboy2);
 
 			while (window1.isOpen())
 			{
-				cable.update();
-
+				gameboy1.update(512);
 				window1.update();
-				window2.update();
 			}
 		}
 		catch (std::runtime_error& e)
