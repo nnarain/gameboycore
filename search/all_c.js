@@ -45,5 +45,6 @@ var searchData=
   ['mmm01_5fram_5fbat',['MMM01_RAM_BAT',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da190ea1a3117a72d4f98fe2a1f132d959',1,'gb::detail::MBC']]],
   ['mmu',['MMU',['../classgb_1_1MMU.html#a94c1088b5a72648b01c1bcaebf7f0d41',1,'gb::MMU::MMU()'],['../classgb_1_1MMU.html#a69f990d4cb9049f5a65d726646120355',1,'gb::MMU::MMU(const MMU &amp;)=delete']]],
   ['mmu',['MMU',['../classgb_1_1MMU.html',1,'gb']]],
-  ['mmu_2eh',['mmu.h',['../mmu_8h.html',1,'']]]
+  ['mmu_2eh',['mmu.h',['../mmu_8h.html',1,'']]],
+  ['mode',['Mode',['../classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17',1,'gb::Link']]]
 ];

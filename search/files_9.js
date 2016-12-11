@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['readme_2emd',['README.md',['../README_8md.html',1,'']]]
+  ['palette_2eh',['palette.h',['../palette_8h.html',1,'']]],
+  ['pixel_2eh',['pixel.h',['../pixel_8h.html',1,'']]]
 ];

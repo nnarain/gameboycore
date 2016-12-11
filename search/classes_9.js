@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['romparser',['RomParser',['../classgb_1_1RomParser.html',1,'gb']]]
+  ['palette',['Palette',['../classgb_1_1Palette.html',1,'gb']]],
+  ['pixel',['Pixel',['../structgb_1_1Pixel.html',1,'gb']]]
 ];

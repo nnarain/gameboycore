@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['palette',['Palette',['../classgb_1_1Palette.html',1,'gb']]],
-  ['pixel',['Pixel',['../structgb_1_1Pixel.html',1,'gb']]]
+  ['oam',['OAM',['../classgb_1_1OAM.html',1,'gb']]],
+  ['opcodeinfo',['OpcodeInfo',['../structgb_1_1OpcodeInfo.html',1,'gb']]]
 ];

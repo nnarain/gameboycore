@@ -1,14 +1,16 @@
 <map id="include/gameboycore/gameboycore_api.h" name="include/gameboycore/gameboycore_api.h">
-<area shape="rect" id="node2" href="$apu_8h.html" title="Audio Emulation. " alt="" coords="28,187,173,229"/>
-<area shape="rect" id="node4" href="$gameboycore_8h.html" title="Encapsulate Gameboy hardware. " alt="" coords="167,369,311,410"/>
-<area shape="rect" id="node5" href="$gpu_8h.html" title="GPU emulation. " alt="" coords="197,187,342,229"/>
-<area shape="rect" id="node6" href="$joypad_8h.html" title="Emulate Gameboy user input. " alt="" coords="1199,187,1343,229"/>
-<area shape="rect" id="node7" href="$mmu_8h.html" title="Memory interface. " alt="" coords="469,97,614,138"/>
-<area shape="rect" id="node3" href="$cpu_8h.html" title="Gameboy CPU. " alt="" coords="223,278,367,319"/>
-<area shape="rect" id="node8" href="$interrupt__provider_8h.html" title="include/gameboycore\l/interrupt_provider.h" alt="" coords="808,187,953,229"/>
-<area shape="rect" id="node9" href="$timer_8h.html" title="include/gameboycore\l/timer.h" alt="" coords="877,278,1022,319"/>
-<area shape="rect" id="node10" href="$oam_8h.html" title="include/gameboycore\l/oam.h" alt="" coords="977,187,1122,229"/>
-<area shape="rect" id="node11" href="$square_8h.html" title="include/gameboycore\l/square.h" alt="" coords="469,187,614,229"/>
-<area shape="rect" id="node12" href="$tileram_8h.html" title="include/gameboycore\l/tileram.h" alt="" coords="639,187,783,229"/>
-<area shape="rect" id="node13" href="$tilemap_8h.html" title="include/gameboycore\l/tilemap.h" alt="" coords="639,278,783,319"/>
+<area shape="rect" id="node2" href="$apu_8h.html" title="Audio Emulation. " alt="" coords="32,187,177,229"/>
+<area shape="rect" id="node4" href="$gameboycore_8h.html" title="Encapsulate Gameboy hardware. " alt="" coords="285,369,430,410"/>
+<area shape="rect" id="node5" href="$gpu_8h.html" title="GPU emulation. " alt="" coords="201,187,346,229"/>
+<area shape="rect" id="node6" href="$joypad_8h.html" title="Emulate Gameboy user input. " alt="" coords="371,187,515,229"/>
+<area shape="rect" id="node7" href="$link_8h.html" title="Link port emulation. " alt="" coords="1372,187,1517,229"/>
+<area shape="rect" id="node8" href="$link__cable_8h.html" title="Gameboy Link Cable Emulation. " alt="" coords="1468,278,1613,319"/>
+<area shape="rect" id="node9" href="$mmu_8h.html" title="Memory interface. " alt="" coords="587,97,731,138"/>
+<area shape="rect" id="node3" href="$cpu_8h.html" title="Gameboy CPU. " alt="" coords="285,278,430,319"/>
+<area shape="rect" id="node10" href="$interrupt__provider_8h.html" title="include/gameboycore\l/interrupt_provider.h" alt="" coords="1033,187,1178,229"/>
+<area shape="rect" id="node11" href="$timer_8h.html" title="include/gameboycore\l/timer.h" alt="" coords="977,278,1122,319"/>
+<area shape="rect" id="node12" href="$oam_8h.html" title="include/gameboycore\l/oam.h" alt="" coords="812,187,957,229"/>
+<area shape="rect" id="node13" href="$square_8h.html" title="include/gameboycore\l/square.h" alt="" coords="643,187,787,229"/>
+<area shape="rect" id="node14" href="$tileram_8h.html" title="include/gameboycore\l/tileram.h" alt="" coords="1203,187,1347,229"/>
+<area shape="rect" id="node15" href="$tilemap_8h.html" title="include/gameboycore\l/tilemap.h" alt="" coords="1203,278,1347,319"/>
 </map>

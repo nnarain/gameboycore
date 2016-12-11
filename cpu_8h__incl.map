@@ -1,7 +1,8 @@
 <map id="include/gameboycore/cpu.h" name="include/gameboycore/cpu.h">
-<area shape="rect" id="node2" href="$mmu_8h.html" title="Memory interface. " alt="" coords="279,171,423,197"/>
-<area shape="rect" id="node8" href="$gpu_8h.html" title="GPU emulation. " alt="" coords="527,96,661,123"/>
-<area shape="rect" id="node12" href="$apu_8h.html" title="Audio Emulation. " alt="" coords="283,96,417,123"/>
-<area shape="rect" id="node3" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="5,246,187,287"/>
-<area shape="rect" id="node9" href="$pixel_8h.html" title="gameboycore/pixel.h" alt="" coords="770,171,912,197"/>
+<area shape="rect" id="node2" href="$mmu_8h.html" title="Memory interface. " alt="" coords="628,171,772,197"/>
+<area shape="rect" id="node8" href="$gpu_8h.html" title="GPU emulation. " alt="" coords="363,96,498,123"/>
+<area shape="rect" id="node12" href="$apu_8h.html" title="Audio Emulation. " alt="" coords="843,96,978,123"/>
+<area shape="rect" id="node13" href="$link_8h.html" title="Link port emulation. " alt="" coords="524,96,658,123"/>
+<area shape="rect" id="node3" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="508,246,690,287"/>
+<area shape="rect" id="node9" href="$pixel_8h.html" title="gameboycore/pixel.h" alt="" coords="37,171,179,197"/>
 </map>

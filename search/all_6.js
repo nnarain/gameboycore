@@ -21,6 +21,7 @@ var searchData=
   ['getgpu',['getGPU',['../classgb_1_1GameboyCore.html#aa50a858c24c858787a4a6c1cc3089fde',1,'gb::GameboyCore']]],
   ['getjoypad',['getJoypad',['../classgb_1_1GameboyCore.html#ae101d0c728f585b037a6d4886cf1643a',1,'gb::GameboyCore']]],
   ['getlength',['getLength',['../classgb_1_1detail_1_1Channel.html#a894fe66408a03c4c87de8e1dec0559e5',1,'gb::detail::Channel']]],
+  ['getlink',['getLink',['../classgb_1_1GameboyCore.html#ad593c887a2d1c738a9ab49bcbc47178e',1,'gb::GameboyCore']]],
   ['getmmu',['getMMU',['../classgb_1_1GameboyCore.html#af49cc91be8c48d90081a6e857c2b5427',1,'gb::GameboyCore']]],
   ['getopcodeinfo',['getOpcodeInfo',['../namespacegb.html#a8530f4722116378be7c7a25a41ea61ad',1,'gb']]],
   ['getptr',['getptr',['../classgb_1_1detail_1_1MBC.html#a981d1a402a46fa754468b4d2d00c27db',1,'gb::detail::MBC::getptr()'],['../classgb_1_1MMU.html#a0ecbbf67b6f57b6ad85ce410296a0edb',1,'gb::MMU::getptr()']]],

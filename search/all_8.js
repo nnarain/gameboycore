@@ -2,6 +2,7 @@ var searchData=
 [
   ['imm16',['IMM16',['../namespacegb.html#a740667f2e6fef8a534f950e30233432fa6c17b492c5a5072c500a70adb4b01b6e',1,'gb']]],
   ['imm8',['IMM8',['../namespacegb.html#a740667f2e6fef8a534f950e30233432fac884cc87d06825b866dd68f09589e479',1,'gb']]],
+  ['internal',['INTERNAL',['../classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17a182fa1c42a2468f8488e6dcf75a81b81',1,'gb::Link']]],
   ['interrupt',['Interrupt',['../classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4',1,'gb::InterruptProvider']]],
   ['interrupt_5fenable',['INTERRUPT_ENABLE',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9abeab6c843ea24b52665de910713d25a6',1,'gb::memorymap']]],
   ['interrupt_5fflag',['INTERRUPT_FLAG',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ab3ac1cd03f51f22df8aae7724c8609d0',1,'gb::memorymap']]],

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['tile',['Tile',['../structgb_1_1Tile.html',1,'gb']]],
-  ['tilemap',['TileMap',['../classgb_1_1TileMap.html',1,'gb']]],
-  ['tileram',['TileRAM',['../classgb_1_1TileRAM.html',1,'gb']]],
-  ['timer',['Timer',['../classgb_1_1Timer.html',1,'gb']]]
+  ['sprite',['Sprite',['../classgb_1_1Sprite.html',1,'gb']]],
+  ['square',['Square',['../classgb_1_1detail_1_1Square.html',1,'gb::detail']]],
+  ['status',['Status',['../structgb_1_1CPU_1_1Status.html',1,'gb::CPU']]]
 ];

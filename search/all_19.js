@@ -8,6 +8,8 @@ var searchData=
   ['_7egpu',['~GPU',['../classgb_1_1GPU.html#ab80987c336b096b8ecd89b93c59af235',1,'gb::GPU']]],
   ['_7einterruptprovider',['~InterruptProvider',['../classgb_1_1InterruptProvider.html#a56452d39aa7703b58a18849b2f9afc16',1,'gb::InterruptProvider']]],
   ['_7ejoy',['~Joy',['../classgb_1_1Joy.html#a2714434d6c1f21a218554f4fc011a7d9',1,'gb::Joy']]],
+  ['_7elink',['~Link',['../classgb_1_1Link.html#af76e1e07ae44a27ee3fe008479291dc4',1,'gb::Link']]],
+  ['_7elinkcable',['~LinkCable',['../classgb_1_1LinkCable.html#a673fc4eab47e65549c6d77fd7379e762',1,'gb::LinkCable']]],
   ['_7embc',['~MBC',['../classgb_1_1detail_1_1MBC.html#a8003f5e9832e56308a32f7045c2e40de',1,'gb::detail::MBC']]],
   ['_7embc2',['~MBC2',['../classgb_1_1detail_1_1MBC2.html#aff9f8cfad07514bcfaf30bc1973443a6',1,'gb::detail::MBC2']]],
   ['_7embc3',['~MBC3',['../classgb_1_1detail_1_1MBC3.html#a8f7178aa58148d569fd4f81128296ae7',1,'gb::detail::MBC3']]],

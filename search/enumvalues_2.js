@@ -9,6 +9,7 @@ var searchData=
   ['character_5fram_5fstart',['CHARACTER_RAM_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a5967b4720096bdd0ea8e9dc021a643ef',1,'gb::memorymap']]],
   ['checksum_5fend',['CHECKSUM_END',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a18c8b7c95aca138db01e6a65bac17ed2',1,'gb::memorymap']]],
   ['checksum_5fstart',['CHECKSUM_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a839b2469ad9211f007b3e75c6e14a424',1,'gb::memorymap']]],
+  ['clock_5fmode',['CLOCK_MODE',['../namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638ca20998487398a81276f67678b3b905c56',1,'gb::memorymap']]],
   ['color_5fcompatability',['COLOR_COMPATABILITY',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a8da9d92326a7b5a146f7ec852abc9925',1,'gb::memorymap']]],
   ['complement_5fchecksum',['COMPLEMENT_CHECKSUM',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a3539b63e32725faa50cdeb00c5e8e043',1,'gb::memorymap']]]
 ];

@@ -240,6 +240,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:abf5ea12fb5d4db7e44e28a06e509d9e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">LCDC Status Register bit masks.  <a href="namespacegb_1_1memorymap.html#abf5ea12fb5d4db7e44e28a06e509d9e9">More...</a><br/></td></tr>
 <tr class="separator:abf5ea12fb5d4db7e44e28a06e509d9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ed01effba21679f51aceee7c4e5638c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638c">SC</a> { <a class="el" href="namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638cad07296180f108d9a34e65a4dbfe9d244">TRANSFER</a> = (1 &lt;&lt; 7), 
+<a class="el" href="namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638cad4e5dadd1d3387e471ae73b238c9ca50">SHIFT_CLOCK_RATE</a> = (1 &lt;&lt; 1), 
+<a class="el" href="namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638ca20998487398a81276f67678b3b905c56">CLOCK_MODE</a> = (1 &lt;&lt; 0)
+ }</td></tr>
+<tr class="memdesc:a0ed01effba21679f51aceee7c4e5638c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serial Control register bit masks.  <a href="namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638c">More...</a><br/></td></tr>
+<tr class="separator:a0ed01effba21679f51aceee7c4e5638c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines values for specific locations in the Gameboy memory map. </p>
@@ -482,6 +488,31 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a0ed01effba21679f51aceee7c4e5638c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638c">gb::memorymap::SC</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Serial Control register bit masks. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a0ed01effba21679f51aceee7c4e5638cad07296180f108d9a34e65a4dbfe9d244"></a>TRANSFER</em>&#160;</td><td class="fielddoc">
+<p>Transfer start flag. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a0ed01effba21679f51aceee7c4e5638cad4e5dadd1d3387e471ae73b238c9ca50"></a>SHIFT_CLOCK_RATE</em>&#160;</td><td class="fielddoc">
+<p>Shift clock. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a0ed01effba21679f51aceee7c4e5638ca20998487398a81276f67678b3b905c56"></a>CLOCK_MODE</em>&#160;</td><td class="fielddoc">
+<p>0-External Clock, 1-Internal Clock </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a class="anchor" id="abf5ea12fb5d4db7e44e28a06e509d9e9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -510,7 +541,7 @@ Enumerations</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 2 2016 05:06:11 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 11 2016 00:48:41 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

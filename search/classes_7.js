@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['oam',['OAM',['../classgb_1_1OAM.html',1,'gb']]],
-  ['opcodeinfo',['OpcodeInfo',['../structgb_1_1OpcodeInfo.html',1,'gb']]]
+  ['noise',['Noise',['../classgb_1_1detail_1_1Noise.html',1,'gb::detail']]]
 ];
