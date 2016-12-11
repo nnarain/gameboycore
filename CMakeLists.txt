@@ -34,6 +34,7 @@ set(GAMEBOYCORE_API_HEADERS
 	include/gameboycore/apu.h
 	include/gameboycore/joypad.h
 	include/gameboycore/link.h
+	include/gameboycore/link_cable.h
 	include/gameboycore/pixel.h
 )
 
@@ -45,6 +46,7 @@ set(GAMEBOYCORE
 	src/core/apu.cpp
 	src/core/joypad.cpp
 	src/core/link.cpp
+	src/core/link_cable.cpp
 	src/core/mbc.cpp
 	src/core/mbc1.cpp
 	src/core/mbc2.cpp
