@@ -60,26 +60,26 @@ namespace gb
 			}
 		}
 
-		void Impl::link1ReadyCallback(uint8_t byte, Link::Mode mode)
+		void link1ReadyCallback(uint8_t byte, Link::Mode mode)
 		{
 			link_data1_.byte = byte;
 			link_data1_.mode = mode;
 			link_data1_.ready = true;
 		}
 
-		void Impl::link2ReadyCallback(uint8_t byte, Link::Mode mode)
+		void link2ReadyCallback(uint8_t byte, Link::Mode mode)
 		{
 			link_data2_.byte = byte;
 			link_data2_.mode = mode;
 			link_data2_.ready = true;
 		}
 
-		void Impl::setLink1RecieveCallback(const RecieveCallback& callback)
+		void setLink1RecieveCallback(const RecieveCallback& callback)
 		{
 			recieve1_ = callback;
 		}
 
-		void Impl::setLink2RecieveCallback(const RecieveCallback& callback)
+		void setLink2RecieveCallback(const RecieveCallback& callback)
 		{
 			recieve2_ = callback;
 		}

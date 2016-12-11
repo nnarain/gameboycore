@@ -18,12 +18,12 @@ namespace gb
 		Impl(MMU::Ptr& mmu) : 
 			mmu_(mmu),
 			control_(mmu->get(memorymap::SC_REGISTER)),
+			byte_to_transfer_(0),
+			byte_to_recieve_(0),
 			serial_interrupt_{ *mmu.get(), InterruptProvider::Interrupt::SERIAL },
 			shift_clock_(0),
 			shift_counter_(0),
-			shift_clock_rate_(0),
-			byte_to_recieve_(0),
-			byte_to_transfer_(0)
+			shift_clock_rate_(0)
 		{
 			// serial byte handlers
 			mmu->addReadHandler(memorymap::SB_REGISTER, std::bind(&Impl::recieveHandler, this, std::placeholders::_1));
