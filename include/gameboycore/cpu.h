@@ -10,6 +10,7 @@
 #include "gameboycore/mmu.h"
 #include "gameboycore/gpu.h"
 #include "gameboycore/apu.h"
+#include "gameboycore/link.h"
 
 #include <cstdint>
 #include <memory>
@@ -63,7 +64,7 @@ namespace gb
 		using Ptr = std::unique_ptr<CPU>;
 
     public:
-        CPU(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu);
+        CPU(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu, Link::Ptr& link);
 		~CPU();
 
         /**

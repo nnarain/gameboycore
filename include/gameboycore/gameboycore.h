@@ -14,6 +14,7 @@
 #include "gameboycore/gpu.h"
 #include "gameboycore/apu.h"
 #include "gameboycore/joypad.h"
+#include "gameboycore/link.h"
 
 #include <cstdint>
 
@@ -52,6 +53,7 @@ namespace gb
 		GPU::Ptr& getGPU();
 		APU::Ptr& getAPU();
 		Joy::Ptr& getJoypad();
+		Link::Ptr& getLink();
 
 		bool isDone() const;
 

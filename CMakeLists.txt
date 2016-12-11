@@ -33,6 +33,8 @@ set(GAMEBOYCORE_API_HEADERS
 	include/gameboycore/gpu.h
 	include/gameboycore/apu.h
 	include/gameboycore/joypad.h
+	include/gameboycore/link.h
+	include/gameboycore/link_cable.h
 	include/gameboycore/pixel.h
 )
 
@@ -42,6 +44,9 @@ set(GAMEBOYCORE
     src/core/mmu.cpp
 	src/core/gpu.cpp
 	src/core/apu.cpp
+	src/core/joypad.cpp
+	src/core/link.cpp
+	src/core/link_cable.cpp
 	src/core/mbc.cpp
 	src/core/mbc1.cpp
 	src/core/mbc2.cpp
@@ -52,7 +57,6 @@ set(GAMEBOYCORE
 	src/core/opcodeinfo.cpp
 	src/core/tileram.cpp
 	src/core/tilemap.cpp
-	src/core/joypad.cpp
 	src/core/oam.cpp
 	src/core/timer.cpp
 )
