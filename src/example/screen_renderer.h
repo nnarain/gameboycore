@@ -12,6 +12,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+#include <queue>
+#include <mutex>
 #include <stdexcept>
 
 #include "texture_buffer.h"
@@ -26,6 +28,12 @@ class ScreenRenderer
 	static constexpr auto WIDTH         = TILES_PER_ROW * 8;
 	static constexpr auto HEIGHT        = TILES_PER_COL * 8;
 
+	struct RenderData
+	{
+		gb::GPU::Scanline pixels;
+		int line;
+	};
+
 public:
 	ScreenRenderer() :
 		frame_buffer_(WIDTH, HEIGHT, 0)
@@ -39,25 +47,45 @@ public:
 
 	void draw(sf::RenderWindow& window)
 	{
+		updateTexture();
 		window.draw(screen_sprite_);
 	}
 
-	void renderScanline(const gb::GPU::Scanline& scaneline, int line)
+	void gpuCallback(const gb::GPU::Scanline& scanline, int line)
 	{
-		auto col = 0;
+		std::lock_guard<std::mutex> lock(mutex_);
 
-		for (const auto& pixel : scaneline)
+		RenderData data;
+		data.pixels = scanline;
+		data.line = line;
+
+		lines_queue_.push(data);
+	}
+
+	void updateTexture()
+	{
+		while (lines_queue_.size())
 		{
-			sf::Color color;
-			color.r = pixel.r;
-			color.g = pixel.g;
-			color.b = pixel.b;
-			color.a = 255;
+			std::lock_guard<std::mutex> lock(mutex_);
 
-			frame_buffer_.write(col++, line, color);
+			auto col = 0;
+
+			auto data = lines_queue_.front();
+			lines_queue_.pop();
+
+			for (const auto& pixel : data.pixels)
+			{
+				sf::Color color;
+				color.r = pixel.r;
+				color.g = pixel.g;
+				color.b = pixel.b;
+				color.a = 255;
+
+				frame_buffer_.write(col++, data.line, color);
+			}
+
+			screen_texture_.update(frame_buffer_.get());
 		}
-
-		screen_texture_.update(frame_buffer_.get());
 	}
 
 	~ScreenRenderer()
@@ -68,6 +96,9 @@ private:
 	sf::Sprite screen_sprite_;
 	sf::Texture screen_texture_;
 	TextureBuffer frame_buffer_;
+
+	std::queue<RenderData> lines_queue_;
+	std::mutex mutex_;
 };
 
 #endif // EMULATOR_SCREEN_RENDERER_H

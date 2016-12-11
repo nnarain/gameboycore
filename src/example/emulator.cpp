@@ -4,15 +4,19 @@
 #include <fstream>
 #include <vector>
 #include <functional>
+#include <thread>
+#include <chrono>
 #include <stdexcept>
 
 #include <gameboycore/gameboycore.h>
+#include <gameboycore/link_cable.h>
 
 #include "window.h"
 
 #include "version.h"
 
 using namespace gb;
+
 
 static bool loadGB(GameboyCore& gameboy, const std::string& filename);
 static std::vector<uint8_t> loadFile(const std::string& file);
@@ -22,11 +26,11 @@ static std::string saveFileName(const std::string& rom_filename);
 int main(int argc, char * argv[])
 {
 
-    if(argc < 2)
-    {
-        std::cout << "Usage: " << argv[0] << " <romfile>" << std::endl;
-        return 1;
-    }
+	if (argc < 2)
+	{
+		std::cout << "Usage: " << argv[0] << " <romfile>" << std::endl;
+		return 1;
+	}
 
 	if (std::string(argv[1]) == "-v")
 	{
@@ -35,24 +39,24 @@ int main(int argc, char * argv[])
 
 	std::string filename(argv[1]);
 
-	GameboyCore gameboy;
+	GameboyCore gameboy1;
 
-    if(loadGB(gameboy, filename))
-    {
+	if (loadGB(gameboy1, filename))
+	{
 		try
 		{
 			// setup render window
 			std::string title = "Example " + version::get();
 
-			Window window(gameboy, title);
-			window.start();
+			Window window1(gameboy1, title + ": Window 1");
+			window1.start();
 
-			gameboy.setDebugMode(false);
+			gameboy1.setDebugMode(false);
 
-			while (window.isOpen())
+			while (window1.isOpen())
 			{
-				gameboy.update(512);
-				window.update();
+				gameboy1.update(512);
+				window1.update();
 			}
 		}
 		catch (std::runtime_error& e)
@@ -64,16 +68,16 @@ int main(int argc, char * argv[])
 		// Exiting save battery RAM
 
 		// get battery ram from memory
-		std::vector<uint8_t> battery_ram = gameboy.getMMU()->getBatteryRam();
+		std::vector<uint8_t> battery_ram = gameboy1.getMMU()->getBatteryRam();
 
 		saveRam(saveFileName(filename), battery_ram);
-    }
-    else
-    {
-        std::cout << "-- Unable to load rom file: " << argv[1] << std::endl;
-    }
+	}
+	else
+	{
+		std::cout << "-- Unable to load rom file: " << argv[1] << std::endl;
+	}
 
-    return 0;
+	return 0;
 }
 
 bool loadGB(GameboyCore& gameboy, const std::string& filename)
