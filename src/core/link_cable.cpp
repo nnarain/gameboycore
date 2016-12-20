@@ -7,7 +7,7 @@ namespace gb
 	class LinkCable::Impl
 	{
 	public:
-		//! Contains link ready status, byte ti transfer and clocking mode
+		//! Contains link ready status, byte to transfer and clocking mode
 		struct LinkData
 		{
 			LinkData() :
@@ -22,6 +22,35 @@ namespace gb
 			bool       ready;
 		};
 
+		void link1ReadyCallback(uint8_t byte, Link::Mode mode)
+		{
+			link_data1_.byte = byte;
+			link_data1_.mode = mode;
+			link_data1_.ready = true;
+
+			update();
+		}
+
+		void link2ReadyCallback(uint8_t byte, Link::Mode mode)
+		{
+			link_data2_.byte = byte;
+			link_data2_.mode = mode;
+			link_data2_.ready = true;
+
+			update();
+		}
+
+		void setLink1RecieveCallback(const RecieveCallback& callback)
+		{
+			recieve1_ = callback;
+		}
+
+		void setLink2RecieveCallback(const RecieveCallback& callback)
+		{
+			recieve2_ = callback;
+		}
+
+	private:
 		void update()
 		{
 			if (link_data1_.ready && link_data2_.ready)
@@ -60,31 +89,6 @@ namespace gb
 			}
 		}
 
-		void link1ReadyCallback(uint8_t byte, Link::Mode mode)
-		{
-			link_data1_.byte = byte;
-			link_data1_.mode = mode;
-			link_data1_.ready = true;
-		}
-
-		void link2ReadyCallback(uint8_t byte, Link::Mode mode)
-		{
-			link_data2_.byte = byte;
-			link_data2_.mode = mode;
-			link_data2_.ready = true;
-		}
-
-		void setLink1RecieveCallback(const RecieveCallback& callback)
-		{
-			recieve1_ = callback;
-		}
-
-		void setLink2RecieveCallback(const RecieveCallback& callback)
-		{
-			recieve2_ = callback;
-		}
-
-	private:
 		void transfer()
 		{
 			if (recieve1_)
@@ -115,11 +119,6 @@ namespace gb
 	LinkCable::~LinkCable()
 	{
 		delete impl_;
-	}
-
-	void LinkCable::update()
-	{
-		impl_->update();
 	}
 
 	void LinkCable::link1ReadyCallback(uint8_t byte, Link::Mode mode)
