@@ -116,21 +116,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="classgb_1_1LinkCable.html">LinkCable</a>();</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        ~<a class="code" href="classgb_1_1LinkCable.html">LinkCable</a>();</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">void</span> update();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordtype">void</span> link1ReadyCallback(uint8_t byte, <a class="code" href="classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17">Link::Mode</a> mode);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">void</span> link2ReadyCallback(uint8_t byte, <a class="code" href="classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17">Link::Mode</a> mode);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordtype">void</span> setLink1RecieveCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">RecieveCallback</a>&amp; callback);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">void</span> setLink2RecieveCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">RecieveCallback</a>&amp; callback);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">class </span>Impl;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        Impl* impl_;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    };</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_LINK_CABLE_H</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">void</span> link1ReadyCallback(uint8_t byte, <a class="code" href="classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17">Link::Mode</a> mode);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">void</span> link2ReadyCallback(uint8_t byte, <a class="code" href="classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17">Link::Mode</a> mode);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">void</span> setLink1RecieveCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">RecieveCallback</a>&amp; callback);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">void</span> setLink2RecieveCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">RecieveCallback</a>&amp; callback);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">class </span>Impl;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        Impl* impl_;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    };</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_LINK_CABLE_H</span></div>
 <div class="ttc" id="classgb_1_1LinkCable_html_a66de86aa562292fb7e2738e11298f91e"><div class="ttname"><a href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">gb::LinkCable::RecieveCallback</a></div><div class="ttdeci">std::function&lt; void(uint8_t)&gt; RecieveCallback</div><div class="ttdoc">Callback from Link Cable. </div><div class="ttdef"><b>Definition:</b> link_cable.h:28</div></div>
 <div class="ttc" id="classgb_1_1LinkCable_html"><div class="ttname"><a href="classgb_1_1LinkCable.html">gb::LinkCable</a></div><div class="ttdef"><b>Definition:</b> link_cable.h:24</div></div>
 <div class="ttc" id="classgb_1_1Link_html_a7dd81cc374dc573cb7a5a7e329a5ec17"><div class="ttname"><a href="classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17">gb::Link::Mode</a></div><div class="ttdeci">Mode</div><div class="ttdef"><b>Definition:</b> link.h:28</div></div>
@@ -146,7 +144,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 11 2016 00:48:41 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 20 2016 02:41:38 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
