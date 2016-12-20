@@ -30,8 +30,6 @@ namespace gb
 		LinkCable();
 		~LinkCable();
 
-		void update();
-
 		void link1ReadyCallback(uint8_t byte, Link::Mode mode);
 		void link2ReadyCallback(uint8_t byte, Link::Mode mode);
 

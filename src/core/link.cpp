@@ -5,7 +5,7 @@
 #include "bitutil.h"
 
 #include <queue>
-#include <iostream>
+#include <iostream> // TODO: remove
 
 namespace gb
 {
@@ -23,7 +23,8 @@ namespace gb
 			serial_interrupt_{ *mmu.get(), InterruptProvider::Interrupt::SERIAL },
 			shift_clock_(0),
 			shift_counter_(0),
-			shift_clock_rate_(0)
+			shift_clock_rate_(0),
+			pending_recieve_(false)
 		{
 			// serial byte handlers
 			mmu->addReadHandler(memorymap::SB_REGISTER, std::bind(&Impl::recieveHandler, this, std::placeholders::_1));
@@ -38,8 +39,8 @@ namespace gb
 		}
 
 		void update(uint8_t cycles)
-		{
-			if (!isTransferring()) return;
+		{	
+			if (!isTransferring() || pending_recieve_) return;
 
 			// if using internal shift clock, run clocking logic
 			if (getLinkMode() == Link::Mode::INTERNAL)
@@ -80,6 +81,8 @@ namespace gb
 			control_ = (control_ & 0x80) | 0x02 | value;
 
 			shift_clock_rate_ = getTransferRate(value);
+
+			pending_recieve_ = false;
 		}
 
 		void sendHandler(uint8_t value, uint16_t addr)
@@ -103,6 +106,8 @@ namespace gb
 			serial_interrupt_.set();
 			// clear transfer flag
 			CLR(control_, memorymap::SC::TRANSFER);
+			
+			pending_recieve_ = false;
 		}
 
 		void setReadyCallback(const ReadyCallback& callback)
@@ -128,6 +133,7 @@ namespace gb
 			if (ready_callback_) 
 			{
 				ready_callback_(byte_to_transfer_, getLinkMode());
+				pending_recieve_ = true;
 			}
 		}
 
@@ -166,6 +172,9 @@ namespace gb
 		int shift_counter_;
 		//! Transfer rate
 		int shift_clock_rate_;
+		
+		//! Flag indicating that the link port is waiting to recieve a byte
+		bool pending_recieve_;
 	};
 
 	/* Public Interface */
