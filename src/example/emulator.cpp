@@ -108,7 +108,7 @@ std::vector<uint8_t> loadFile(const std::string& file_name)
 	if (file.is_open())
 	{
 		auto length = file.tellg();
-		data.resize(length);
+		data.resize((unsigned int)length);
 
 		file.seekg(0, std::ios::beg);
 		file.read((char*)&data[0], length);
