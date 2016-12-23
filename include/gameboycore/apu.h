@@ -39,6 +39,7 @@ namespace gb
 	public:
 
 		APU(MMU::Ptr& mmu);
+		APU(const APU&) = delete;
 		~APU();
 
 		/**

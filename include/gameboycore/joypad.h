@@ -41,6 +41,7 @@ namespace gb
 		using Ptr = std::unique_ptr<Joy>;
 
 		Joy(MMU& mmu);
+		Joy(const Joy&);
 		~Joy();
 
 		/**

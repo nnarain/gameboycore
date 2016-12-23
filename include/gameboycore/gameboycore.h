@@ -29,6 +29,7 @@ namespace gb
     {
     public:
 		GameboyCore();
+		GameboyCore(const GameboyCore&) = delete;
 		~GameboyCore();
 
         /**
