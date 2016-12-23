@@ -41,6 +41,7 @@ namespace gb
 
 	public:
 		GPU(MMU::Ptr& mmu);
+		GPU(const GPU&);
 		~GPU();
 
 		/**
