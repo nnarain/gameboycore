@@ -65,6 +65,7 @@ namespace gb
 
     public:
         CPU(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu, Link::Ptr& link);
+		CPU(const CPU&) = delete;
 		~CPU();
 
         /**

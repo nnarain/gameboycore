@@ -39,6 +39,7 @@ namespace gb
 
 	public:
 		Link(MMU::Ptr& mmu);
+		Link(const Link&);
 		~Link();
 
 		/**
