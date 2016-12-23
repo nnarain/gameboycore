@@ -46,7 +46,7 @@ namespace gb
 
 		void update(uint8_t cycles, bool ime)
 		{
-			if (IS_CLR(lcdc_, memorymap::LCDC::ENABLE)) return; // FIXME: some games don't with this enabled!
+			if (IS_CLR(lcdc_, memorymap::LCDC::ENABLE)) return;
 
 			cycle_count_ += cycles;
 
