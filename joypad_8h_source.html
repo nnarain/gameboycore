@@ -126,18 +126,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classgb_1_1Joy.html#ad3d130c21c3a1fd2a79c9badeeed394d">   41</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1Joy.html#ad3d130c21c3a1fd2a79c9badeeed394d">Ptr</a> = std::unique_ptr&lt;Joy&gt;;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="classgb_1_1Joy.html">Joy</a>(<a class="code" href="classgb_1_1MMU.html">MMU</a>&amp; mmu);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        ~<a class="code" href="classgb_1_1Joy.html">Joy</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span> press(<a class="code" href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f">Key</a> key);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">void</span> release(<a class="code" href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f">Key</a> key);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">class </span>Impl;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        Impl* impl_;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif // GAMEBOY_JOYPAD_H</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="classgb_1_1Joy.html">Joy</a>(<span class="keyword">const</span> <a class="code" href="classgb_1_1Joy.html">Joy</a>&amp;);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        ~<a class="code" href="classgb_1_1Joy.html">Joy</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span> press(<a class="code" href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f">Key</a> key);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">void</span> release(<a class="code" href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f">Key</a> key);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">class </span>Impl;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        Impl* impl_;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    };</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif // GAMEBOY_JOYPAD_H</span></div>
 <div class="ttc" id="gameboycore__api_8h_html_a30796a64a7a4bc4b2ae0623474940bfc"><div class="ttname"><a href="gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc">GAMEBOYCORE_API</a></div><div class="ttdeci">#define GAMEBOYCORE_API</div><div class="ttdef"><b>Definition:</b> gameboycore_api.h:22</div></div>
 <div class="ttc" id="mmu_8h_html"><div class="ttname"><a href="mmu_8h.html">mmu.h</a></div><div class="ttdoc">Memory interface. </div></div>
 <div class="ttc" id="classgb_1_1Joy_html_a509eb9c9866d4fd0b0ee2009373e522f"><div class="ttname"><a href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f">gb::Joy::Key</a></div><div class="ttdeci">Key</div><div class="ttdoc">Keys on the Gameboy. </div><div class="ttdef"><b>Definition:</b> joypad.h:28</div></div>
@@ -154,7 +155,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 23 2016 01:56:48 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 23 2016 02:01:16 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

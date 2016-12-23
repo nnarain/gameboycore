@@ -7,5 +7,5 @@ var searchData=
   ['addwritehandler',['addWriteHandler',['../classgb_1_1MMU.html#a0d5f7532aaf79568be29f923969d02d0',1,'gb::MMU']]],
   ['alu',['ALU',['../classgb_1_1ALU.html#af81dd4b847b2866cb49f57b9c1bfb574',1,'gb::ALU']]],
   ['anda',['anda',['../classgb_1_1ALU.html#a7329346e7eadd6a450038f943e93bb5b',1,'gb::ALU']]],
-  ['apu',['APU',['../classgb_1_1APU.html#a677477da97c42a1a598b9f111d64b53a',1,'gb::APU']]]
+  ['apu',['APU',['../classgb_1_1APU.html#a677477da97c42a1a598b9f111d64b53a',1,'gb::APU::APU(MMU::Ptr &amp;mmu)'],['../classgb_1_1APU.html#ac9a09edef50ce8472da74cfaa99cb44c',1,'gb::APU::APU(const APU &amp;)=delete']]]
 ];

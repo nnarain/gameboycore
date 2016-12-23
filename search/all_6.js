@@ -8,7 +8,7 @@ var searchData=
   ['game_5ftitle_5fend',['GAME_TITLE_END',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ad36c74192ce1f08e9a542b2e0655e7c5',1,'gb::memorymap']]],
   ['game_5ftitle_5fstart',['GAME_TITLE_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a6a80d96f2adf3b0b9d9a4487330f95d0',1,'gb::memorymap']]],
   ['gameboycore',['GameboyCore',['../classgb_1_1GameboyCore.html',1,'gb']]],
-  ['gameboycore',['GameboyCore',['../classgb_1_1GameboyCore.html#a897caf180ad1c16a203c9bc3dd309514',1,'gb::GameboyCore']]],
+  ['gameboycore',['GameboyCore',['../classgb_1_1GameboyCore.html#a897caf180ad1c16a203c9bc3dd309514',1,'gb::GameboyCore::GameboyCore()'],['../classgb_1_1GameboyCore.html#ab24d6aad3565232f20af00a34743af7b',1,'gb::GameboyCore::GameboyCore(const GameboyCore &amp;)=delete']]],
   ['gameboycore_2eh',['gameboycore.h',['../gameboycore_8h.html',1,'']]],
   ['gameboycore_5fapi',['GAMEBOYCORE_API',['../gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc',1,'gameboycore_api.h']]],
   ['gameboycore_5fapi_2eh',['gameboycore_api.h',['../gameboycore__api_8h.html',1,'']]],
@@ -38,7 +38,7 @@ var searchData=
   ['gettiles',['getTiles',['../classgb_1_1TileRAM.html#ae70707452861410ce1d9ff4634e6cedf',1,'gb::TileRAM']]],
   ['getwindowoverlay',['getWindowOverlay',['../classgb_1_1TileMap.html#ad713e9e72102b7a592aabed6437966f1',1,'gb::TileMap']]],
   ['getxram',['getXram',['../classgb_1_1detail_1_1MBC.html#af7d93699bb13bfc3cf24ee3624532696',1,'gb::detail::MBC']]],
-  ['gpu',['GPU',['../classgb_1_1GPU.html#ad3fbc62283bb33119ce4fea27f64a6c5',1,'gb::GPU']]],
+  ['gpu',['GPU',['../classgb_1_1GPU.html#ad3fbc62283bb33119ce4fea27f64a6c5',1,'gb::GPU::GPU(MMU::Ptr &amp;mmu)'],['../classgb_1_1GPU.html#a97f9ef74cf0292fa7efbf40272b66f9c',1,'gb::GPU::GPU(const GPU &amp;)']]],
   ['gpu',['GPU',['../classgb_1_1GPU.html',1,'gb']]],
   ['gpu_2eh',['gpu.h',['../gpu_8h.html',1,'']]],
   ['memorymap',['memorymap',['../namespacegb_1_1memorymap.html',1,'gb']]]

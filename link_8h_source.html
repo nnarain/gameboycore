@@ -124,21 +124,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="classgb_1_1Link.html">Link</a>(<a class="code" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a>&amp; mmu);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        ~<a class="code" href="classgb_1_1Link.html">Link</a>();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> update(uint8_t cycles);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">void</span> recieve(uint8_t byte);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">void</span> setReadyCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1Link.html#ab628aefaa9429e635b883a3d2dd814b3">ReadyCallback</a>&amp; callback);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">class </span>Impl;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        Impl* impl_;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    };</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="classgb_1_1Link.html">Link</a>(<span class="keyword">const</span> <a class="code" href="classgb_1_1Link.html">Link</a>&amp;);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        ~<a class="code" href="classgb_1_1Link.html">Link</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">void</span> update(uint8_t cycles);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">void</span> recieve(uint8_t byte);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">void</span> setReadyCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1Link.html#ab628aefaa9429e635b883a3d2dd814b3">ReadyCallback</a>&amp; callback);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">class </span>Impl;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        Impl* impl_;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    };</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="classgb_1_1Link_html_a2d4591e7cb8174f5df922f5261495663"><div class="ttname"><a href="classgb_1_1Link.html#a2d4591e7cb8174f5df922f5261495663">gb::Link::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; Link &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> link.h:35</div></div>
 <div class="ttc" id="classgb_1_1Link_html_a7dd81cc374dc573cb7a5a7e329a5ec17"><div class="ttname"><a href="classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17">gb::Link::Mode</a></div><div class="ttdeci">Mode</div><div class="ttdef"><b>Definition:</b> link.h:28</div></div>
 <div class="ttc" id="classgb_1_1Link_html"><div class="ttname"><a href="classgb_1_1Link.html">gb::Link</a></div><div class="ttdoc">Emulate link port. </div><div class="ttdef"><b>Definition:</b> link.h:25</div></div>
@@ -156,7 +157,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 23 2016 01:56:48 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 23 2016 02:01:16 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

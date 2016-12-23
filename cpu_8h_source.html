@@ -150,26 +150,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="classgb_1_1CPU.html">CPU</a>(<a class="code" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a>&amp; mmu, <a class="code" href="classgb_1_1GPU.html#afe55b09fdb9d5abb3a8bd7fcd75d9662">GPU::Ptr</a>&amp; gpu, <a class="code" href="classgb_1_1APU.html#a843f5d745eb71ec945b6fc92362a1802">APU::Ptr</a>&amp; apu, <a class="code" href="classgb_1_1Link.html#a2d4591e7cb8174f5df922f5261495663">Link::Ptr</a>&amp; link);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ~<a class="code" href="classgb_1_1CPU.html">CPU</a>();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordtype">void</span> step();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordtype">void</span> reset();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordtype">bool</span> isHalted() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordtype">void</span> setDebugMode(<span class="keywordtype">bool</span> debug_mode);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <a class="code" href="structgb_1_1CPU_1_1Status.html">Status</a> getStatus() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">// Private implementation class</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keyword">class </span>Impl;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        Impl* impl_;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    };</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_CPU_H</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <a class="code" href="classgb_1_1CPU.html">CPU</a>(<span class="keyword">const</span> <a class="code" href="classgb_1_1CPU.html">CPU</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        ~<a class="code" href="classgb_1_1CPU.html">CPU</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordtype">void</span> step();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordtype">void</span> reset();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">bool</span> isHalted() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordtype">void</span> setDebugMode(<span class="keywordtype">bool</span> debug_mode);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="structgb_1_1CPU_1_1Status.html">Status</a> getStatus() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="comment">// Private implementation class</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">class </span>Impl;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        Impl* impl_;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    };</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_CPU_H</span></div>
 <div class="ttc" id="structgb_1_1CPU_1_1Status_html_a643f92ab1f1b0389d7eaa34024422adf"><div class="ttname"><a href="structgb_1_1CPU_1_1Status.html#a643f92ab1f1b0389d7eaa34024422adf">gb::CPU::Status::af</a></div><div class="ttdeci">uint16_t af</div><div class="ttdef"><b>Definition:</b> cpu.h:31</div></div>
 <div class="ttc" id="classgb_1_1CPU_html_aaad9b016895c58144cbc2d159b3e3d2e"><div class="ttname"><a href="classgb_1_1CPU.html#aaad9b016895c58144cbc2d159b3e3d2e">gb::CPU::Flags</a></div><div class="ttdeci">Flags</div><div class="ttdoc">Flags set by the most recent instruction. </div><div class="ttdef"><b>Definition:</b> cpu.h:55</div></div>
 <div class="ttc" id="structgb_1_1CPU_1_1Status_html_a524bbba28f43518e2b1a52e3e62f4227"><div class="ttname"><a href="structgb_1_1CPU_1_1Status.html#a524bbba28f43518e2b1a52e3e62f4227">gb::CPU::Status::sp</a></div><div class="ttdeci">uint16_t sp</div><div class="ttdef"><b>Definition:</b> cpu.h:48</div></div>
@@ -208,7 +209,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 23 2016 01:56:48 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 23 2016 02:01:16 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

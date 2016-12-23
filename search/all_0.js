@@ -12,7 +12,7 @@ var searchData=
   ['alu_2eh',['alu.h',['../alu_8h.html',1,'']]],
   ['anda',['anda',['../classgb_1_1ALU.html#a7329346e7eadd6a450038f943e93bb5b',1,'gb::ALU']]],
   ['api',['API',['../group__API.html',1,'']]],
-  ['apu',['APU',['../classgb_1_1APU.html#a677477da97c42a1a598b9f111d64b53a',1,'gb::APU']]],
+  ['apu',['APU',['../classgb_1_1APU.html#a677477da97c42a1a598b9f111d64b53a',1,'gb::APU::APU(MMU::Ptr &amp;mmu)'],['../classgb_1_1APU.html#ac9a09edef50ce8472da74cfaa99cb44c',1,'gb::APU::APU(const APU &amp;)=delete']]],
   ['apu',['APU',['../classgb_1_1APU.html',1,'gb']]],
   ['apu_2eh',['apu.h',['../apu_8h.html',1,'']]],
   ['attr',['attr',['../classgb_1_1Sprite.html#aeaede991464e9102c2b98f2259261968',1,'gb::Sprite']]],
