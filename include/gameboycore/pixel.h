@@ -30,6 +30,11 @@ namespace gb
 		uint8_t r; ///< Red
 		uint8_t g; ///< Green
 		uint8_t b; ///< Blue
+
+		bool operator==(const Pixel& rhs)
+		{
+			return this->r == rhs.r && this->g == rhs.g && this->b == rhs.b;
+		}
 	};
 }
 
