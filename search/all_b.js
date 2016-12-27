@@ -8,7 +8,7 @@ var searchData=
   ['left',['LEFT',['../classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522fa684d325a7303f52e64011467ff5c5758',1,'gb::Joy']]],
   ['length_5fcounter_5f',['length_counter_',['../classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277',1,'gb::detail::Channel']]],
   ['length_5fmask',['LENGTH_MASK',['../classgb_1_1detail_1_1Noise.html#a8e3f87b279c4610ba802a97f727a165b',1,'gb::detail::Noise::LENGTH_MASK()'],['../classgb_1_1detail_1_1Square.html#a39df341ad88e2ede5e276cb248b40ef8',1,'gb::detail::Square::LENGTH_MASK()'],['../classgb_1_1detail_1_1Wave.html#aa93b9ab5b0f17ff9862c3d76c305042b',1,'gb::detail::Wave::LENGTH_MASK()']]],
-  ['line',['Line',['../classgb_1_1TileMap.html#a0782d1bdae56018682d8fb88e6069120',1,'gb::TileMap']]],
+  ['line',['Line',['../classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf',1,'gb::detail::TileMap']]],
   ['link',['Link',['../classgb_1_1Link.html',1,'gb']]],
   ['link',['Link',['../classgb_1_1Link.html#ad4757a9b115404376d27eb54f8df8e8d',1,'gb::Link::Link(MMU::Ptr &amp;mmu)'],['../classgb_1_1Link.html#acebb6607e894b317669dc961929a1912',1,'gb::Link::Link(const Link &amp;)']]],
   ['link_2eh',['link.h',['../link_8h.html',1,'']]],

@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.6"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <title>GameboyCore: gb::TileMap Class Reference</title>
+        <title>GameboyCore: gb::detail::TileMap Class Reference</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.13.1</a>
+                    <a class="navbar-brand">GameboyCore 0.14.1</a>
                 </div>
             </div>
         </nav>
@@ -90,55 +90,57 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacegb.html">gb</a></li><li class="navelem"><a class="el" href="classgb_1_1TileMap.html">TileMap</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacegb.html">gb</a></li><li class="navelem"><a class="el" href="namespacegb_1_1detail.html">detail</a></li><li class="navelem"><a class="el" href="classgb_1_1detail_1_1TileMap.html">TileMap</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classgb_1_1TileMap-members.html">List of all members</a>  </div>
+<a href="classgb_1_1detail_1_1TileMap-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">gb::TileMap Class Reference</div>  </div>
+<div class="title">gb::detail::TileMap Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>Class that knows how to render background map data.  
- <a href="classgb_1_1TileMap.html#details">More...</a></p>
+ <a href="classgb_1_1detail_1_1TileMap.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="tilemap_8h_source.html">tilemap.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a9747e13b0af198865d5b214492cb418d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileMap.html#a9747e13b0af198865d5b214492cb418d">Map</a> { <a class="el" href="classgb_1_1TileMap.html#a9747e13b0af198865d5b214492cb418da87ed58ce5596142e11cb65deb049bb4b">Map::BACKGROUND</a> = (1&lt;&lt;3), 
-<a class="el" href="classgb_1_1TileMap.html#a9747e13b0af198865d5b214492cb418daa258bdabfc5031a165484e0ec5ec4fde">Map::WINDOW_OVERLAY</a> = (1&lt;&lt;6)
+<tr class="memitem:ae714a95287a975c4232c01b6175c9e20"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20">Map</a> { <a class="el" href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20a87ed58ce5596142e11cb65deb049bb4b">Map::BACKGROUND</a> = (1 &lt;&lt; 3), 
+<a class="el" href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20aa258bdabfc5031a165484e0ec5ec4fde">Map::WINDOW_OVERLAY</a> = (1 &lt;&lt; 6)
  }</td></tr>
-<tr class="separator:a9747e13b0af198865d5b214492cb418d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0782d1bdae56018682d8fb88e6069120"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileMap.html#a0782d1bdae56018682d8fb88e6069120">Line</a> = std::array&lt; uint8_t, 160 &gt;</td></tr>
-<tr class="separator:a0782d1bdae56018682d8fb88e6069120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ae714a95287a975c4232c01b6175c9e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a952eff28d54c8316960d1705dc0317bf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">Line</a> = std::array&lt; uint8_t, 160 &gt;</td></tr>
+<tr class="separator:a952eff28d54c8316960d1705dc0317bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afcbc6c8bed0a91b231f9291663153e9d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileMap.html#afcbc6c8bed0a91b231f9291663153e9d">TileMap</a> (<a class="el" href="classgb_1_1MMU.html">MMU</a> &amp;mmu)</td></tr>
-<tr class="separator:afcbc6c8bed0a91b231f9291663153e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1637f37a0d2cee5f3207329ff6bf5e56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileMap.html#a1637f37a0d2cee5f3207329ff6bf5e56">~TileMap</a> ()</td></tr>
-<tr class="separator:a1637f37a0d2cee5f3207329ff6bf5e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39b76fda2a85a1ee1454de5375d86d27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgb_1_1TileMap.html#a0782d1bdae56018682d8fb88e6069120">Line</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileMap.html#a39b76fda2a85a1ee1454de5375d86d27">getBackground</a> (int line)</td></tr>
-<tr class="separator:a39b76fda2a85a1ee1454de5375d86d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad713e9e72102b7a592aabed6437966f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgb_1_1TileMap.html#a0782d1bdae56018682d8fb88e6069120">Line</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileMap.html#ad713e9e72102b7a592aabed6437966f1">getWindowOverlay</a> (int line)</td></tr>
-<tr class="separator:ad713e9e72102b7a592aabed6437966f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbd8fd731b5fb60988567c2964151bd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileMap.html#afbd8fd731b5fb60988567c2964151bd9">drawSprites</a> (std::array&lt; <a class="el" href="structgb_1_1Pixel.html">Pixel</a>, 160 &gt; &amp;scanline, std::array&lt; uint8_t, 160 &gt; &amp;color_line, int line)</td></tr>
-<tr class="separator:afbd8fd731b5fb60988567c2964151bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7448cb829f0482e648f7ab8a57c11e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#ac7448cb829f0482e648f7ab8a57c11e9">TileMap</a> (<a class="el" href="classgb_1_1MMU.html">MMU</a> &amp;mmu)</td></tr>
+<tr class="separator:ac7448cb829f0482e648f7ab8a57c11e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdfbbbfd607d51a26577a27b888e5a15"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#abdfbbbfd607d51a26577a27b888e5a15">~TileMap</a> ()</td></tr>
+<tr class="separator:abdfbbbfd607d51a26577a27b888e5a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af26a62b811cb9d9323c9210e7647f9d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">Line</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#af26a62b811cb9d9323c9210e7647f9d3">getBackground</a> (int line)</td></tr>
+<tr class="separator:af26a62b811cb9d9323c9210e7647f9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f52e0b58e05c0ab47cc6ef84a525ab5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">Line</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a4f52e0b58e05c0ab47cc6ef84a525ab5">getWindowOverlay</a> (int line)</td></tr>
+<tr class="separator:a4f52e0b58e05c0ab47cc6ef84a525ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a456d0f353b551d74971a160a22ce7f46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a456d0f353b551d74971a160a22ce7f46">drawSprites</a> (std::array&lt; <a class="el" href="structgb_1_1Pixel.html">Pixel</a>, 160 &gt; &amp;scanline, std::array&lt; uint8_t, 160 &gt; &amp;color_line, int line)</td></tr>
+<tr class="separator:a456d0f353b551d74971a160a22ce7f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ad98cdf23140bb9f16b5f0f0fa5edcb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classgb_1_1Sprite.html">Sprite</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a6ad98cdf23140bb9f16b5f0f0fa5edcb">getSpriteCache</a> () const </td></tr>
+<tr class="separator:a6ad98cdf23140bb9f16b5f0f0fa5edcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that knows how to render background map data. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="a0782d1bdae56018682d8fb88e6069120"></a>
+<a class="anchor" id="a952eff28d54c8316960d1705dc0317bf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1TileMap.html#a0782d1bdae56018682d8fb88e6069120">gb::TileMap::Line</a> =  std::array&lt;uint8_t, 160&gt;</td>
+          <td class="memname">using <a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">gb::detail::TileMap::Line</a> =  std::array&lt;uint8_t, 160&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -146,7 +148,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Enumeration Documentation</h2>
-<a class="anchor" id="a9747e13b0af198865d5b214492cb418d"></a>
+<a class="anchor" id="ae714a95287a975c4232c01b6175c9e20"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -154,7 +156,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="classgb_1_1TileMap.html#a9747e13b0af198865d5b214492cb418d">gb::TileMap::Map</a></td>
+          <td class="memname">enum <a class="el" href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20">gb::detail::TileMap::Map</a></td>
         </tr>
       </table>
   </td>
@@ -164,21 +166,21 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a9747e13b0af198865d5b214492cb418da87ed58ce5596142e11cb65deb049bb4b"></a>BACKGROUND</em>&#160;</td><td class="fielddoc">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="ae714a95287a975c4232c01b6175c9e20a87ed58ce5596142e11cb65deb049bb4b"></a>BACKGROUND</em>&#160;</td><td class="fielddoc">
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a9747e13b0af198865d5b214492cb418daa258bdabfc5031a165484e0ec5ec4fde"></a>WINDOW_OVERLAY</em>&#160;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="ae714a95287a975c4232c01b6175c9e20aa258bdabfc5031a165484e0ec5ec4fde"></a>WINDOW_OVERLAY</em>&#160;</td><td class="fielddoc">
 </td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="afcbc6c8bed0a91b231f9291663153e9d"></a>
+<a class="anchor" id="ac7448cb829f0482e648f7ab8a57c11e9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">gb::TileMap::TileMap </td>
+          <td class="memname">gb::detail::TileMap::TileMap </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgb_1_1MMU.html">MMU</a> &amp;&#160;</td>
           <td class="paramname"><em>mmu</em></td><td>)</td>
@@ -189,12 +191,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1637f37a0d2cee5f3207329ff6bf5e56"></a>
+<a class="anchor" id="abdfbbbfd607d51a26577a27b888e5a15"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">gb::TileMap::~TileMap </td>
+          <td class="memname">gb::detail::TileMap::~TileMap </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -205,12 +207,12 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="afbd8fd731b5fb60988567c2964151bd9"></a>
+<a class="anchor" id="a456d0f353b551d74971a160a22ce7f46"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void gb::TileMap::drawSprites </td>
+          <td class="memname">void gb::detail::TileMap::drawSprites </td>
           <td>(</td>
           <td class="paramtype">std::array&lt; <a class="el" href="structgb_1_1Pixel.html">Pixel</a>, 160 &gt; &amp;&#160;</td>
           <td class="paramname"><em>scanline</em>, </td>
@@ -237,12 +239,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a39b76fda2a85a1ee1454de5375d86d27"></a>
+<a class="anchor" id="af26a62b811cb9d9323c9210e7647f9d3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgb_1_1TileMap.html#a0782d1bdae56018682d8fb88e6069120">Line</a> gb::TileMap::getBackground </td>
+          <td class="memname"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">Line</a> gb::detail::TileMap::getBackground </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>line</em></td><td>)</td>
@@ -253,12 +255,27 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad713e9e72102b7a592aabed6437966f1"></a>
+<a class="anchor" id="a6ad98cdf23140bb9f16b5f0f0fa5edcb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgb_1_1TileMap.html#a0782d1bdae56018682d8fb88e6069120">Line</a> gb::TileMap::getWindowOverlay </td>
+          <td class="memname">std::vector&lt;<a class="el" href="classgb_1_1Sprite.html">Sprite</a>&gt; gb::detail::TileMap::getSpriteCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4f52e0b58e05c0ab47cc6ef84a525ab5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">Line</a> gb::detail::TileMap::getWindowOverlay </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>line</em></td><td>)</td>
@@ -281,7 +298,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2016 03:02:40 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 27 2016 04:26:42 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

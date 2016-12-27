@@ -17,7 +17,7 @@ var searchData=
   ['_7enoise',['~Noise',['../classgb_1_1detail_1_1Noise.html#a5e7d1c44e3b7fef7fd1a7360e6ce8376',1,'gb::detail::Noise']]],
   ['_7eoam',['~OAM',['../classgb_1_1OAM.html#a515757e62e4e3f2ec0dc20775964b1ee',1,'gb::OAM']]],
   ['_7esquare',['~Square',['../classgb_1_1detail_1_1Square.html#adcabdcbc5ef6a690744dee161b8acac9',1,'gb::detail::Square']]],
-  ['_7etilemap',['~TileMap',['../classgb_1_1TileMap.html#a1637f37a0d2cee5f3207329ff6bf5e56',1,'gb::TileMap']]],
+  ['_7etilemap',['~TileMap',['../classgb_1_1detail_1_1TileMap.html#abdfbbbfd607d51a26577a27b888e5a15',1,'gb::detail::TileMap']]],
   ['_7etileram',['~TileRAM',['../classgb_1_1TileRAM.html#a360d53406426fba8b80cb4fdcb00d4b5',1,'gb::TileRAM']]],
   ['_7etimer',['~Timer',['../classgb_1_1Timer.html#afaa27b502df854db56e71b1b5967a5ed',1,'gb::Timer']]],
   ['_7ewave',['~Wave',['../classgb_1_1detail_1_1Wave.html#a3389ea9dcae60a0db7b6965563653838',1,'gb::detail::Wave']]]

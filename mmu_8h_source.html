@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.13.1</a>
+                    <a class="navbar-brand">GameboyCore 0.14.1</a>
                 </div>
             </div>
         </nav>
@@ -137,17 +137,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordtype">void</span> setBatteryRam(<span class="keyword">const</span> std::vector&lt;uint8_t&gt;&amp; battery_ram);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        uint8_t&amp; <span class="keyword">get</span>(uint16_t);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordtype">bool</span> getOamTransferStatus() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        uint8_t* getptr(uint16_t);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        uint8_t&amp; <span class="keyword">get</span>(uint16_t);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keyword">class </span>Impl;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        Impl* impl_;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    };</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif // GAMEBOY_MMU_H</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        uint8_t* getptr(uint16_t);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keyword">class </span>Impl;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        Impl* impl_;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    };</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#endif // GAMEBOY_MMU_H</span></div>
 <div class="ttc" id="gameboycore__api_8h_html_a30796a64a7a4bc4b2ae0623474940bfc"><div class="ttname"><a href="gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc">GAMEBOYCORE_API</a></div><div class="ttdeci">#define GAMEBOYCORE_API</div><div class="ttdef"><b>Definition:</b> gameboycore_api.h:22</div></div>
 <div class="ttc" id="classgb_1_1MMU_html_a3c5bbb8b8a9e3ed540d2f53e2ea0d8de"><div class="ttname"><a href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">gb::MMU::MemoryWriteHandler</a></div><div class="ttdeci">std::function&lt; void(uint8_t, uint16_t)&gt; MemoryWriteHandler</div><div class="ttdef"><b>Definition:</b> mmu.h:30</div></div>
 <div class="ttc" id="classgb_1_1MMU_html"><div class="ttname"><a href="classgb_1_1MMU.html">gb::MMU</a></div><div class="ttdoc">Memory interface. </div><div class="ttdef"><b>Definition:</b> mmu.h:24</div></div>
@@ -163,7 +165,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2016 03:02:40 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 27 2016 04:26:42 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

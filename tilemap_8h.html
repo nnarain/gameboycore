@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.13.1</a>
+                    <a class="navbar-brand">GameboyCore 0.14.1</a>
                 </div>
             </div>
         </nav>
@@ -101,7 +101,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="tileram_8h_source.html">gameboycore/tileram.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="pixel_8h_source.html">gameboycore/pixel.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="sprite_8h_source.html">gameboycore/sprite.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="memorymap_8h_source.html">gameboycore/memorymap.h</a>&quot;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
 <code>#include &lt;array&gt;</code><br/>
 <code>#include &lt;cstdint&gt;</code><br/>
 </div><div class="textblock"><div class="dynheader">
@@ -109,21 +111,23 @@ Include dependency graph for tilemap.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="tilemap_8h__incl.png" border="0" usemap="#include_2gameboycore_2tilemap_8h" alt=""/></div>
 <map name="include_2gameboycore_2tilemap_8h" id="include_2gameboycore_2tilemap_8h">
-<area shape="rect" id="node2" href="tileram_8h.html" title="gameboycore/tileram.h" alt="" coords="236,96,390,123"/><area shape="rect" id="node12" href="pixel_8h.html" title="gameboycore/pixel.h" alt="" coords="26,96,168,123"/><area shape="rect" id="node13" href="memorymap_8h.html" title="Constants that define the CPU memory map. " alt="" coords="466,96,652,123"/><area shape="rect" id="node3" href="mmu_8h.html" title="Memory interface. " alt="" coords="411,171,555,197"/><area shape="rect" id="node9" href="tile_8h.html" title="gameboycore/tile.h" alt="" coords="84,171,215,197"/><area shape="rect" id="node10" href="sprite_8h.html" title="gameboycore/sprite.h" alt="" coords="240,171,387,197"/><area shape="rect" id="node4" href="gameboycore__api_8h.html" title="Define export macros. " alt="" coords="160,246,342,287"/></map>
+<area shape="rect" id="node2" href="tileram_8h.html" title="gameboycore/tileram.h" alt="" coords="420,96,573,123"/><area shape="rect" id="node10" href="sprite_8h.html" title="gameboycore/sprite.h" alt="" coords="652,171,799,197"/><area shape="rect" id="node12" href="pixel_8h.html" title="gameboycore/pixel.h" alt="" coords="253,96,395,123"/><area shape="rect" id="node13" href="memorymap_8h.html" title="Constants that define the CPU memory map. " alt="" coords="873,96,1060,123"/><area shape="rect" id="node3" href="mmu_8h.html" title="Memory interface. " alt="" coords="151,171,295,197"/><area shape="rect" id="node9" href="tile_8h.html" title="gameboycore/tile.h" alt="" coords="421,171,552,197"/><area shape="rect" id="node4" href="gameboycore__api_8h.html" title="Define export macros. " alt="" coords="286,246,468,287"/></map>
 </div>
 </div>
 <p><a href="tilemap_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileMap.html">gb::TileMap</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class that knows how to render background map data.  <a href="classgb_1_1TileMap.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html">gb::detail::TileMap</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class that knows how to render background map data.  <a href="classgb_1_1detail_1_1TileMap.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacegb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegb.html">gb</a></td></tr>
 <tr class="memdesc:namespacegb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory Back Controller 1. <br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacegb_1_1detail"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegb_1_1detail.html">gb::detail</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -135,7 +139,7 @@ Namespaces</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2016 03:02:40 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 27 2016 04:26:42 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
