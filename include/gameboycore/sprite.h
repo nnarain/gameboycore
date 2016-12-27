@@ -42,6 +42,11 @@ namespace gb
 		{
 			return !!(attr & (1 << 4));
 		}
+
+		bool operator==(const Sprite& rhs)
+		{
+			return this->y == y && this->x == x && this->tile == tile && this->attr == attr && this->height == height;
+		}
 	};
 }
 
