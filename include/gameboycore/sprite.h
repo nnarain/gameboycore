@@ -16,12 +16,12 @@ namespace gb
 	class Sprite
 	{
 	public:
-		uint8_t y;
-		uint8_t x;
-		uint8_t tile;
-		uint8_t attr;
+		uint8_t y;    ///< y pixel coordinate
+		uint8_t x;    ///< x pixel coordinate
+		uint8_t tile; ///< tile number
+		uint8_t attr; ///< attribute data
 
-		uint8_t height;
+		uint8_t height; ///< sprite height in pixels
 
 		constexpr bool isHorizontallyFlipped() const
 		{

@@ -46,6 +46,12 @@ namespace gb
 
 		uint8_t MBC::read(uint16_t addr) const
 		{
+			// return FF is read from external ram and it is not enabled
+			if (addr >= 0xA000 && addr <= 0xBFFF && !xram_enable_)
+			{
+				return 0xFF;
+			}
+
 			return memory_[getIndex(addr)];
 		}
 

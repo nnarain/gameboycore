@@ -11,12 +11,13 @@
 #include "gameboycore_api.h"
 #include "gameboycore/mmu.h"
 #include "gameboycore/pixel.h"
+#include "gameboycore/sprite.h"
 
 #include <memory>
 #include <cstdint>
 #include <functional>
 #include <array>
-#include <iostream>
+#include <vector>
 
 namespace gb
 {
@@ -41,6 +42,7 @@ namespace gb
 
 	public:
 		GPU(MMU::Ptr& mmu);
+		GPU(const GPU&);
 		~GPU();
 
 		/**
@@ -51,6 +53,11 @@ namespace gb
 			Set the host system callback
 		*/
 		void setRenderCallback(RenderScanlineCallback callback);
+
+		/**
+			@return currently cached tile data
+		*/
+		std::vector<Sprite> getSpriteCache() const;
 
 	private:
 		//! Private Implementation class
