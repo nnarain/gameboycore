@@ -113,6 +113,11 @@ namespace gb
 			render_scanline_ = callback;
 		}
 
+		std::vector<uint8_t> getBackgroundTileMap()
+		{
+			return tilemap_.getTileMap(detail::TileMap::Map::BACKGROUND);
+		}
+
 		std::vector<Sprite> getSpriteCache() const
 		{
 			return tilemap_.getSpriteCache();
@@ -270,6 +275,11 @@ namespace gb
 	void GPU::setRenderCallback(RenderScanlineCallback callback)
 	{
 		impl_->setRenderCallback(callback);
+	}
+
+	std::vector<uint8_t> GPU::getBackgroundTileMap() const
+	{
+		return impl_->getBackgroundTileMap();
 	}
 
 	std::vector<Sprite> GPU::getSpriteCache() const
