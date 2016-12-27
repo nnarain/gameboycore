@@ -39,7 +39,8 @@ namespace gb
 			lcdc_(mmu->get(memorymap::LCDC_REGISTER)),
 			stat_(mmu->get(memorymap::LCD_STAT_REGISTER)),
 			vblank_provider_(*mmu.get(), InterruptProvider::Interrupt::VBLANK),
-			stat_provider_(*mmu.get(), InterruptProvider::Interrupt::LCDSTAT)
+			stat_provider_(*mmu.get(), InterruptProvider::Interrupt::LCDSTAT),
+			tilemap_(*mmu.get())
 		{
 			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::configure, this, std::placeholders::_1, std::placeholders::_2));
 		}
@@ -112,13 +113,18 @@ namespace gb
 			render_scanline_ = callback;
 		}
 
+		std::vector<Sprite> getSpriteCache() const
+		{
+			return tilemap_.getSpriteCache();
+		}
+
 	private:
 
 		void renderScanline()
 		{
 			Scanline scanline;
 			std::array<uint8_t, 160> color_line;
-			TileMap tilemap(*mmu_.get());
+		//	detail::TileMap tilemap(*mmu_.get());
 
 			auto background_palette = Palette::get(mmu_->read(memorymap::BGP_REGISTER));
 
@@ -130,10 +136,10 @@ namespace gb
 			const auto sprites_enabled    = IS_SET(lcdc, memorymap::LCDC::OBJ_ON)        != 0;
 
 			// get background tile line
-			const auto background = tilemap.getBackground(line_);
+			const auto background = tilemap_.getBackground(line_);
 
 			// get window overlay tile line
-			const auto window = tilemap.getWindowOverlay(line_);
+			const auto window = tilemap_.getWindowOverlay(line_);
 			const auto wx = mmu_->read(memorymap::WX_REGISTER);
 			const auto wy = mmu_->read(memorymap::WY_REGISTER);
 
@@ -154,7 +160,7 @@ namespace gb
 			}
 
 			if (sprites_enabled)
-				tilemap.drawSprites(scanline, color_line, line_);
+				tilemap_.drawSprites(scanline, color_line, line_);
 
 			// send scan line to the renderer
 			if (render_scanline_ && line_ < VBLANK_LINE)
@@ -239,6 +245,8 @@ namespace gb
 		InterruptProvider vblank_provider_;
 		InterruptProvider stat_provider_;
 
+		detail::TileMap tilemap_;
+
 		RenderScanlineCallback render_scanline_;
 	};
 
@@ -262,6 +270,11 @@ namespace gb
 	void GPU::setRenderCallback(RenderScanlineCallback callback)
 	{
 		impl_->setRenderCallback(callback);
+	}
+
+	std::vector<Sprite> GPU::getSpriteCache() const
+	{
+		return impl_->getSpriteCache();
 	}
 
 } // namespace gb

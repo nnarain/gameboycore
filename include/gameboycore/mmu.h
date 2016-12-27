@@ -83,6 +83,11 @@ namespace gb
 		void setBatteryRam(const std::vector<uint8_t>& battery_ram);
 
 		/**
+			Check if OAM transfer has occured
+		*/
+		bool getOamTransferStatus() const;
+
+		/**
 			\return a reference to a memory location
 		*/
 		uint8_t& get(uint16_t);

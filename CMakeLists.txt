@@ -36,6 +36,7 @@ set(GAMEBOYCORE_API_HEADERS
 	include/gameboycore/link.h
 	include/gameboycore/link_cable.h
 	include/gameboycore/pixel.h
+	include/gameboycore/sprite.h
 )
 
 set(GAMEBOYCORE
@@ -70,7 +71,6 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboycore/tile.h
 	include/gameboycore/timer.h
 	include/gameboycore/interrupt_provider.h
-	include/gameboycore/sprite.h
 	include/gameboycore/palette.h
 	include/gameboycore/square.h
 	include/gameboycore/noise.h
