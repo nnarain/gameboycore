@@ -44,6 +44,8 @@ namespace gb
 
 			void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line);
 
+			std::vector<Sprite> getSpriteCache() const;
+
 		private:
 			uint16_t getAddress(Map map);
 

@@ -172,6 +172,11 @@ namespace gb
 			}
 		}
 
+		std::vector<Sprite> TileMap::getSpriteCache() const
+		{
+			return sprite_cache_;
+		}
+
 		TileMap::~TileMap()
 		{
 		}
