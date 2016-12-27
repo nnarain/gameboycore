@@ -130,8 +130,11 @@ namespace gb
 		{
 			// increments of $100 bytes
 			uint16_t addr = ((base & 0x00FF) << 8);
-
+			// copy to OAM
 			std::memcpy(mbc_->getptr(memorymap::OAM_START), mbc_->getptr(addr), memorymap::OAM_END - memorymap::OAM_START);
+
+			// set flag indicating oam transfer has taken place
+			oam_updated_ = true;
 		}
 
 		std::vector<uint8_t> getBatteryRam() const
@@ -187,6 +190,8 @@ namespace gb
 
 		std::array<MemoryWriteHandler, 0x80> write_handlers_;
 		std::array<MemoryReadHandler, 0x80>  read_handlers_;
+
+		bool oam_updated_;
 	};
 
 
@@ -245,6 +250,14 @@ namespace gb
 	void MMU::setBatteryRam(const std::vector<uint8_t>& battery_ram)
 	{
 		impl_->setBatteryRam(battery_ram);
+	}
+
+	bool MMU::getOamTransferStatus() const
+	{
+		bool ret = impl_->oam_updated_;
+		impl_->oam_updated_ = false;
+
+		return ret;
 	}
 
 	uint8_t& MMU::get(uint16_t addr)
