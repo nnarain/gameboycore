@@ -1,6 +1,7 @@
 /*
-	@author Natesh Narain <nnaraindev@gmail.com>
-	@date Spet 15, 2016
+	\file tilemap.h
+	\author Natesh Narain <nnaraindev@gmail.com>
+	\date Sept 15 2016
 */
 
 #ifndef GAMEBOYCORE_TILEMAP_H
@@ -45,9 +46,10 @@ namespace gb
 			void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line);
 
 			std::vector<Sprite> getSpriteCache() const;
+			std::vector<uint8_t> getTileMap(Map map) const;
 
 		private:
-			uint16_t getAddress(Map map);
+			uint16_t getAddress(Map map) const;
 
 		private:
 			TileRAM tileram_;

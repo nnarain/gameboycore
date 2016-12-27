@@ -158,7 +158,7 @@ namespace gb
 			}
 		}
 
-		uint16_t TileMap::getAddress(Map map)
+		uint16_t TileMap::getAddress(Map map) const
 		{
 			auto lcdc = mmu_.read(memorymap::LCDC_REGISTER);
 
@@ -175,6 +175,15 @@ namespace gb
 		std::vector<Sprite> TileMap::getSpriteCache() const
 		{
 			return sprite_cache_;
+		}
+
+		std::vector<uint8_t> TileMap::getTileMap(Map map) const
+		{
+			auto addr = getAddress(map);
+			auto begin = mmu_.getptr(addr);
+			auto end = mmu_.getptr(addr + 0x400);
+
+			return std::vector<uint8_t>(begin, end);
 		}
 
 		TileMap::~TileMap()

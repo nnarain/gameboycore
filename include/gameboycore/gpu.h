@@ -55,7 +55,12 @@ namespace gb
 		void setRenderCallback(RenderScanlineCallback callback);
 
 		/**
-			@return currently cached tile data
+			\return Background tilemap data
+		*/
+		std::vector<uint8_t> getBackgroundTileMap() const;
+
+		/**
+			\return currently cached tile data
 		*/
 		std::vector<Sprite> getSpriteCache() const;
 
