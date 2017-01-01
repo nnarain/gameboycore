@@ -139,6 +139,9 @@ namespace gb{
 
 			DMA_REGISTER            = 0xFF46,
 
+			BGPI                    = 0xFF68,
+			BGPD                    = 0xFF69,
+
 			HIGH_RAM_START          = 0xFF80,
 			HIGH_RAM_END            = 0xFFFE,
 

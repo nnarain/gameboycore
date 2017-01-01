@@ -27,8 +27,9 @@ namespace gb
 	class MMU::Impl
 	{
 	public:
-		Impl()
+		Impl(uint8_t* rom, uint32_t size)
 		{
+			load(rom, size);
 		}
 
 		~Impl()
@@ -37,8 +38,9 @@ namespace gb
 
 		void load(uint8_t* rom, uint32_t size)
 		{
-			RomParser parser;
-			CartInfo header = parser.parse(rom);
+			CartInfo header = RomParser::parse(rom);
+
+			cgb_enabled_ = header.cgb_enabled;
 
 			switch (static_cast<detail::MBC::Type>(header.type))
 			{
@@ -192,24 +194,20 @@ namespace gb
 		std::array<MemoryReadHandler, 0x80>  read_handlers_;
 
 		bool oam_updated_;
+		bool cgb_enabled_;
 	};
 
 
 	/* Public Interface */
 
-    MMU::MMU() :
-		impl_(new Impl)
+    MMU::MMU(uint8_t* rom, uint32_t size) :
+		impl_(new Impl(rom, size))
     {
     }
 
     MMU::~MMU()
     {
 		delete impl_;
-    }
-
-    void MMU::load(uint8_t* rom, uint32_t size)
-    {
-		impl_->load(rom, size);
     }
 
     uint8_t MMU::read(uint16_t addr) const
@@ -258,6 +256,11 @@ namespace gb
 		impl_->oam_updated_ = false;
 
 		return ret;
+	}
+
+	bool MMU::cgbEnabled() const
+	{
+		return impl_->cgb_enabled_;
 	}
 
 	uint8_t& MMU::get(uint16_t addr)

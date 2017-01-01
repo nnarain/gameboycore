@@ -31,14 +31,9 @@ namespace gb
 		using MemoryReadHandler  = std::function<uint8_t(uint16_t)>;
 
     public:
-        MMU();
+        MMU(uint8_t* rom, uint32_t size);
 		MMU(const MMU&) = delete;
         ~MMU();
-
-		/**
-			Load memory
-		*/
-        void load(uint8_t* rom, uint32_t size);
 
 		/**
 			@return the value of memory at the psecified location
@@ -86,6 +81,11 @@ namespace gb
 			Check if OAM transfer has occured
 		*/
 		bool getOamTransferStatus() const;
+
+		/**
+			@return true if rom is CGB compatible
+		*/
+		bool cgbEnabled() const;
 
 		/**
 			\return a reference to a memory location

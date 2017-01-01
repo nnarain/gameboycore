@@ -40,7 +40,8 @@ namespace gb
 			stat_(mmu->get(memorymap::LCD_STAT_REGISTER)),
 			vblank_provider_(*mmu.get(), InterruptProvider::Interrupt::VBLANK),
 			stat_provider_(*mmu.get(), InterruptProvider::Interrupt::LCDSTAT),
-			tilemap_(*mmu.get())
+			tilemap_(*mmu.get()),
+			cgb_enabled_(mmu->cgbEnabled())
 		{
 			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::configure, this, std::placeholders::_1, std::placeholders::_2));
 		}
@@ -253,6 +254,8 @@ namespace gb
 		detail::TileMap tilemap_;
 
 		RenderScanlineCallback render_scanline_;
+
+		bool cgb_enabled_;
 	};
 
 	/* Public Implementation */

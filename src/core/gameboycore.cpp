@@ -1,5 +1,6 @@
 
 #include "gameboycore/gameboycore.h"
+#include "gameboycore/cartinfo.h"
 
 #include <memory>
 
@@ -19,8 +20,7 @@ namespace gb
 
 		void loadROM(uint8_t* rom, uint32_t size)
 		{
-			mmu.reset(new MMU());
-			mmu->load(rom, size);
+			mmu.reset(new MMU(rom, size));
 
 			gpu.reset(new GPU(mmu));
 			apu.reset(new APU(mmu));
