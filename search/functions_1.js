@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['cgbenabled',['cgbEnabled',['../classgb_1_1MMU.html#a6533b4f135d7c3317460d490fb361f2c',1,'gb::MMU']]],
   ['channel',['Channel',['../classgb_1_1detail_1_1Channel.html#aa28eb01c93b8a2462cc1dd4fc11f4e17',1,'gb::detail::Channel']]],
   ['clocklength',['clockLength',['../classgb_1_1detail_1_1Channel.html#a670d6ddca04067d0297f44229cf79bb0',1,'gb::detail::Channel']]],
   ['compare',['compare',['../classgb_1_1ALU.html#a7e11008a4dc76bc9bcd704168429194f',1,'gb::ALU']]],

@@ -30,5 +30,5 @@ var searchData=
   ['gettiles',['getTiles',['../classgb_1_1TileRAM.html#ae70707452861410ce1d9ff4634e6cedf',1,'gb::TileRAM']]],
   ['getwindowoverlay',['getWindowOverlay',['../classgb_1_1detail_1_1TileMap.html#a4f52e0b58e05c0ab47cc6ef84a525ab5',1,'gb::detail::TileMap']]],
   ['getxram',['getXram',['../classgb_1_1detail_1_1MBC.html#af7d93699bb13bfc3cf24ee3624532696',1,'gb::detail::MBC']]],
-  ['gpu',['GPU',['../classgb_1_1GPU.html#ad3fbc62283bb33119ce4fea27f64a6c5',1,'gb::GPU::GPU(MMU::Ptr &amp;mmu)'],['../classgb_1_1GPU.html#a97f9ef74cf0292fa7efbf40272b66f9c',1,'gb::GPU::GPU(const GPU &amp;)']]]
+  ['gpu',['GPU',['../classgb_1_1GPU.html#ad3fbc62283bb33119ce4fea27f64a6c5',1,'gb::GPU::GPU(MMU::Ptr &amp;mmu)'],['../classgb_1_1GPU.html#aaf4cb552510552c96e26a3c160b6bc16',1,'gb::GPU::GPU(const GPU &amp;)=delete']]]
 ];

@@ -8,5 +8,7 @@ var searchData=
   ['bg_5fmap_5fdata_5f1_5fstart',['BG_MAP_DATA_1_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a5c2f283d038528240a3ae6f6f6bfa1bc',1,'gb::memorymap']]],
   ['bg_5fmap_5fdata_5f2_5fend',['BG_MAP_DATA_2_END',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ac01bcd7ea71b0e27942ae8f81c492269',1,'gb::memorymap']]],
   ['bg_5fmap_5fdata_5f2_5fstart',['BG_MAP_DATA_2_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ab2e4a548e9137b711aa16adeac0476ec',1,'gb::memorymap']]],
-  ['bgp_5fregister',['BGP_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9aaf7e1765b04a058100dfa95bd44d1f24',1,'gb::memorymap']]]
+  ['bgp_5fregister',['BGP_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9aaf7e1765b04a058100dfa95bd44d1f24',1,'gb::memorymap']]],
+  ['bgpd',['BGPD',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a202f8ea788c07f7852854a3d08bcf3f1',1,'gb::memorymap']]],
+  ['bgpi',['BGPI',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ac224db3b080f65bf296595410af13178',1,'gb::memorymap']]]
 ];

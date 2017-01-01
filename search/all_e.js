@@ -15,6 +15,6 @@ var searchData=
   ['opcodeinfo_2eh',['opcodeinfo.h',['../opcodeinfo_8h.html',1,'']]],
   ['opcodepage',['OpcodePage',['../namespacegb.html#acc8f9b6a93ae6c861f3706cecfa2f588',1,'gb']]],
   ['operandtype',['OperandType',['../namespacegb.html#a740667f2e6fef8a534f950e30233432f',1,'gb']]],
-  ['operator_3d_3d',['operator==',['../structgb_1_1Pixel.html#a8b61a6d8527ad2f9cef5a29e90301a32',1,'gb::Pixel']]],
+  ['operator_3d_3d',['operator==',['../structgb_1_1Pixel.html#a8b61a6d8527ad2f9cef5a29e90301a32',1,'gb::Pixel::operator==()'],['../classgb_1_1Sprite.html#ad17669f9c989323b48d10d5851762a68',1,'gb::Sprite::operator==()']]],
   ['ora',['ora',['../classgb_1_1ALU.html#a0873562bac10f8918203994080ac52d4',1,'gb::ALU']]]
 ];

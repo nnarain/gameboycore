@@ -6,8 +6,10 @@ var searchData=
   ['cart_5ftype',['CART_TYPE',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9aa9e850ec23b6b5103db1246f0fe28290',1,'gb::memorymap']]],
   ['cartinfo',['CartInfo',['../structgb_1_1CartInfo.html',1,'gb']]],
   ['cartinfo_2eh',['cartinfo.h',['../cartinfo_8h.html',1,'']]],
-  ['channel',['Channel',['../classgb_1_1detail_1_1Channel.html#aa28eb01c93b8a2462cc1dd4fc11f4e17',1,'gb::detail::Channel']]],
+  ['cgb_5fenabled',['cgb_enabled',['../structgb_1_1CartInfo.html#acd0049b0979a97da0cabc289193bd31a',1,'gb::CartInfo']]],
+  ['cgbenabled',['cgbEnabled',['../classgb_1_1MMU.html#a6533b4f135d7c3317460d490fb361f2c',1,'gb::MMU']]],
   ['channel',['Channel',['../classgb_1_1detail_1_1Channel.html',1,'gb::detail']]],
+  ['channel',['Channel',['../classgb_1_1detail_1_1Channel.html#aa28eb01c93b8a2462cc1dd4fc11f4e17',1,'gb::detail::Channel']]],
   ['channel_2eh',['channel.h',['../channel_8h.html',1,'']]],
   ['channel_5fcount',['CHANNEL_COUNT',['../classgb_1_1APU.html#a74292c2025d1317076c796d88e54e997',1,'gb::APU']]],
   ['character_5fdata',['CHARACTER_DATA',['../namespacegb_1_1memorymap.html#ae7e19a09b15ac0f8859df59e9e5f0924a00b41989080c8557a3b7b3ecbc100252',1,'gb::memorymap']]],
@@ -22,8 +24,8 @@ var searchData=
   ['compare',['compare',['../classgb_1_1ALU.html#a7e11008a4dc76bc9bcd704168429194f',1,'gb::ALU']]],
   ['complement_5fchecksum',['COMPLEMENT_CHECKSUM',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a3539b63e32725faa50cdeb00c5e8e043',1,'gb::memorymap']]],
   ['control',['control',['../classgb_1_1detail_1_1MBC.html#ab97b854584f03fc3db468d7edcfaa87b',1,'gb::detail::MBC::control()'],['../classgb_1_1detail_1_1MBC1.html#abe9bf3e0e283039ceb5558b0fd73874d',1,'gb::detail::MBC1::control()'],['../classgb_1_1detail_1_1MBC2.html#a5253e9a7eb468237a1f85ece340570c7',1,'gb::detail::MBC2::control()'],['../classgb_1_1detail_1_1MBC3.html#a70fa27bc44a59174b86fe90814a2f3ea',1,'gb::detail::MBC3::control()']]],
-  ['cpu',['CPU',['../classgb_1_1CPU.html#a5e418de6d162639d7a0debf7dff44e35',1,'gb::CPU::CPU(MMU::Ptr &amp;mmu, GPU::Ptr &amp;gpu, APU::Ptr &amp;apu, Link::Ptr &amp;link)'],['../classgb_1_1CPU.html#a15e773b27baa726efd89c8f9cae70808',1,'gb::CPU::CPU(const CPU &amp;)=delete']]],
   ['cpu',['CPU',['../classgb_1_1CPU.html',1,'gb']]],
+  ['cpu',['CPU',['../classgb_1_1CPU.html#a5e418de6d162639d7a0debf7dff44e35',1,'gb::CPU::CPU(MMU::Ptr &amp;mmu, GPU::Ptr &amp;gpu, APU::Ptr &amp;apu, Link::Ptr &amp;link)'],['../classgb_1_1CPU.html#a15e773b27baa726efd89c8f9cae70808',1,'gb::CPU::CPU(const CPU &amp;)=delete']]],
   ['cpu_2eh',['cpu.h',['../cpu_8h.html',1,'']]],
   ['cycles',['cycles',['../structgb_1_1OpcodeInfo.html#a4ddd175c36cdd15e8be13b9d8be82ad7',1,'gb::OpcodeInfo']]]
 ];

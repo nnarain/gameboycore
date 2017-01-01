@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.14.1</a>
+                    <a class="navbar-brand">GameboyCore 0.15.1</a>
                 </div>
             </div>
         </nav>
@@ -118,12 +118,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#afe55b09fdb9d5abb3a8bd7fcd75d9662">   33</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1GPU.html#afe55b09fdb9d5abb3a8bd7fcd75d9662">Ptr</a> = std::unique_ptr&lt;GPU&gt;;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">   36</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">Scanline</a>               = std::array&lt;Pixel, 160&gt;;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">   36</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">Scanline</a> = std::array&lt;Pixel, 160&gt;;</div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">   41</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">RenderScanlineCallback</a> = std::function&lt;void(const Scanline&amp;, int linenum)&gt;;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="classgb_1_1GPU.html">GPU</a>(<a class="code" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a>&amp; mmu);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classgb_1_1GPU.html">GPU</a>(<span class="keyword">const</span> <a class="code" href="classgb_1_1GPU.html">GPU</a>&amp;);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classgb_1_1GPU.html">GPU</a>(<span class="keyword">const</span> <a class="code" href="classgb_1_1GPU.html">GPU</a>&amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        ~<a class="code" href="classgb_1_1GPU.html">GPU</a>();</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">void</span> update(uint8_t cycles, <span class="keywordtype">bool</span> ime);</div>
@@ -159,7 +159,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2016 18:52:39 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 1 2017 02:46:43 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

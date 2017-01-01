@@ -17,7 +17,6 @@ var searchData=
   ['link_5fcable_2eh',['link_cable.h',['../link__cable_8h.html',1,'']]],
   ['linkcable',['LinkCable',['../classgb_1_1LinkCable.html',1,'gb']]],
   ['linkcable',['LinkCable',['../classgb_1_1LinkCable.html#a21fb5ed9ecb5cae5e94559dcd6c9aaa0',1,'gb::LinkCable']]],
-  ['load',['load',['../classgb_1_1MMU.html#a035b3939b2ff3420c505313892be2581',1,'gb::MMU']]],
   ['loadrom',['loadROM',['../classgb_1_1GameboyCore.html#a8179cbcfc160b23f2ed080fd7593fcb1',1,'gb::GameboyCore']]],
   ['ly_5fregister',['LY_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a4fa425f1e7b87e49a15639a9b887c183',1,'gb::memorymap']]],
   ['lyc_5fregister',['LYC_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a92b7236c45c5474285b2c23ef0e70bbe',1,'gb::memorymap']]],

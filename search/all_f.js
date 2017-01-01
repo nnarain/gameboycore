@@ -5,7 +5,7 @@ var searchData=
   ['palette',['Palette',['../classgb_1_1Palette.html',1,'gb']]],
   ['palette_2eh',['palette.h',['../palette_8h.html',1,'']]],
   ['paletteobp0',['paletteOBP0',['../classgb_1_1Sprite.html#ae1ec70c2d9d635279d2941c7af177a5c',1,'gb::Sprite']]],
-  ['parse',['parse',['../classgb_1_1RomParser.html#a90db7a232668e18d127dbc4c9a0fabd7',1,'gb::RomParser']]],
+  ['parse',['parse',['../classgb_1_1RomParser.html#a393a2901154fdcdf9563de5a425c0653',1,'gb::RomParser']]],
   ['pc',['pc',['../structgb_1_1CPU_1_1Status.html#a9f064a28220d40f90960789eddfcaae6',1,'gb::CPU::Status']]],
   ['permanent_5from_5fbank_5fend',['PERMANENT_ROM_BANK_END',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ab037dd5dc1223394a8c2f19571fbca86',1,'gb::memorymap']]],
   ['permanent_5from_5fbank_5fstart',['PERMANENT_ROM_BANK_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9aeb15930c5dc5c2cd682ce512ef7f0787',1,'gb::memorymap']]],

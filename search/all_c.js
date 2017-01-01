@@ -43,7 +43,7 @@ var searchData=
   ['mmm01',['MMM01',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da714c1eee4a55d24c88990dc8073b75d7',1,'gb::detail::MBC']]],
   ['mmm01_5fram',['MMM01_RAM',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da83e4da374d7633ab2aeccedd7060c63c',1,'gb::detail::MBC']]],
   ['mmm01_5fram_5fbat',['MMM01_RAM_BAT',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da190ea1a3117a72d4f98fe2a1f132d959',1,'gb::detail::MBC']]],
-  ['mmu',['MMU',['../classgb_1_1MMU.html#a94c1088b5a72648b01c1bcaebf7f0d41',1,'gb::MMU::MMU()'],['../classgb_1_1MMU.html#a69f990d4cb9049f5a65d726646120355',1,'gb::MMU::MMU(const MMU &amp;)=delete']]],
+  ['mmu',['MMU',['../classgb_1_1MMU.html#a9eb8bab4fe376b32a7b941464a269846',1,'gb::MMU::MMU(uint8_t *rom, uint32_t size)'],['../classgb_1_1MMU.html#a69f990d4cb9049f5a65d726646120355',1,'gb::MMU::MMU(const MMU &amp;)=delete']]],
   ['mmu',['MMU',['../classgb_1_1MMU.html',1,'gb']]],
   ['mmu_2eh',['mmu.h',['../mmu_8h.html',1,'']]],
   ['mode',['Mode',['../classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17',1,'gb::Link']]]
