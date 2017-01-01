@@ -75,8 +75,12 @@ namespace gb
 			cycle_count_(0),
 			interrupt_flags_(mmu_->get(memorymap::INTERRUPT_FLAG)),
 			interrupt_enable_(mmu_->get(memorymap::INTERRUPT_ENABLE)),
-			cgb_mode_(false)
+			cgb_enabled_(mmu->cgbEnabled())
 		{
+			if (cgb_enabled_)
+			{
+				af_.hi = 0x11;
+			}
 		}
 
 		void step()
@@ -2262,7 +2266,7 @@ namespace gb
 
 		void stop()
 		{
-			if (cgb_mode_)
+			if (cgb_enabled_)
 			{
 				// TODO: CGB support
 			}
@@ -2385,7 +2389,7 @@ namespace gb
 		uint8_t& interrupt_flags_;
 		uint8_t& interrupt_enable_;
 
-		bool cgb_mode_;
+		bool cgb_enabled_;
 	};
 
 	/* Public Interface */
