@@ -8,12 +8,13 @@ namespace gb
 {
 	namespace detail
 	{
-		MBC::MBC(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size) :
+		MBC::MBC(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable) :
 			xram_enable_(false),
 			rom_bank_(0),
 			ram_bank_(0),
 			num_rom_banks_(0),
-			num_ram_banks_(0)
+			num_ram_banks_(0),
+			cgb_enabled_(cgb_enable)
 		{
 			loadMemory(rom, size, rom_size, ram_size);
 		}
@@ -119,18 +120,28 @@ namespace gb
 				break;
 			case 0x8000:
 			case 0x9000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1));
+				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + getVramOffset();
 			case 0xA000:
 			case 0xB000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + (8 * KILO_BYTE * ram_bank_);
+				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + ((8 * KILO_BYTE) * (vram_banks_-1)) + (8 * KILO_BYTE * ram_bank_);
 			case 0xC000:
 			case 0xD000:
 			case 0xE000:
 			case 0xF000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + (8 * KILO_BYTE * (num_ram_banks_-1));
+				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + ((8 * KILO_BYTE) * (vram_banks_ - 1)) + (8 * KILO_BYTE * (num_ram_banks_-1));
 			}
 
 			return 0;
+		}
+
+		int MBC::getIoIndex(uint16_t addr) const
+		{
+			return (addr)+(16 * KILO_BYTE * (num_rom_banks_ - 1)) + ((8 * KILO_BYTE) * (vram_banks_ - 1)) + (8 * KILO_BYTE * (num_ram_banks_ - 1));
+		}
+
+		int MBC::getVramOffset() const
+		{
+			return (8 * KILO_BYTE) * (memory_[getIoIndex(memorymap::VBK)] & 0x01);
 		}
 
 		void MBC::loadMemory(uint8_t* rom, std::size_t size, uint8_t rom_size, uint8_t ram_size)
@@ -160,16 +171,18 @@ namespace gb
 
 			num_ram_banks_ = (static_cast<MBC::XRAM>(ram_size) == MBC::XRAM::KB32) ? 4 : 1;
 
+			vram_banks_ = (cgb_enabled_) ? 2 : 1;
+
 			// memory sizes
 			const auto rom0             = (16 * KILO_BYTE);
 			const auto rom_switchable   = (16 * KILO_BYTE) * num_rom_banks_;
-			const auto ram1             = (8 *  KILO_BYTE);
+			const auto vram             = (8 *  KILO_BYTE) * vram_banks_;
 			const auto ram_switchable1  = (8 *  KILO_BYTE) * num_ram_banks_;
 			const auto ram2             = (8 *  KILO_BYTE);
-			const auto ram_switchable2  = (8 *  KILO_BYTE) * 1; // CGB Only
+			const auto ram_switchable2  = (8 *  KILO_BYTE) * 1;
 			const auto ram3             = (8 *  KILO_BYTE);
 
-			const auto memory_size = rom0 + rom_switchable + ram1 + ram_switchable1 + ram2 + ram_switchable2 + ram3;
+			const auto memory_size = rom0 + rom_switchable + vram + ram_switchable1 + ram2 + ram_switchable2 + ram3;
 
 			memory_.resize(memory_size);
 

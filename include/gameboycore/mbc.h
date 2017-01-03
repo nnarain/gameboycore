@@ -87,7 +87,7 @@ namespace gb
 			using Ptr = std::unique_ptr<MBC>;
 
 		public:
-			MBC(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size);
+			MBC(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable = false);
 			virtual ~MBC();
 
 			virtual void write(uint8_t value, uint16_t addr);
@@ -127,6 +127,14 @@ namespace gb
 			int getIndex(uint16_t addr) const;
 
 			/**
+			*/
+			int getIoIndex(uint16_t addr) const;
+
+			/**
+			*/
+			int getVramOffset() const;
+
+			/**
 				Load memory
 			*/
 			void loadMemory(uint8_t* rom, std::size_t size, uint8_t rom_size, uint8_t ram_size);
@@ -135,6 +143,10 @@ namespace gb
 			int num_rom_banks_;
 			//! number of cartridge ram banks
 			int num_ram_banks_;
+			//! CGB enabled
+			bool cgb_enabled_;
+			//!
+			int vram_banks_;
 		};
 	}
 }

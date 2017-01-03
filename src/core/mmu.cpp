@@ -50,12 +50,12 @@ namespace gb
 			case detail::MBC::Type::MBC1:
 			case detail::MBC::Type::MBC1_RAM:
 			case detail::MBC::Type::MBC1_RAM_BAT:
-				mbc_.reset(new detail::MBC1(rom, size, header.rom_size, header.ram_size));
+				mbc_.reset(new detail::MBC1(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
 				break;
 
 			case detail::MBC::Type::MBC2:
 			case detail::MBC::Type::MBC2_BAT:
-				mbc_.reset(new detail::MBC2(rom, size, header.rom_size, header.ram_size));
+				mbc_.reset(new detail::MBC2(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
 				break;
 
 			case detail::MBC::Type::MBC3:
@@ -63,7 +63,7 @@ namespace gb
 			case detail::MBC::Type::MBC3_RAM_BAT:
 			case detail::MBC::Type::MBC3_TIME_BAT:
 			case detail::MBC::Type::MBC3_TIME_RAM_BAT:
-				mbc_.reset(new detail::MBC3(rom, size, header.rom_size, header.ram_size));
+				mbc_.reset(new detail::MBC3(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
 				break;
 
 				// TODO: MBC4
