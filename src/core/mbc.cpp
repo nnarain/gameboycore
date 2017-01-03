@@ -29,7 +29,7 @@ namespace gb
 			else
 			{
 				// get the memory index from the addr
-				auto idx = getIndex(addr);
+				auto idx = getIndex(addr, rom_bank_, ram_bank_);
 
 				// check if writing to external RAM
 				if (addr >= 0xA000 && addr <= 0xBFFF)
@@ -53,37 +53,37 @@ namespace gb
 				return 0xFF;
 			}
 
-			return memory_[getIndex(addr)];
+			return memory_[getIndex(addr, rom_bank_, ram_bank_)];
 		}
 
 		uint8_t& MBC::get(uint16_t addr)
 		{
-			return memory_[getIndex(addr)];
+			return memory_[getIndex(addr, rom_bank_, ram_bank_)];
 		}
 
 		uint8_t* MBC::getptr(uint16_t addr)
 		{
-			return &memory_[getIndex(addr)];
+			return &memory_[getIndex(addr, rom_bank_, ram_bank_)];
 		}
 
 		std::vector<uint8_t> MBC::getRange(uint16_t start, uint16_t end) const
 		{
-			auto start_idx = getIndex(start);
-			auto end_idx = getIndex(end);
+			auto start_idx = getIndex(start, rom_bank_, ram_bank_);
+			auto end_idx = getIndex(end, rom_bank_, ram_bank_);
 			return std::vector<uint8_t>(memory_.begin() + start_idx, memory_.begin() + end_idx);
 		}
 
 		void MBC::setMemory(uint16_t start, const std::vector<uint8_t>& mem)
 		{
 			// TODO: error checks
-			std::copy(mem.begin(), mem.end(), memory_.begin() + getIndex(start));
+			std::copy(mem.begin(), mem.end(), memory_.begin() + getIndex(start, rom_bank_, ram_bank_));
 		}
 
 		std::vector<uint8_t> MBC::getXram() const
 		{
 			// index the points around external RAM to capture all bank
-			auto start = getIndex(memorymap::EXTERNAL_RAM_START - 1) + 1;
-			auto end   = getIndex(memorymap::EXTERNAL_RAM_END + 1);
+			auto start = getIndex(memorymap::EXTERNAL_RAM_START, rom_bank_, 0);
+			auto end   = getIndex(memorymap::EXTERNAL_RAM_END, rom_bank_, num_ram_banks_ - 1);
 
 			return std::vector<uint8_t>(memory_.begin() + start, memory_.begin() + end);
 		}
@@ -103,7 +103,7 @@ namespace gb
 			return xram_enable_;
 		}
 
-		int MBC::getIndex(uint16_t addr) const
+		int MBC::getIndex(uint16_t addr, int rom_bank, int ram_bank) const
 		{
 			switch (addr & 0xF000)
 			{
@@ -116,14 +116,14 @@ namespace gb
 			case 0x5000:
 			case 0x6000:
 			case 0x7000:
-				return (addr) + ((16 * KILO_BYTE) * rom_bank_);
+				return (addr) + ((16 * KILO_BYTE) * rom_bank);
 				break;
 			case 0x8000:
 			case 0x9000:
 				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + getVramOffset();
 			case 0xA000:
 			case 0xB000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + ((8 * KILO_BYTE) * (vram_banks_-1)) + (8 * KILO_BYTE * ram_bank_);
+				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + ((8 * KILO_BYTE) * (vram_banks_-1)) + (8 * KILO_BYTE * ram_bank);
 			case 0xC000:
 			case 0xD000:
 			case 0xE000:

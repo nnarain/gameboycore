@@ -124,7 +124,7 @@ namespace gb
 			/**
 				\return index of address into virtual memory 
 			*/
-			int getIndex(uint16_t addr) const;
+			int getIndex(uint16_t addr, int rom_bank, int ram_bank) const;
 
 			/**
 			*/
