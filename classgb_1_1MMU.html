@@ -134,6 +134,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5ea9b6d85cdf37c8bfc03937873a376f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbe2b22e6dd24c31a03b1199db912ab9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#afbe2b22e6dd24c31a03b1199db912ab9">write</a> (uint16_t value, uint16_t addr)</td></tr>
 <tr class="separator:afbe2b22e6dd24c31a03b1199db912ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a367f858f48ef899689f6cff322181ed8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a367f858f48ef899689f6cff322181ed8">dma</a> (uint16_t dest, uint16_t src, uint16_t n)</td></tr>
+<tr class="separator:a367f858f48ef899689f6cff322181ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d5f7532aaf79568be29f923969d02d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a0d5f7532aaf79568be29f923969d02d0">addWriteHandler</a> (uint16_t addr, <a class="el" href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">MemoryWriteHandler</a> handler)</td></tr>
 <tr class="separator:a0d5f7532aaf79568be29f923969d02d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1fff6531352087b032b4b76021608d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#af1fff6531352087b032b4b76021608d6">addReadHandler</a> (uint16_t addr, <a class="el" href="classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3">MemoryReadHandler</a> handler)</td></tr>
@@ -342,6 +344,39 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a367f858f48ef899689f6cff322181ed8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gb::MMU::dma </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>tranfer <code>n</code> bytes from <code>src</code> to <code>dest</code> </p>
+
+</div>
+</div>
 <a class="anchor" id="a60ef490bb2b6ed74fdbf98a4f9b57ade"></a>
 <div class="memitem">
 <div class="memproto">
@@ -530,7 +565,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 1 2017 02:46:43 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 3 2017 02:45:01 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
