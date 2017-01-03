@@ -139,6 +139,13 @@ namespace gb{
 
 			DMA_REGISTER            = 0xFF46,
 
+			HDMA1                   = 0xFF51, ///< New D<A Source High
+			HDMA2                   = 0xFF52, ///< New DMA Source Low
+			HDMA3                   = 0xFF53, ///< New DMA Destination High
+			HDMA4                   = 0xFF54, ///< New DMA Destination Low
+			HDMA5                   = 0xFF55, ///< New DMA Length/Mode/Start
+
+
 			BGPI                    = 0xFF68,
 			BGPD                    = 0xFF69,
 

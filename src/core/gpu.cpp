@@ -38,12 +38,15 @@ namespace gb
 			line_(0),
 			lcdc_(mmu->get(memorymap::LCDC_REGISTER)),
 			stat_(mmu->get(memorymap::LCD_STAT_REGISTER)),
+			hdma5_(mmu->get(memorymap::HDMA5)),
 			vblank_provider_(*mmu.get(), InterruptProvider::Interrupt::VBLANK),
 			stat_provider_(*mmu.get(), InterruptProvider::Interrupt::LCDSTAT),
 			tilemap_(*mmu.get()),
-			cgb_enabled_(mmu->cgbEnabled())
+			cgb_enabled_(mmu->cgbEnabled()),
+			hdma_transfer_start_(false)
 		{
-			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::configure, this, std::placeholders::_1, std::placeholders::_2));
+			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::lcdcWriteHandler, this, std::placeholders::_1, std::placeholders::_2));
+			mmu->addWriteHandler(memorymap::HDMA5, std::bind(&Impl::hdma5WriteHandler, this, std::placeholders::_1, std::placeholders::_2));
 		}
 
 		void update(uint8_t cycles, bool ime)
@@ -130,7 +133,6 @@ namespace gb
 		{
 			Scanline scanline;
 			std::array<uint8_t, 160> color_line;
-		//	detail::TileMap tilemap(*mmu_.get());
 
 			auto background_palette = Palette::get(mmu_->read(memorymap::BGP_REGISTER));
 
@@ -189,7 +191,7 @@ namespace gb
 			mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
 		}
 
-		void configure(uint8_t value, uint16_t addr)
+		void lcdcWriteHandler(uint8_t value, uint16_t addr)
 		{
 			bool enable = (value & memorymap::LCDC::ENABLE) != 0;
 
@@ -200,6 +202,24 @@ namespace gb
 			}
 
 			lcdc_ = value;
+		}
+
+		void hdma5WriteHandler(uint8_t value, uint16_t addr)
+		{
+			if (IS_BIT_CLR(value, 7))
+			{
+				uint16_t src = WORD(mmu_->read(memorymap::HDMA1), mmu_->read(memorymap::HDMA2));
+				uint16_t dest = WORD(mmu_->read(memorymap::HDMA3), mmu_->read(memorymap::HDMA4));
+				uint16_t length = ((value & 0x7F) + 1) * 0x10;
+
+				mmu_->dma(dest, src, length);
+			}
+			else
+			{
+				hdma_transfer_start_ = true;
+			}
+
+			hdma5_ = value;
 		}
 
 		void compareLyToLyc(bool ime)
@@ -227,8 +247,6 @@ namespace gb
 
 		void checkStatInterrupts(bool ime)
 		{
-		//	InterruptProvider stat_provider{ *mmu_.get(), InterruptProvider::Interrupt::LCDSTAT };
-
 			// check mode selection interrupts
 			uint8_t mask = (1 << (3 + static_cast<uint8_t>(mode_)));
 
@@ -247,6 +265,7 @@ namespace gb
 		int line_;
 		uint8_t& lcdc_;
 		uint8_t& stat_;
+		uint8_t& hdma5_;
 
 		InterruptProvider vblank_provider_;
 		InterruptProvider stat_provider_;
@@ -256,6 +275,7 @@ namespace gb
 		RenderScanlineCallback render_scanline_;
 
 		bool cgb_enabled_;
+		bool hdma_transfer_start_;
 	};
 
 	/* Public Implementation */

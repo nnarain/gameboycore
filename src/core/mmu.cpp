@@ -128,6 +128,14 @@ namespace gb
 			write(hi, addr + 1);
 		}
 
+		void dma(uint16_t dest, uint16_t src, uint16_t n)
+		{
+			while (n--)
+			{
+				write(read(src++), dest++);
+			}
+		}
+
 		void oamTransfer(uint8_t base)
 		{
 			// increments of $100 bytes
@@ -228,6 +236,11 @@ namespace gb
 	void MMU::write(uint16_t value, uint16_t addr)
 	{
 		impl_->write(value, addr);
+	}
+
+	void MMU::dma(uint16_t dest, uint16_t src, uint16_t n)
+	{
+		impl_->dma(dest, src, n);
 	}
 
 	void MMU::addWriteHandler(uint16_t addr, MemoryWriteHandler handler)

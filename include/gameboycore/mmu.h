@@ -50,6 +50,11 @@ namespace gb
 		void write(uint16_t value, uint16_t addr);
 
 		/**
+			tranfer `n` bytes from `src` to `dest`
+		*/
+		void dma(uint16_t dest, uint16_t src, uint16_t n);
+
+		/**
 			Add a IO write handler
 
 			\param addr IO address
