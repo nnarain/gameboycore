@@ -18,8 +18,6 @@
 #	error "Either __BIGENDIAN__ or __LITTLEENDIAN__ must be defined"
 #endif
 
-#define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
-
 namespace gb
 {
 	/* Private Interface */
