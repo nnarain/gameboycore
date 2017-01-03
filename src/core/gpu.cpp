@@ -158,7 +158,7 @@ namespace gb
 
 				if (window_enabled && line_ >= (int)wy && (int)pixel_idx >= (wx - 7))
 					color = window[pixel_idx];
-				else if (background_enabled)
+				else if (background_enabled || cgb_enabled_)
 					color = background[pixel_idx];
 				else
 					color = 0;
