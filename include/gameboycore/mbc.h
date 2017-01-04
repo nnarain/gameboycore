@@ -93,6 +93,8 @@ namespace gb
 			virtual void write(uint8_t value, uint16_t addr);
 			virtual uint8_t read(uint16_t addr) const;
 
+			uint8_t readVram(uint16_t addr, uint8_t bank);
+
 			uint8_t& get(uint16_t addr);
 			uint8_t* getptr(uint16_t addr);
 

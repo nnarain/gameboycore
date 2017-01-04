@@ -128,6 +128,11 @@ namespace gb
 			write(hi, addr + 1);
 		}
 
+		uint8_t readVram(uint16_t addr, uint8_t bank)
+		{
+			return (cgb_enabled_ || bank == 0) ? mbc_->readVram(addr, bank) : 0;
+		}
+
 		void dma(uint16_t dest, uint16_t src, uint16_t n)
 		{
 			while (n--)
@@ -236,6 +241,11 @@ namespace gb
 	void MMU::write(uint16_t value, uint16_t addr)
 	{
 		impl_->write(value, addr);
+	}
+
+	uint8_t MMU::readVram(uint16_t addr, uint8_t bank)
+	{
+		return impl_->readVram(addr, bank);
 	}
 
 	void MMU::dma(uint16_t dest, uint16_t src, uint16_t n)

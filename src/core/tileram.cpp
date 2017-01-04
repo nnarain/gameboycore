@@ -44,8 +44,8 @@ namespace gb
 				: getTileAddress<int8_t>(0x9000, tilenum);
 
 			auto row_offset = row * 2;
-			auto lsb = mmu_.read(addr + row_offset);
-			auto msb = mmu_.read(addr + row_offset + 1);
+			auto lsb = mmu_.readVram(addr + row_offset, character_bank);
+			auto msb = mmu_.readVram(addr + row_offset + 1, character_bank);
 
 			auto idx = 0;
 			for (auto bit = (int)(tile_row.size() - 1); bit >= 0; --bit)

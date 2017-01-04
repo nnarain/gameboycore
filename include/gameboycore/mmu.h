@@ -50,6 +50,10 @@ namespace gb
 		void write(uint16_t value, uint16_t addr);
 
 		/**
+		*/
+		uint8_t readVram(uint16_t addr, uint8_t bank);
+
+		/**
 			tranfer `n` bytes from `src` to `dest`
 		*/
 		void dma(uint16_t dest, uint16_t src, uint16_t n);

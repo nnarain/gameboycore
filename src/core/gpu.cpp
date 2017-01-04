@@ -148,7 +148,7 @@ namespace gb
 			const auto sprites_enabled    = IS_SET(lcdc, memorymap::LCDC::OBJ_ON)        != 0;
 
 			// get background tile line
-			const auto background = tilemap_.getBackground(line_);
+			const auto background = tilemap_.getBackground(line_, cgb_enabled_);
 
 			// get window overlay tile line
 			const auto window = tilemap_.getWindowOverlay(line_);
@@ -158,17 +158,28 @@ namespace gb
 			// compute a scan line
 			for (auto pixel_idx = 0u; pixel_idx < scanline.size(); ++pixel_idx)
 			{
-				auto color = 0u;
+				auto tileinfo = 0u;
 
 				if (window_enabled && line_ >= (int)wy && (int)pixel_idx >= (wx - 7))
-					color = window[pixel_idx];
+					tileinfo = window[pixel_idx];
 				else if (background_enabled || cgb_enabled_)
-					color = background[pixel_idx];
+					tileinfo = background[pixel_idx];
 				else
-					color = 0;
+					tileinfo = 0;
 
-				color_line[pixel_idx] = color;
-				scanline[pixel_idx] = background_palette[color];
+				auto color_number = tileinfo & 0x03;
+				auto color_palette = (tileinfo >> 2) & 0x07;
+
+				color_line[pixel_idx] = color_number;
+
+				if (cgb_enabled_)
+				{
+					scanline[pixel_idx] = cgb_background_palettes_[color_palette][color_number];
+				}
+				else
+				{
+					scanline[pixel_idx] = background_palette[color_number];
+				}
 			}
 
 			if (sprites_enabled)

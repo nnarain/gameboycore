@@ -40,7 +40,7 @@ namespace gb
 			TileMap(MMU& mmu);
 			~TileMap();
 
-			Line getBackground(int line);
+			Line getBackground(int line, bool cgb_enable);
 			Line getWindowOverlay(int line);
 
 			void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line, bool cgb_enable, std::array<std::array<gb::Pixel,4>,8>& cgb_palette);

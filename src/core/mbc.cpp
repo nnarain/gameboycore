@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <cassert>
 
 namespace gb
 {
@@ -54,6 +55,12 @@ namespace gb
 			}
 
 			return memory_[getIndex(addr, rom_bank_, ram_bank_)];
+		}
+
+		uint8_t MBC::readVram(uint16_t addr, uint8_t bank)
+		{
+			auto index = (addr) + (16 * KILO_BYTE * (num_rom_banks_ - 1)) + ((8 * KILO_BYTE) * bank);
+			return memory_[index];
 		}
 
 		uint8_t& MBC::get(uint16_t addr)
