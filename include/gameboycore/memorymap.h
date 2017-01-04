@@ -150,6 +150,8 @@ namespace gb{
 
 			BGPI                    = 0xFF68, ///< Background Palette Index
 			BGPD                    = 0xFF69, ///< Background Palette Data
+			OBPI                    = 0xFF6A, ///< Object Palette Index
+			OBPD                    = 0xFF6B, ///< Object Palette Data
 
 			HIGH_RAM_START          = 0xFF80,
 			HIGH_RAM_END            = 0xFFFE,

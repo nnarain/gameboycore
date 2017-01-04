@@ -31,6 +31,8 @@ namespace gb
 			LCD
 		};
 
+		using CgbPalette = std::array<std::array<gb::Pixel, 4>, 8>;
+
 		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
 			mode_(Mode::OAM),
@@ -46,7 +48,8 @@ namespace gb
 			hdma_transfer_start_(false)
 		{
 			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::lcdcWriteHandler, this, std::placeholders::_1, std::placeholders::_2));
-			mmu->addWriteHandler(memorymap::BGPD, std::bind(&Impl::bgpdWriteHandler, this, std::placeholders::_1, std::placeholders::_2));
+			mmu->addWriteHandler(memorymap::BGPD, std::bind(&Impl::paletteWriteHandler, this, std::placeholders::_1, std::placeholders::_2));
+			mmu->addWriteHandler(memorymap::OBPD, std::bind(&Impl::paletteWriteHandler, this, std::placeholders::_1, std::placeholders::_2));
 			mmu->addWriteHandler(memorymap::HDMA5, std::bind(&Impl::hdma5WriteHandler, this, std::placeholders::_1, std::placeholders::_2));
 		}
 
@@ -205,21 +208,33 @@ namespace gb
 			lcdc_ = value;
 		}
 
-		void bgpdWriteHandler(uint8_t value, uint16_t addr)
+		void paletteWriteHandler(uint8_t value, uint16_t addr)
+		{
+			if (addr == memorymap::BGPD)
+			{
+				setPalette(cgb_background_palettes_, value, memorymap::BGPI);
+			}
+			else if(addr == memorymap::OBPD)
+			{
+				setPalette(cgb_sprite_palette_, value, memorymap::OBPI);
+			}
+		}
+
+		void setPalette(CgbPalette& palettes, uint8_t value, uint16_t index_reg)
 		{
 			// get the background palette index
-			auto bgpi = mmu_->read(memorymap::BGPI);
+			auto index = mmu_->read(index_reg);
 
 			// extract high byte, color index and palette index info from background palette index
-			auto hi          = bgpi & 0x01;
-			auto color_idx   = (bgpi >> 1) & 0x03;
-			auto palette_idx = (bgpi >> 3) & 0x07;
+			auto hi = index & 0x01;
+			auto color_idx = (index >> 1) & 0x03;
+			auto palette_idx = (index >> 3) & 0x07;
 
 			// RGB value break down
 			// MSB: | xBBBBBGG |
 			// LBS: | GGGRRRRR |
 
-			auto& palette_color = cgb_palettes_[palette_idx][color_idx];
+			auto& palette_color = palettes[palette_idx][color_idx];
 
 			if (hi)
 			{
@@ -235,7 +250,7 @@ namespace gb
 			// auto increment index if increment flag is set
 			if (IS_BIT_SET(value, 7))
 			{
-				mmu_->write(bgpi++, memorymap::BGPI);
+				mmu_->write(index++, index_reg);
 			}
 		}
 
@@ -312,7 +327,8 @@ namespace gb
 		bool cgb_enabled_;
 		bool hdma_transfer_start_;
 
-		std::array<std::array<gb::Pixel, 4>, 8> cgb_palettes_;
+		CgbPalette cgb_background_palettes_;
+		CgbPalette cgb_sprite_palette_;
 	};
 
 	/* Public Implementation */
