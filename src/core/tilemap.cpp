@@ -93,7 +93,12 @@ namespace gb
 			return tileline;
 		}
 
-		void TileMap::drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line)
+		void TileMap::drawSprites(
+			std::array<Pixel, 160>& scanline,
+			std::array<uint8_t, 160>& color_line,
+			int line,
+			bool cgb_enable,
+			std::array<std::array<gb::Pixel, 4>, 8>& cgb_palette)
 		{
 			OAM oam{ mmu_ };
 
@@ -134,7 +139,17 @@ namespace gb
 						std::reverse(pixel_row.begin(), pixel_row.end());
 
 					// get color palette for this sprite
-					const auto& palette = (sprite.paletteOBP0() == 0) ? palette0 : palette1;
+
+					std::array<gb::Pixel, 4> palette;
+
+					if (cgb_enable)
+					{
+						palette = cgb_palette[sprite.getCgbPalette()];
+					}
+					else
+					{
+						palette = (sprite.paletteOBP0() == 0) ? palette0 : palette1;
+					}
 
 					for (auto i = 0; i < 8; ++i)
 					{

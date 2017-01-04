@@ -21,7 +21,7 @@ namespace gb
 	namespace detail
 	{
 		/**
-		\brief Class that knows how to render background map data
+			\brief Class that knows how to render background map data
 		*/
 		class TileMap
 		{
@@ -43,7 +43,7 @@ namespace gb
 			Line getBackground(int line);
 			Line getWindowOverlay(int line);
 
-			void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line);
+			void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line, bool cgb_enable, std::array<std::array<gb::Pixel,4>,8>& cgb_palette);
 
 			std::vector<Sprite> getSpriteCache() const;
 			std::vector<uint8_t> getTileMap(Map map) const;

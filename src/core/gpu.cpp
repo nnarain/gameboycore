@@ -172,7 +172,7 @@ namespace gb
 			}
 
 			if (sprites_enabled)
-				tilemap_.drawSprites(scanline, color_line, line_);
+				tilemap_.drawSprites(scanline, color_line, line_, cgb_enabled_, cgb_sprite_palette_);
 
 			// send scan line to the renderer
 			if (render_scanline_ && line_ < VBLANK_LINE)
