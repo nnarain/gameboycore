@@ -52,7 +52,7 @@ namespace gb
 			uint16_t getAddress(Map map) const;
 
 		private:
-			TileRAM tileram_;
+			detail::TileRAM tileram_;
 			MMU& mmu_;
 			uint8_t& scx_;
 			uint8_t& scy_;
