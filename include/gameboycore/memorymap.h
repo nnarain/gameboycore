@@ -148,8 +148,8 @@ namespace gb{
 			HDMA5                   = 0xFF55, ///< New DMA Length/Mode/Start
 
 
-			BGPI                    = 0xFF68,
-			BGPD                    = 0xFF69,
+			BGPI                    = 0xFF68, ///< Background Palette Index
+			BGPD                    = 0xFF69, ///< Background Palette Data
 
 			HIGH_RAM_START          = 0xFF80,
 			HIGH_RAM_END            = 0xFFFE,

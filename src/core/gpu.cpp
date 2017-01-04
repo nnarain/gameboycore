@@ -46,6 +46,7 @@ namespace gb
 			hdma_transfer_start_(false)
 		{
 			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::lcdcWriteHandler, this, std::placeholders::_1, std::placeholders::_2));
+			mmu->addWriteHandler(memorymap::BGPD, std::bind(&Impl::bgpdWriteHandler, this, std::placeholders::_1, std::placeholders::_2));
 			mmu->addWriteHandler(memorymap::HDMA5, std::bind(&Impl::hdma5WriteHandler, this, std::placeholders::_1, std::placeholders::_2));
 		}
 
@@ -204,6 +205,40 @@ namespace gb
 			lcdc_ = value;
 		}
 
+		void bgpdWriteHandler(uint8_t value, uint16_t addr)
+		{
+			// get the background palette index
+			auto bgpi = mmu_->read(memorymap::BGPI);
+
+			// extract high byte, color index and palette index info from background palette index
+			auto hi          = bgpi & 0x01;
+			auto color_idx   = (bgpi >> 1) & 0x03;
+			auto palette_idx = (bgpi >> 3) & 0x07;
+
+			// RGB value break down
+			// MSB: | xBBBBBGG |
+			// LBS: | GGGRRRRR |
+
+			auto& palette_color = cgb_palettes_[palette_idx][color_idx];
+
+			if (hi)
+			{
+				palette_color.b = (value >> 2) & 0x1F;
+				palette_color.g |= ((value & 0x03) << 3);
+			}
+			else
+			{
+				palette_color.g = ((value & 0xE0) >> 5);
+				palette_color.r = (value & 0x1F);
+			}
+
+			// auto increment index if increment flag is set
+			if (IS_BIT_SET(value, 7))
+			{
+				mmu_->write(bgpi++, memorymap::BGPI);
+			}
+		}
+
 		void hdma5WriteHandler(uint8_t value, uint16_t addr)
 		{
 			if (IS_BIT_CLR(value, 7))
@@ -276,6 +311,8 @@ namespace gb
 
 		bool cgb_enabled_;
 		bool hdma_transfer_start_;
+
+		std::array<std::array<gb::Pixel, 4>, 8> cgb_palettes_;
 	};
 
 	/* Public Implementation */
