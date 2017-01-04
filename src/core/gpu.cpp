@@ -223,7 +223,7 @@ namespace gb
 		void setPalette(CgbPalette& palettes, uint8_t value, uint16_t index_reg)
 		{
 			// get the background palette index
-			auto index = mmu_->read(index_reg);
+			const auto index = mmu_->read(index_reg);
 
 			// extract high byte, color index and palette index info from background palette index
 			auto hi = index & 0x01;
@@ -240,6 +240,8 @@ namespace gb
 			{
 				palette_color.b = (value >> 2) & 0x1F;
 				palette_color.g |= ((value & 0x03) << 3);
+
+				palette_color = translateRGB(palette_color);
 			}
 			else
 			{
@@ -248,10 +250,28 @@ namespace gb
 			}
 
 			// auto increment index if increment flag is set
-			if (IS_BIT_SET(value, 7))
+			if (IS_BIT_SET(index, 7))
 			{
-				mmu_->write(index++, index_reg);
+				mmu_->write((uint8_t)(index + 1), index_reg);
 			}
+		}
+
+		Pixel translateRGB(const Pixel& pixel)
+		{
+			Pixel out;
+			out.r = scale(pixel.r);
+			out.g = scale(pixel.g);
+			out.b = scale(pixel.b);
+
+			return out;
+		}
+
+		uint8_t scale(uint8_t v)
+		{
+			auto old_range = (0x1F - 0x00);
+			auto new_range = (0xFF - 0x00);
+
+			return ((v * new_range) / old_range);
 		}
 
 		void hdma5WriteHandler(uint8_t value, uint16_t addr)
