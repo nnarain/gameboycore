@@ -5,8 +5,8 @@ namespace gb
 {
 	namespace detail
 	{
-		MBC3::MBC3(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size) :
-			MBC(rom, size, rom_size, ram_size)
+		MBC3::MBC3(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable) :
+			MBC(rom, size, rom_size, ram_size, cgb_enable)
 		{
 		}
 

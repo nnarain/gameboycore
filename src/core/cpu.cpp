@@ -75,10 +75,6 @@ namespace gb
 			interrupt_enable_(mmu_->get(memorymap::INTERRUPT_ENABLE)),
 			cgb_enabled_(mmu->cgbEnabled())
 		{
-			if (cgb_enabled_)
-			{
-				af_.hi = 0x11;
-			}
 		}
 
 		void step()
@@ -2296,7 +2292,9 @@ namespace gb
 
 		void reset()
 		{
-			af_.val = 0;
+			af_.hi = (cgb_enabled_) ? 0x11 : 0x00;
+			af_.lo = 0;
+
 			bc_.val = 0;
 			de_.val = 0;
 			hl_.val = 0;

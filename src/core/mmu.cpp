@@ -50,12 +50,12 @@ namespace gb
 			case detail::MBC::Type::MBC1:
 			case detail::MBC::Type::MBC1_RAM:
 			case detail::MBC::Type::MBC1_RAM_BAT:
-				mbc_.reset(new detail::MBC1(rom, size, header.rom_size, header.ram_size));
+				mbc_.reset(new detail::MBC1(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
 				break;
 
 			case detail::MBC::Type::MBC2:
 			case detail::MBC::Type::MBC2_BAT:
-				mbc_.reset(new detail::MBC2(rom, size, header.rom_size, header.ram_size));
+				mbc_.reset(new detail::MBC2(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
 				break;
 
 			case detail::MBC::Type::MBC3:
@@ -63,7 +63,7 @@ namespace gb
 			case detail::MBC::Type::MBC3_RAM_BAT:
 			case detail::MBC::Type::MBC3_TIME_BAT:
 			case detail::MBC::Type::MBC3_TIME_RAM_BAT:
-				mbc_.reset(new detail::MBC3(rom, size, header.rom_size, header.ram_size));
+				mbc_.reset(new detail::MBC3(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
 				break;
 
 				// TODO: MBC4
@@ -126,6 +126,11 @@ namespace gb
 
 			write(lo, addr + 0);
 			write(hi, addr + 1);
+		}
+
+		uint8_t readVram(uint16_t addr, uint8_t bank)
+		{
+			return (cgb_enabled_ || bank == 0) ? mbc_->readVram(addr, bank) : 0;
 		}
 
 		void dma(uint16_t dest, uint16_t src, uint16_t n)
@@ -236,6 +241,11 @@ namespace gb
 	void MMU::write(uint16_t value, uint16_t addr)
 	{
 		impl_->write(value, addr);
+	}
+
+	uint8_t MMU::readVram(uint16_t addr, uint8_t bank)
+	{
+		return impl_->readVram(addr, bank);
 	}
 
 	void MMU::dma(uint16_t dest, uint16_t src, uint16_t n)

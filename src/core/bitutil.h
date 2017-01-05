@@ -31,6 +31,9 @@
 //!
 #define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
 
+//! Get bit
+#define GET_BIT(x, n) (!!((x) & BV(n)))
+
 //!
 #define FORCE(port, mask, value) ( (port) = ( (port) & (~(mask))) | ( (value) & (mask) ) )
 //!

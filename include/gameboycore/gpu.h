@@ -3,6 +3,8 @@
 	\brief GPU emulation
 	\author Natesh Narain <nnaraindev@gmail.com>
 	\date Oct 23 2016
+
+	\defgroup Graphics
 */
 
 #ifndef GAMEBOYCORE_GPU_H
@@ -25,6 +27,7 @@ namespace gb
 		\class GPU
 		\brief Handle LCD state, compute scanlines and send to an external renderer
 		\ingroup API
+		\ingroup Graphics
 	*/
 	class GAMEBOYCORE_API GPU
 	{

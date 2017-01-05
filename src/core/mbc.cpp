@@ -3,17 +3,19 @@
 
 #include <algorithm>
 #include <cstring>
+#include <cassert>
 
 namespace gb
 {
 	namespace detail
 	{
-		MBC::MBC(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size) :
+		MBC::MBC(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable) :
 			xram_enable_(false),
 			rom_bank_(0),
 			ram_bank_(0),
 			num_rom_banks_(0),
-			num_ram_banks_(0)
+			num_ram_banks_(0),
+			cgb_enabled_(cgb_enable)
 		{
 			loadMemory(rom, size, rom_size, ram_size);
 		}
@@ -28,7 +30,7 @@ namespace gb
 			else
 			{
 				// get the memory index from the addr
-				auto idx = getIndex(addr);
+				auto idx = getIndex(addr, rom_bank_, ram_bank_);
 
 				// check if writing to external RAM
 				if (addr >= 0xA000 && addr <= 0xBFFF)
@@ -52,37 +54,43 @@ namespace gb
 				return 0xFF;
 			}
 
-			return memory_[getIndex(addr)];
+			return memory_[getIndex(addr, rom_bank_, ram_bank_)];
+		}
+
+		uint8_t MBC::readVram(uint16_t addr, uint8_t bank)
+		{
+			auto index = (addr) + (16 * KILO_BYTE * (num_rom_banks_ - 1)) + ((8 * KILO_BYTE) * bank);
+			return memory_[index];
 		}
 
 		uint8_t& MBC::get(uint16_t addr)
 		{
-			return memory_[getIndex(addr)];
+			return memory_[getIndex(addr, rom_bank_, ram_bank_)];
 		}
 
 		uint8_t* MBC::getptr(uint16_t addr)
 		{
-			return &memory_[getIndex(addr)];
+			return &memory_[getIndex(addr, rom_bank_, ram_bank_)];
 		}
 
 		std::vector<uint8_t> MBC::getRange(uint16_t start, uint16_t end) const
 		{
-			auto start_idx = getIndex(start);
-			auto end_idx = getIndex(end);
+			auto start_idx = getIndex(start, rom_bank_, ram_bank_);
+			auto end_idx = getIndex(end, rom_bank_, ram_bank_);
 			return std::vector<uint8_t>(memory_.begin() + start_idx, memory_.begin() + end_idx);
 		}
 
 		void MBC::setMemory(uint16_t start, const std::vector<uint8_t>& mem)
 		{
 			// TODO: error checks
-			std::copy(mem.begin(), mem.end(), memory_.begin() + getIndex(start));
+			std::copy(mem.begin(), mem.end(), memory_.begin() + getIndex(start, rom_bank_, ram_bank_));
 		}
 
 		std::vector<uint8_t> MBC::getXram() const
 		{
 			// index the points around external RAM to capture all bank
-			auto start = getIndex(memorymap::EXTERNAL_RAM_START - 1) + 1;
-			auto end   = getIndex(memorymap::EXTERNAL_RAM_END + 1);
+			auto start = getIndex(memorymap::EXTERNAL_RAM_START, rom_bank_, 0);
+			auto end   = getIndex(memorymap::EXTERNAL_RAM_END, rom_bank_, num_ram_banks_ - 1);
 
 			return std::vector<uint8_t>(memory_.begin() + start, memory_.begin() + end);
 		}
@@ -102,7 +110,7 @@ namespace gb
 			return xram_enable_;
 		}
 
-		int MBC::getIndex(uint16_t addr) const
+		int MBC::getIndex(uint16_t addr, int rom_bank, int ram_bank) const
 		{
 			switch (addr & 0xF000)
 			{
@@ -115,22 +123,32 @@ namespace gb
 			case 0x5000:
 			case 0x6000:
 			case 0x7000:
-				return (addr) + ((16 * KILO_BYTE) * rom_bank_);
+				return (addr) + ((16 * KILO_BYTE) * rom_bank);
 				break;
 			case 0x8000:
 			case 0x9000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1));
+				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + getVramOffset();
 			case 0xA000:
 			case 0xB000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + (8 * KILO_BYTE * ram_bank_);
+				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + ((8 * KILO_BYTE) * (vram_banks_-1)) + (8 * KILO_BYTE * ram_bank);
 			case 0xC000:
 			case 0xD000:
 			case 0xE000:
 			case 0xF000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + (8 * KILO_BYTE * (num_ram_banks_-1));
+				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + ((8 * KILO_BYTE) * (vram_banks_ - 1)) + (8 * KILO_BYTE * (num_ram_banks_-1));
 			}
 
 			return 0;
+		}
+
+		int MBC::getIoIndex(uint16_t addr) const
+		{
+			return (addr)+(16 * KILO_BYTE * (num_rom_banks_ - 1)) + ((8 * KILO_BYTE) * (vram_banks_ - 1)) + (8 * KILO_BYTE * (num_ram_banks_ - 1));
+		}
+
+		int MBC::getVramOffset() const
+		{
+			return (8 * KILO_BYTE) * (memory_[getIoIndex(memorymap::VBK)] & 0x01);
 		}
 
 		void MBC::loadMemory(uint8_t* rom, std::size_t size, uint8_t rom_size, uint8_t ram_size)
@@ -160,16 +178,18 @@ namespace gb
 
 			num_ram_banks_ = (static_cast<MBC::XRAM>(ram_size) == MBC::XRAM::KB32) ? 4 : 1;
 
+			vram_banks_ = (cgb_enabled_) ? 2 : 1;
+
 			// memory sizes
 			const auto rom0             = (16 * KILO_BYTE);
 			const auto rom_switchable   = (16 * KILO_BYTE) * num_rom_banks_;
-			const auto ram1             = (8 *  KILO_BYTE);
+			const auto vram             = (8 *  KILO_BYTE) * vram_banks_;
 			const auto ram_switchable1  = (8 *  KILO_BYTE) * num_ram_banks_;
 			const auto ram2             = (8 *  KILO_BYTE);
-			const auto ram_switchable2  = (8 *  KILO_BYTE) * 1; // CGB Only
+			const auto ram_switchable2  = (8 *  KILO_BYTE) * 1;
 			const auto ram3             = (8 *  KILO_BYTE);
 
-			const auto memory_size = rom0 + rom_switchable + ram1 + ram_switchable1 + ram2 + ram_switchable2 + ram3;
+			const auto memory_size = rom0 + rom_switchable + vram + ram_switchable1 + ram2 + ram_switchable2 + ram3;
 
 			memory_.resize(memory_size);
 

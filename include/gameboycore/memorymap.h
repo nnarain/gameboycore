@@ -118,26 +118,28 @@ namespace gb{
 			NR51_REGISTER = 0xFF25, // Output terminal selection
 			NR52_REGISTER = 0xFF26, // Sound On/Off
 
-			WAVE_PATTERN_RAM_START = 0xFF30,
-			WAVE_PATTERN_RAM_END   = 0xFF3F,
+			WAVE_PATTERN_RAM_START  = 0xFF30,
+			WAVE_PATTERN_RAM_END    = 0xFF3F,
 
-			LCDC_REGISTER     = 0xFF40,
-			LCD_STAT_REGISTER = 0xFF41,
-			SCY_REGISTER      = 0xFF42,
-			SCX_REGISTER      = 0xFF43,
-			LY_REGISTER       = 0xFF44,
-			LYC_REGISTER      = 0xFF45,
+			LCDC_REGISTER           = 0xFF40,
+			LCD_STAT_REGISTER       = 0xFF41,
+			SCY_REGISTER            = 0xFF42,
+			SCX_REGISTER            = 0xFF43,
+			LY_REGISTER             = 0xFF44,
+			LYC_REGISTER            = 0xFF45,
 
-			BGP_REGISTER = 0xFF47,
-			OBP0_REGISTER = 0xFF48,
-			OBP1_REGISTER = 0xFF49,
+			BGP_REGISTER            = 0xFF47,
+			OBP0_REGISTER           = 0xFF48,
+			OBP1_REGISTER           = 0xFF49,
 
-			WY_REGISTER = 0xFF4A,
-			WX_REGISTER = 0xFF4B,
+			WY_REGISTER             = 0xFF4A,
+			WX_REGISTER             = 0xFF4B,
 
 			KEY1_REGISER            = 0xFF4D,
 
 			DMA_REGISTER            = 0xFF46,
+
+			VBK                     = 0xFF4F, ///< VRAM Bank Selection
 
 			HDMA1                   = 0xFF51, ///< New D<A Source High
 			HDMA2                   = 0xFF52, ///< New DMA Source Low
@@ -146,8 +148,10 @@ namespace gb{
 			HDMA5                   = 0xFF55, ///< New DMA Length/Mode/Start
 
 
-			BGPI                    = 0xFF68,
-			BGPD                    = 0xFF69,
+			BGPI                    = 0xFF68, ///< Background Palette Index
+			BGPD                    = 0xFF69, ///< Background Palette Data
+			OBPI                    = 0xFF6A, ///< Object Palette Index
+			OBPD                    = 0xFF6B, ///< Object Palette Data
 
 			HIGH_RAM_START          = 0xFF80,
 			HIGH_RAM_END            = 0xFFFE,
