@@ -16,6 +16,7 @@ var searchData=
   ['_7emmu',['~MMU',['../classgb_1_1MMU.html#a9952e323b30847a933d6e492393fac64',1,'gb::MMU']]],
   ['_7enoise',['~Noise',['../classgb_1_1detail_1_1Noise.html#a5e7d1c44e3b7fef7fd1a7360e6ce8376',1,'gb::detail::Noise']]],
   ['_7eoam',['~OAM',['../classgb_1_1OAM.html#a515757e62e4e3f2ec0dc20775964b1ee',1,'gb::OAM']]],
+  ['_7ertc',['~RTC',['../classgb_1_1detail_1_1RTC.html#a54b1f18fed7c53105e5cd4e57e3c18cc',1,'gb::detail::RTC']]],
   ['_7esquare',['~Square',['../classgb_1_1detail_1_1Square.html#adcabdcbc5ef6a690744dee161b8acac9',1,'gb::detail::Square']]],
   ['_7etilemap',['~TileMap',['../classgb_1_1detail_1_1TileMap.html#abdfbbbfd607d51a26577a27b888e5a15',1,'gb::detail::TileMap']]],
   ['_7etileram',['~TileRAM',['../classgb_1_1TileRAM.html#a360d53406426fba8b80cb4fdcb00d4b5',1,'gb::TileRAM']]],

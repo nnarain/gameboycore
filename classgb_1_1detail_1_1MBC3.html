@@ -114,6 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a59f94302898851960588c4d5da59ab71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f7178aa58148d569fd4f81128296ae7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC3.html#a8f7178aa58148d569fd4f81128296ae7">~MBC3</a> ()</td></tr>
 <tr class="separator:a8f7178aa58148d569fd4f81128296ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad638129cb1a78a5cacff1ed39bc15d36"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC3.html#ad638129cb1a78a5cacff1ed39bc15d36">read</a> (uint16_t addr) const </td></tr>
+<tr class="separator:ad638129cb1a78a5cacff1ed39bc15d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classgb_1_1detail_1_1MBC"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classgb_1_1detail_1_1MBC')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classgb_1_1detail_1_1MBC.html">gb::detail::MBC</a></td></tr>
 <tr class="memitem:ac0353c90facd7f80e03a32eb33e71a36 inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#ac0353c90facd7f80e03a32eb33e71a36">MBC</a> (uint8_t *rom, uint32_t size, uint8_t rom_size, uint8_t ram_size)</td></tr>
 <tr class="separator:ac0353c90facd7f80e03a32eb33e71a36 inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,8 +123,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8003f5e9832e56308a32f7045c2e40de inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8e6b1c12d7d39bfe10c9188a2cc4bca inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#af8e6b1c12d7d39bfe10c9188a2cc4bca">write</a> (uint8_t value, uint16_t addr)</td></tr>
 <tr class="separator:af8e6b1c12d7d39bfe10c9188a2cc4bca inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9673d28abe989e9ec60294c74345a3f7 inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#a9673d28abe989e9ec60294c74345a3f7">read</a> (uint16_t addr) const </td></tr>
-<tr class="separator:a9673d28abe989e9ec60294c74345a3f7 inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e2b882c19564729025a134cb88a6735 inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memItemLeft" align="right" valign="top">uint8_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#a8e2b882c19564729025a134cb88a6735">get</a> (uint16_t addr)</td></tr>
 <tr class="separator:a8e2b882c19564729025a134cb88a6735 inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a981d1a402a46fa754468b4d2d00c27db inherit pub_methods_classgb_1_1detail_1_1MBC"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#a981d1a402a46fa754468b4d2d00c27db">getptr</a> (uint16_t addr)</td></tr>
@@ -332,6 +332,32 @@ Collaboration diagram for gb::detail::MBC3:</div>
 
 </div>
 </div>
+<a class="anchor" id="ad638129cb1a78a5cacff1ed39bc15d36"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual uint8_t gb::detail::MBC3::read </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classgb_1_1detail_1_1MBC.html#a9673d28abe989e9ec60294c74345a3f7">gb::detail::MBC</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/gameboycore/<a class="el" href="mbc3_8h_source.html">mbc3.h</a></li>
 </ul>
@@ -344,7 +370,7 @@ Collaboration diagram for gb::detail::MBC3:</div>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 3 2017 02:45:01 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 5 2017 05:51:24 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

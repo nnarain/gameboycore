@@ -13,7 +13,7 @@ var searchData=
   ['tileram_2eh',['tileram.h',['../tileram_8h.html',1,'']]],
   ['tilerow',['TileRow',['../classgb_1_1TileRAM.html#a913f5da1ea9e119346becc9e18a08c32',1,'gb::TileRAM']]],
   ['timer',['Timer',['../classgb_1_1Timer.html',1,'gb']]],
-  ['timer',['Timer',['../classgb_1_1Timer.html#aff7c8957f02ce82d6d05ee5dfc163eb1',1,'gb::Timer::Timer()'],['../classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4ab127d163c55a6603f3a37ce3a642c36d',1,'gb::InterruptProvider::TIMER()']]],
+  ['timer',['TIMER',['../classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4ab127d163c55a6603f3a37ce3a642c36d',1,'gb::InterruptProvider::TIMER()'],['../classgb_1_1Timer.html#aff7c8957f02ce82d6d05ee5dfc163eb1',1,'gb::Timer::Timer()']]],
   ['timer_2eh',['timer.h',['../timer_8h.html',1,'']]],
   ['timer_5fcontroller_5fregister',['TIMER_CONTROLLER_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9acb5789b9b88591fd2c47bcebf2ddf137',1,'gb::memorymap']]],
   ['timer_5fcounter_5fregister',['TIMER_COUNTER_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a69f1bcb856fe854d57cdc4d85d2757f7',1,'gb::memorymap']]],
