@@ -27,8 +27,9 @@ namespace gb
 	class MMU::Impl
 	{
 	public:
-		Impl()
+		Impl(uint8_t* rom, uint32_t size)
 		{
+			load(rom, size);
 		}
 
 		~Impl()
@@ -37,8 +38,9 @@ namespace gb
 
 		void load(uint8_t* rom, uint32_t size)
 		{
-			RomParser parser;
-			CartInfo header = parser.parse(rom);
+			CartInfo header = RomParser::parse(rom);
+
+			cgb_enabled_ = header.cgb_enabled;
 
 			switch (static_cast<detail::MBC::Type>(header.type))
 			{
@@ -48,12 +50,12 @@ namespace gb
 			case detail::MBC::Type::MBC1:
 			case detail::MBC::Type::MBC1_RAM:
 			case detail::MBC::Type::MBC1_RAM_BAT:
-				mbc_.reset(new detail::MBC1(rom, size, header.rom_size, header.ram_size));
+				mbc_.reset(new detail::MBC1(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
 				break;
 
 			case detail::MBC::Type::MBC2:
 			case detail::MBC::Type::MBC2_BAT:
-				mbc_.reset(new detail::MBC2(rom, size, header.rom_size, header.ram_size));
+				mbc_.reset(new detail::MBC2(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
 				break;
 
 			case detail::MBC::Type::MBC3:
@@ -61,7 +63,7 @@ namespace gb
 			case detail::MBC::Type::MBC3_RAM_BAT:
 			case detail::MBC::Type::MBC3_TIME_BAT:
 			case detail::MBC::Type::MBC3_TIME_RAM_BAT:
-				mbc_.reset(new detail::MBC3(rom, size, header.rom_size, header.ram_size));
+				mbc_.reset(new detail::MBC3(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
 				break;
 
 				// TODO: MBC4
@@ -124,6 +126,19 @@ namespace gb
 
 			write(lo, addr + 0);
 			write(hi, addr + 1);
+		}
+
+		uint8_t readVram(uint16_t addr, uint8_t bank)
+		{
+			return (cgb_enabled_ || bank == 0) ? mbc_->readVram(addr, bank) : 0;
+		}
+
+		void dma(uint16_t dest, uint16_t src, uint16_t n)
+		{
+			while (n--)
+			{
+				write(read(src++), dest++);
+			}
 		}
 
 		void oamTransfer(uint8_t base)
@@ -192,24 +207,20 @@ namespace gb
 		std::array<MemoryReadHandler, 0x80>  read_handlers_;
 
 		bool oam_updated_;
+		bool cgb_enabled_;
 	};
 
 
 	/* Public Interface */
 
-    MMU::MMU() :
-		impl_(new Impl)
+    MMU::MMU(uint8_t* rom, uint32_t size) :
+		impl_(new Impl(rom, size))
     {
     }
 
     MMU::~MMU()
     {
 		delete impl_;
-    }
-
-    void MMU::load(uint8_t* rom, uint32_t size)
-    {
-		impl_->load(rom, size);
     }
 
     uint8_t MMU::read(uint16_t addr) const
@@ -230,6 +241,16 @@ namespace gb
 	void MMU::write(uint16_t value, uint16_t addr)
 	{
 		impl_->write(value, addr);
+	}
+
+	uint8_t MMU::readVram(uint16_t addr, uint8_t bank)
+	{
+		return impl_->readVram(addr, bank);
+	}
+
+	void MMU::dma(uint16_t dest, uint16_t src, uint16_t n)
+	{
+		impl_->dma(dest, src, n);
 	}
 
 	void MMU::addWriteHandler(uint16_t addr, MemoryWriteHandler handler)
@@ -258,6 +279,11 @@ namespace gb
 		impl_->oam_updated_ = false;
 
 		return ret;
+	}
+
+	bool MMU::cgbEnabled() const
+	{
+		return impl_->cgb_enabled_;
 	}
 
 	uint8_t& MMU::get(uint16_t addr)

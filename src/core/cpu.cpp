@@ -18,8 +18,6 @@
 #	error "Either __BIGENDIAN__ or __LITTLEENDIAN__ must be defined"
 #endif
 
-#define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
-
 namespace gb
 {
 	/* Private Interface */
@@ -75,7 +73,7 @@ namespace gb
 			cycle_count_(0),
 			interrupt_flags_(mmu_->get(memorymap::INTERRUPT_FLAG)),
 			interrupt_enable_(mmu_->get(memorymap::INTERRUPT_ENABLE)),
-			cgb_mode_(false)
+			cgb_enabled_(mmu->cgbEnabled())
 		{
 		}
 
@@ -2262,7 +2260,7 @@ namespace gb
 
 		void stop()
 		{
-			if (cgb_mode_)
+			if (cgb_enabled_)
 			{
 				// TODO: CGB support
 			}
@@ -2294,7 +2292,9 @@ namespace gb
 
 		void reset()
 		{
-			af_.val = 0;
+			af_.hi = (cgb_enabled_) ? 0x11 : 0x00;
+			af_.lo = 0;
+
 			bc_.val = 0;
 			de_.val = 0;
 			hl_.val = 0;
@@ -2385,7 +2385,7 @@ namespace gb
 		uint8_t& interrupt_flags_;
 		uint8_t& interrupt_enable_;
 
-		bool cgb_mode_;
+		bool cgb_enabled_;
 	};
 
 	/* Public Interface */

@@ -48,7 +48,7 @@ int main(int argc, char * argv[])
 			// setup render window
 			std::string title = "Example " + version::get();
 
-			Window window1(gameboy1, title + ": Window 1");
+			Window window1(gameboy1, title);
 			window1.start();
 
 			gameboy1.setDebugMode(false);

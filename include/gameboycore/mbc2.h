@@ -23,7 +23,7 @@ namespace gb
 		{
 		public:
 
-			MBC2(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size);
+			MBC2(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable);
 			~MBC2();
 
 			virtual void write(uint8_t value, uint16_t addr);

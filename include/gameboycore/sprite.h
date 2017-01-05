@@ -43,6 +43,16 @@ namespace gb
 			return !!(attr & (1 << 4));
 		}
 
+		constexpr uint8_t getCgbPalette() const
+		{
+			return (attr & 0x03);
+		}
+
+		constexpr uint8_t getCharacterBank() const
+		{
+			return !!(attr & (1 << 3));
+		}
+
 		bool operator==(const Sprite& rhs)
 		{
 			return this->y == y && this->x == x && this->tile == tile && this->attr == attr && this->height == height;

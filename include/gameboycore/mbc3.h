@@ -9,6 +9,8 @@
 #define GAMEBOYCORE_MBC3_H
 
 #include "gameboycore/mbc.h"
+#include "gameboycore/rtc.h"
+#include <array>
 
 namespace gb
 {
@@ -22,13 +24,16 @@ namespace gb
 		class MBC3 : public MBC
 		{
 		public:
-			MBC3(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size);
+			MBC3(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable);
 			~MBC3();
+
+			virtual uint8_t read(uint16_t addr) const;
 
 		protected:
 			virtual void control(uint8_t value, uint16_t addr);
 
 		private:
+			RTC rtc_;
 		};
 	}
 }

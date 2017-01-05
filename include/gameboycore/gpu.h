@@ -3,6 +3,8 @@
 	\brief GPU emulation
 	\author Natesh Narain <nnaraindev@gmail.com>
 	\date Oct 23 2016
+
+	\defgroup Graphics
 */
 
 #ifndef GAMEBOYCORE_GPU_H
@@ -25,6 +27,7 @@ namespace gb
 		\class GPU
 		\brief Handle LCD state, compute scanlines and send to an external renderer
 		\ingroup API
+		\ingroup Graphics
 	*/
 	class GAMEBOYCORE_API GPU
 	{
@@ -33,7 +36,7 @@ namespace gb
 		using Ptr = std::unique_ptr<GPU>;
 
 		//! Array on Pixel objects representing a single scan line produced by the GPU
-		using Scanline               = std::array<Pixel, 160>;
+		using Scanline = std::array<Pixel, 160>;
 		/**
 			Callback function called by the GPU when it has produced a new scan line
 			Provides the Scanline and the line number
@@ -42,7 +45,7 @@ namespace gb
 
 	public:
 		GPU(MMU::Ptr& mmu);
-		GPU(const GPU&);
+		GPU(const GPU&) = delete;
 		~GPU();
 
 		/**
