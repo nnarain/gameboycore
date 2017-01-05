@@ -2293,6 +2293,7 @@ namespace gb
 		void reset()
 		{
 			af_.hi = (cgb_enabled_) ? 0x11 : 0x00;
+			af_.lo = 0;
 
 			bc_.val = 0;
 			de_.val = 0;
