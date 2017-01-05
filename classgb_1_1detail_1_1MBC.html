@@ -177,14 +177,16 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac0353c90facd7f80e03a32eb33e71a36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#ac0353c90facd7f80e03a32eb33e71a36">MBC</a> (uint8_t *rom, uint32_t size, uint8_t rom_size, uint8_t ram_size)</td></tr>
-<tr class="separator:ac0353c90facd7f80e03a32eb33e71a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b4f715752b4914bdfe4e01b43837a22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#a0b4f715752b4914bdfe4e01b43837a22">MBC</a> (uint8_t *rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable=false)</td></tr>
+<tr class="separator:a0b4f715752b4914bdfe4e01b43837a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8003f5e9832e56308a32f7045c2e40de"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#a8003f5e9832e56308a32f7045c2e40de">~MBC</a> ()</td></tr>
 <tr class="separator:a8003f5e9832e56308a32f7045c2e40de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8e6b1c12d7d39bfe10c9188a2cc4bca"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#af8e6b1c12d7d39bfe10c9188a2cc4bca">write</a> (uint8_t value, uint16_t addr)</td></tr>
 <tr class="separator:af8e6b1c12d7d39bfe10c9188a2cc4bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9673d28abe989e9ec60294c74345a3f7"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#a9673d28abe989e9ec60294c74345a3f7">read</a> (uint16_t addr) const </td></tr>
 <tr class="separator:a9673d28abe989e9ec60294c74345a3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a097af77a94e9368ce50bc23b2d7838b6"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#a097af77a94e9368ce50bc23b2d7838b6">readVram</a> (uint16_t addr, uint8_t bank)</td></tr>
+<tr class="separator:a097af77a94e9368ce50bc23b2d7838b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e2b882c19564729025a134cb88a6735"><td class="memItemLeft" align="right" valign="top">uint8_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#a8e2b882c19564729025a134cb88a6735">get</a> (uint16_t addr)</td></tr>
 <tr class="separator:a8e2b882c19564729025a134cb88a6735"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a981d1a402a46fa754468b4d2d00c27db"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1MBC.html#a981d1a402a46fa754468b4d2d00c27db">getptr</a> (uint16_t addr)</td></tr>
@@ -411,7 +413,7 @@ Inheritance diagram for gb::detail::MBC:</div>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ac0353c90facd7f80e03a32eb33e71a36"></a>
+<a class="anchor" id="a0b4f715752b4914bdfe4e01b43837a22"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -437,7 +439,13 @@ Inheritance diagram for gb::detail::MBC:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>ram_size</em>&#160;</td>
+          <td class="paramname"><em>ram_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>cgb_enable</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -654,6 +662,32 @@ Inheritance diagram for gb::detail::MBC:</div>
 
 </div>
 </div>
+<a class="anchor" id="a097af77a94e9368ce50bc23b2d7838b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t gb::detail::MBC::readVram </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>bank</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a92cf9aeef943ff60c02e1df4714bb58a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -817,7 +851,7 @@ Inheritance diagram for gb::detail::MBC:</div>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 05:51:24 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

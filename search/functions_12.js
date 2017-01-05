@@ -19,7 +19,7 @@ var searchData=
   ['_7ertc',['~RTC',['../classgb_1_1detail_1_1RTC.html#a54b1f18fed7c53105e5cd4e57e3c18cc',1,'gb::detail::RTC']]],
   ['_7esquare',['~Square',['../classgb_1_1detail_1_1Square.html#adcabdcbc5ef6a690744dee161b8acac9',1,'gb::detail::Square']]],
   ['_7etilemap',['~TileMap',['../classgb_1_1detail_1_1TileMap.html#abdfbbbfd607d51a26577a27b888e5a15',1,'gb::detail::TileMap']]],
-  ['_7etileram',['~TileRAM',['../classgb_1_1TileRAM.html#a360d53406426fba8b80cb4fdcb00d4b5',1,'gb::TileRAM']]],
+  ['_7etileram',['~TileRAM',['../classgb_1_1detail_1_1TileRAM.html#aaf5e72bfcb975b41d9dea14407f00215',1,'gb::detail::TileRAM']]],
   ['_7etimer',['~Timer',['../classgb_1_1Timer.html#afaa27b502df854db56e71b1b5967a5ed',1,'gb::Timer']]],
   ['_7ewave',['~Wave',['../classgb_1_1detail_1_1Wave.html#a3389ea9dcae60a0db7b6965563653838',1,'gb::detail::Wave']]]
 ];

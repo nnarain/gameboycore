@@ -111,7 +111,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1MBC3.html">   24</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classgb_1_1detail_1_1MBC3.html">MBC3</a> : <span class="keyword">public</span> <a class="code" href="classgb_1_1detail_1_1MBC.html">MBC</a></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <a class="code" href="classgb_1_1detail_1_1MBC3.html#a59f94302898851960588c4d5da59ab71">MBC3</a>(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <a class="code" href="classgb_1_1detail_1_1MBC3.html#a5a14d22c4d9c58c2d6b3f3cb502097a6">MBC3</a>(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, <span class="keywordtype">bool</span> cgb_enable);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <a class="code" href="classgb_1_1detail_1_1MBC3.html#a8f7178aa58148d569fd4f81128296ae7">~MBC3</a>();</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keyword">virtual</span> uint8_t <a class="code" href="classgb_1_1detail_1_1MBC3.html#ad638129cb1a78a5cacff1ed39bc15d36">read</a>(uint16_t addr) <span class="keyword">const</span>;</div>
@@ -128,9 +128,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="rtc_8h_html"><div class="ttname"><a href="rtc_8h.html">rtc.h</a></div><div class="ttdoc">Real Time Clock Emulation. </div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC3_html_a70fa27bc44a59174b86fe90814a2f3ea"><div class="ttname"><a href="classgb_1_1detail_1_1MBC3.html#a70fa27bc44a59174b86fe90814a2f3ea">gb::detail::MBC3::control</a></div><div class="ttdeci">virtual void control(uint8_t value, uint16_t addr)</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1MBC3_html_a59f94302898851960588c4d5da59ab71"><div class="ttname"><a href="classgb_1_1detail_1_1MBC3.html#a59f94302898851960588c4d5da59ab71">gb::detail::MBC3::MBC3</a></div><div class="ttdeci">MBC3(uint8_t *rom, uint32_t size, uint8_t rom_size, uint8_t ram_size)</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC3_html"><div class="ttname"><a href="classgb_1_1detail_1_1MBC3.html">gb::detail::MBC3</a></div><div class="ttdoc">Memory Bank Controller 3. </div><div class="ttdef"><b>Definition:</b> mbc3.h:24</div></div>
 <div class="ttc" id="mbc_8h_html"><div class="ttname"><a href="mbc_8h.html">mbc.h</a></div><div class="ttdoc">Interface memory bank controllers. </div></div>
+<div class="ttc" id="classgb_1_1detail_1_1MBC3_html_a5a14d22c4d9c58c2d6b3f3cb502097a6"><div class="ttname"><a href="classgb_1_1detail_1_1MBC3.html#a5a14d22c4d9c58c2d6b3f3cb502097a6">gb::detail::MBC3::MBC3</a></div><div class="ttdeci">MBC3(uint8_t *rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable)</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC3_html_ad638129cb1a78a5cacff1ed39bc15d36"><div class="ttname"><a href="classgb_1_1detail_1_1MBC3.html#ad638129cb1a78a5cacff1ed39bc15d36">gb::detail::MBC3::read</a></div><div class="ttdeci">virtual uint8_t read(uint16_t addr) const </div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html">gb::detail::MBC</a></div><div class="ttdoc">Memory Bank Controller Interface. </div><div class="ttdef"><b>Definition:</b> mbc.h:30</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC3_html_a8f7178aa58148d569fd4f81128296ae7"><div class="ttname"><a href="classgb_1_1detail_1_1MBC3.html#a8f7178aa58148d569fd4f81128296ae7">gb::detail::MBC3::~MBC3</a></div><div class="ttdeci">~MBC3()</div></div>
@@ -144,7 +144,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 05:51:24 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -134,6 +134,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5ea9b6d85cdf37c8bfc03937873a376f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbe2b22e6dd24c31a03b1199db912ab9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#afbe2b22e6dd24c31a03b1199db912ab9">write</a> (uint16_t value, uint16_t addr)</td></tr>
 <tr class="separator:afbe2b22e6dd24c31a03b1199db912ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bc6e6bc8c94451e1929f1b9edbe090c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a8bc6e6bc8c94451e1929f1b9edbe090c">readVram</a> (uint16_t addr, uint8_t bank)</td></tr>
+<tr class="separator:a8bc6e6bc8c94451e1929f1b9edbe090c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a367f858f48ef899689f6cff322181ed8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a367f858f48ef899689f6cff322181ed8">dma</a> (uint16_t dest, uint16_t src, uint16_t n)</td></tr>
 <tr class="separator:a367f858f48ef899689f6cff322181ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d5f7532aaf79568be29f923969d02d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a0d5f7532aaf79568be29f923969d02d0">addWriteHandler</a> (uint16_t addr, <a class="el" href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">MemoryWriteHandler</a> handler)</td></tr>
@@ -476,6 +478,32 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8bc6e6bc8c94451e1929f1b9edbe090c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t gb::MMU::readVram </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>bank</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a6baae771a0e1ded5a6fc263a248c4931"></a>
 <div class="memitem">
 <div class="memproto">
@@ -565,7 +593,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 05:51:24 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

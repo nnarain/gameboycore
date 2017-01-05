@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.6"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <title>GameboyCore: gb::TileRAM Class Reference</title>
+        <title>GameboyCore: gb::detail::TileRAM Class Reference</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -90,7 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacegb.html">gb</a></li><li class="navelem"><a class="el" href="classgb_1_1TileRAM.html">TileRAM</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacegb.html">gb</a></li><li class="navelem"><a class="el" href="namespacegb_1_1detail.html">detail</a></li><li class="navelem"><a class="el" href="classgb_1_1detail_1_1TileRAM.html">TileRAM</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,70 +98,70 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="classgb_1_1TileRAM-members.html">List of all members</a>  </div>
+<a href="classgb_1_1detail_1_1TileRAM-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">gb::TileRAM Class Reference</div>  </div>
+<div class="title">gb::detail::TileRAM Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>Class that knows how to read <a class="el" href="structgb_1_1Tile.html">Tile</a> RAM in the Gameboy memory map.  
- <a href="classgb_1_1TileRAM.html#details">More...</a></p>
+ <a href="classgb_1_1detail_1_1TileRAM.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="tileram_8h_source.html">tileram.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a913f5da1ea9e119346becc9e18a08c32"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#a913f5da1ea9e119346becc9e18a08c32">TileRow</a> = std::array&lt; uint8_t, 8 &gt;</td></tr>
-<tr class="separator:a913f5da1ea9e119346becc9e18a08c32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab962057d56026ec5281f75ea8e4960e9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#ab962057d56026ec5281f75ea8e4960e9">TileLine</a> = std::array&lt; <a class="el" href="classgb_1_1TileRAM.html#a913f5da1ea9e119346becc9e18a08c32">TileRow</a>, 20 &gt;</td></tr>
-<tr class="separator:ab962057d56026ec5281f75ea8e4960e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7baadc45ba0a3a70addf67d1d2e8577f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#a7baadc45ba0a3a70addf67d1d2e8577f">TileRow</a> = std::array&lt; uint8_t, 8 &gt;</td></tr>
+<tr class="separator:a7baadc45ba0a3a70addf67d1d2e8577f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e490817a166b299dee2c431f226a5de"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#a4e490817a166b299dee2c431f226a5de">TileLine</a> = std::array&lt; <a class="el" href="classgb_1_1detail_1_1TileRAM.html#a7baadc45ba0a3a70addf67d1d2e8577f">TileRow</a>, 20 &gt;</td></tr>
+<tr class="separator:a4e490817a166b299dee2c431f226a5de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5be66283a5fa6840bb7086c3a66fdb36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#a5be66283a5fa6840bb7086c3a66fdb36">TileRAM</a> (<a class="el" href="classgb_1_1MMU.html">MMU</a> &amp;mmu)</td></tr>
-<tr class="separator:a5be66283a5fa6840bb7086c3a66fdb36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a360d53406426fba8b80cb4fdcb00d4b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#a360d53406426fba8b80cb4fdcb00d4b5">~TileRAM</a> ()</td></tr>
-<tr class="separator:a360d53406426fba8b80cb4fdcb00d4b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a845b8d0573ab0104ca769fefd0707e8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgb_1_1Tile.html">Tile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#a845b8d0573ab0104ca769fefd0707e8d">getTile</a> (uint8_t tilenum) const </td></tr>
-<tr class="separator:a845b8d0573ab0104ca769fefd0707e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae1c71c669cd472ca80a03ae80039f4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgb_1_1Tile.html">Tile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#aae1c71c669cd472ca80a03ae80039f4d">getSpriteTile</a> (const <a class="el" href="classgb_1_1Sprite.html">Sprite</a> &amp;sprite) const </td></tr>
-<tr class="separator:aae1c71c669cd472ca80a03ae80039f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae70707452861410ce1d9ff4634e6cedf"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structgb_1_1Tile.html">Tile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#ae70707452861410ce1d9ff4634e6cedf">getTiles</a> ()</td></tr>
-<tr class="separator:ae70707452861410ce1d9ff4634e6cedf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0accfd8e9ba177224f369a5e2ad4c673"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgb_1_1TileRAM.html#a913f5da1ea9e119346becc9e18a08c32">TileRow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#a0accfd8e9ba177224f369a5e2ad4c673">getRow</a> (int row, uint8_t tilenum, bool umode)</td></tr>
-<tr class="separator:a0accfd8e9ba177224f369a5e2ad4c673"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1ff8ebe4696fbe718826b4fb3c24a2d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa1ff8ebe4696fbe718826b4fb3c24a2d"><td class="memTemplItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#aa1ff8ebe4696fbe718826b4fb3c24a2d">getTileAddress</a> (int32_t base_addr, uint8_t tilenum) const </td></tr>
-<tr class="separator:aa1ff8ebe4696fbe718826b4fb3c24a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae69eec1b25346594b2e5b442cd3b25d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#ae69eec1b25346594b2e5b442cd3b25d4">TileRAM</a> (<a class="el" href="classgb_1_1MMU.html">MMU</a> &amp;mmu)</td></tr>
+<tr class="separator:ae69eec1b25346594b2e5b442cd3b25d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf5e72bfcb975b41d9dea14407f00215"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#aaf5e72bfcb975b41d9dea14407f00215">~TileRAM</a> ()</td></tr>
+<tr class="separator:aaf5e72bfcb975b41d9dea14407f00215"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64fa2a86e84125a6211c7184763e32cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgb_1_1Tile.html">Tile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#a64fa2a86e84125a6211c7184763e32cd">getTile</a> (uint8_t tilenum) const </td></tr>
+<tr class="separator:a64fa2a86e84125a6211c7184763e32cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedc6a823192ada36539afbbedd6a173a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgb_1_1Tile.html">Tile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#aedc6a823192ada36539afbbedd6a173a">getSpriteTile</a> (const <a class="el" href="classgb_1_1Sprite.html">Sprite</a> &amp;sprite) const </td></tr>
+<tr class="separator:aedc6a823192ada36539afbbedd6a173a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93ef91789895255700b798bd00271fd4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structgb_1_1Tile.html">Tile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#a93ef91789895255700b798bd00271fd4">getTiles</a> ()</td></tr>
+<tr class="separator:a93ef91789895255700b798bd00271fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8eb0c2a7df1683bcb60da0d2a1679ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#a7baadc45ba0a3a70addf67d1d2e8577f">TileRow</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#ad8eb0c2a7df1683bcb60da0d2a1679ba">getRow</a> (int row, uint8_t tilenum, bool umode, uint8_t character_bank=0)</td></tr>
+<tr class="separator:ad8eb0c2a7df1683bcb60da0d2a1679ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff45f2bdc07d5f8922dd9adc3b7f1399"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aff45f2bdc07d5f8922dd9adc3b7f1399"><td class="memTemplItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#aff45f2bdc07d5f8922dd9adc3b7f1399">getTileAddress</a> (int32_t base_addr, uint8_t tilenum) const </td></tr>
+<tr class="separator:aff45f2bdc07d5f8922dd9adc3b7f1399"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a99923e23192222b248f8e1aca4baf98a"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#a99923e23192222b248f8e1aca4baf98a">NUM_TILES</a> = 192</td></tr>
-<tr class="separator:a99923e23192222b248f8e1aca4baf98a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acff4587daf88a9a3df60dc03d2fcb33e"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1TileRAM.html#acff4587daf88a9a3df60dc03d2fcb33e">TILE_SIZE</a> = 16</td></tr>
-<tr class="separator:acff4587daf88a9a3df60dc03d2fcb33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e0442ebc8433ddbd547b646a135866"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#a44e0442ebc8433ddbd547b646a135866">NUM_TILES</a> = 192</td></tr>
+<tr class="separator:a44e0442ebc8433ddbd547b646a135866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1a7b4899d93e8da7ae5c352ae92e12d"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#ad1a7b4899d93e8da7ae5c352ae92e12d">TILE_SIZE</a> = 16</td></tr>
+<tr class="separator:ad1a7b4899d93e8da7ae5c352ae92e12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that knows how to read <a class="el" href="structgb_1_1Tile.html">Tile</a> RAM in the Gameboy memory map. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="ab962057d56026ec5281f75ea8e4960e9"></a>
+<a class="anchor" id="a4e490817a166b299dee2c431f226a5de"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1TileRAM.html#ab962057d56026ec5281f75ea8e4960e9">gb::TileRAM::TileLine</a> =  std::array&lt;<a class="el" href="classgb_1_1TileRAM.html#a913f5da1ea9e119346becc9e18a08c32">TileRow</a>, 20&gt;</td>
+          <td class="memname">using <a class="el" href="classgb_1_1detail_1_1TileRAM.html#a4e490817a166b299dee2c431f226a5de">gb::detail::TileRAM::TileLine</a> =  std::array&lt;<a class="el" href="classgb_1_1detail_1_1TileRAM.html#a7baadc45ba0a3a70addf67d1d2e8577f">TileRow</a>, 20&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a913f5da1ea9e119346becc9e18a08c32"></a>
+<a class="anchor" id="a7baadc45ba0a3a70addf67d1d2e8577f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1TileRAM.html#a913f5da1ea9e119346becc9e18a08c32">gb::TileRAM::TileRow</a> =  std::array&lt;uint8_t, 8&gt;</td>
+          <td class="memname">using <a class="el" href="classgb_1_1detail_1_1TileRAM.html#a7baadc45ba0a3a70addf67d1d2e8577f">gb::detail::TileRAM::TileRow</a> =  std::array&lt;uint8_t, 8&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -169,12 +169,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a5be66283a5fa6840bb7086c3a66fdb36"></a>
+<a class="anchor" id="ae69eec1b25346594b2e5b442cd3b25d4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">gb::TileRAM::TileRAM </td>
+          <td class="memname">gb::detail::TileRAM::TileRAM </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgb_1_1MMU.html">MMU</a> &amp;&#160;</td>
           <td class="paramname"><em>mmu</em></td><td>)</td>
@@ -185,12 +185,12 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a360d53406426fba8b80cb4fdcb00d4b5"></a>
+<a class="anchor" id="aaf5e72bfcb975b41d9dea14407f00215"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">gb::TileRAM::~TileRAM </td>
+          <td class="memname">gb::detail::TileRAM::~TileRAM </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -201,12 +201,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a0accfd8e9ba177224f369a5e2ad4c673"></a>
+<a class="anchor" id="ad8eb0c2a7df1683bcb60da0d2a1679ba"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgb_1_1TileRAM.html#a913f5da1ea9e119346becc9e18a08c32">TileRow</a> gb::TileRAM::getRow </td>
+          <td class="memname"><a class="el" href="classgb_1_1detail_1_1TileRAM.html#a7baadc45ba0a3a70addf67d1d2e8577f">TileRow</a> gb::detail::TileRAM::getRow </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>row</em>, </td>
@@ -221,7 +221,13 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>umode</em>&#160;</td>
+          <td class="paramname"><em>umode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>character_bank</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -233,12 +239,12 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aae1c71c669cd472ca80a03ae80039f4d"></a>
+<a class="anchor" id="aedc6a823192ada36539afbbedd6a173a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structgb_1_1Tile.html">Tile</a> gb::TileRAM::getSpriteTile </td>
+          <td class="memname"><a class="el" href="structgb_1_1Tile.html">Tile</a> gb::detail::TileRAM::getSpriteTile </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgb_1_1Sprite.html">Sprite</a> &amp;&#160;</td>
           <td class="paramname"><em>sprite</em></td><td>)</td>
@@ -249,12 +255,12 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a845b8d0573ab0104ca769fefd0707e8d"></a>
+<a class="anchor" id="a64fa2a86e84125a6211c7184763e32cd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structgb_1_1Tile.html">Tile</a> gb::TileRAM::getTile </td>
+          <td class="memname"><a class="el" href="structgb_1_1Tile.html">Tile</a> gb::detail::TileRAM::getTile </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>tilenum</em></td><td>)</td>
@@ -265,7 +271,7 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa1ff8ebe4696fbe718826b4fb3c24a2d"></a>
+<a class="anchor" id="aff45f2bdc07d5f8922dd9adc3b7f1399"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -275,7 +281,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t gb::TileRAM::getTileAddress </td>
+          <td class="memname">uint16_t gb::detail::TileRAM::getTileAddress </td>
           <td>(</td>
           <td class="paramtype">int32_t&#160;</td>
           <td class="paramname"><em>base_addr</em>, </td>
@@ -301,12 +307,12 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ae70707452861410ce1d9ff4634e6cedf"></a>
+<a class="anchor" id="a93ef91789895255700b798bd00271fd4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structgb_1_1Tile.html">Tile</a>&gt; gb::TileRAM::getTiles </td>
+          <td class="memname">std::vector&lt;<a class="el" href="structgb_1_1Tile.html">Tile</a>&gt; gb::detail::TileRAM::getTiles </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -317,7 +323,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a99923e23192222b248f8e1aca4baf98a"></a>
+<a class="anchor" id="a44e0442ebc8433ddbd547b646a135866"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -325,7 +331,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const unsigned int gb::TileRAM::NUM_TILES = 192</td>
+          <td class="memname">const unsigned int gb::detail::TileRAM::NUM_TILES = 192</td>
         </tr>
       </table>
   </td>
@@ -337,7 +343,7 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="acff4587daf88a9a3df60dc03d2fcb33e"></a>
+<a class="anchor" id="ad1a7b4899d93e8da7ae5c352ae92e12d"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -345,7 +351,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const unsigned int gb::TileRAM::TILE_SIZE = 16</td>
+          <td class="memname">const unsigned int gb::detail::TileRAM::TILE_SIZE = 16</td>
         </tr>
       </table>
   </td>
@@ -369,7 +375,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 05:51:24 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

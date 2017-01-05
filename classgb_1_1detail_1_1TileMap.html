@@ -123,12 +123,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac7448cb829f0482e648f7ab8a57c11e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdfbbbfd607d51a26577a27b888e5a15"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#abdfbbbfd607d51a26577a27b888e5a15">~TileMap</a> ()</td></tr>
 <tr class="separator:abdfbbbfd607d51a26577a27b888e5a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af26a62b811cb9d9323c9210e7647f9d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">Line</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#af26a62b811cb9d9323c9210e7647f9d3">getBackground</a> (int line)</td></tr>
-<tr class="separator:af26a62b811cb9d9323c9210e7647f9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73b8c34a35bf2cea1c19137fc644f88b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">Line</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a73b8c34a35bf2cea1c19137fc644f88b">getBackground</a> (int line, bool cgb_enable)</td></tr>
+<tr class="separator:a73b8c34a35bf2cea1c19137fc644f88b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f52e0b58e05c0ab47cc6ef84a525ab5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">Line</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a4f52e0b58e05c0ab47cc6ef84a525ab5">getWindowOverlay</a> (int line)</td></tr>
 <tr class="separator:a4f52e0b58e05c0ab47cc6ef84a525ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a456d0f353b551d74971a160a22ce7f46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a456d0f353b551d74971a160a22ce7f46">drawSprites</a> (std::array&lt; <a class="el" href="structgb_1_1Pixel.html">Pixel</a>, 160 &gt; &amp;scanline, std::array&lt; uint8_t, 160 &gt; &amp;color_line, int line)</td></tr>
-<tr class="separator:a456d0f353b551d74971a160a22ce7f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c88ab4cd8fb7f6326fdc62c9ea3a69b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a1c88ab4cd8fb7f6326fdc62c9ea3a69b">drawSprites</a> (std::array&lt; <a class="el" href="structgb_1_1Pixel.html">Pixel</a>, 160 &gt; &amp;scanline, std::array&lt; uint8_t, 160 &gt; &amp;color_line, int line, bool cgb_enable, std::array&lt; std::array&lt; <a class="el" href="structgb_1_1Pixel.html">gb::Pixel</a>, 4 &gt;, 8 &gt; &amp;cgb_palette)</td></tr>
+<tr class="separator:a1c88ab4cd8fb7f6326fdc62c9ea3a69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ad98cdf23140bb9f16b5f0f0fa5edcb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classgb_1_1Sprite.html">Sprite</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a6ad98cdf23140bb9f16b5f0f0fa5edcb">getSpriteCache</a> () const </td></tr>
 <tr class="separator:a6ad98cdf23140bb9f16b5f0f0fa5edcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab39587430fdefd228c0fe983f9572965"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#ab39587430fdefd228c0fe983f9572965">getTileMap</a> (<a class="el" href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20">Map</a> map) const </td></tr>
@@ -209,7 +209,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a456d0f353b551d74971a160a22ce7f46"></a>
+<a class="anchor" id="a1c88ab4cd8fb7f6326fdc62c9ea3a69b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -229,7 +229,19 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>line</em>&#160;</td>
+          <td class="paramname"><em>line</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>cgb_enable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::array&lt; std::array&lt; <a class="el" href="structgb_1_1Pixel.html">gb::Pixel</a>, 4 &gt;, 8 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>cgb_palette</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -241,7 +253,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af26a62b811cb9d9323c9210e7647f9d3"></a>
+<a class="anchor" id="a73b8c34a35bf2cea1c19137fc644f88b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -249,8 +261,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a952eff28d54c8316960d1705dc0317bf">Line</a> gb::detail::TileMap::getBackground </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>line</em></td><td>)</td>
+          <td class="paramname"><em>line</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>cgb_enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -316,7 +338,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 05:51:24 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

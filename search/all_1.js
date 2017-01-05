@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['b',['b',['../structgb_1_1CPU_1_1Status.html#a80e9dcbe0913ee5d65e34127c821eda1',1,'gb::CPU::Status::b()'],['../structgb_1_1Pixel.html#a202cbdfe971d02de5e95e30f77dc23fc',1,'gb::Pixel::b()'],['../classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522fa9d5ed678fe57bcca610140957afab571',1,'gb::Joy::B()']]],
+  ['b',['B',['../classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522fa9d5ed678fe57bcca610140957afab571',1,'gb::Joy::B()'],['../structgb_1_1CPU_1_1Status.html#a80e9dcbe0913ee5d65e34127c821eda1',1,'gb::CPU::Status::b()'],['../structgb_1_1Pixel.html#a202cbdfe971d02de5e95e30f77dc23fc',1,'gb::Pixel::b()']]],
   ['background',['BACKGROUND',['../classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20a87ed58ce5596142e11cb65deb049bb4b',1,'gb::detail::TileMap']]],
   ['bc',['bc',['../structgb_1_1CPU_1_1Status.html#ac936d51d73d43b71a37dfc9fedf0790f',1,'gb::CPU::Status']]],
   ['bg_5fcode_5farea',['BG_CODE_AREA',['../namespacegb_1_1memorymap.html#ae7e19a09b15ac0f8859df59e9e5f0924ae61c4d30d71d9da17af01f38b2daf495',1,'gb::memorymap']]],

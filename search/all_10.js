@@ -6,6 +6,7 @@ var searchData=
   ['ram_5fsize',['ram_size',['../structgb_1_1CartInfo.html#aa305f47dab43598f97f095ceb56a6299',1,'gb::CartInfo']]],
   ['read',['read',['../classgb_1_1detail_1_1MBC.html#a9673d28abe989e9ec60294c74345a3f7',1,'gb::detail::MBC::read()'],['../classgb_1_1detail_1_1MBC3.html#ad638129cb1a78a5cacff1ed39bc15d36',1,'gb::detail::MBC3::read()'],['../classgb_1_1MMU.html#a4bb632684f0f3c410045a4198f804a8f',1,'gb::MMU::read(uint16_t) const '],['../classgb_1_1MMU.html#a00be460f9577930ec8fee96d266f7f0b',1,'gb::MMU::read(uint16_t)']]],
   ['readme_2emd',['README.md',['../README_8md.html',1,'']]],
+  ['readvram',['readVram',['../classgb_1_1detail_1_1MBC.html#a097af77a94e9368ce50bc23b2d7838b6',1,'gb::detail::MBC::readVram()'],['../classgb_1_1MMU.html#a8bc6e6bc8c94451e1929f1b9edbe090c',1,'gb::MMU::readVram()']]],
   ['readycallback',['ReadyCallback',['../classgb_1_1Link.html#ab628aefaa9429e635b883a3d2dd814b3',1,'gb::Link']]],
   ['recieve',['recieve',['../classgb_1_1Link.html#a4df5288e666872220ebc3b1596c58a20',1,'gb::Link']]],
   ['recievecallback',['RecieveCallback',['../classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e',1,'gb::LinkCable']]],
@@ -19,8 +20,8 @@ var searchData=
   ['rom_5fram',['ROM_RAM',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085daeecbe22318a4937a3d3f6e081cd772c4',1,'gb::detail::MBC']]],
   ['rom_5fram_5fbat',['ROM_RAM_BAT',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085dadfe5a0fd6582ce5bfc145a9e79ca250a',1,'gb::detail::MBC']]],
   ['rom_5fsize',['rom_size',['../structgb_1_1CartInfo.html#a2b958a128c22dee71cafc8c3fdeb7eee',1,'gb::CartInfo']]],
-  ['romparser',['RomParser',['../classgb_1_1RomParser.html',1,'gb']]],
   ['romparser',['RomParser',['../classgb_1_1RomParser.html#a5f5b8f19b16633f5e9d8846aa16a3c48',1,'gb::RomParser']]],
+  ['romparser',['RomParser',['../classgb_1_1RomParser.html',1,'gb']]],
   ['rtc',['RTC',['../classgb_1_1detail_1_1RTC.html#ac4f33f89b76b2ba983534b4e6a88099a',1,'gb::detail::RTC']]],
   ['rtc',['RTC',['../classgb_1_1detail_1_1RTC.html',1,'gb::detail']]],
   ['rtc_2eh',['rtc.h',['../rtc_8h.html',1,'']]]

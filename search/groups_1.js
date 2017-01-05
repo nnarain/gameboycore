@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['memory_20bank_20controllers',['Memory Bank Controllers',['../group__MBC.html',1,'']]]
+  ['graphics',['Graphics',['../group__Graphics.html',1,'']]]
 ];

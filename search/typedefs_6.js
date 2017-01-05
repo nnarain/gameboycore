@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['tileline',['TileLine',['../classgb_1_1TileRAM.html#ab962057d56026ec5281f75ea8e4960e9',1,'gb::TileRAM']]],
-  ['tilerow',['TileRow',['../classgb_1_1TileRAM.html#a913f5da1ea9e119346becc9e18a08c32',1,'gb::TileRAM']]]
+  ['tileline',['TileLine',['../classgb_1_1detail_1_1TileRAM.html#a4e490817a166b299dee2c431f226a5de',1,'gb::detail::TileRAM']]],
+  ['tilerow',['TileRow',['../classgb_1_1detail_1_1TileRAM.html#a7baadc45ba0a3a70addf67d1d2e8577f',1,'gb::detail::TileRAM']]]
 ];

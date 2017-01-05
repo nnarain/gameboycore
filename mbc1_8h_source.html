@@ -118,7 +118,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            };</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <a class="code" href="classgb_1_1detail_1_1MBC1.html#abb6305768478f26f2de4694269afd8fb">MBC1</a>(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <a class="code" href="classgb_1_1detail_1_1MBC1.html#afd2349873861ce941c9e7ba9478459c2">MBC1</a>(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, <span class="keywordtype">bool</span> cgb_enabled);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1MBC1.html#abe9bf3e0e283039ceb5558b0fd73874d">control</a>(uint8_t value, uint16_t addr);</div>
@@ -136,10 +136,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="classgb_1_1detail_1_1MBC1_html_abb6305768478f26f2de4694269afd8fb"><div class="ttname"><a href="classgb_1_1detail_1_1MBC1.html#abb6305768478f26f2de4694269afd8fb">gb::detail::MBC1::MBC1</a></div><div class="ttdeci">MBC1(uint8_t *rom, uint32_t size, uint8_t rom_size, uint8_t ram_size)</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC1_html_abe9bf3e0e283039ceb5558b0fd73874d"><div class="ttname"><a href="classgb_1_1detail_1_1MBC1.html#abe9bf3e0e283039ceb5558b0fd73874d">gb::detail::MBC1::control</a></div><div class="ttdeci">virtual void control(uint8_t value, uint16_t addr)</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC1_html"><div class="ttname"><a href="classgb_1_1detail_1_1MBC1.html">gb::detail::MBC1</a></div><div class="ttdoc">Memory Bank Controller 1. </div><div class="ttdef"><b>Definition:</b> mbc1.h:24</div></div>
 <div class="ttc" id="mbc_8h_html"><div class="ttname"><a href="mbc_8h.html">mbc.h</a></div><div class="ttdoc">Interface memory bank controllers. </div></div>
+<div class="ttc" id="classgb_1_1detail_1_1MBC1_html_afd2349873861ce941c9e7ba9478459c2"><div class="ttname"><a href="classgb_1_1detail_1_1MBC1.html#afd2349873861ce941c9e7ba9478459c2">gb::detail::MBC1::MBC1</a></div><div class="ttdeci">MBC1(uint8_t *rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enabled)</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html">gb::detail::MBC</a></div><div class="ttdoc">Memory Bank Controller Interface. </div><div class="ttdef"><b>Definition:</b> mbc.h:30</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC1_html_a01d73a67e96aed4886f2797c9b340b6cae53619c1fe611a51eeeb8d148ba6e532"><div class="ttname"><a href="classgb_1_1detail_1_1MBC1.html#a01d73a67e96aed4886f2797c9b340b6cae53619c1fe611a51eeeb8d148ba6e532">gb::detail::MBC1::MemoryMode::RAM</a></div><div class="ttdoc">determines how address range $4000 - $5000 is used </div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_a423b2f4e040079ea51a5da95382f5fbb"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbb">gb::detail::MBC::ROM</a></div><div class="ttdeci">ROM</div><div class="ttdoc">ROM types specified in cartridge header. </div><div class="ttdef"><b>Definition:</b> mbc.h:62</div></div>
@@ -152,7 +152,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 05:51:24 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

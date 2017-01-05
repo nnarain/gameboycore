@@ -7,7 +7,7 @@ var searchData=
   ['scanline',['Scanline',['../classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb',1,'gb::GPU']]],
   ['scx_5fregister',['SCX_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9af2dd3991221b45c8df94aa94c254a898',1,'gb::memorymap']]],
   ['scy_5fregister',['SCY_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ae8ac94e0e4099e35f2c4412d13bf7d19',1,'gb::memorymap']]],
-  ['select',['select',['../classgb_1_1detail_1_1RTC.html#a3b3ba34080f043f1733d79231af24447',1,'gb::detail::RTC::select()'],['../classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522fa63225f19fccb18e7c709f1fa11bc738e',1,'gb::Joy::SELECT()']]],
+  ['select',['SELECT',['../classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522fa63225f19fccb18e7c709f1fa11bc738e',1,'gb::Joy::SELECT()'],['../classgb_1_1detail_1_1RTC.html#a3b3ba34080f043f1733d79231af24447',1,'gb::detail::RTC::select()']]],
   ['serial',['SERIAL',['../classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4a7b804a28d6154ab8007287532037f1d0',1,'gb::InterruptProvider']]],
   ['set',['set',['../classgb_1_1InterruptProvider.html#a5f4a9d949de5ec8f42e3f301b0759ad2',1,'gb::InterruptProvider']]],
   ['setaudiosamplecallback',['setAudioSampleCallback',['../classgb_1_1APU.html#ad0218b7b5028d9e48cba7c7d64589f59',1,'gb::APU']]],
