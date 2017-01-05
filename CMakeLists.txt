@@ -81,6 +81,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboycore/mbc1.h
 	include/gameboycore/mbc2.h
 	include/gameboycore/mbc3.h
+	include/gameboycore/rtc.h
 	include/gameboycore/cartinfo.h
 	include/gameboycore/opcodeinfo.h
 	include/gameboycore/opcode_cycles.h
