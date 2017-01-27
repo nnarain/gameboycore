@@ -56,7 +56,13 @@ namespace gb
 				return 0xFF;
 			}
 
-			return memory_[getIndex(addr, rom_bank_, ram_bank_)];
+			if (addr == 0x6435)
+			{
+				int x = 0;
+			}
+
+			auto idx = getIndex(addr, rom_bank_, ram_bank_);
+			return memory_[idx];
 		}
 
 		uint8_t MBC::readVram(uint16_t addr, uint8_t bank)
