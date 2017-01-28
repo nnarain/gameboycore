@@ -27,14 +27,16 @@ namespace gb
 	class GAMEBOYCORE_API APU
 	{
 	public:
-		static constexpr int CHANNEL_COUNT = 2;   ///< Number of audio channels the APU provides (Stereo sound: left, right)
-		static constexpr int SAMPLE_RATE = 44100; ///< Audio sample rate
-
+		enum
+		{
+			CHANNEL_COUNT = 2,   ///< Number of audio channels the APU provides (Stereo sound: left, right)
+			SAMPLE_RATE = 44100  ///< Audio sample rate
+		};
 	public:
 		//! Smart pointer type
-		using Ptr = std::unique_ptr<APU>;
+		typedef std::unique_ptr<APU> Ptr;
 		//! Callback used to provide audio to the host system
-		using AudioSampleCallback = std::function<void(uint16_t, uint16_t)>;
+		typedef std::function<void(uint16_t, uint16_t)> AudioSampleCallback;
 
 	public:
 

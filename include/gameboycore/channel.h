@@ -22,8 +22,10 @@ namespace gb
 		*/
 		class Channel
 		{
-			//! Mask covers DAC bits
-			static constexpr int DAC_MASK = 0xF8;
+			enum{
+				//! Mask covers DAC bits
+				DAC_MASK = 0xF8
+			};
 
 		public:
 			Channel(uint8_t& nrx1, uint8_t& nrx2, uint8_t& nrx3, uint8_t& nrx4) :

@@ -61,7 +61,7 @@ namespace gb
 		};
 
         //! Smart pointer type
-		using Ptr = std::unique_ptr<CPU>;
+		typedef std::unique_ptr<CPU> Ptr;
 
     public:
         CPU(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu, Link::Ptr& link);

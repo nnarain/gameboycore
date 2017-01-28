@@ -19,8 +19,10 @@ namespace gb
 {
 	namespace detail
 	{
-		static constexpr unsigned int KILO_BYTE = 1024;
-		static constexpr unsigned int BANK_SIZE = (16 * KILO_BYTE);
+		enum{
+			KILO_BYTE = 1024,
+			BANK_SIZE = (16 * KILO_BYTE)
+		}
 
 		/**
 			\class MBC
@@ -109,7 +111,7 @@ namespace gb
 			/**
 				Called when a write to ROM occurs
 			*/
-			virtual void control(uint8_t value, uint16_t addr) = 0;	
+			virtual void control(uint8_t value, uint16_t addr) = 0;
 
 			//! virtual memory
 			std::vector<uint8_t> memory_;
@@ -122,7 +124,7 @@ namespace gb
 
 		private:
 			/**
-				\return index of address into virtual memory 
+				\return index of address into virtual memory
 			*/
 			int getIndex(uint16_t addr) const;
 

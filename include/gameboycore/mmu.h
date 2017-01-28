@@ -25,10 +25,10 @@ namespace gb
     {
 	public:
         //! Smart pointer type
-		using Ptr = std::unique_ptr<MMU>;
+		typedef std::unique_ptr<MMU> Ptr;
 
-		using MemoryWriteHandler = std::function<void(uint8_t, uint16_t)>;
-		using MemoryReadHandler  = std::function<uint8_t(uint16_t)>;
+		typedef std::function<void(uint8_t, uint16_t)> MemoryWriteHandler;
+		typedef std::function<uint8_t(uint16_t)>       MemoryReadHandler;
 
     public:
         MMU();

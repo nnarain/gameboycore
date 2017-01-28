@@ -23,11 +23,13 @@ namespace gb
 	class TileRAM
 	{
 	public:
-		static const unsigned int NUM_TILES = 192;
-		static const unsigned int TILE_SIZE = 16;
+		enum{
+			NUM_TILES = 192,
+			TILE_SIZE = 16
+		};
 
-		using TileRow  = std::array<uint8_t, 8>;
-		using TileLine = std::array<TileRow, 20>;
+		typedef std::array<uint8_t, 8> TileRow;
+		typedef std::array<TileRow, 20> TileLine;
 
 	public:
 		// TODO: remove this constructor

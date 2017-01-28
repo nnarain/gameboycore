@@ -33,7 +33,7 @@ namespace gb
 				WINDOW_OVERLAY = (1 << 6)
 			};
 
-			using Line = std::array<uint8_t, 160>;
+			typedef std::array<uint8_t, 160> Line;
 
 		public:
 

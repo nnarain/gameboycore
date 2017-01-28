@@ -30,15 +30,15 @@ namespace gb
 	{
 	public:
 		//! Smart pointer type
-		using Ptr = std::unique_ptr<GPU>;
+		typedef std::unique_ptr<GPU> Ptr;
 
 		//! Array on Pixel objects representing a single scan line produced by the GPU
-		using Scanline               = std::array<Pixel, 160>;
+		typedef std::array<Pixel, 160> Scanline;
 		/**
 			Callback function called by the GPU when it has produced a new scan line
 			Provides the Scanline and the line number
 		*/
-		using RenderScanlineCallback = std::function<void(const Scanline&, int linenum)>;
+		typedef std::function<void(const Scanline&, int linenum)> RenderScanlineCallback;
 
 	public:
 		GPU(MMU::Ptr& mmu);
