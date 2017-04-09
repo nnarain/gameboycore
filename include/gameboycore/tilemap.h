@@ -21,7 +21,7 @@ namespace gb
 	namespace detail
 	{
 		/**
-		\brief Class that knows how to render background map data
+			\brief Class that knows how to render background map data
 		*/
 		class TileMap
 		{
@@ -40,10 +40,10 @@ namespace gb
 			TileMap(MMU& mmu);
 			~TileMap();
 
-			Line getBackground(int line);
+			Line getBackground(int line, bool cgb_enable);
 			Line getWindowOverlay(int line);
 
-			void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line);
+			void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line, bool cgb_enable, std::array<std::array<gb::Pixel,4>,8>& cgb_palette);
 
 			std::vector<Sprite> getSpriteCache() const;
 			std::vector<uint8_t> getTileMap(Map map) const;
@@ -52,7 +52,7 @@ namespace gb
 			uint16_t getAddress(Map map) const;
 
 		private:
-			TileRAM tileram_;
+			detail::TileRAM tileram_;
 			MMU& mmu_;
 			uint8_t& scx_;
 			uint8_t& scy_;

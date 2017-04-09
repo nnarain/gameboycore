@@ -5,9 +5,21 @@ namespace gb
 {
 	namespace detail
 	{
-		MBC3::MBC3(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size) :
-			MBC(rom, size, rom_size, ram_size)
+		MBC3::MBC3(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable) :
+			MBC(rom, size, rom_size, ram_size, cgb_enable)
 		{
+		}
+
+		uint8_t MBC3::read(uint16_t addr) const
+		{
+			if (addr >= 0xA000 && addr <= 0xBFFF && rtc_.isEnabled())
+			{
+				return rtc_.get();
+			}
+			else
+			{
+				return MBC::read(addr);
+			}
 		}
 
 		void MBC3::control(uint8_t value, uint16_t addr)
@@ -27,11 +39,17 @@ namespace gb
 				if (value <= 0x03)
 				{
 					ram_bank_ = value & 0x0F;
+					rtc_.setEnable(false);
 				}
 				else if (value >= 0x08 && value <= 0x0C)
 				{
-					// RTC
+					rtc_.setEnable(true);
+					rtc_.select(value);
 				}
+			}
+			else if(addr >= 0x6000 && addr <= 0x7FFF)
+			{
+				
 			}
 		}
 

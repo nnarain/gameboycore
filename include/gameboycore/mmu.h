@@ -31,14 +31,9 @@ namespace gb
 		typedef std::function<uint8_t(uint16_t)>       MemoryReadHandler;
 
     public:
-        MMU();
+        MMU(uint8_t* rom, uint32_t size);
 		MMU(const MMU&) = delete;
         ~MMU();
-
-		/**
-			Load memory
-		*/
-        void load(uint8_t* rom, uint32_t size);
 
 		/**
 			@return the value of memory at the psecified location
@@ -53,6 +48,15 @@ namespace gb
 			Write a word to the specified location
 		*/
 		void write(uint16_t value, uint16_t addr);
+
+		/**
+		*/
+		uint8_t readVram(uint16_t addr, uint8_t bank);
+
+		/**
+			tranfer `n` bytes from `src` to `dest`
+		*/
+		void dma(uint16_t dest, uint16_t src, uint16_t n);
 
 		/**
 			Add a IO write handler
@@ -86,6 +90,11 @@ namespace gb
 			Check if OAM transfer has occured
 		*/
 		bool getOamTransferStatus() const;
+
+		/**
+			@return true if rom is CGB compatible
+		*/
+		bool cgbEnabled() const;
 
 		/**
 			\return a reference to a memory location

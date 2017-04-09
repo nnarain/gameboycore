@@ -17,8 +17,7 @@ TEST(MMUTest, Read)
 
 	auto rom = code.rom();
 
-	MMU mmu;
-	mmu.load(&rom[0], rom.size());
+	MMU mmu(&rom[0], rom.size());
 
 	EXPECT_EQ(mmu.read(0x250), 0x1);
 	EXPECT_EQ(mmu.read(0x251), 0x2);
@@ -30,8 +29,7 @@ TEST(MMUTest, Write8Bit)
 
 	auto rom = code.rom();
 
-	MMU mmu;
-	mmu.load(&rom[0], rom.size());
+	MMU mmu(&rom[0], rom.size());
 
 	uint8_t b = 0x35;
 	mmu.write(b, 0xC000);
@@ -45,8 +43,7 @@ TEST(MMUTest, Write16Bit)
 
 	auto rom = code.rom();
 
-	MMU mmu;
-	mmu.load(&rom[0], rom.size());
+	MMU mmu(&rom[0], rom.size());
 
 	uint16_t b = 0xDEAD;
 	mmu.write(b, 0xC000);
