@@ -1,4 +1,5 @@
 build/*
+Win32/*
 
 # docs
 docs/html/*
