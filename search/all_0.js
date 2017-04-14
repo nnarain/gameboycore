@@ -15,7 +15,8 @@ var searchData=
   ['apu',['APU',['../classgb_1_1APU.html#a677477da97c42a1a598b9f111d64b53a',1,'gb::APU::APU(MMU::Ptr &amp;mmu)'],['../classgb_1_1APU.html#ac9a09edef50ce8472da74cfaa99cb44c',1,'gb::APU::APU(const APU &amp;)=delete']]],
   ['apu',['APU',['../classgb_1_1APU.html',1,'gb']]],
   ['apu_2eh',['apu.h',['../apu_8h.html',1,'']]],
+  ['argument_5ftype',['argument_type',['../structgb_1_1detail_1_1ContainerHash.html#a6fae7caa2efd497cfcd379f7e7aa5b44',1,'gb::detail::ContainerHash']]],
   ['attr',['attr',['../classgb_1_1Sprite.html#aeaede991464e9102c2b98f2259261968',1,'gb::Sprite']]],
   ['audio',['Audio',['../group__Audio.html',1,'']]],
-  ['audiosamplecallback',['AudioSampleCallback',['../classgb_1_1APU.html#a10f278eaba6007a4bc6b83c5a7034065',1,'gb::APU']]]
+  ['audiosamplecallback',['AudioSampleCallback',['../classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018',1,'gb::APU']]]
 ];

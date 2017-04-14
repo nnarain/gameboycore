@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.15.1</a>
+                    <a class="navbar-brand">GameboyCore 0.17.0</a>
                 </div>
             </div>
         </nav>
@@ -110,13 +110,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a0b9ef7456e322d90fe4d45b9ad42b990"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">Ptr</a> = std::unique_ptr&lt; <a class="el" href="classgb_1_1MMU.html">MMU</a> &gt;</td></tr>
-<tr class="memdesc:a0b9ef7456e322d90fe4d45b9ad42b990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smart pointer type.  <a href="#a0b9ef7456e322d90fe4d45b9ad42b990">More...</a><br/></td></tr>
-<tr class="separator:a0b9ef7456e322d90fe4d45b9ad42b990"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c5bbb8b8a9e3ed540d2f53e2ea0d8de"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">MemoryWriteHandler</a> = std::function&lt; void(uint8_t, uint16_t)&gt;</td></tr>
-<tr class="separator:a3c5bbb8b8a9e3ed540d2f53e2ea0d8de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e94970b3d6f0349a9695d726ecaffa3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3">MemoryReadHandler</a> = std::function&lt; uint8_t(uint16_t)&gt;</td></tr>
-<tr class="separator:a9e94970b3d6f0349a9695d726ecaffa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9395bb0a55d5bd3f146055c1501d369d"><td class="memItemLeft" align="right" valign="top">typedef std::unique_ptr&lt; <a class="el" href="classgb_1_1MMU.html">MMU</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">Ptr</a></td></tr>
+<tr class="memdesc:a9395bb0a55d5bd3f146055c1501d369d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smart pointer type.  <a href="#a9395bb0a55d5bd3f146055c1501d369d">More...</a><br/></td></tr>
+<tr class="separator:a9395bb0a55d5bd3f146055c1501d369d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8be4d0e88434ad801f971b8cb04b170f"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(uint8_t, <br class="typebreak"/>
+uint16_t)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a8be4d0e88434ad801f971b8cb04b170f">MemoryWriteHandler</a></td></tr>
+<tr class="separator:a8be4d0e88434ad801f971b8cb04b170f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8be4b8caa2f402084f9d0ea08ec621ea"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; uint8_t(uint16_t)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a8be4b8caa2f402084f9d0ea08ec621ea">MemoryReadHandler</a></td></tr>
+<tr class="separator:a8be4b8caa2f402084f9d0ea08ec621ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -138,9 +139,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8bc6e6bc8c94451e1929f1b9edbe090c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a367f858f48ef899689f6cff322181ed8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a367f858f48ef899689f6cff322181ed8">dma</a> (uint16_t dest, uint16_t src, uint16_t n)</td></tr>
 <tr class="separator:a367f858f48ef899689f6cff322181ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d5f7532aaf79568be29f923969d02d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a0d5f7532aaf79568be29f923969d02d0">addWriteHandler</a> (uint16_t addr, <a class="el" href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">MemoryWriteHandler</a> handler)</td></tr>
+<tr class="memitem:a0d5f7532aaf79568be29f923969d02d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#a0d5f7532aaf79568be29f923969d02d0">addWriteHandler</a> (uint16_t addr, <a class="el" href="classgb_1_1MMU.html#a8be4d0e88434ad801f971b8cb04b170f">MemoryWriteHandler</a> handler)</td></tr>
 <tr class="separator:a0d5f7532aaf79568be29f923969d02d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1fff6531352087b032b4b76021608d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#af1fff6531352087b032b4b76021608d6">addReadHandler</a> (uint16_t addr, <a class="el" href="classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3">MemoryReadHandler</a> handler)</td></tr>
+<tr class="memitem:af1fff6531352087b032b4b76021608d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#af1fff6531352087b032b4b76021608d6">addReadHandler</a> (uint16_t addr, <a class="el" href="classgb_1_1MMU.html#a8be4b8caa2f402084f9d0ea08ec621ea">MemoryReadHandler</a> handler)</td></tr>
 <tr class="separator:af1fff6531352087b032b4b76021608d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3033b32048eb6c19fc279433f9c3f3f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1MMU.html#ac3033b32048eb6c19fc279433f9c3f3f">getBatteryRam</a> () const </td></tr>
 <tr class="separator:ac3033b32048eb6c19fc279433f9c3f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,36 +159,36 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Memory interface. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="a9e94970b3d6f0349a9695d726ecaffa3"></a>
+<a class="anchor" id="a8be4b8caa2f402084f9d0ea08ec621ea"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3">gb::MMU::MemoryReadHandler</a> =  std::function&lt;uint8_t(uint16_t)&gt;</td>
+          <td class="memname">typedef std::function&lt;uint8_t(uint16_t)&gt; <a class="el" href="classgb_1_1MMU.html#a8be4b8caa2f402084f9d0ea08ec621ea">gb::MMU::MemoryReadHandler</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a3c5bbb8b8a9e3ed540d2f53e2ea0d8de"></a>
+<a class="anchor" id="a8be4d0e88434ad801f971b8cb04b170f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">gb::MMU::MemoryWriteHandler</a> =  std::function&lt;void(uint8_t, uint16_t)&gt;</td>
+          <td class="memname">typedef std::function&lt;void(uint8_t, uint16_t)&gt; <a class="el" href="classgb_1_1MMU.html#a8be4d0e88434ad801f971b8cb04b170f">gb::MMU::MemoryWriteHandler</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a0b9ef7456e322d90fe4d45b9ad42b990"></a>
+<a class="anchor" id="a9395bb0a55d5bd3f146055c1501d369d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">gb::MMU::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="classgb_1_1MMU.html">MMU</a>&gt;</td>
+          <td class="memname">typedef std::unique_ptr&lt;<a class="el" href="classgb_1_1MMU.html">MMU</a>&gt; <a class="el" href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">gb::MMU::Ptr</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -276,7 +277,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3">MemoryReadHandler</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classgb_1_1MMU.html#a8be4b8caa2f402084f9d0ea08ec621ea">MemoryReadHandler</a>&#160;</td>
           <td class="paramname"><em>handler</em>&#160;</td>
         </tr>
         <tr>
@@ -310,7 +311,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de">MemoryWriteHandler</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classgb_1_1MMU.html#a8be4d0e88434ad801f971b8cb04b170f">MemoryWriteHandler</a>&#160;</td>
           <td class="paramname"><em>handler</em>&#160;</td>
         </tr>
         <tr>
@@ -593,7 +594,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

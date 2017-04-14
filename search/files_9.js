@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['palette_2eh',['palette.h',['../palette_8h.html',1,'']]],
-  ['pixel_2eh',['pixel.h',['../pixel_8h.html',1,'']]]
+  ['oam_2eh',['oam.h',['../oam_8h.html',1,'']]],
+  ['opcode_5fcycles_2eh',['opcode_cycles.h',['../opcode__cycles_8h.html',1,'']]],
+  ['opcodeinfo_2eh',['opcodeinfo.h',['../opcodeinfo_8h.html',1,'']]]
 ];

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['map',['Map',['../classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20',1,'gb::detail::TileMap']]],
-  ['mask_5from_5fversion',['MASK_ROM_VERSION',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ae56a58cd0121a3f7a9b6beee387e087a',1,'gb::memorymap']]],
+  ['mask_5from_5fversion',['MASK_ROM_VERSION',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54ae56a58cd0121a3f7a9b6beee387e087a',1,'gb::memorymap']]],
   ['mb1',['MB1',['../classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbbaac436fe03571a25326a93a877f720f15',1,'gb::detail::MBC']]],
   ['mb1_5f1',['MB1_1',['../classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbba8587de4049dd8a6873a8c0cec72b1719',1,'gb::detail::MBC']]],
   ['mb1_5f2',['MB1_2',['../classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbba5dcf1166952b2fff2dd22e62b3744ba3',1,'gb::detail::MBC']]],
@@ -38,8 +38,8 @@ var searchData=
   ['mbc5_5frumble_5fram_5fbat',['MBC5_RUMBLE_RAM_BAT',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da79b178baa2ea502b799b1ada2f1db855',1,'gb::detail::MBC']]],
   ['memory_5f',['memory_',['../classgb_1_1detail_1_1MBC.html#a803c10a0be2147575bad3926b4caf3fe',1,'gb::detail::MBC']]],
   ['memorymap_2eh',['memorymap.h',['../memorymap_8h.html',1,'']]],
-  ['memoryreadhandler',['MemoryReadHandler',['../classgb_1_1MMU.html#a9e94970b3d6f0349a9695d726ecaffa3',1,'gb::MMU']]],
-  ['memorywritehandler',['MemoryWriteHandler',['../classgb_1_1MMU.html#a3c5bbb8b8a9e3ed540d2f53e2ea0d8de',1,'gb::MMU']]],
+  ['memoryreadhandler',['MemoryReadHandler',['../classgb_1_1MMU.html#a8be4b8caa2f402084f9d0ea08ec621ea',1,'gb::MMU']]],
+  ['memorywritehandler',['MemoryWriteHandler',['../classgb_1_1MMU.html#a8be4d0e88434ad801f971b8cb04b170f',1,'gb::MMU']]],
   ['mmm01',['MMM01',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da714c1eee4a55d24c88990dc8073b75d7',1,'gb::detail::MBC']]],
   ['mmm01_5fram',['MMM01_RAM',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da83e4da374d7633ab2aeccedd7060c63c',1,'gb::detail::MBC']]],
   ['mmm01_5fram_5fbat',['MMM01_RAM_BAT',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da190ea1a3117a72d4f98fe2a1f132d959',1,'gb::detail::MBC']]],

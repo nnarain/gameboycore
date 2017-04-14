@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.15.1</a>
+                    <a class="navbar-brand">GameboyCore 0.17.0</a>
                 </div>
             </div>
         </nav>
@@ -110,18 +110,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:afe55b09fdb9d5abb3a8bd7fcd75d9662"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#afe55b09fdb9d5abb3a8bd7fcd75d9662">Ptr</a> = std::unique_ptr&lt; <a class="el" href="classgb_1_1GPU.html">GPU</a> &gt;</td></tr>
-<tr class="memdesc:afe55b09fdb9d5abb3a8bd7fcd75d9662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smart pointer type.  <a href="#afe55b09fdb9d5abb3a8bd7fcd75d9662">More...</a><br/></td></tr>
-<tr class="separator:afe55b09fdb9d5abb3a8bd7fcd75d9662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b92f55c442c69e588ec347f16ead027"><td class="memItemLeft" align="right" valign="top">typedef std::unique_ptr&lt; <a class="el" href="classgb_1_1GPU.html">GPU</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#a5b92f55c442c69e588ec347f16ead027">Ptr</a></td></tr>
+<tr class="memdesc:a5b92f55c442c69e588ec347f16ead027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smart pointer type.  <a href="#a5b92f55c442c69e588ec347f16ead027">More...</a><br/></td></tr>
+<tr class="separator:a5b92f55c442c69e588ec347f16ead027"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb40080a0e2e8f1df0689a784ec873eb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">Scanline</a> = std::array&lt; <a class="el" href="structgb_1_1Pixel.html">Pixel</a>, 160 &gt;</td></tr>
 <tr class="memdesc:acb40080a0e2e8f1df0689a784ec873eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array on <a class="el" href="structgb_1_1Pixel.html" title="Pixel type. ">Pixel</a> objects representing a single scan line produced by the <a class="el" href="classgb_1_1GPU.html" title="Handle LCD state, compute scanlines and send to an external renderer. ">GPU</a>.  <a href="#acb40080a0e2e8f1df0689a784ec873eb">More...</a><br/></td></tr>
 <tr class="separator:acb40080a0e2e8f1df0689a784ec873eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1818270761fb7f12d870e652b3daeadc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">RenderScanlineCallback</a> = std::function&lt; void(const <a class="el" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">Scanline</a> &amp;, int linenum)&gt;</td></tr>
-<tr class="separator:a1818270761fb7f12d870e652b3daeadc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e0e439b194e64e42c02e80ff4203506"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(const <br class="typebreak"/>
+<a class="el" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">Scanline</a> &amp;, int linenum)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">RenderScanlineCallback</a></td></tr>
+<tr class="separator:a5e0e439b194e64e42c02e80ff4203506"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad3fbc62283bb33119ce4fea27f64a6c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#ad3fbc62283bb33119ce4fea27f64a6c5">GPU</a> (<a class="el" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a> &amp;mmu)</td></tr>
+<tr class="memitem:ad3fbc62283bb33119ce4fea27f64a6c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#ad3fbc62283bb33119ce4fea27f64a6c5">GPU</a> (<a class="el" href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">MMU::Ptr</a> &amp;mmu)</td></tr>
 <tr class="separator:ad3fbc62283bb33119ce4fea27f64a6c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf4cb552510552c96e26a3c160b6bc16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#aaf4cb552510552c96e26a3c160b6bc16">GPU</a> (const <a class="el" href="classgb_1_1GPU.html">GPU</a> &amp;)=delete</td></tr>
 <tr class="separator:aaf4cb552510552c96e26a3c160b6bc16"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,22 +130,24 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab80987c336b096b8ecd89b93c59af235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50dd6912a5f2546d64acbad5ea72de94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#a50dd6912a5f2546d64acbad5ea72de94">update</a> (uint8_t cycles, bool ime)</td></tr>
 <tr class="separator:a50dd6912a5f2546d64acbad5ea72de94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65b4c3ebc0a0ae65697d3893eaafe7ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#a65b4c3ebc0a0ae65697d3893eaafe7ef">setRenderCallback</a> (<a class="el" href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">RenderScanlineCallback</a> callback)</td></tr>
+<tr class="memitem:a65b4c3ebc0a0ae65697d3893eaafe7ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#a65b4c3ebc0a0ae65697d3893eaafe7ef">setRenderCallback</a> (<a class="el" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">RenderScanlineCallback</a> callback)</td></tr>
 <tr class="separator:a65b4c3ebc0a0ae65697d3893eaafe7ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04fd7d09430a3adc6cdac5505ecf0802"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#a04fd7d09430a3adc6cdac5505ecf0802">getBackgroundTileMap</a> () const </td></tr>
 <tr class="separator:a04fd7d09430a3adc6cdac5505ecf0802"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe59005132cce1d1196b90dad490dab3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classgb_1_1Sprite.html">Sprite</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#afe59005132cce1d1196b90dad490dab3">getSpriteCache</a> () const </td></tr>
 <tr class="separator:afe59005132cce1d1196b90dad490dab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a343831ea0e14c080dd536c4b6c6dc195"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1GPU.html#a343831ea0e14c080dd536c4b6c6dc195">getBackgroundHash</a> () const </td></tr>
+<tr class="separator:a343831ea0e14c080dd536c4b6c6dc195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handle LCD state, compute scanlines and send to an external renderer. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="afe55b09fdb9d5abb3a8bd7fcd75d9662"></a>
+<a class="anchor" id="a5b92f55c442c69e588ec347f16ead027"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1GPU.html#afe55b09fdb9d5abb3a8bd7fcd75d9662">gb::GPU::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="classgb_1_1GPU.html">GPU</a>&gt;</td>
+          <td class="memname">typedef std::unique_ptr&lt;<a class="el" href="classgb_1_1GPU.html">GPU</a>&gt; <a class="el" href="classgb_1_1GPU.html#a5b92f55c442c69e588ec347f16ead027">gb::GPU::Ptr</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -153,12 +156,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1818270761fb7f12d870e652b3daeadc"></a>
+<a class="anchor" id="a5e0e439b194e64e42c02e80ff4203506"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">gb::GPU::RenderScanlineCallback</a> =  std::function&lt;void(const <a class="el" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">Scanline</a>&amp;, int linenum)&gt;</td>
+          <td class="memname">typedef std::function&lt;void(const <a class="el" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">Scanline</a>&amp;, int linenum)&gt; <a class="el" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">gb::GPU::RenderScanlineCallback</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -188,7 +191,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">gb::GPU::GPU </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">MMU::Ptr</a> &amp;&#160;</td>
           <td class="paramname"><em>mmu</em></td><td>)</td>
           <td></td>
         </tr>
@@ -237,6 +240,22 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a343831ea0e14c080dd536c4b6c6dc195"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t gb::GPU::getBackgroundHash </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Hashed background map </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a04fd7d09430a3adc6cdac5505ecf0802"></a>
 <div class="memitem">
 <div class="memproto">
@@ -276,7 +295,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void gb::GPU::setRenderCallback </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">RenderScanlineCallback</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">RenderScanlineCallback</a>&#160;</td>
           <td class="paramname"><em>callback</em></td><td>)</td>
           <td></td>
         </tr>
@@ -325,7 +344,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

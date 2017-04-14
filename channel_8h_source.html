@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.15.1</a>
+                    <a class="navbar-brand">GameboyCore 0.17.0</a>
                 </div>
             </div>
         </nav>
@@ -108,106 +108,108 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html">   23</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classgb_1_1detail_1_1Channel.html">Channel</a></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> DAC_MASK = 0xF8;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#aa28eb01c93b8a2462cc1dd4fc11f4e17">   29</a></span>&#160;            <a class="code" href="classgb_1_1detail_1_1Channel.html#aa28eb01c93b8a2462cc1dd4fc11f4e17">Channel</a>(uint8_t&amp; nrx1, uint8_t&amp; nrx2, uint8_t&amp; nrx3, uint8_t&amp; nrx4) :</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#a67977f58516c7ae86eddc35279d88a8b">nrx1_</a>(nrx1),</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">nrx2_</a>(nrx2),</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#ace282d41d19897b92d6c84e9cd9acf88">nrx3_</a>(nrx3),</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">nrx4_</a>(nrx4),</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a>(0),</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a>(false)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a36d3f1d6e2add4f8eb2863a591e62caa">   39</a></span>&#160;            <a class="code" href="classgb_1_1detail_1_1Channel.html#a36d3f1d6e2add4f8eb2863a591e62caa">~Channel</a>()</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#aa061f873ea09a8169b10341fd634873b">   43</a></span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#aa061f873ea09a8169b10341fd634873b">trigger</a>()</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="comment">// only enable channel if the DAC is on</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                <span class="keywordflow">if</span>(<a class="code" href="classgb_1_1detail_1_1Channel.html#a60f5ebec2af4fdaef9e30575ebd904b1">isDacEnabled</a>())</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> == 0)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> = 64;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#ab4a987766df417d69eecc7352b7a053b">   53</a></span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#ab4a987766df417d69eecc7352b7a053b">isEnabled</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">            </span>{</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a894fe66408a03c4c87de8e1dec0559e5">   58</a></span>&#160;            uint8_t <a class="code" href="classgb_1_1detail_1_1Channel.html#a894fe66408a03c4c87de8e1dec0559e5">getLength</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">            </span>{</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a0fb69d22e2e1931fab744448ba8749af">   63</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a0fb69d22e2e1931fab744448ba8749af">setLength</a>(<span class="keywordtype">int</span> length)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> = length;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a7af931d4328a795a9fc7e5e2d374c6e0">   68</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a7af931d4328a795a9fc7e5e2d374c6e0">setDacPower</a>(uint8_t p)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">if</span> (p == 0)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a60f5ebec2af4fdaef9e30575ebd904b1">   74</a></span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a60f5ebec2af4fdaef9e30575ebd904b1">isDacEnabled</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">            </span>{</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                <span class="keywordflow">return</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">nrx2_</a> &amp; DAC_MASK) != 0;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a670d6ddca04067d0297f44229cf79bb0">   79</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a670d6ddca04067d0297f44229cf79bb0">clockLength</a>()</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                <span class="keywordflow">if</span> (!isCounterMode()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> &gt; 0)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a>--;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> == 0)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordtype">bool</span> isCounterMode()</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                <span class="keywordflow">return</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">nrx4_</a> &amp; 0x40) != 0;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a67977f58516c7ae86eddc35279d88a8b">  100</a></span>&#160;            uint8_t&amp; <a class="code" href="classgb_1_1detail_1_1Channel.html#a67977f58516c7ae86eddc35279d88a8b">nrx1_</a>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">  102</a></span>&#160;            uint8_t&amp; <a class="code" href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">nrx2_</a>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#ace282d41d19897b92d6c84e9cd9acf88">  104</a></span>&#160;            uint8_t&amp; <a class="code" href="classgb_1_1detail_1_1Channel.html#ace282d41d19897b92d6c84e9cd9acf88">nrx3_</a>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">  106</a></span>&#160;            uint8_t&amp; <a class="code" href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">nrx4_</a>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">  109</a></span>&#160;            <span class="keywordtype">int</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">  111</a></span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        };</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a894fe66408a03c4c87de8e1dec0559e5"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a894fe66408a03c4c87de8e1dec0559e5">gb::detail::Channel::getLength</a></div><div class="ttdeci">uint8_t getLength() const </div><div class="ttdef"><b>Definition:</b> channel.h:58</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_aa28eb01c93b8a2462cc1dd4fc11f4e17"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#aa28eb01c93b8a2462cc1dd4fc11f4e17">gb::detail::Channel::Channel</a></div><div class="ttdeci">Channel(uint8_t &amp;nrx1, uint8_t &amp;nrx2, uint8_t &amp;nrx3, uint8_t &amp;nrx4)</div><div class="ttdef"><b>Definition:</b> channel.h:29</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_aa623429c2b547ab55707db85c13bd96a"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">gb::detail::Channel::nrx4_</a></div><div class="ttdeci">uint8_t &amp; nrx4_</div><div class="ttdoc">NRx4 APU Register. </div><div class="ttdef"><b>Definition:</b> channel.h:106</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_ab4a987766df417d69eecc7352b7a053b"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#ab4a987766df417d69eecc7352b7a053b">gb::detail::Channel::isEnabled</a></div><div class="ttdeci">bool isEnabled() const </div><div class="ttdef"><b>Definition:</b> channel.h:53</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a7a89d3a9230f4fb3494054d653ad1277"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">gb::detail::Channel::length_counter_</a></div><div class="ttdeci">int length_counter_</div><div class="ttdoc">Length Counter. </div><div class="ttdef"><b>Definition:</b> channel.h:109</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a36d3f1d6e2add4f8eb2863a591e62caa"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a36d3f1d6e2add4f8eb2863a591e62caa">gb::detail::Channel::~Channel</a></div><div class="ttdeci">~Channel()</div><div class="ttdef"><b>Definition:</b> channel.h:39</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_ace282d41d19897b92d6c84e9cd9acf88"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#ace282d41d19897b92d6c84e9cd9acf88">gb::detail::Channel::nrx3_</a></div><div class="ttdeci">uint8_t &amp; nrx3_</div><div class="ttdoc">NRx3 APU Register. </div><div class="ttdef"><b>Definition:</b> channel.h:104</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a670d6ddca04067d0297f44229cf79bb0"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a670d6ddca04067d0297f44229cf79bb0">gb::detail::Channel::clockLength</a></div><div class="ttdeci">void clockLength()</div><div class="ttdef"><b>Definition:</b> channel.h:79</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_aa061f873ea09a8169b10341fd634873b"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#aa061f873ea09a8169b10341fd634873b">gb::detail::Channel::trigger</a></div><div class="ttdeci">virtual void trigger()</div><div class="ttdef"><b>Definition:</b> channel.h:43</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a67977f58516c7ae86eddc35279d88a8b"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a67977f58516c7ae86eddc35279d88a8b">gb::detail::Channel::nrx1_</a></div><div class="ttdeci">uint8_t &amp; nrx1_</div><div class="ttdoc">NRx1 APU Register. </div><div class="ttdef"><b>Definition:</b> channel.h:100</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a60f5ebec2af4fdaef9e30575ebd904b1"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a60f5ebec2af4fdaef9e30575ebd904b1">gb::detail::Channel::isDacEnabled</a></div><div class="ttdeci">virtual bool isDacEnabled() const </div><div class="ttdef"><b>Definition:</b> channel.h:74</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a0fb69d22e2e1931fab744448ba8749af"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a0fb69d22e2e1931fab744448ba8749af">gb::detail::Channel::setLength</a></div><div class="ttdeci">void setLength(int length)</div><div class="ttdef"><b>Definition:</b> channel.h:63</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_aa1aff1f3b076e36da52eec88214099f7"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">gb::detail::Channel::enabled_</a></div><div class="ttdeci">bool enabled_</div><div class="ttdoc">Channel Enabled flag. </div><div class="ttdef"><b>Definition:</b> channel.h:111</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a7af931d4328a795a9fc7e5e2d374c6e0"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a7af931d4328a795a9fc7e5e2d374c6e0">gb::detail::Channel::setDacPower</a></div><div class="ttdeci">void setDacPower(uint8_t p)</div><div class="ttdef"><b>Definition:</b> channel.h:68</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a41d785c9e8c4bb9cac29f8878fec1955"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">gb::detail::Channel::nrx2_</a></div><div class="ttdeci">uint8_t &amp; nrx2_</div><div class="ttdoc">NRx2 APU Register. </div><div class="ttdef"><b>Definition:</b> channel.h:102</div></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <span class="keyword">enum</span>{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                DAC_MASK = 0xF8</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            };</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#aa28eb01c93b8a2462cc1dd4fc11f4e17">   31</a></span>&#160;            <a class="code" href="classgb_1_1detail_1_1Channel.html#aa28eb01c93b8a2462cc1dd4fc11f4e17">Channel</a>(uint8_t&amp; nrx1, uint8_t&amp; nrx2, uint8_t&amp; nrx3, uint8_t&amp; nrx4) :</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#a67977f58516c7ae86eddc35279d88a8b">nrx1_</a>(nrx1),</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">nrx2_</a>(nrx2),</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#ace282d41d19897b92d6c84e9cd9acf88">nrx3_</a>(nrx3),</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">nrx4_</a>(nrx4),</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a>(0),</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a>(false)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a36d3f1d6e2add4f8eb2863a591e62caa">   41</a></span>&#160;            <a class="code" href="classgb_1_1detail_1_1Channel.html#a36d3f1d6e2add4f8eb2863a591e62caa">~Channel</a>()</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#aa061f873ea09a8169b10341fd634873b">   45</a></span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#aa061f873ea09a8169b10341fd634873b">trigger</a>()</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                <span class="comment">// only enable channel if the DAC is on</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                <span class="keywordflow">if</span>(<a class="code" href="classgb_1_1detail_1_1Channel.html#a60f5ebec2af4fdaef9e30575ebd904b1">isDacEnabled</a>())</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> == 0)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> = 64;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#ab4a987766df417d69eecc7352b7a053b">   55</a></span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#ab4a987766df417d69eecc7352b7a053b">isEnabled</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">            </span>{</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a894fe66408a03c4c87de8e1dec0559e5">   60</a></span>&#160;            uint8_t <a class="code" href="classgb_1_1detail_1_1Channel.html#a894fe66408a03c4c87de8e1dec0559e5">getLength</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">            </span>{</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a0fb69d22e2e1931fab744448ba8749af">   65</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a0fb69d22e2e1931fab744448ba8749af">setLength</a>(<span class="keywordtype">int</span> length)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> = length;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a7af931d4328a795a9fc7e5e2d374c6e0">   70</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a7af931d4328a795a9fc7e5e2d374c6e0">setDacPower</a>(uint8_t p)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="keywordflow">if</span> (p == 0)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a60f5ebec2af4fdaef9e30575ebd904b1">   76</a></span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a60f5ebec2af4fdaef9e30575ebd904b1">isDacEnabled</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">            </span>{</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                <span class="keywordflow">return</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">nrx2_</a> &amp; DAC_MASK) != 0;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a670d6ddca04067d0297f44229cf79bb0">   81</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a670d6ddca04067d0297f44229cf79bb0">clockLength</a>()</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                <span class="keywordflow">if</span> (!isCounterMode()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> &gt; 0)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a>--;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a> == 0)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                    <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordtype">bool</span> isCounterMode()</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                <span class="keywordflow">return</span> (<a class="code" href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">nrx4_</a> &amp; 0x40) != 0;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a67977f58516c7ae86eddc35279d88a8b">  102</a></span>&#160;            uint8_t&amp; <a class="code" href="classgb_1_1detail_1_1Channel.html#a67977f58516c7ae86eddc35279d88a8b">nrx1_</a>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">  104</a></span>&#160;            uint8_t&amp; <a class="code" href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">nrx2_</a>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#ace282d41d19897b92d6c84e9cd9acf88">  106</a></span>&#160;            uint8_t&amp; <a class="code" href="classgb_1_1detail_1_1Channel.html#ace282d41d19897b92d6c84e9cd9acf88">nrx3_</a>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">  108</a></span>&#160;            uint8_t&amp; <a class="code" href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">nrx4_</a>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">  111</a></span>&#160;            <span class="keywordtype">int</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">  113</a></span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">enabled_</a>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        };</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a894fe66408a03c4c87de8e1dec0559e5"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a894fe66408a03c4c87de8e1dec0559e5">gb::detail::Channel::getLength</a></div><div class="ttdeci">uint8_t getLength() const </div><div class="ttdef"><b>Definition:</b> channel.h:60</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_aa28eb01c93b8a2462cc1dd4fc11f4e17"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#aa28eb01c93b8a2462cc1dd4fc11f4e17">gb::detail::Channel::Channel</a></div><div class="ttdeci">Channel(uint8_t &amp;nrx1, uint8_t &amp;nrx2, uint8_t &amp;nrx3, uint8_t &amp;nrx4)</div><div class="ttdef"><b>Definition:</b> channel.h:31</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_aa623429c2b547ab55707db85c13bd96a"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#aa623429c2b547ab55707db85c13bd96a">gb::detail::Channel::nrx4_</a></div><div class="ttdeci">uint8_t &amp; nrx4_</div><div class="ttdoc">NRx4 APU Register. </div><div class="ttdef"><b>Definition:</b> channel.h:108</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_ab4a987766df417d69eecc7352b7a053b"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#ab4a987766df417d69eecc7352b7a053b">gb::detail::Channel::isEnabled</a></div><div class="ttdeci">bool isEnabled() const </div><div class="ttdef"><b>Definition:</b> channel.h:55</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a7a89d3a9230f4fb3494054d653ad1277"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a7a89d3a9230f4fb3494054d653ad1277">gb::detail::Channel::length_counter_</a></div><div class="ttdeci">int length_counter_</div><div class="ttdoc">Length Counter. </div><div class="ttdef"><b>Definition:</b> channel.h:111</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a36d3f1d6e2add4f8eb2863a591e62caa"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a36d3f1d6e2add4f8eb2863a591e62caa">gb::detail::Channel::~Channel</a></div><div class="ttdeci">~Channel()</div><div class="ttdef"><b>Definition:</b> channel.h:41</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_ace282d41d19897b92d6c84e9cd9acf88"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#ace282d41d19897b92d6c84e9cd9acf88">gb::detail::Channel::nrx3_</a></div><div class="ttdeci">uint8_t &amp; nrx3_</div><div class="ttdoc">NRx3 APU Register. </div><div class="ttdef"><b>Definition:</b> channel.h:106</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a670d6ddca04067d0297f44229cf79bb0"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a670d6ddca04067d0297f44229cf79bb0">gb::detail::Channel::clockLength</a></div><div class="ttdeci">void clockLength()</div><div class="ttdef"><b>Definition:</b> channel.h:81</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_aa061f873ea09a8169b10341fd634873b"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#aa061f873ea09a8169b10341fd634873b">gb::detail::Channel::trigger</a></div><div class="ttdeci">virtual void trigger()</div><div class="ttdef"><b>Definition:</b> channel.h:45</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a67977f58516c7ae86eddc35279d88a8b"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a67977f58516c7ae86eddc35279d88a8b">gb::detail::Channel::nrx1_</a></div><div class="ttdeci">uint8_t &amp; nrx1_</div><div class="ttdoc">NRx1 APU Register. </div><div class="ttdef"><b>Definition:</b> channel.h:102</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a60f5ebec2af4fdaef9e30575ebd904b1"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a60f5ebec2af4fdaef9e30575ebd904b1">gb::detail::Channel::isDacEnabled</a></div><div class="ttdeci">virtual bool isDacEnabled() const </div><div class="ttdef"><b>Definition:</b> channel.h:76</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a0fb69d22e2e1931fab744448ba8749af"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a0fb69d22e2e1931fab744448ba8749af">gb::detail::Channel::setLength</a></div><div class="ttdeci">void setLength(int length)</div><div class="ttdef"><b>Definition:</b> channel.h:65</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_aa1aff1f3b076e36da52eec88214099f7"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#aa1aff1f3b076e36da52eec88214099f7">gb::detail::Channel::enabled_</a></div><div class="ttdeci">bool enabled_</div><div class="ttdoc">Channel Enabled flag. </div><div class="ttdef"><b>Definition:</b> channel.h:113</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a7af931d4328a795a9fc7e5e2d374c6e0"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a7af931d4328a795a9fc7e5e2d374c6e0">gb::detail::Channel::setDacPower</a></div><div class="ttdeci">void setDacPower(uint8_t p)</div><div class="ttdef"><b>Definition:</b> channel.h:70</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1Channel_html_a41d785c9e8c4bb9cac29f8878fec1955"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html#a41d785c9e8c4bb9cac29f8878fec1955">gb::detail::Channel::nrx2_</a></div><div class="ttdeci">uint8_t &amp; nrx2_</div><div class="ttdoc">NRx2 APU Register. </div><div class="ttdef"><b>Definition:</b> channel.h:104</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1Channel_html"><div class="ttname"><a href="classgb_1_1detail_1_1Channel.html">gb::detail::Channel</a></div><div class="ttdoc">Base class for Sound channel. </div><div class="ttdef"><b>Definition:</b> channel.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
@@ -218,7 +220,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -4,6 +4,7 @@ var searchData=
   ['get',['get',['../classgb_1_1detail_1_1MBC.html#a8e2b882c19564729025a134cb88a6735',1,'gb::detail::MBC::get()'],['../classgb_1_1MMU.html#a60ef490bb2b6ed74fdbf98a4f9b57ade',1,'gb::MMU::get()'],['../classgb_1_1Palette.html#aa3068b45b9b7f0558fcf3744b6ca411a',1,'gb::Palette::get()'],['../classgb_1_1detail_1_1RTC.html#aff3fc1011e774f074aa941f452d70920',1,'gb::detail::RTC::get()']]],
   ['getapu',['getAPU',['../classgb_1_1GameboyCore.html#a58f7947b6fe5e25c0d86a7d1d9c4a755',1,'gb::GameboyCore']]],
   ['getbackground',['getBackground',['../classgb_1_1detail_1_1TileMap.html#a73b8c34a35bf2cea1c19137fc644f88b',1,'gb::detail::TileMap']]],
+  ['getbackgroundhash',['getBackgroundHash',['../classgb_1_1GPU.html#a343831ea0e14c080dd536c4b6c6dc195',1,'gb::GPU']]],
   ['getbackgroundtilemap',['getBackgroundTileMap',['../classgb_1_1GPU.html#a04fd7d09430a3adc6cdac5505ecf0802',1,'gb::GPU']]],
   ['getbatteryram',['getBatteryRam',['../classgb_1_1MMU.html#ac3033b32048eb6c19fc279433f9c3f3f',1,'gb::MMU']]],
   ['getcgbpalette',['getCgbPalette',['../classgb_1_1Sprite.html#a27bdc500d751d0bd69944b6053c9bcee',1,'gb::Sprite']]],

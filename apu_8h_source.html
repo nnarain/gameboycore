@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.15.1</a>
+                    <a class="navbar-brand">GameboyCore 0.17.0</a>
                 </div>
             </div>
         </nav>
@@ -111,36 +111,38 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classgb_1_1APU.html">   27</a></span>&#160;    <span class="keyword">class </span><a class="code" href="gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc">GAMEBOYCORE_API</a> <a class="code" href="classgb_1_1APU.html">APU</a></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classgb_1_1APU.html#a74292c2025d1317076c796d88e54e997">   30</a></span>&#160;        <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> CHANNEL_COUNT = 2;   </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classgb_1_1APU.html#acdfa280e33c596f54a1d716a06f5080d">   31</a></span>&#160;        <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> SAMPLE_RATE = 44100; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classgb_1_1APU.html#a843f5d745eb71ec945b6fc92362a1802">   35</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1APU.html#a843f5d745eb71ec945b6fc92362a1802">Ptr</a> = std::unique_ptr&lt;APU&gt;;</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classgb_1_1APU.html#a10f278eaba6007a4bc6b83c5a7034065">   37</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1APU.html#a10f278eaba6007a4bc6b83c5a7034065">AudioSampleCallback</a> = std::function&lt;void(uint16_t, uint16_t)&gt;;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">enum</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        {</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classgb_1_1APU.html#a0bb0d69060ddb4e5a32ce2ac821f6774a7067ad11aef8386ca374f7a320c57dd1">   32</a></span>&#160;            CHANNEL_COUNT = 2,   </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classgb_1_1APU.html#a0bb0d69060ddb4e5a32ce2ac821f6774af5420ef8c4d0abf51f7c8f414a80e555">   33</a></span>&#160;            SAMPLE_RATE = 44100  </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        };</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classgb_1_1APU.html#a4f1c67db9e16c012fc44b1a7dc9062d5">   37</a></span>&#160;        <span class="keyword">typedef</span> std::unique_ptr&lt;APU&gt; <a class="code" href="classgb_1_1APU.html#a4f1c67db9e16c012fc44b1a7dc9062d5">Ptr</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018">   39</a></span>&#160;        <span class="keyword">typedef</span> std::function&lt;void(uint16_t, uint16_t)&gt; <a class="code" href="classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018">AudioSampleCallback</a>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="classgb_1_1APU.html">APU</a>(<a class="code" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a>&amp; mmu);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="classgb_1_1APU.html">APU</a>(<span class="keyword">const</span> <a class="code" href="classgb_1_1APU.html">APU</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        ~<a class="code" href="classgb_1_1APU.html">APU</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">void</span> update(uint8_t cycles);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">void</span> setAudioSampleCallback(<a class="code" href="classgb_1_1APU.html#a10f278eaba6007a4bc6b83c5a7034065">AudioSampleCallback</a> callback);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">class </span>Impl;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        Impl* impl_;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    };</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="classgb_1_1APU.html">APU</a>(<a class="code" href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">MMU::Ptr</a>&amp; mmu);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="classgb_1_1APU.html">APU</a>(<span class="keyword">const</span> <a class="code" href="classgb_1_1APU.html">APU</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        ~<a class="code" href="classgb_1_1APU.html">APU</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span> update(uint8_t cycles);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">void</span> setAudioSampleCallback(<a class="code" href="classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018">AudioSampleCallback</a> callback);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">class </span>Impl;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        Impl* impl_;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="classgb_1_1MMU_html_a9395bb0a55d5bd3f146055c1501d369d"><div class="ttname"><a href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">gb::MMU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; MMU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> mmu.h:28</div></div>
+<div class="ttc" id="classgb_1_1APU_html_a4f1c67db9e16c012fc44b1a7dc9062d5"><div class="ttname"><a href="classgb_1_1APU.html#a4f1c67db9e16c012fc44b1a7dc9062d5">gb::APU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; APU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> apu.h:37</div></div>
 <div class="ttc" id="classgb_1_1APU_html"><div class="ttname"><a href="classgb_1_1APU.html">gb::APU</a></div><div class="ttdoc">Emulate Gameboy sound functions. </div><div class="ttdef"><b>Definition:</b> apu.h:27</div></div>
 <div class="ttc" id="gameboycore__api_8h_html_a30796a64a7a4bc4b2ae0623474940bfc"><div class="ttname"><a href="gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc">GAMEBOYCORE_API</a></div><div class="ttdeci">#define GAMEBOYCORE_API</div><div class="ttdef"><b>Definition:</b> gameboycore_api.h:22</div></div>
 <div class="ttc" id="mmu_8h_html"><div class="ttname"><a href="mmu_8h.html">mmu.h</a></div><div class="ttdoc">Memory interface. </div></div>
-<div class="ttc" id="classgb_1_1MMU_html_a0b9ef7456e322d90fe4d45b9ad42b990"><div class="ttname"><a href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">gb::MMU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; MMU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> mmu.h:28</div></div>
-<div class="ttc" id="classgb_1_1APU_html_a843f5d745eb71ec945b6fc92362a1802"><div class="ttname"><a href="classgb_1_1APU.html#a843f5d745eb71ec945b6fc92362a1802">gb::APU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; APU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> apu.h:35</div></div>
+<div class="ttc" id="classgb_1_1APU_html_a5293bff17f595946fe25b097ff7ef018"><div class="ttname"><a href="classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018">gb::APU::AudioSampleCallback</a></div><div class="ttdeci">std::function&lt; void(uint16_t, uint16_t)&gt; AudioSampleCallback</div><div class="ttdoc">Callback used to provide audio to the host system. </div><div class="ttdef"><b>Definition:</b> apu.h:39</div></div>
 <div class="ttc" id="gameboycore__api_8h_html"><div class="ttname"><a href="gameboycore__api_8h.html">gameboycore_api.h</a></div><div class="ttdoc">Define export macros. </div></div>
-<div class="ttc" id="classgb_1_1APU_html_a10f278eaba6007a4bc6b83c5a7034065"><div class="ttname"><a href="classgb_1_1APU.html#a10f278eaba6007a4bc6b83c5a7034065">gb::APU::AudioSampleCallback</a></div><div class="ttdeci">std::function&lt; void(uint16_t, uint16_t)&gt; AudioSampleCallback</div><div class="ttdoc">Callback used to provide audio to the host system. </div><div class="ttdef"><b>Definition:</b> apu.h:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
@@ -150,7 +152,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

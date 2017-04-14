@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['sample_5frate',['SAMPLE_RATE',['../classgb_1_1APU.html#acdfa280e33c596f54a1d716a06f5080d',1,'gb::APU']]],
-  ['sb_5fregister',['SB_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a3e430d60edda7d709ea4436949b0b80e',1,'gb::memorymap']]],
+  ['sample_5frate',['SAMPLE_RATE',['../classgb_1_1APU.html#a0bb0d69060ddb4e5a32ce2ac821f6774af5420ef8c4d0abf51f7c8f414a80e555',1,'gb::APU']]],
+  ['sb_5fregister',['SB_REGISTER',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a3e430d60edda7d709ea4436949b0b80e',1,'gb::memorymap']]],
   ['sc',['SC',['../namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638c',1,'gb::memorymap']]],
-  ['sc_5fregister',['SC_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9add480dfb11d8467184145be5d6d80042',1,'gb::memorymap']]],
+  ['sc_5fregister',['SC_REGISTER',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54add480dfb11d8467184145be5d6d80042',1,'gb::memorymap']]],
   ['scanline',['Scanline',['../classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb',1,'gb::GPU']]],
-  ['scx_5fregister',['SCX_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9af2dd3991221b45c8df94aa94c254a898',1,'gb::memorymap']]],
-  ['scy_5fregister',['SCY_REGISTER',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ae8ac94e0e4099e35f2c4412d13bf7d19',1,'gb::memorymap']]],
+  ['scx_5fregister',['SCX_REGISTER',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54af2dd3991221b45c8df94aa94c254a898',1,'gb::memorymap']]],
+  ['scy_5fregister',['SCY_REGISTER',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54ae8ac94e0e4099e35f2c4412d13bf7d19',1,'gb::memorymap']]],
   ['select',['SELECT',['../classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522fa63225f19fccb18e7c709f1fa11bc738e',1,'gb::Joy::SELECT()'],['../classgb_1_1detail_1_1RTC.html#a3b3ba34080f043f1733d79231af24447',1,'gb::detail::RTC::select()']]],
   ['serial',['SERIAL',['../classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4a7b804a28d6154ab8007287532037f1d0',1,'gb::InterruptProvider']]],
   ['set',['set',['../classgb_1_1InterruptProvider.html#a5f4a9d949de5ec8f42e3f301b0759ad2',1,'gb::InterruptProvider']]],
@@ -21,7 +21,7 @@ var searchData=
   ['setmemory',['setMemory',['../classgb_1_1detail_1_1MBC.html#a92cf9aeef943ff60c02e1df4714bb58a',1,'gb::detail::MBC']]],
   ['setreadycallback',['setReadyCallback',['../classgb_1_1Link.html#a7131a8e4258065a173ffa60efcd0b73f',1,'gb::Link']]],
   ['setrendercallback',['setRenderCallback',['../classgb_1_1GPU.html#a65b4c3ebc0a0ae65697d3893eaafe7ef',1,'gb::GPU']]],
-  ['sgb_5fcompatability',['SGB_COMPATABILITY',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9adc3b617e2e28bd8bb2be5cd8acc31aa7',1,'gb::memorymap']]],
+  ['sgb_5fcompatability',['SGB_COMPATABILITY',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54adc3b617e2e28bd8bb2be5cd8acc31aa7',1,'gb::memorymap']]],
   ['shift_5fclock_5frate',['SHIFT_CLOCK_RATE',['../namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638cad4e5dadd1d3387e471ae73b238c9ca50',1,'gb::memorymap']]],
   ['sp',['sp',['../structgb_1_1CPU_1_1Status.html#a524bbba28f43518e2b1a52e3e62f4227',1,'gb::CPU::Status']]],
   ['sprite',['Sprite',['../classgb_1_1Sprite.html',1,'gb']]],
@@ -36,6 +36,6 @@ var searchData=
   ['stopped',['stopped',['../structgb_1_1CPU_1_1Status.html#aef2ca39b55e170493a6aa2a249ef3cd4',1,'gb::CPU::Status']]],
   ['sub',['sub',['../classgb_1_1ALU.html#a00b3619d630e7743f09d5e50ef089646',1,'gb::ALU']]],
   ['subc',['subc',['../classgb_1_1ALU.html#ae6b1e821ffa23ad38e2f4de78f1be945',1,'gb::ALU']]],
-  ['switchable_5from_5fbank_5fend',['SWITCHABLE_ROM_BANK_END',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9a5748c18a73536e14fde7fde561caf02b',1,'gb::memorymap']]],
-  ['switchable_5from_5fbank_5fstart',['SWITCHABLE_ROM_BANK_START',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9af6f530211d7677ceeaaae7abf920c82d',1,'gb::memorymap']]]
+  ['switchable_5from_5fbank_5fend',['SWITCHABLE_ROM_BANK_END',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a5748c18a73536e14fde7fde561caf02b',1,'gb::memorymap']]],
+  ['switchable_5from_5fbank_5fstart',['SWITCHABLE_ROM_BANK_START',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54af6f530211d7677ceeaaae7abf920c82d',1,'gb::memorymap']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['mask_5from_5fversion',['MASK_ROM_VERSION',['../namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ae56a58cd0121a3f7a9b6beee387e087a',1,'gb::memorymap']]],
+  ['mask_5from_5fversion',['MASK_ROM_VERSION',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54ae56a58cd0121a3f7a9b6beee387e087a',1,'gb::memorymap']]],
   ['mb1',['MB1',['../classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbbaac436fe03571a25326a93a877f720f15',1,'gb::detail::MBC']]],
   ['mb1_5f1',['MB1_1',['../classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbba8587de4049dd8a6873a8c0cec72b1719',1,'gb::detail::MBC']]],
   ['mb1_5f2',['MB1_2',['../classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbba5dcf1166952b2fff2dd22e62b3744ba3',1,'gb::detail::MBC']]],

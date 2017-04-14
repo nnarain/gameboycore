@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.15.1</a>
+                    <a class="navbar-brand">GameboyCore 0.17.0</a>
                 </div>
             </div>
         </nav>
@@ -111,7 +111,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classgb_1_1LinkCable.html">   24</a></span>&#160;    <span class="keyword">class </span><a class="code" href="gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc">GAMEBOYCORE_API</a> <a class="code" href="classgb_1_1LinkCable.html">LinkCable</a></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">   28</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">RecieveCallback</a> = std::function&lt;void(uint8_t)&gt;;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classgb_1_1LinkCable.html#a5326e23da4efac663bf79dabe8bcda48">   28</a></span>&#160;        <span class="keyword">typedef</span> std::function&lt;void(uint8_t)&gt; <a class="code" href="classgb_1_1LinkCable.html#a5326e23da4efac663bf79dabe8bcda48">RecieveCallback</a>;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="classgb_1_1LinkCable.html">LinkCable</a>();</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        ~<a class="code" href="classgb_1_1LinkCable.html">LinkCable</a>();</div>
@@ -119,8 +119,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">void</span> link1ReadyCallback(uint8_t byte, <a class="code" href="classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17">Link::Mode</a> mode);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">void</span> link2ReadyCallback(uint8_t byte, <a class="code" href="classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17">Link::Mode</a> mode);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">void</span> setLink1RecieveCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">RecieveCallback</a>&amp; callback);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">void</span> setLink2RecieveCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">RecieveCallback</a>&amp; callback);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">void</span> setLink1RecieveCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1LinkCable.html#a5326e23da4efac663bf79dabe8bcda48">RecieveCallback</a>&amp; callback);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">void</span> setLink2RecieveCallback(<span class="keyword">const</span> <a class="code" href="classgb_1_1LinkCable.html#a5326e23da4efac663bf79dabe8bcda48">RecieveCallback</a>&amp; callback);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">class </span>Impl;</div>
@@ -129,10 +129,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_LINK_CABLE_H</span></div>
-<div class="ttc" id="classgb_1_1LinkCable_html_a66de86aa562292fb7e2738e11298f91e"><div class="ttname"><a href="classgb_1_1LinkCable.html#a66de86aa562292fb7e2738e11298f91e">gb::LinkCable::RecieveCallback</a></div><div class="ttdeci">std::function&lt; void(uint8_t)&gt; RecieveCallback</div><div class="ttdoc">Callback from Link Cable. </div><div class="ttdef"><b>Definition:</b> link_cable.h:28</div></div>
 <div class="ttc" id="classgb_1_1LinkCable_html"><div class="ttname"><a href="classgb_1_1LinkCable.html">gb::LinkCable</a></div><div class="ttdef"><b>Definition:</b> link_cable.h:24</div></div>
 <div class="ttc" id="classgb_1_1Link_html_a7dd81cc374dc573cb7a5a7e329a5ec17"><div class="ttname"><a href="classgb_1_1Link.html#a7dd81cc374dc573cb7a5a7e329a5ec17">gb::Link::Mode</a></div><div class="ttdeci">Mode</div><div class="ttdef"><b>Definition:</b> link.h:28</div></div>
 <div class="ttc" id="gameboycore__api_8h_html_a30796a64a7a4bc4b2ae0623474940bfc"><div class="ttname"><a href="gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc">GAMEBOYCORE_API</a></div><div class="ttdeci">#define GAMEBOYCORE_API</div><div class="ttdef"><b>Definition:</b> gameboycore_api.h:22</div></div>
+<div class="ttc" id="classgb_1_1LinkCable_html_a5326e23da4efac663bf79dabe8bcda48"><div class="ttname"><a href="classgb_1_1LinkCable.html#a5326e23da4efac663bf79dabe8bcda48">gb::LinkCable::RecieveCallback</a></div><div class="ttdeci">std::function&lt; void(uint8_t)&gt; RecieveCallback</div><div class="ttdoc">Callback from Link Cable. </div><div class="ttdef"><b>Definition:</b> link_cable.h:28</div></div>
 <div class="ttc" id="link_8h_html"><div class="ttname"><a href="link_8h.html">link.h</a></div><div class="ttdoc">Link port emulation. </div></div>
 <div class="ttc" id="gameboycore__api_8h_html"><div class="ttname"><a href="gameboycore__api_8h.html">gameboycore_api.h</a></div><div class="ttdoc">Define export macros. </div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -144,7 +144,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

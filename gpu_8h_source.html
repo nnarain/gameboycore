@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.15.1</a>
+                    <a class="navbar-brand">GameboyCore 0.17.0</a>
                 </div>
             </div>
         </nav>
@@ -116,39 +116,42 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html">   32</a></span>&#160;    <span class="keyword">class </span><a class="code" href="gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc">GAMEBOYCORE_API</a> <a class="code" href="classgb_1_1GPU.html">GPU</a></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#afe55b09fdb9d5abb3a8bd7fcd75d9662">   36</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1GPU.html#afe55b09fdb9d5abb3a8bd7fcd75d9662">Ptr</a> = std::unique_ptr&lt;GPU&gt;;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#a5b92f55c442c69e588ec347f16ead027">   36</a></span>&#160;        <span class="keyword">typedef</span> std::unique_ptr&lt;GPU&gt; <a class="code" href="classgb_1_1GPU.html#a5b92f55c442c69e588ec347f16ead027">Ptr</a>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">   39</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">Scanline</a> = std::array&lt;Pixel, 160&gt;;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">   44</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">RenderScanlineCallback</a> = std::function&lt;void(const Scanline&amp;, int linenum)&gt;;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="classgb_1_1GPU.html">GPU</a>(<a class="code" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a>&amp; mmu);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classgb_1_1GPU.html">GPU</a>(<span class="keyword">const</span> <a class="code" href="classgb_1_1GPU.html">GPU</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        ~<a class="code" href="classgb_1_1GPU.html">GPU</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">void</span> update(uint8_t cycles, <span class="keywordtype">bool</span> ime);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">void</span> setRenderCallback(<a class="code" href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">RenderScanlineCallback</a> callback);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        std::vector&lt;uint8_t&gt; getBackgroundTileMap() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        std::vector&lt;Sprite&gt; getSpriteCache() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">class </span>Impl;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        Impl* impl_;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">   45</a></span>&#160;        <span class="keyword">typedef</span> std::function&lt;void(const Scanline&amp;, int linenum)&gt; <a class="code" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">RenderScanlineCallback</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classgb_1_1GPU.html">GPU</a>(<a class="code" href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">MMU::Ptr</a>&amp; mmu);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="classgb_1_1GPU.html">GPU</a>(<span class="keyword">const</span> <a class="code" href="classgb_1_1GPU.html">GPU</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        ~<a class="code" href="classgb_1_1GPU.html">GPU</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">void</span> update(uint8_t cycles, <span class="keywordtype">bool</span> ime);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> setRenderCallback(<a class="code" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">RenderScanlineCallback</a> callback);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        std::vector&lt;uint8_t&gt; getBackgroundTileMap() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        std::vector&lt;Sprite&gt; getSpriteCache() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        std::size_t getBackgroundHash() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keyword">class </span>Impl;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        Impl* impl_;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    };</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="classgb_1_1MMU_html_a9395bb0a55d5bd3f146055c1501d369d"><div class="ttname"><a href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">gb::MMU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; MMU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> mmu.h:28</div></div>
 <div class="ttc" id="classgb_1_1GPU_html_acb40080a0e2e8f1df0689a784ec873eb"><div class="ttname"><a href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">gb::GPU::Scanline</a></div><div class="ttdeci">std::array&lt; Pixel, 160 &gt; Scanline</div><div class="ttdoc">Array on Pixel objects representing a single scan line produced by the GPU. </div><div class="ttdef"><b>Definition:</b> gpu.h:39</div></div>
 <div class="ttc" id="classgb_1_1GPU_html"><div class="ttname"><a href="classgb_1_1GPU.html">gb::GPU</a></div><div class="ttdoc">Handle LCD state, compute scanlines and send to an external renderer. </div><div class="ttdef"><b>Definition:</b> gpu.h:32</div></div>
+<div class="ttc" id="classgb_1_1GPU_html_a5e0e439b194e64e42c02e80ff4203506"><div class="ttname"><a href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">gb::GPU::RenderScanlineCallback</a></div><div class="ttdeci">std::function&lt; void(const Scanline &amp;, int linenum)&gt; RenderScanlineCallback</div><div class="ttdef"><b>Definition:</b> gpu.h:45</div></div>
 <div class="ttc" id="gameboycore__api_8h_html_a30796a64a7a4bc4b2ae0623474940bfc"><div class="ttname"><a href="gameboycore__api_8h.html#a30796a64a7a4bc4b2ae0623474940bfc">GAMEBOYCORE_API</a></div><div class="ttdeci">#define GAMEBOYCORE_API</div><div class="ttdef"><b>Definition:</b> gameboycore_api.h:22</div></div>
 <div class="ttc" id="mmu_8h_html"><div class="ttname"><a href="mmu_8h.html">mmu.h</a></div><div class="ttdoc">Memory interface. </div></div>
 <div class="ttc" id="pixel_8h_html"><div class="ttname"><a href="pixel_8h.html">pixel.h</a></div></div>
+<div class="ttc" id="classgb_1_1GPU_html_a5b92f55c442c69e588ec347f16ead027"><div class="ttname"><a href="classgb_1_1GPU.html#a5b92f55c442c69e588ec347f16ead027">gb::GPU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; GPU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> gpu.h:36</div></div>
 <div class="ttc" id="sprite_8h_html"><div class="ttname"><a href="sprite_8h.html">sprite.h</a></div></div>
-<div class="ttc" id="classgb_1_1MMU_html_a0b9ef7456e322d90fe4d45b9ad42b990"><div class="ttname"><a href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">gb::MMU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; MMU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> mmu.h:28</div></div>
-<div class="ttc" id="classgb_1_1GPU_html_afe55b09fdb9d5abb3a8bd7fcd75d9662"><div class="ttname"><a href="classgb_1_1GPU.html#afe55b09fdb9d5abb3a8bd7fcd75d9662">gb::GPU::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; GPU &gt; Ptr</div><div class="ttdoc">Smart pointer type. </div><div class="ttdef"><b>Definition:</b> gpu.h:36</div></div>
-<div class="ttc" id="classgb_1_1GPU_html_a1818270761fb7f12d870e652b3daeadc"><div class="ttname"><a href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc">gb::GPU::RenderScanlineCallback</a></div><div class="ttdeci">std::function&lt; void(const Scanline &amp;, int linenum)&gt; RenderScanlineCallback</div><div class="ttdef"><b>Definition:</b> gpu.h:44</div></div>
 <div class="ttc" id="gameboycore__api_8h_html"><div class="ttname"><a href="gameboycore__api_8h.html">gameboycore_api.h</a></div><div class="ttdoc">Define export macros. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
@@ -159,7 +162,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

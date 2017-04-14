@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.15.1</a>
+                    <a class="navbar-brand">GameboyCore 0.17.0</a>
                 </div>
             </div>
         </nav>
@@ -97,7 +97,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classgb_1_1APU-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">gb::APU Class Reference<div class="ingroups"><a class="el" href="group__API.html">API</a> &#124; <a class="el" href="group__Audio.html">Audio</a></div></div>  </div>
@@ -111,16 +110,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a843f5d745eb71ec945b6fc92362a1802"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#a843f5d745eb71ec945b6fc92362a1802">Ptr</a> = std::unique_ptr&lt; <a class="el" href="classgb_1_1APU.html">APU</a> &gt;</td></tr>
-<tr class="memdesc:a843f5d745eb71ec945b6fc92362a1802"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smart pointer type.  <a href="#a843f5d745eb71ec945b6fc92362a1802">More...</a><br/></td></tr>
-<tr class="separator:a843f5d745eb71ec945b6fc92362a1802"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10f278eaba6007a4bc6b83c5a7034065"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#a10f278eaba6007a4bc6b83c5a7034065">AudioSampleCallback</a> = std::function&lt; void(uint16_t, uint16_t)&gt;</td></tr>
-<tr class="memdesc:a10f278eaba6007a4bc6b83c5a7034065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback used to provide audio to the host system.  <a href="#a10f278eaba6007a4bc6b83c5a7034065">More...</a><br/></td></tr>
-<tr class="separator:a10f278eaba6007a4bc6b83c5a7034065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bb0d69060ddb4e5a32ce2ac821f6774"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="classgb_1_1APU.html#a0bb0d69060ddb4e5a32ce2ac821f6774a7067ad11aef8386ca374f7a320c57dd1">CHANNEL_COUNT</a> = 2, 
+<a class="el" href="classgb_1_1APU.html#a0bb0d69060ddb4e5a32ce2ac821f6774af5420ef8c4d0abf51f7c8f414a80e555">SAMPLE_RATE</a> = 44100
+ }</td></tr>
+<tr class="separator:a0bb0d69060ddb4e5a32ce2ac821f6774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f1c67db9e16c012fc44b1a7dc9062d5"><td class="memItemLeft" align="right" valign="top">typedef std::unique_ptr&lt; <a class="el" href="classgb_1_1APU.html">APU</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#a4f1c67db9e16c012fc44b1a7dc9062d5">Ptr</a></td></tr>
+<tr class="memdesc:a4f1c67db9e16c012fc44b1a7dc9062d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smart pointer type.  <a href="#a4f1c67db9e16c012fc44b1a7dc9062d5">More...</a><br/></td></tr>
+<tr class="separator:a4f1c67db9e16c012fc44b1a7dc9062d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5293bff17f595946fe25b097ff7ef018"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(uint16_t, <br class="typebreak"/>
+uint16_t)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018">AudioSampleCallback</a></td></tr>
+<tr class="memdesc:a5293bff17f595946fe25b097ff7ef018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback used to provide audio to the host system.  <a href="#a5293bff17f595946fe25b097ff7ef018">More...</a><br/></td></tr>
+<tr class="separator:a5293bff17f595946fe25b097ff7ef018"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a677477da97c42a1a598b9f111d64b53a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#a677477da97c42a1a598b9f111d64b53a">APU</a> (<a class="el" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a> &amp;mmu)</td></tr>
+<tr class="memitem:a677477da97c42a1a598b9f111d64b53a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#a677477da97c42a1a598b9f111d64b53a">APU</a> (<a class="el" href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">MMU::Ptr</a> &amp;mmu)</td></tr>
 <tr class="separator:a677477da97c42a1a598b9f111d64b53a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a09edef50ce8472da74cfaa99cb44c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#ac9a09edef50ce8472da74cfaa99cb44c">APU</a> (const <a class="el" href="classgb_1_1APU.html">APU</a> &amp;)=delete</td></tr>
 <tr class="separator:ac9a09edef50ce8472da74cfaa99cb44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,27 +132,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2206bc642a6d8ddadcacba85bd7571af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5194fcb2eda6fdaf9c39872bd42abb6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#a5194fcb2eda6fdaf9c39872bd42abb6e">update</a> (uint8_t cycles)</td></tr>
 <tr class="separator:a5194fcb2eda6fdaf9c39872bd42abb6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0218b7b5028d9e48cba7c7d64589f59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#ad0218b7b5028d9e48cba7c7d64589f59">setAudioSampleCallback</a> (<a class="el" href="classgb_1_1APU.html#a10f278eaba6007a4bc6b83c5a7034065">AudioSampleCallback</a> callback)</td></tr>
+<tr class="memitem:ad0218b7b5028d9e48cba7c7d64589f59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#ad0218b7b5028d9e48cba7c7d64589f59">setAudioSampleCallback</a> (<a class="el" href="classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018">AudioSampleCallback</a> callback)</td></tr>
 <tr class="separator:ad0218b7b5028d9e48cba7c7d64589f59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a74292c2025d1317076c796d88e54e997"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#a74292c2025d1317076c796d88e54e997">CHANNEL_COUNT</a> = 2</td></tr>
-<tr class="memdesc:a74292c2025d1317076c796d88e54e997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of audio channels the <a class="el" href="classgb_1_1APU.html" title="Emulate Gameboy sound functions. ">APU</a> provides (Stereo sound: left, right)  <a href="#a74292c2025d1317076c796d88e54e997">More...</a><br/></td></tr>
-<tr class="separator:a74292c2025d1317076c796d88e54e997"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdfa280e33c596f54a1d716a06f5080d"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1APU.html#acdfa280e33c596f54a1d716a06f5080d">SAMPLE_RATE</a> = 44100</td></tr>
-<tr class="memdesc:acdfa280e33c596f54a1d716a06f5080d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio sample rate.  <a href="#acdfa280e33c596f54a1d716a06f5080d">More...</a><br/></td></tr>
-<tr class="separator:acdfa280e33c596f54a1d716a06f5080d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Emulate Gameboy sound functions. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="a10f278eaba6007a4bc6b83c5a7034065"></a>
+<a class="anchor" id="a5293bff17f595946fe25b097ff7ef018"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1APU.html#a10f278eaba6007a4bc6b83c5a7034065">gb::APU::AudioSampleCallback</a> =  std::function&lt;void(uint16_t, uint16_t)&gt;</td>
+          <td class="memname">typedef std::function&lt;void(uint16_t, uint16_t)&gt; <a class="el" href="classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018">gb::APU::AudioSampleCallback</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -157,17 +152,38 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a843f5d745eb71ec945b6fc92362a1802"></a>
+<a class="anchor" id="a4f1c67db9e16c012fc44b1a7dc9062d5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classgb_1_1APU.html#a843f5d745eb71ec945b6fc92362a1802">gb::APU::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="classgb_1_1APU.html">APU</a>&gt;</td>
+          <td class="memname">typedef std::unique_ptr&lt;<a class="el" href="classgb_1_1APU.html">APU</a>&gt; <a class="el" href="classgb_1_1APU.html#a4f1c67db9e16c012fc44b1a7dc9062d5">gb::APU::Ptr</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Smart pointer type. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a class="anchor" id="a0bb0d69060ddb4e5a32ce2ac821f6774"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a0bb0d69060ddb4e5a32ce2ac821f6774a7067ad11aef8386ca374f7a320c57dd1"></a>CHANNEL_COUNT</em>&#160;</td><td class="fielddoc">
+<p>Number of audio channels the <a class="el" href="classgb_1_1APU.html" title="Emulate Gameboy sound functions. ">APU</a> provides (Stereo sound: left, right) </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a0bb0d69060ddb4e5a32ce2ac821f6774af5420ef8c4d0abf51f7c8f414a80e555"></a>SAMPLE_RATE</em>&#160;</td><td class="fielddoc">
+<p>Audio sample rate. </p>
+</td></tr>
+</table>
 
 </div>
 </div>
@@ -179,7 +195,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">gb::APU::APU </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgb_1_1MMU.html#a0b9ef7456e322d90fe4d45b9ad42b990">MMU::Ptr</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classgb_1_1MMU.html#a9395bb0a55d5bd3f146055c1501d369d">MMU::Ptr</a> &amp;&#160;</td>
           <td class="paramname"><em>mmu</em></td><td>)</td>
           <td></td>
         </tr>
@@ -235,7 +251,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">void gb::APU::setAudioSampleCallback </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgb_1_1APU.html#a10f278eaba6007a4bc6b83c5a7034065">AudioSampleCallback</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018">AudioSampleCallback</a>&#160;</td>
           <td class="paramname"><em>callback</em></td><td>)</td>
           <td></td>
         </tr>
@@ -262,51 +278,6 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a74292c2025d1317076c796d88e54e997"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int gb::APU::CHANNEL_COUNT = 2</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Number of audio channels the <a class="el" href="classgb_1_1APU.html" title="Emulate Gameboy sound functions. ">APU</a> provides (Stereo sound: left, right) </p>
-
-</div>
-</div>
-<a class="anchor" id="acdfa280e33c596f54a1d716a06f5080d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int gb::APU::SAMPLE_RATE = 44100</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Audio sample rate. </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/gameboycore/<a class="el" href="apu_8h_source.html">apu.h</a></li>
 </ul>
@@ -319,7 +290,7 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

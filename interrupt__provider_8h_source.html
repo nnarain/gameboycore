@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand">GameboyCore 0.15.1</a>
+                    <a class="navbar-brand">GameboyCore 0.17.0</a>
                 </div>
             </div>
         </nav>
@@ -120,7 +120,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classgb_1_1InterruptProvider.html#a78cc7b3826123d1f1d7f702ca33ee6d2">   28</a></span>&#160;        <a class="code" href="classgb_1_1InterruptProvider.html#a78cc7b3826123d1f1d7f702ca33ee6d2">InterruptProvider</a>(<a class="code" href="classgb_1_1MMU.html">MMU</a>&amp; mmu, <a class="code" href="classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4">Interrupt</a> interrupt) :</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            flags_(mmu.get(memorymap::<a class="code" href="namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ab3ac1cd03f51f22df8aae7724c8609d0">INTERRUPT_FLAG</a>)),</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            flags_(mmu.get(memorymap::<a class="code" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54ab3ac1cd03f51f22df8aae7724c8609d0">INTERRUPT_FLAG</a>)),</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            interrupt_(interrupt)</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        {</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        }</div>
@@ -145,6 +145,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgb_1_1InterruptProvider_html_a84be3bdc73541a860aaea8e97da3c1d4a254e41820ca0f3dcacaa2b042856b649"><div class="ttname"><a href="classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4a254e41820ca0f3dcacaa2b042856b649">gb::InterruptProvider::Interrupt::LCDSTAT</a></div></div>
 <div class="ttc" id="classgb_1_1InterruptProvider_html"><div class="ttname"><a href="classgb_1_1InterruptProvider.html">gb::InterruptProvider</a></div><div class="ttdoc">Used to set interrupt flag register for a single interrupt. </div><div class="ttdef"><b>Definition:</b> interrupt_provider.h:15</div></div>
 <div class="ttc" id="classgb_1_1InterruptProvider_html_a84be3bdc73541a860aaea8e97da3c1d4ab127d163c55a6603f3a37ce3a642c36d"><div class="ttname"><a href="classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4ab127d163c55a6603f3a37ce3a642c36d">gb::InterruptProvider::Interrupt::TIMER</a></div></div>
+<div class="ttc" id="namespacegb_1_1memorymap_html_a9c0802dfce04d1ed66b802347dadff54ab3ac1cd03f51f22df8aae7724c8609d0"><div class="ttname"><a href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54ab3ac1cd03f51f22df8aae7724c8609d0">gb::memorymap::INTERRUPT_FLAG</a></div><div class="ttdef"><b>Definition:</b> memorymap.h:160</div></div>
 <div class="ttc" id="classgb_1_1InterruptProvider_html_a84be3bdc73541a860aaea8e97da3c1d4a272826f644b5c37dbb9aa9bddf9d2234"><div class="ttname"><a href="classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4a272826f644b5c37dbb9aa9bddf9d2234">gb::InterruptProvider::Interrupt::JOYPAD</a></div></div>
 <div class="ttc" id="classgb_1_1InterruptProvider_html_a56452d39aa7703b58a18849b2f9afc16"><div class="ttname"><a href="classgb_1_1InterruptProvider.html#a56452d39aa7703b58a18849b2f9afc16">gb::InterruptProvider::~InterruptProvider</a></div><div class="ttdeci">~InterruptProvider()</div><div class="ttdef"><b>Definition:</b> interrupt_provider.h:42</div></div>
 <div class="ttc" id="memorymap_8h_html"><div class="ttname"><a href="memorymap_8h.html">memorymap.h</a></div><div class="ttdoc">Constants that define the CPU memory map. </div></div>
@@ -154,7 +155,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgb_1_1InterruptProvider_html_a5f4a9d949de5ec8f42e3f301b0759ad2"><div class="ttname"><a href="classgb_1_1InterruptProvider.html#a5f4a9d949de5ec8f42e3f301b0759ad2">gb::InterruptProvider::set</a></div><div class="ttdeci">void set()</div><div class="ttdef"><b>Definition:</b> interrupt_provider.h:37</div></div>
 <div class="ttc" id="classgb_1_1InterruptProvider_html_a78cc7b3826123d1f1d7f702ca33ee6d2"><div class="ttname"><a href="classgb_1_1InterruptProvider.html#a78cc7b3826123d1f1d7f702ca33ee6d2">gb::InterruptProvider::InterruptProvider</a></div><div class="ttdeci">InterruptProvider(MMU &amp;mmu, Interrupt interrupt)</div><div class="ttdef"><b>Definition:</b> interrupt_provider.h:28</div></div>
 <div class="ttc" id="classgb_1_1InterruptProvider_html_a84be3bdc73541a860aaea8e97da3c1d4"><div class="ttname"><a href="classgb_1_1InterruptProvider.html#a84be3bdc73541a860aaea8e97da3c1d4">gb::InterruptProvider::Interrupt</a></div><div class="ttdeci">Interrupt</div><div class="ttdef"><b>Definition:</b> interrupt_provider.h:18</div></div>
-<div class="ttc" id="namespacegb_1_1memorymap_html_a541e439c12650c3c851982ad846683b9ab3ac1cd03f51f22df8aae7724c8609d0"><div class="ttname"><a href="namespacegb_1_1memorymap.html#a541e439c12650c3c851982ad846683b9ab3ac1cd03f51f22df8aae7724c8609d0">gb::memorymap::INTERRUPT_FLAG</a></div><div class="ttdef"><b>Definition:</b> memorymap.h:160</div></div>
 <div class="ttc" id="classgb_1_1MMU_html"><div class="ttname"><a href="classgb_1_1MMU.html">gb::MMU</a></div><div class="ttdoc">Memory interface. </div><div class="ttdef"><b>Definition:</b> mmu.h:24</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
@@ -165,7 +165,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 5 2017 20:17:36 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
