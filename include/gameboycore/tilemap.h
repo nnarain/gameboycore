@@ -48,6 +48,8 @@ namespace gb
 			std::vector<Sprite> getSpriteCache() const;
 			std::vector<uint8_t> getTileMap(Map map) const;
 
+			std::size_t hashBackground() const;
+
 		private:
 			uint16_t getAddress(Map map) const;
 
