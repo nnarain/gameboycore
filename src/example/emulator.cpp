@@ -53,6 +53,8 @@ int main(int argc, char * argv[])
 
 			gameboy1.setDebugMode(false);
 
+			std::size_t hash = 0;
+
 			while (window1.isOpen())
 			{
 				gameboy1.update(512);

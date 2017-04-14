@@ -5,6 +5,8 @@
 #include "gameboycore/interrupt_provider.h"
 #include "gameboycore/tilemap.h"
 
+#include "gameboycore/detail/hash.h"
+
 #include "bitutil.h"
 
 namespace gb
@@ -129,6 +131,11 @@ namespace gb
 		std::vector<Sprite> getSpriteCache() const
 		{
 			return tilemap_.getSpriteCache();
+		}
+
+		std::size_t getBackgroundHash() const
+		{
+			return tilemap_.hashBackground();
 		}
 
 	private:
@@ -392,6 +399,11 @@ namespace gb
 	std::vector<Sprite> GPU::getSpriteCache() const
 	{
 		return impl_->getSpriteCache();
+	}
+
+	std::size_t GPU::getBackgroundHash() const
+	{
+		return impl_->getBackgroundHash();
 	}
 
 } // namespace gb

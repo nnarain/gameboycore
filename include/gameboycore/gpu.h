@@ -68,6 +68,11 @@ namespace gb
 		*/
 		std::vector<Sprite> getSpriteCache() const;
 
+		/**
+			\return Hashed background map
+		*/
+		std::size_t getBackgroundHash() const;
+
 	private:
 		//! Private Implementation class
 		class Impl;
