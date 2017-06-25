@@ -199,16 +199,31 @@ namespace gb
 			return sprite_cache_;
 		}
 
-		std::vector<uint8_t> TileMap::getTileMap(Map map) const
+		std::vector<uint8_t> TileMap::getBackgroundTileMap()
 		{
-			auto addr = getAddress(map);
-			auto begin = mmu_.getptr(addr);
-			auto end = mmu_.getptr(addr + 0x400);
+			// make std::array?
+			std::vector<uint8_t> tiles;
+			auto idx = 0;
 
-			return std::vector<uint8_t>(begin, end);
+			forEachBackgroundTile([&](uint8_t tile){
+				tiles.push_back(tile);
+			});
+
+			return tiles;
 		}
 
-		std::size_t TileMap::hashBackground() const
+		std::size_t TileMap::hashBackground()
+		{
+			std::size_t seed = 0;
+
+			forEachBackgroundTile([&](uint8_t tilenum){
+				hash_combine(seed, tilenum);
+			});
+
+			return seed;
+		}
+
+		void TileMap::forEachBackgroundTile(std::function<void(uint8_t)> fn)
 		{
 			static constexpr auto tiles_per_row = 32;
 			static constexpr auto tiles_per_col = 32;
@@ -235,11 +250,9 @@ namespace gb
 					// read tile character code from map
 					const auto tilenum = mmu_.readVram(tile_offset, 0);
 
-					hash_combine(seed, tilenum);
+					fn(tilenum);
 				}
 			}
-
-			return seed;
 		}
 
 		TileMap::~TileMap()
