@@ -131,10 +131,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1c88ab4cd8fb7f6326fdc62c9ea3a69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ad98cdf23140bb9f16b5f0f0fa5edcb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classgb_1_1Sprite.html">Sprite</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a6ad98cdf23140bb9f16b5f0f0fa5edcb">getSpriteCache</a> () const </td></tr>
 <tr class="separator:a6ad98cdf23140bb9f16b5f0f0fa5edcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab39587430fdefd228c0fe983f9572965"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#ab39587430fdefd228c0fe983f9572965">getTileMap</a> (<a class="el" href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20">Map</a> map) const </td></tr>
-<tr class="separator:ab39587430fdefd228c0fe983f9572965"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34ab9142be74b965cd4dfb933ee6499a"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#a34ab9142be74b965cd4dfb933ee6499a">hashBackground</a> () const </td></tr>
-<tr class="separator:a34ab9142be74b965cd4dfb933ee6499a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4c5b9f9ebc93081569675642006270f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#af4c5b9f9ebc93081569675642006270f">getBackgroundTileMap</a> ()</td></tr>
+<tr class="separator:af4c5b9f9ebc93081569675642006270f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9c9d9960a7f296204beb0da6c315870"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1detail_1_1TileMap.html#aa9c9d9960a7f296204beb0da6c315870">hashBackground</a> ()</td></tr>
+<tr class="separator:aa9c9d9960a7f296204beb0da6c315870"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that knows how to render background map data. </p>
@@ -281,6 +281,21 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="af4c5b9f9ebc93081569675642006270f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;uint8_t&gt; gb::detail::TileMap::getBackgroundTileMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a6ad98cdf23140bb9f16b5f0f0fa5edcb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -289,22 +304,6 @@ Public Member Functions</h2></td></tr>
           <td class="memname">std::vector&lt;<a class="el" href="classgb_1_1Sprite.html">Sprite</a>&gt; gb::detail::TileMap::getSpriteCache </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ab39587430fdefd228c0fe983f9572965"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;uint8_t&gt; gb::detail::TileMap::getTileMap </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20">Map</a>&#160;</td>
-          <td class="paramname"><em>map</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -328,7 +327,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a34ab9142be74b965cd4dfb933ee6499a"></a>
+<a class="anchor" id="aa9c9d9960a7f296204beb0da6c315870"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -336,7 +335,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">std::size_t gb::detail::TileMap::hashBackground </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -355,7 +354,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 25 2017 17:54:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -141,25 +141,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classgb_1_1detail_1_1TileMap.html#a1c88ab4cd8fb7f6326fdc62c9ea3a69b">drawSprites</a>(std::array&lt;Pixel, 160&gt;&amp; scanline, std::array&lt;uint8_t, 160&gt;&amp; color_line, <span class="keywordtype">int</span> line, <span class="keywordtype">bool</span> cgb_enable, std::array&lt;std::array&lt;gb::Pixel,4&gt;,8&gt;&amp; cgb_palette);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            std::vector&lt;Sprite&gt; <a class="code" href="classgb_1_1detail_1_1TileMap.html#a6ad98cdf23140bb9f16b5f0f0fa5edcb">getSpriteCache</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            std::vector&lt;uint8_t&gt; <a class="code" href="classgb_1_1detail_1_1TileMap.html#ab39587430fdefd228c0fe983f9572965">getTileMap</a>(<a class="code" href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20">Map</a> map) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            std::vector&lt;uint8_t&gt; <a class="code" href="classgb_1_1detail_1_1TileMap.html#af4c5b9f9ebc93081569675642006270f">getBackgroundTileMap</a>();</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            std::size_t <a class="code" href="classgb_1_1detail_1_1TileMap.html#a34ab9142be74b965cd4dfb933ee6499a">hashBackground</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            std::size_t <a class="code" href="classgb_1_1detail_1_1TileMap.html#aa9c9d9960a7f296204beb0da6c315870">hashBackground</a>();</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            uint16_t getAddress(<a class="code" href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20">Map</a> map) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <a class="code" href="classgb_1_1detail_1_1TileRAM.html">detail::TileRAM</a> tileram_;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <a class="code" href="classgb_1_1MMU.html">MMU</a>&amp; mmu_;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            uint8_t&amp; scx_;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            uint8_t&amp; scy_;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            std::vector&lt;gb::Sprite&gt; sprite_cache_;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        };</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_TILEMAP_H</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordtype">void</span> forEachBackgroundTile(std::function&lt;<span class="keywordtype">void</span>(uint8_t)&gt; fn);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <a class="code" href="classgb_1_1detail_1_1TileRAM.html">detail::TileRAM</a> tileram_;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <a class="code" href="classgb_1_1MMU.html">MMU</a>&amp; mmu_;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            uint8_t&amp; scx_;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            uint8_t&amp; scy_;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            std::vector&lt;gb::Sprite&gt; sprite_cache_;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        };</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_TILEMAP_H</span></div>
 <div class="ttc" id="tileram_8h_html"><div class="ttname"><a href="tileram_8h.html">tileram.h</a></div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html_a4f52e0b58e05c0ab47cc6ef84a525ab5"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#a4f52e0b58e05c0ab47cc6ef84a525ab5">gb::detail::TileMap::getWindowOverlay</a></div><div class="ttdeci">Line getWindowOverlay(int line)</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html_abdfbbbfd607d51a26577a27b888e5a15"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#abdfbbbfd607d51a26577a27b888e5a15">gb::detail::TileMap::~TileMap</a></div><div class="ttdeci">~TileMap()</div></div>
@@ -167,14 +168,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html_ac7448cb829f0482e648f7ab8a57c11e9"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#ac7448cb829f0482e648f7ab8a57c11e9">gb::detail::TileMap::TileMap</a></div><div class="ttdeci">TileMap(MMU &amp;mmu)</div></div>
 <div class="ttc" id="pixel_8h_html"><div class="ttname"><a href="pixel_8h.html">pixel.h</a></div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html">gb::detail::TileMap</a></div><div class="ttdoc">Class that knows how to render background map data. </div><div class="ttdef"><b>Definition:</b> tilemap.h:26</div></div>
-<div class="ttc" id="classgb_1_1detail_1_1TileMap_html_ab39587430fdefd228c0fe983f9572965"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#ab39587430fdefd228c0fe983f9572965">gb::detail::TileMap::getTileMap</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; getTileMap(Map map) const </div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html_ae714a95287a975c4232c01b6175c9e20"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20">gb::detail::TileMap::Map</a></div><div class="ttdeci">Map</div><div class="ttdef"><b>Definition:</b> tilemap.h:30</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileRAM_html"><div class="ttname"><a href="classgb_1_1detail_1_1TileRAM.html">gb::detail::TileRAM</a></div><div class="ttdoc">Class that knows how to read Tile RAM in the Gameboy memory map. </div><div class="ttdef"><b>Definition:</b> tileram.h:25</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1TileMap_html_af4c5b9f9ebc93081569675642006270f"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#af4c5b9f9ebc93081569675642006270f">gb::detail::TileMap::getBackgroundTileMap</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; getBackgroundTileMap()</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html_a73b8c34a35bf2cea1c19137fc644f88b"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#a73b8c34a35bf2cea1c19137fc644f88b">gb::detail::TileMap::getBackground</a></div><div class="ttdeci">Line getBackground(int line, bool cgb_enable)</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1TileMap_html_aa9c9d9960a7f296204beb0da6c315870"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#aa9c9d9960a7f296204beb0da6c315870">gb::detail::TileMap::hashBackground</a></div><div class="ttdeci">std::size_t hashBackground()</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html_a6ad98cdf23140bb9f16b5f0f0fa5edcb"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#a6ad98cdf23140bb9f16b5f0f0fa5edcb">gb::detail::TileMap::getSpriteCache</a></div><div class="ttdeci">std::vector&lt; Sprite &gt; getSpriteCache() const </div></div>
 <div class="ttc" id="classgb_1_1MMU_html"><div class="ttname"><a href="classgb_1_1MMU.html">gb::MMU</a></div><div class="ttdoc">Memory interface. </div><div class="ttdef"><b>Definition:</b> mmu.h:24</div></div>
 <div class="ttc" id="sprite_8h_html"><div class="ttname"><a href="sprite_8h.html">sprite.h</a></div></div>
-<div class="ttc" id="classgb_1_1detail_1_1TileMap_html_a34ab9142be74b965cd4dfb933ee6499a"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#a34ab9142be74b965cd4dfb933ee6499a">gb::detail::TileMap::hashBackground</a></div><div class="ttdeci">std::size_t hashBackground() const </div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html_a44619c59e2b9ada19bdff97c73f46aa9"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#a44619c59e2b9ada19bdff97c73f46aa9">gb::detail::TileMap::Line</a></div><div class="ttdeci">std::array&lt; uint8_t, 160 &gt; Line</div><div class="ttdef"><b>Definition:</b> tilemap.h:36</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html_ae714a95287a975c4232c01b6175c9e20aa258bdabfc5031a165484e0ec5ec4fde"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20aa258bdabfc5031a165484e0ec5ec4fde">gb::detail::TileMap::Map::WINDOW_OVERLAY</a></div></div>
 <div class="ttc" id="classgb_1_1detail_1_1TileMap_html_ae714a95287a975c4232c01b6175c9e20a87ed58ce5596142e11cb65deb049bb4b"><div class="ttname"><a href="classgb_1_1detail_1_1TileMap.html#ae714a95287a975c4232c01b6175c9e20a87ed58ce5596142e11cb65deb049bb4b">gb::detail::TileMap::Map::BACKGROUND</a></div></div>
@@ -188,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 25 2017 17:54:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

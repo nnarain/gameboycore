@@ -119,7 +119,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#a5b92f55c442c69e588ec347f16ead027">   36</a></span>&#160;        <span class="keyword">typedef</span> std::unique_ptr&lt;GPU&gt; <a class="code" href="classgb_1_1GPU.html#a5b92f55c442c69e588ec347f16ead027">Ptr</a>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">   39</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb">Scanline</a> = std::array&lt;Pixel, 160&gt;;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
 <div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">   45</a></span>&#160;        <span class="keyword">typedef</span> std::function&lt;void(const Scanline&amp;, int linenum)&gt; <a class="code" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">RenderScanlineCallback</a>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">public</span>:</div>
@@ -130,11 +130,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">void</span> update(uint8_t cycles, <span class="keywordtype">bool</span> ime);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> setRenderCallback(<a class="code" href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506">RenderScanlineCallback</a> callback);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        std::vector&lt;uint8_t&gt; getBackgroundTileMap() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        std::vector&lt;uint8_t&gt; getBackgroundTileMap();</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        std::vector&lt;Sprite&gt; getSpriteCache() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        std::size_t getBackgroundHash() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        std::size_t getBackgroundHash();</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keyword">class </span>Impl;</div>
@@ -162,7 +162,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 14 2017 17:06:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 25 2017 17:54:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
