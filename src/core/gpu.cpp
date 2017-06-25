@@ -125,7 +125,7 @@ namespace gb
 
 		std::vector<uint8_t> getBackgroundTileMap()
 		{
-			return tilemap_.getTileMap(detail::TileMap::Map::BACKGROUND);
+			return tilemap_.getBackgroundTileMap();
 		}
 
 		std::vector<Sprite> getSpriteCache() const
@@ -133,7 +133,7 @@ namespace gb
 			return tilemap_.getSpriteCache();
 		}
 
-		std::size_t getBackgroundHash() const
+		std::size_t getBackgroundHash()
 		{
 			return tilemap_.hashBackground();
 		}
@@ -391,7 +391,7 @@ namespace gb
 		impl_->setRenderCallback(callback);
 	}
 
-	std::vector<uint8_t> GPU::getBackgroundTileMap() const
+	std::vector<uint8_t> GPU::getBackgroundTileMap()
 	{
 		return impl_->getBackgroundTileMap();
 	}
@@ -401,7 +401,7 @@ namespace gb
 		return impl_->getSpriteCache();
 	}
 
-	std::size_t GPU::getBackgroundHash() const
+	std::size_t GPU::getBackgroundHash()
 	{
 		return impl_->getBackgroundHash();
 	}

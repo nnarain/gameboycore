@@ -46,12 +46,13 @@ namespace gb
 			void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line, bool cgb_enable, std::array<std::array<gb::Pixel,4>,8>& cgb_palette);
 
 			std::vector<Sprite> getSpriteCache() const;
-			std::vector<uint8_t> getTileMap(Map map) const;
+			std::vector<uint8_t> getBackgroundTileMap();
 
-			std::size_t hashBackground() const;
+			std::size_t hashBackground();
 
 		private:
 			uint16_t getAddress(Map map) const;
+			void forEachBackgroundTile(std::function<void(uint8_t)> fn);
 
 		private:
 			detail::TileRAM tileram_;
