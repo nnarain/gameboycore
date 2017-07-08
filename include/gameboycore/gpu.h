@@ -59,6 +59,11 @@ namespace gb
 		void setRenderCallback(RenderScanlineCallback callback);
 
 		/**
+			Set Default Palette Color
+		*/
+		void setPaletteColor(uint8_t r, uint8_t g, uint8_t b, int idx);
+
+		/**
 			\return Background tilemap data
 		*/
 		std::vector<uint8_t> getBackgroundTileMap();
