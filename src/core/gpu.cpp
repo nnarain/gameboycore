@@ -45,7 +45,7 @@ namespace gb
 			hdma5_(mmu->get(memorymap::HDMA5)),
 			vblank_provider_(*mmu.get(), InterruptProvider::Interrupt::VBLANK),
 			stat_provider_(*mmu.get(), InterruptProvider::Interrupt::LCDSTAT),
-			tilemap_(*mmu.get()),
+			tilemap_(*mmu.get(), palette_),
 			cgb_enabled_(mmu->cgbEnabled()),
 			hdma_transfer_start_(false)
 		{
@@ -123,6 +123,11 @@ namespace gb
 			render_scanline_ = callback;
 		}
 
+		void setDefaultPaletteColor(uint8_t r, uint8_t g, uint8_t b, int idx)
+		{
+			palette_.set(r, g, b, idx);
+		}
+
 		std::vector<uint8_t> getBackgroundTileMap()
 		{
 			return tilemap_.getBackgroundTileMap();
@@ -145,7 +150,7 @@ namespace gb
 			Scanline scanline;
 			std::array<uint8_t, 160> color_line;
 
-			auto background_palette = Palette::get(mmu_->read(memorymap::BGP_REGISTER));
+			auto background_palette = palette_.get(mmu_->read(memorymap::BGP_REGISTER));
 
 			// get lcd config
 			const auto lcdc = mmu_->read(memorymap::LCDC_REGISTER);
@@ -359,6 +364,7 @@ namespace gb
 		InterruptProvider stat_provider_;
 
 		detail::TileMap tilemap_;
+		Palette palette_;
 
 		RenderScanlineCallback render_scanline_;
 
@@ -389,6 +395,11 @@ namespace gb
 	void GPU::setRenderCallback(RenderScanlineCallback callback)
 	{
 		impl_->setRenderCallback(callback);
+	}
+
+	void GPU::setPaletteColor(uint8_t r, uint8_t g, uint8_t b, int idx)
+	{
+		impl_->setDefaultPaletteColor(r, g, b, idx);
 	}
 
 	std::vector<uint8_t> GPU::getBackgroundTileMap()

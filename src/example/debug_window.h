@@ -10,7 +10,11 @@ public:
 
 	DebugWindow(gb::GameboyCore& core) :
 		core_(core),
-		cpu_debug_mode_(false)
+		cpu_debug_mode_(false),
+		color0{ 1,1,1,1},
+		color1{ 192.0f/255.0f,192.0f / 255.0f,192.0f / 255.0f,255 },
+		color2{ 96.f/255.f,96.f / 255.f,96.f / 255.f,255 },
+		color3{ 0,0,0,255 }
 	{
 		core_.getCPU()->setDisassemblyCallback(std::bind(&DebugWindow::disassemblyCallback, this, std::placeholders::_1));
 	}
@@ -27,7 +31,7 @@ public:
 		{
 			if (ImGui::CollapsingHeader("CPU"))
 			{
-				if (ImGui::CollapsingHeader("Registers"))
+				if (ImGui::CollapsingHeader("Status"))
 				{
 					drawCpuStatus();
 				}
@@ -47,7 +51,7 @@ public:
 			{
 				if (ImGui::CollapsingHeader("Default Palette"))
 				{
-
+					drawEditPalette();
 				}
 			}
 
@@ -56,6 +60,30 @@ public:
 	}
 
 private:
+	void drawEditPalette()
+	{
+		ImGui::ColorEdit4("Color 0", color0, false);
+		ImGui::ColorEdit4("Color 1", color1, false);
+		ImGui::ColorEdit4("Color 2", color2, false);
+		ImGui::ColorEdit4("Color 3", color3, false);
+
+		auto& gpu = core_.getGPU();
+
+		setPaletteColor(gpu, color0, 0);
+		setPaletteColor(gpu, color1, 1);
+		setPaletteColor(gpu, color2, 2);
+		setPaletteColor(gpu, color3, 3);
+	}
+
+	void setPaletteColor(gb::GPU::Ptr& gpu, float* color, int idx)
+	{
+		uint8_t r = (uint8_t)(color[0] * 255);
+		uint8_t g = (uint8_t)(color[1] * 255);
+		uint8_t b = (uint8_t)(color[2] * 255);
+
+		gpu->setPaletteColor(r, g, b, idx);
+	}
+
 	void drawCpuStatus()
 	{
 		auto status = core_.getCPU()->getStatus();
@@ -101,6 +129,10 @@ private:
 	bool cpu_debug_mode_;
 
 	ImGuiTextBuffer disassembly_buffer_;
+	float color0[4];
+	float color1[4];
+	float color2[4];
+	float color3[4];
 };
 
 #endif
