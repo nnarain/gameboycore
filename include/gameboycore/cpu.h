@@ -14,6 +14,8 @@
 
 #include <cstdint>
 #include <memory>
+#include <functional>
+#include <string>
 
 namespace gb
 {
@@ -49,6 +51,8 @@ namespace gb
 
 			bool halt;
 			bool stopped;
+			bool ime;
+			uint8_t enabled_interrupts;
 		};
 
         //! Flags set by the most recent instruction
@@ -87,6 +91,11 @@ namespace gb
             Set CPU debug mode
         */
 		void setDebugMode(bool debug_mode);
+
+		/**
+			Set a callback function for the disassembly string when the CPU is in debug mode
+		*/
+		void setDisassemblyCallback(std::function<void(const std::string&)>);
 
         /**
             Get the current status of the CPU
