@@ -36,19 +36,21 @@ class ScreenRenderer
 
 public:
 	ScreenRenderer() :
-		frame_buffer_(WIDTH, HEIGHT, 0)
+		frame_buffer_(WIDTH, HEIGHT, 0),
+		draw_rect_(sf::Vector2f(WIDTH,HEIGHT))
 	{
 		if (!screen_texture_.create(WIDTH, HEIGHT))
 			throw std::runtime_error("Could not create texture");
 
-		screen_sprite_.setTexture(screen_texture_);
-		screen_sprite_.setScale(2, 2);
+		draw_rect_.setTexture(&screen_texture_);
+		
 	}
 
 	void draw(sf::RenderWindow& window)
 	{
 		updateTexture();
-		window.draw(screen_sprite_);
+	//	window.draw(screen_sprite_);
+		window.draw(draw_rect_);
 	}
 
 	void gpuCallback(const gb::GPU::Scanline& scanline, int line)
@@ -88,12 +90,17 @@ public:
 		}
 	}
 
+	void setDrawRectY(float y)
+	{
+		draw_rect_.setPosition(draw_rect_.getPosition().x, y);
+	}
+
 	~ScreenRenderer()
 	{
 	}
 
 private:
-	sf::Sprite screen_sprite_;
+	sf::RectangleShape draw_rect_;
 	sf::Texture screen_texture_;
 	TextureBuffer frame_buffer_;
 

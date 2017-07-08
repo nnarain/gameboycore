@@ -8,14 +8,17 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 
-#include <gameboycore/tileram.h>
-
-#include <stdexcept>
-#include <string>
+#include "imgui.h"
+#include "imgui-SFML.h"
 
 #include "screen_renderer.h"
 #include "audio.h"
+
+#include <stdexcept>
+#include <string>
+#include <iostream>
 
 /**
 	\brief Emulator Window
@@ -26,8 +29,12 @@ public:
 	Window(gb::GameboyCore& gameboy, const std::string& title) :
 		window_(sf::VideoMode(160 * 2, 144 * 2), title),
 		screen_renderer_(),
-		joypad_(gameboy.getJoypad())
+		core_(gameboy),
+		joypad_(gameboy.getJoypad()),
+		screen_hash_overlay_(false)
 	{
+		ImGui::SFML::Init(window_);
+
 		gameboy.getGPU()->setRenderCallback(
 			std::bind(
 				&ScreenRenderer::gpuCallback,
@@ -35,15 +42,6 @@ public:
 				std::placeholders::_1, std::placeholders::_2
 			)
 		);
-		/*
-		gameboy.getAPU()->setAudioSampleCallback(
-			std::bind(
-				&Audio::apuCallback,
-				&audio_,
-				std::placeholders::_1, std::placeholders::_2
-			)
-		);
-		*/
 	}
 
 	/**
@@ -108,9 +106,62 @@ public:
 			}
 		}
 
-		window_.clear(sf::Color(255, 0, 0, 255));
+		ImGui::SFML::Update(window_, deltaClock_.restart());
+		drawGui();
+
+		window_.clear(sf::Color(255, 255, 255, 255));
 		screen_renderer_.draw(window_);
+		ImGui::SFML::Render(window_);
 		window_.display();
+	}
+
+	void drawGui()
+	{
+		drawMenu();
+
+		if (screen_hash_overlay_)
+		{
+			drawScreenHashOverlay();
+		}
+	}
+
+	void drawMenu()
+	{
+		if (ImGui::BeginMainMenuBar())
+		{
+			main_menu_height_ = ImGui::GetWindowHeight();
+			screen_renderer_.setDrawRectY(main_menu_height_);
+
+			if (ImGui::BeginMenu("Debug"))
+			{
+				if (ImGui::MenuItem("CPU Registers"))
+				{
+					
+				}
+
+				ImGui::MenuItem("Screen Hash", NULL, &screen_hash_overlay_);
+
+				ImGui::EndMenu();
+			}
+
+			ImGui::EndMainMenuBar();
+		}
+	}
+
+	/**
+		Draw the current background map hash
+	*/
+	void drawScreenHashOverlay()
+	{
+		int window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings;
+		ImGui::SetNextWindowPos(ImVec2(0, main_menu_height_));
+
+		if (ImGui::Begin("ScreenHash", NULL, window_flags))
+		{
+			ImGui::Text("Screen Hash: %X", core_.getGPU()->getBackgroundHash());
+
+			ImGui::End();
+		}
 	}
 
 	bool isOpen()
@@ -199,9 +250,15 @@ private:
 private:
 	sf::RenderWindow window_;
 	ScreenRenderer screen_renderer_;
-	Audio audio_;
 
+	sf::Clock deltaClock_;
+
+	gb::GameboyCore& core_;
 	gb::Joy::Ptr& joypad_;
+
+	// GUI elements
+	float main_menu_height_;
+	bool screen_hash_overlay_;
 };
 
 

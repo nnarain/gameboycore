@@ -25,7 +25,6 @@ static std::string saveFileName(const std::string& rom_filename);
 
 int main(int argc, char * argv[])
 {
-
 	if (argc < 2)
 	{
 		std::cout << "Usage: " << argv[0] << " <romfile>" << std::endl;
@@ -52,8 +51,6 @@ int main(int argc, char * argv[])
 			window1.start();
 
 			gameboy1.setDebugMode(false);
-
-			std::size_t hash = 0;
 
 			while (window1.isOpen())
 			{
