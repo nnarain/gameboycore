@@ -49,14 +49,14 @@ public:
 	*/
 	void start()
 	{
-	//	audio_.play();
+		//	audio_.play();
 	}
 
 	void update()
 	{
 		// pump event loop
 		sf::Event event;
-		
+
 		while (window_.pollEvent(event))
 		{
 			switch (event.type)
@@ -107,11 +107,17 @@ public:
 		}
 
 		ImGui::SFML::Update(window_, deltaClock_.restart());
+
+		updateRenderView();
+
 		drawGui();
 
 		window_.clear(sf::Color(255, 255, 255, 255));
+
 		screen_renderer_.draw(window_);
+
 		ImGui::SFML::Render(window_);
+
 		window_.display();
 	}
 
@@ -130,13 +136,12 @@ public:
 		if (ImGui::BeginMainMenuBar())
 		{
 			main_menu_height_ = ImGui::GetWindowHeight();
-			screen_renderer_.setDrawRectY(main_menu_height_);
 
 			if (ImGui::BeginMenu("Debug"))
 			{
-				if (ImGui::MenuItem("CPU Registers"))
+				if (ImGui::MenuItem("Open Debug Window"))
 				{
-					
+
 				}
 
 				ImGui::MenuItem("Screen Hash", NULL, &screen_hash_overlay_);
@@ -162,6 +167,15 @@ public:
 
 			ImGui::End();
 		}
+	}
+
+	void updateRenderView()
+	{
+		auto draw_rect_size = window_.getSize();
+		draw_rect_size.y -= main_menu_height_;
+
+		screen_renderer_.setDrawRectY(main_menu_height_);
+		screen_renderer_.setDrawRectSize(draw_rect_size);
 	}
 
 	bool isOpen()

@@ -43,13 +43,11 @@ public:
 			throw std::runtime_error("Could not create texture");
 
 		draw_rect_.setTexture(&screen_texture_);
-		
 	}
 
 	void draw(sf::RenderWindow& window)
 	{
 		updateTexture();
-	//	window.draw(screen_sprite_);
 		window.draw(draw_rect_);
 	}
 
@@ -93,6 +91,11 @@ public:
 	void setDrawRectY(float y)
 	{
 		draw_rect_.setPosition(draw_rect_.getPosition().x, y);
+	}
+
+	void setDrawRectSize(const sf::Vector2u& size)
+	{
+		draw_rect_.setSize(static_cast<sf::Vector2f>(size));
 	}
 
 	~ScreenRenderer()
