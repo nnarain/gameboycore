@@ -74,6 +74,7 @@ namespace gb
 				}
 
 				square1_.step();
+				square2_.step();
 			}
 
 		}
@@ -85,7 +86,7 @@ namespace gb
 
 		uint8_t getSound2Volume() const
 		{
-			return 0;
+			return square2_.getVolume();
 		}
 
 		uint8_t getSound3Volume() const
