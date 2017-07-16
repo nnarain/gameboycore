@@ -30,16 +30,8 @@ namespace gb
 	public:
 		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
-			square1_(
-				apu_registers[memorymap::NR11_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR12_REGISTER - APU_REG_BASE], 
-				apu_registers[memorymap::NR13_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR14_REGISTER - APU_REG_BASE]),
-			square2_(
-				apu_registers[memorymap::NR21_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR22_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR23_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR24_REGISTER - APU_REG_BASE], false),
+			square1_(true),
+			square2_(false),
 			wave_(
 				apu_registers[memorymap::NR30_REGISTER - APU_REG_BASE],
 				apu_registers[memorymap::NR31_REGISTER - APU_REG_BASE],
@@ -51,7 +43,7 @@ namespace gb
 				apu_registers[memorymap::NR42_REGISTER - APU_REG_BASE],
 				apu_registers[memorymap::NR43_REGISTER - APU_REG_BASE],
 				apu_registers[memorymap::NR44_REGISTER - APU_REG_BASE]),
-			cycle_count_(0),
+			frame_sequencer_counter_(CYCLES_512HZ),
 			frame_sequencer_(0)
 		{
 			// intercept all read/write attempts here
@@ -72,16 +64,18 @@ namespace gb
 		{
 			if (!isEnabled()) return;
 
-			cycle_count_ += cycles;
-
-			if (has512Hz())
+			while (cycles--)
 			{
-				// decrement cycle counter
-				cycle_count_ -= CYCLES_512HZ;
+				if (frame_sequencer_counter_-- <= 0)
+				{
+					frame_sequencer_counter_ = CYCLES_512HZ;
 
-				// clock the frame sequencer
-				clockFrameSequencer();
+					clockFrameSequencer();
+				}
+
+				square1_.step();
 			}
+
 		}
 
 		void setAudioSampleCallback(AudioSampleCallback callback)
@@ -93,7 +87,7 @@ namespace gb
 
 		void clockFrameSequencer()
 		{
-			switch (frame_sequencer_++)
+			switch (frame_sequencer_)
 			{
 			case 0:
 			case 2:
@@ -108,24 +102,30 @@ namespace gb
 				// TODO: Sweep
 				break;
 			case 7:
-				// TODO: volume
-
-				frame_sequencer_ = 0;
+				clockVolume();
+				// produces sound? Callback?
 				break;
+			}
+
+			frame_sequencer_++;
+
+			if (frame_sequencer_ >= 8)
+			{
+				frame_sequencer_ = 0;
 			}
 		}
 
 		void clockLength()
 		{
 			square1_.clockLength();
-			square2_.clockLength();
-			wave_   .clockLength();
-			noise_  .clockLength();
+		//	square2_.clockLength();
+		//	wave_   .clockLength();
+		//	noise_  .clockLength();
 		}
 
-		bool has512Hz()
+		void clockVolume()
 		{
-			return cycle_count_ >= CYCLES_512HZ;
+			square1_.clockVolume();
 		}
 
 		bool isEnabled()
@@ -135,16 +135,27 @@ namespace gb
 
 		uint8_t read(uint16_t addr)
 		{
-			auto value = apuRead(addr) | extra_bits_[addr - APU_REG_BASE];
+			uint8_t value = 0;
+
+			auto extras = extra_bits_[addr - APU_REG_BASE];
 
 			if (addr == memorymap::NR52_REGISTER)
 			{
 				value &= 0xF0;
 
 				value |= square1_.isEnabled() << 0;
-				value |= square2_.isEnabled() << 1;
-				value |= wave_   .isEnabled() << 2;
-				value |= noise_  .isEnabled() << 3;
+
+			//	value |= square1_.isEnabled() << 0;
+			//	value |= square2_.isEnabled() << 1;
+			//	value |= wave_   .isEnabled() << 2;
+			//	value |= noise_  .isEnabled() << 3;
+			}
+			else
+			{
+				if (addr >= memorymap::NR10_REGISTER && addr <= memorymap::NR14_REGISTER)
+				{
+					value = square1_.read(addr - memorymap::NR10_REGISTER);
+				}
 			}
 
 			return value;
@@ -161,65 +172,22 @@ namespace gb
 					frame_sequencer_ = 0;
 				}
 
+				// check is being enabled
+				if (!isEnabled() && IS_SET(value, 0x80))
+				{
+					frame_sequencer_counter_ = CYCLES_512HZ;
+				}
+
 				apuWrite(value, addr);
 			}
 			else
 			{
 				if (isEnabled())
 				{
-					switch (addr)
+					if (addr >= memorymap::NR10_REGISTER && addr <= memorymap::NR14_REGISTER)
 					{
-					/* Sound 1 */
-					case memorymap::NR11_REGISTER:
-						// set the sound length in the channel
-						square1_.setLength(64 - (value & detail::Square::LENGTH_MASK));
-						break;
-					case memorymap::NR12_REGISTER:
-						square1_.setDacPower(value >> 4);
-						break;
-					case memorymap::NR14_REGISTER:
-						if(IS_SET(value, 0x80))
-							square1_.trigger();
-						break;
-
-					/* Sound 2 */
-					case memorymap::NR21_REGISTER:
-						square2_.setLength(64 - (value & detail::Square::LENGTH_MASK));
-						break;
-					case memorymap::NR22_REGISTER:
-						square2_.setDacPower(value >> 4);
-						break;
-					case memorymap::NR24_REGISTER:
-						if (IS_SET(value, 0x80))
-							square2_.trigger();
-						break;
-
-					/* Sound 3 */
-					case memorymap::NR30_REGISTER:
-						wave_.setDacPower(value & 0x80);
-						break;
-					case memorymap::NR31_REGISTER:
-						wave_.setLength(256 - (value & detail::Wave::LENGTH_MASK));
-						break;
-					case memorymap::NR34_REGISTER:
-						if (IS_SET(value, 0x80))
-							wave_.trigger();
-						break;
-
-					/* Sound 4 */
-					case memorymap::NR41_REGISTER:
-						noise_.setLength(64 - (value & detail::Noise::LENGTH_MASK));
-						break;
-					case memorymap::NR42_REGISTER:
-						noise_.setDacPower(value >> 4);
-						break;
-					case memorymap::NR44_REGISTER:
-						if (IS_SET(value, 0x80))
-							noise_.trigger();
-						break;
+						square1_.write(value, addr - memorymap::NR10_REGISTER);
 					}
-
-					apuWrite(value, addr);
 				}
 			}
 		}
@@ -319,7 +287,7 @@ namespace gb
 		AudioSampleCallback send_audio_sample_;
 
 		//! APU cycle counter
-		int cycle_count_;
+		int frame_sequencer_counter_;
 
 		//! APU internal timer
 		int frame_sequencer_;
