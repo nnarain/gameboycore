@@ -31,9 +31,13 @@ namespace gb
 
 		public:
 
-			Square(bool sweep = true) : 
+			Square(bool sweep = true) :
+				duty_(0),
 				is_enabled_(false),
-				waveform_idx_(0)
+				waveform_idx_(0),
+				length_counter_(0),
+				envelop_period_(0),
+				volume_counter_(0)
 			{
 				// waveforms with different duty cycles
 				waveform_[0] = { 0, 0, 0, 0, 0, 0, 0, 1 };
@@ -60,7 +64,7 @@ namespace gb
 
 				// compute the output volume
 				// volume is zero if not enabled
-				if (isEnabled() && dac_eanbled_)
+				if (isEnabled() && dac_enabled_)
 				{
 					output_volume_ = volume_counter_;
 				}
@@ -160,7 +164,7 @@ namespace gb
 					envelope_add_mode_ = (value & 0x08) != 0;
 					envelop_period_ = (value & 0x07);
 
-					dac_eanbled_ = (value & DAC_MASK) == DAC_MASK;
+					dac_enabled_ = (value & DAC_MASK) != 0;
 					volume_counter_ = volume_;
 					envelop_timer_ = envelop_period_;
 				
@@ -192,9 +196,9 @@ namespace gb
 				return (2048 - frequency_) * 4;
 			}
 
-			uint8_t getVolume()
+			uint8_t getVolume() const
 			{
-				return volume_counter_;
+				return output_volume_;
 			}
 
 			bool isEnabled() const
@@ -219,7 +223,7 @@ namespace gb
 			bool envelope_add_mode_;
 			uint8_t envelop_period_;
 
-			bool dac_eanbled_;
+			bool dac_enabled_;
 			uint8_t volume_counter_;
 			int envelop_timer_;
 

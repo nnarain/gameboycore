@@ -78,6 +78,26 @@ namespace gb
 
 		}
 
+		uint8_t getSound1Volume() const
+		{
+			return square1_.getVolume();
+		}
+
+		uint8_t getSound2Volume() const
+		{
+			return 0;
+		}
+
+		uint8_t getSound3Volume() const
+		{
+			return 0;
+		}
+
+		uint8_t getSound4Volume() const
+		{
+			return 0;
+		}
+
 		void setAudioSampleCallback(AudioSampleCallback callback)
 		{
 			send_audio_sample_ = callback;
@@ -118,7 +138,7 @@ namespace gb
 		void clockLength()
 		{
 			square1_.clockLength();
-		//	square2_.clockLength();
+			square2_.clockLength();
 		//	wave_   .clockLength();
 		//	noise_  .clockLength();
 		}
@@ -126,6 +146,7 @@ namespace gb
 		void clockVolume()
 		{
 			square1_.clockVolume();
+			square2_.clockVolume();
 		}
 
 		bool isEnabled()
@@ -144,9 +165,7 @@ namespace gb
 				value &= 0xF0;
 
 				value |= square1_.isEnabled() << 0;
-
-			//	value |= square1_.isEnabled() << 0;
-			//	value |= square2_.isEnabled() << 1;
+				value |= square2_.isEnabled() << 1;
 			//	value |= wave_   .isEnabled() << 2;
 			//	value |= noise_  .isEnabled() << 3;
 			}
@@ -155,6 +174,10 @@ namespace gb
 				if (addr >= memorymap::NR10_REGISTER && addr <= memorymap::NR14_REGISTER)
 				{
 					value = square1_.read(addr - memorymap::NR10_REGISTER);
+				}
+				else if (addr >= memorymap::NR20_REGISTER && addr <= memorymap::NR24_REGISTER)
+				{
+					value = square2_.read(addr - memorymap::NR20_REGISTER);
 				}
 			}
 
@@ -187,6 +210,10 @@ namespace gb
 					if (addr >= memorymap::NR10_REGISTER && addr <= memorymap::NR14_REGISTER)
 					{
 						square1_.write(value, addr - memorymap::NR10_REGISTER);
+					}
+					else if (addr >= memorymap::NR20_REGISTER && addr <= memorymap::NR24_REGISTER)
+					{
+						square2_.write(value, addr - memorymap::NR20_REGISTER);
 					}
 				}
 			}
@@ -311,6 +338,26 @@ namespace gb
 		impl_->update(cycles);
 	}
 	
+	uint8_t APU::getSound1Volume()
+	{
+		return impl_->getSound1Volume();
+	}
+
+	uint8_t APU::getSound2Volume()
+	{
+		return impl_->getSound2Volume();
+	}
+
+	uint8_t APU::getSound3Volume()
+	{
+		return impl_->getSound3Volume();
+	}
+
+	uint8_t APU::getSound4Volume()
+	{
+		return impl_->getSound4Volume();
+	}
+
 	void APU::setAudioSampleCallback(AudioSampleCallback callback)
 	{
 		impl_->setAudioSampleCallback(callback);
