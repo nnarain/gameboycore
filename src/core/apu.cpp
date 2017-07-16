@@ -113,14 +113,14 @@ namespace gb
 			case 0:
 			case 2:
 				clockLength();
-				// TODO: Sweep
+				square1_.clockSweep();
 				break;
 			case 4:
 				clockLength();
 				break;
 			case 6:
 				clockLength();
-				// TODO: Sweep
+				square1_.clockSweep();
 				break;
 			case 7:
 				clockVolume();

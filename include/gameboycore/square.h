@@ -32,6 +32,7 @@ namespace gb
 		public:
 
 			Square(bool sweep = true) :
+				sweep_timer_(0),
 				duty_(0),
 				is_enabled_(false),
 				waveform_idx_(0),
@@ -56,7 +57,7 @@ namespace gb
 				if (waveform_timer_-- <= 0)
 				{
 					// reset timer
-					waveform_timer_ = calculateWaveformTimer();
+					waveform_timer_ = waveform_timer_load_;
 
 					// next waveform value
 					waveform_idx_ = (waveform_idx_ + 1) % waveform_[0].size();
@@ -114,6 +115,30 @@ namespace gb
 				}
 			}
 
+			void clockSweep()
+			{
+				// clock sweep timer
+				if (sweep_timer_-- <= 0)
+				{
+					// reload sweep timer
+					sweep_timer_ = sweep_period_;
+
+					if (sweep_enabled_ && sweep_period_ > 0)
+					{
+						auto newFreq = sweepCalculation();
+
+						if (newFreq <= 2047 && sweep_shift_ > 0)
+						{
+							frequency_shadow_ = newFreq;
+							waveform_timer_load_ = newFreq;
+							sweepCalculation();
+						}
+
+						sweepCalculation();
+					}
+				}
+			}
+
 			uint8_t read(uint16_t register_number)
 			{
 				// deconstruct byte value into variables
@@ -121,14 +146,7 @@ namespace gb
 				switch (register_number)
 				{
 				case 0:
-					if (has_sweep_)
-					{
-						return 0;
-					}
-					else
-					{
-						return ((sweep_period_ & 0x07) << 4) | (negate_ << 3) | (shift_ & 0x07);
-					}
+					return ((sweep_period_ & 0x07) << 4) | (sweep_negate_ << 3) | (sweep_shift_ & 0x07);
 				case 1:
 					return ((duty_ & 0x03) << 6) | (length_ & 0x3F);
 				case 2:
@@ -147,12 +165,11 @@ namespace gb
 				switch (register_number)
 				{
 				case 0:
-					if (has_sweep_)
-					{
-						sweep_period_ = (value & 0x70) >> 4;
-						negate_ = (value & 0x08) != 0;
-						shift_ = value & 0x07;
-					}
+					sweep_period_ = (value & 0x70) >> 4;
+					sweep_negate_ = (value & 0x08) != 0;
+					sweep_shift_ = value & 0x07;
+
+					sweep_timer_ = sweep_period_;
 					break;
 				case 1:
 					duty_ = (value >> 6);
@@ -188,12 +205,39 @@ namespace gb
 			{
 				is_enabled_ = true;
 
-				waveform_timer_ = calculateWaveformTimer();
+				waveform_timer_load_ = calculateWaveformTimer();
+				waveform_timer_ = waveform_timer_load_;
+
+				// sweep
+				frequency_shadow_ = frequency_;
+				sweep_timer_ = sweep_period_;
+
+				sweep_enabled_ = (sweep_period_ > 0) || (sweep_shift_ > 0);
 			}
 
 			int calculateWaveformTimer()
 			{
 				return (2048 - frequency_) * 4;
+			}
+
+			int sweepCalculation()
+			{
+				int f = 0;
+
+				f = frequency_shadow_ >> sweep_shift_;
+
+				if (sweep_negate_)
+				{
+					f = frequency_shadow_ - f;
+				}
+				else
+				{
+					f = frequency_shadow_ + f;
+				}
+
+				sweep_enabled_ = f < 2047;
+
+				return f;
 			}
 
 			uint8_t getVolume() const
@@ -208,10 +252,13 @@ namespace gb
 
 		private:
 			// NR10 FF10: -PPP NSSS Sweep period, negate, shift
-			bool has_sweep_;
 			uint8_t sweep_period_;
-			bool negate_;
-			uint8_t shift_;
+			bool sweep_negate_;
+			uint8_t sweep_shift_;
+
+			int sweep_timer_;
+			uint16_t frequency_shadow_;
+			bool sweep_enabled_;
 
 			// NR11 FF11: DDLL LLLL Duty, Length load (64-L)
 			uint8_t duty_;
@@ -240,6 +287,7 @@ namespace gb
 			std::array<std::array<uint8_t, 8>, 4> waveform_;
 			int waveform_idx_;
 			int waveform_timer_;
+			int waveform_timer_load_;
 
 			uint8_t output_volume_;
 
