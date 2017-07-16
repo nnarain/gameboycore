@@ -2,6 +2,7 @@ var searchData=
 [
   ['page1',['PAGE1',['../namespacegb.html#acc8f9b6a93ae6c861f3706cecfa2f588a3f710e769a0ae706342108341bef1981',1,'gb']]],
   ['page2',['PAGE2',['../namespacegb.html#acc8f9b6a93ae6c861f3706cecfa2f588a36f7aa2615ab7f51cc679b1450ff113d',1,'gb']]],
+  ['palette',['Palette',['../classgb_1_1Palette.html#a0f061d1ad0076462bd84ee02306a8500',1,'gb::Palette']]],
   ['palette',['Palette',['../classgb_1_1Palette.html',1,'gb']]],
   ['palette_2eh',['palette.h',['../palette_8h.html',1,'']]],
   ['paletteobp0',['paletteOBP0',['../classgb_1_1Sprite.html#ae1ec70c2d9d635279d2941c7af177a5c',1,'gb::Sprite']]],

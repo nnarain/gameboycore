@@ -1,9 +1,10 @@
 <map id="include/gameboycore/tilemap.h" name="include/gameboycore/tilemap.h">
-<area shape="rect" id="node2" href="$tileram_8h.html" title="gameboycore/tileram.h" alt="" coords="420,96,573,123"/>
-<area shape="rect" id="node10" href="$sprite_8h.html" title="gameboycore/sprite.h" alt="" coords="652,171,799,197"/>
-<area shape="rect" id="node12" href="$pixel_8h.html" title="gameboycore/pixel.h" alt="" coords="253,96,395,123"/>
-<area shape="rect" id="node13" href="$memorymap_8h.html" title="Constants that define the CPU memory map. " alt="" coords="873,96,1060,123"/>
-<area shape="rect" id="node3" href="$mmu_8h.html" title="Memory interface. " alt="" coords="151,171,295,197"/>
-<area shape="rect" id="node9" href="$tile_8h.html" title="gameboycore/tile.h" alt="" coords="421,171,552,197"/>
-<area shape="rect" id="node4" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="286,246,468,287"/>
+<area shape="rect" id="node2" href="$tileram_8h.html" title="gameboycore/tileram.h" alt="" coords="455,96,608,123"/>
+<area shape="rect" id="node10" href="$sprite_8h.html" title="gameboycore/sprite.h" alt="" coords="348,171,495,197"/>
+<area shape="rect" id="node12" href="$pixel_8h.html" title="gameboycore/pixel.h" alt="" coords="5,171,147,197"/>
+<area shape="rect" id="node13" href="$palette_8h.html" title="gameboycore/palette.h" alt="" coords="108,96,261,123"/>
+<area shape="rect" id="node14" href="$memorymap_8h.html" title="Constants that define the CPU memory map. " alt="" coords="996,96,1183,123"/>
+<area shape="rect" id="node3" href="$mmu_8h.html" title="Memory interface. " alt="" coords="727,171,871,197"/>
+<area shape="rect" id="node9" href="$tile_8h.html" title="gameboycore/tile.h" alt="" coords="570,171,701,197"/>
+<area shape="rect" id="node4" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="501,246,683,287"/>
 </map>

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['gameboycore',['GameboyCore',['../classgb_1_1GameboyCore.html#a897caf180ad1c16a203c9bc3dd309514',1,'gb::GameboyCore::GameboyCore()'],['../classgb_1_1GameboyCore.html#ab24d6aad3565232f20af00a34743af7b',1,'gb::GameboyCore::GameboyCore(const GameboyCore &amp;)=delete']]],
-  ['get',['get',['../classgb_1_1detail_1_1MBC.html#a8e2b882c19564729025a134cb88a6735',1,'gb::detail::MBC::get()'],['../classgb_1_1MMU.html#a60ef490bb2b6ed74fdbf98a4f9b57ade',1,'gb::MMU::get()'],['../classgb_1_1Palette.html#aa3068b45b9b7f0558fcf3744b6ca411a',1,'gb::Palette::get()'],['../classgb_1_1detail_1_1RTC.html#aff3fc1011e774f074aa941f452d70920',1,'gb::detail::RTC::get()']]],
+  ['get',['get',['../classgb_1_1detail_1_1MBC.html#a8e2b882c19564729025a134cb88a6735',1,'gb::detail::MBC::get()'],['../classgb_1_1MMU.html#a60ef490bb2b6ed74fdbf98a4f9b57ade',1,'gb::MMU::get()'],['../classgb_1_1Palette.html#ac320ed9d018647f99a80395db54ff1b2',1,'gb::Palette::get()'],['../classgb_1_1detail_1_1RTC.html#aff3fc1011e774f074aa941f452d70920',1,'gb::detail::RTC::get()']]],
   ['getapu',['getAPU',['../classgb_1_1GameboyCore.html#a58f7947b6fe5e25c0d86a7d1d9c4a755',1,'gb::GameboyCore']]],
   ['getbackground',['getBackground',['../classgb_1_1detail_1_1TileMap.html#a73b8c34a35bf2cea1c19137fc644f88b',1,'gb::detail::TileMap']]],
   ['getbackgroundhash',['getBackgroundHash',['../classgb_1_1GPU.html#a4729bb8747e1d68d2056d59e2329b611',1,'gb::GPU']]],

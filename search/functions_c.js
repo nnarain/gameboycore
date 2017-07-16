@@ -4,7 +4,7 @@ var searchData=
   ['readvram',['readVram',['../classgb_1_1detail_1_1MBC.html#a097af77a94e9368ce50bc23b2d7838b6',1,'gb::detail::MBC::readVram()'],['../classgb_1_1MMU.html#a8bc6e6bc8c94451e1929f1b9edbe090c',1,'gb::MMU::readVram()']]],
   ['recieve',['recieve',['../classgb_1_1Link.html#a4df5288e666872220ebc3b1596c58a20',1,'gb::Link']]],
   ['release',['release',['../classgb_1_1Joy.html#a2e88e2b8504f213f7a5dd1172ba38f50',1,'gb::Joy']]],
-  ['reset',['reset',['../classgb_1_1CPU.html#a012058d7f61891edb3ae69dcb2f4ec53',1,'gb::CPU::reset()'],['../classgb_1_1GameboyCore.html#aa40e7483170f8656acbdeef97a453748',1,'gb::GameboyCore::reset()']]],
+  ['reset',['reset',['../classgb_1_1CPU.html#a012058d7f61891edb3ae69dcb2f4ec53',1,'gb::CPU::reset()'],['../classgb_1_1GameboyCore.html#aa40e7483170f8656acbdeef97a453748',1,'gb::GameboyCore::reset()'],['../classgb_1_1Palette.html#a8e76b3847ea79e63d9a9c9834894e8af',1,'gb::Palette::reset()']]],
   ['romparser',['RomParser',['../classgb_1_1RomParser.html#a5f5b8f19b16633f5e9d8846aa16a3c48',1,'gb::RomParser']]],
   ['rtc',['RTC',['../classgb_1_1detail_1_1RTC.html#ac4f33f89b76b2ba983534b4e6a88099a',1,'gb::detail::RTC']]]
 ];

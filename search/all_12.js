@@ -6,7 +6,7 @@ var searchData=
   ['tile_5fsize',['TILE_SIZE',['../classgb_1_1detail_1_1TileRAM.html#ad1a7b4899d93e8da7ae5c352ae92e12d',1,'gb::detail::TileRAM']]],
   ['tileline',['TileLine',['../classgb_1_1detail_1_1TileRAM.html#a4e490817a166b299dee2c431f226a5de',1,'gb::detail::TileRAM']]],
   ['tilemap',['TileMap',['../classgb_1_1detail_1_1TileMap.html',1,'gb::detail']]],
-  ['tilemap',['TileMap',['../classgb_1_1detail_1_1TileMap.html#ac7448cb829f0482e648f7ab8a57c11e9',1,'gb::detail::TileMap']]],
+  ['tilemap',['TileMap',['../classgb_1_1detail_1_1TileMap.html#a4728ad238bde77f3ee4dc3844acddc06',1,'gb::detail::TileMap']]],
   ['tilemap_2eh',['tilemap.h',['../tilemap_8h.html',1,'']]],
   ['tileram',['TileRAM',['../classgb_1_1detail_1_1TileRAM.html',1,'gb::detail']]],
   ['tileram',['TileRAM',['../classgb_1_1detail_1_1TileRAM.html#ae69eec1b25346594b2e5b442cd3b25d4',1,'gb::detail::TileRAM']]],

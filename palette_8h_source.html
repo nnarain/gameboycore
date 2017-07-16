@@ -110,37 +110,53 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classgb_1_1Palette.html">   15</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgb_1_1Palette.html">Palette</a></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classgb_1_1Palette.html#aa3068b45b9b7f0558fcf3744b6ca411a">   18</a></span>&#160;        <span class="keyword">static</span> std::array&lt;Pixel, 4&gt; <span class="keyword">get</span>(uint8_t reg)</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classgb_1_1Palette.html#a0f061d1ad0076462bd84ee02306a8500">   18</a></span>&#160;        <a class="code" href="classgb_1_1Palette.html#a0f061d1ad0076462bd84ee02306a8500">Palette</a>()</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            <span class="comment">// default color palette</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structgb_1_1Pixel.html">Pixel</a> colors[] = {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                <a class="code" href="structgb_1_1Pixel.html">Pixel</a>(255),</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                <a class="code" href="structgb_1_1Pixel.html">Pixel</a>(192),</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                <a class="code" href="structgb_1_1Pixel.html">Pixel</a>(96),</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                <a class="code" href="structgb_1_1Pixel.html">Pixel</a>(0)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            };</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            std::array&lt;Pixel, 4&gt; palette;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keyword">auto</span> color3 = (reg &amp; 0xC0) &gt;&gt; 6;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keyword">auto</span> color2 = (reg &amp; 0x30) &gt;&gt; 4;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keyword">auto</span> color1 = (reg &amp; 0x0C) &gt;&gt; 2;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keyword">auto</span> color0 = (reg &amp; 0x03);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            palette[3] = colors[color3];</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            palette[2] = colors[color2];</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            palette[1] = colors[color1];</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            palette[0] = colors[color0];</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            <a class="code" href="classgb_1_1Palette.html#a8e76b3847ea79e63d9a9c9834894e8af">reset</a>();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classgb_1_1Palette.html#ac320ed9d018647f99a80395db54ff1b2">   23</a></span>&#160;        std::array&lt;Pixel, 4&gt; <span class="keyword">get</span>(uint8_t reg)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            std::array&lt;Pixel, 4&gt; palette;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keyword">auto</span> color3 = (reg &amp; 0xC0) &gt;&gt; 6;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keyword">auto</span> color2 = (reg &amp; 0x30) &gt;&gt; 4;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keyword">auto</span> color1 = (reg &amp; 0x0C) &gt;&gt; 2;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keyword">auto</span> color0 = (reg &amp; 0x03);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            palette[3] = colors_[color3];</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            palette[2] = colors_[color2];</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            palette[1] = colors_[color1];</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            palette[0] = colors_[color0];</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">return</span> palette;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">return</span> palette;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    };</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_PALETTE_H</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classgb_1_1Palette.html#a8e76b3847ea79e63d9a9c9834894e8af">   40</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classgb_1_1Palette.html#a8e76b3847ea79e63d9a9c9834894e8af">reset</a>()</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            colors_[0] = <a class="code" href="structgb_1_1Pixel.html">Pixel</a>(255);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            colors_[1] = <a class="code" href="structgb_1_1Pixel.html">Pixel</a>(192);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            colors_[2] = <a class="code" href="structgb_1_1Pixel.html">Pixel</a>(96);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            colors_[3] = <a class="code" href="structgb_1_1Pixel.html">Pixel</a>(0);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classgb_1_1Palette.html#afb2c2177b2afe6c4f7f22fc71c5b29e0">   48</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classgb_1_1Palette.html#afb2c2177b2afe6c4f7f22fc71c5b29e0">set</a>(uint8_t r, uint8_t g, uint8_t b, <span class="keywordtype">int</span> idx)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            colors_[idx] = <a class="code" href="structgb_1_1Pixel.html">Pixel</a>(r, g, b);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::array&lt;Pixel, 4&gt; colors_;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_PALETTE_H</span></div>
+<div class="ttc" id="classgb_1_1Palette_html_a0f061d1ad0076462bd84ee02306a8500"><div class="ttname"><a href="classgb_1_1Palette.html#a0f061d1ad0076462bd84ee02306a8500">gb::Palette::Palette</a></div><div class="ttdeci">Palette()</div><div class="ttdef"><b>Definition:</b> palette.h:18</div></div>
+<div class="ttc" id="classgb_1_1Palette_html_a8e76b3847ea79e63d9a9c9834894e8af"><div class="ttname"><a href="classgb_1_1Palette.html#a8e76b3847ea79e63d9a9c9834894e8af">gb::Palette::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdef"><b>Definition:</b> palette.h:40</div></div>
 <div class="ttc" id="structgb_1_1Pixel_html"><div class="ttname"><a href="structgb_1_1Pixel.html">gb::Pixel</a></div><div class="ttdoc">Pixel type. </div><div class="ttdef"><b>Definition:</b> pixel.h:14</div></div>
 <div class="ttc" id="pixel_8h_html"><div class="ttname"><a href="pixel_8h.html">pixel.h</a></div></div>
 <div class="ttc" id="classgb_1_1Palette_html"><div class="ttname"><a href="classgb_1_1Palette.html">gb::Palette</a></div><div class="ttdef"><b>Definition:</b> palette.h:15</div></div>
+<div class="ttc" id="classgb_1_1Palette_html_afb2c2177b2afe6c4f7f22fc71c5b29e0"><div class="ttname"><a href="classgb_1_1Palette.html#afb2c2177b2afe6c4f7f22fc71c5b29e0">gb::Palette::set</a></div><div class="ttdeci">void set(uint8_t r, uint8_t g, uint8_t b, int idx)</div><div class="ttdef"><b>Definition:</b> palette.h:48</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
@@ -150,7 +166,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 25 2017 17:54:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jul 16 2017 04:04:18 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

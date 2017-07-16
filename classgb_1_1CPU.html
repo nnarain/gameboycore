@@ -144,6 +144,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a016e1518b70eaf243d6f4f29ff7539c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ad6d1eb9043730a12d12dbd691a5552"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1CPU.html#a9ad6d1eb9043730a12d12dbd691a5552">setDebugMode</a> (bool debug_mode)</td></tr>
 <tr class="separator:a9ad6d1eb9043730a12d12dbd691a5552"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a601554132b0d19b16a300385b65e7b6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1CPU.html#a601554132b0d19b16a300385b65e7b6a">setDisassemblyCallback</a> (std::function&lt; void(const std::string &amp;)&gt;)</td></tr>
+<tr class="separator:a601554132b0d19b16a300385b65e7b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81c46333eb53894a7a48297e6b460228"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgb_1_1CPU_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgb_1_1CPU.html#a81c46333eb53894a7a48297e6b460228">getStatus</a> () const </td></tr>
 <tr class="separator:a81c46333eb53894a7a48297e6b460228"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -333,6 +335,23 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a601554132b0d19b16a300385b65e7b6a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gb::CPU::setDisassemblyCallback </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(const std::string &amp;)&gt;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set a callback function for the disassembly string when the <a class="el" href="classgb_1_1CPU.html" title="Emulates Gameboy CPU instructions. ">CPU</a> is in debug mode </p>
+
+</div>
+</div>
 <a class="anchor" id="a57f9e5dc7b2a7ba6a44824d7daa34b0a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -361,7 +380,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 25 2017 17:54:27 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jul 16 2017 04:04:18 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
