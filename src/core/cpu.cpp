@@ -9,7 +9,8 @@
 #include <string>
 #include <cstdio>
 #include <cstring>
-#include <iostream>
+#include <sstream>
+#include <iomanip>
 
 #include "bitutil.h"
 #include "shiftrotate.h"
@@ -1058,8 +1059,7 @@ namespace gb
 				break;
 
 			default:
-				std::cout << "Unimplemented Instruction: $" << std::hex << (int)opcode << std::endl;
-				throw std::runtime_error("");
+				throw std::runtime_error("Unimplemented Instruction");
 				break;
 			}
 
@@ -1930,8 +1930,7 @@ namespace gb
 				break;
 
 			default:
-				std::cout << "Unimplemented Instruction: " << std::hex << opcode << std::endl;
-				throw std::runtime_error("");
+				throw std::runtime_error("Unimplemented Instruction");
 				break;
 			}
 
@@ -2049,27 +2048,14 @@ namespace gb
 				}
 			}
 
-			std::string padding(spaces_before_registers - std::strlen(str), ' ');
+			auto addr = userdata_addr - 1;
 
-			// print debug info
-			std::printf("%04X: %s%s| PC: %04X, A: %02X, BC: %02X%02X, DE: %02X%02X, HL: %02X%02X | SP: %04X -> %04X | F: %02X | IF: %02X, IE: %02X\n",
-				userdata_addr - 1,
-				str,
-				padding.c_str(),
-				pc_.val,
-				af_.hi,
-				bc_.hi,
-				bc_.lo,
-				de_.hi,
-				de_.lo,
-				hl_.hi,
-				hl_.lo,
-				sp_.val,
-				WORD(mmu_->read(sp_.val + 1), mmu_->read(sp_.val)),
-				af_.lo,
-				interrupt_flags_,
-				interrupt_enable_
-			);
+			std::stringstream ss;
+			ss << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << addr << ": " << str;
+
+			if (disassembly_callback_)
+				disassembly_callback_(ss.str());
+			
 		}
 
 		uint8_t load8Imm()
@@ -2318,6 +2304,11 @@ namespace gb
 			debug_mode_ = debug_mode;
 		}
 
+		void setDisassemblyCallback(std::function<void(const std::string&)> callback)
+		{
+			disassembly_callback_ = callback;
+		}
+
 		bool isHalted() const
 		{
 			return halted_;
@@ -2351,6 +2342,8 @@ namespace gb
 			status.pc = pc_.val;
 			status.halt = halted_;
 			status.stopped = stopped_;
+			status.ime = interrupt_master_enable_;
+			status.enabled_interrupts = interrupt_enable_;
 
 			return status;
 		}
@@ -2380,6 +2373,7 @@ namespace gb
 		int interrupt_master_disable_pending_;
 
 		bool debug_mode_;
+		std::function<void(const std::string&)> disassembly_callback_;
 
 		int cycle_count_;
 
@@ -2421,6 +2415,12 @@ namespace gb
 	{
 		impl_->setDebugMode(debug_mode);
 	}
+
+	void CPU::setDisassemblyCallback(std::function<void(const std::string&)> callback)
+	{
+		impl_->setDisassemblyCallback(callback);
+	}
+	
 
 	CPU::Status CPU::getStatus() const
 	{

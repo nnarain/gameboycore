@@ -12,11 +12,12 @@ namespace gb
 {
 	namespace detail
 	{
-		TileMap::TileMap(MMU& mmu) :
+		TileMap::TileMap(MMU& mmu, Palette& palette) :
 			tileram_(mmu),
 			mmu_(mmu),
 			scx_(mmu.get(memorymap::SCX_REGISTER)),
-			scy_(mmu.get(memorymap::SCY_REGISTER))
+			scy_(mmu.get(memorymap::SCY_REGISTER)),
+			palette_(palette)
 		{
 		}
 
@@ -109,8 +110,8 @@ namespace gb
 		{
 			OAM oam{ mmu_ };
 
-			auto palette0 = Palette::get(mmu_.read(memorymap::OBP0_REGISTER));
-			auto palette1 = Palette::get(mmu_.read(memorymap::OBP1_REGISTER));
+			auto palette0 = palette_.get(mmu_.read(memorymap::OBP0_REGISTER));
+			auto palette1 = palette_.get(mmu_.read(memorymap::OBP1_REGISTER));
 
 			if (mmu_.getOamTransferStatus())
 			{

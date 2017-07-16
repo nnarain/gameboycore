@@ -10,6 +10,7 @@
 #include "gameboycore/tileram.h"
 #include "gameboycore/pixel.h"
 #include "gameboycore/sprite.h"
+#include "gameboycore/palette.h"
 #include "gameboycore/memorymap.h"
 
 #include <vector>
@@ -37,7 +38,7 @@ namespace gb
 
 		public:
 
-			TileMap(MMU& mmu);
+			TileMap(MMU& mmu, Palette& palette);
 			~TileMap();
 
 			Line getBackground(int line, bool cgb_enable);
@@ -59,6 +60,7 @@ namespace gb
 			MMU& mmu_;
 			uint8_t& scx_;
 			uint8_t& scy_;
+			Palette& palette_;
 
 			std::vector<gb::Sprite> sprite_cache_;
 		};
