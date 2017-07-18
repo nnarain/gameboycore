@@ -154,6 +154,8 @@ namespace gb
 				case 4:
 					return ((frequency_ & 0x0700) >> 8) | (trigger_ << 7) | (length_enabled_ << 6);
 				}
+
+				return 0;
 			}
 
 			void write(uint8_t value, uint16_t register_number)

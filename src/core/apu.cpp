@@ -62,6 +62,7 @@ namespace gb
 
 				square1_.step();
 				square2_.step();
+				wave_.step();
 			}
 
 		}
@@ -78,7 +79,7 @@ namespace gb
 
 		uint8_t getSound3Volume() const
 		{
-			return 0;
+			return wave_.getVolume();
 		}
 
 		uint8_t getSound4Volume() const
@@ -127,7 +128,7 @@ namespace gb
 		{
 			square1_.clockLength();
 			square2_.clockLength();
-		//	wave_   .clockLength();
+			wave_.clockLength();
 		//	noise_  .clockLength();
 		}
 
@@ -154,7 +155,7 @@ namespace gb
 
 				value |= square1_.isEnabled() << 0;
 				value |= square2_.isEnabled() << 1;
-			//	value |= wave_   .isEnabled() << 2;
+				value |= wave_.isEnabled() << 2;
 			//	value |= noise_  .isEnabled() << 3;
 			}
 			else
@@ -166,6 +167,14 @@ namespace gb
 				else if (addr >= memorymap::NR20_REGISTER && addr <= memorymap::NR24_REGISTER)
 				{
 					value = square2_.read(addr - memorymap::NR20_REGISTER);
+				}
+				else if (addr >= memorymap::NR30_REGISTER && addr <= memorymap::NR34_REGISTER)
+				{
+					value = wave_.read(addr - memorymap::NR30_REGISTER);
+				}
+				else if (addr >= memorymap::WAVE_PATTERN_RAM_START && addr <= memorymap::WAVE_PATTERN_RAM_END)
+				{
+					value = wave_.readWaveRam(addr);
 				}
 			}
 
@@ -202,6 +211,14 @@ namespace gb
 					else if (addr >= memorymap::NR20_REGISTER && addr <= memorymap::NR24_REGISTER)
 					{
 						square2_.write(value, addr - memorymap::NR20_REGISTER);
+					}
+					else if (addr >= memorymap::NR30_REGISTER && addr <= memorymap::NR34_REGISTER)
+					{
+						wave_.write(value, addr - memorymap::NR30_REGISTER);
+					}
+					else if (addr >= memorymap::WAVE_PATTERN_RAM_START && addr <= memorymap::WAVE_PATTERN_RAM_END)
+					{
+						wave_.writeWaveRam(value, addr);
 					}
 				}
 			}
@@ -293,8 +310,11 @@ namespace gb
 	private:
 		MMU::Ptr& mmu_;
 
+		//! Sound 1 - Square wave with Sweep
 		detail::SquareWaveChannel square1_;
+		//! Sound 2 - Square wave
 		detail::SquareWaveChannel square2_;
+		//! Sound 3 - Wave from wave ram
 		detail::WaveChannel wave_;
 
 		//! callback to host when an audio sample is computed
