@@ -4,11 +4,9 @@
 */
 
 #include "gameboycore/apu.h"
-#include "gameboycore/channel.h"
-#include "gameboycore/detail/audio/square_wave_channel.h"
 #include "gameboycore/memorymap.h"
-#include "gameboycore/wave.h"
-#include "gameboycore/noise.h"
+#include "gameboycore/detail/audio/square_wave_channel.h"
+#include "gameboycore/detail/audio/wave_channel.h"
 
 #include "bitutil.h"
 
@@ -32,17 +30,6 @@ namespace gb
 			mmu_(mmu),
 			square1_(true),
 			square2_(false),
-			wave_(
-				apu_registers[memorymap::NR30_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR31_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR32_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR33_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR34_REGISTER - APU_REG_BASE]),
-			noise_(
-				apu_registers[memorymap::NR41_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR42_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR43_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR44_REGISTER - APU_REG_BASE]),
 			frame_sequencer_counter_(CYCLES_512HZ),
 			frame_sequencer_(0)
 		{
@@ -308,8 +295,7 @@ namespace gb
 
 		detail::SquareWaveChannel square1_;
 		detail::SquareWaveChannel square2_;
-		detail::Wave   wave_;
-		detail::Noise  noise_;
+		detail::WaveChannel wave_;
 
 		//! callback to host when an audio sample is computed
 		AudioSampleCallback send_audio_sample_;

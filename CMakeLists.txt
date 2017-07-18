@@ -50,8 +50,8 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboycore/interrupt_provider.h
 	include/gameboycore/palette.h
 	include/gameboycore/detail/audio/square_wave_channel.h
+	include/gameboycore/detail/audio/wave_channel.h
 	include/gameboycore/noise.h
-	include/gameboycore/wave.h
 	include/gameboycore/channel.h
 	include/gameboycore/memorymap.h
 	include/gameboycore/mbc.h
