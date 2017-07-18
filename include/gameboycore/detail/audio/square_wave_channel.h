@@ -6,10 +6,8 @@
 	\date Nov 21 2016
 */
 
-#ifndef GAMEBOYCORE_SOUND_H
-#define GAMEBOYCORE_SOUND_H
-
-#include "gameboycore/mmu.h"
+#ifndef GAMEBOYCORE_SQUARE_WAVE_CHANNEL_H
+#define GAMEBOYCORE_SQUARE_WAVE_CHANNEL_H
 
 #include <array>
 #include <cstdint>
@@ -23,7 +21,7 @@ namespace gb
 			\brief Square wave generator channels
 			\ingroup Audio
 		*/
-		class Square
+		class SquareWaveChannel
 		{
 		public:
 			static constexpr int LENGTH_MASK = 0x3F;
@@ -31,7 +29,7 @@ namespace gb
 
 		public:
 
-			Square(bool sweep = true) :
+			SquareWaveChannel(bool sweep = true) :
 				sweep_timer_(0),
 				duty_(0),
 				is_enabled_(false),
@@ -47,7 +45,7 @@ namespace gb
 				waveform_[3] = { 0, 1, 1, 1, 1, 1, 1, 0 };
 			}
 
-			~Square()
+			~SquareWaveChannel()
 			{
 			}
 

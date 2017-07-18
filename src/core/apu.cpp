@@ -5,7 +5,7 @@
 
 #include "gameboycore/apu.h"
 #include "gameboycore/channel.h"
-#include "gameboycore/square.h"
+#include "gameboycore/detail/audio/square_wave_channel.h"
 #include "gameboycore/memorymap.h"
 #include "gameboycore/wave.h"
 #include "gameboycore/noise.h"
@@ -306,8 +306,8 @@ namespace gb
 	private:
 		MMU::Ptr& mmu_;
 
-		detail::Square square1_;
-		detail::Square square2_;
+		detail::SquareWaveChannel square1_;
+		detail::SquareWaveChannel square2_;
 		detail::Wave   wave_;
 		detail::Noise  noise_;
 

@@ -39,6 +39,33 @@ set(GAMEBOYCORE_API_HEADERS
 	include/gameboycore/sprite.h
 )
 
+set(GAMEBOYCORE_HEADERS
+	${GAMEBOYCORE_API_HEADERS}
+	include/gameboycore/alu.h
+	include/gameboycore/tileram.h
+	include/gameboycore/tilemap.h
+	include/gameboycore/oam.h
+	include/gameboycore/tile.h
+	include/gameboycore/timer.h
+	include/gameboycore/interrupt_provider.h
+	include/gameboycore/palette.h
+	include/gameboycore/detail/audio/square_wave_channel.h
+	include/gameboycore/noise.h
+	include/gameboycore/wave.h
+	include/gameboycore/channel.h
+	include/gameboycore/memorymap.h
+	include/gameboycore/mbc.h
+	include/gameboycore/mbc1.h
+	include/gameboycore/mbc2.h
+	include/gameboycore/mbc3.h
+	include/gameboycore/rtc.h
+	include/gameboycore/cartinfo.h
+	include/gameboycore/opcodeinfo.h
+	include/gameboycore/opcode_cycles.h
+	src/core/bitutil.h
+	src/core/shiftrotate.h
+)
+
 set(GAMEBOYCORE
     src/core/gameboycore.cpp
     src/core/cpu.cpp
@@ -60,33 +87,6 @@ set(GAMEBOYCORE
 	src/core/tilemap.cpp
 	src/core/oam.cpp
 	src/core/timer.cpp
-)
-
-set(GAMEBOYCORE_HEADERS
-	${GAMEBOYCORE_API_HEADERS}
-	include/gameboycore/alu.h
-	include/gameboycore/tileram.h
-	include/gameboycore/tilemap.h
-	include/gameboycore/oam.h
-	include/gameboycore/tile.h
-	include/gameboycore/timer.h
-	include/gameboycore/interrupt_provider.h
-	include/gameboycore/palette.h
-	include/gameboycore/square.h
-	include/gameboycore/noise.h
-	include/gameboycore/wave.h
-	include/gameboycore/channel.h
-	include/gameboycore/memorymap.h
-	include/gameboycore/mbc.h
-	include/gameboycore/mbc1.h
-	include/gameboycore/mbc2.h
-	include/gameboycore/mbc3.h
-	include/gameboycore/rtc.h
-	include/gameboycore/cartinfo.h
-	include/gameboycore/opcodeinfo.h
-	include/gameboycore/opcode_cycles.h
-	src/core/bitutil.h
-	src/core/shiftrotate.h
 )
 
 # compiler specific flags
