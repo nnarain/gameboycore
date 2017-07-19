@@ -16,9 +16,9 @@ class Audio : public sf::SoundStream
 public:
 	Audio() : 
 		current_buffer_(0),
-		default_audio_{1, 1, 1, 1, 1, 1}
+		default_audio_{0, 0}
 	{
-		initialize(gb::APU::CHANNEL_COUNT,6);
+		initialize(gb::APU::CHANNEL_COUNT, gb::APU::SAMPLE_RATE);
 	}
 
 	~Audio()
@@ -50,7 +50,8 @@ private:
 		}
 		else
 		{
-			return false;
+			data.samples = &default_audio_[0];
+			data.sampleCount = default_audio_.size();
 		}
 
 		return true;
