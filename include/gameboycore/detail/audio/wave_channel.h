@@ -67,6 +67,9 @@ namespace gb
 					volume_ = wave_ram_[sample_index_];
 					volume_ >>= shift_table_[volume_code_];
 				}
+
+				if (!dac_enabled_ || !is_enabled_)
+					volume_ = 0;
 			}
 
 			uint8_t read(uint16_t register_number)

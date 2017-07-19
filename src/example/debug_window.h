@@ -81,10 +81,10 @@ public:
 				sound3_.update(apu->getSound3Volume());
 				sound4_.update(apu->getSound4Volume());
 
-				drawSoundChannel("Sound 1", sound1_);
-				drawSoundChannel("Sound 2", sound2_);
-				drawSoundChannel("Sound 3", sound3_);
-				drawSoundChannel("Sound 4", sound4_);
+				drawSoundChannel("Square 1", sound1_);
+				drawSoundChannel("Square 2", sound2_);
+				drawSoundChannel("Wave    ", sound3_);
+				drawSoundChannel("Noise   ", sound4_);
 			}
 
 			ImGui::End();

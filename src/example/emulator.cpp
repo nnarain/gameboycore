@@ -38,23 +38,23 @@ int main(int argc, char * argv[])
 
 	std::string filename(argv[1]);
 
-	GameboyCore gameboy1;
+	GameboyCore core;
 
-	if (loadGB(gameboy1, filename))
+	if (loadGB(core, filename))
 	{
 		try
 		{
 			// setup render window
 			std::string title = "Example " + version::get();
 
-			Window window1(gameboy1, title);
+			Window window1(core, title);
 			window1.start();
 
-			gameboy1.setDebugMode(false);
+			core.setDebugMode(false);
 
 			while (window1.isOpen())
 			{
-				gameboy1.update(512);
+				core.update(512);
 				window1.update();
 			}
 		}
@@ -67,7 +67,7 @@ int main(int argc, char * argv[])
 		// Exiting save battery RAM
 
 		// get battery ram from memory
-		std::vector<uint8_t> battery_ram = gameboy1.getMMU()->getBatteryRam();
+		std::vector<uint8_t> battery_ram = core.getMMU()->getBatteryRam();
 
 		saveRam(saveFileName(filename), battery_ram);
 	}

@@ -36,7 +36,7 @@ namespace gb
 		//! Smart pointer type
 		using Ptr =  std::unique_ptr<APU>;
 		//! Callback used to provide audio to the host system
-		using AudioSampleCallback = std::function<void(uint16_t, uint16_t)>;
+		using AudioSampleCallback = std::function<void(int16_t, int16_t)>;
 
 	public:
 

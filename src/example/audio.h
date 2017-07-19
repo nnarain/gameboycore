@@ -15,23 +15,24 @@ class Audio : public sf::SoundStream
 {
 public:
 	Audio() : 
-		current_buffer_(0)
+		current_buffer_(0),
+		default_audio_{1, 1, 1, 1, 1, 1}
 	{
-		initialize(gb::APU::CHANNEL_COUNT, gb::APU::SAMPLE_RATE);
+		initialize(gb::APU::CHANNEL_COUNT,6);
 	}
 
 	~Audio()
 	{
 	}
 
-	void apuCallback(uint16_t left, uint16_t right)
+	void apuCallback(int16_t left, int16_t right)
 	{
 		buffers_[current_buffer_].push_back(left);
 		buffers_[current_buffer_].push_back(right);
 	}
 
 private:
-	virtual bool onGetData(Chunk& data)
+	virtual bool onGetData(Chunk& data) override
 	{
 		// get current collected samples
 		auto& samples = buffers_[current_buffer_];
@@ -47,11 +48,15 @@ private:
 			// clear contents of this buffer
 			buffers_[current_buffer_].clear();
 		}
+		else
+		{
+			return false;
+		}
 
 		return true;
 	}
 
-	virtual void onSeek(sf::Time timeOffset)
+	virtual void onSeek(sf::Time timeOffset) override
 	{
 		// unsupported
 	}
@@ -59,6 +64,8 @@ private:
 private:
 	std::array<std::vector<sf::Int16>, 2> buffers_;
 	int current_buffer_;
+
+	std::vector<sf::Int16> default_audio_;
 };
 
 #endif // GAMEBOY_AUDIO_H

@@ -64,7 +64,6 @@ namespace gb
 				square2_.step();
 				wave_.step();
 			}
-
 		}
 
 		uint8_t getSound1Volume() const
@@ -112,7 +111,7 @@ namespace gb
 				break;
 			case 7:
 				clockVolume();
-				// produces sound? Callback?
+				mixVolumes();
 				break;
 			}
 
@@ -122,6 +121,19 @@ namespace gb
 			{
 				frame_sequencer_ = 0;
 			}
+		}
+
+		void mixVolumes()
+		{
+			auto volume1 = (float)square1_.getVolume() / 100.0f;
+			auto volume2 = (float)square2_.getVolume() / 100.0f;
+			auto volume3 = (float)wave_.getVolume() / 100.0f;
+
+			auto left = (volume1 + volume2 + volume3) * 1000;
+			auto right = (volume1 + volume2 + volume3) * 1000;
+
+			if (send_audio_sample_)
+				send_audio_sample_((int16_t)left, (int16_t)right);
 		}
 
 		void clockLength()
