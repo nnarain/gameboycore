@@ -86,6 +86,8 @@ namespace gb
 					return frequency_ & 0x00FF;
 				case 4:
 					return (trigger_ << 7) | (length_enabled_ << 6) | ((frequency_ & 0x0700) >> 8);
+				default:
+					return 0;
 				}
 			}
 

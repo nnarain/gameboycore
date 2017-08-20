@@ -21,7 +21,9 @@ namespace gb
 	class APU::Impl
 	{
 		//! Cycles for 512 Hz with ~4.2 MHz clock
-		static constexpr int CYCLES_512HZ = 8192;
+		static constexpr unsigned int CYCLES_512HZ = 8192;
+		//! APU down sampling rate
+		static constexpr unsigned int DOWNSAMPLE_RATE = 4200000 / 44100;
 		//! Starting address of the APU registers
 		static constexpr int APU_REG_BASE = memorymap::NR10_REGISTER;
 
@@ -31,7 +33,8 @@ namespace gb
 			square1_(true),
 			square2_(false),
 			frame_sequencer_counter_(CYCLES_512HZ),
-			frame_sequencer_(0)
+			frame_sequencer_(0),
+			down_sample_counter_(0)
 		{
 			// intercept all read/write attempts here
 			for (int i = memorymap::NR10_REGISTER; i <= memorymap::WAVE_PATTERN_RAM_END; ++i)
@@ -63,6 +66,13 @@ namespace gb
 				square1_.step();
 				square2_.step();
 				wave_.step();
+
+				if (--down_sample_counter_ == 0)
+				{
+					down_sample_counter_ = DOWNSAMPLE_RATE;
+
+					mixVolumes();
+				}
 			}
 		}
 
@@ -111,7 +121,7 @@ namespace gb
 				break;
 			case 7:
 				clockVolume();
-				mixVolumes();
+			//	mixVolumes();
 				break;
 			}
 
@@ -125,15 +135,45 @@ namespace gb
 
 		void mixVolumes()
 		{
-			auto volume1 = (float)square1_.getVolume() / 100.0f;
-			auto volume2 = (float)square2_.getVolume() / 100.0f;
-			auto volume3 = (float)wave_.getVolume() / 100.0f;
+			static constexpr float AMPLITUDE = 30000;
 
-			auto left = (volume1 + volume2 + volume3) * 1000;
-			auto right = (volume1 + volume2 + volume3) * 1000;
+			auto sound1 = (float)square1_.getVolume() / 15.f;
+			auto sound2 = (float)square2_.getVolume() / 15.f;
+			auto sound3 = (float)wave_.getVolume() / 15.f;
+			auto sound4 = 0.0f;
+
+			float left_sample = 0;
+			float right_sample = 0;
+
+			if (channel_left_enabled_[0])
+				left_sample += sound1;
+			if (channel_left_enabled_[1])
+				left_sample += sound2;
+			if (channel_left_enabled_[2])
+				left_sample += sound3;
+			if (channel_left_enabled_[3])
+				left_sample += sound4;
+
+			if (channel_right_enabled_[0])
+				right_sample += sound1;
+			if (channel_right_enabled_[1])
+				right_sample += sound2;
+			if (channel_right_enabled_[2])
+				right_sample += sound3;
+			if (channel_right_enabled_[3])
+				right_sample += sound4;
+
+			left_sample /= 4.0f;
+			right_sample /= 4.0f;
+
+			auto right_volume = ((float)right_volume_) / 7.f;
+			auto left_volume = ((float)left_volume_) / 7.f;
+
+			auto left = left_sample * left_volume * AMPLITUDE;
+			auto right = right_sample * right_volume * AMPLITUDE;
 
 			if (send_audio_sample_)
-				send_audio_sample_((int16_t)left, (int16_t)right);
+				send_audio_sample_(left, right);
 		}
 
 		void clockLength()
@@ -211,6 +251,27 @@ namespace gb
 				}
 
 				apuWrite(value, addr);
+			}
+			else if (addr == memorymap::NR50_REGISTER)
+			{
+				right_volume_ = value & 0x07;
+				right_enabled_ = (value & 0x08) != 0;
+
+				left_volume_ = (value & 0x70) >> 4;
+				left_enabled_ = (value & 0x80) != 0;
+
+				apuWrite(value, addr);
+			}
+			else if (addr == memorymap::NR51_REGISTER)
+			{
+				channel_right_enabled_[0] = (value & 0x01) != 0;
+				channel_right_enabled_[1] = (value & 0x02) != 0;
+				channel_right_enabled_[2] = (value & 0x04) != 0;
+				channel_right_enabled_[3] = (value & 0x08) != 0;
+				channel_left_enabled_[0] = (value & 0x10) != 0;
+				channel_left_enabled_[1] = (value & 0x20) != 0;
+				channel_left_enabled_[2] = (value & 0x40) != 0;
+				channel_left_enabled_[3] = (value & 0x80) != 0;
 			}
 			else
 			{
@@ -340,6 +401,23 @@ namespace gb
 
 		//! APU registers
 		std::array<uint8_t, 0x30> apu_registers;
+
+		//! left volume
+		uint8_t left_volume_;
+		//! left enabled
+		bool left_enabled_;
+		//! right volume
+		uint8_t right_volume_;
+		//! right enabled
+		bool right_enabled_;
+
+		//! left channel enables
+		bool channel_left_enabled_[4];
+		//! right channel enables
+		bool channel_right_enabled_[4];
+
+		//!
+		uint8_t down_sample_counter_;
 
 		//! bits that are ORed into the value when read
 		std::array<uint8_t, 0x30> extra_bits_;
