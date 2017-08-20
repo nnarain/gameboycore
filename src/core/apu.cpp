@@ -22,7 +22,7 @@ namespace gb
 	{
 		//! Cycles for 512 Hz with ~4.2 MHz clock
 		static constexpr unsigned int CYCLES_512HZ = 8192;
-		//! APU down sampling rate
+		//! APU down sampling rate (CPU clock / sample rate of host system)
 		static constexpr unsigned int DOWNSAMPLE_RATE = 4200000 / 44100;
 		//! Starting address of the APU registers
 		static constexpr int APU_REG_BASE = memorymap::NR10_REGISTER;
@@ -50,12 +50,17 @@ namespace gb
 			initExtraBits();
 		}
 
+		/**
+			update with cycles
+		*/
 		void update(uint8_t cycles)
 		{
+			// ignore if apu is disabled
 			if (!isEnabled()) return;
 
 			while (cycles--)
 			{
+				// frame sequencer clock
 				if (frame_sequencer_counter_-- <= 0)
 				{
 					frame_sequencer_counter_ = CYCLES_512HZ;
@@ -63,14 +68,17 @@ namespace gb
 					clockFrameSequencer();
 				}
 
+				// run channel logic
 				square1_.step();
 				square2_.step();
 				wave_.step();
 
+				// down sampling is required since the APU can generate audio at a rate faster than the host system will play
 				if (--down_sample_counter_ == 0)
 				{
 					down_sample_counter_ = DOWNSAMPLE_RATE;
 
+					// generate left and right audio samples
 					mixVolumes();
 				}
 			}
@@ -121,7 +129,6 @@ namespace gb
 				break;
 			case 7:
 				clockVolume();
-			//	mixVolumes();
 				break;
 			}
 
@@ -146,6 +153,7 @@ namespace gb
 			float left_sample = 0;
 			float right_sample = 0;
 
+			// add left channel contributions
 			if (channel_left_enabled_[0])
 				left_sample += sound1;
 			if (channel_left_enabled_[1])
@@ -155,6 +163,7 @@ namespace gb
 			if (channel_left_enabled_[3])
 				left_sample += sound4;
 
+			// add right channel contributions
 			if (channel_right_enabled_[0])
 				right_sample += sound1;
 			if (channel_right_enabled_[1])
@@ -164,15 +173,19 @@ namespace gb
 			if (channel_right_enabled_[3])
 				right_sample += sound4;
 
+			// average the totals
 			left_sample /= 4.0f;
 			right_sample /= 4.0f;
 
+			// volume per channel between [0, 1]
 			auto right_volume = ((float)right_volume_) / 7.f;
 			auto left_volume = ((float)left_volume_) / 7.f;
 
+			// generate a sample
 			auto left = left_sample * left_volume * AMPLITUDE;
 			auto right = right_sample * right_volume * AMPLITUDE;
 
+			// send the samples to the host system
 			if (send_audio_sample_)
 				send_audio_sample_(left, right);
 		}
