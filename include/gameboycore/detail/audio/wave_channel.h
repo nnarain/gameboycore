@@ -47,6 +47,7 @@ namespace gb
 
 			void clockLength()
 			{
+				// wave channel length counter will disable channel when it gets to zero
 				if (length_enabled_ && length_counter_ > 0)
 				{
 					if (length_counter_-- <= 0)
@@ -58,12 +59,15 @@ namespace gb
 
 			void step()
 			{
+				// wave channel internal timer
 				if (timer_-- <= 0)
 				{
 					timer_ = timer_load_;
 
+					// next sample index
 					sample_index_ = (sample_index_ + 1) % wave_ram_.size();
 
+					// get the next volume 
 					volume_ = wave_ram_[sample_index_];
 					volume_ >>= shift_table_[volume_code_];
 				}

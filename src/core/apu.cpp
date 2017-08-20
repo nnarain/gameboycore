@@ -137,6 +137,7 @@ namespace gb
 		{
 			static constexpr float AMPLITUDE = 30000;
 
+			// convert sound output between [0, 1]
 			auto sound1 = (float)square1_.getVolume() / 15.f;
 			auto sound2 = (float)square2_.getVolume() / 15.f;
 			auto sound3 = (float)wave_.getVolume() / 15.f;
