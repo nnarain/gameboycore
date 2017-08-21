@@ -65,8 +65,7 @@ public:
 	*/
 	void start()
 	{
-		audio_.play();
-		audio_.setVolume(100);
+		audio_.start();
 	}
 
 	void update()
@@ -145,6 +144,7 @@ public:
 
 	~Window()
 	{
+		audio_.stop();
 	}
 
 private:
