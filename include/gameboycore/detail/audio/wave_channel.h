@@ -116,7 +116,7 @@ namespace gb
 					break;
 
 				case 4:
-					frequency_ = (frequency_ & 0x00FF) | ((value & 0xFFFF) << 8);
+					frequency_ = (frequency_ & 0x00FF) | ((value & 0x0007) << 8);
 					length_enabled_ = (value & 0x40) != 0;
 					trigger_ = (value & 0x80) != 0;
 
