@@ -30,13 +30,28 @@ namespace gb
 		public:
 
 			SquareWaveChannel(bool sweep = true) :
+				sweep_period_(0),
+				sweep_negate_(false),
+				sweep_shift_(0),
 				sweep_timer_(0),
+				frequency_shadow_(0),
+				sweep_enabled_(0),
 				duty_(0),
+				length_(0),
+				length_counter_(0),
+				volume_(0),
+				envelope_add_mode_(false),
+				envelop_period_(0),
+				dac_enabled_(false),
+				volume_counter_(0),
+				envelop_timer_(0),
+				frequency_(0),
+				trigger_(false),
+				length_enabled_(false),
 				is_enabled_(false),
 				waveform_idx_(0),
-				length_counter_(0),
-				envelop_period_(0),
-				volume_counter_(0)
+				waveform_timer_(0),
+				waveform_timer_load_(0)
 			{
 				// waveforms with different duty cycles
 				waveform_[0] = { 0, 0, 0, 0, 0, 0, 0, 1 };
