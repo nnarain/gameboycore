@@ -7,66 +7,75 @@
 
 #include <array>
 #include <vector>
+#include <thread>
 
 /**
 	Play Audio from gameboy core
 */
-class Audio : public sf::SoundStream
+class Audio
 {
+	static constexpr unsigned int MIN_SAMPLES = 4096;
+
 public:
 	Audio() : 
-		current_buffer_(0),
-		default_audio_{0, 0}
+		running_(false)
 	{
-		initialize(gb::APU::CHANNEL_COUNT, gb::APU::SAMPLE_RATE);
 	}
 
 	~Audio()
 	{
 	}
 
+	void start()
+	{
+		running_ = true;
+		play_thread_ = std::thread(std::bind(&Audio::playAudio, this));
+	}
+
+	void stop()
+	{
+		sound_.stop();
+		running_ = false;
+		play_thread_.join();
+	}
+
 	void apuCallback(int16_t left, int16_t right)
 	{
-		buffers_[current_buffer_].push_back(left);
-		buffers_[current_buffer_].push_back(right);
+		samples_.push_back(left);
+		samples_.push_back(right);
 	}
 
 private:
-	virtual bool onGetData(Chunk& data) override
+
+	void playAudio()
 	{
-		// get current collected samples
-		auto& samples = buffers_[current_buffer_];
-
-		if (samples.size() > 0)
+		while (running_)
 		{
-			data.samples = &samples[0];
-			data.sampleCount = samples.size();
+			// wait for sound to stop playing
+			while (sound_.getStatus() == sf::Sound::Status::Playing)
+			{
+				sf::sleep(sf::milliseconds(10));
+			}
 
-			// move to next audio buffer
-			current_buffer_ = (current_buffer_ + 1) % buffers_.size();
+			// load at least the minimum number of samples
+			if (samples_.size() >= MIN_SAMPLES)
+			{
+				buffer_.loadFromSamples(&samples_[0], samples_.size(), gb::APU::CHANNEL_COUNT, gb::APU::SAMPLE_RATE);
+				sound_.setBuffer(buffer_);
 
-			// clear contents of this buffer
-			buffers_[current_buffer_].clear();
+				samples_.clear();
+
+				sound_.play();
+			}
 		}
-		else
-		{
-			data.samples = &default_audio_[0];
-			data.sampleCount = default_audio_.size();
-		}
-
-		return true;
 	}
 
-	virtual void onSeek(sf::Time timeOffset) override
-	{
-		// unsupported
-	}
+	sf::Sound sound_;
+	sf::SoundBuffer buffer_;
+	std::thread play_thread_;
+	bool running_;
 
-private:
-	std::array<std::vector<sf::Int16>, 2> buffers_;
-	int current_buffer_;
-
-	std::vector<sf::Int16> default_audio_;
+	std::vector<sf::Int16> samples_;
 };
 
 #endif // GAMEBOY_AUDIO_H
