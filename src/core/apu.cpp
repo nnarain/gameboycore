@@ -7,6 +7,7 @@
 #include "gameboycore/memorymap.h"
 #include "gameboycore/detail/audio/square_wave_channel.h"
 #include "gameboycore/detail/audio/wave_channel.h"
+#include "gameboycore/detail/audio/noise_channel.h"
 
 #include "bitutil.h"
 
@@ -72,6 +73,7 @@ namespace gb
 				square1_.step();
 				square2_.step();
 				wave_.step();
+				noise_.step();
 
 				// down sampling is required since the APU can generate audio at a rate faster than the host system will play
 				if (--down_sample_counter_ == 0)
@@ -148,7 +150,7 @@ namespace gb
 			auto sound1 = (float)square1_.getVolume() / 15.f;
 			auto sound2 = (float)square2_.getVolume() / 15.f;
 			auto sound3 = (float)wave_.getVolume() / 15.f;
-			auto sound4 = 0.0f;
+			auto sound4 = (float)noise_.getVolume() / 15.f;
 
 			float left_sample = 0;
 			float right_sample = 0;
@@ -195,13 +197,14 @@ namespace gb
 			square1_.clockLength();
 			square2_.clockLength();
 			wave_.clockLength();
-		//	noise_  .clockLength();
+			noise_.clockLength();
 		}
 
 		void clockVolume()
 		{
 			square1_.clockVolume();
 			square2_.clockVolume();
+			noise_.clockVolume();
 		}
 
 		bool isEnabled()
@@ -222,7 +225,7 @@ namespace gb
 				value |= square1_.isEnabled() << 0;
 				value |= square2_.isEnabled() << 1;
 				value |= wave_.isEnabled() << 2;
-			//	value |= noise_  .isEnabled() << 3;
+				value |= noise_.isEnabled() << 3;
 			}
 			else
 			{
@@ -241,6 +244,10 @@ namespace gb
 				else if (addr >= memorymap::WAVE_PATTERN_RAM_START && addr <= memorymap::WAVE_PATTERN_RAM_END)
 				{
 					value = wave_.readWaveRam(addr);
+				}
+				else if (addr >= memorymap::NR41_REGISTER && addr <= memorymap::NR44_REGISTER)
+				{
+					value = noise_.read(addr - memorymap::NR41_REGISTER);
 				}
 			}
 
@@ -306,6 +313,10 @@ namespace gb
 					else if (addr >= memorymap::WAVE_PATTERN_RAM_START && addr <= memorymap::WAVE_PATTERN_RAM_END)
 					{
 						wave_.writeWaveRam(value, addr);
+					}
+					else if (addr >= memorymap::NR41_REGISTER && addr <= memorymap::NR44_REGISTER)
+					{
+						value = noise_.read(addr - memorymap::NR41_REGISTER);
 					}
 				}
 			}
@@ -403,6 +414,8 @@ namespace gb
 		detail::SquareWaveChannel square2_;
 		//! Sound 3 - Wave from wave ram
 		detail::WaveChannel wave_;
+		//! Sound 4 - Noise Channel
+		detail::NoiseChannel noise_;
 
 		//! callback to host when an audio sample is computed
 		AudioSampleCallback send_audio_sample_;
