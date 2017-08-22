@@ -18,5 +18,5 @@ var searchData=
   ['argument_5ftype',['argument_type',['../structgb_1_1detail_1_1ContainerHash.html#a6fae7caa2efd497cfcd379f7e7aa5b44',1,'gb::detail::ContainerHash']]],
   ['attr',['attr',['../classgb_1_1Sprite.html#aeaede991464e9102c2b98f2259261968',1,'gb::Sprite']]],
   ['audio',['Audio',['../group__Audio.html',1,'']]],
-  ['audiosamplecallback',['AudioSampleCallback',['../classgb_1_1APU.html#a5293bff17f595946fe25b097ff7ef018',1,'gb::APU']]]
+  ['audiosamplecallback',['AudioSampleCallback',['../classgb_1_1APU.html#abde6defa648488b77a476ff8668441cb',1,'gb::APU']]]
 ];

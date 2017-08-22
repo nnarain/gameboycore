@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['noise_2eh',['noise.h',['../noise_8h.html',1,'']]]
+  ['noise_5fchannel_2eh',['noise_channel.h',['../noise__channel_8h.html',1,'']]]
 ];

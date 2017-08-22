@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wave_2eh',['wave.h',['../wave_8h.html',1,'']]]
+  ['wave_5fchannel_2eh',['wave_channel.h',['../wave__channel_8h.html',1,'']]]
 ];

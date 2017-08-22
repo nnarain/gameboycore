@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['noise',['Noise',['../classgb_1_1detail_1_1Noise.html#a12fe30eab10ebad4aba00ea1bce1aeec',1,'gb::detail::Noise']]]
+  ['noisechannel',['NoiseChannel',['../classgb_1_1detail_1_1NoiseChannel.html#a75a4648e0faf444b76739a80e9b61638',1,'gb::detail::NoiseChannel']]]
 ];

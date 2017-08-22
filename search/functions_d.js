@@ -15,8 +15,9 @@ var searchData=
   ['setpalettecolor',['setPaletteColor',['../classgb_1_1GPU.html#a168b652993d41adc5f09ce8b851e31d6',1,'gb::GPU']]],
   ['setreadycallback',['setReadyCallback',['../classgb_1_1Link.html#a7131a8e4258065a173ffa60efcd0b73f',1,'gb::Link']]],
   ['setrendercallback',['setRenderCallback',['../classgb_1_1GPU.html#a65b4c3ebc0a0ae65697d3893eaafe7ef',1,'gb::GPU']]],
-  ['square',['Square',['../classgb_1_1detail_1_1Square.html#a5d65977b604d729ff500b384e1ca32dc',1,'gb::detail::Square']]],
-  ['step',['step',['../classgb_1_1CPU.html#a57f9e5dc7b2a7ba6a44824d7daa34b0a',1,'gb::CPU']]],
+  ['squarewavechannel',['SquareWaveChannel',['../classgb_1_1detail_1_1SquareWaveChannel.html#a19a806824db4c140aec86839b00eb9b3',1,'gb::detail::SquareWaveChannel']]],
+  ['step',['step',['../classgb_1_1CPU.html#a57f9e5dc7b2a7ba6a44824d7daa34b0a',1,'gb::CPU::step()'],['../classgb_1_1detail_1_1NoiseChannel.html#ae5f834aa2fbdb2cfc461c0a784166430',1,'gb::detail::NoiseChannel::step()'],['../classgb_1_1detail_1_1SquareWaveChannel.html#aa4893453ca49fed83f3c357666659e94',1,'gb::detail::SquareWaveChannel::step()'],['../classgb_1_1detail_1_1WaveChannel.html#a2eb5b3859837d8aa9630cb2e4987dc97',1,'gb::detail::WaveChannel::step()']]],
   ['sub',['sub',['../classgb_1_1ALU.html#a00b3619d630e7743f09d5e50ef089646',1,'gb::ALU']]],
-  ['subc',['subc',['../classgb_1_1ALU.html#ae6b1e821ffa23ad38e2f4de78f1be945',1,'gb::ALU']]]
+  ['subc',['subc',['../classgb_1_1ALU.html#ae6b1e821ffa23ad38e2f4de78f1be945',1,'gb::ALU']]],
+  ['sweepcalculation',['sweepCalculation',['../classgb_1_1detail_1_1SquareWaveChannel.html#ad7c3ff4980626a294bf270be87d717d7',1,'gb::detail::SquareWaveChannel']]]
 ];

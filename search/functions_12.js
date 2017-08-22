@@ -14,12 +14,11 @@ var searchData=
   ['_7embc2',['~MBC2',['../classgb_1_1detail_1_1MBC2.html#aff9f8cfad07514bcfaf30bc1973443a6',1,'gb::detail::MBC2']]],
   ['_7embc3',['~MBC3',['../classgb_1_1detail_1_1MBC3.html#a8f7178aa58148d569fd4f81128296ae7',1,'gb::detail::MBC3']]],
   ['_7emmu',['~MMU',['../classgb_1_1MMU.html#a9952e323b30847a933d6e492393fac64',1,'gb::MMU']]],
-  ['_7enoise',['~Noise',['../classgb_1_1detail_1_1Noise.html#a5e7d1c44e3b7fef7fd1a7360e6ce8376',1,'gb::detail::Noise']]],
   ['_7eoam',['~OAM',['../classgb_1_1OAM.html#a515757e62e4e3f2ec0dc20775964b1ee',1,'gb::OAM']]],
   ['_7ertc',['~RTC',['../classgb_1_1detail_1_1RTC.html#a54b1f18fed7c53105e5cd4e57e3c18cc',1,'gb::detail::RTC']]],
-  ['_7esquare',['~Square',['../classgb_1_1detail_1_1Square.html#adcabdcbc5ef6a690744dee161b8acac9',1,'gb::detail::Square']]],
+  ['_7esquarewavechannel',['~SquareWaveChannel',['../classgb_1_1detail_1_1SquareWaveChannel.html#ab0fdcfafe15ba808c8819220cd5e3574',1,'gb::detail::SquareWaveChannel']]],
   ['_7etilemap',['~TileMap',['../classgb_1_1detail_1_1TileMap.html#abdfbbbfd607d51a26577a27b888e5a15',1,'gb::detail::TileMap']]],
   ['_7etileram',['~TileRAM',['../classgb_1_1detail_1_1TileRAM.html#aaf5e72bfcb975b41d9dea14407f00215',1,'gb::detail::TileRAM']]],
   ['_7etimer',['~Timer',['../classgb_1_1Timer.html#afaa27b502df854db56e71b1b5967a5ed',1,'gb::Timer']]],
-  ['_7ewave',['~Wave',['../classgb_1_1detail_1_1Wave.html#a3389ea9dcae60a0db7b6965563653838',1,'gb::detail::Wave']]]
+  ['_7ewavechannel',['~WaveChannel',['../classgb_1_1detail_1_1WaveChannel.html#ac48cccf60b674e55e6cf85be5b3e6bb4',1,'gb::detail::WaveChannel']]]
 ];
