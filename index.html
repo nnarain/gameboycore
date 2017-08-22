@@ -87,7 +87,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a href="https://travis-ci.org/nnarain/gameboycore">![Build Status](https://travis-ci.org/nnarain/gameboycore.svg?branch=develop)</a> <a href="https://ci.appveyor.com/project/nnarain/gameboycore/branch/develop">![Build status](https://ci.appveyor.com/api/projects/status/jkrjhds3i67o5k76/branch/develop?svg=true)</a> <a href="https://github.com/nnarain/gameboycore/issues">![GitHub issues](https://img.shields.io/github/issues/nnarain/gameboycore.svg)</a> <a href="https://github.com/nnarain/gameboycore/releases">![GitHub release](https://img.shields.io/github/release/nnarain/gameboycore.svg)</a></p>
-<p>Gameboy emulator library written in C++.</p>
+<p>GameboyCore is a Gameboy/Gameboy Color emulator library written in C++.</p>
+<p>A library? Yes. This is a dependency free C++11 library. GameboyCore does not open a window to render frames, it does not collect user input or play audio. GameboyCore emulates the Gameboy system and provides the audio/video output through the GameboyCore API.</p>
+<p>This means the emulation logic and GUI logic of an emulator are separate. As long as the target platform has a C++11 compiler that platform can run GameboyCore!</p>
+<p>GameboyCore running as:</p>
+<ul>
+<li><a href="https://github.com/nnarain/dotrix">A desktop application</a></li>
+<li><a href="https://github.com/nnarain/gameboycore-retro">A libretro core in RetroArch</a></li>
+<li><a href="https://github.com/nnarain/gameboycore-python">Python bindings, usable with pygame</a></li>
+<li><a href="https://github.com/nnarain/dotrix-android">An Android App</a></li>
+<li>And possible WebAssembly!</li>
+</ul>
+<p>The above application are somewhat incomplete however they all demonstrate GameboyCore working for the given environment.</p>
+<h2>Examples </h2>
+<p>The GameboyCore repo includes an <a href="https://github.com/nnarain/gameboycore/tree/master/src/example">example project</a>.</p>
 <h2>Build </h2>
 <p><b>Build Options</b></p>
 <ul>
@@ -97,9 +110,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ul>
 <div class="fragment"><div class="line">cd path/to/project/</div>
 <div class="line">mkdir build &amp;&amp; cd build</div>
-<div class="line">cmake ..</div>
+<div class="line">cmake .. -DBUILD_EXAMPLE=<span class="stringliteral">&quot;&lt;ON/OFF&gt;&quot;</span></div>
 <div class="line">make</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+</div><!-- fragment --><p>Note: Building the example required SFML to be findable by CMake. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 </div>
@@ -108,7 +122,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 22 2017 01:46:49 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 22 2017 02:21:05 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
