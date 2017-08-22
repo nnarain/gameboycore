@@ -184,8 +184,8 @@ namespace gb
 			auto left_volume = ((float)left_volume_) / 7.f;
 
 			// generate a sample
-			auto left = left_sample * left_volume * AMPLITUDE;
-			auto right = right_sample * right_volume * AMPLITUDE;
+			auto left = (int16_t)(left_sample * left_volume * AMPLITUDE);
+			auto right = (int16_t)(right_sample * right_volume * AMPLITUDE);
 
 			// send the samples to the host system
 			if (send_audio_sample_)

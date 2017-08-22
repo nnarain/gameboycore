@@ -42,7 +42,7 @@ public:
 
 	void draw(unsigned int width, unsigned int height)
 	{
-		ImGui::SetNextWindowPos(ImVec2(width, height));
+		ImGui::SetNextWindowPos(ImVec2((float)width, (float)height));
 
 		if (ImGui::Begin("DebugWindow"))
 		{
@@ -128,19 +128,19 @@ private:
 		ImGui::Text("PC: %04X, SP: %04X", status.pc, status.sp);
 		ImGui::Text("A: %02X, BC: %04X, DE: %04X, HL: %04X", status.a, status.bc, status.de, status.hl);
 
-		bool z = status.f & gb::CPU::Flags::Z;
-		bool n = status.f & gb::CPU::Flags::N;
-		bool h = status.f & gb::CPU::Flags::H;
-		bool c = status.f & gb::CPU::Flags::C;
+		bool z = (status.f & gb::CPU::Flags::Z) != 0;
+		bool n = (status.f & gb::CPU::Flags::N) != 0;
+		bool h = (status.f & gb::CPU::Flags::H) != 0;
+		bool c = (status.f & gb::CPU::Flags::C) != 0;
 
 		ImGui::Text("Flags: Z N H C");
 		ImGui::Text("       %d %d %d %d", z, n, h, c);
 
-		bool j = status.enabled_interrupts & (1 << 4);
-		bool s = status.enabled_interrupts & (1 << 3);
-		bool t = status.enabled_interrupts & (1 << 2);
-		bool l = status.enabled_interrupts & (1 << 1);
-		bool v = status.enabled_interrupts & (1 << 0);
+		bool j = (status.enabled_interrupts & (1 << 4)) != 0;
+		bool s = (status.enabled_interrupts & (1 << 3)) != 0;
+		bool t = (status.enabled_interrupts & (1 << 2)) != 0;
+		bool l = (status.enabled_interrupts & (1 << 1)) != 0;
+		bool v = (status.enabled_interrupts & (1 << 0)) != 0;
 
 		ImGui::Text("IME - J S T L V");
 		ImGui::Text("  %d - %d %d %d %d %d", status.ime, j, s, t, l, v);

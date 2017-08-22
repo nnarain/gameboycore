@@ -37,7 +37,7 @@ class ScreenRenderer
 public:
 	ScreenRenderer(unsigned int display_width = WIDTH, unsigned int display_height = HEIGHT) :
 		frame_buffer_(WIDTH, HEIGHT, 0),
-		draw_rect_(sf::Vector2f(display_width, display_height))
+		draw_rect_(sf::Vector2f((float)display_width, (float)display_height))
 	{
 		if (!screen_texture_.create(WIDTH, HEIGHT))
 			throw std::runtime_error("Could not create texture");
@@ -100,7 +100,7 @@ public:
 
 	void setDisplaySize(unsigned int w, unsigned int h)
 	{
-		draw_rect_.setSize(sf::Vector2f(w, h));
+		draw_rect_.setSize(sf::Vector2f((float)w, (float)h));
 	}
 
 	~ScreenRenderer()

@@ -82,7 +82,7 @@ public:
 				break;
 			case sf::Event::Resized:
 				// adjust view port
-				window_.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+				window_.setView(sf::View(sf::FloatRect(0, 0, (float)event.size.width, (float)event.size.height)));
 				break;
 			case sf::Event::LostFocus:
 				break;
@@ -155,7 +155,7 @@ private:
 
 		if (debug_window_enabled_)
 		{
-			debug_window_.draw(window_.getSize().x/2 + 5, main_menu_height_ + 5);
+			debug_window_.draw(window_.getSize().x/2 + 5, (unsigned int)(main_menu_height_ + 5));
 		}
 
 		if (screen_hash_overlay_)
@@ -170,7 +170,7 @@ private:
 		{
 			main_menu_height_ = ImGui::GetWindowHeight();
 			screen_renderer_.setDrawRectY(main_menu_height_);
-			screen_renderer_.setDisplaySize(display_width_, display_height_ - main_menu_height_);
+			screen_renderer_.setDisplaySize(display_width_, display_height_ - (unsigned)main_menu_height_);
 
 			if (ImGui::BeginMenu("Debug"))
 			{
@@ -224,7 +224,7 @@ private:
 
 	void onWindowResize(unsigned int width, unsigned int height)
 	{
-		screen_renderer_.setDisplaySize(display_width_, height - main_menu_height_);
+		screen_renderer_.setDisplaySize(display_width_, height - (unsigned)main_menu_height_);
 	}
 
 	void handleKeyPressed(sf::Keyboard::Key key)
