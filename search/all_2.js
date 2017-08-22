@@ -24,12 +24,13 @@ var searchData=
   ['clockvolume',['clockVolume',['../classgb_1_1detail_1_1NoiseChannel.html#a902c1c635f806c77decb1f7013d6fe9b',1,'gb::detail::NoiseChannel::clockVolume()'],['../classgb_1_1detail_1_1SquareWaveChannel.html#ae1a86c15c8824317f128200829a0f4ce',1,'gb::detail::SquareWaveChannel::clockVolume()']]],
   ['color',['color',['../structgb_1_1Tile.html#a624f9118fe056e3a288ad66d5265fd3d',1,'gb::Tile']]],
   ['color_5fcompatability',['COLOR_COMPATABILITY',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a8da9d92326a7b5a146f7ec852abc9925',1,'gb::memorymap']]],
+  ['colortheme',['ColorTheme',['../classgb_1_1GameboyCore.html#ac5c9bfe8ee4cf0a275289163ff449e47',1,'gb::GameboyCore']]],
   ['compare',['compare',['../classgb_1_1ALU.html#a7e11008a4dc76bc9bcd704168429194f',1,'gb::ALU']]],
   ['complement_5fchecksum',['COMPLEMENT_CHECKSUM',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a3539b63e32725faa50cdeb00c5e8e043',1,'gb::memorymap']]],
   ['containerhash',['ContainerHash',['../structgb_1_1detail_1_1ContainerHash.html',1,'gb::detail']]],
   ['control',['control',['../classgb_1_1detail_1_1MBC.html#ab97b854584f03fc3db468d7edcfaa87b',1,'gb::detail::MBC::control()'],['../classgb_1_1detail_1_1MBC1.html#abe9bf3e0e283039ceb5558b0fd73874d',1,'gb::detail::MBC1::control()'],['../classgb_1_1detail_1_1MBC2.html#a5253e9a7eb468237a1f85ece340570c7',1,'gb::detail::MBC2::control()'],['../classgb_1_1detail_1_1MBC3.html#a70fa27bc44a59174b86fe90814a2f3ea',1,'gb::detail::MBC3::control()']]],
-  ['cpu',['CPU',['../classgb_1_1CPU.html',1,'gb']]],
   ['cpu',['CPU',['../classgb_1_1CPU.html#a5e418de6d162639d7a0debf7dff44e35',1,'gb::CPU::CPU(MMU::Ptr &amp;mmu, GPU::Ptr &amp;gpu, APU::Ptr &amp;apu, Link::Ptr &amp;link)'],['../classgb_1_1CPU.html#a15e773b27baa726efd89c8f9cae70808',1,'gb::CPU::CPU(const CPU &amp;)=delete']]],
+  ['cpu',['CPU',['../classgb_1_1CPU.html',1,'gb']]],
   ['cpu_2eh',['cpu.h',['../cpu_8h.html',1,'']]],
   ['cycles',['cycles',['../structgb_1_1OpcodeInfo.html#a4ddd175c36cdd15e8be13b9d8be82ad7',1,'gb::OpcodeInfo']]]
 ];

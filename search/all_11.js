@@ -12,6 +12,7 @@ var searchData=
   ['set',['set',['../classgb_1_1InterruptProvider.html#a5f4a9d949de5ec8f42e3f301b0759ad2',1,'gb::InterruptProvider::set()'],['../classgb_1_1Palette.html#afb2c2177b2afe6c4f7f22fc71c5b29e0',1,'gb::Palette::set()']]],
   ['setaudiosamplecallback',['setAudioSampleCallback',['../classgb_1_1APU.html#ad0218b7b5028d9e48cba7c7d64589f59',1,'gb::APU']]],
   ['setbatteryram',['setBatteryRam',['../classgb_1_1MMU.html#a6baae771a0e1ded5a6fc263a248c4931',1,'gb::MMU']]],
+  ['setcolortheme',['setColorTheme',['../classgb_1_1GameboyCore.html#afb4fc810582d27f2e8be524141aba96c',1,'gb::GameboyCore']]],
   ['setdacpower',['setDacPower',['../classgb_1_1detail_1_1Channel.html#a7af931d4328a795a9fc7e5e2d374c6e0',1,'gb::detail::Channel']]],
   ['setdebugmode',['setDebugMode',['../classgb_1_1CPU.html#a9ad6d1eb9043730a12d12dbd691a5552',1,'gb::CPU::setDebugMode()'],['../classgb_1_1GameboyCore.html#afb17653f0edf7f450ad326b25a5090e5',1,'gb::GameboyCore::setDebugMode()']]],
   ['setdisassemblycallback',['setDisassemblyCallback',['../classgb_1_1CPU.html#a601554132b0d19b16a300385b65e7b6a',1,'gb::CPU']]],

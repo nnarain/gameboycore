@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['default',['DEFAULT',['../classgb_1_1GameboyCore.html#ac5c9bfe8ee4cf0a275289163ff449e47a5b39c8b553c821e7cddc6da64b5bd2ee',1,'gb::GameboyCore']]],
   ['detination_5fcode',['DETINATION_CODE',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54abd3bb2e607af89f9fe86c3ef07e84332',1,'gb::memorymap']]],
   ['divider_5flo_5fregister',['DIVIDER_LO_REGISTER',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54aab60821540a5bb7286f11e00322a2ccd',1,'gb::memorymap']]],
   ['divider_5fregiser',['DIVIDER_REGISER',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54acff341cbf974d8c261d9af3ebebab6ff',1,'gb::memorymap']]],

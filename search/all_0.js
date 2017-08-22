@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['a',['a',['../structgb_1_1CPU_1_1Status.html#ac7de07f53eddf89661829c8f32a147fd',1,'gb::CPU::Status::a()'],['../classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522fa7fc56270e7a70fa81a5935b72eacbe29',1,'gb::Joy::A()']]],
+  ['a',['A',['../classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522fa7fc56270e7a70fa81a5935b72eacbe29',1,'gb::Joy::A()'],['../structgb_1_1CPU_1_1Status.html#ac7de07f53eddf89661829c8f32a147fd',1,'gb::CPU::Status::a()']]],
   ['add',['add',['../classgb_1_1ALU.html#aedae11d60286c0133353252d5ea9edc3',1,'gb::ALU::add(uint8_t &amp;a, uint8_t n)'],['../classgb_1_1ALU.html#a6172dddf811c93f90ed936d514f2c867',1,'gb::ALU::add(uint16_t &amp;hl, uint16_t n)']]],
   ['addc',['addc',['../classgb_1_1ALU.html#a7f110de2a89cd039a1a765e6a06055bd',1,'gb::ALU']]],
   ['addr',['addr',['../classgb_1_1ALU.html#aaea0926b64d7394bb7f08d39c4a7fa9f',1,'gb::ALU']]],

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['type',['Type',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085d',1,'gb::detail::MBC']]]
+  ['sc',['SC',['../namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638c',1,'gb::memorymap']]],
+  ['stat',['Stat',['../namespacegb_1_1memorymap.html#abf5ea12fb5d4db7e44e28a06e509d9e9',1,'gb::memorymap']]]
 ];
