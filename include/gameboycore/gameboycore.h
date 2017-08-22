@@ -32,8 +32,7 @@ namespace gb
 		{
 			DEFAULT,
 			GOLD,
-			GREEN,
-			PURPLE
+			GREEN
 		};
 
 		GameboyCore();
