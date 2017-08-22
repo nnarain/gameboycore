@@ -19,10 +19,10 @@ namespace gb
 {
 	namespace detail
 	{
-		enum{
+		enum {
 			KILO_BYTE = 1024,
 			BANK_SIZE = (16 * KILO_BYTE)
-		}
+		};
 
 		/**
 			\class MBC

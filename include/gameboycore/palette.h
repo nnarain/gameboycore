@@ -15,16 +15,13 @@ namespace gb
 	class Palette
 	{
 	public:
-		static std::array<Pixel, 4> get(uint8_t reg)
+		Palette()
 		{
-			// default color palette
-			static const Pixel colors[] = {
-				Pixel(255),
-				Pixel(192),
-				Pixel(96),
-				Pixel(0)
-			};
+			reset();
+		}
 
+		std::array<Pixel, 4> get(uint8_t reg)
+		{
 			std::array<Pixel, 4> palette;
 
 			auto color3 = (reg & 0xC0) >> 6;
@@ -32,13 +29,29 @@ namespace gb
 			auto color1 = (reg & 0x0C) >> 2;
 			auto color0 = (reg & 0x03);
 
-			palette[3] = colors[color3];
-			palette[2] = colors[color2];
-			palette[1] = colors[color1];
-			palette[0] = colors[color0];
+			palette[3] = colors_[color3];
+			palette[2] = colors_[color2];
+			palette[1] = colors_[color1];
+			palette[0] = colors_[color0];
 
 			return palette;
 		}
+
+		void reset()
+		{
+			colors_[0] = Pixel(255);
+			colors_[1] = Pixel(192);
+			colors_[2] = Pixel(96);
+			colors_[3] = Pixel(0);
+		}
+
+		void set(uint8_t r, uint8_t g, uint8_t b, int idx)
+		{
+			colors_[idx] = Pixel(r, g, b);
+		}
+
+	private:
+		std::array<Pixel, 4> colors_;
 	};
 }
 

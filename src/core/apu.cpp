@@ -4,11 +4,10 @@
 */
 
 #include "gameboycore/apu.h"
-#include "gameboycore/channel.h"
-#include "gameboycore/square.h"
 #include "gameboycore/memorymap.h"
-#include "gameboycore/wave.h"
-#include "gameboycore/noise.h"
+#include "gameboycore/detail/audio/square_wave_channel.h"
+#include "gameboycore/detail/audio/wave_channel.h"
+#include "gameboycore/detail/audio/noise_channel.h"
 
 #include "bitutil.h"
 
@@ -23,36 +22,20 @@ namespace gb
 	class APU::Impl
 	{
 		//! Cycles for 512 Hz with ~4.2 MHz clock
-		static constexpr int CYCLES_512HZ = 8192;
+		static constexpr unsigned int CYCLES_512HZ = 8192;
+		//! APU down sampling rate (CPU clock / sample rate of host system)
+		static constexpr unsigned int DOWNSAMPLE_RATE = 4200000 / 44100;
 		//! Starting address of the APU registers
 		static constexpr int APU_REG_BASE = memorymap::NR10_REGISTER;
 
 	public:
 		Impl(MMU::Ptr& mmu) :
 			mmu_(mmu),
-			square1_(
-				apu_registers[memorymap::NR11_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR12_REGISTER - APU_REG_BASE], 
-				apu_registers[memorymap::NR13_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR14_REGISTER - APU_REG_BASE]),
-			square2_(
-				apu_registers[memorymap::NR21_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR22_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR23_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR24_REGISTER - APU_REG_BASE], false),
-			wave_(
-				apu_registers[memorymap::NR30_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR31_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR32_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR33_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR34_REGISTER - APU_REG_BASE]),
-			noise_(
-				apu_registers[memorymap::NR41_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR42_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR43_REGISTER - APU_REG_BASE],
-				apu_registers[memorymap::NR44_REGISTER - APU_REG_BASE]),
-			cycle_count_(0),
-			frame_sequencer_(0)
+			square1_(true),
+			square2_(false),
+			frame_sequencer_counter_(CYCLES_512HZ),
+			frame_sequencer_(0),
+			down_sample_counter_(0)
 		{
 			// intercept all read/write attempts here
 			for (int i = memorymap::NR10_REGISTER; i <= memorymap::WAVE_PATTERN_RAM_END; ++i)
@@ -68,20 +51,59 @@ namespace gb
 			initExtraBits();
 		}
 
+		/**
+			update with cycles
+		*/
 		void update(uint8_t cycles)
 		{
+			// ignore if apu is disabled
 			if (!isEnabled()) return;
 
-			cycle_count_ += cycles;
-
-			if (has512Hz())
+			while (cycles--)
 			{
-				// decrement cycle counter
-				cycle_count_ -= CYCLES_512HZ;
+				// frame sequencer clock
+				if (frame_sequencer_counter_-- <= 0)
+				{
+					frame_sequencer_counter_ = CYCLES_512HZ;
 
-				// clock the frame sequencer
-				clockFrameSequencer();
+					clockFrameSequencer();
+				}
+
+				// run channel logic
+				square1_.step();
+				square2_.step();
+				wave_.step();
+				noise_.step();
+
+				// down sampling is required since the APU can generate audio at a rate faster than the host system will play
+				if (--down_sample_counter_ == 0)
+				{
+					down_sample_counter_ = DOWNSAMPLE_RATE;
+
+					// generate left and right audio samples
+					mixVolumes();
+				}
 			}
+		}
+
+		uint8_t getSound1Volume() const
+		{
+			return square1_.getVolume();
+		}
+
+		uint8_t getSound2Volume() const
+		{
+			return square2_.getVolume();
+		}
+
+		uint8_t getSound3Volume() const
+		{
+			return wave_.getVolume();
+		}
+
+		uint8_t getSound4Volume() const
+		{
+			return 0;
 		}
 
 		void setAudioSampleCallback(AudioSampleCallback callback)
@@ -93,39 +115,96 @@ namespace gb
 
 		void clockFrameSequencer()
 		{
-			switch (frame_sequencer_++)
+			switch (frame_sequencer_)
 			{
 			case 0:
 			case 2:
 				clockLength();
-				// TODO: Sweep
+				square1_.clockSweep();
 				break;
 			case 4:
 				clockLength();
 				break;
 			case 6:
 				clockLength();
-				// TODO: Sweep
+				square1_.clockSweep();
 				break;
 			case 7:
-				// TODO: volume
-
-				frame_sequencer_ = 0;
+				clockVolume();
 				break;
 			}
+
+			frame_sequencer_++;
+
+			if (frame_sequencer_ >= 8)
+			{
+				frame_sequencer_ = 0;
+			}
+		}
+
+		void mixVolumes()
+		{
+			static constexpr float AMPLITUDE = 30000;
+
+			// convert sound output between [0, 1]
+			auto sound1 = (float)square1_.getVolume() / 15.f;
+			auto sound2 = (float)square2_.getVolume() / 15.f;
+			auto sound3 = (float)wave_.getVolume() / 15.f;
+			auto sound4 = (float)noise_.getVolume() / 15.f;
+
+			float left_sample = 0;
+			float right_sample = 0;
+
+			// add left channel contributions
+			if (channel_left_enabled_[0])
+				left_sample += sound1;
+			if (channel_left_enabled_[1])
+				left_sample += sound2;
+			if (channel_left_enabled_[2])
+				left_sample += sound3;
+			if (channel_left_enabled_[3])
+				left_sample += sound4;
+
+			// add right channel contributions
+			if (channel_right_enabled_[0])
+				right_sample += sound1;
+			if (channel_right_enabled_[1])
+				right_sample += sound2;
+			if (channel_right_enabled_[2])
+				right_sample += sound3;
+			if (channel_right_enabled_[3])
+				right_sample += sound4;
+
+			// average the totals
+			left_sample /= 4.0f;
+			right_sample /= 4.0f;
+
+			// volume per channel between [0, 1]
+			auto right_volume = ((float)right_volume_) / 7.f;
+			auto left_volume = ((float)left_volume_) / 7.f;
+
+			// generate a sample
+			auto left = (int16_t)(left_sample * left_volume * AMPLITUDE);
+			auto right = (int16_t)(right_sample * right_volume * AMPLITUDE);
+
+			// send the samples to the host system
+			if (send_audio_sample_)
+				send_audio_sample_(left, right);
 		}
 
 		void clockLength()
 		{
 			square1_.clockLength();
 			square2_.clockLength();
-			wave_   .clockLength();
-			noise_  .clockLength();
+			wave_.clockLength();
+			noise_.clockLength();
 		}
 
-		bool has512Hz()
+		void clockVolume()
 		{
-			return cycle_count_ >= CYCLES_512HZ;
+			square1_.clockVolume();
+			square2_.clockVolume();
+			noise_.clockVolume();
 		}
 
 		bool isEnabled()
@@ -135,7 +214,9 @@ namespace gb
 
 		uint8_t read(uint16_t addr)
 		{
-			auto value = apuRead(addr) | extra_bits_[addr - APU_REG_BASE];
+			uint8_t value = 0;
+
+			const auto extras = extra_bits_[addr - APU_REG_BASE];
 
 			if (addr == memorymap::NR52_REGISTER)
 			{
@@ -143,11 +224,34 @@ namespace gb
 
 				value |= square1_.isEnabled() << 0;
 				value |= square2_.isEnabled() << 1;
-				value |= wave_   .isEnabled() << 2;
-				value |= noise_  .isEnabled() << 3;
+				value |= wave_.isEnabled() << 2;
+				value |= noise_.isEnabled() << 3;
+			}
+			else
+			{
+				if (addr >= memorymap::NR10_REGISTER && addr <= memorymap::NR14_REGISTER)
+				{
+					value = square1_.read(addr - memorymap::NR10_REGISTER);
+				}
+				else if (addr >= memorymap::NR20_REGISTER && addr <= memorymap::NR24_REGISTER)
+				{
+					value = square2_.read(addr - memorymap::NR20_REGISTER);
+				}
+				else if (addr >= memorymap::NR30_REGISTER && addr <= memorymap::NR34_REGISTER)
+				{
+					value = wave_.read(addr - memorymap::NR30_REGISTER);
+				}
+				else if (addr >= memorymap::WAVE_PATTERN_RAM_START && addr <= memorymap::WAVE_PATTERN_RAM_END)
+				{
+					value = wave_.readWaveRam(addr);
+				}
+				else if (addr >= memorymap::NR41_REGISTER && addr <= memorymap::NR44_REGISTER)
+				{
+					value = noise_.read(addr - memorymap::NR41_REGISTER);
+				}
 			}
 
-			return value;
+			return value | extras;
 		}
 
 		void write(uint8_t value, uint16_t addr)
@@ -161,65 +265,59 @@ namespace gb
 					frame_sequencer_ = 0;
 				}
 
+				// check is being enabled
+				if (!isEnabled() && IS_SET(value, 0x80))
+				{
+					frame_sequencer_counter_ = CYCLES_512HZ;
+				}
+
 				apuWrite(value, addr);
+			}
+			else if (addr == memorymap::NR50_REGISTER)
+			{
+				right_volume_ = value & 0x07;
+				right_enabled_ = (value & 0x08) != 0;
+
+				left_volume_ = (value & 0x70) >> 4;
+				left_enabled_ = (value & 0x80) != 0;
+
+				apuWrite(value, addr);
+			}
+			else if (addr == memorymap::NR51_REGISTER)
+			{
+				channel_right_enabled_[0] = (value & 0x01) != 0;
+				channel_right_enabled_[1] = (value & 0x02) != 0;
+				channel_right_enabled_[2] = (value & 0x04) != 0;
+				channel_right_enabled_[3] = (value & 0x08) != 0;
+				channel_left_enabled_[0] = (value & 0x10) != 0;
+				channel_left_enabled_[1] = (value & 0x20) != 0;
+				channel_left_enabled_[2] = (value & 0x40) != 0;
+				channel_left_enabled_[3] = (value & 0x80) != 0;
 			}
 			else
 			{
 				if (isEnabled())
 				{
-					switch (addr)
+					if (addr >= memorymap::NR10_REGISTER && addr <= memorymap::NR14_REGISTER)
 					{
-					/* Sound 1 */
-					case memorymap::NR11_REGISTER:
-						// set the sound length in the channel
-						square1_.setLength(64 - (value & detail::Square::LENGTH_MASK));
-						break;
-					case memorymap::NR12_REGISTER:
-						square1_.setDacPower(value >> 4);
-						break;
-					case memorymap::NR14_REGISTER:
-						if(IS_SET(value, 0x80))
-							square1_.trigger();
-						break;
-
-					/* Sound 2 */
-					case memorymap::NR21_REGISTER:
-						square2_.setLength(64 - (value & detail::Square::LENGTH_MASK));
-						break;
-					case memorymap::NR22_REGISTER:
-						square2_.setDacPower(value >> 4);
-						break;
-					case memorymap::NR24_REGISTER:
-						if (IS_SET(value, 0x80))
-							square2_.trigger();
-						break;
-
-					/* Sound 3 */
-					case memorymap::NR30_REGISTER:
-						wave_.setDacPower(value & 0x80);
-						break;
-					case memorymap::NR31_REGISTER:
-						wave_.setLength(256 - (value & detail::Wave::LENGTH_MASK));
-						break;
-					case memorymap::NR34_REGISTER:
-						if (IS_SET(value, 0x80))
-							wave_.trigger();
-						break;
-
-					/* Sound 4 */
-					case memorymap::NR41_REGISTER:
-						noise_.setLength(64 - (value & detail::Noise::LENGTH_MASK));
-						break;
-					case memorymap::NR42_REGISTER:
-						noise_.setDacPower(value >> 4);
-						break;
-					case memorymap::NR44_REGISTER:
-						if (IS_SET(value, 0x80))
-							noise_.trigger();
-						break;
+						square1_.write(value, addr - memorymap::NR10_REGISTER);
 					}
-
-					apuWrite(value, addr);
+					else if (addr >= memorymap::NR20_REGISTER && addr <= memorymap::NR24_REGISTER)
+					{
+						square2_.write(value, addr - memorymap::NR20_REGISTER);
+					}
+					else if (addr >= memorymap::NR30_REGISTER && addr <= memorymap::NR34_REGISTER)
+					{
+						wave_.write(value, addr - memorymap::NR30_REGISTER);
+					}
+					else if (addr >= memorymap::WAVE_PATTERN_RAM_START && addr <= memorymap::WAVE_PATTERN_RAM_END)
+					{
+						wave_.writeWaveRam(value, addr);
+					}
+					else if (addr >= memorymap::NR41_REGISTER && addr <= memorymap::NR44_REGISTER)
+					{
+						value = noise_.read(addr - memorymap::NR41_REGISTER);
+					}
 				}
 			}
 		}
@@ -310,22 +408,43 @@ namespace gb
 	private:
 		MMU::Ptr& mmu_;
 
-		detail::Square square1_;
-		detail::Square square2_;
-		detail::Wave   wave_;
-		detail::Noise  noise_;
+		//! Sound 1 - Square wave with Sweep
+		detail::SquareWaveChannel square1_;
+		//! Sound 2 - Square wave
+		detail::SquareWaveChannel square2_;
+		//! Sound 3 - Wave from wave ram
+		detail::WaveChannel wave_;
+		//! Sound 4 - Noise Channel
+		detail::NoiseChannel noise_;
 
 		//! callback to host when an audio sample is computed
 		AudioSampleCallback send_audio_sample_;
 
 		//! APU cycle counter
-		int cycle_count_;
+		int frame_sequencer_counter_;
 
 		//! APU internal timer
 		int frame_sequencer_;
 
 		//! APU registers
 		std::array<uint8_t, 0x30> apu_registers;
+
+		//! left volume
+		uint8_t left_volume_;
+		//! left enabled
+		bool left_enabled_;
+		//! right volume
+		uint8_t right_volume_;
+		//! right enabled
+		bool right_enabled_;
+
+		//! left channel enables
+		bool channel_left_enabled_[4];
+		//! right channel enables
+		bool channel_right_enabled_[4];
+
+		//!
+		uint8_t down_sample_counter_;
 
 		//! bits that are ORed into the value when read
 		std::array<uint8_t, 0x30> extra_bits_;
@@ -343,6 +462,26 @@ namespace gb
 		impl_->update(cycles);
 	}
 	
+	uint8_t APU::getSound1Volume()
+	{
+		return impl_->getSound1Volume();
+	}
+
+	uint8_t APU::getSound2Volume()
+	{
+		return impl_->getSound2Volume();
+	}
+
+	uint8_t APU::getSound3Volume()
+	{
+		return impl_->getSound3Volume();
+	}
+
+	uint8_t APU::getSound4Volume()
+	{
+		return impl_->getSound4Volume();
+	}
+
 	void APU::setAudioSampleCallback(AudioSampleCallback callback)
 	{
 		impl_->setAudioSampleCallback(callback);

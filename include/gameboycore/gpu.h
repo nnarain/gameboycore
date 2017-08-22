@@ -37,7 +37,7 @@ namespace gb
 
 		//! Array on Pixel objects representing a single scan line produced by the GPU
 		using Scanline = std::array<Pixel, 160>;
-		
+
 		/**
 			Callback function called by the GPU when it has produced a new scan line
 			Provides the Scanline and the line number
@@ -59,14 +59,24 @@ namespace gb
 		void setRenderCallback(RenderScanlineCallback callback);
 
 		/**
+			Set Default Palette Color
+		*/
+		void setPaletteColor(uint8_t r, uint8_t g, uint8_t b, int idx);
+
+		/**
 			\return Background tilemap data
 		*/
-		std::vector<uint8_t> getBackgroundTileMap() const;
+		std::vector<uint8_t> getBackgroundTileMap();
 
 		/**
 			\return currently cached tile data
 		*/
 		std::vector<Sprite> getSpriteCache() const;
+
+		/**
+			\return Hashed background map
+		*/
+		std::size_t getBackgroundHash();
 
 	private:
 		//! Private Implementation class

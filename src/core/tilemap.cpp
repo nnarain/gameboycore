@@ -2,6 +2,7 @@
 #include "gameboycore/tilemap.h"
 #include "gameboycore/oam.h"
 #include "gameboycore/palette.h"
+#include "gameboycore/detail/hash.h"
 
 #include "bitutil.h"
 
@@ -11,11 +12,12 @@ namespace gb
 {
 	namespace detail
 	{
-		TileMap::TileMap(MMU& mmu) :
+		TileMap::TileMap(MMU& mmu, Palette& palette) :
 			tileram_(mmu),
 			mmu_(mmu),
 			scx_(mmu.get(memorymap::SCX_REGISTER)),
-			scy_(mmu.get(memorymap::SCY_REGISTER))
+			scy_(mmu.get(memorymap::SCY_REGISTER)),
+			palette_(palette)
 		{
 		}
 
@@ -26,30 +28,30 @@ namespace gb
 			static constexpr auto tile_width = 8;
 			static constexpr auto tile_height = 8;
 
-			auto start = getAddress(Map::BACKGROUND);
-			auto umode = (mmu_.read(memorymap::LCDC_REGISTER) & memorymap::LCDC::CHARACTER_DATA) != 0;
+			const auto start = getAddress(Map::BACKGROUND);
+			const auto umode = (mmu_.read(memorymap::LCDC_REGISTER) & memorymap::LCDC::CHARACTER_DATA) != 0;
 
 			TileMap::Line tileline;
 
-			auto scx = mmu_.read(memorymap::SCX_REGISTER);
-			auto scy = mmu_.read(memorymap::SCY_REGISTER);
+			const auto scx = mmu_.read(memorymap::SCX_REGISTER);
+			const auto scy = mmu_.read(memorymap::SCY_REGISTER);
 
-			auto tile_row = ((scy + line) / tile_height);
-			auto start_tile_col = scx / tile_width;
-			auto pixel_row = (scy + line) % tile_height;
+			const auto tile_row = ((scy + line) / tile_height);
+			const auto start_tile_col = scx / tile_width;
+			const auto pixel_row = (scy + line) % tile_height;
 
 			auto idx = 0;
 			for (auto tile_col = start_tile_col; tile_col < start_tile_col + 21; ++tile_col)
 			{
 				// calculate tile address
-				auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (tile_col % tiles_per_col);
+				const auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (tile_col % tiles_per_col);
 				// read tile character code from map
-				auto tilenum = mmu_.readVram(tile_offset, 0);
+				const auto tilenum = mmu_.readVram(tile_offset, 0);
 				// read tile attributes
-				auto tileattr = mmu_.readVram(tile_offset, 1);
+				const auto tileattr = mmu_.readVram(tile_offset, 1);
 
-				auto palette_number = (cgb_enable) ? (tileattr & 0x07) : 0;
-				auto character_bank = (cgb_enable) ? ((tileattr >> 3) & 0x01) : 0;
+				const auto palette_number = (cgb_enable) ? (tileattr & 0x07) : 0;
+				const auto character_bank = (cgb_enable) ? ((tileattr >> 3) & 0x01) : 0;
 
 				const auto row = tileram_.getRow(pixel_row, tilenum, umode, character_bank);
 
@@ -108,8 +110,8 @@ namespace gb
 		{
 			OAM oam{ mmu_ };
 
-			auto palette0 = Palette::get(mmu_.read(memorymap::OBP0_REGISTER));
-			auto palette1 = Palette::get(mmu_.read(memorymap::OBP1_REGISTER));
+			auto palette0 = palette_.get(mmu_.read(memorymap::OBP0_REGISTER));
+			auto palette1 = palette_.get(mmu_.read(memorymap::OBP1_REGISTER));
 
 			if (mmu_.getOamTransferStatus())
 			{
@@ -198,13 +200,57 @@ namespace gb
 			return sprite_cache_;
 		}
 
-		std::vector<uint8_t> TileMap::getTileMap(Map map) const
+		std::vector<uint8_t> TileMap::getBackgroundTileMap()
 		{
-			auto addr = getAddress(map);
-			auto begin = mmu_.getptr(addr);
-			auto end = mmu_.getptr(addr + 0x400);
+			// make std::array?
+			std::vector<uint8_t> tiles;
 
-			return std::vector<uint8_t>(begin, end);
+			forEachBackgroundTile([&](uint8_t tile){
+				tiles.push_back(tile);
+			});
+
+			return tiles;
+		}
+
+		std::size_t TileMap::hashBackground()
+		{
+			std::size_t seed = 0;
+
+			forEachBackgroundTile([&](uint8_t tilenum){
+				hash_combine(seed, tilenum);
+			});
+
+			return seed;
+		}
+
+		void TileMap::forEachBackgroundTile(std::function<void(uint8_t)> fn)
+		{
+			static constexpr auto tiles_per_row = 32;
+			static constexpr auto tiles_per_col = 32;
+			static constexpr auto tile_width = 8;
+			static constexpr auto tile_height = 8;
+
+			const auto start = getAddress(Map::BACKGROUND);
+
+			const auto scx = mmu_.read(memorymap::SCX_REGISTER);
+			const auto scy = mmu_.read(memorymap::SCY_REGISTER);
+
+			const auto start_tile_col = scx / tile_width;
+
+			for (auto line = 0; line < 144; line += 8)
+			{
+				const auto tile_row = ((scy + line) / tile_height);
+
+				for (auto tile_col = start_tile_col; tile_col < start_tile_col + 20; ++tile_col)
+				{
+					// calculate tile address
+					const auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (tile_col % tiles_per_col);
+					// read tile character code from map
+					const auto tilenum = mmu_.readVram(tile_offset, 0);
+
+					fn(tilenum);
+				}
+			}
 		}
 
 		TileMap::~TileMap()
