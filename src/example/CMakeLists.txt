@@ -11,6 +11,7 @@ include_directories(
 
 set(EXAMPLE_HEADERS
 	audio.h
+	debug_window.h
 	imconfig.h
 	imgui.h
 	imconfig-SFML.h

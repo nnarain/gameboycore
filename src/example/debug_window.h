@@ -6,6 +6,23 @@
 
 class DebugWindow
 {
+private:
+	struct AudioBuffer
+	{
+		AudioBuffer() : buffer{0}, index(0)
+		{
+		}
+
+		void update(uint8_t volume)
+		{
+			buffer[index] = volume;
+			index = (index + 1) % buffer.size();
+		}
+
+		std::array<float, 100> buffer;
+		int index;
+	};
+
 public:
 
 	DebugWindow(gb::GameboyCore& core) :
@@ -55,11 +72,31 @@ public:
 				}
 			}
 
+			if (ImGui::CollapsingHeader("Audio"))
+			{
+				auto& apu = core_.getAPU();
+
+				sound1_.update(apu->getSound1Volume());
+				sound2_.update(apu->getSound2Volume());
+				sound3_.update(apu->getSound3Volume());
+				sound4_.update(apu->getSound4Volume());
+
+				drawSoundChannel("Square 1", sound1_);
+				drawSoundChannel("Square 2", sound2_);
+				drawSoundChannel("Wave    ", sound3_);
+				drawSoundChannel("Noise   ", sound4_);
+			}
+
 			ImGui::End();
 		}
 	}
 
 private:
+	void drawSoundChannel(const char * label, AudioBuffer& channel)
+	{
+		ImGui::PlotLines(label, &channel.buffer[0], channel.buffer.size(), 0, nullptr, 0, 15);
+	}
+
 	void drawEditPalette()
 	{
 		ImGui::ColorEdit4("Color 0", color0, false);
@@ -126,13 +163,22 @@ private:
 	}
 
 	gb::GameboyCore& core_;
+	
+	// CPU
 	bool cpu_debug_mode_;
-
 	ImGuiTextBuffer disassembly_buffer_;
+
+	// Graphics
 	float color0[4];
 	float color1[4];
 	float color2[4];
 	float color3[4];
+
+	// Audio
+	AudioBuffer sound1_;
+	AudioBuffer sound2_;
+	AudioBuffer sound3_;
+	AudioBuffer sound4_;
 };
 
 #endif

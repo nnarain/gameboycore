@@ -34,9 +34,9 @@ namespace gb
 		};
 	public:
 		//! Smart pointer type
-		typedef std::unique_ptr<APU> Ptr;
+		using Ptr =  std::unique_ptr<APU>;
 		//! Callback used to provide audio to the host system
-		typedef std::function<void(uint16_t, uint16_t)> AudioSampleCallback;
+		using AudioSampleCallback = std::function<void(int16_t, int16_t)>;
 
 	public:
 
@@ -48,6 +48,27 @@ namespace gb
 			Update APU with the elasped cycles. For use by the CPU
 		*/
 		void update(uint8_t cycles);
+
+		/**
+			Get Sound 1 output
+		*/
+		uint8_t getSound1Volume();
+
+		/**
+			Get Sound 2 output
+		*/
+		uint8_t getSound2Volume();
+
+		/**
+			Get Sound 3 output
+		*/
+		uint8_t getSound3Volume();
+
+		/**
+			Get Sound 4 output
+		*/
+		uint8_t getSound4Volume();
+
 		/**
 			Set the host callback
 		*/

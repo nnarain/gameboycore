@@ -49,7 +49,14 @@ public:
 			)
 		);
 
-		//
+		// set audio call back
+		gameboy.getAPU()->setAudioSampleCallback(
+			std::bind(
+				&Audio::apuCallback,
+				&audio_,
+				std::placeholders::_1, std::placeholders::_2
+			)
+		);
 
 	}
 
@@ -58,7 +65,7 @@ public:
 	*/
 	void start()
 	{
-		//	audio_.play();
+		audio_.start();
 	}
 
 	void update()
@@ -137,6 +144,7 @@ public:
 
 	~Window()
 	{
+		audio_.stop();
 	}
 
 private:
@@ -296,6 +304,7 @@ private:
 	unsigned int display_height_;
 	sf::RenderWindow window_;
 	ScreenRenderer screen_renderer_;
+	Audio audio_;
 
 	sf::Clock deltaClock_;
 
