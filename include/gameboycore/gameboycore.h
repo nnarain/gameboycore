@@ -28,6 +28,13 @@ namespace gb
     class GAMEBOYCORE_API GameboyCore
     {
     public:
+		enum class ColorTheme
+		{
+			DEFAULT,
+			GOLD,
+			GREEN
+		};
+
 		GameboyCore();
 		GameboyCore(const GameboyCore&) = delete;
 		~GameboyCore();
@@ -48,6 +55,12 @@ namespace gb
 		void reset();
 
 		void setDebugMode(bool debug);
+
+		/**
+			Set Color theme
+		*/
+		void setColorTheme(ColorTheme theme);
+		
 
 		CPU::Ptr& getCPU();
 		MMU::Ptr& getMMU();
