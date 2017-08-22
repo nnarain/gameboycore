@@ -29,6 +29,35 @@ namespace gb
 			cpu.reset(new CPU(mmu, gpu, apu, link));
 
 			joy.reset(new Joy(*mmu));
+
+			setColorTheme(ColorTheme::GOLD);
+		}
+
+		void setColorTheme(ColorTheme theme)
+		{
+			switch (theme)
+			{
+			case gb::GameboyCore::ColorTheme::DEFAULT:
+				gpu->setPaletteColor(255, 255, 255, 0);
+				gpu->setPaletteColor(196, 196, 196, 1);
+				gpu->setPaletteColor( 96,  96,  96, 2);
+				gpu->setPaletteColor(  0,   0,   0, 3);
+				break;
+			case gb::GameboyCore::ColorTheme::GOLD:
+				gpu->setPaletteColor(252, 232, 140, 0);
+				gpu->setPaletteColor(220, 180,  92, 1);
+				gpu->setPaletteColor(152, 124,  60, 2);
+				gpu->setPaletteColor(76,   60,  28, 3);
+				break;
+			case gb::GameboyCore::ColorTheme::GREEN:
+				gpu->setPaletteColor(155, 188, 15, 0);
+				gpu->setPaletteColor(139, 172, 15, 1);
+				gpu->setPaletteColor( 48,  98, 48, 2);
+				gpu->setPaletteColor( 15,  56, 15, 3);
+				break;
+			default:
+				break;
+			}
 		}
 	};
 
@@ -65,6 +94,10 @@ namespace gb
 	void GameboyCore::setDebugMode(bool debug)
 	{
 		impl_->cpu->setDebugMode(debug);
+	}
+
+	void GameboyCore::setColorTheme(ColorTheme theme)
+	{
 	}
 
 	CPU::Ptr& GameboyCore::getCPU()
