@@ -216,7 +216,7 @@ namespace gb
 		{
 			uint8_t value = 0;
 
-			auto extras = extra_bits_[addr - APU_REG_BASE];
+			const auto extras = extra_bits_[addr - APU_REG_BASE];
 
 			if (addr == memorymap::NR52_REGISTER)
 			{
@@ -251,7 +251,7 @@ namespace gb
 				}
 			}
 
-			return value;
+			return value | extras;
 		}
 
 		void write(uint8_t value, uint16_t addr)

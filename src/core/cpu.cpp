@@ -2023,7 +2023,6 @@ namespace gb
 
 		void printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
 		{
-			const int spaces_before_registers = 13;
 			char str[32];
 
 			OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);

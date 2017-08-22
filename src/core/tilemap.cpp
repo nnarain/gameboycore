@@ -204,7 +204,6 @@ namespace gb
 		{
 			// make std::array?
 			std::vector<uint8_t> tiles;
-			auto idx = 0;
 
 			forEachBackgroundTile([&](uint8_t tile){
 				tiles.push_back(tile);
@@ -237,8 +236,6 @@ namespace gb
 			const auto scy = mmu_.read(memorymap::SCY_REGISTER);
 
 			const auto start_tile_col = scx / tile_width;
-
-			std::size_t seed = 0;
 
 			for (auto line = 0; line < 144; line += 8)
 			{
