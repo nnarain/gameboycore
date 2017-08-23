@@ -116,6 +116,8 @@ namespace gb
 					break;
 			}
 
+			// update LCDC stat mode
+			stat_ = (stat_ & 0xFC) | (static_cast<uint8_t>(mode_));
 		}
 
 		void setRenderCallback(RenderScanlineCallback callback)
