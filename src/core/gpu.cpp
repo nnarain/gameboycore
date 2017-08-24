@@ -18,7 +18,7 @@ namespace gb
 
 	static constexpr auto LINE_CYCLES = 456;
 	static constexpr auto VBLANK_LINE = 144;
-	static constexpr auto LINE_MAX = 153;
+	static constexpr auto MAX_LINES = 153;
 
 	/* Private Implementation */
 
@@ -214,7 +214,7 @@ namespace gb
 
 		void updateLY()
 		{
-			line_ = (line_ + 1) % LINE_MAX;
+			line_ = (line_ + 1) % MAX_LINES;
 			mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
 		}
 
