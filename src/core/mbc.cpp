@@ -125,20 +125,20 @@ namespace gb
 			case 0x5000:
 			case 0x6000:
 			case 0x7000:
-				return (addr) + ((16 * KILO_BYTE) * rom_bank);
+				return (addr) + (kilo(16) * rom_bank);
 			case 0x8000:
 			case 0x9000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_-1)) + getVramOffset();
+				return (addr) + (kilo(16) * (num_rom_banks_-1)) + getVramOffset();
 			case 0xA000:
 			case 0xB000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_ - 1)) + ((8 * KILO_BYTE) * (vram_banks_ - 1)) + (8 * KILO_BYTE * ram_bank);
+				return (addr) + (kilo(16) * (num_rom_banks_ - 1)) + (kilo(8) * (vram_banks_ - 1)) + (kilo(8) * ram_bank);
 			case 0xC000:
-				return (addr) + (16 * KILO_BYTE * (num_rom_banks_ - 1)) + ((8 * KILO_BYTE) * (vram_banks_ - 1)) + (8 * KILO_BYTE * (num_cartridge_ram_banks_-1));
+				return (addr) + (kilo(16) * (num_rom_banks_ - 1)) + (kilo(8) * (vram_banks_ - 1)) + (kilo(8) * (num_cartridge_ram_banks_-1));
 			case 0xD000:
-				return (addr)+(16 * KILO_BYTE * (num_rom_banks_ - 1)) + ((8 * KILO_BYTE) * (vram_banks_ - 1)) + (8 * KILO_BYTE * (num_cartridge_ram_banks_ - 1)) + getInternalRamOffset();
+				return (addr)+(kilo(16) * (num_rom_banks_ - 1)) + (kilo(8) * (vram_banks_ - 1)) + (kilo(8) * (num_cartridge_ram_banks_ - 1)) + getInternalRamOffset();
 			case 0xE000:
 			case 0xF000:
-				return (addr)+(16 * KILO_BYTE * (num_rom_banks_ - 1)) + ((8 * KILO_BYTE) * (vram_banks_ - 1)) + (8 * KILO_BYTE * (num_cartridge_ram_banks_ - 1)) + (4 * KILO_BYTE * (num_internal_ram_banks_-1));
+				return (addr)+(kilo(16) * (num_rom_banks_ - 1)) + (kilo(8) * (vram_banks_ - 1)) + (kilo(8) * (num_cartridge_ram_banks_ - 1)) + (kilo(4) * (num_internal_ram_banks_-1));
 			}
 
 			return 0;
@@ -147,20 +147,23 @@ namespace gb
 		int MBC::getIoIndex(uint16_t addr) const
 		{
 			return	(addr)+
-				(16 * KILO_BYTE * (num_rom_banks_ - 1)) +
-				((8 * KILO_BYTE) * (vram_banks_ - 1)) +
-				(8 * KILO_BYTE * (num_cartridge_ram_banks_ - 1)) +
-				(4 * KILO_BYTE * (num_internal_ram_banks_-1));
+				(kilo(16) * (num_rom_banks_ - 1)) +
+				(kilo(8) * (vram_banks_ - 1)) +
+				(kilo(8) * (num_cartridge_ram_banks_ - 1)) +
+				(kilo(4)* (num_internal_ram_banks_-1));
 		}
 
 		int MBC::getVramOffset() const
 		{
-			return (8 * KILO_BYTE) * (memory_[getIoIndex(memorymap::VBK_REGISTER)] & 0x01);
+			return kilo(8) * (memory_[getIoIndex(memorymap::VBK_REGISTER)] & 0x01);
 		}
 
 		int MBC::getInternalRamOffset() const
 		{
-			return (4 * KILO_BYTE) * 0;
+			auto bank_number = memory_[getIoIndex(memorymap::SVBK_REGISTER)] & 0x07;
+			if (bank_number < 2) bank_number = 0;
+
+			return kilo(4) * (bank_number);
 		}
 
 		void MBC::loadMemory(uint8_t* rom, std::size_t size, uint8_t rom_size, uint8_t ram_size)
@@ -194,19 +197,24 @@ namespace gb
 			vram_banks_ = (cgb_enabled_) ? 2 : 1;
 
 			// memory sizes
-			const auto rom_bank0_fixed           = (16 * KILO_BYTE);                            // $0000 - $3FFF
-			const auto rom_switchable            = (16 * KILO_BYTE) * num_rom_banks_;           // $4000 - $7FFF
-			const auto vram                      = (8 *  KILO_BYTE) * vram_banks_;              // $8000 - $9FFF
-			const auto ram_cartridge_switchable  = (8 *  KILO_BYTE) * num_cartridge_ram_banks_; // $A000 - $B000
-			const auto ram_bank0_fixed           = (4 *  KILO_BYTE);                            // $C000 - $CFFF
-			const auto ram_internal_switchable   = (4 *  KILO_BYTE) * num_internal_ram_banks_;  // $D000 - $DFFF
-			const auto high_ram                  = (8 *  KILO_BYTE);                            // $E000 - $FFFF
+			const auto rom_bank0_fixed           = kilo(16);                            // $0000 - $3FFF
+			const auto rom_switchable            = kilo(16) * num_rom_banks_;           // $4000 - $7FFF
+			const auto vram                      = kilo(8)  * vram_banks_;              // $8000 - $9FFF
+			const auto ram_cartridge_switchable  = kilo(8)  * num_cartridge_ram_banks_; // $A000 - $B000
+			const auto ram_bank0_fixed           = kilo(4);                             // $C000 - $CFFF
+			const auto ram_internal_switchable   = kilo(4)  * num_internal_ram_banks_;  // $D000 - $DFFF
+			const auto high_ram                  = kilo(8);                             // $E000 - $FFFF
 
 			const auto memory_size = rom_bank0_fixed + rom_switchable + vram + ram_cartridge_switchable + ram_bank0_fixed + ram_internal_switchable + high_ram;
 
 			memory_.resize(memory_size);
 
 			std::memcpy((char*)&memory_[0], rom, size);
+		}
+
+		unsigned int MBC::kilo(unsigned int n) const
+		{
+			return KILO_BYTE * n;
 		}
 
 		MBC::~MBC()

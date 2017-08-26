@@ -145,6 +145,10 @@ namespace gb
 			int getInternalRamOffset() const;
 
 			/**
+			*/
+			unsigned int kilo(unsigned int n) const;
+
+			/**
 				Load memory
 			*/
 			void loadMemory(uint8_t* rom, std::size_t size, uint8_t rom_size, uint8_t ram_size);
