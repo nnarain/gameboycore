@@ -322,19 +322,24 @@ namespace gb
 		{
 			uint16_t src = WORD(mmu_->read(memorymap::HDMA1), mmu_->read(memorymap::HDMA2)) & 0xFFF0;
 			uint16_t dest = WORD(mmu_->read(memorymap::HDMA3), mmu_->read(memorymap::HDMA4)) & 0xFFF0;
-			uint16_t length = ((value & 0x7F) + 1) * 0x10;
+			uint16_t length = (value & 0x7F) * 0x10;
 
 			// check if the source and destination addresses are valid
-			if (((src >= 0x0000 && src <= 0x7FF0) || (src >= 0xA000 && src <= 0xDFF0)) && (dest >= 0x8000 && dest <= 0x9FF0))
+			if (((src >= 0x0000 && src <= 0x7FF0) || (src >= 0xA000 && src <= 0xDFFF)) && (dest >= 0x8000 && dest <= 0x9FFF))
 			{
-				if (IS_BIT_CLR(value, 7))
+				if (IS_BIT_CLR(value, 7) && !hdma_.transfer_active)
 				{
+					// perform a general purpose DMA
 					mmu_->dma(dest, src, length);
+				}
+				else if (IS_BIT_CLR(value, 7) && hdma_.transfer_active)
+				{
 					// disable an active hdma transfer
 					hdma_.transfer_active = false;
 				}
 				else
 				{
+					// initialize an HDMA transfer
 					hdma_.source = src;
 					hdma_.destination = dest;
 					hdma_.length = length;
