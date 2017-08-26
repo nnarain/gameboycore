@@ -135,8 +135,14 @@ namespace gb
 			int getIoIndex(uint16_t addr) const;
 
 			/**
+				Get the VRAM offset given the current state of the VBK register
 			*/
 			int getVramOffset() const;
+
+			/**
+				Get the internal ram bank offset given the current state of the SVBK register
+			*/
+			int getInternalRamOffset() const;
 
 			/**
 				Load memory
@@ -146,11 +152,13 @@ namespace gb
 			//! number of switchable rom banks
 			int num_rom_banks_;
 			//! number of cartridge ram banks
-			int num_ram_banks_;
+			int num_cartridge_ram_banks_;
 			//! CGB enabled
 			bool cgb_enabled_;
-			//!
+			//! CGB mode has 2 vram banks for character and map data
 			int vram_banks_;
+			//! number internal ram banks
+			int num_internal_ram_banks_;
 		};
 	}
 }

@@ -175,11 +175,10 @@ namespace gb
 			auto background_palette = palette_.get(mmu_->read(memorymap::BGP_REGISTER));
 
 			// get lcd config
-			const auto lcdc = mmu_->read(memorymap::LCDC_REGISTER);
 
-			const auto background_enabled = IS_SET(lcdc, memorymap::LCDC::BG_DISPLAY_ON) != 0;
-			const auto window_enabled     = IS_SET(lcdc, memorymap::LCDC::WINDOW_ON)     != 0;
-			const auto sprites_enabled    = IS_SET(lcdc, memorymap::LCDC::OBJ_ON)        != 0;
+			const auto background_enabled = IS_SET(lcdc_, memorymap::LCDC::BG_DISPLAY_ON) != 0;
+			const auto window_enabled     = IS_SET(lcdc_, memorymap::LCDC::WINDOW_ON)     != 0;
+			const auto sprites_enabled    = IS_SET(lcdc_, memorymap::LCDC::OBJ_ON)        != 0;
 
 			// get background tile line
 			const auto background = tilemap_.getBackground(line_, cgb_enabled_);
@@ -321,23 +320,26 @@ namespace gb
 
 		void hdma5WriteHandler(uint8_t value, uint16_t addr)
 		{
-			uint16_t src = WORD(mmu_->read(memorymap::HDMA1), mmu_->read(memorymap::HDMA2));
-			uint16_t dest = WORD(mmu_->read(memorymap::HDMA3), mmu_->read(memorymap::HDMA4));
+			uint16_t src = WORD(mmu_->read(memorymap::HDMA1), mmu_->read(memorymap::HDMA2)) & 0xFFF0;
+			uint16_t dest = WORD(mmu_->read(memorymap::HDMA3), mmu_->read(memorymap::HDMA4)) & 0xFFF0;
 			uint16_t length = ((value & 0x7F) + 1) * 0x10;
 
-
-			if (IS_BIT_CLR(value, 7))
+			// check if the source and destination addresses are valid
+			if (((src >= 0x0000 && src <= 0x7FF0) || (src >= 0xA000 && src <= 0xDFF0)) && (dest >= 0x8000 && dest <= 0x9FF0))
 			{
-				mmu_->dma(dest, src, length);
-				// disable an active hdma transfer
-				hdma_.transfer_active = false;
-			}
-			else
-			{
-				hdma_.source = src;
-				hdma_.destination = dest;
-				hdma_.length = length;
-				hdma_.transfer_active = true;
+				if (IS_BIT_CLR(value, 7))
+				{
+					mmu_->dma(dest, src, length);
+					// disable an active hdma transfer
+					hdma_.transfer_active = false;
+				}
+				else
+				{
+					hdma_.source = src;
+					hdma_.destination = dest;
+					hdma_.length = length;
+					hdma_.transfer_active = true;
+				}
 			}
 
 			hdma5_ = value;
@@ -351,7 +353,7 @@ namespace gb
 				if (line_ >= 0 && line_ <= 143)
 				{
 					// transfer $10 bytes
-					mmu_->dma(hdma_.source, hdma_.destination, 0x10);
+					mmu_->dma(hdma_.destination, hdma_.source, 0x10);
 					// advance source $10 bytes
 					hdma_.source += 0x10;
 					// advance destination $10 bytes

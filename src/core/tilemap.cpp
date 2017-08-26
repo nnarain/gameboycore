@@ -33,30 +33,49 @@ namespace gb
 
 			TileMap::Line tileline;
 
+			// scroll x
 			const auto scx = mmu_.read(memorymap::SCX_REGISTER);
+			// scroll y
 			const auto scy = mmu_.read(memorymap::SCY_REGISTER);
 
+			// starting row given the scroll
 			const auto tile_row = ((scy + line) / tile_height);
+			// starting column given the scroll
 			const auto start_tile_col = scx / tile_width;
-			const auto pixel_row = (scy + line) % tile_height;
+			auto pixel_row = (scy + line) % tile_height;
 
 			auto idx = 0;
 			for (auto tile_col = start_tile_col; tile_col < start_tile_col + 21; ++tile_col)
 			{
 				// calculate tile address
 				const auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (tile_col % tiles_per_col);
+
 				// read tile character code from map
 				const auto tilenum = mmu_.readVram(tile_offset, 0);
 				// read tile attributes
 				const auto tileattr = mmu_.readVram(tile_offset, 1);
 
+				// extract tile attributes
 				const auto palette_number = (cgb_enable) ? (tileattr & 0x07) : 0;
 				const auto character_bank = (cgb_enable) ? ((tileattr >> 3) & 0x01) : 0;
+				const auto flip_horizontal = (cgb_enable && (tileattr & 0x20) != 0);
+				const auto flip_vertical = (cgb_enable && (tileattr & 0x40) != 0);
+				// TODO: Display priority
 
-				const auto row = tileram_.getRow(pixel_row, tilenum, umode, character_bank);
+				if (flip_vertical)
+					pixel_row = tile_height - pixel_row - 1;
 
+				// get the row of the tile the current scan line is on.
+				auto row = tileram_.getRow(pixel_row, tilenum, umode, character_bank);
+
+				// horizontally flip the row if the flag is set
+				if (flip_horizontal)
+					std::reverse(row.begin(), row.end());
+
+				// calculate pixel column number
 				auto pixel_col = tile_col * tile_width;
 
+				//
 				for (auto i = 0u; i < row.size(); ++i)
 				{
 					if (pixel_col >= scx && pixel_col <= scx + 160 && idx < 160)
