@@ -85,8 +85,6 @@ namespace gb
 					// check if the HBLANK period is over
 					if (hasElapsed(HBLANK_CYCLES))
 					{
-						// render the current scan line
-						renderScanline();
 						// update the scan line
 						updateLY();
 						// check if LY matches LYC
@@ -115,6 +113,9 @@ namespace gb
 				case Mode::LCD:
 					if (hasElapsed(LCD_TRANSFER_CYCLES))
 					{
+						// render the current scan line
+						renderScanline();
+
 						mode_ = Mode::HBLANK;
 						// perform an hdma transfer
 						doHdma();

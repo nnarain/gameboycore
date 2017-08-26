@@ -160,7 +160,7 @@ namespace gb
 					if (sprite.isVerticallyFlipped())
 						row = sprite.height - row - 1;
 
-					auto pixel_row = tileram_.getRow(row, sprite.tile, true);
+					auto pixel_row = tileram_.getRow(row, sprite.tile, true, sprite.getCharacterBank());
 
 					if (sprite.isHorizontallyFlipped())
 						std::reverse(pixel_row.begin(), pixel_row.end());
