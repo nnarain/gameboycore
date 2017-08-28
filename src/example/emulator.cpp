@@ -61,7 +61,7 @@ int main(int argc, char * argv[])
 		catch (std::runtime_error& e)
 		{
 			std::cerr << e.what() << std::endl;
-			return 1;
+			return 2;
 		}
 
 		// Exiting save battery RAM
