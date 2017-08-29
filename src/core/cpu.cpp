@@ -11,6 +11,7 @@
 #include <cstring>
 #include <sstream>
 #include <iomanip>
+#include <iostream>
 
 #include "bitutil.h"
 #include "shiftrotate.h"
@@ -2051,6 +2052,29 @@ namespace gb
 
 			std::stringstream ss;
 			ss << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << addr << ": " << str;
+
+			const int spaces_before_registers = 13;
+			std::string padding(spaces_before_registers - std::strlen(str), ' ');
+
+			// print debug info
+			std::printf("%04X: %s%s| PC: %04X, A: %02X, BC: %02X%02X, DE: %02X%02X, HL: %02X%02X | SP: %04X -> %04X | F: %02X | IF: %02X, IE: %02X\n",
+				userdata_addr - 1,
+				str,
+				padding.c_str(),
+				pc_.val,
+				af_.hi,
+				bc_.hi,
+				bc_.lo,
+				de_.hi,
+				de_.lo,
+				hl_.hi,
+				hl_.lo,
+				sp_.val,
+				WORD(mmu_->read(sp_.val + 1), mmu_->read(sp_.val)),
+				af_.lo,
+				interrupt_flags_,
+				interrupt_enable_
+			);
 
 			if (disassembly_callback_)
 				disassembly_callback_(ss.str());

@@ -17,6 +17,10 @@ namespace gb
 			void control(uint8_t value, uint16_t addr);
 
 		private:
+			void selectRomBank(uint8_t lo, uint8_t hi);
+
+			uint8_t rom_bank_lower_bits_;
+			uint8_t rom_bank_upper_bit_;
 		};
 	}
 }
