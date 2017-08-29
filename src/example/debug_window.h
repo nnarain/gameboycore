@@ -4,6 +4,8 @@
 #include "imgui.h"
 #include "gameboycore/gameboycore.h"
 
+#include <iostream>
+
 class DebugWindow
 {
 private:
