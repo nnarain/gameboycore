@@ -79,7 +79,7 @@ namespace gb
 				for (auto i = 0u; i < row.size(); ++i)
 				{
 					if (pixel_col >= scx && pixel_col <= scx + 160 && idx < 160)
-						tileline[idx++] = row[i] | (palette_number << 2) | (backgroud_priority << 3);
+						tileline[idx++] = row[i] | (palette_number << 2) | (backgroud_priority << 5);
 
 					pixel_col++;
 				}
@@ -188,7 +188,7 @@ namespace gb
 
 						if (sprite.hasPriority())
 						{
-							if (sprite_line[i] != 0)
+							if (sprite_line[i] != 0 && !background_priority)
 								scanline[x + i] = palette[sprite_line[i]];
 						}
 						else

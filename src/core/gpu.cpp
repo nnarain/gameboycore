@@ -203,7 +203,7 @@ namespace gb
 
 				auto color_number = tileinfo & 0x03;
 				auto color_palette = (tileinfo >> 2) & 0x07;
-				auto priority = (tileinfo >> 3);
+				auto priority = (tileinfo >> 5);
 
 				color_line[pixel_idx] = color_number | (priority << 2);
 
