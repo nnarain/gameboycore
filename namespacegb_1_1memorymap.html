@@ -215,7 +215,7 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a4a02763995684a7606b1b8f4170d8517">KEY1_REGISER</a> = 0xFF4D, 
 <a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54addd4dc7c5a776342d3912c2845a96c69">DMA_REGISTER</a> = 0xFF46, 
 <br/>
-&#160;&#160;<a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a84b0c421ebbcae6082868190e5a73e89">VBK</a> = 0xFF4F, 
+&#160;&#160;<a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a53e620a62edae7a4aba3150acc456c81">VBK_REGISTER</a> = 0xFF4F, 
 <a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a6a27aa71acc80b1930b78b03a593c0fe">HDMA1</a> = 0xFF51, 
 <a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a770a18e64008c9de3e0bc143273364e5">HDMA2</a> = 0xFF52, 
 <a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54aeea62b181a9965588324ce23765824d9">HDMA3</a> = 0xFF53, 
@@ -227,10 +227,11 @@ Enumerations</h2></td></tr>
 <br/>
 &#160;&#160;<a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a26baac66ed42475ea0ee16a71fddd0c0">OBPI</a> = 0xFF6A, 
 <a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54aeebf9663eb0a7ec9c6f7a6a0a052db89">OBPD</a> = 0xFF6B, 
+<a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54aa0e218989a7148f6eccfc153f4967029">SVBK_REGISTER</a> = 0xFF70, 
 <a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54ad0f9515dd05db93f3e6f66f04fa9035c">HIGH_RAM_START</a> = 0xFF80, 
-<a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54ac436a43b56c2811f425d139aab4cadd0">HIGH_RAM_END</a> = 0xFFFE, 
 <br/>
-&#160;&#160;<a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54abeab6c843ea24b52665de910713d25a6">INTERRUPT_ENABLE</a> = 0xFFFF, 
+&#160;&#160;<a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54ac436a43b56c2811f425d139aab4cadd0">HIGH_RAM_END</a> = 0xFFFE, 
+<a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54abeab6c843ea24b52665de910713d25a6">INTERRUPT_ENABLE</a> = 0xFFFF, 
 <a class="el" href="namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54ab3ac1cd03f51f22df8aae7724c8609d0">INTERRUPT_FLAG</a> = 0xFF0F
 <br/>
  }</td></tr>
@@ -449,7 +450,7 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a9c0802dfce04d1ed66b802347dadff54addd4dc7c5a776342d3912c2845a96c69"></a>DMA_REGISTER</em>&#160;</td><td class="fielddoc">
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a9c0802dfce04d1ed66b802347dadff54a84b0c421ebbcae6082868190e5a73e89"></a>VBK</em>&#160;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="a9c0802dfce04d1ed66b802347dadff54a53e620a62edae7a4aba3150acc456c81"></a>VBK_REGISTER</em>&#160;</td><td class="fielddoc">
 <p>VRAM Bank Selection. </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a9c0802dfce04d1ed66b802347dadff54a6a27aa71acc80b1930b78b03a593c0fe"></a>HDMA1</em>&#160;</td><td class="fielddoc">
@@ -478,6 +479,8 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a9c0802dfce04d1ed66b802347dadff54aeebf9663eb0a7ec9c6f7a6a0a052db89"></a>OBPD</em>&#160;</td><td class="fielddoc">
 <p>Object <a class="el" href="classgb_1_1Palette.html">Palette</a> Data. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a9c0802dfce04d1ed66b802347dadff54aa0e218989a7148f6eccfc153f4967029"></a>SVBK_REGISTER</em>&#160;</td><td class="fielddoc">
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a9c0802dfce04d1ed66b802347dadff54ad0f9515dd05db93f3e6f66f04fa9035c"></a>HIGH_RAM_START</em>&#160;</td><td class="fielddoc">
 </td></tr>
@@ -584,7 +587,7 @@ Enumerations</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Aug 25 2017 02:57:09 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 30 2017 01:18:50 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

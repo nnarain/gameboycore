@@ -13,6 +13,7 @@ var searchData=
   ['_7embc',['~MBC',['../classgb_1_1detail_1_1MBC.html#a8003f5e9832e56308a32f7045c2e40de',1,'gb::detail::MBC']]],
   ['_7embc2',['~MBC2',['../classgb_1_1detail_1_1MBC2.html#aff9f8cfad07514bcfaf30bc1973443a6',1,'gb::detail::MBC2']]],
   ['_7embc3',['~MBC3',['../classgb_1_1detail_1_1MBC3.html#a8f7178aa58148d569fd4f81128296ae7',1,'gb::detail::MBC3']]],
+  ['_7embc5',['~MBC5',['../classgb_1_1detail_1_1MBC5.html#a2268effcb0308ac979c20cca83d09f96',1,'gb::detail::MBC5']]],
   ['_7emmu',['~MMU',['../classgb_1_1MMU.html#a9952e323b30847a933d6e492393fac64',1,'gb::MMU']]],
   ['_7eoam',['~OAM',['../classgb_1_1OAM.html#a515757e62e4e3f2ec0dc20775964b1ee',1,'gb::OAM']]],
   ['_7ertc',['~RTC',['../classgb_1_1detail_1_1RTC.html#a54b1f18fed7c53105e5cd4e57e3c18cc',1,'gb::detail::RTC']]],

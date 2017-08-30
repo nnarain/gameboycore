@@ -136,7 +136,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                <a class="code" href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da0ab6019720d42da928084959dcb59e05">MBC4</a>                = 0x15,</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                <a class="code" href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da83760bc410281fb5de2769c8150d151e">MBC4_RAM</a>            = 0x16,</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                <a class="code" href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da55f752106731f41ada137a08ac91d03d">MBC4_RAM_BAT</a>        = 0x17,</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                <a class="code" href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da831f4986a42a58560cbe172bbbb7bc22">MBC5</a>                = 0x19,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                <a class="code" href="classgb_1_1detail_1_1MBC5.html">MBC5</a>                = 0x19,</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <a class="code" href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085dafabc650bee25fdec94f8576472160b72">MBC5_RAM</a>            = 0x1A,</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <a class="code" href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085dae72a6e0c9719f410f73658163d7377f4">MBC5_RAM_BAT</a>        = 0x1B,</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <a class="code" href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da04b0615ed4fa7a3bef9e481aaad5deb2">MBC5_RUMBLE</a>         = 0x1C,</div>
@@ -204,19 +204,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordtype">int</span> getIoIndex(uint16_t addr) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <span class="keywordtype">int</span> getVramOffset() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <span class="keywordtype">void</span> loadMemory(uint8_t* rom, std::size_t size, uint8_t rom_size, uint8_t ram_size);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keywordtype">int</span> num_rom_banks_;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keywordtype">int</span> num_ram_banks_;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="keywordtype">bool</span> cgb_enabled_;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            <span class="keywordtype">int</span> vram_banks_;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        };</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_MBC_H</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordtype">int</span> getVramOffset() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <span class="keywordtype">int</span> getInternalRamOffset() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> kilo(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keywordtype">void</span> loadMemory(uint8_t* rom, std::size_t size, uint8_t rom_size, uint8_t ram_size);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <span class="keywordtype">int</span> num_rom_banks_;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordtype">int</span> num_cartridge_ram_banks_;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            <span class="keywordtype">bool</span> cgb_enabled_;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="keywordtype">int</span> vram_banks_;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordtype">int</span> num_internal_ram_banks_;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        };</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">#endif // GAMEBOYCORE_MBC_H</span></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_af8e6b1c12d7d39bfe10c9188a2cc4bca"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#af8e6b1c12d7d39bfe10c9188a2cc4bca">gb::detail::MBC::write</a></div><div class="ttdeci">virtual void write(uint8_t value, uint16_t addr)</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_abf85297642ef25fa1bb6bada1d164f74"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#abf85297642ef25fa1bb6bada1d164f74">gb::detail::MBC::getRomBank</a></div><div class="ttdeci">int getRomBank() const </div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_a86c2aae218c8570eb06ccaa34345da25"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#a86c2aae218c8570eb06ccaa34345da25">gb::detail::MBC::isXramEnabled</a></div><div class="ttdeci">bool isXramEnabled() const </div></div>
@@ -229,7 +234,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_a93dbe19ec5b61aa867b5e886935be79c"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#a93dbe19ec5b61aa867b5e886935be79c">gb::detail::MBC::rom_bank_</a></div><div class="ttdeci">int rom_bank_</div><div class="ttdoc">ROM bank number. </div><div class="ttdef"><b>Definition:</b> mbc.h:123</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_a423b2f4e040079ea51a5da95382f5fbba48081c8c723151cd789e8183292afce9"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbba48081c8c723151cd789e8183292afce9">gb::detail::MBC::ROM::KB512</a></div><div class="ttdoc">512 kB </div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_aaa0ca83271c7dadb1bddbcbd1d1d085da83760bc410281fb5de2769c8150d151e"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da83760bc410281fb5de2769c8150d151e">gb::detail::MBC::Type::MBC4_RAM</a></div></div>
-<div class="ttc" id="classgb_1_1detail_1_1MBC_html_aaa0ca83271c7dadb1bddbcbd1d1d085da831f4986a42a58560cbe172bbbb7bc22"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da831f4986a42a58560cbe172bbbb7bc22">gb::detail::MBC::Type::MBC5</a></div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_aaa0ca83271c7dadb1bddbcbd1d1d085da83e4da374d7633ab2aeccedd7060c63c"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da83e4da374d7633ab2aeccedd7060c63c">gb::detail::MBC::Type::MMM01_RAM</a></div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_aaa0ca83271c7dadb1bddbcbd1d1d085da03a1e7f35aa707337ec7985149c1637a"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da03a1e7f35aa707337ec7985149c1637a">gb::detail::MBC::Type::MBC3_TIME_BAT</a></div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_a423b2f4e040079ea51a5da95382f5fbba480f87f2b7b1225862485b13b92e199f"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbba480f87f2b7b1225862485b13b92e199f">gb::detail::MBC::ROM::KB256</a></div><div class="ttdoc">256 kB </div></div>
@@ -277,6 +281,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_aaa0ca83271c7dadb1bddbcbd1d1d085da08d6295f960aa7d8e2795bb8d9971c51"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085da08d6295f960aa7d8e2795bb8d9971c51">gb::detail::MBC::Type::MBC3_RAM</a></div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_aaa0ca83271c7dadb1bddbcbd1d1d085dadfe5a0fd6582ce5bfc145a9e79ca250a"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085dadfe5a0fd6582ce5bfc145a9e79ca250a">gb::detail::MBC::Type::ROM_RAM_BAT</a></div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_a423b2f4e040079ea51a5da95382f5fbb"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#a423b2f4e040079ea51a5da95382f5fbb">gb::detail::MBC::ROM</a></div><div class="ttdeci">ROM</div><div class="ttdoc">ROM types specified in cartridge header. </div><div class="ttdef"><b>Definition:</b> mbc.h:64</div></div>
+<div class="ttc" id="classgb_1_1detail_1_1MBC5_html"><div class="ttname"><a href="classgb_1_1detail_1_1MBC5.html">gb::detail::MBC5</a></div><div class="ttdef"><b>Definition:</b> mbc5.h:10</div></div>
 <div class="ttc" id="namespacegb_1_1detail_html_aa78c1516784eb33642c6e8c0d55390c5a96ffe42ab5abb618ee29c6ffd6538bd0"><div class="ttname"><a href="namespacegb_1_1detail.html#aa78c1516784eb33642c6e8c0d55390c5a96ffe42ab5abb618ee29c6ffd6538bd0">gb::detail::BANK_SIZE</a></div><div class="ttdef"><b>Definition:</b> mbc.h:24</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_a803c10a0be2147575bad3926b4caf3fe"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#a803c10a0be2147575bad3926b4caf3fe">gb::detail::MBC::memory_</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; memory_</div><div class="ttdoc">virtual memory </div><div class="ttdef"><b>Definition:</b> mbc.h:119</div></div>
 <div class="ttc" id="classgb_1_1detail_1_1MBC_html_a813e18a616310bbe4dcfa77afa3655da"><div class="ttname"><a href="classgb_1_1detail_1_1MBC.html#a813e18a616310bbe4dcfa77afa3655da">gb::detail::MBC::getRange</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; getRange(uint16_t start, uint16_t end) const </div></div>
@@ -290,7 +295,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Aug 25 2017 02:57:09 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 30 2017 01:18:49 for GameboyCore by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

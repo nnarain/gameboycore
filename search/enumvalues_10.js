@@ -10,6 +10,7 @@ var searchData=
   ['sgb_5fcompatability',['SGB_COMPATABILITY',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54adc3b617e2e28bd8bb2be5cd8acc31aa7',1,'gb::memorymap']]],
   ['shift_5fclock_5frate',['SHIFT_CLOCK_RATE',['../namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638cad4e5dadd1d3387e471ae73b238c9ca50',1,'gb::memorymap']]],
   ['start',['START',['../classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522fab078ffd28db767c502ac367053f6e0ac',1,'gb::Joy']]],
+  ['svbk_5fregister',['SVBK_REGISTER',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54aa0e218989a7148f6eccfc153f4967029',1,'gb::memorymap']]],
   ['switchable_5from_5fbank_5fend',['SWITCHABLE_ROM_BANK_END',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a5748c18a73536e14fde7fde561caf02b',1,'gb::memorymap']]],
   ['switchable_5from_5fbank_5fstart',['SWITCHABLE_ROM_BANK_START',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54af6f530211d7677ceeaaae7abf920c82d',1,'gb::memorymap']]]
 ];

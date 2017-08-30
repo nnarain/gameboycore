@@ -20,5 +20,5 @@ var searchData=
   ['timer_5fmodulo_5fregister',['TIMER_MODULO_REGISTER',['../namespacegb_1_1memorymap.html#a9c0802dfce04d1ed66b802347dadff54a723d939f3e0eb1453c9f12b2eefb4bf3',1,'gb::memorymap']]],
   ['transfer',['TRANSFER',['../namespacegb_1_1memorymap.html#a0ed01effba21679f51aceee7c4e5638cad07296180f108d9a34e65a4dbfe9d244',1,'gb::memorymap']]],
   ['trigger',['trigger',['../classgb_1_1detail_1_1Channel.html#aa061f873ea09a8169b10341fd634873b',1,'gb::detail::Channel::trigger()'],['../classgb_1_1detail_1_1SquareWaveChannel.html#a3e6b8b8779a851e5a6b9e0156e3df8ee',1,'gb::detail::SquareWaveChannel::trigger()']]],
-  ['type',['Type',['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085d',1,'gb::detail::MBC::Type()'],['../structgb_1_1CartInfo.html#a752dd131fa4e2625bee86b66adda8598',1,'gb::CartInfo::type()']]]
+  ['type',['type',['../structgb_1_1CartInfo.html#a752dd131fa4e2625bee86b66adda8598',1,'gb::CartInfo::type()'],['../classgb_1_1detail_1_1MBC.html#aaa0ca83271c7dadb1bddbcbd1d1d085d',1,'gb::detail::MBC::Type()']]]
 ];
