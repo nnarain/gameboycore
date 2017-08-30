@@ -56,11 +56,11 @@ namespace gb
 				const auto tileattr = mmu_.readVram(tile_offset, 1);
 
 				// extract tile attributes
-				const auto palette_number = (cgb_enable) ? (tileattr & 0x07) : 0;
-				const auto character_bank = (cgb_enable) ? ((tileattr >> 3) & 0x01) : 0;
-				const auto flip_horizontal = (cgb_enable && (tileattr & 0x20) != 0);
-				const auto flip_vertical = (cgb_enable && (tileattr & 0x40) != 0);
-				// TODO: Display priority
+				const auto palette_number     = (cgb_enable) ? (tileattr & 0x07) : 0;
+				const auto character_bank     = (cgb_enable) ? ((tileattr >> 3) & 0x01) : 0;
+				const auto flip_horizontal    = (cgb_enable && (tileattr & 0x20) != 0);
+				const auto flip_vertical      = (cgb_enable && (tileattr & 0x40) != 0);
+				const auto backgroud_priority = (cgb_enable && (tileattr & 0x80) != 0);
 
 				if (flip_vertical)
 					pixel_row = tile_height - pixel_row - 1;
@@ -79,7 +79,7 @@ namespace gb
 				for (auto i = 0u; i < row.size(); ++i)
 				{
 					if (pixel_col >= scx && pixel_col <= scx + 160 && idx < 160)
-						tileline[idx++] = row[i] | (palette_number << 2);
+						tileline[idx++] = row[i] | (palette_number << 2) | (backgroud_priority << 3);
 
 					pixel_col++;
 				}
@@ -122,7 +122,7 @@ namespace gb
 
 		void TileMap::drawSprites(
 			std::array<Pixel, 160>& scanline,
-			std::array<uint8_t, 160>& color_line,
+			std::array<uint8_t, 160>& info,
 			int line,
 			bool cgb_enable,
 			std::array<std::array<gb::Pixel, 4>, 8>& cgb_palette)
@@ -160,10 +160,10 @@ namespace gb
 					if (sprite.isVerticallyFlipped())
 						row = sprite.height - row - 1;
 
-					auto pixel_row = tileram_.getRow(row, sprite.tile, true, sprite.getCharacterBank());
+					auto sprite_line = tileram_.getRow(row, sprite.tile, true, sprite.getCharacterBank());
 
 					if (sprite.isHorizontallyFlipped())
-						std::reverse(pixel_row.begin(), pixel_row.end());
+						std::reverse(sprite_line.begin(), sprite_line.end());
 
 					// get color palette for this sprite
 
@@ -180,19 +180,24 @@ namespace gb
 
 					for (auto i = 0; i < 8; ++i)
 					{
+						// skip this pixel if outside the window
 						if ((x + i) < 0 || (x + i) >= 160) continue;
+
+						auto color = info[x + i] & 0x03;
+						auto background_priority = (bool)(info[x + i] >> 2);
 
 						if (sprite.hasPriority())
 						{
-							if (pixel_row[i] != 0)
-								scanline[x + i] = palette[pixel_row[i]];
+							if (sprite_line[i] != 0)
+								scanline[x + i] = palette[sprite_line[i]];
 						}
 						else
 						{
-							// if priority is to th background the sprite is behind colors 1-3
-							if (color_line[x + i] == 0 && pixel_row[i] != 0)
-								scanline[x + i] = palette[pixel_row[i]];
+							// if priority is to the background the sprite is behind colors 1-3
+							if (color == 0 && sprite_line[i] != 0)
+								scanline[x + i] = palette[sprite_line[i]];
 						}
+						
 					}
 
 					count++;
