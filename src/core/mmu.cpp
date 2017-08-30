@@ -8,6 +8,7 @@
 #include "gameboycore/mbc1.h"
 #include "gameboycore/mbc2.h"
 #include "gameboycore/mbc3.h"
+#include "gameboycore/mbc5.h"
 #include "gameboycore/cartinfo.h"
 #include "gameboycore/memorymap.h"
 
@@ -67,7 +68,16 @@ namespace gb
 				break;
 
 				// TODO: MBC4
-				// TODO: MBC5
+			case detail::MBC::Type::MBC5:
+			case detail::MBC::Type::MBC5_RAM:
+			case detail::MBC::Type::MBC5_RAM_BAT:
+			case detail::MBC::Type::MBC5_RUMBLE:
+			case detail::MBC::Type::MBC5_RUMBLE_RAM:
+			case detail::MBC::Type::MBC5_RUMBLE_RAM_BAT:
+				mbc_.reset(new detail::MBC5(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
+				break;
+
+
 
 			default:
 				throw std::runtime_error("Unsupported cartridge type :(");

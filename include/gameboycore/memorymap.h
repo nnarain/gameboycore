@@ -139,7 +139,7 @@ namespace gb{
 
 			DMA_REGISTER            = 0xFF46,
 
-			VBK                     = 0xFF4F, ///< VRAM Bank Selection
+			VBK_REGISTER            = 0xFF4F, ///< VRAM Bank Selection
 
 			HDMA1                   = 0xFF51, ///< New D<A Source High
 			HDMA2                   = 0xFF52, ///< New DMA Source Low
@@ -152,6 +152,8 @@ namespace gb{
 			BGPD                    = 0xFF69, ///< Background Palette Data
 			OBPI                    = 0xFF6A, ///< Object Palette Index
 			OBPD                    = 0xFF6B, ///< Object Palette Data
+
+			SVBK_REGISTER           = 0xFF70,
 
 			HIGH_RAM_START          = 0xFF80,
 			HIGH_RAM_END            = 0xFFFE,
