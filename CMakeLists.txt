@@ -58,6 +58,7 @@ set(GAMEBOYCORE_HEADERS
 	include/gameboycore/mbc1.h
 	include/gameboycore/mbc2.h
 	include/gameboycore/mbc3.h
+	include/gameboycore/mbc5.h
 	include/gameboycore/rtc.h
 	include/gameboycore/cartinfo.h
 	include/gameboycore/opcodeinfo.h
@@ -79,6 +80,7 @@ set(GAMEBOYCORE
 	src/core/mbc1.cpp
 	src/core/mbc2.cpp
 	src/core/mbc3.cpp
+	src/core/mbc5.cpp
 	src/core/alu.cpp
     src/core/cartinfo.cpp
 	src/core/shiftrotate.cpp

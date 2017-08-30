@@ -33,6 +33,25 @@ namespace gb
 			LCD
 		};
 
+		/**
+			Data needed for HDMA transfer
+		*/
+		struct Hdma
+		{
+			Hdma() :
+				transfer_active(false),
+				source(0),
+				destination(0),
+				length(0)
+			{
+			}
+
+			bool transfer_active;
+			uint16_t source;
+			uint16_t destination;
+			uint16_t length;
+		};
+
 		using CgbPalette = std::array<std::array<gb::Pixel, 4>, 8>;
 
 		Impl(MMU::Ptr& mmu) :
@@ -46,8 +65,7 @@ namespace gb
 			vblank_provider_(*mmu.get(), InterruptProvider::Interrupt::VBLANK),
 			stat_provider_(*mmu.get(), InterruptProvider::Interrupt::LCDSTAT),
 			tilemap_(*mmu.get(), palette_),
-			cgb_enabled_(mmu->cgbEnabled()),
-			hdma_transfer_start_(false)
+			cgb_enabled_(mmu->cgbEnabled())
 		{
 			mmu->addWriteHandler(memorymap::LCDC_REGISTER, std::bind(&Impl::lcdcWriteHandler, this, std::placeholders::_1, std::placeholders::_2));
 			mmu->addWriteHandler(memorymap::BGPD, std::bind(&Impl::paletteWriteHandler, this, std::placeholders::_1, std::placeholders::_2));
@@ -67,8 +85,6 @@ namespace gb
 					// check if the HBLANK period is over
 					if (hasElapsed(HBLANK_CYCLES))
 					{
-						// render the current scan line
-						renderScanline();
 						// update the scan line
 						updateLY();
 						// check if LY matches LYC
@@ -97,7 +113,12 @@ namespace gb
 				case Mode::LCD:
 					if (hasElapsed(LCD_TRANSFER_CYCLES))
 					{
+						// render the current scan line
+						renderScanline();
+
 						mode_ = Mode::HBLANK;
+						// perform an hdma transfer
+						doHdma();
 						checkStatInterrupts(ime);
 					}
 					break;
@@ -155,11 +176,10 @@ namespace gb
 			auto background_palette = palette_.get(mmu_->read(memorymap::BGP_REGISTER));
 
 			// get lcd config
-			const auto lcdc = mmu_->read(memorymap::LCDC_REGISTER);
 
-			const auto background_enabled = IS_SET(lcdc, memorymap::LCDC::BG_DISPLAY_ON) != 0;
-			const auto window_enabled     = IS_SET(lcdc, memorymap::LCDC::WINDOW_ON)     != 0;
-			const auto sprites_enabled    = IS_SET(lcdc, memorymap::LCDC::OBJ_ON)        != 0;
+			const auto background_enabled = IS_SET(lcdc_, memorymap::LCDC::BG_DISPLAY_ON) != 0;
+			const auto window_enabled     = IS_SET(lcdc_, memorymap::LCDC::WINDOW_ON)     != 0;
+			const auto sprites_enabled    = IS_SET(lcdc_, memorymap::LCDC::OBJ_ON)        != 0;
 
 			// get background tile line
 			const auto background = tilemap_.getBackground(line_, cgb_enabled_);
@@ -183,8 +203,9 @@ namespace gb
 
 				auto color_number = tileinfo & 0x03;
 				auto color_palette = (tileinfo >> 2) & 0x07;
+				auto priority = (tileinfo >> 5);
 
-				color_line[pixel_idx] = color_number;
+				color_line[pixel_idx] = color_number | (priority << 2);
 
 				if (cgb_enabled_)
 				{
@@ -301,20 +322,54 @@ namespace gb
 
 		void hdma5WriteHandler(uint8_t value, uint16_t addr)
 		{
-			if (IS_BIT_CLR(value, 7))
-			{
-				uint16_t src = WORD(mmu_->read(memorymap::HDMA1), mmu_->read(memorymap::HDMA2));
-				uint16_t dest = WORD(mmu_->read(memorymap::HDMA3), mmu_->read(memorymap::HDMA4));
-				uint16_t length = ((value & 0x7F) + 1) * 0x10;
+			uint16_t src = WORD(mmu_->read(memorymap::HDMA1), mmu_->read(memorymap::HDMA2)) & 0xFFF0;
+			uint16_t dest = WORD(((mmu_->read(memorymap::HDMA3) & 0x1F) | 0x80), mmu_->read(memorymap::HDMA4)) & 0xFFF0;
+			uint16_t length = ((value & 0x7F) + 1) * 0x10;
 
+			if (IS_BIT_CLR(value, 7) && !hdma_.transfer_active)
+			{
+				// perform a general purpose DMA
 				mmu_->dma(dest, src, length);
+			}
+			else if (IS_BIT_CLR(value, 7) && hdma_.transfer_active)
+			{
+				// disable an active hdma transfer
+				hdma_.transfer_active = false;
 			}
 			else
 			{
-				hdma_transfer_start_ = true;
+				// initialize an HDMA transfer
+				hdma_.source = src;
+				hdma_.destination = dest;
+				hdma_.length = length;
+				hdma_.transfer_active = true;
 			}
 
 			hdma5_ = value;
+		}
+
+		void doHdma()
+		{
+			if (hdma_.transfer_active)
+			{
+				// hdma only works between this range
+				if (line_ >= 0 && line_ <= 143)
+				{
+					// transfer $10 bytes
+					mmu_->dma(hdma_.destination, hdma_.source, 0x10);
+					// advance source $10 bytes
+					hdma_.source += 0x10;
+					// advance destination $10 bytes
+					hdma_.destination += 0x10;
+					// count down the length
+					hdma_.length -= 0x10;
+
+					if (hdma_.length == 0)
+					{
+						hdma_.transfer_active = false;
+					}
+				}
+			}
 		}
 
 		void compareLyToLyc(bool ime)
@@ -361,6 +416,7 @@ namespace gb
 		uint8_t& lcdc_;
 		uint8_t& stat_;
 		uint8_t& hdma5_;
+		Hdma hdma_;
 
 		InterruptProvider vblank_provider_;
 		InterruptProvider stat_provider_;
@@ -371,7 +427,6 @@ namespace gb
 		RenderScanlineCallback render_scanline_;
 
 		bool cgb_enabled_;
-		bool hdma_transfer_start_;
 
 		CgbPalette cgb_background_palettes_;
 		CgbPalette cgb_sprite_palette_;

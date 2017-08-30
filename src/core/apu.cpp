@@ -293,6 +293,8 @@ namespace gb
 				channel_left_enabled_[1] = (value & 0x20) != 0;
 				channel_left_enabled_[2] = (value & 0x40) != 0;
 				channel_left_enabled_[3] = (value & 0x80) != 0;
+
+				apuWrite(value, addr);
 			}
 			else
 			{
@@ -334,9 +336,10 @@ namespace gb
 
 		void clearRegisters()
 		{
-			for (auto i = APU_REG_BASE; i < memorymap::WAVE_PATTERN_RAM_START; ++i)
+			for (auto addr = APU_REG_BASE; addr < memorymap::WAVE_PATTERN_RAM_START; ++addr)
 			{
-				apuWrite(0, i);
+				if (addr == memorymap::NR52_REGISTER) continue;
+				mmu_->write((uint8_t)0, addr);
 			}
 		}
 
