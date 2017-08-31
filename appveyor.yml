@@ -9,6 +9,9 @@ clone_folder: c:\projects\gameboycore
 
 environment:
   GTEST_ROOT: c:\libs\googletest
+  
+configuration:
+  - Release
 
 install:
   - echo "Installing Google Test"
@@ -26,7 +29,8 @@ before_build:
   - cmake .. -DBUILD_EXAMPLE="OFF" -DBUILD_DOCS="OFF"
 
 build:
-  - msbuild c:\projects\gameboycore\build\gameboycore.sln /verbosity:minimal /p:Configuration=Release
+  msbuild c:\projects\gameboycore\build\gameboycore.sln
+  verbosity: minimal
 
 after_build:
   - C:\projects\gameboycore\build\tests\Release\gameboy_tests.exe
