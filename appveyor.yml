@@ -26,11 +26,10 @@ before_build:
   - cmake .. -DBUILD_EXAMPLE="OFF" -DBUILD_DOCS="OFF"
 
 build:
-  project: c:\projects\gameboycore\build\gameboycore.sln
-  verbosity: minimal
+  - msbuild c:\projects\gameboycore\build\gameboycore.sln /verbosity:minimal /p:Configuration=Release
 
 after_build:
-  - C:\projects\gameboycore\build\tests\Debug\gameboy_tests.exe
+  - C:\projects\gameboycore\build\tests\Release\gameboy_tests.exe
   - msbuild C:\projects\gameboycore\build\PACKAGE.vcxproj /verbosity:quiet
 
 artifacts:

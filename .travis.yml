@@ -19,7 +19,7 @@ install:
 
 script:
 - mkdir build && cd build
-- cmake .. -DBUILD_EXAMPLE="OFF" -DBUILD_DOCS="ON"
+- cmake .. -DBUILD_EXAMPLE="OFF" -DBUILD_DOCS="ON" -DCMAKE_BUILD_TYPE=Release
 - make && make check
 - cd ..
 
