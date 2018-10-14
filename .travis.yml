@@ -11,11 +11,11 @@ before_install:
 - git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
 - cd ~/scripts/ && ./bootstrap && cd -
 - preinstall_general
-- install_docs
 
 install:
 - install_general
 - chmod +x ./scripts/travis_deploy_docs
+- sudo apt-get --allow-unauthenticated install -y doxygen graphviz
 
 script:
 - mkdir build && cd build
