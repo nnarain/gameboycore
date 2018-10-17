@@ -24,7 +24,7 @@ script:
 - cd ..
 
 after_success:
-- ./scripts/travis_deploy_docs $TRAVIS_BRANCH $GITHUB_API_TOKEN
+- "./scripts/travis_deploy_docs $TRAVIS_BRANCH $GITHUB_API_TOKEN"
 - cd build
 - make package
 - export ARTIFACTS=$(ls -d1 $PWD/*.tar.gz)
@@ -32,7 +32,7 @@ after_success:
 deploy:
   provider: releases
   api_key:
-    secure: d/qxX3lQXZg8gzABz8+IonCqCDbQSA0TCefBMnzZETvkKuZSCk7HoUxt1yVUPaybHSEP06uqyKI0qar7o48K2SLR3AakhmpUAfmrNRlCFYSzrUUag0vJXVsKR24g5T0aYQj8IHcYwWGQZ9/pZRcuCjtKee60ey40g3LzSO8/mRH7+96uAORLh5HsY1JvFJ/q1cnZQKG2+WNX8cw78NvTDzZb7zyeNiPLNmjvG6Hqys/qp2icSui6vLPKzaNm9r8mutk0tUdYY/RxsFt3auzkDeRGYLJyeRtM+OuIya7CmB5bsEi7AhwnFsTOfKL76Fpi7plKZ3nFUpjb3vIWb1M55ZIe2xd5qhzYTcG5NEOBVehcz+7WS7wlzlivrY9jrXQgMeJY/aBH5XsWRzL0i0fQt6NHF+gr2jOrDoHEPYTeBzoQEe8xX7f5IoHAxcn592UD3wno1K058WWb4wiXVITqhldJdDtRAIR9LQ1M7ieZiz/L6yf7/ScR5+HOkvkz/ipoCPKPR4CEikMq8loJDaJNv3OlV+I4XWh/yQR+Q4gSpZ/nizASgJIoOWI2OXGrTrassVfJeR8OmNQ9piuiUUxjdK8Z0SOPKphxVlKsyDpbVZ2vb+lfqLV8gl/t20/L1a1ZQhbWHK3XvQsuoHK2R1SKI/MOoF6DeQ7jRont8UMhoeE=
+    secure: tkje4Q6TX/nuFFvyEnpltnaonPlf17Mcjxg8+Lb8QjH+3bF4E1emGZ+TYyl1oHtW8ePAFQjudEUtYPdPJayLJ/5iNtofMS5s7OPTB3cuhAFBcseHaTxzaHcLDHDmDqyQGtq3kOc7fxV0qRtGHrPVSRXRM7GaswIfCLxNkrOGUNR0qfZ3vNLrEy78kgR9HaUwCrA9IC7Esbgv6FFy4PKO+fOv7mowgjfvBw3piaL1yDBPKioKKE6g/NZRXdjOQxhwFnB2Z5JRM+qVuJwbJd3QGCFX0AJMSNnf3j+dy6tPsi/gzmWUuibjqFC7mvOVv32nU1CixLRV8t+Eo7Nz37/5+fPIMzkQmSpSdvMyfigL9jYz8ue3ZFeTRTLyradJJTA7A8tUIFwR+j/0hJuW/ahxppj7Sade70jDq+gLkghbpELQRU4GE/+7E+AYeQ8dCIl7boJNASoGXXBnDogj8n1oKwEAhNttUJ+L2yR7u99j6KpQhYCBo9tW+C+piwYrULtG9/oWnwfQbAuzcUnJzHk6U19XQBI1hoOETHBn3/1Wzsaj3aldZEDU8sybUhzy9ZUt3Ux9v3GdaW+TGbblMHkhIJte9pJWS3iq5H6FUbnFw8nV61XoAYE574FcRD5ovn1/gi/AJuAWuTV5szHlFzRZEULdJXVmmayQ3nmdEU0yM/I=
   file: "${ARTIFACTS}"
   skip_cleanup: true
   on:
