@@ -161,6 +161,9 @@ int main(int argc, char *argv[])
         exit_condition.update(c);
     });
 
+    // Print some padding characters
+    std::cout << "\n\n";
+
     // loop while we have not reached the exit condition
     while (!exit_condition)
     {
