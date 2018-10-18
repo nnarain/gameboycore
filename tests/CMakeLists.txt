@@ -55,3 +55,5 @@ if(GTEST_FOUND)
 	add_custom_target(check COMMAND gameboy_tests)
 
 endif(GTEST_FOUND)
+
+add_subdirectory(test_runner)

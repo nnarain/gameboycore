@@ -1,0 +1,3 @@
+[submodule "tests/test_runner/test_roms"]
+	path = tests/test_runner/test_roms
+	url = https://github.com/nnarain/gb-test-roms.git
