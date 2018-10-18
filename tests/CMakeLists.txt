@@ -31,6 +31,7 @@ if(GTEST_FOUND)
 		test_entry.cpp
 		test_mmu.cpp
 		test_alu.cpp
+		test_gpu.cpp
 		test_load_instructions.cpp
 		test_arithmetic_instructions.cpp
 		test_inc_dec_instructions.cpp

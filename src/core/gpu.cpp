@@ -95,6 +95,9 @@ namespace gb
 						{
 							mode_ = Mode::VBLANK;
 							vblank_provider_.set();
+
+                            if (vblank_callback_)
+                                vblank_callback_();
 						}
 						else
 						{
@@ -145,6 +148,11 @@ namespace gb
 		{
 			render_scanline_ = callback;
 		}
+
+        void setVBlankCallback(VBlankCallback callback)
+        {
+            vblank_callback_ = callback;
+        }
 
 		void setDefaultPaletteColor(uint8_t r, uint8_t g, uint8_t b, int idx)
 		{
@@ -425,6 +433,7 @@ namespace gb
 		Palette palette_;
 
 		RenderScanlineCallback render_scanline_;
+        VBlankCallback vblank_callback_;
 
 		bool cgb_enabled_;
 
@@ -453,6 +462,11 @@ namespace gb
 	{
 		impl_->setRenderCallback(callback);
 	}
+
+    void GPU::setVBlankCallback(VBlankCallback callback)
+    {
+        impl_->setVBlankCallback(callback);
+    }
 
 	void GPU::setPaletteColor(uint8_t r, uint8_t g, uint8_t b, int idx)
 	{
