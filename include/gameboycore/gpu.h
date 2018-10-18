@@ -44,6 +44,11 @@ namespace gb
 		*/
 		typedef std::function<void(const Scanline&, int linenum)> RenderScanlineCallback;
 
+        /**
+            Callback function call by the GPU when VBlank is reached
+        */
+        typedef std::function<void()> VBlankCallback;
+
 	public:
 		GPU(MMU::Ptr& mmu);
 		GPU(const GPU&) = delete;
@@ -53,10 +58,16 @@ namespace gb
 			Update the GPU with elasped cycles. Used by the CPU
 		*/
 		void update(uint8_t cycles, bool ime);
+
 		/**
 			Set the host system callback
 		*/
 		void setRenderCallback(RenderScanlineCallback callback);
+
+        /**
+            Set the host system vblank callback
+        */
+        void setVBlankCallback(VBlankCallback callback);
 
 		/**
 			Set Default Palette Color
