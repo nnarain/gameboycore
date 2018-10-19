@@ -45,6 +45,11 @@ namespace gb
         void update(int steps = 1);
 
         /**
+            Run emulation for a single frame
+        */
+        void emulateFrame();
+
+        /**
             Load byte buffer into virtual memory
         */
         void loadROM(uint8_t* rom, uint32_t size);

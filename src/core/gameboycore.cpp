@@ -81,6 +81,24 @@ namespace gb
 		}
     }
 
+    void GameboyCore::emulateFrame()
+    {
+        auto& cpu = impl_->cpu;
+        auto& ly = impl_->mmu->get(memorymap::LY_REGISTER);
+
+        // Run to starting point of line=0
+        while (ly != 0)
+        {
+            cpu->step();
+        }
+        
+        // run for a frames worth of scanlines line=144
+        while (ly <= 143)
+        {
+            cpu->step();
+        }
+    }
+
     void GameboyCore::loadROM(uint8_t* rom, uint32_t size)
     {
 		impl_->loadROM(rom, size);
