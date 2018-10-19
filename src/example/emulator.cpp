@@ -16,7 +16,7 @@
 #include "version.h"
 
 using namespace gb;
-
+using namespace std::chrono_literals;
 
 static bool loadGB(GameboyCore& gameboy, const std::string& filename);
 static std::vector<uint8_t> loadFile(const std::string& file);
@@ -54,8 +54,10 @@ int main(int argc, char * argv[])
 
 			while (window1.isOpen())
 			{
-				core.update(512);
+                core.emulateFrame();
 				window1.update();
+
+                std::this_thread::sleep_for(16ms);
 			}
 		}
 		catch (std::runtime_error& e)
