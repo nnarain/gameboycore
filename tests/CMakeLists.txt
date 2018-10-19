@@ -58,3 +58,24 @@ if(GTEST_FOUND)
 endif(GTEST_FOUND)
 
 add_subdirectory(test_runner)
+
+find_package(benchmark CONFIG REQUIRED)
+
+if (benchmark_FOUND)
+	add_executable(gameboycore_benchmark
+		bench_frame.cpp
+	)
+	target_link_libraries(gameboycore_benchmark PRIVATE
+		benchmark::benchmark benchmark::benchmark_main
+		gameboycore-s
+	)
+
+	set_target_properties(gameboycore_benchmark PROPERTIES
+		COMPILE_FLAGS "-DGAMEBOYCORE_STATIC"
+	)
+
+	add_custom_target(bench
+		COMMAND gameboycore_benchmark
+		WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+	)
+endif(benchmark_FOUND)
