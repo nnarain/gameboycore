@@ -59,7 +59,7 @@ endif(GTEST_FOUND)
 
 add_subdirectory(test_runner)
 
-find_package(benchmark CONFIG REQUIRED)
+find_package(benchmark)
 
 if (benchmark_FOUND)
 	add_executable(gameboycore_benchmark
