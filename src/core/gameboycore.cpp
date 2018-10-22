@@ -116,6 +116,7 @@ namespace gb
 
 	void GameboyCore::setColorTheme(ColorTheme theme)
 	{
+		impl_->setColorTheme(theme);
 	}
 
 	CPU::Ptr& GameboyCore::getCPU()
