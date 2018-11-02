@@ -37,6 +37,7 @@ set(GAMEBOYCORE_API_HEADERS
 	include/gameboycore/link_cable.h
 	include/gameboycore/pixel.h
 	include/gameboycore/sprite.h
+	include/gameboycore/memorymap.h
 )
 
 set(GAMEBOYCORE_HEADERS
