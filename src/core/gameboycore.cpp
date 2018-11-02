@@ -119,6 +119,16 @@ namespace gb
 		impl_->setColorTheme(theme);
 	}
 
+	uint8_t GameboyCore::readMemory(uint16_t addr)
+	{
+		return impl_->mmu->read(addr);
+	}
+
+	void GameboyCore::writeMemory(uint16_t addr, uint8_t value)
+	{
+		impl_->mmu->write(value, addr);
+	}
+
 	CPU::Ptr& GameboyCore::getCPU()
 	{
 		return impl_->cpu;
