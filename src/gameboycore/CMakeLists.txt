@@ -1,7 +1,9 @@
 option(BUILD_TESTS "Build tests" ON)
 
 
-# test endianness of system
+###########################################################################################
+### GameboyCore                                                                         ###
+###########################################################################################
 include(TestBigEndian)
 
 test_big_endian(IS_BIG_ENDIAN)
@@ -117,6 +119,18 @@ add_library(${PROJECT_NAME}-s STATIC
 set_target_properties(${PROJECT_NAME}-s PROPERTIES
     COMPILE_FLAGS "-DGAMEBOYCORE_STATIC"
 )
+
+################################################################################
+### Tests                                                                    ###
+################################################################################
+
+if (BUILD_TESTS)
+    add_subdirectory(tests)
+endif(BUILD_TESTS)
+
+################################################################################
+### Installation                                                             ###
+################################################################################
 
 install(
     TARGETS ${PROJECT_NAME} ${PROJECT_NAME}-s
