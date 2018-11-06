@@ -11,7 +11,7 @@ target_include_directories(test_runner PRIVATE
 )
 
 target_link_libraries(test_runner
-    gameboycore-s
+    gameboycore
 )
 
 # Add a custom target to run test ROMs

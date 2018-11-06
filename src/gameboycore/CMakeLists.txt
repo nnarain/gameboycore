@@ -1,22 +1,19 @@
 option(BUILD_TESTS "Build tests" ON)
 
 
-###########################################################################################
-### GameboyCore                                                                         ###
-###########################################################################################
+########################################################################################################################
+### GameboyCore                                                                                                      ###
+########################################################################################################################
 include(TestBigEndian)
 
 test_big_endian(IS_BIG_ENDIAN)
 
 if(IS_BIG_ENDIAN)
-    message("-- Setting __BIGENDIAN__")
     set(ENDIAN "__BIGENDIAN__")
 else(IS_BIG_ENDIAN)
-    message("-- Setting __LITTLEENDIAN__")
     set(ENDIAN "__LITTLEENDIAN__")
 endif(IS_BIG_ENDIAN)
 
-# Core sources for Gameboy emulation
 set(GAMEBOYCORE_API_HEADERS
     include/gameboycore/gameboycore_api.h
     include/gameboycore/gameboycore.h
@@ -84,56 +81,42 @@ set(GAMEBOYCORE
     src/core/timer.cpp
 )
 
-# compiler specific flags
+# Gameboy Core Library
+add_library(gameboycore
+    ${GAMEBOYCORE}
+    ${GAMEBOYCORE_HEADERS}
+)
+add_library(gameboycore::gameboycore ALIAS gameboycore)
+
+target_compile_features(gameboycore PUBLIC cxx_std_11)
+
+# TODO: Move detail headers elsewhere?
+target_include_directories(gameboycore PUBLIC
+    include/
+)
+
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -Wno-format-security")
+    target_compile_options(gameboycore PRIVATE -Wall -Werror -Wno-format-security)
 elseif(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -D_CRT_SECURE_NO_WARNINGS")
+    target_compile_options(gameboycore PRIVATE /W3 /WX)
 endif()
 
-include(version-config)
-generate_version_info()
+target_compile_definitions(gameboycore PRIVATE GAMEBOYCORE_STATIC=1 ${ENDIAN}=1 _CRT_SECURE_NO_WARNINGS=1)
 
-include_directories(
-    include/
-    ${CMAKE_BINARY_DIR}
-)
-
-add_definitions(
-    -D${ENDIAN}
-)
-
-# Gameboy Core Library
-add_library(${PROJECT_NAME} SHARED
-    ${GAMEBOYCORE}
-    ${GAMEBOYCORE_HEADERS}
-)
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    COMPILE_FLAGS "-DGAMEBOYCORE_EXPORT"
-)
-
-add_library(${PROJECT_NAME}-s STATIC
-    ${GAMEBOYCORE}
-    ${GAMEBOYCORE_HEADERS}
-)
-set_target_properties(${PROJECT_NAME}-s PROPERTIES
-    COMPILE_FLAGS "-DGAMEBOYCORE_STATIC"
-)
-
-################################################################################
-### Tests                                                                    ###
-################################################################################
+########################################################################################################################
+### Tests                                                                                                            ###
+########################################################################################################################
 
 if (BUILD_TESTS)
     add_subdirectory(tests)
 endif(BUILD_TESTS)
 
-################################################################################
-### Installation                                                             ###
-################################################################################
+########################################################################################################################
+### Installation                                                                                                     ###
+########################################################################################################################
 
 install(
-    TARGETS ${PROJECT_NAME} ${PROJECT_NAME}-s
+    TARGETS gameboycore
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin

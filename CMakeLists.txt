@@ -4,7 +4,7 @@
 # @author Natesh Narain <nnaraindev@gmail.com>
 #
 
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.1)
 
 project(gameboycore)
 

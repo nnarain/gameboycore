@@ -46,7 +46,7 @@ target_link_libraries(example
 	${OPENGL_gl_LIBRARY}
 )
 
-add_dependencies(example version)
+# add_dependencies(example version)
 
 # install targets
 install(
