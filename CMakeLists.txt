@@ -8,7 +8,6 @@ cmake_minimum_required(VERSION 3.1)
 
 project(gameboycore)
 
-option(BUILD_TOOLS "Build debug tooling" OFF)
 option(BUILD_DOCS "Build documentation" OFF)
 
 set(CMAKE_MODULE_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_SOURCE_DIR}/cmake/")

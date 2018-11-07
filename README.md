@@ -20,25 +20,46 @@ GameboyCore running as:
 
 The above application are somewhat incomplete however they all demonstrate GameboyCore working for the given environment.
 
-Examples
+Building
 --------
 
-The GameboyCore repo includes an [example project](https://github.com/nnarain/gameboycore/tree/master/src/example).
+Fetch source:
 
-Build
------
+```bash
+git clone https://github.com/nnarain/gameboycore
+git submodule update --init --recursive
+cd gameboycore
+```
 
-**Build Options**
+To build the library, simply run `cmake`.
 
-* `BUILD_DOCS`
-* `BUILD_EXAMPLE`
-* `BUILD_TESTS`
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~{.sh}
-cd path/to/project/
+```bash
 mkdir build && cd build
-cmake .. -DBUILD_EXAMPLE="<ON/OFF>"
-make
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+cmake ..
+cmake --build . --target gameboycore
+```
 
-Note: Building the example required SFML to be findable by CMake.
+**Building Tests**
+
+Install `gtest` and build with `BUILD_TESTS=ON`. Optionally you can setup benchmarks by installing `google-benchmark`.
+
+```bash
+cmake .. -DBUILD_TESTS=ON
+cmake --build . --target check
+cmake --build . --target bench
+```
+
+A few test ROMs can be run as well.
+
+```bash
+cmake --build . --target run_test_roms
+```
+
+Only the test ROMs that print to the serial port are run. Of course any test ROM can be run with the debugger tool.
+
+
+**Build Debugger**
+
+TODO
+
+
