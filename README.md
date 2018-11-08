@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/nnarain/gameboycore.svg?branch=develop)](https://travis-ci.org/nnarain/gameboycore)
 [![Build status](https://ci.appveyor.com/api/projects/status/jkrjhds3i67o5k76/branch/develop?svg=true)](https://ci.appveyor.com/project/nnarain/gameboycore/branch/develop)
-[![GitHub issues](https://img.shields.io/github/issues/nnarain/gameboycore.svg)](https://github.com/nnarain/gameboycore/issues)
 [![GitHub release](https://img.shields.io/github/release/nnarain/gameboycore.svg)](https://github.com/nnarain/gameboycore/releases)
 
 GameboyCore is a Gameboy/Gameboy Color emulator library written in C++.
@@ -27,8 +26,8 @@ Fetch source:
 
 ```bash
 git clone https://github.com/nnarain/gameboycore
-git submodule update --init --recursive
 cd gameboycore
+git submodule update --init --recursive
 ```
 
 To build the library, simply run `cmake`.

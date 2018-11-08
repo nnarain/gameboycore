@@ -67,7 +67,7 @@ if (benchmark_FOUND)
 	)
 	target_link_libraries(gameboycore_benchmark PRIVATE
 		benchmark::benchmark benchmark::benchmark_main
-		gameboycore-s
+		gameboycore
 	)
 
 	set_target_properties(gameboycore_benchmark PROPERTIES

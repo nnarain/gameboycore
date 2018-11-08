@@ -1,5 +1,6 @@
 find_package(OpenGL REQUIRED)
 find_package(SFML REQUIRED COMPONENTS system window graphics audio)
+find_package(cxxopts REQUIRED)
 
 set(GBDEBUGGER_HEADERS
 
@@ -25,6 +26,8 @@ target_link_libraries(gbdebugger
     imgui
     ${SFML_LIBRARIES}
     ${OPENGL_gl_LIBRARY}
+
+    cxxopts::cxxopts
 )
 
 target_compile_features(gbdebugger PUBLIC cxx_std_17)
@@ -32,5 +35,5 @@ target_compile_features(gbdebugger PUBLIC cxx_std_17)
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     target_compile_options(gbdebugger PRIVATE -Wall -Werror)
 elseif(MSVC)
-    target_compile_options(gbdebugger PRIVATE /W3 /WX)
+    target_compile_options(gbdebugger PRIVATE /W3)
 endif()

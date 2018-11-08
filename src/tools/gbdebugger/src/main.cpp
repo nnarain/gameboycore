@@ -5,45 +5,29 @@
  * 
 */
 
-#include "imgui.h"
-#include "imgui-SFML.h"
+#include <cxxopts.hpp>
+#include <string>
+#include <iostream>
 
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/System/Clock.hpp>
-#include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
-
-int main()
+int main(int argc, char const *argv[])
 {
-    sf::RenderWindow window(sf::VideoMode(640, 480), "ImGui + SFML = <3");
-    window.setFramerateLimit(60);
-    ImGui::SFML::Init(window);
+    cxxopts::Options options("GameboyCore Debugger", "Run and Debug Gameboy ROMs");
+    options.add_options()
+        ("f,file", "ROM file to run", cxxopts::value<std::string>());
 
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    std::string rom_file{};
 
-    sf::Clock deltaClock;
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            ImGui::SFML::ProcessEvent(event);
+    try
+    {
+        auto args = options.parse(argc, argv);
 
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-        }
-
-        ImGui::SFML::Update(window, deltaClock.restart());
-
-        ImGui::Begin("Hello, world!");
-        ImGui::Button("Look at this pretty button");
-        ImGui::End();
-
-        window.clear();
-        window.draw(shape);
-        ImGui::SFML::Render(window);
-        window.display();
+        rom_file = args["file"].as<std::string>();
+    }
+    catch (const cxxopts::OptionException& e)
+    {
+        std::cerr << e.what() << "\n";
+        return 1;
     }
 
-    ImGui::SFML::Shutdown();
+    return 0;
 }
