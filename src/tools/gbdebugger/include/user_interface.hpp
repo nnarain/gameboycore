@@ -9,6 +9,9 @@
 
 #include <gameboycore/gameboycore.h>
 
+#include <functional>
+#include <map>
+
 class UserInterface
 {
 public:
@@ -25,12 +28,19 @@ public:
     void vblankCallback();
 
 private:
+    void handleKeyPress(sf::Keyboard::Key key);
+    void handleKeyRelease(sf::Keyboard::Key key);
+
     sf::RenderWindow window_;
     sf::Clock delta_clock_;
 
     sf::RectangleShape screen_rect_;
     sf::Texture screen_texture_;
     Framebuffer<160, 144, 4> framebuffer_;
+
+    std::map<sf::Keyboard::Key, gb::Joy::Key> key_map_;
+    std::function<void(gb::Joy::Key)> key_press_;
+    std::function<void(gb::Joy::Key)> key_release_;
 };
 
 #endif

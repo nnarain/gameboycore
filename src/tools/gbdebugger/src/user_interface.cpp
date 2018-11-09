@@ -4,9 +4,11 @@
 
 #include <functional>
 
+
 UserInterface::UserInterface()
     : window_{ sf::VideoMode{800, 600}, "GameboyCore Debugger" }
     , screen_rect_{ {800, 600} }
+    , key_map_{}
 {
     ImGui::SFML::Init(window_);
 
@@ -16,6 +18,16 @@ UserInterface::UserInterface()
     }
 
     screen_rect_.setTexture(&screen_texture_);
+
+    // key mapping
+    key_map_.insert({ sf::Keyboard::Key::W, gb::Joy::Key::UP });
+    key_map_.insert({ sf::Keyboard::Key::S, gb::Joy::Key::DOWN });
+    key_map_.insert({ sf::Keyboard::Key::A, gb::Joy::Key::LEFT });
+    key_map_.insert({ sf::Keyboard::Key::D, gb::Joy::Key::RIGHT });
+    key_map_.insert({ sf::Keyboard::Key::J, gb::Joy::Key::A });
+    key_map_.insert({ sf::Keyboard::Key::K, gb::Joy::Key::B });
+    key_map_.insert({ sf::Keyboard::Key::Return, gb::Joy::Key::START });
+    key_map_.insert({ sf::Keyboard::Key::LShift, gb::Joy::Key::SELECT });
 }
 
 UserInterface::~UserInterface()
@@ -27,6 +39,9 @@ void UserInterface::initialize(gb::GameboyCore& core)
 {
     core.getGPU()->setRenderCallback(std::bind(&UserInterface::scanlineCallback, this, std::placeholders::_1, std::placeholders::_2));
     core.getGPU()->setVBlankCallback(std::bind(&UserInterface::vblankCallback, this));
+
+    key_press_ = std::bind(&gb::Joy::press, core.getJoypad().get(), std::placeholders::_1);
+    key_release_ = std::bind(&gb::Joy::release, core.getJoypad().get(), std::placeholders::_1);
 }
 
 void UserInterface::update()
@@ -44,6 +59,12 @@ void UserInterface::update()
             // adjust view port
             window_.setView(sf::View(sf::FloatRect(0, 0, (float)event.size.width, (float)event.size.height)));
             break;
+        case sf::Event::KeyPressed:
+            handleKeyPress(event.key.code);
+            break;
+        case sf::Event::KeyReleased:
+            handleKeyRelease(event.key.code);
+            break;
         default:
             break;
         }
@@ -60,6 +81,22 @@ void UserInterface::update()
     window_.display();
 }
 
+
+void UserInterface::handleKeyPress(sf::Keyboard::Key key)
+{
+    if (key_map_.find(key) != key_map_.end())
+    {
+        key_press_(key_map_[key]);
+    }
+}
+
+void UserInterface::handleKeyRelease(sf::Keyboard::Key key)
+{
+    if (key_map_.find(key) != key_map_.end())
+    {
+        key_release_(key_map_[key]);
+    }
+}
 
 void UserInterface::scanlineCallback(const gb::GPU::Scanline& scanline, int line)
 {
