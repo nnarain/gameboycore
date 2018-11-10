@@ -61,7 +61,7 @@ Only the test ROMs that print to the serial port are run. Of course any test ROM
 
 **Building Tools**
 
-Enable building tools by specifing `BUILD_TOOLS=ON`. If building tools is enabled, all will be built by default. Disable building tools with `WITH_<tool name>=OFF`.
+Enable building tools by specifying `BUILD_TOOLS=ON`. If building tools is enabled, all will be built by default. Disable building tools with `WITH_<tool name>=OFF`.
 
 All tools are compiled with the latest C++ standard.
 
