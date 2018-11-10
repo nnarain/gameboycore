@@ -98,7 +98,7 @@ target_include_directories(gameboycore PUBLIC
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     target_compile_options(gameboycore PRIVATE -Wall -Wno-format-security)
 elseif(MSVC)
-    target_compile_options(gameboycore PRIVATE /W3 /WX)
+    target_compile_options(gameboycore PRIVATE /W3)
 endif()
 
 target_compile_definitions(gameboycore PRIVATE GAMEBOYCORE_STATIC=1 ${ENDIAN}=1 _CRT_SECURE_NO_WARNINGS=1)
