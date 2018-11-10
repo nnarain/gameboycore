@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/nnarain/gameboycore.svg?branch=develop)](https://travis-ci.org/nnarain/gameboycore)
 [![Build status](https://ci.appveyor.com/api/projects/status/jkrjhds3i67o5k76/branch/develop?svg=true)](https://ci.appveyor.com/project/nnarain/gameboycore/branch/develop)
-[![GitHub issues](https://img.shields.io/github/issues/nnarain/gameboycore.svg)](https://github.com/nnarain/gameboycore/issues)
+[![codecov](https://codecov.io/gh/nnarain/gameboycore/branch/master/graph/badge.svg)](https://codecov.io/gh/nnarain/gameboycore)
 [![GitHub release](https://img.shields.io/github/release/nnarain/gameboycore.svg)](https://github.com/nnarain/gameboycore/releases)
 
 GameboyCore is a Gameboy/Gameboy Color emulator library written in C++.
@@ -20,25 +20,59 @@ GameboyCore running as:
 
 The above application are somewhat incomplete however they all demonstrate GameboyCore working for the given environment.
 
-Examples
+Building
 --------
 
-The GameboyCore repo includes an [example project](https://github.com/nnarain/gameboycore/tree/master/src/example).
+The `GameboyCore` library does not have any dependencies and can be compiled using any C++11 compiler. The tools contained in this repo, however, do have additional dependencies that need to be installed. All dependencies should be findable by CMake.
 
-Build
------
+Fetch source:
 
-**Build Options**
+```bash
+git clone https://github.com/nnarain/gameboycore
+cd gameboycore
+git submodule update --init --recursive
+```
 
-* `BUILD_DOCS`
-* `BUILD_EXAMPLE`
-* `BUILD_TESTS`
+To build the library, simply run `cmake`.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~{.sh}
-cd path/to/project/
+```bash
 mkdir build && cd build
-cmake .. -DBUILD_EXAMPLE="<ON/OFF>"
-make
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+cmake ..
+cmake --build . --target gameboycore
+```
 
-Note: Building the example required SFML to be findable by CMake.
+**Building Tests**
+
+Install `gtest` and build with `BUILD_TESTS=ON`. Optionally you can setup benchmarks by installing `google-benchmark`.
+
+```bash
+cmake .. -DBUILD_TESTS=ON
+cmake --build . --target check
+cmake --build . --target bench
+```
+
+A few test ROMs can be run as well.
+
+```bash
+cmake --build . --target run_test_roms
+```
+
+Only the test ROMs that print to the serial port are run. Of course any test ROM can be run with the debugger tool.
+
+
+**Building Tools**
+
+Enable building tools by specifying `BUILD_TOOLS=ON`. If building tools is enabled, all will be built by default. Disable building tools with `WITH_<tool name>=OFF`.
+
+All tools are compiled with the latest C++ standard.
+
+Debugger:
+
+* Used for running Gameboy ROMs and inspecting the core
+* Depends on SFML
+
+RomInfo
+
+* Used for printing the information in the ROM header
+
+
