@@ -1,4 +1,5 @@
 option(BUILD_TESTS "Build tests" ON)
+option(WITH_COVERAGE "Build with coverage info" OFF)
 
 
 ########################################################################################################################
@@ -108,6 +109,12 @@ target_compile_definitions(gameboycore PRIVATE GAMEBOYCORE_STATIC=1 ${ENDIAN}=1 
 ########################################################################################################################
 
 if (BUILD_TESTS)
+    # Setup coverage reporting
+    if (WITH_COVERAGE)
+        target_link_libraries(gameboycore gcov)
+        target_compile_options(gameboycore PRIVATE -fprofile-arcs -ftest-coverage)
+    endif()
+
     add_subdirectory(tests)
 endif(BUILD_TESTS)
 

@@ -7,6 +7,11 @@ os:
 compiler:
 - g++
 
+addons:
+  apt:
+    packages:
+      - lcov
+
 before_install:
 - git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
 - cd ~/scripts/ && ./bootstrap && cd -
@@ -19,8 +24,9 @@ install:
 
 script:
 - mkdir build && cd build
-- cmake .. -DBUILD_EXAMPLE="OFF" -DBUILD_DOCS="ON" -DCMAKE_BUILD_TYPE=Release
-- make && make check
+- cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DWITH_COVERAGE=ON -DBUILD_DOCS="ON"
+- make
+- make check
 - make run_test_roms
 - cd ..
 
@@ -29,6 +35,9 @@ after_success:
 - cd build
 - make package
 - export ARTIFACTS=$(ls -d1 $PWD/*.tar.gz)
+
+- ../scripts/coverage
+- bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
 
 deploy:
   provider: releases
