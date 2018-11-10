@@ -32,6 +32,7 @@ UserInterface::UserInterface()
 
 UserInterface::~UserInterface()
 {
+    audio_stream_.stop();
     ImGui::SFML::Shutdown();
 }
 
@@ -39,6 +40,9 @@ void UserInterface::initialize(gb::GameboyCore& core)
 {
     core.getGPU()->setRenderCallback(std::bind(&UserInterface::scanlineCallback, this, std::placeholders::_1, std::placeholders::_2));
     core.getGPU()->setVBlankCallback(std::bind(&UserInterface::vblankCallback, this));
+
+    audio_stream_.initialize(core);
+    audio_stream_.start();
 
     key_press_ = std::bind(&gb::Joy::press, core.getJoypad().get(), std::placeholders::_1);
     key_release_ = std::bind(&gb::Joy::release, core.getJoypad().get(), std::placeholders::_1);

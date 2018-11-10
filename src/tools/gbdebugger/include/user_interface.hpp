@@ -1,6 +1,7 @@
 #ifndef USER_INTERFACE_H
 #define USER_INTERFACE_H
 
+#include "audio_stream.hpp"
 #include "frame_buffer.hpp"
 
 #include <SFML/Window.hpp>
@@ -37,6 +38,8 @@ private:
     sf::RectangleShape screen_rect_;
     sf::Texture screen_texture_;
     Framebuffer<160, 144, 4> framebuffer_;
+
+    AudioStream audio_stream_;
 
     std::map<sf::Keyboard::Key, gb::Joy::Key> key_map_;
     std::function<void(gb::Joy::Key)> key_press_;

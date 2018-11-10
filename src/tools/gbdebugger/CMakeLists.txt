@@ -6,12 +6,14 @@ set(GBDEBUGGER_HEADERS
     include/gameboycore_debugger.hpp
     include/user_interface.hpp
     include/frame_buffer.hpp
+    include/audio_stream.hpp
 )
 
 set(GBDEBUGGER_SOURCES
     src/main.cpp
     src/gameboycore_debugger.cpp
     src/user_interface.cpp
+    src/audio_stream.cpp
 )
 
 add_subdirectory(src/external)
