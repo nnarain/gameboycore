@@ -20,7 +20,8 @@ if(GTEST_FOUND)
         target_link_libraries(${name} gameboycore ${GTEST_BOTH_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
         if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-            target_compile_options(${name} PRIVATE -fprofile-arcs -ftest-coverage gcov)
+            target_link_libraries(${name} gcov)
+            target_compile_options(${name} PRIVATE -fprofile-arcs -ftest-coverage)
         endif()
 
         add_test(${name} ${name})
