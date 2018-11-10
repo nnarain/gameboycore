@@ -38,14 +38,13 @@ UserInterface::~UserInterface()
 
 void UserInterface::initialize(gb::GameboyCore& core)
 {
-    core.getGPU()->setRenderCallback(std::bind(&UserInterface::scanlineCallback, this, std::placeholders::_1, std::placeholders::_2));
-    core.getGPU()->setVBlankCallback(std::bind(&UserInterface::vblankCallback, this));
+    core.setScanlineCallback(std::bind(&UserInterface::scanlineCallback, this, std::placeholders::_1, std::placeholders::_2));
+    core.setVBlankCallback(std::bind(&UserInterface::vblankCallback, this));
 
     audio_stream_.initialize(core);
     audio_stream_.start();
 
-    key_press_ = std::bind(&gb::Joy::press, core.getJoypad().get(), std::placeholders::_1);
-    key_release_ = std::bind(&gb::Joy::release, core.getJoypad().get(), std::placeholders::_1);
+    key_event_ = std::bind(&gb::GameboyCore::input, &core, std::placeholders::_1, std::placeholders::_2);
 }
 
 void UserInterface::update()
@@ -64,10 +63,10 @@ void UserInterface::update()
             window_.setView(sf::View(sf::FloatRect(0, 0, (float)event.size.width, (float)event.size.height)));
             break;
         case sf::Event::KeyPressed:
-            handleKeyPress(event.key.code);
+            handleKeyEvent(event.key.code, true);
             break;
         case sf::Event::KeyReleased:
-            handleKeyRelease(event.key.code);
+            handleKeyEvent(event.key.code, false);
             break;
         default:
             break;
@@ -86,19 +85,11 @@ void UserInterface::update()
 }
 
 
-void UserInterface::handleKeyPress(sf::Keyboard::Key key)
+void UserInterface::handleKeyEvent(sf::Keyboard::Key key, bool pressed)
 {
     if (key_map_.find(key) != key_map_.end())
     {
-        key_press_(key_map_[key]);
-    }
-}
-
-void UserInterface::handleKeyRelease(sf::Keyboard::Key key)
-{
-    if (key_map_.find(key) != key_map_.end())
-    {
-        key_release_(key_map_[key]);
+        key_event_(key_map_[key], pressed);
     }
 }
 
