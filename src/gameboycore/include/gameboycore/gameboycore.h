@@ -28,19 +28,19 @@ namespace gb
     class GAMEBOYCORE_API GameboyCore
     {
     public:
-		enum class ColorTheme
-		{
-			DEFAULT,
-			GOLD,
-			GREEN
-		};
+        enum class ColorTheme
+        {
+            DEFAULT,
+            GOLD,
+            GREEN
+        };
 
-		GameboyCore();
-		GameboyCore(const GameboyCore&) = delete;
-		~GameboyCore();
+        GameboyCore();
+        GameboyCore(const GameboyCore&) = delete;
+        ~GameboyCore();
 
         /**
-        	runs `steps` number of steps on the gameboycore
+            runs `steps` number of steps on the gameboycore
         */
         void update(int steps = 1);
 
@@ -57,14 +57,17 @@ namespace gb
         /**
             Reset the GameboyCore state
         */
-		void reset();
+        void reset();
 
-		void setDebugMode(bool debug);
+        /**
+            Enable debug output
+        */
+        void setDebugMode(bool debug);
 
-		/**
-			Set Color theme
-		*/
-		void setColorTheme(ColorTheme theme);
+        /**
+            Set Color theme
+        */
+        void setColorTheme(ColorTheme theme);
 
         /**
          * Read memory
@@ -75,20 +78,40 @@ namespace gb
          * Write memory
         */
         void writeMemory(uint16_t addr, uint8_t value);
-		
+        
+        /**
+            Set scanline callback
+        */
+        void setScanlineCallback(GPU::RenderScanlineCallback callback);
 
-		CPU::Ptr& getCPU();
-		MMU::Ptr& getMMU();
-		GPU::Ptr& getGPU();
-		APU::Ptr& getAPU();
-		Joy::Ptr& getJoypad();
-		Link::Ptr& getLink();
+        /**
+            Set VBlank callback
+        */
+        void setVBlankCallback(GPU::VBlankCallback callback);
 
-		bool isDone() const;
+        /**
+            Set audio sample callback
+        */
+        void setAudioSampleCallback(APU::AudioSampleCallback callback);
+        
+        /**
+            Joypad key input event
+        */
+        void input(Joy::Key key, bool pressed);
+        
 
-	private:
-		class Impl;
-		Impl* impl_;
+        CPU::Ptr& getCPU();
+        MMU::Ptr& getMMU();
+        GPU::Ptr& getGPU();
+        APU::Ptr& getAPU();
+        Joy::Ptr& getJoypad();
+        Link::Ptr& getLink();
+
+        bool isDone() const;
+
+    private:
+        class Impl;
+        Impl* impl_;
     };
 }
 
