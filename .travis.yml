@@ -7,6 +7,11 @@ os:
 compiler:
 - g++
 
+addons:
+  apt:
+    packages:
+      - lcov
+
 before_install:
 - git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
 - cd ~/scripts/ && ./bootstrap && cd -
@@ -29,6 +34,11 @@ after_success:
 - cd build
 - make package
 - export ARTIFACTS=$(ls -d1 $PWD/*.tar.gz)
+
+- lcov --directory . --capture --output-file coverage.info
+- lcov --remove coverage.info '/usr/*' --output-file coverage.info
+- lcov --list coverage.info
+- bash < (curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
 
 deploy:
   provider: releases
