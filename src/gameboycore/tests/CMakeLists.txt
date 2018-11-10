@@ -8,13 +8,19 @@ endif(UNIX)
 if(GTEST_FOUND)
     message("-- adding tests")
 
+    # Setup coverage reporting
+    if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+        include(CodeCoverage)
+        setup_target_for_coverage(${PROJECT_NAME}_coverage gameboy_tests coverage)
+    endif()
+
     macro(add_gtest name)
         add_executable(${name} ${ARGN})
         target_compile_definitions(${name} PRIVATE GAMEBOYCORE_STATIC=1)
         target_link_libraries(${name} gameboycore ${GTEST_BOTH_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
         if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-            target_compile_options(${name} PRIVATE -fprofile-arcs -ftest-coverage)
+            target_compile_options(${name} PRIVATE -fprofile-arcs -ftest-coverage gcov)
         endif()
 
         add_test(${name} ${name})
@@ -58,12 +64,6 @@ if(GTEST_FOUND)
 
     # make check target to run gtests manually
     add_custom_target(check COMMAND gameboy_tests)
-
-    # Setup coverage reporting
-    if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-        include(CodeCoverage)
-        setup_target_for_coverage(${PROJECT_NAME}_coverage gameboy_tests coverage)
-    endif()
 
 endif(GTEST_FOUND)
 
