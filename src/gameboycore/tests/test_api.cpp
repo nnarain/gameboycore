@@ -81,9 +81,21 @@ TEST(API, SpriteAttributes)
 
     CodeGenerator code;
     code.block(
-        0x3E, 0x82,      // LD A, $02 -> LCDC enable | sprites enabled
+        0x3E, 0x82,      // LD A, $82    ; LCDC enable | sprites enabled
         0xE0, 0x40,      // LDH ($40), A
-        0xC3, 0x54, 0x01 // JP $0154
+        0x3E, 0x20,      // LD A, $20    ; For DMA, from $2000
+        0xE0, 0x46,      // LDH ($46), A
+        0xC3, 0x58, 0x01 // JP $0158     ; Loop
+    );
+
+    // sprite data
+    code.address(0x2000);
+    code.block(
+        0x08, 0x08, 0x01, 0x20, // horizontal flip
+        0x00, 0x00, 0x02, 0x40, // vertical flip
+        0x00, 0x00, 0x03, 0x80, // display priority
+        0x00, 0x00, 0x00, 0x07, // CGB palette 7
+        0x00, 0x00, 0x00, 0x10  // DMG palette
     );
 
     // initialize the core
@@ -91,32 +103,6 @@ TEST(API, SpriteAttributes)
 
     auto rom = code.rom();
     core.loadROM(&rom[0], rom.size());
-
-    // write sprites into memory
-    core.writeMemory(memorymap::OAM_START + 0, 8);
-    core.writeMemory(memorymap::OAM_START + 1, 8);
-    core.writeMemory(memorymap::OAM_START + 2, 1);
-    core.writeMemory(memorymap::OAM_START + 3, 0x20); // horizontal flip
-
-    core.writeMemory(memorymap::OAM_START + 4, 0);
-    core.writeMemory(memorymap::OAM_START + 5, 0);
-    core.writeMemory(memorymap::OAM_START + 6, 2);
-    core.writeMemory(memorymap::OAM_START + 7, 0x40); // vertical flip
-
-    core.writeMemory(memorymap::OAM_START + 8, 0);
-    core.writeMemory(memorymap::OAM_START + 9, 0);
-    core.writeMemory(memorymap::OAM_START + 10, 3);
-    core.writeMemory(memorymap::OAM_START + 11, 0x80); // display priority
-
-    core.writeMemory(memorymap::OAM_START + 12, 0);
-    core.writeMemory(memorymap::OAM_START + 13, 0);
-    core.writeMemory(memorymap::OAM_START + 14, 0);
-    core.writeMemory(memorymap::OAM_START + 15, 0x07); // CGB palette 7
-
-    core.writeMemory(memorymap::OAM_START + 16, 0);
-    core.writeMemory(memorymap::OAM_START + 17, 0);
-    core.writeMemory(memorymap::OAM_START + 18, 0);
-    core.writeMemory(memorymap::OAM_START + 19, 0x10); // DMG palette
 
     // emulate a frame to populate sprite cache
     core.emulateFrame();
