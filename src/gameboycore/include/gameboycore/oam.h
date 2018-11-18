@@ -5,7 +5,7 @@
 #include "gameboycore/memorymap.h"
 #include "gameboycore/sprite.h"
 
-#include <vector>
+#include <array>
 
 namespace gb
 {
@@ -19,7 +19,7 @@ namespace gb
 		~OAM();
 
 		Sprite getSprite(uint8_t idx) const;
-		std::vector<Sprite> getSprites() const;
+		std::array<Sprite, 40> getSprites() const;
 
 	private:
 		MMU& mmu_;

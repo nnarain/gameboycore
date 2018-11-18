@@ -46,7 +46,7 @@ namespace gb
 
 			void drawSprites(std::array<Pixel, 160>& scanline, std::array<uint8_t, 160>& color_line, int line, bool cgb_enable, std::array<std::array<gb::Pixel,4>,8>& cgb_palette);
 
-			std::vector<Sprite> getSpriteCache() const;
+            std::array<Sprite, 40> getSpriteCache() const;
 			std::vector<uint8_t> getBackgroundTileMap();
 
 			std::size_t hashBackground();
@@ -62,7 +62,7 @@ namespace gb
 			uint8_t& scy_;
 			Palette& palette_;
 
-			std::vector<gb::Sprite> sprite_cache_;
+			std::array<Sprite, 40> sprite_cache_;
 		};
 	}
 }

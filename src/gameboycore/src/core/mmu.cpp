@@ -29,6 +29,8 @@ namespace gb
 	{
 	public:
 		Impl(uint8_t* rom, uint32_t size)
+            : oam_updated_{false}
+            , cgb_enabled_{false}
 		{
 			load(rom, size);
 		}

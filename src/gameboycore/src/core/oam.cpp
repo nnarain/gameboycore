@@ -25,18 +25,18 @@ namespace gb
 		return sprite;
 	}
 
-	std::vector<Sprite> OAM::getSprites() const
+    std::array<Sprite, 40> OAM::getSprites() const
 	{
 		// check if sprites are 8x16 or 8x8
 		auto lcdc = mmu_.read(memorymap::LCDC_REGISTER);
 		const bool mode_8x16 = IS_SET(lcdc, memorymap::LCDC::OBJ_8x16) != 0;
 
-		std::vector<Sprite> sprites;
+        std::array<Sprite, 40> sprites;
 
-		const auto num_sprites = 40;
-		for (auto i = 0; i < num_sprites; ++i)
+		for (auto i = 0u; i < sprites.size(); ++i)
 		{
-			auto sprite = getSprite(i);
+            auto& sprite = sprites[i];
+			sprite = getSprite(i);
 			
 			if (mode_8x16)
 			{
@@ -46,8 +46,6 @@ namespace gb
 			{
 				sprite.height = 8;
 			}
-
-			sprites.push_back(sprite);
 		}
 
 		return sprites;

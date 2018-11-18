@@ -164,7 +164,7 @@ namespace gb
 			return tilemap_.getBackgroundTileMap();
 		}
 
-		std::vector<Sprite> getSpriteCache() const
+        std::array<Sprite, 40> getSpriteCache() const
 		{
 			return tilemap_.getSpriteCache();
 		}
@@ -478,7 +478,7 @@ namespace gb
 		return impl_->getBackgroundTileMap();
 	}
 
-	std::vector<Sprite> GPU::getSpriteCache() const
+    std::array<Sprite, 40> GPU::getSpriteCache() const
 	{
 		return impl_->getSpriteCache();
 	}
