@@ -28,35 +28,36 @@ namespace gb
             , x{0}
             , tile{0}
             , attr{0}
+            , height{0}
         {
         }
 
-        constexpr bool isHorizontallyFlipped() const
+        bool isHorizontallyFlipped() const
         {
             return (attr & (1 << 5)) != 0;
         }
 
-        constexpr bool isVerticallyFlipped() const
+        bool isVerticallyFlipped() const
         {
             return (attr & (1 << 6)) != 0;
         }
 
-        constexpr bool hasPriority() const
+        bool hasPriority() const
         {
             return (attr & (1 << 7)) == 0;
         }
 
-        constexpr uint8_t paletteOBP0() const
+        uint8_t paletteOBP0() const
         {
             return !!(attr & (1 << 4));
         }
 
-        constexpr uint8_t getCgbPalette() const
+        uint8_t getCgbPalette() const
         {
             return (attr & 0x07);
         }
 
-        constexpr uint8_t getCharacterBank() const
+        uint8_t getCharacterBank() const
         {
             return !!(attr & (1 << 3));
         }
