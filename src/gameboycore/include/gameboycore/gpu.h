@@ -82,7 +82,7 @@ namespace gb
 		/**
 			\return currently cached tile data
 		*/
-		std::vector<Sprite> getSpriteCache() const;
+        std::array<Sprite, 40> getSpriteCache() const;
 
 		/**
 			\return Hashed background map
