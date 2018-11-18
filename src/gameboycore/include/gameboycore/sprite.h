@@ -55,7 +55,12 @@ namespace gb
 
 		bool operator==(const Sprite& rhs)
 		{
-			return this->y == y && this->x == x && this->tile == tile && this->attr == attr && this->height == height;
+			return
+        this->y == rhs.y &&
+        this->x == rhs.x &&
+        this->tile == rhs.tile &&
+        this->attr == rhs.attr &&
+        this->height == rhs.height;
 		}
 	};
 }
