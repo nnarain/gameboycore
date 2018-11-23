@@ -11,6 +11,7 @@ addons:
   apt:
     packages:
       - lcov
+      - cppcheck
 
 before_install:
 - git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
@@ -25,6 +26,7 @@ install:
 script:
 - mkdir build && cd build
 - cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DWITH_COVERAGE=ON -DBUILD_DOCS="ON"
+- cd .. && cppcheck -q --enable=all --inconclusive --force --suppressions-list=./config/cppcheck-suppress.txt src/gameboycore/ && cd -
 - make
 - make check
 - make run_test_roms
