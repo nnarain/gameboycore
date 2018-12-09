@@ -116,10 +116,10 @@ namespace gb
 
             if (!stopped_)
             {
-                gpu_->update(cpu_cycles, interrupt_master_enable_);
-                apu_->update(cpu_cycles);
-                link_->update(cpu_cycles);
-                timer_.update(instr_cycles);
+                gpu_->update((uint8_t)cpu_cycles, interrupt_master_enable_);
+                apu_->update((uint8_t)cpu_cycles);
+                link_->update((uint8_t)cpu_cycles);
+                timer_.update((uint8_t)instr_cycles);
             }
         }
 

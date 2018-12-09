@@ -76,7 +76,7 @@ namespace gb
             }
         }
 
-        void control(uint8_t value, uint16_t addr) noexcept
+        void control(uint8_t value, uint16_t) noexcept
         {
             control_ = (control_ & 0x80) | 0x02 | value;
 
@@ -85,12 +85,12 @@ namespace gb
             pending_recieve_ = false;
         }
 
-        void sendHandler(uint8_t value, uint16_t addr) noexcept
+        void sendHandler(uint8_t value, uint16_t) noexcept
         {
             byte_to_transfer_ = value;
         }
 
-        uint8_t recieveHandler(uint16_t addr) const noexcept
+        uint8_t recieveHandler(uint16_t) const noexcept
         {
             return byte_to_recieve_;
         }
@@ -125,6 +125,7 @@ namespace gb
         int getTransferRate(uint8_t sc)
         {
             // TODO: CGB speed modes
+            (void)sc;
             return 4194304 / 8192;
         }
 

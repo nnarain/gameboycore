@@ -35,7 +35,7 @@ namespace gb
 				sweep_shift_(0),
 				sweep_timer_(0),
 				frequency_shadow_(0),
-				sweep_enabled_(0),
+				sweep_enabled_(sweep),
 				duty_(0),
 				length_(0),
 				length_counter_(0),
@@ -142,7 +142,7 @@ namespace gb
 
 						if (newFreq <= 2047 && sweep_shift_ > 0)
 						{
-							frequency_shadow_ = newFreq;
+							frequency_shadow_ = (uint16_t)newFreq;
 							waveform_timer_load_ = newFreq;
 							sweepCalculation();
 						}

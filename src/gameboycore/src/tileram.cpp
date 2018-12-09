@@ -14,26 +14,6 @@ namespace gb
         {
         }
 
-        Tile TileRAM::getTile(uint8_t tilenum) const
-        {
-            uint16_t tile_addr = 0;
-            uint8_t* tile_ptr = mmu_.getptr(tile_addr);
-
-            Tile tile;
-            int row = 0;
-
-            for (auto i = 0u; i < TILE_SIZE; i += 2)
-            {
-                uint8_t lsb = tile_ptr[i + 0];
-                uint8_t msb = tile_ptr[i + 1];
-
-                setRow(tile, msb, lsb, row);
-                row++;
-            }
-
-            return tile;
-        }
-
         TileRAM::TileRow TileRAM::getRow(int row, uint8_t tilenum, bool umode, uint8_t character_bank)
         {
             TileRow tile_row;
@@ -43,7 +23,7 @@ namespace gb
                 ? getTileAddress<uint8_t>(0x8000, tilenum)
                 : getTileAddress<int8_t>(0x9000, tilenum);
 
-            auto row_offset = row * 2;
+            auto row_offset = uint16_t(row * 2);
             auto lsb = mmu_.readVram(addr + row_offset, character_bank);
             auto msb = mmu_.readVram(addr + row_offset + 1, character_bank);
 

@@ -31,7 +31,7 @@ namespace gb
             const auto start = getAddress(Map::BACKGROUND);
             const auto umode = (mmu_.read(memorymap::LCDC_REGISTER) & memorymap::LCDC::CHARACTER_DATA) != 0;
 
-            TileMap::Line tileline;
+            TileMap::Line tileline{};
 
             // scroll x
             const auto scx = mmu_.read(memorymap::SCX_REGISTER);
@@ -48,7 +48,7 @@ namespace gb
             for (auto tile_col = start_tile_col; tile_col < start_tile_col + 21; ++tile_col)
             {
                 // calculate tile address
-                const auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (tile_col % tiles_per_col);
+                const auto tile_offset = (uint16_t)(start + (tiles_per_row * (tile_row % tiles_per_row)) + (tile_col % tiles_per_col));
 
                 // read tile character code from map
                 const auto tilenum = mmu_.readVram(tile_offset, 0);
@@ -66,7 +66,7 @@ namespace gb
                     pixel_row = tile_height - pixel_row - 1;
 
                 // get the row of the tile the current scan line is on.
-                auto row = tileram_.getRow(pixel_row, tilenum, umode, character_bank);
+                auto row = tileram_.getRow(pixel_row, tilenum, umode, (uint8_t)character_bank);
 
                 // horizontally flip the row if the flag is set
                 if (flip_horizontal)
@@ -79,7 +79,7 @@ namespace gb
                 for (auto i = 0u; i < row.size(); ++i)
                 {
                     if (pixel_col >= scx && pixel_col <= scx + 160 && idx < 160)
-                        tileline[idx++] = row[i] | (palette_number << 2) | (backgroud_priority << 5);
+                        tileline[idx++] = (uint8_t)(row[i] | (palette_number << 2) | (backgroud_priority << 5));
 
                     pixel_col++;
                 }
@@ -107,7 +107,7 @@ namespace gb
             for (auto tile_col = 0; tile_col < 20; ++tile_col)
             {
                 auto tile_offset = start + ((tiles_per_row * tile_row) + tile_col);
-                auto tilenum = mmu_.read(tile_offset);
+                auto tilenum = mmu_.read((uint16_t)tile_offset);
 
                 const auto pixel_row = tileram_.getRow(line % tile_height, tilenum, umode);
 
@@ -270,7 +270,7 @@ namespace gb
                     // calculate tile address
                     const auto tile_offset = start + (tiles_per_row * (tile_row % tiles_per_row)) + (tile_col % tiles_per_col);
                     // read tile character code from map
-                    const auto tilenum = mmu_.readVram(tile_offset, 0);
+                    const auto tilenum = mmu_.readVram((uint16_t)tile_offset, 0);
 
                     fn(tilenum);
                 }

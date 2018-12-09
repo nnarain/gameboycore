@@ -36,7 +36,6 @@ namespace gb
             TileRAM(MMU& mmu);
             ~TileRAM();
 
-            Tile getTile(uint8_t tilenum) const;
             Tile getSpriteTile(const Sprite& sprite) const;
             std::vector<Tile> getTiles();
 
