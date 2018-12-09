@@ -5,10 +5,10 @@
 
 namespace gb
 {
-	struct Tile
-	{
-		uint8_t color[64];
-	};
+    struct Tile
+    {
+        uint8_t color[64];
+    };
 }
 
 #endif // GAMEBOYCORE_TILE_H
