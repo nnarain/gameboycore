@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Install google-test
+pushd .
+git clone --branch=release-1.8.1 --depth=1 https://github.com/google/googletest ~/gtest
+mkdir ~/gtest/build && cd ~/gtest/build
+cmake ..
+make && sudo make install
+popd
+
+# Install cppcheck
+pushd .
+git clone --branch=1.86 --depth=1 https://github.com/danmar/cppcheck ~/cppcheck
+mkdir ~/cppcheck/build && cd ~/cppcheck/build
+cmake .. && make && sudo make install
+popd
