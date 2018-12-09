@@ -1,6 +1,11 @@
 option(BUILD_TESTS "Build tests" ON)
 option(WITH_COVERAGE "Build with coverage info" OFF)
 
+########################################################################################################################
+### CMake Policy                                                                                                     ###
+########################################################################################################################
+cmake_policy(SET CMP0054 OLD)
+
 
 ########################################################################################################################
 ### GameboyCore                                                                                                      ###
@@ -54,32 +59,32 @@ set(GAMEBOYCORE_HEADERS
     include/gameboycore/cartinfo.h
     include/gameboycore/opcodeinfo.h
     include/gameboycore/opcode_cycles.h
-    src/core/bitutil.h
-    src/core/shiftrotate.h
+    src/bitutil.h
+    src/shiftrotate.h
 )
 
 set(GAMEBOYCORE
-    src/core/gameboycore.cpp
-    src/core/cpu.cpp
-    src/core/mmu.cpp
-    src/core/gpu.cpp
-    src/core/apu.cpp
-    src/core/joypad.cpp
-    src/core/link.cpp
-    src/core/link_cable.cpp
-    src/core/mbc.cpp
-    src/core/mbc1.cpp
-    src/core/mbc2.cpp
-    src/core/mbc3.cpp
-    src/core/mbc5.cpp
-    src/core/alu.cpp
-    src/core/cartinfo.cpp
-    src/core/shiftrotate.cpp
-    src/core/opcodeinfo.cpp
-    src/core/tileram.cpp
-    src/core/tilemap.cpp
-    src/core/oam.cpp
-    src/core/timer.cpp
+    src/gameboycore.cpp
+    src/cpu.cpp
+    src/mmu.cpp
+    src/gpu.cpp
+    src/apu.cpp
+    src/joypad.cpp
+    src/link.cpp
+    src/link_cable.cpp
+    src/mbc.cpp
+    src/mbc1.cpp
+    src/mbc2.cpp
+    src/mbc3.cpp
+    src/mbc5.cpp
+    src/alu.cpp
+    src/cartinfo.cpp
+    src/shiftrotate.cpp
+    src/opcodeinfo.cpp
+    src/tileram.cpp
+    src/tilemap.cpp
+    src/oam.cpp
+    src/timer.cpp
 )
 
 # Gameboy Core Library

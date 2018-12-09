@@ -23,92 +23,92 @@ namespace gb
     */
     class GAMEBOYCORE_API MMU
     {
-	public:
+    public:
         //! Smart pointer type
-		typedef std::unique_ptr<MMU> Ptr;
+        typedef std::unique_ptr<MMU> Ptr;
 
-		typedef std::function<void(uint8_t, uint16_t)> MemoryWriteHandler;
-		typedef std::function<uint8_t(uint16_t)>       MemoryReadHandler;
+        typedef std::function<void(uint8_t, uint16_t)> MemoryWriteHandler;
+        typedef std::function<uint8_t(uint16_t)>       MemoryReadHandler;
 
     public:
         MMU(uint8_t* rom, uint32_t size);
-		MMU(const MMU&) = delete;
+        MMU(const MMU&) = delete;
         ~MMU();
 
-		/**
-			@return the value of memory at the psecified location
-		*/
+        /**
+            @return the value of memory at the psecified location
+        */
         uint8_t read(uint16_t) const;
-		uint8_t read(uint16_t);
-		/**
-			Write a byte to the specified location
-		*/
+        uint8_t read(uint16_t);
+        /**
+            Write a byte to the specified location
+        */
         void write(uint8_t value, uint16_t addr);
-		/**
-			Write a word to the specified location
-		*/
-		void write(uint16_t value, uint16_t addr);
+        /**
+            Write a word to the specified location
+        */
+        void write(uint16_t value, uint16_t addr);
 
-		/**
-		*/
-		uint8_t readVram(uint16_t addr, uint8_t bank);
+        /**
+        */
+        uint8_t readVram(uint16_t addr, uint8_t bank);
 
-		/**
-			tranfer `n` bytes from `src` to `dest`
-		*/
-		void dma(uint16_t dest, uint16_t src, uint16_t n);
+        /**
+            tranfer `n` bytes from `src` to `dest`
+        */
+        void dma(uint16_t dest, uint16_t src, uint16_t n);
 
-		/**
-			Add a IO write handler
+        /**
+            Add a IO write handler
 
-			\param addr IO address
-			\handler the handler
-		*/
-		void addWriteHandler(uint16_t addr, MemoryWriteHandler handler);
+            \param addr IO address
+            \handler the handler
+        */
+        void addWriteHandler(uint16_t addr, MemoryWriteHandler handler);
 
-		/**
-			Add an IO read handler
+        /**
+            Add an IO read handler
 
-			\param addr IO address
-			\param handler the handler
-		*/
-		void addReadHandler(uint16_t addr, MemoryReadHandler handler);
+            \param addr IO address
+            \param handler the handler
+        */
+        void addReadHandler(uint16_t addr, MemoryReadHandler handler);
 
-		/**
-			\return Battery RAM
-		*/
-		std::vector<uint8_t> getBatteryRam() const;
+        /**
+            \return Battery RAM
+        */
+        std::vector<uint8_t> getBatteryRam() const;
 
-		/**
-			Set battery RAM
+        /**
+            Set battery RAM
 
-			\param buffer containing battery RAM
-		*/
-		void setBatteryRam(const std::vector<uint8_t>& battery_ram);
+            \param buffer containing battery RAM
+        */
+        void setBatteryRam(const std::vector<uint8_t>& battery_ram);
 
-		/**
-			Check if OAM transfer has occured
-		*/
-		bool getOamTransferStatus() const;
+        /**
+            Check if OAM transfer has occured
+        */
+        bool getOamTransferStatus() const;
 
-		/**
-			@return true if rom is CGB compatible
-		*/
-		bool cgbEnabled() const;
+        /**
+            @return true if rom is CGB compatible
+        */
+        bool cgbEnabled() const;
 
-		/**
-			\return a reference to a memory location
-		*/
-		uint8_t& get(uint16_t);
+        /**
+            \return a reference to a memory location
+        */
+        uint8_t& get(uint16_t);
 
-		/**
-			\return point to memory location
-		*/
-		uint8_t* getptr(uint16_t);
+        /**
+            \return point to memory location
+        */
+        uint8_t* getptr(uint16_t);
 
-	private:
-		class Impl;
-		Impl* impl_;
+    private:
+        class Impl;
+        Impl* impl_;
     };
 }
 

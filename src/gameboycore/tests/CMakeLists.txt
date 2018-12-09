@@ -24,7 +24,7 @@ if(GTEST_FOUND)
     # TODO: Target include and export targets..
     include_directories(
         ../include/
-        ../src/core/
+        ../src/
         include/
         ${GTEST_INCLUDE_DIRS}
     )

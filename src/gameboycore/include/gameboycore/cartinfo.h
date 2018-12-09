@@ -20,7 +20,7 @@ namespace gb
         uint8_t rom_size;
         uint8_t ram_size;
         char game_title[(memorymap::GAME_TITLE_END - memorymap::GAME_TITLE_START) + 1];
-		bool cgb_enabled;
+        bool cgb_enabled;
     };
 
     /**
