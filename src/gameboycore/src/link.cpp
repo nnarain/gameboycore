@@ -16,7 +16,6 @@ namespace gb
     public:
 
         explicit Impl(MMU::Ptr& mmu) : 
-            mmu_(mmu),
             control_(mmu->get(memorymap::SC_REGISTER)),
             byte_to_transfer_(0),
             byte_to_recieve_(0),
@@ -151,8 +150,6 @@ namespace gb
         }
 
     private:
-        MMU::Ptr& mmu_;
-
         //! Serial Control Register
         uint8_t& control_;
 

@@ -12,7 +12,6 @@
 namespace gb
 {
     static constexpr auto HBLANK_CYCLES = 207;
-    static constexpr auto VBLANK_CYCLES = 4560;
     static constexpr auto OAM_ACCESS_CYCLES = 83;
     static constexpr auto LCD_TRANSFER_CYCLES = 175;
 
