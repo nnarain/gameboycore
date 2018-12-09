@@ -13,7 +13,7 @@ namespace gb
     class Joy::Impl
     {
     public:
-        Impl(MMU& mmu) :
+        explicit Impl(MMU& mmu) :
             mmu_(mmu),
             reg_(mmu.get(memorymap::JOYPAD_REGISTER)),
             keys_(0xFF),
@@ -35,7 +35,7 @@ namespace gb
         }
 
     private:
-        uint8_t readJoypad(uint16_t addr)
+        uint8_t readJoypad(uint16_t addr) const
         {
             uint8_t hi = (reg_ & 0xF0);
 

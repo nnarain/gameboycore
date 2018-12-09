@@ -54,7 +54,7 @@ namespace gb
 
         using CgbPalette = std::array<std::array<gb::Pixel, 4>, 8>;
 
-        Impl(MMU::Ptr& mmu) :
+        explicit Impl(MMU::Ptr& mmu) :
             mmu_(mmu),
             mode_(Mode::OAM),
             cycle_count_(0),
