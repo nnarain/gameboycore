@@ -29,7 +29,7 @@ namespace gb
         static constexpr int APU_REG_BASE = memorymap::NR10_REGISTER;
 
     public:
-        Impl(MMU::Ptr& mmu) :
+        explicit Impl(MMU::Ptr& mmu) :
             mmu_(mmu),
             square1_(true),
             square2_(false),
@@ -86,24 +86,24 @@ namespace gb
             }
         }
 
-        uint8_t getSound1Volume() const
+        uint8_t getSound1Volume() const noexcept
         {
             return square1_.getVolume();
         }
 
-        uint8_t getSound2Volume() const
+        uint8_t getSound2Volume() const noexcept
         {
             return square2_.getVolume();
         }
 
-        uint8_t getSound3Volume() const
+        uint8_t getSound3Volume() const noexcept
         {
             return wave_.getVolume();
         }
 
-        uint8_t getSound4Volume() const
+        uint8_t getSound4Volume() const noexcept
         {
-            return 0;
+            return noise_.getVolume();
         }
 
         void setAudioSampleCallback(AudioSampleCallback callback)
@@ -192,7 +192,7 @@ namespace gb
                 send_audio_sample_(left, right);
         }
 
-        void clockLength()
+        void clockLength() noexcept
         {
             square1_.clockLength();
             square2_.clockLength();
@@ -200,14 +200,14 @@ namespace gb
             noise_.clockLength();
         }
 
-        void clockVolume()
+        void clockVolume() noexcept
         {
             square1_.clockVolume();
             square2_.clockVolume();
             noise_.clockVolume();
         }
 
-        bool isEnabled()
+        bool isEnabled() const noexcept
         {
             return IS_BIT_SET(apuRead(memorymap::NR52_REGISTER), 7) != 0;
         }
@@ -318,18 +318,18 @@ namespace gb
                     }
                     else if (addr >= memorymap::NR41_REGISTER && addr <= memorymap::NR44_REGISTER)
                     {
-                        value = noise_.read(addr - memorymap::NR41_REGISTER);
+                        noise_.write(value, addr - memorymap::NR41_REGISTER);
                     }
                 }
             }
         }
 
-        uint8_t apuRead(uint16_t addr)
+        uint8_t apuRead(uint16_t addr) const noexcept
         {
             return apu_registers[addr - APU_REG_BASE];
         }
 
-        void apuWrite(uint8_t value, uint16_t addr)
+        void apuWrite(uint8_t value, uint16_t addr) noexcept
         {
             apu_registers[addr - APU_REG_BASE] = value;
         }
@@ -343,7 +343,7 @@ namespace gb
             }
         }
 
-        void initExtraBits()
+        void initExtraBits() noexcept
         {
             // NR10 - NR14
             extra_bits_[0x00] = 0x80;
