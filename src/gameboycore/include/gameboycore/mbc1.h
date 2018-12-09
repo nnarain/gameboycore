@@ -41,8 +41,8 @@ namespace gb
             void selectRomBank(uint8_t lo, uint8_t hi);
             void selectRamBank(uint8_t ram_bank_number);
 
-            unsigned int rom_bank_lower_bits_; // bit 0 - 4
-            unsigned int rom_bank_upper_bits_; // bit 5 and 6
+            uint8_t rom_bank_lower_bits_; // bit 0 - 4
+            uint8_t rom_bank_upper_bits_; // bit 5 and 6
 
             MemoryMode mode_;
         };

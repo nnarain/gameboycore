@@ -18,7 +18,7 @@ namespace gb
         OAM(MMU& mmu);
         ~OAM();
 
-        Sprite getSprite(uint8_t idx) const;
+        Sprite getSprite(std::size_t idx) const;
         std::array<Sprite, 40> getSprites() const;
 
     private:

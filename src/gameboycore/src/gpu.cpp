@@ -12,7 +12,6 @@
 namespace gb
 {
     static constexpr auto HBLANK_CYCLES = 207;
-    static constexpr auto VBLANK_CYCLES = 4560;
     static constexpr auto OAM_ACCESS_CYCLES = 83;
     static constexpr auto LCD_TRANSFER_CYCLES = 175;
 
@@ -213,7 +212,7 @@ namespace gb
                 auto color_palette = (tileinfo >> 2) & 0x07;
                 auto priority = (tileinfo >> 5);
 
-                color_line[pixel_idx] = color_number | (priority << 2);
+                color_line[pixel_idx] = (uint8_t)(color_number | (priority << 2));
 
                 if (cgb_enabled_)
                 {
@@ -249,7 +248,7 @@ namespace gb
             mmu_->write((uint8_t)line_, memorymap::LY_REGISTER);
         }
 
-        void lcdcWriteHandler(uint8_t value, uint16_t addr)
+        void lcdcWriteHandler(uint8_t value, uint16_t)
         {
             bool enable = (value & memorymap::LCDC::ENABLE) != 0;
 
@@ -325,10 +324,10 @@ namespace gb
             auto old_range = (0x1F - 0x00);
             auto new_range = (0xFF - 0x00);
 
-            return ((v * new_range) / old_range);
+            return (uint8_t)((v * new_range) / old_range);
         }
 
-        void hdma5WriteHandler(uint8_t value, uint16_t addr)
+        void hdma5WriteHandler(uint8_t value, uint16_t)
         {
             uint16_t src = WORD(mmu_->read(memorymap::HDMA1), mmu_->read(memorymap::HDMA2)) & 0xFFF0;
             uint16_t dest = WORD(((mmu_->read(memorymap::HDMA3) & 0x1F) | 0x80), mmu_->read(memorymap::HDMA4)) & 0xFFF0;

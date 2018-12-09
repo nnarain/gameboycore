@@ -26,7 +26,7 @@ namespace gb
         //! APU down sampling rate (CPU clock / sample rate of host system)
         static constexpr unsigned int DOWNSAMPLE_RATE = 4200000 / 44100;
         //! Starting address of the APU registers
-        static constexpr int APU_REG_BASE = memorymap::NR10_REGISTER;
+        static constexpr uint16_t APU_REG_BASE = memorymap::NR10_REGISTER;
 
     public:
         explicit Impl(MMU::Ptr& mmu) :
@@ -38,14 +38,14 @@ namespace gb
             down_sample_counter_(0)
         {
             // intercept all read/write attempts here
-            for (int i = memorymap::NR10_REGISTER; i <= memorymap::WAVE_PATTERN_RAM_END; ++i)
+            for (uint16_t i = memorymap::NR10_REGISTER; i <= memorymap::WAVE_PATTERN_RAM_END; ++i)
             {
                 mmu->addReadHandler(i, std::bind(&Impl::read, this, std::placeholders::_1));
                 mmu->addWriteHandler(i, std::bind(&Impl::write, this, std::placeholders::_1, std::placeholders::_2));
             }
 
             // init register memory
-            std::fill(apu_registers.begin(), apu_registers.end(), 0);
+            std::fill(apu_registers.begin(), apu_registers.end(), (uint8_t)0);
 
             // set extra read bits
             initExtraBits();

@@ -51,11 +51,11 @@ namespace gb
                 switch (selected_)
                 {
                 case SECONDS_REGISTER:
-                    return now->tm_sec;
+                    return (uint8_t)now->tm_sec;
                 case MINUTES_REGISTER:
-                    return now->tm_min;
+                    return (uint8_t)now->tm_min;
                 case HOURS_REGISTER:
-                    return now->tm_hour;
+                    return (uint8_t)now->tm_hour;
                 default:
                     return 0;
                 }

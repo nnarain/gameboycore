@@ -8,10 +8,10 @@ namespace gb
     {
     }
 
-    Sprite OAM::getSprite(uint8_t idx) const
+    Sprite OAM::getSprite(std::size_t idx) const
     {
         // get location of sprite in memory
-        auto sprite_base = memorymap::OAM_START + (idx * 4);
+        auto sprite_base = uint16_t(memorymap::OAM_START + (idx * 4));
 
         auto ptr = mmu_.getptr(sprite_base);
 

@@ -20,7 +20,7 @@ namespace gb
 
         void MBC2::control(uint8_t value, uint16_t addr)
         {
-            if (addr >= 0x0000 && addr <= 0x1FFF)
+            if (addr <= 0x1FFF)
             {
                 // least significant bit of upper byte in address must be zero 
                 if (IS_CLR(addr, 0x0100))

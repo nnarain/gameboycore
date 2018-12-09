@@ -35,7 +35,7 @@ namespace gb
         }
 
     private:
-        uint8_t readJoypad(uint16_t addr) const
+        uint8_t readJoypad(uint16_t) const
         {
             uint8_t hi = (reg_ & 0xF0);
 

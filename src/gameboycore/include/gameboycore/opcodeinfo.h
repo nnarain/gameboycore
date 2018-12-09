@@ -35,6 +35,13 @@ namespace gb
         uint8_t cycles;
         const char *disassembly;
         OperandType userdata;
+
+        OpcodeInfo(uint8_t cycles, const char* disassembly, OperandType userdata = OperandType::NONE)
+            : cycles{cycles}
+            , disassembly{disassembly}
+            , userdata{userdata}
+        {
+        }
     };
 
     OpcodeInfo getOpcodeInfo(uint8_t opcode, OpcodePage page);

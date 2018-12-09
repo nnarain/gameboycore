@@ -18,9 +18,6 @@
 #include <array>
 #include <iostream>
 
-static const unsigned int KILO_BYTE = 1024;
-static const unsigned int BANK_SIZE = (16 * KILO_BYTE);
-
 namespace gb
 {
     /* Private Interface */

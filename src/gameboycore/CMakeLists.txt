@@ -104,7 +104,7 @@ target_include_directories(gameboycore PUBLIC
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     target_compile_options(gameboycore PRIVATE -Wall -Wextra)
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    target_compile_options(gameboycore PRIVATE /W3)
+    target_compile_options(gameboycore PRIVATE /W4)
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     target_compile_options(gameboycore PRIVATE -Wall -Wextra)
 endif()

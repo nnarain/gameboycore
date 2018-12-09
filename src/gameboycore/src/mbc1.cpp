@@ -14,7 +14,7 @@ namespace gb
 
         void MBC1::control(uint8_t value, uint16_t addr)
         {
-            if (addr >= 0x0000 && addr <= 0x1FFF)
+            if (addr <= 0x1FFF)
             {
                 xram_enable_ = ((value & 0x0F) == 0x0A);
             }
