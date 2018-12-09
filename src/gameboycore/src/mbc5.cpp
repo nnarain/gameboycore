@@ -13,7 +13,7 @@ namespace gb
 
         void MBC5::control(uint8_t value, uint16_t addr)
         {
-            if (addr >= 0x0000 && addr <= 0x1FFF)
+            if (addr <= 0x1FFF)
             {
                 // enable / disable external ram
                 xram_enable_ = ((value & 0x0F) == 0x0A);
