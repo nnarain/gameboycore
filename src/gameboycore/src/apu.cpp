@@ -318,7 +318,7 @@ namespace gb
                     }
                     else if (addr >= memorymap::NR41_REGISTER && addr <= memorymap::NR44_REGISTER)
                     {
-                        value = noise_.read(addr - memorymap::NR41_REGISTER);
+                        noise_.write(value, addr - memorymap::NR41_REGISTER);
                     }
                 }
             }
