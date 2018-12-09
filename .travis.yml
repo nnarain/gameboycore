@@ -6,6 +6,7 @@ os:
 - linux
 compiler:
 - g++
+- clang
 
 addons:
   apt:

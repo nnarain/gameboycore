@@ -96,10 +96,12 @@ target_include_directories(gameboycore PUBLIC
     include/
 )
 
-if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-    target_compile_options(gameboycore PRIVATE -Wall -Wno-format-security)
-elseif(MSVC)
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    target_compile_options(gameboycore PRIVATE -Wall -Wextra)
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     target_compile_options(gameboycore PRIVATE /W3)
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    target_compile_options(gameboycore PRIVATE -Wall -Wextra)
 endif()
 
 target_compile_definitions(gameboycore PRIVATE GAMEBOYCORE_STATIC=1 ${ENDIAN}=1 _CRT_SECURE_NO_WARNINGS=1)
@@ -111,8 +113,12 @@ target_compile_definitions(gameboycore PRIVATE GAMEBOYCORE_STATIC=1 ${ENDIAN}=1 
 if (BUILD_TESTS)
     # Setup coverage reporting
     if (WITH_COVERAGE)
-        target_link_libraries(gameboycore gcov)
-        target_compile_options(gameboycore PRIVATE -fprofile-arcs -ftest-coverage)
+        if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+            target_compile_options(gameboycore PRIVATE -fprofile-arcs -ftest-coverage)
+            target_link_libraries(gameboycore gcov)
+        else()
+            message(WARNING "Code coverage is not supported for ${CMAKE_CXX_COMPILER_ID}")
+        endif()
     endif()
 
     add_subdirectory(tests)
