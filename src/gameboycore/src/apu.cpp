@@ -103,7 +103,7 @@ namespace gb
 
         uint8_t getSound4Volume() const
         {
-            return 0;
+            return noise_.getVolume();
         }
 
         void setAudioSampleCallback(AudioSampleCallback callback)
