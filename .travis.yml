@@ -1,5 +1,5 @@
 language: cpp
-dist: trusty
+dist: xenial
 sudo: required
 
 os:
@@ -10,31 +10,25 @@ compiler:
 
 addons:
   apt:
+    sources:
+      - sourceline: 'ppa:ubuntu-toolchain-r/test'
     packages:
       - lcov
-      - cppcheck
-
-before_install:
-- git clone --depth=1 https://github.com/nnarain/travis-ci-scripts.git ~/scripts
-- cd ~/scripts/ && ./bootstrap && cd -
-- preinstall_general
 
 install:
-- install_general
-- chmod +x ./scripts/travis_deploy_docs
+- bash scripts/ci_install
 - sudo apt-get --allow-unauthenticated install -y doxygen graphviz
 
 script:
 - mkdir build && cd build
-- cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DWITH_COVERAGE=ON -DBUILD_DOCS="ON"
+- cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DWITH_COVERAGE=ON -DBUILD_DOCS=ON
 - cd .. && cppcheck -q --enable=all --inconclusive --force --suppressions-list=./config/cppcheck-suppress.txt src/gameboycore/ && cd -
 - make
-- make check
-- make run_test_roms
+- make check && make run_test_roms
 - cd ..
 
 after_success:
-- "./scripts/travis_deploy_docs $TRAVIS_BRANCH $GITHUB_API_TOKEN"
+- ./scripts/travis_deploy_docs $TRAVIS_BRANCH $GITHUB_API_TOKEN
 - cd build
 - make package
 - export ARTIFACTS=$(ls -d1 $PWD/*.tar.gz)

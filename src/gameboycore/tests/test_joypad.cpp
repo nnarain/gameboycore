@@ -47,9 +47,9 @@ TEST(Joypad, Press)
     core.update(6);
 
     CPU::Status status = core.getCPU()->getStatus();
-    uint8_t key_mask = BV(static_cast<uint8_t>(Joy::Key::A) >> 4);
+    uint8_t key_mask = bv(static_cast<uint8_t>(Joy::Key::A) >> 4);
 
-    bool a_pressed = IS_CLR(status.a, key_mask);
+    bool a_pressed = isClear(status.a, key_mask);
 
     EXPECT_TRUE(a_pressed);
 }
@@ -78,9 +78,9 @@ TEST(Joypad, Press_AB)
     core.update(6);
 
     CPU::Status status = core.getCPU()->getStatus();
-    uint8_t key_mask = BV(static_cast<uint8_t>(Joy::Key::A) >> 4) | BV(static_cast<uint8_t>(Joy::Key::B) >> 4);
+    uint8_t key_mask = bv(static_cast<uint8_t>(Joy::Key::A) >> 4) | bv(static_cast<uint8_t>(Joy::Key::B) >> 4);
 
-    bool a_pressed = IS_CLR(status.a, key_mask);
+    bool a_pressed = isClear(status.a, key_mask);
 
     EXPECT_TRUE(a_pressed);
 }
@@ -108,6 +108,6 @@ TEST(Joypad, Release)
 
     auto status = core.getCPU()->getStatus();
 
-    uint8_t key_mask = BV(static_cast<uint8_t>(Joy::Key::A)) >> 4;
+    uint8_t key_mask = bv(static_cast<uint8_t>(Joy::Key::A)) >> 4;
     EXPECT_EQ(status.a & key_mask, key_mask);
 }
