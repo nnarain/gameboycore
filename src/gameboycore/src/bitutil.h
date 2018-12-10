@@ -107,7 +107,7 @@ inline bool isBitClear(const Tx& x, const Ty& y) noexcept
 template<typename Tx, typename Ty>
 inline bool isHalfCarry(const Tx& x, const Ty& y) noexcept
 {
-    return ((x & 0x0F) + (y & 0x0F) & 0x10) != 0;
+    return (((x & 0x0F) + (y & 0x0F)) & 0x10) != 0;
 }
 
 template<typename Tx, typename Ty>
