@@ -96,9 +96,10 @@ add_library(gameboycore::gameboycore ALIAS gameboycore)
 
 target_compile_features(gameboycore PUBLIC cxx_std_11)
 
-# TODO: Move detail headers elsewhere?
-target_include_directories(gameboycore PUBLIC
-    include/
+target_include_directories(gameboycore
+    PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
