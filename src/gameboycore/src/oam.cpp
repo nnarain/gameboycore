@@ -29,7 +29,7 @@ namespace gb
     {
         // check if sprites are 8x16 or 8x8
         auto lcdc = mmu_.read(memorymap::LCDC_REGISTER);
-        const bool mode_8x16 = IS_SET(lcdc, memorymap::LCDC::OBJ_8x16) != 0;
+        const bool mode_8x16 = isSet(lcdc, memorymap::LCDC::OBJ_8x16) != 0;
 
         std::array<Sprite, 40> sprites;
 

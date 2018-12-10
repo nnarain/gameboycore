@@ -9,67 +9,135 @@
 #define BITUTIL_H
 
 //! Bit value
-#define BV(b) (1 << b)
+template<typename T>
+inline T bv(T b)
+{
+    return 1 << b;
+}
 
 //! set mask y in x
-#define SET(x, y) ((x) |= (y))
+template<typename Tx,  typename Ty>
+inline void setMask(Tx& x, Ty y) noexcept
+{
+    x |= (Tx)y;
+}
+
 //! clear mask y in x
-#define CLR(x, y) ((x) &= (~y)) // TODO : Possible loss of precision - when using uint
+template<typename Tx, typename Ty>
+inline void clearMask(Tx& x, Ty y) noexcept
+{
+    x &= ~((Tx)y);
+}
 //! toggle mask y in x
-#define TGL(x, y) ((x) ^= (y))
+template<typename Tx, typename Ty>
+inline void toggleMask(Tx& x, Ty y) noexcept
+{
+    x ^= (Tx)y;
+}
 
 //! set bit y in x
-#define SET_BIT(x, y) ( SET( x, BV(y) ) )
+template<typename Tx, typename Ty>
+inline void setBit(Tx& x, Ty y) noexcept
+{
+    setMask(x, bv(y));
+}
 //! clear bit y in x
-#define CLR_BIT(x, y) ( CLR( x, BV(y) ) )
+template<typename Tx, typename Ty>
+inline void clearBit(Tx& x, Ty y) noexcept
+{
+    clearMask(x, bv(y));
+}
 //! toggle bit y in x
-#define TGL_BIT(x, y) ( TGL( x, BV(y) ) )
+template<typename Tx, typename Ty>
+inline void toggleBit(Tx& x, Ty y) noexcept
+{
+    toggleMask(x, bv(y));
+}
 
 //!
-#define LOW(x) ( (x) & 0x0F)
+template<typename Tx>
+inline Tx low(const Tx& x) noexcept
+{
+    return x & 0x0F;
+}
 
-//!
-#define WORD(hi, lo) ( (((hi) & 0xFFFF) << 8) | ((lo) & 0xFFFF) )
+//! Create a WORD
+template<typename Tx, typename Ty>
+inline uint16_t word(const Tx& hi, const Ty& lo) noexcept
+{
+    return ((hi & 0xFFFF) << 8) | (lo & 0xFFFF);
+}
 
 //! Get bit
-#define GET_BIT(x, n) (!!((x) & BV(n)))
-
-//!
-#define FORCE(port, mask, value) ( (port) = ( (port) & (~(mask))) | ( (value) & (mask) ) )
-//!
-#define FORCE_WORD(port, mask, value) ( (port) = ( (port) & (~(mask) & 0xFFFF) | ( (value) & (mask) ) ) )
+template<typename Tx, typename Ty>
+inline Tx getBit(const Tx& x, const Ty& n) noexcept
+{
+    return !!(x & bv(n));
+}
 
 //! check if mask y is set in x
-#define IS_SET(x, y) ( x & y )
+template<typename Tx, typename Ty>
+inline bool isSet(const Tx& x, const Ty& y) noexcept
+{
+    return x & y;
+}
+
 //! check if mask y is clear in x
-#define IS_CLR(x, y) !( x & y )
+template<typename Tx, typename Ty>
+inline bool isClear(const Tx& x, const Ty& y) noexcept
+{
+    return !(x & y);
+}
 //! check if bit y is set in x
-#define IS_BIT_SET(x,y) ( IS_SET(x, BV(y)) )
+//#define isBitSet(x,y) ( isSet(x, bv(y)) )
+template<typename Tx, typename Ty>
+inline bool isBitSet(const Tx& x, const Ty& y) noexcept
+{
+    return isSet(x, bv(y));
+}
 //! check if bit y is clear in x
-#define IS_BIT_CLR(x,y) ( IS_CLR(x, BV(y)) )
-
-//!
-#define LOW_NYB(x) ((x) & 0x0F)
-//!
-#define HIGH_NYB(x) ( LOW_NYB((x) >> 4) )
-
-/* Bit pattern concatenation macros  */
-
-#define BIT_CAT(x, y, bits) ((x<<bits) + y)
-#define NYB_CAT(x, y)       ( BIT_CAT(x, y, 4) )
-#define BYTE_CAT(x,y)       ( BIT_CAT(x, y, 8) )
-#define WORD_CAT(x,y)       ( BIT_CAT(x, y, 16) )
+template<typename Tx, typename Ty>
+inline bool isBitClear(const Tx& x, const Ty& y) noexcept
+{
+    return isClear(x, bv(y));
+}
 
 /* Full and Half Carry */
 
-#define IS_HALF_CARRY(x, y) ((( ((x) & 0x0F) + ((y) & 0x0F) ) & (0x10)) != 0)
-#define IS_FULL_CARRY(x, y) ((( ( (x)&0x0FF ) + ( ((y)&0x0FF) )  ) & 0x100 ) != 0)
+template<typename Tx, typename Ty>
+inline bool isHalfCarry(const Tx& x, const Ty& y) noexcept
+{
+    return ((x & 0x0F) + (y & 0x0F) & 0x10) != 0;
+}
 
-#define IS_HALF_CARRY16(x, y) ((( ((x) & 0x0FFF) + ((y) & 0x0FFF) ) & (0x1000)) != 0)
-#define IS_FULL_CARRY16(x, y) ((( ( (x)&0x0FFFF ) + ( ((y)&0x0FFFF) )  ) & 0x10000 ) != 0)
+template<typename Tx, typename Ty>
+inline bool isFullCarry(const Tx& x, const Ty& y) noexcept
+{
+    return (((x & 0x0FF) + (y & 0x0FF)) & 0x100) != 0;
+}
 
-#define IS_HALF_BORROW(x, y) (  ((x)&0x0F) < ((y)&0x0F)  )
-#define IS_FULL_BORROW(x, y) (  ((x)&0xFF) < ((y)&0xFF)  )
+template<typename Tx, typename Ty>
+inline bool isHalfCarry16(const Tx& x, const Ty& y) noexcept
+{
+    return ((((x & 0x0FFF) + (y & 0x0FFF)) & 0x1000) != 0);
+}
+
+template<typename Tx, typename Ty>
+inline bool isFullCarry16(const Tx& x, const Ty& y) noexcept
+{
+    return ((((x & 0x0FFFF) + ((y & 0x0FFFF))) & 0x10000) != 0);
+}
+
+template<typename Tx, typename Ty>
+inline bool isHalfBorrow(const Tx& x, const Ty& y) noexcept
+{
+    return ((x & 0x0F) < (y & 0x0F));
+}
+template<typename Tx, typename Ty>
+inline bool isFullBorrow(const Tx& x, const Ty& y) noexcept
+{
+    return ((x & 0xFF) < (y & 0xFF));
+}
 
 #endif // BITUTIL_H
 

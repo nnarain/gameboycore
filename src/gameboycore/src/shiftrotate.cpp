@@ -14,11 +14,11 @@ namespace gb
     {
         if (set)
         {
-            SET(flags, mask);
+            setMask(flags, mask);
         }
         else
         {
-            CLR(flags, mask);
+            clearMask(flags, mask);
         }
     }
 
@@ -26,7 +26,7 @@ namespace gb
     {
         uint8_t r = 0;
 
-        uint8_t bit7 = (IS_BIT_SET(val, 7)) ? 1 : 0;
+        uint8_t bit7 = (isBitSet(val, 7)) ? 1 : 0;
 
         r = (val << 1) | bit7;
 
@@ -40,9 +40,9 @@ namespace gb
     uint8_t rla(uint8_t val, uint8_t& flags)
     {
         uint8_t r = 0;
-        uint8_t c = (IS_BIT_SET(flags, C_BIT)) ? 1 : 0;
+        uint8_t c = (isBitSet(flags, C_BIT)) ? 1 : 0;
 
-        uint8_t bit7 = (IS_BIT_SET(val, 7)) ? 1 : 0;
+        uint8_t bit7 = (isBitSet(val, 7)) ? 1 : 0;
 
         r = (val << 1) | c;
 
@@ -57,7 +57,7 @@ namespace gb
     {
         uint8_t r = 0;
 
-        uint8_t bit0 = (IS_BIT_SET(val, 0)) ? 1 : 0;
+        uint8_t bit0 = (isBitSet(val, 0)) ? 1 : 0;
 
         r = (val >> 1) | (bit0 << 7);
 
@@ -70,9 +70,9 @@ namespace gb
     uint8_t rra(uint8_t val, uint8_t& flags)
     {
         uint8_t r = 0;
-        uint8_t c = (IS_BIT_SET(flags, C_BIT)) ? 1 : 0;
+        uint8_t c = (isBitSet(flags, C_BIT)) ? 1 : 0;
 
-        uint8_t bit0 = (IS_BIT_SET(val, 0)) ? 1 : 0;
+        uint8_t bit0 = (isBitSet(val, 0)) ? 1 : 0;
 
         r = (val >> 1) | (c << 7);
 
@@ -86,7 +86,7 @@ namespace gb
     {
         uint8_t r = 0;
 
-        uint8_t bit7 = (IS_BIT_SET(val, 7)) ? 1 : 0;
+        uint8_t bit7 = (isBitSet(val, 7)) ? 1 : 0;
 
         r = (val << n) | bit7;
 
@@ -102,9 +102,9 @@ namespace gb
     uint8_t rotateLeftCarry(uint8_t val, uint8_t n, uint8_t& flags)
     {
         uint8_t r = 0;
-        uint8_t c = (IS_BIT_SET(flags, C_BIT)) ? 1 : 0;
+        uint8_t c = (isBitSet(flags, C_BIT)) ? 1 : 0;
 
-        uint8_t bit7 = (IS_BIT_SET(val, 7)) ? 1 : 0;
+        uint8_t bit7 = (isBitSet(val, 7)) ? 1 : 0;
 
         r = (val << n) | c;
 
@@ -121,7 +121,7 @@ namespace gb
     {
         uint8_t r = 0;
 
-        uint8_t bit0 = (IS_BIT_SET(val, 0)) ? 1 : 0;
+        uint8_t bit0 = (isBitSet(val, 0)) ? 1 : 0;
 
         r = (val >> n) | (bit0 << 7);
 
@@ -137,9 +137,9 @@ namespace gb
     uint8_t rotateRightCarry(uint8_t val, uint8_t n, uint8_t& flags)
     {
         uint8_t r = 0;
-        uint8_t c = (IS_BIT_SET(flags, C_BIT)) ? 1 : 0;
+        uint8_t c = (isBitSet(flags, C_BIT)) ? 1 : 0;
 
-        uint8_t bit0 = (IS_BIT_SET(val, 0)) ? 1 : 0;
+        uint8_t bit0 = (isBitSet(val, 0)) ? 1 : 0;
 
         r = (val >> n) | (c << 7);
 
@@ -155,7 +155,7 @@ namespace gb
     uint8_t shiftLeft(uint8_t val, uint8_t n, uint8_t& flags)
     {
         uint8_t r = 0;
-        uint8_t bit7 = (IS_BIT_SET(val, 7)) ? 1 : 0;
+        uint8_t bit7 = (isBitSet(val, 7)) ? 1 : 0;
 
         r = (val << n);
 
@@ -169,7 +169,7 @@ namespace gb
     uint8_t shiftRightA(uint8_t val, uint8_t n, uint8_t& flags)
     {
         uint8_t r = 0;
-        uint8_t bit0 = (IS_BIT_SET(val, 0)) ? 1 : 0;
+        uint8_t bit0 = (isBitSet(val, 0)) ? 1 : 0;
 
         r = (val >> n) | (val & 0x80);
 
@@ -187,7 +187,7 @@ namespace gb
     uint8_t shiftRightL(uint8_t val, uint8_t n, uint8_t& flags)
     {
         uint8_t r = 0;
-        uint8_t bit0 = (IS_BIT_SET(val, 0)) ? 1 : 0;
+        uint8_t bit0 = (isBitSet(val, 0)) ? 1 : 0;
 
         r = (val >> n);
 
