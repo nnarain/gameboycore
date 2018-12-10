@@ -74,7 +74,7 @@ namespace gb
 
         void update(uint8_t cycles, bool ime)
         {
-            if (IS_CLR(lcdc_, memorymap::LCDC::ENABLE)) return;
+            if (isClear(lcdc_, memorymap::LCDC::ENABLE)) return;
 
             cycle_count_ += cycles;
 
@@ -184,9 +184,9 @@ namespace gb
 
             // get lcd config
 
-            const auto background_enabled = IS_SET(lcdc_, memorymap::LCDC::BG_DISPLAY_ON) != 0;
-            const auto window_enabled     = IS_SET(lcdc_, memorymap::LCDC::WINDOW_ON)     != 0;
-            const auto sprites_enabled    = IS_SET(lcdc_, memorymap::LCDC::OBJ_ON)        != 0;
+            const auto background_enabled = isSet(lcdc_, memorymap::LCDC::BG_DISPLAY_ON) != 0;
+            const auto window_enabled     = isSet(lcdc_, memorymap::LCDC::WINDOW_ON)     != 0;
+            const auto sprites_enabled    = isSet(lcdc_, memorymap::LCDC::OBJ_ON)        != 0;
 
             // get background tile line
             const auto background = tilemap_.getBackground(line_, cgb_enabled_);
@@ -252,7 +252,7 @@ namespace gb
         {
             bool enable = (value & memorymap::LCDC::ENABLE) != 0;
 
-            if (enable && IS_CLR(lcdc_, memorymap::LCDC::ENABLE))
+            if (enable && isClear(lcdc_, memorymap::LCDC::ENABLE))
             {
                 line_ = 0;
                 cycle_count_ = 0;
@@ -303,7 +303,7 @@ namespace gb
             }
 
             // auto increment index if increment flag is set
-            if (IS_BIT_SET(index, 7))
+            if (isBitSet(index, 7))
             {
                 mmu_->write((uint8_t)(index + 1), index_reg);
             }
@@ -329,16 +329,16 @@ namespace gb
 
         void hdma5WriteHandler(uint8_t value, uint16_t)
         {
-            uint16_t src = WORD(mmu_->read(memorymap::HDMA1), mmu_->read(memorymap::HDMA2)) & 0xFFF0;
-            uint16_t dest = WORD(((mmu_->read(memorymap::HDMA3) & 0x1F) | 0x80), mmu_->read(memorymap::HDMA4)) & 0xFFF0;
+            uint16_t src = word(mmu_->read(memorymap::HDMA1), mmu_->read(memorymap::HDMA2)) & 0xFFF0;
+            uint16_t dest = word(((mmu_->read(memorymap::HDMA3) & 0x1F) | 0x80), mmu_->read(memorymap::HDMA4)) & 0xFFF0;
             uint16_t length = ((value & 0x7F) + 1) * 0x10;
 
-            if (IS_BIT_CLR(value, 7) && !hdma_.transfer_active)
+            if (isBitClear(value, 7) && !hdma_.transfer_active)
             {
                 // perform a general purpose DMA
                 mmu_->dma(dest, src, length);
             }
-            else if (IS_BIT_CLR(value, 7) && hdma_.transfer_active)
+            else if (isBitClear(value, 7) && hdma_.transfer_active)
             {
                 // disable an active hdma transfer
                 hdma_.transfer_active = false;
@@ -386,12 +386,12 @@ namespace gb
             if ((uint8_t)line_ == lyc)
             {
                 //stat_ |= memorymap::Stat::LYCLY;
-                SET(stat_, memorymap::Stat::LYCLY);
+                setMask(stat_, memorymap::Stat::LYCLY);
             }
             else
             {
                 //stat_ &= ~(memorymap::Stat::LYCLY);
-                CLR(stat_, memorymap::Stat::LYCLY);
+                clearMask(stat_, memorymap::Stat::LYCLY);
             }
 
             // check the ly=lyc flag

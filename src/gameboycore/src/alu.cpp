@@ -12,8 +12,8 @@ namespace gb
 
     void ALU::add(uint8_t& a, uint8_t n)
     {
-        bool is_half_carry = IS_HALF_CARRY(a, n);
-        bool is_full_carry = IS_FULL_CARRY(a, n);
+        bool is_half_carry = isHalfCarry(a, n);
+        bool is_full_carry = isFullCarry(a, n);
 
         a += n;
 
@@ -25,8 +25,8 @@ namespace gb
 
     void ALU::add(uint16_t& hl, uint16_t n)
     {
-        bool is_half_carry = IS_HALF_CARRY16(hl, n);
-        bool is_full_carry = IS_FULL_CARRY16(hl, n);
+        bool is_half_carry = isHalfCarry16(hl, n);
+        bool is_full_carry = isFullCarry16(hl, n);
 
         hl += n;
 
@@ -50,7 +50,7 @@ namespace gb
 
     void ALU::addc(uint8_t& a, uint8_t n)
     {
-        int carry = (IS_SET(flags_, ALU::Flags::C)) ? 1 : 0;
+        int carry = (isSet(flags_, ALU::Flags::C)) ? 1 : 0;
 
         int result = (int)a + (int)n + carry;
 
@@ -64,8 +64,8 @@ namespace gb
 
     void ALU::sub(uint8_t& a, uint8_t n)
     {
-        bool is_half_borrow = IS_HALF_BORROW(a, n);
-        bool is_full_borrow = IS_FULL_BORROW(a, n);
+        bool is_half_borrow = isHalfBorrow(a, n);
+        bool is_full_borrow = isFullBorrow(a, n);
 
         a -= n;
 
@@ -77,7 +77,7 @@ namespace gb
 
     void ALU::subc(uint8_t& a, uint8_t n)
     {
-        int carry = (IS_SET(flags_, ALU::Flags::C)) ? 1 : 0;
+        int carry = (isSet(flags_, ALU::Flags::C)) ? 1 : 0;
         int result = (int)a - n - carry;
 
         setFlag(ALU::Flags::C, result < 0);
@@ -121,8 +121,8 @@ namespace gb
 
     void ALU::compare(uint8_t& a, uint8_t n)
     {
-        bool is_half_borrow = IS_HALF_BORROW(a, n);
-        bool is_full_borrow = IS_FULL_BORROW(a, n);
+        bool is_half_borrow = isHalfBorrow(a, n);
+        bool is_full_borrow = isFullBorrow(a, n);
 
         uint8_t r = a - n;
 
@@ -136,11 +136,11 @@ namespace gb
     {
         if (set)
         {
-            SET(flags_, mask);
+            setMask(flags_, mask);
         }
         else
         {
-            CLR(flags_, mask);
+            clearMask(flags_, mask);
         }
     }
 

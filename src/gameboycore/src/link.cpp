@@ -104,7 +104,7 @@ namespace gb
             // set serial interrupt
             serial_interrupt_.set();
             // clear transfer flag
-            CLR(control_, memorymap::SC::TRANSFER);
+            clearMask(control_, memorymap::SC::TRANSFER);
             
             pending_recieve_ = false;
         }
@@ -118,7 +118,7 @@ namespace gb
 
         bool isTransferring() const noexcept
         {
-            return IS_SET(control_, memorymap::SC::TRANSFER) != 0;
+            return isSet(control_, memorymap::SC::TRANSFER) != 0;
         }
 
         int getTransferRate(uint8_t sc)
@@ -139,7 +139,7 @@ namespace gb
 
         Mode getLinkMode() const noexcept
         {
-            if (IS_SET(control_, memorymap::SC::CLOCK_MODE))
+            if (isSet(control_, memorymap::SC::CLOCK_MODE))
             {
                 return Mode::INTERNAL;
             }

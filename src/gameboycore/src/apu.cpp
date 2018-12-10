@@ -209,7 +209,7 @@ namespace gb
 
         bool isEnabled() const noexcept
         {
-            return IS_BIT_SET(apuRead(memorymap::NR52_REGISTER), 7) != 0;
+            return isBitSet(apuRead(memorymap::NR52_REGISTER), 7) != 0;
         }
 
         uint8_t read(uint16_t addr)
@@ -259,14 +259,14 @@ namespace gb
             if (addr == memorymap::NR52_REGISTER)
             {
                 // check if APU is being disabled
-                if (IS_CLR(value, 0x80))
+                if (isClear(value, 0x80))
                 {
                     clearRegisters();
                     frame_sequencer_ = 0;
                 }
 
                 // check is being enabled
-                if (!isEnabled() && IS_SET(value, 0x80))
+                if (!isEnabled() && isSet(value, 0x80))
                 {
                     frame_sequencer_counter_ = CYCLES_512HZ;
                 }

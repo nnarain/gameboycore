@@ -23,7 +23,7 @@ namespace gb
             if (addr <= 0x1FFF)
             {
                 // least significant bit of upper byte in address must be zero 
-                if (IS_CLR(addr, 0x0100))
+                if (isClear(addr, 0x0100))
                 {
                     xram_enable_ = ((value & 0x0F) == 0x0A);
                 }
@@ -31,7 +31,7 @@ namespace gb
             else if (addr >= 0x2000 && addr <= 0x3FFF)
             {
                 // least significant bit of upper byte in address must be one
-                if (IS_SET(addr, 0x0100))
+                if (isSet(addr, 0x0100))
                 {
                     rom_bank_ = value & 0x0F;
                 }
