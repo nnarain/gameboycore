@@ -28,7 +28,7 @@ script:
 - cd ..
 
 after_success:
-- ./scripts/travis_deploy_docs $TRAVIS_BRANCH $GITHUB_API_TOKEN
+- bash ./scripts/travis_deploy_docs $TRAVIS_BRANCH $GITHUB_API_TOKEN
 - cd build
 - make package
 - export ARTIFACTS=$(ls -d1 $PWD/*.tar.gz)
