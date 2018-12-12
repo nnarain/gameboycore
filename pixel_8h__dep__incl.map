@@ -1,7 +1,0 @@
-<map id="include/gameboycore/pixel.h" name="include/gameboycore/pixel.h">
-<area shape="rect" id="node2" href="$gpu_8h.html" title="GPU emulation. " alt="" coords="45,97,189,138"/>
-<area shape="rect" id="node5" href="$palette_8h.html" title="include/gameboycore\l/palette.h" alt="" coords="214,97,359,138"/>
-<area shape="rect" id="node6" href="$tilemap_8h.html" title="include/gameboycore\l/tilemap.h" alt="" coords="255,187,400,229"/>
-<area shape="rect" id="node3" href="$cpu_8h.html" title="Gameboy CPU. " alt="" coords="5,187,149,229"/>
-<area shape="rect" id="node4" href="$gameboycore_8h.html" title="Encapsulate Gameboy hardware. " alt="" coords="59,278,204,319"/>
-</map>

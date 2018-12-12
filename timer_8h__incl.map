@@ -1,6 +1,0 @@
-<map id="include/gameboycore/timer.h" name="include/gameboycore/timer.h">
-<area shape="rect" id="node2" href="$mmu_8h.html" title="Memory interface. " alt="" coords="139,187,283,213"/>
-<area shape="rect" id="node8" href="$memorymap_8h.html" title="Constants that define the CPU memory map. " alt="" coords="357,187,544,213"/>
-<area shape="rect" id="node9" href="$interrupt__provider_8h.html" title="gameboycore/interrupt\l_provider.h" alt="" coords="249,97,399,138"/>
-<area shape="rect" id="node3" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="285,262,467,303"/>
-</map>

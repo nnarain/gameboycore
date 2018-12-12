@@ -1,5 +1,0 @@
-<map id="include/gameboycore/interrupt_provider.h" name="include/gameboycore/interrupt_provider.h">
-<area shape="rect" id="node2" href="$mmu_8h.html" title="Memory interface. " alt="" coords="293,96,437,123"/>
-<area shape="rect" id="node8" href="$memorymap_8h.html" title="Constants that define the CPU memory map. " alt="" coords="543,96,729,123"/>
-<area shape="rect" id="node3" href="$gameboycore__api_8h.html" title="Define export macros. " alt="" coords="5,171,187,213"/>
-</map>
