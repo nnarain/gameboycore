@@ -11,8 +11,8 @@ export BRANCH=$1
 export API_TOKEN=$2
 
 # only deploy on master branch commit
-if [[ "$BRANCH" != "develop" ]]; then
-	exit 0
+if [[ "$BRANCH" != "master" ]]; then
+    exit 0
 fi
 
 # clone into what is going to be the docs output directory
