@@ -10,7 +10,7 @@ AudioStream::AudioStream()
 
 void AudioStream::initialize(gb::GameboyCore& core)
 {
-    core.getAPU()->setAudioSampleCallback(std::bind(&AudioStream::audioSampleCallback, this, std::placeholders::_1, std::placeholders::_2));
+    core.setAudioSampleCallback(std::bind(&AudioStream::audioSampleCallback, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void AudioStream::start()

@@ -1,10 +1,10 @@
 /**
-	\file gpu.h
-	\brief GPU emulation
-	\author Natesh Narain <nnaraindev@gmail.com>
-	\date Oct 23 2016
+    \file gpu.h
+    \brief GPU emulation
+    \author Natesh Narain <nnaraindev@gmail.com>
+    \date Oct 23 2016
 
-	\defgroup Graphics
+    \defgroup Graphics
 */
 
 #ifndef GAMEBOYCORE_GPU_H
@@ -23,77 +23,77 @@
 
 namespace gb
 {
-	/**
-		\class GPU
-		\brief Handle LCD state, compute scanlines and send to an external renderer
-		\ingroup API
-		\ingroup Graphics
-	*/
-	class GAMEBOYCORE_API GPU
-	{
-	public:
-		//! Smart pointer type
-		typedef std::unique_ptr<GPU> Ptr;
+    /**
+        \class GPU
+        \brief Handle LCD state, compute scanlines and send to an external renderer
+        \ingroup API
+        \ingroup Graphics
+    */
+    class GAMEBOYCORE_API GPU
+    {
+    public:
+        //! Smart pointer type
+        typedef std::unique_ptr<GPU> Ptr;
 
-		//! Array on Pixel objects representing a single scan line produced by the GPU
-		using Scanline = std::array<Pixel, 160>;
+        //! Array on Pixel objects representing a single scan line produced by the GPU
+        using Scanline = std::array<Pixel, 160>;
 
-		/**
-			Callback function called by the GPU when it has produced a new scan line
-			Provides the Scanline and the line number
-		*/
-		typedef std::function<void(const Scanline&, int linenum)> RenderScanlineCallback;
+        /**
+            Callback function called by the GPU when it has produced a new scan line
+            Provides the Scanline and the line number
+        */
+        typedef std::function<void(const Scanline&, int linenum)> RenderScanlineCallback;
 
         /**
             Callback function call by the GPU when VBlank is reached
         */
         typedef std::function<void()> VBlankCallback;
 
-	public:
-		GPU(MMU::Ptr& mmu);
-		GPU(const GPU&) = delete;
-		~GPU();
+    public:
+        GPU(MMU::Ptr& mmu);
+        GPU(const GPU&) = delete;
+        ~GPU();
 
-		/**
-			Update the GPU with elasped cycles. Used by the CPU
-		*/
-		void update(uint8_t cycles, bool ime);
+        /**
+            Update the GPU with elasped cycles. Used by the CPU
+        */
+        void update(uint8_t cycles, bool ime);
 
-		/**
-			Set the host system callback
-		*/
-		void setRenderCallback(RenderScanlineCallback callback);
+        /**
+            Set the host system callback
+        */
+        void setRenderCallback(RenderScanlineCallback callback);
 
         /**
             Set the host system vblank callback
         */
         void setVBlankCallback(VBlankCallback callback);
 
-		/**
-			Set Default Palette Color
-		*/
-		void setPaletteColor(uint8_t r, uint8_t g, uint8_t b, int idx);
+        /**
+            Set Default Palette Color
+        */
+        void setPaletteColor(uint8_t r, uint8_t g, uint8_t b, int idx);
 
-		/**
-			\return Background tilemap data
-		*/
-		std::vector<uint8_t> getBackgroundTileMap();
+        /**
+            \return Background tilemap data
+        */
+        std::vector<uint8_t> getBackgroundTileMap();
 
-		/**
-			\return currently cached tile data
-		*/
-		std::vector<Sprite> getSpriteCache() const;
+        /**
+            \return currently cached tile data
+        */
+        std::array<Sprite, 40> getSpriteCache() const;
 
-		/**
-			\return Hashed background map
-		*/
-		std::size_t getBackgroundHash();
+        /**
+            \return Hashed background map
+        */
+        std::size_t getBackgroundHash();
 
-	private:
-		//! Private Implementation class
-		class Impl;
-		Impl* impl_;
-	};
+    private:
+        //! Private Implementation class
+        class Impl;
+        Impl* impl_;
+    };
 }
 
 #endif

@@ -24,7 +24,7 @@ if(GTEST_FOUND)
     # TODO: Target include and export targets..
     include_directories(
         ../include/
-        ../src/core/
+        ../src/
         include/
         ${GTEST_INCLUDE_DIRS}
     )
@@ -34,6 +34,7 @@ if(GTEST_FOUND)
         # source
         test_helper.cpp
         test_entry.cpp
+        test_api.cpp
         test_mmu.cpp
         test_alu.cpp
         test_gpu.cpp

@@ -29,8 +29,7 @@ public:
     void vblankCallback();
 
 private:
-    void handleKeyPress(sf::Keyboard::Key key);
-    void handleKeyRelease(sf::Keyboard::Key key);
+    void handleKeyEvent(sf::Keyboard::Key key, bool pressed);
 
     sf::RenderWindow window_;
     sf::Clock delta_clock_;
@@ -42,8 +41,7 @@ private:
     AudioStream audio_stream_;
 
     std::map<sf::Keyboard::Key, gb::Joy::Key> key_map_;
-    std::function<void(gb::Joy::Key)> key_press_;
-    std::function<void(gb::Joy::Key)> key_release_;
+    std::function<void(gb::Joy::Key, bool)> key_event_;
 };
 
 #endif
