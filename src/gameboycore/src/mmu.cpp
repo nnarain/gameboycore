@@ -25,7 +25,7 @@ namespace gb
     class MMU::Impl
     {
     public:
-        Impl(uint8_t* rom, uint32_t size)
+        Impl(const uint8_t* rom, uint32_t size)
             : oam_updated_{false}
             , cgb_enabled_{false}
         {
@@ -36,7 +36,7 @@ namespace gb
         {
         }
 
-        void load(uint8_t* rom, uint32_t size)
+        void load(const uint8_t* rom, uint32_t size)
         {
             CartInfo header = RomParser::parse(rom);
 
@@ -222,7 +222,7 @@ namespace gb
 
     /* Public Interface */
 
-    MMU::MMU(uint8_t* rom, uint32_t size) :
+    MMU::MMU(const uint8_t* rom, uint32_t size) :
         impl_(new Impl(rom, size))
     {
     }

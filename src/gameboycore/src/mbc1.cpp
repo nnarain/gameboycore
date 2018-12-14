@@ -4,7 +4,7 @@ namespace gb
 {
     namespace detail
     {
-        MBC1::MBC1(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enabled) :
+        MBC1::MBC1(const uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enabled) :
             MBC(rom, size, rom_size, ram_size, cgb_enabled),
             rom_bank_lower_bits_(0),
             rom_bank_upper_bits_(0),

@@ -23,8 +23,7 @@ public:
     void run();
 
 private:
-    void initializeCore(std::vector<char>& rom);
-    std::vector<char> loadRom(const std::string& filename);
+    void initializeCore(const std::string& filename);
 
     UserInterface ui_;
     gb::GameboyCore core_;

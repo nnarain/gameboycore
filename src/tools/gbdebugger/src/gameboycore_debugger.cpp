@@ -7,7 +7,7 @@
 
 GameboyCoreDebugger::GameboyCoreDebugger(const std::string& rom_file)
 {
-    initializeCore(loadRom(rom_file));
+    initializeCore(rom_file);
 }
 
 void GameboyCoreDebugger::run()
@@ -26,26 +26,10 @@ void GameboyCoreDebugger::run()
     }
 }
 
-void GameboyCoreDebugger::initializeCore(std::vector<char>& rom)
+void GameboyCoreDebugger::initializeCore(const std::string& filename)
 {
     // Load the ROM file into the core
-    core_.loadROM((uint8_t*)&rom[0], rom.size());
+    core_.open(filename);
     // initialize user interface
     ui_.initialize(core_);
-}
-
-std::vector<char> GameboyCoreDebugger::loadRom(const std::string& filename)
-{
-    namespace fs = std::filesystem;
-
-    fs::path filepath{ filename };
-    auto filesize = (std::size_t)fs::file_size(filepath);
-
-    std::vector<char> rom;
-    rom.resize(filesize);
-
-    std::ifstream file{ filepath, std::ios::binary };
-    file.read(&rom[0], rom.size());
-
-    return rom;
 }

@@ -9,7 +9,7 @@ namespace gb
     {
     }
 
-    CartInfo RomParser::parse(uint8_t* image)
+    CartInfo RomParser::parse(const uint8_t* image)
     {
         CartInfo info;
         info.type = image[memorymap::CART_TYPE];
