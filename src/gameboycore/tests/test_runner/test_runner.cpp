@@ -81,27 +81,6 @@ namespace
         // Whether the exit condition has been met
         bool should_exit_;
     };
-
-    std::vector<uint8_t> loadRom(const std::string& rom_path)
-    {
-        std::vector<uint8_t> data;
-
-        std::ifstream file{ rom_path, std::ios::binary | std::ios::ate };
-        if (file.is_open())
-        {
-            auto length = file.tellg();
-            data.resize((std::size_t)length);
-
-            file.seekg(0, std::ios::beg);
-            file.read((char*)&data[0], length);
-        }
-        else
-        {
-            throw std::runtime_error("Could not open file specified");
-        }
-
-        return data;
-    }
 }
 
 int main(int argc, char *argv[])
@@ -121,23 +100,18 @@ int main(int argc, char *argv[])
     // File path of the ROM to run
     std::string filepath{ argv[1] };
 
-    // Load ROM data
-    std::vector<uint8_t> data;
+    // Create a core and load the ROM data
+    GameboyCore core;
 
     try
     {
-        data = loadRom(filepath);
+        core.open(filepath);
     }
     catch (std::runtime_error& e)
     {
         std::cout << "Failed to load ROM file: " << e.what() << std::endl;
         return 1;
     }
-
-    // Create a core and load the ROM data
-    GameboyCore core;
-    core.loadROM(&data[0], data.size());
-    data.clear();
 
     // Create an exit condition state machine to track whether the test is done
     ExitConditionStateMachine exit_condition{ { "Fail", "fail", "Pass", "pass" } };

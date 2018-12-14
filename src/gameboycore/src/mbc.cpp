@@ -9,7 +9,7 @@ namespace gb
 {
     namespace detail
     {
-        MBC::MBC(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable) :
+        MBC::MBC(const uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable) :
             xram_enable_(false),
             rom_bank_(0),
             ram_bank_(0),
@@ -167,7 +167,7 @@ namespace gb
             return kilo(4) * (bank_number);
         }
 
-        void MBC::loadMemory(uint8_t* rom, std::size_t size, uint8_t rom_size, uint8_t ram_size)
+        void MBC::loadMemory(const uint8_t* rom, std::size_t size, uint8_t rom_size, uint8_t ram_size)
         {
             // lookup tables for number of ROM banks a cartridge has
             static const unsigned int rom_banks1[] = {
