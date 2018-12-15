@@ -57,9 +57,6 @@ A few test ROMs can be run as well.
 cmake --build . --target run_test_roms
 ```
 
-Only the test ROMs that print to the serial port are run. Of course any test ROM can be run with the debugger tool.
-
-
 **Building Tools**
 
 Enable building tools by specifying `BUILD_TOOLS=ON`. If building tools is enabled, all will be built by default. Disable building tools with `WITH_<tool name>=OFF`.
