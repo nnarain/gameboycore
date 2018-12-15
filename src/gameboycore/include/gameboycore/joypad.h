@@ -38,9 +38,9 @@ namespace gb
         };
 
         //! Smart pointer type
-        typedef std::unique_ptr<Joy> Ptr;
+        using Ptr = std::unique_ptr<Joy>;
 
-        Joy(MMU& mmu);
+        explicit Joy(MMU& mmu);
         Joy(const Joy&);
         ~Joy();
 

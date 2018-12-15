@@ -33,7 +33,7 @@ namespace gb
     {
     public:
         //! Smart pointer type
-        typedef std::unique_ptr<GPU> Ptr;
+        using Ptr = std::unique_ptr<GPU>;
 
         //! Array on Pixel objects representing a single scan line produced by the GPU
         using Scanline = std::array<Pixel, 160>;
@@ -42,15 +42,15 @@ namespace gb
             Callback function called by the GPU when it has produced a new scan line
             Provides the Scanline and the line number
         */
-        typedef std::function<void(const Scanline&, int linenum)> RenderScanlineCallback;
+        using RenderScanlineCallback = std::function<void(const Scanline&, int linenum)>;
 
         /**
             Callback function call by the GPU when VBlank is reached
         */
-        typedef std::function<void()> VBlankCallback;
+        using VBlankCallback = std::function<void()>;
 
     public:
-        GPU(MMU::Ptr& mmu);
+        explicit GPU(MMU::Ptr& mmu);
         GPU(const GPU&) = delete;
         ~GPU();
 
