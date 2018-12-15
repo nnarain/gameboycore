@@ -124,6 +124,18 @@ namespace gb
         */
         void setBatteryRam(const std::vector<uint8_t>& ram);
 
+        /**
+            Write a byte to the serial port
+        */
+        void linkWrite(uint8_t byte);
+
+        /**
+            Set Link ready callback
+
+            Set a callback that fires when the core is ready to transfer a byte to the serial port
+        */
+        void setLinkReadyCallback(Link::ReadyCallback callback);
+
         CPU::Ptr& getCPU();
         MMU::Ptr& getMMU();
         GPU::Ptr& getGPU();

@@ -221,6 +221,16 @@ namespace gb
         impl_->mmu->setBatteryRam(ram);
     }
 
+    void GameboyCore::linkWrite(uint8_t byte)
+    {
+        impl_->link->recieve(byte);
+    }
+
+    void GameboyCore::setLinkReadyCallback(Link::ReadyCallback callback)
+    {
+        impl_->link->setReadyCallback(callback);
+    }
+
     CPU::Ptr& GameboyCore::getCPU()
     {
         return impl_->cpu;
