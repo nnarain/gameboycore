@@ -39,7 +39,7 @@ namespace gb
 
     public:
         explicit Link(MMU::Ptr& mmu);
-        Link(const Link&);
+        Link(const Link&) = delete;
         ~Link();
 
         /**
