@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Gameboy Core | GameboyCore</title>
+  <title>GameboyCore</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+doxygen.compiled.css" />
   <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
@@ -44,7 +44,7 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          Gameboy Core
+          GameboyCore
         </h1>
 <p><a href="https://travis-ci.org/nnarain/gameboycore"></a> <a href="https://ci.appveyor.com/project/nnarain/gameboycore/branch/develop"></a> <a href="https://codecov.io/gh/nnarain/gameboycore"></a> <a href="https://github.com/nnarain/gameboycore/releases"></a></p><p>GameboyCore is a Gameboy/Gameboy Color emulator library written in C++.</p><p>A library? Yes. This is a dependency free C++11 library. GameboyCore does not open a window to render frames, it does not collect user input or play audio. GameboyCore emulates the Gameboy system and provides the audio/video output through the GameboyCore API.</p><p>This means the emulation logic and GUI logic of an emulator are separate. As long as the target platform has a C++11 compiler that platform can run GameboyCore!</p><p>GameboyCore running as:</p><ul><li><a href="https://github.com/nnarain/dotrix">A desktop application</a></li><li><a href="https://github.com/nnarain/gameboycore-retro">A libretro core in RetroArch</a></li><li><a href="https://github.com/nnarain/gameboycore-python">Python bindings, usable with pygame</a></li><li><a href="https://github.com/nnarain/dotrix-android">An Android App</a></li><li>And possible WebAssembly!</li></ul><p>The above application are somewhat incomplete however they all demonstrate GameboyCore working for the given environment.</p><h3>Building </h3><p>The <code>GameboyCore</code> library does not have any dependencies and can be compiled using any C++11 compiler. The tools contained in this repo, however, do have additional dependencies that need to be installed. All dependencies should be findable by CMake.</p><p>Fetch source:</p><pre class="m-code"><span class="n">git</span> <span class="n">clone</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/nnarain/gameboycore</span>
 <span class="n">cd</span> <span class="n">gameboycore</span>
@@ -52,7 +52,7 @@
 <span class="n">cmake</span> <span class="p">..</span>
 <span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="p">.</span> <span class="o">--</span><span class="n">target</span> <span class="n">gameboycore</span></pre><p><strong>Building Tests</strong></p><p>Install <code>gtest</code> and build with <code>BUILD_TESTS=ON</code>. Optionally you can setup benchmarks by installing <code>google-benchmark</code>.</p><pre class="m-code"><span class="n">cmake</span> <span class="p">..</span> <span class="o">-</span><span class="n">DBUILD_TESTS</span><span class="o">=</span><span class="n">ON</span>
 <span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="p">.</span> <span class="o">--</span><span class="n">target</span> <span class="n">check</span>
-<span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="p">.</span> <span class="o">--</span><span class="n">target</span> <span class="n">bench</span></pre><p>A few test ROMs can be run as well.</p><pre class="m-code"><span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="p">.</span> <span class="o">--</span><span class="n">target</span> <span class="n">run_test_roms</span></pre><p>Only the test ROMs that print to the serial port are run. Of course any test ROM can be run with the debugger tool.</p><p><strong>Building Tools</strong></p><p>Enable building tools by specifying <code>BUILD_TOOLS=ON</code>. If building tools is enabled, all will be built by default. Disable building tools with <code>WITH_&lt;tool name&gt;=OFF</code>.</p><p>All tools are compiled with the latest C++ standard.</p><p>Debugger:</p><ul><li>Used for running Gameboy ROMs and inspecting the core</li><li>Depends on SFML</li></ul><p>RomInfo</p><ul><li>Used for printing the information in the ROM header</li></ul>
+<span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="p">.</span> <span class="o">--</span><span class="n">target</span> <span class="n">bench</span></pre><p>A few test ROMs can be run as well.</p><pre class="m-code"><span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="p">.</span> <span class="o">--</span><span class="n">target</span> <span class="n">run_test_roms</span></pre><p><strong>Building Tools</strong></p><p>Enable building tools by specifying <code>BUILD_TOOLS=ON</code>. If building tools is enabled, all will be built by default. Disable building tools with <code>WITH_&lt;tool name&gt;=OFF</code>.</p><p>All tools are compiled with the latest C++ standard.</p><p>Debugger:</p><ul><li>Used for running Gameboy ROMs and inspecting the core</li><li>Depends on SFML</li></ul><p>RomInfo</p><ul><li>Used for printing the information in the ROM header</li></ul>
       </div>
     </div>
   </div>
