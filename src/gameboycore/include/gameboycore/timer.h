@@ -1,6 +1,7 @@
 /**
-    \author Natesh Narain <nnaraindev@gmail.com>
-    \data   Oct 15 2016
+ * \file timer.h
+ * \author Natesh Narain <nnaraindev@gmail.com>
+ * \date   Oct 15 2016
 */
 
 #ifndef GAMEBOY_TIMER_H

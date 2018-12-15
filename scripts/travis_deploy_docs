@@ -15,6 +15,11 @@ if [[ "$BRANCH" != "master" ]]; then
     exit 0
 fi
 
+# Install m.css tool and dependencies
+git clone --depth=1 https://github.com/mosra/m.css ~/mcss
+python3.6 -m pip install jinja2 --upgrade --user
+python3.6 -m pip install Pygments --user
+
 # clone into what is going to be the docs output directory
 git clone --branch=gh-pages https://github.com/nnarain/gameboycore.git docs/html
 
@@ -24,9 +29,7 @@ git rm -rf .
 cd ../..
 
 # build the docs in the cloned directory
-cd build
-make docs
-cd ..
+python3.6 ~/mcss/doxygen/dox2html5.py Doxyfile-mcss
 
 cd docs/html
 
