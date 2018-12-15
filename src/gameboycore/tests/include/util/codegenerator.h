@@ -6,18 +6,34 @@
 #include <cstdint>
 #include <string>
 #include <cstring>
-#include <iostream>
+#include <tuple>
 
 #include <gameboycore/memorymap.h>
 
 class CodeGenerator 
 {
 public:
-	CodeGenerator() :
-		rom_(32 * 1024), // allocate 2 ROM banks
-		address_counter_(0x150)
+    static constexpr std::size_t KILOBYTE = 1024;
+    static constexpr std::size_t BANK_SIZE = 16 * KILOBYTE;
+
+    // Type, Cart ROM, Cart RAM
+    using MemInfoTuple = std::tuple<uint8_t, uint8_t, uint8_t>;
+
+    enum class MBC
+    {
+        NONE,
+        MBC1,
+        MBC2,
+        MBC3,
+        MBC5
+    };
+
+	CodeGenerator(MBC mbc = MBC::NONE) :
+        rom_{},
+        address_counter_{ 0x150 }
 	{
-		fillCartridgeHeader();
+        allocateRom(mbc);
+		fillCartridgeHeader(mbc);
 	}
 
 	template<typename... Args> 
@@ -43,9 +59,16 @@ public:
 		// end of block
 	}
 
-	void address(uint16_t address)
+	void address(std::size_t address, std::size_t rom_bank = 0)
 	{
-		address_counter_ = address;
+        if (rom_bank <= 1)
+        {
+            address_counter_ = address;
+        }
+        else
+        {
+            address_counter_ = (address) + ((rom_bank-1) * BANK_SIZE);
+        }
 	}
 
 	void reset()
@@ -59,13 +82,31 @@ public:
 	}
 
 private:
-	void fillCartridgeHeader()
+    void allocateRom(MBC mbc)
+    {
+        switch (mbc)
+        {
+        case CodeGenerator::MBC::MBC1:
+        case CodeGenerator::MBC::MBC2:
+        case CodeGenerator::MBC::MBC3:
+        case CodeGenerator::MBC::MBC5:
+            rom_.resize(128 * BANK_SIZE);
+            break;
+        case CodeGenerator::MBC::NONE:
+        default:
+            rom_.resize(2 * BANK_SIZE);
+            break;
+        }
+    }
+
+	void fillCartridgeHeader(MBC mbc)
 	{
-		// for now these aren't configurable
-		// set ROM only, 32kB ROM, no cartridge RAM
-		rom_[gb::memorymap::CART_TYPE] = 0;
-		rom_[gb::memorymap::CART_ROM_SIZE] = 0;
-		rom_[gb::memorymap::CART_RAM_SIZE] = 0;
+        uint8_t type = 0, rom_size = 0, ram_size = 0;
+        std::tie(type, rom_size, ram_size) = getMemInfoTuple(mbc);
+
+		rom_[gb::memorymap::CART_TYPE] = type;
+		rom_[gb::memorymap::CART_ROM_SIZE] = rom_size;
+		rom_[gb::memorymap::CART_RAM_SIZE] = ram_size;
 
 		// game title
 		static const char* game_title = "TEST";
@@ -90,9 +131,27 @@ private:
 		std::memcpy(&rom_[gb::memorymap::PROGRAM_START], program_boot, sizeof(program_boot));
 	}
 
+    static MemInfoTuple getMemInfoTuple(MBC mbc) noexcept
+    {
+        switch (mbc)
+        {
+        case CodeGenerator::MBC::MBC1:
+            return std::make_tuple<uint8_t, uint8_t, uint8_t>(0x03, 0x06, 0x03);
+        case CodeGenerator::MBC::MBC2:
+            return std::make_tuple<uint8_t, uint8_t, uint8_t>(0x06, 0x06, 0x03);
+        case CodeGenerator::MBC::MBC3:
+            return std::make_tuple<uint8_t, uint8_t, uint8_t>(0x13, 0x06, 0x03);
+        case CodeGenerator::MBC::MBC5:
+            return std::make_tuple<uint8_t, uint8_t, uint8_t>(0x1B, 0x06, 0x03);
+        case CodeGenerator::MBC::NONE:
+        default:
+            return std::make_tuple<uint8_t, uint8_t, uint8_t>(0x00, 0x00, 0x00);
+        }
+    }
+
 private:
 	std::vector<uint8_t> rom_;
-	uint16_t address_counter_;
+	std::size_t address_counter_;
 };
 
 #endif // CODEGENERATOR_H

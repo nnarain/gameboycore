@@ -15,7 +15,7 @@ namespace gb
         void MBC2::write(uint8_t value, uint16_t addr)
         {
             // MBC2 only uses the lower 4 bits
-            MBC::write(value | 0x0F, addr);
+            MBC::write(value & 0x0F, addr);
         }
 
         void MBC2::control(uint8_t value, uint16_t addr)
@@ -33,7 +33,7 @@ namespace gb
                 // least significant bit of upper byte in address must be one
                 if (isSet(addr, 0x0100))
                 {
-                    rom_bank_ = value & 0x0F;
+                    rom_bank_ = (value & 0x0F) - 1;
                 }
             }
         }

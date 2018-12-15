@@ -50,9 +50,12 @@ if(GTEST_FOUND)
         test_invalid_opcodes.cpp
         test_joypad.cpp
         test_low_power_mode.cpp
-        
+
         test_mbc1.cpp
-        
+        test_mbc2.cpp
+        test_mbc3.cpp
+        test_mbc5.cpp
+
         # headers
         include/test_helper.h
         include/util/codegenerator.h
