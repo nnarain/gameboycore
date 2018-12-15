@@ -145,16 +145,21 @@ TEST(API, GetAndSetBatteryRAM)
 
     // Write a value into battery ram
     core.writeMemory(0xA000, 0xDE);
+    core.writeMemory(0xBFFF, 0xCC);
 
     // Get battery RAM
     auto batteryram = core.getBatteryRam();
 
     EXPECT_EQ(batteryram[0], 0xDE);
+    EXPECT_EQ(batteryram[batteryram.size() - 1], 0xCC);
 
     batteryram[0] = 0xAD;
+    batteryram[batteryram.size() - 1] = 0xBB;
     core.setBatteryRam(batteryram);
 
-    auto value = core.readMemory(0xA000);
+    auto value1 = core.readMemory(0xA000);
+    auto value2 = core.readMemory(0xBFFF);
 
-    EXPECT_EQ(value, 0xAD);
+    EXPECT_EQ(value1, 0xAD);
+    EXPECT_EQ(value2, 0xBB);
 }

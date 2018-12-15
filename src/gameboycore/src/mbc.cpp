@@ -95,7 +95,8 @@ namespace gb
             auto start = getIndex(memorymap::EXTERNAL_RAM_START, rom_bank_, 0);
             auto end   = getIndex(memorymap::EXTERNAL_RAM_END, rom_bank_, num_cartridge_ram_banks_ - 1);
 
-            return std::vector<uint8_t>(memory_.begin() + start, memory_.begin() + end);
+            // Copy external RAM range. Add 1 so range [START, END] is inclusive
+            return std::vector<uint8_t>(memory_.begin() + start, memory_.begin() + end + 1);
         }
 
         int MBC::getRomBank() const
