@@ -131,3 +131,35 @@ TEST(API, SpriteAttributes)
 
     EXPECT_EQ(s4.paletteOBP0(), 1);
 }
+
+TEST(API, GetAndSetBatteryRAM)
+{
+    CodeGenerator code;
+    code.block(0x76);
+
+    GameboyCore core;
+    core.loadROM(code.rom());
+
+    // enable xram by writing $0A into ROM < $1FFF
+    core.writeMemory(0x1000, 0x0A);
+
+    // Write a value into battery ram
+    core.writeMemory(0xA000, 0xDE);
+    core.writeMemory(0xBFFF, 0xCC);
+
+    // Get battery RAM
+    auto batteryram = core.getBatteryRam();
+
+    EXPECT_EQ(batteryram[0], 0xDE);
+    EXPECT_EQ(batteryram[batteryram.size() - 1], 0xCC);
+
+    batteryram[0] = 0xAD;
+    batteryram[batteryram.size() - 1] = 0xBB;
+    core.setBatteryRam(batteryram);
+
+    auto value1 = core.readMemory(0xA000);
+    auto value2 = core.readMemory(0xBFFF);
+
+    EXPECT_EQ(value1, 0xAD);
+    EXPECT_EQ(value2, 0xBB);
+}
