@@ -2,7 +2,9 @@
 #include "gameboycore/gameboycore.h"
 #include "gameboycore/cartinfo.h"
 
+#include <fstream>
 #include <memory>
+#include <exception>
 
 namespace gb
 {
@@ -46,7 +48,7 @@ namespace gb
                 apu->setAudioSampleCallback(audio_sample_callback_);
         }
 
-        void loadROM(uint8_t* rom, uint32_t size)
+        void loadROM(const uint8_t* rom, uint32_t size)
         {
             mmu.reset(new MMU(rom, size));
 
@@ -132,7 +134,31 @@ namespace gb
         }
     }
 
-    void GameboyCore::loadROM(uint8_t* rom, uint32_t size)
+    void GameboyCore::open(const std::string& filename)
+    {
+        std::ifstream file{ filename, std::ios::ate | std::ios::binary };
+        if (!file.is_open())
+        {
+            throw std::runtime_error(std::string("Could not load ROM file: " + filename));
+        }
+
+        auto size = (std::size_t)file.tellg();
+        file.seekg(0, std::ios::beg);
+        
+        std::vector<uint8_t> buffer;
+        buffer.resize(size);
+
+        file.read((char*)buffer.data(), buffer.size());
+
+        loadROM(buffer);
+    }
+
+    void GameboyCore::loadROM(const std::vector<uint8_t>& buffer)
+    {
+        loadROM(buffer.data(), buffer.size());
+    }
+
+    void GameboyCore::loadROM(const uint8_t* rom, uint32_t size)
     {
         impl_->loadROM(rom, size);
     }

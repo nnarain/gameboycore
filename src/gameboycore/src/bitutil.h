@@ -79,7 +79,7 @@ inline Tx getBit(const Tx& x, const Ty& n) noexcept
 template<typename Tx, typename Ty>
 inline bool isSet(const Tx& x, const Ty& y) noexcept
 {
-    return x & y;
+    return (x & y) != 0;
 }
 
 //! check if mask y is clear in x

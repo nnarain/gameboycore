@@ -1,10 +1,9 @@
-
 /**
-    \author Natesh Narain <nnaraindev@gmail.com>
-    \brief Memory Back Controller 1
-    \date Oct 11 2016
+ * \file mbc1.h
+ * \author Natesh Narain <nnaraindev@gmail.com>
+ * \brief Memory Back Controller 1
+ * \date Oct 11 2016
 */
-
 #ifndef GAMEBOYCORE_MBC1_H
 #define GAMEBOYCORE_MBC1_H
 
@@ -32,7 +31,7 @@ namespace gb
             };
 
         public:
-            MBC1(uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enabled);
+            MBC1(const uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enabled);
 
         protected:
             virtual void control(uint8_t value, uint16_t addr);

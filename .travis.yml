@@ -8,12 +8,18 @@ compiler:
 - g++
 - clang
 
+python:
+  - "3.6"
+
 addons:
   apt:
     sources:
       - sourceline: 'ppa:ubuntu-toolchain-r/test'
+      - deadsnakes
     packages:
+      - cppcheck
       - lcov
+      - python3.6
 
 install:
 - bash scripts/ci_install

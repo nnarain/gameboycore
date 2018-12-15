@@ -31,7 +31,7 @@ namespace gb
     public:
         RomParser();
 
-        static CartInfo parse(uint8_t* image);
+        static CartInfo parse(const uint8_t* image);
     };
 }
 

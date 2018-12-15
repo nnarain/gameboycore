@@ -31,7 +31,7 @@ namespace gb
         typedef std::function<uint8_t(uint16_t)>       MemoryReadHandler;
 
     public:
-        MMU(uint8_t* rom, uint32_t size);
+        MMU(const uint8_t* rom, uint32_t size);
         MMU(const MMU&) = delete;
         ~MMU();
 

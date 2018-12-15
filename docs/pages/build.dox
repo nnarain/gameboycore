@@ -1,0 +1,14 @@
+/*!
+\page Installation
+
+\code{.cpp}
+    git clone https://github.com/nnarain/gameboycore
+    cd gameboycore
+    git submodule update --init --recursive
+    
+    mkdir build && cd build
+    cmake ..
+    cmake --build . --target gameboycore
+\endcode
+
+*/

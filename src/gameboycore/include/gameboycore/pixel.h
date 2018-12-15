@@ -1,6 +1,7 @@
 /**
-    \author Natesh Narain <nnaraindev@gmail.com>
-    \date Oct 23 2016
+ * \file pixel.h
+ * \author Natesh Narain <nnaraindev@gmail.com>
+ * \date Oct 23 2016
 */
 
 #ifndef GAMEBOYCORE_PIXEL_H

@@ -1,5 +1,6 @@
 /**
-    \author Natesh Narain
+ * \file palette.h
+ * \author Natesh Narain
 */
 
 #ifndef GAMEBOYCORE_PALETTE_H

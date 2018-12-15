@@ -1,4 +1,4 @@
-# Gameboy Core
+# GameboyCore
 
 [![Build Status](https://travis-ci.org/nnarain/gameboycore.svg?branch=develop)](https://travis-ci.org/nnarain/gameboycore)
 [![Build status](https://ci.appveyor.com/api/projects/status/jkrjhds3i67o5k76/branch/develop?svg=true)](https://ci.appveyor.com/project/nnarain/gameboycore/branch/develop)
@@ -56,9 +56,6 @@ A few test ROMs can be run as well.
 ```bash
 cmake --build . --target run_test_roms
 ```
-
-Only the test ROMs that print to the serial port are run. Of course any test ROM can be run with the debugger tool.
-
 
 **Building Tools**
 

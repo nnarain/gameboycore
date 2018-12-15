@@ -17,7 +17,10 @@
 #include "gameboycore/link.h"
 
 #include <cstdint>
+#include <vector>
+#include <string>
 
+//! GameboyCore namespace
 namespace gb
 {
     /**
@@ -50,9 +53,19 @@ namespace gb
         void emulateFrame();
 
         /**
+            Load a ROM file
+        */
+        void open(const std::string& filename);
+
+        /**
+            Load byte buffer into virtual memroy
+        */
+        void loadROM(const std::vector<uint8_t>& buffer);
+
+        /**
             Load byte buffer into virtual memory
         */
-        void loadROM(uint8_t* rom, uint32_t size);
+        void loadROM(const uint8_t* rom, uint32_t size);
 
         /**
             Reset the GameboyCore state

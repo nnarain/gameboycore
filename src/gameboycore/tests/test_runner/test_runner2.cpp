@@ -16,27 +16,6 @@ namespace
 
     using clock = std::chrono::steady_clock;
     using time_point = std::chrono::time_point<clock>;
-
-    std::vector<uint8_t> loadRom(const std::string& rom_path)
-    {
-        std::vector<uint8_t> data;
-
-        std::ifstream file{ rom_path, std::ios::binary | std::ios::ate };
-        if (file.is_open())
-        {
-            auto length = file.tellg();
-            data.resize((std::size_t)length);
-
-            file.seekg(0, std::ios::beg);
-            file.read((char*)&data[0], length);
-        }
-        else
-        {
-            throw std::runtime_error("Could not open file specified");
-        }
-
-        return data;
-    }
     
     std::array<uint8_t, 3> getSignature(GameboyCore& core)
     {
@@ -132,23 +111,18 @@ int main(int argc, char const *argv[])
     // File path to the ROM file
     std::string filepath{ argv[1] };
 
-    // Load ROM data
-    std::vector<uint8_t> data;
+    // Create a core and load the ROM data
+    GameboyCore core;
 
     try
     {
-        data = loadRom(filepath);
+        core.open(filepath);
     }
     catch (std::runtime_error& e)
     {
         std::cerr << "Failed to load ROM file: " << e.what() << "\n";
         return 1;
     }
-
-    // Create a core and load the ROM data
-    GameboyCore core;
-    core.loadROM(&data[0], data.size());
-    data.clear();
 
     // Emulate a frame to give the test ROM a chance to load RAM with status values
     core.emulateFrame();
