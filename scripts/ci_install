@@ -8,9 +8,5 @@ cmake ..
 make && sudo make install
 popd
 
-# Install cppcheck
-pushd .
-git clone --branch=1.86 --depth=1 https://github.com/danmar/cppcheck ~/cppcheck
-mkdir ~/cppcheck/build && cd ~/cppcheck/build
-cmake .. && make && sudo make install
-popd
+# For documentation
+wget -O - https://bootstrap.pypa.io/get-pip.py | sudo python3.6

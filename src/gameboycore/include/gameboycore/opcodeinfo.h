@@ -1,10 +1,8 @@
-
 /**
-    Define opcode metadata
-
-    @author Natesh Narain <nnaraindev@gmail.com>
+ * \file opcodeinfo.h
+ * \brief Define opcode metadata
+ * \author Natesh Narain <nnaraindev@gmail.com>
 */
-
 #ifndef GAMEBOYCORE_OPCODEINFO_H
 #define GAMEBOYCORE_OPCODEINFO_H
 

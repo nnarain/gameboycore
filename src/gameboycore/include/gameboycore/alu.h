@@ -8,9 +8,6 @@
 
 #include <cstdint>
 
-/**
-    Contains Math and Logical operation
-*/
 namespace gb
 {
     /*!

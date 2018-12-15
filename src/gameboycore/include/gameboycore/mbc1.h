@@ -1,10 +1,9 @@
-
 /**
-    \author Natesh Narain <nnaraindev@gmail.com>
-    \brief Memory Back Controller 1
-    \date Oct 11 2016
+ * \file mbc1.h
+ * \author Natesh Narain <nnaraindev@gmail.com>
+ * \brief Memory Back Controller 1
+ * \date Oct 11 2016
 */
-
 #ifndef GAMEBOYCORE_MBC1_H
 #define GAMEBOYCORE_MBC1_H
 

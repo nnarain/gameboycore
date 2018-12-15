@@ -20,6 +20,7 @@
 #include <vector>
 #include <string>
 
+//! GameboyCore namespace
 namespace gb
 {
     /**
