@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>gb::memorymap namespace | GameboyCore</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+doxygen.compiled.css" />
+  <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">GameboyCore</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-dox-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-dox-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1><span class="m-breadcrumb"><a href="namespacegb.html">gb</a>::<wbr/></span>memorymap <span class="m-thin">namespace</span></h1>
+        <p>Defines values for specific locations in the Gameboy memory map.</p>
+        <section id="enum-members">
+          <h2><a href="#enum-members">Enums</a></h2>
+          <dl class="m-dox">
+            <dt>
+              <span class="m-dox-wrap-bumper">enum <a href="#ab4d8618376e6642d61dce5e8c35261d3" class="m-dox">Locations</a> { </span><span class="m-dox-wrap"><a href="#ab4d8618376e6642d61dce5e8c35261d3aeb15930c5dc5c2cd682ce512ef7f0787" class="m-dox">PERMANENT_ROM_BANK_START</a> = 0x0000,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a1d2928bb6a0061ec58d388c2f5f6f35d" class="m-dox">INTERRUPT_HANDLER_VBLANK</a> = 0x0040,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3af524b31aa808b0a52b873a3e411fe5dc" class="m-dox">INTERRUPT_HANDLER_LCDSTAT</a> = 0x0048,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a4dbae09c3dd5e927c3ed3efd3e477a6d" class="m-dox">INTERRUPT_HANDLER_TIMER</a> = 0x0050,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a9431b6b1e9c6a3760fe27c9d771b1c83" class="m-dox">INTERRUPT_HANDLER_SERIAL</a> = 0x0058,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a3502417e4cf15f5f3e1ab6024bd6772f" class="m-dox">INTERRUPT_HANDLER_JOYPAD</a> = 0x0060,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3accb5bdd30903527b91e82774bdbd7fb7" class="m-dox">PROGRAM_START</a> = 0x0100,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aa6724ff06767c32f499378b61c8934eb" class="m-dox">NINTENDO_LOGO_START</a> = 0x0104,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ab210f9c9731774b6dcf45fdfca5b004e" class="m-dox">NINTENDO_LOGO_END</a> = 0x0133,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a6a80d96f2adf3b0b9d9a4487330f95d0" class="m-dox">GAME_TITLE_START</a> = 0x0134,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ad36c74192ce1f08e9a542b2e0655e7c5" class="m-dox">GAME_TITLE_END</a> = 0x013E,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a18345cb1e55ffaf11cb795f738a51f33" class="m-dox">GAME_DESTINATION_START</a> = 0x013F,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a8864b25d90e871752ca64fec6ec93755" class="m-dox">GAME_DESTINATION_END</a> = 0x0142,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a8da9d92326a7b5a146f7ec852abc9925" class="m-dox">COLOR_COMPATABILITY</a> = 0x0143,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ac4d0dcc5fab8239cb7ea87d7bd83b30f" class="m-dox">NEW_LICENSE_START</a> = 0x0144,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3afc5bf0b2f6ae6b91435be831967f766c" class="m-dox">NEW_LICENSE_END</a> = 0x0145,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3adc3b617e2e28bd8bb2be5cd8acc31aa7" class="m-dox">SGB_COMPATABILITY</a> = 0x0146,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aa9e850ec23b6b5103db1246f0fe28290" class="m-dox">CART_TYPE</a> = 0x0147,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a3632a6a56c65e1ff1651feeb72a280c3" class="m-dox">CART_ROM_SIZE</a> = 0x0148,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ab8b67a36733bd09b958c1318d65d6670" class="m-dox">CART_RAM_SIZE</a> = 0x0149,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3abd3bb2e607af89f9fe86c3ef07e84332" class="m-dox">DETINATION_CODE</a> = 0x014A,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a8e4f0804189e61882496e977291075c5" class="m-dox">OLD_LICENSE</a> = 0x014B,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ae56a58cd0121a3f7a9b6beee387e087a" class="m-dox">MASK_ROM_VERSION</a> = 0x014C,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a3539b63e32725faa50cdeb00c5e8e043" class="m-dox">COMPLEMENT_CHECKSUM</a> = 0x014D,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a839b2469ad9211f007b3e75c6e14a424" class="m-dox">CHECKSUM_START</a> = 0x014E,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a18c8b7c95aca138db01e6a65bac17ed2" class="m-dox">CHECKSUM_END</a> = 0x014F,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ab037dd5dc1223394a8c2f19571fbca86" class="m-dox">PERMANENT_ROM_BANK_END</a> = 0x3FFF,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3af6f530211d7677ceeaaae7abf920c82d" class="m-dox">SWITCHABLE_ROM_BANK_START</a> = 0x4000,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a5748c18a73536e14fde7fde561caf02b" class="m-dox">SWITCHABLE_ROM_BANK_END</a> = 0x7FFF,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a5967b4720096bdd0ea8e9dc021a643ef" class="m-dox">CHARACTER_RAM_START</a> = 0x8000,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a0e907dbb521c984c3c3e9def704e0fc0" class="m-dox">CHARACTER_RAM_END</a> = 0x97FF,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a5c2f283d038528240a3ae6f6f6bfa1bc" class="m-dox">BG_MAP_DATA_1_START</a> = 0x9800,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aff2551b424828e8868acd2c50c565feb" class="m-dox">BG_MAP_DATA_1_END</a> = 0x9BFF,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ab2e4a548e9137b711aa16adeac0476ec" class="m-dox">BG_MAP_DATA_2_START</a> = 0x9C00,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ac01bcd7ea71b0e27942ae8f81c492269" class="m-dox">BG_MAP_DATA_2_END</a> = 0x9FFF,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aa35abe359478b6afd6b5f650cea075d0" class="m-dox">EXTERNAL_RAM_START</a> = 0xA000,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ad578fc101f0b1bbf91241dd9dcc5f05a" class="m-dox">EXTERNAL_RAM_END</a> = 0xBFFF,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a3bfc9222e29f2461fa152fefe9bf65b7" class="m-dox">WORK_RAM_BANK_0_START</a> = 0xC000,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a8ad4a1fb180d3f505c25dc656af9d26e" class="m-dox">WORK_RAM_BANK_0_END</a> = 0xCFFF,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a72d78ff2c879efc51f11a1261753743f" class="m-dox">WORK_RAM_BANK_1_START</a> = 0xD000,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3af6b64a83abc28adc4c07d70ec898d178" class="m-dox">WORK_RAM_BANK_1_END</a> = 0xDFFF,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aa598923fa7545e9a80d45c155335b4a8" class="m-dox">OAM_START</a> = 0xFE00,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ae2149250494940b21ee05335b3d06d75" class="m-dox">OAM_END</a> = 0xFE9F,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a9d4007442213923a25b230d9266718d9" class="m-dox">JOYPAD_REGISTER</a> = 0xFF00,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a3e430d60edda7d709ea4436949b0b80e" class="m-dox">SB_REGISTER</a> = 0xFF01,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3add480dfb11d8467184145be5d6d80042" class="m-dox">SC_REGISTER</a> = 0xFF02,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aab60821540a5bb7286f11e00322a2ccd" class="m-dox">DIVIDER_LO_REGISTER</a> = 0xFF03,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3acff341cbf974d8c261d9af3ebebab6ff" class="m-dox">DIVIDER_REGISER</a> = 0xFF04,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a69f1bcb856fe854d57cdc4d85d2757f7" class="m-dox">TIMER_COUNTER_REGISTER</a> = 0xFF05,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a723d939f3e0eb1453c9f12b2eefb4bf3" class="m-dox">TIMER_MODULO_REGISTER</a> = 0xFF06,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3acb5789b9b88591fd2c47bcebf2ddf137" class="m-dox">TIMER_CONTROLLER_REGISTER</a> = 0xFF07,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3abd6066aaaad7f6a2a32e5bd420a641ed" class="m-dox">NR10_REGISTER</a> = 0xFF10,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3af38f9c9f80069b4d2a4898c2bf7db810" class="m-dox">NR11_REGISTER</a> = 0xFF11,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3acfa902dc6e41c79e2c475bba0a5e22a8" class="m-dox">NR12_REGISTER</a> = 0xFF12,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a5e88cca652ce353e4b6b092a3bdfee49" class="m-dox">NR13_REGISTER</a> = 0xFF13,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a1b4f81dafa70c6550f51625e162def10" class="m-dox">NR14_REGISTER</a> = 0xFF14,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ab0ebb754df0a62817b34c16672ae8543" class="m-dox">NR20_REGISTER</a> = 0xFF15,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3abfe34f92584a5caebab4b7f1669719f8" class="m-dox">NR21_REGISTER</a> = 0xFF16,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a57fa93b8ae70e6c20dc873056759ed0b" class="m-dox">NR22_REGISTER</a> = 0xFF17,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a84a703c36ee17b0b17fb1b1cdaad8c6e" class="m-dox">NR23_REGISTER</a> = 0xFF18,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a2a1a8a23ea78615b6ceb19068a88eb4a" class="m-dox">NR24_REGISTER</a> = 0xFF19,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a4960f57545501d63b9cd3b26d65b055b" class="m-dox">NR30_REGISTER</a> = 0xFF1A,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a0020445acd3e58abf807e59110f0c11b" class="m-dox">NR31_REGISTER</a> = 0xFF1B,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a2aa289bbb3b96ec0f0c604aa160a1603" class="m-dox">NR32_REGISTER</a> = 0xFF1C,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a20d3035206911276c17eef1dcc727e31" class="m-dox">NR33_REGISTER</a> = 0xFF1D,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aae81fbb2fa957b2f06860d871726b36c" class="m-dox">NR34_REGISTER</a> = 0xFF1E,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ad4ce5e0e05f33f20bff27bfb9e1a983e" class="m-dox">NR41_REGISTER</a> = 0xFF20,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a60165dd7089b5ea4a042c3e1a6467a3a" class="m-dox">NR42_REGISTER</a> = 0xFF21,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3afae0bdda8a353f72257ed52bcf9fe62d" class="m-dox">NR43_REGISTER</a> = 0xFF22,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a9081425199d026118deaaf4f83185d42" class="m-dox">NR44_REGISTER</a> = 0xFF23,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a4e7d5c2de4c934cbfba8993a863ed3f1" class="m-dox">NR50_REGISTER</a> = 0xFF24,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a702342ff86d57ceed6a39ec075e4af17" class="m-dox">NR51_REGISTER</a> = 0xFF25,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aa680b2c8806e4d58664a9135134e6121" class="m-dox">NR52_REGISTER</a> = 0xFF26,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a30b7a75d2da07c6b11352e078f3daafb" class="m-dox">WAVE_PATTERN_RAM_START</a> = 0xFF30,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a31807fc1cd19cecf003846ddaf1c5a6c" class="m-dox">WAVE_PATTERN_RAM_END</a> = 0xFF3F,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a91a8d1fea5584b4771a3513271e322f2" class="m-dox">LCDC_REGISTER</a> = 0xFF40,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3af245f8823ab8b5cd5fb59dc710e10ee4" class="m-dox">LCD_STAT_REGISTER</a> = 0xFF41,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ae8ac94e0e4099e35f2c4412d13bf7d19" class="m-dox">SCY_REGISTER</a> = 0xFF42,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3af2dd3991221b45c8df94aa94c254a898" class="m-dox">SCX_REGISTER</a> = 0xFF43,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a4fa425f1e7b87e49a15639a9b887c183" class="m-dox">LY_REGISTER</a> = 0xFF44,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a92b7236c45c5474285b2c23ef0e70bbe" class="m-dox">LYC_REGISTER</a> = 0xFF45,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aaf7e1765b04a058100dfa95bd44d1f24" class="m-dox">BGP_REGISTER</a> = 0xFF47,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a84e69a6f5e46dc902faf4d47e6c13276" class="m-dox">OBP0_REGISTER</a> = 0xFF48,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3af3e012ff5fc5ec136434c4010da1f5f6" class="m-dox">OBP1_REGISTER</a> = 0xFF49,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a07dfd5bdc5213f570a10005ba67d2ca8" class="m-dox">WY_REGISTER</a> = 0xFF4A,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a5f162cb02d792d46438f132182a364ae" class="m-dox">WX_REGISTER</a> = 0xFF4B,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a4a02763995684a7606b1b8f4170d8517" class="m-dox">KEY1_REGISER</a> = 0xFF4D,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3addd4dc7c5a776342d3912c2845a96c69" class="m-dox">DMA_REGISTER</a> = 0xFF46,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a53e620a62edae7a4aba3150acc456c81" class="m-dox">VBK_REGISTER</a> = 0xFF4F,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a6a27aa71acc80b1930b78b03a593c0fe" class="m-dox">HDMA1</a> = 0xFF51,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a770a18e64008c9de3e0bc143273364e5" class="m-dox">HDMA2</a> = 0xFF52,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aeea62b181a9965588324ce23765824d9" class="m-dox">HDMA3</a> = 0xFF53,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aa06eae4799d74d24abce43d08b8862a9" class="m-dox">HDMA4</a> = 0xFF54,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3add1c413130718f8133a1d474bc3c0b09" class="m-dox">HDMA5</a> = 0xFF55,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ac224db3b080f65bf296595410af13178" class="m-dox">BGPI</a> = 0xFF68,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a202f8ea788c07f7852854a3d08bcf3f1" class="m-dox">BGPD</a> = 0xFF69,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3a26baac66ed42475ea0ee16a71fddd0c0" class="m-dox">OBPI</a> = 0xFF6A,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aeebf9663eb0a7ec9c6f7a6a0a052db89" class="m-dox">OBPD</a> = 0xFF6B,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3aa0e218989a7148f6eccfc153f4967029" class="m-dox">SVBK_REGISTER</a> = 0xFF70,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ad0f9515dd05db93f3e6f66f04fa9035c" class="m-dox">HIGH_RAM_START</a> = 0xFF80,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ac436a43b56c2811f425d139aab4cadd0" class="m-dox">HIGH_RAM_END</a> = 0xFFFE,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3abeab6c843ea24b52665de910713d25a6" class="m-dox">INTERRUPT_ENABLE</a> = 0xFFFF,
+              <a href="#ab4d8618376e6642d61dce5e8c35261d3ab3ac1cd03f51f22df8aae7724c8609d0" class="m-dox">INTERRUPT_FLAG</a> = 0xFF0F }</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">enum <a href="#ae7e19a09b15ac0f8859df59e9e5f0924" class="m-dox">LCDC</a> { </span><span class="m-dox-wrap"><a href="#ae7e19a09b15ac0f8859df59e9e5f0924a3cfa3c04f09655239151b3571c315a1d" class="m-dox">ENABLE</a> = (1 &lt;&lt; 7),
+              <a href="#ae7e19a09b15ac0f8859df59e9e5f0924a861217977b95cf2b26a9f38dc7c301be" class="m-dox">WINDOW_CODE_AREA</a> = (1 &lt;&lt; 6),
+              <a href="#ae7e19a09b15ac0f8859df59e9e5f0924af10aa693dbd1a1c74fbeb8100011359c" class="m-dox">WINDOW_ON</a> = (1 &lt;&lt; 5),
+              <a href="#ae7e19a09b15ac0f8859df59e9e5f0924a00b41989080c8557a3b7b3ecbc100252" class="m-dox">CHARACTER_DATA</a> = (1 &lt;&lt; 4),
+              <a href="#ae7e19a09b15ac0f8859df59e9e5f0924ae61c4d30d71d9da17af01f38b2daf495" class="m-dox">BG_CODE_AREA</a> = (1 &lt;&lt; 3),
+              <a href="#ae7e19a09b15ac0f8859df59e9e5f0924af0f9c2931a525929407feb7ea3add2c5" class="m-dox">OBJ_8x16</a> = (1 &lt;&lt; 2),
+              <a href="#ae7e19a09b15ac0f8859df59e9e5f0924abd903c364b2af5e9b94d8ec07b0c5306" class="m-dox">OBJ_ON</a> = (1 &lt;&lt; 1),
+              <a href="#ae7e19a09b15ac0f8859df59e9e5f0924abfdfff541b2bf6978e7b3efd9e96c14c" class="m-dox">BG_DISPLAY_ON</a> = (1 &lt;&lt; 0) }</span>
+            </dt>
+            <dd>LCDC Register bit masks.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">enum <a href="#abf5ea12fb5d4db7e44e28a06e509d9e9" class="m-dox">Stat</a> { </span><span class="m-dox-wrap"><a href="#abf5ea12fb5d4db7e44e28a06e509d9e9a013d38a7ab98b651a24bf29fc5f57188" class="m-dox">LYCLY</a> = (1 &lt;&lt; 2) }</span>
+            </dt>
+            <dd>LCDC Status Register bit masks.</dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">enum <a href="#a0ed01effba21679f51aceee7c4e5638c" class="m-dox">SC</a> { </span><span class="m-dox-wrap"><a href="#a0ed01effba21679f51aceee7c4e5638cad07296180f108d9a34e65a4dbfe9d244" class="m-dox">TRANSFER</a> = (1 &lt;&lt; 7),
+              <a href="#a0ed01effba21679f51aceee7c4e5638cad4e5dadd1d3387e471ae73b238c9ca50" class="m-dox">SHIFT_CLOCK_RATE</a> = (1 &lt;&lt; 1),
+              <a href="#a0ed01effba21679f51aceee7c4e5638ca20998487398a81276f67678b3b905c56" class="m-dox">CLOCK_MODE</a> = (1 &lt;&lt; 0) }</span>
+            </dt>
+            <dd>Serial Control register bit masks.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Enum documentation</h2>
+          <section class="m-dox-details" id="ab4d8618376e6642d61dce5e8c35261d3"><div>
+            <h3>
+              enum gb::<wbr />memorymap::<wbr /><a href="#ab4d8618376e6642d61dce5e8c35261d3" class="m-dox-self">Locations</a>
+            </h3>
+            <table class="m-table m-fullwidth m-flat m-dox">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aeb15930c5dc5c2cd682ce512ef7f0787" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aeb15930c5dc5c2cd682ce512ef7f0787">PERMANENT_ROM_BANK_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a1d2928bb6a0061ec58d388c2f5f6f35d" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a1d2928bb6a0061ec58d388c2f5f6f35d">INTERRUPT_HANDLER_VBLANK</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3af524b31aa808b0a52b873a3e411fe5dc" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3af524b31aa808b0a52b873a3e411fe5dc">INTERRUPT_HANDLER_LCDSTAT</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a4dbae09c3dd5e927c3ed3efd3e477a6d" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a4dbae09c3dd5e927c3ed3efd3e477a6d">INTERRUPT_HANDLER_TIMER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a9431b6b1e9c6a3760fe27c9d771b1c83" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a9431b6b1e9c6a3760fe27c9d771b1c83">INTERRUPT_HANDLER_SERIAL</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a3502417e4cf15f5f3e1ab6024bd6772f" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a3502417e4cf15f5f3e1ab6024bd6772f">INTERRUPT_HANDLER_JOYPAD</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3accb5bdd30903527b91e82774bdbd7fb7" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3accb5bdd30903527b91e82774bdbd7fb7">PROGRAM_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aa6724ff06767c32f499378b61c8934eb" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aa6724ff06767c32f499378b61c8934eb">NINTENDO_LOGO_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ab210f9c9731774b6dcf45fdfca5b004e" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ab210f9c9731774b6dcf45fdfca5b004e">NINTENDO_LOGO_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a6a80d96f2adf3b0b9d9a4487330f95d0" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a6a80d96f2adf3b0b9d9a4487330f95d0">GAME_TITLE_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ad36c74192ce1f08e9a542b2e0655e7c5" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ad36c74192ce1f08e9a542b2e0655e7c5">GAME_TITLE_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a18345cb1e55ffaf11cb795f738a51f33" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a18345cb1e55ffaf11cb795f738a51f33">GAME_DESTINATION_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a8864b25d90e871752ca64fec6ec93755" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a8864b25d90e871752ca64fec6ec93755">GAME_DESTINATION_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a8da9d92326a7b5a146f7ec852abc9925" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a8da9d92326a7b5a146f7ec852abc9925">COLOR_COMPATABILITY</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ac4d0dcc5fab8239cb7ea87d7bd83b30f" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ac4d0dcc5fab8239cb7ea87d7bd83b30f">NEW_LICENSE_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3afc5bf0b2f6ae6b91435be831967f766c" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3afc5bf0b2f6ae6b91435be831967f766c">NEW_LICENSE_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3adc3b617e2e28bd8bb2be5cd8acc31aa7" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3adc3b617e2e28bd8bb2be5cd8acc31aa7">SGB_COMPATABILITY</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aa9e850ec23b6b5103db1246f0fe28290" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aa9e850ec23b6b5103db1246f0fe28290">CART_TYPE</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a3632a6a56c65e1ff1651feeb72a280c3" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a3632a6a56c65e1ff1651feeb72a280c3">CART_ROM_SIZE</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ab8b67a36733bd09b958c1318d65d6670" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ab8b67a36733bd09b958c1318d65d6670">CART_RAM_SIZE</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3abd3bb2e607af89f9fe86c3ef07e84332" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3abd3bb2e607af89f9fe86c3ef07e84332">DETINATION_CODE</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a8e4f0804189e61882496e977291075c5" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a8e4f0804189e61882496e977291075c5">OLD_LICENSE</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ae56a58cd0121a3f7a9b6beee387e087a" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ae56a58cd0121a3f7a9b6beee387e087a">MASK_ROM_VERSION</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a3539b63e32725faa50cdeb00c5e8e043" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a3539b63e32725faa50cdeb00c5e8e043">COMPLEMENT_CHECKSUM</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a839b2469ad9211f007b3e75c6e14a424" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a839b2469ad9211f007b3e75c6e14a424">CHECKSUM_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a18c8b7c95aca138db01e6a65bac17ed2" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a18c8b7c95aca138db01e6a65bac17ed2">CHECKSUM_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ab037dd5dc1223394a8c2f19571fbca86" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ab037dd5dc1223394a8c2f19571fbca86">PERMANENT_ROM_BANK_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3af6f530211d7677ceeaaae7abf920c82d" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3af6f530211d7677ceeaaae7abf920c82d">SWITCHABLE_ROM_BANK_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a5748c18a73536e14fde7fde561caf02b" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a5748c18a73536e14fde7fde561caf02b">SWITCHABLE_ROM_BANK_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a5967b4720096bdd0ea8e9dc021a643ef" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a5967b4720096bdd0ea8e9dc021a643ef">CHARACTER_RAM_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a0e907dbb521c984c3c3e9def704e0fc0" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a0e907dbb521c984c3c3e9def704e0fc0">CHARACTER_RAM_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a5c2f283d038528240a3ae6f6f6bfa1bc" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a5c2f283d038528240a3ae6f6f6bfa1bc">BG_MAP_DATA_1_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aff2551b424828e8868acd2c50c565feb" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aff2551b424828e8868acd2c50c565feb">BG_MAP_DATA_1_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ab2e4a548e9137b711aa16adeac0476ec" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ab2e4a548e9137b711aa16adeac0476ec">BG_MAP_DATA_2_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ac01bcd7ea71b0e27942ae8f81c492269" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ac01bcd7ea71b0e27942ae8f81c492269">BG_MAP_DATA_2_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aa35abe359478b6afd6b5f650cea075d0" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aa35abe359478b6afd6b5f650cea075d0">EXTERNAL_RAM_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ad578fc101f0b1bbf91241dd9dcc5f05a" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ad578fc101f0b1bbf91241dd9dcc5f05a">EXTERNAL_RAM_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a3bfc9222e29f2461fa152fefe9bf65b7" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a3bfc9222e29f2461fa152fefe9bf65b7">WORK_RAM_BANK_0_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a8ad4a1fb180d3f505c25dc656af9d26e" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a8ad4a1fb180d3f505c25dc656af9d26e">WORK_RAM_BANK_0_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a72d78ff2c879efc51f11a1261753743f" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a72d78ff2c879efc51f11a1261753743f">WORK_RAM_BANK_1_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3af6b64a83abc28adc4c07d70ec898d178" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3af6b64a83abc28adc4c07d70ec898d178">WORK_RAM_BANK_1_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aa598923fa7545e9a80d45c155335b4a8" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aa598923fa7545e9a80d45c155335b4a8">OAM_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ae2149250494940b21ee05335b3d06d75" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ae2149250494940b21ee05335b3d06d75">OAM_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a9d4007442213923a25b230d9266718d9" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a9d4007442213923a25b230d9266718d9">JOYPAD_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a3e430d60edda7d709ea4436949b0b80e" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a3e430d60edda7d709ea4436949b0b80e">SB_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3add480dfb11d8467184145be5d6d80042" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3add480dfb11d8467184145be5d6d80042">SC_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aab60821540a5bb7286f11e00322a2ccd" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aab60821540a5bb7286f11e00322a2ccd">DIVIDER_LO_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3acff341cbf974d8c261d9af3ebebab6ff" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3acff341cbf974d8c261d9af3ebebab6ff">DIVIDER_REGISER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a69f1bcb856fe854d57cdc4d85d2757f7" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a69f1bcb856fe854d57cdc4d85d2757f7">TIMER_COUNTER_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a723d939f3e0eb1453c9f12b2eefb4bf3" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a723d939f3e0eb1453c9f12b2eefb4bf3">TIMER_MODULO_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3acb5789b9b88591fd2c47bcebf2ddf137" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3acb5789b9b88591fd2c47bcebf2ddf137">TIMER_CONTROLLER_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3abd6066aaaad7f6a2a32e5bd420a641ed" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3abd6066aaaad7f6a2a32e5bd420a641ed">NR10_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3af38f9c9f80069b4d2a4898c2bf7db810" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3af38f9c9f80069b4d2a4898c2bf7db810">NR11_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3acfa902dc6e41c79e2c475bba0a5e22a8" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3acfa902dc6e41c79e2c475bba0a5e22a8">NR12_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a5e88cca652ce353e4b6b092a3bdfee49" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a5e88cca652ce353e4b6b092a3bdfee49">NR13_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a1b4f81dafa70c6550f51625e162def10" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a1b4f81dafa70c6550f51625e162def10">NR14_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ab0ebb754df0a62817b34c16672ae8543" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ab0ebb754df0a62817b34c16672ae8543">NR20_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3abfe34f92584a5caebab4b7f1669719f8" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3abfe34f92584a5caebab4b7f1669719f8">NR21_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a57fa93b8ae70e6c20dc873056759ed0b" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a57fa93b8ae70e6c20dc873056759ed0b">NR22_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a84a703c36ee17b0b17fb1b1cdaad8c6e" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a84a703c36ee17b0b17fb1b1cdaad8c6e">NR23_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a2a1a8a23ea78615b6ceb19068a88eb4a" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a2a1a8a23ea78615b6ceb19068a88eb4a">NR24_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a4960f57545501d63b9cd3b26d65b055b" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a4960f57545501d63b9cd3b26d65b055b">NR30_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a0020445acd3e58abf807e59110f0c11b" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a0020445acd3e58abf807e59110f0c11b">NR31_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a2aa289bbb3b96ec0f0c604aa160a1603" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a2aa289bbb3b96ec0f0c604aa160a1603">NR32_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a20d3035206911276c17eef1dcc727e31" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a20d3035206911276c17eef1dcc727e31">NR33_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aae81fbb2fa957b2f06860d871726b36c" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aae81fbb2fa957b2f06860d871726b36c">NR34_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ad4ce5e0e05f33f20bff27bfb9e1a983e" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ad4ce5e0e05f33f20bff27bfb9e1a983e">NR41_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a60165dd7089b5ea4a042c3e1a6467a3a" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a60165dd7089b5ea4a042c3e1a6467a3a">NR42_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3afae0bdda8a353f72257ed52bcf9fe62d" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3afae0bdda8a353f72257ed52bcf9fe62d">NR43_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a9081425199d026118deaaf4f83185d42" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a9081425199d026118deaaf4f83185d42">NR44_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a4e7d5c2de4c934cbfba8993a863ed3f1" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a4e7d5c2de4c934cbfba8993a863ed3f1">NR50_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a702342ff86d57ceed6a39ec075e4af17" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a702342ff86d57ceed6a39ec075e4af17">NR51_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aa680b2c8806e4d58664a9135134e6121" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aa680b2c8806e4d58664a9135134e6121">NR52_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a30b7a75d2da07c6b11352e078f3daafb" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a30b7a75d2da07c6b11352e078f3daafb">WAVE_PATTERN_RAM_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a31807fc1cd19cecf003846ddaf1c5a6c" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a31807fc1cd19cecf003846ddaf1c5a6c">WAVE_PATTERN_RAM_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a91a8d1fea5584b4771a3513271e322f2" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a91a8d1fea5584b4771a3513271e322f2">LCDC_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3af245f8823ab8b5cd5fb59dc710e10ee4" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3af245f8823ab8b5cd5fb59dc710e10ee4">LCD_STAT_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ae8ac94e0e4099e35f2c4412d13bf7d19" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ae8ac94e0e4099e35f2c4412d13bf7d19">SCY_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3af2dd3991221b45c8df94aa94c254a898" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3af2dd3991221b45c8df94aa94c254a898">SCX_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a4fa425f1e7b87e49a15639a9b887c183" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a4fa425f1e7b87e49a15639a9b887c183">LY_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a92b7236c45c5474285b2c23ef0e70bbe" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a92b7236c45c5474285b2c23ef0e70bbe">LYC_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aaf7e1765b04a058100dfa95bd44d1f24" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aaf7e1765b04a058100dfa95bd44d1f24">BGP_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a84e69a6f5e46dc902faf4d47e6c13276" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a84e69a6f5e46dc902faf4d47e6c13276">OBP0_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3af3e012ff5fc5ec136434c4010da1f5f6" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3af3e012ff5fc5ec136434c4010da1f5f6">OBP1_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a07dfd5bdc5213f570a10005ba67d2ca8" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a07dfd5bdc5213f570a10005ba67d2ca8">WY_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a5f162cb02d792d46438f132182a364ae" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a5f162cb02d792d46438f132182a364ae">WX_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a4a02763995684a7606b1b8f4170d8517" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a4a02763995684a7606b1b8f4170d8517">KEY1_REGISER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3addd4dc7c5a776342d3912c2845a96c69" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3addd4dc7c5a776342d3912c2845a96c69">DMA_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a53e620a62edae7a4aba3150acc456c81" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a53e620a62edae7a4aba3150acc456c81">VBK_REGISTER</a></td>
+                  <td>
+                  <p>VRAM Bank Selection.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a6a27aa71acc80b1930b78b03a593c0fe" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a6a27aa71acc80b1930b78b03a593c0fe">HDMA1</a></td>
+                  <td>
+                  <p>New D&lt;A Source High.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a770a18e64008c9de3e0bc143273364e5" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a770a18e64008c9de3e0bc143273364e5">HDMA2</a></td>
+                  <td>
+                  <p>New DMA Source Low.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aeea62b181a9965588324ce23765824d9" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aeea62b181a9965588324ce23765824d9">HDMA3</a></td>
+                  <td>
+                  <p>New DMA Destination High.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aa06eae4799d74d24abce43d08b8862a9" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aa06eae4799d74d24abce43d08b8862a9">HDMA4</a></td>
+                  <td>
+                  <p>New DMA Destination Low.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3add1c413130718f8133a1d474bc3c0b09" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3add1c413130718f8133a1d474bc3c0b09">HDMA5</a></td>
+                  <td>
+                  <p>New DMA Length/Mode/Start.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ac224db3b080f65bf296595410af13178" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ac224db3b080f65bf296595410af13178">BGPI</a></td>
+                  <td>
+                  <p>Background <a href="classgb_1_1Palette.html" class="m-dox">Palette</a> Index.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a202f8ea788c07f7852854a3d08bcf3f1" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a202f8ea788c07f7852854a3d08bcf3f1">BGPD</a></td>
+                  <td>
+                  <p>Background <a href="classgb_1_1Palette.html" class="m-dox">Palette</a> Data.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3a26baac66ed42475ea0ee16a71fddd0c0" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3a26baac66ed42475ea0ee16a71fddd0c0">OBPI</a></td>
+                  <td>
+                  <p>Object <a href="classgb_1_1Palette.html" class="m-dox">Palette</a> Index.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aeebf9663eb0a7ec9c6f7a6a0a052db89" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aeebf9663eb0a7ec9c6f7a6a0a052db89">OBPD</a></td>
+                  <td>
+                  <p>Object <a href="classgb_1_1Palette.html" class="m-dox">Palette</a> Data.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3aa0e218989a7148f6eccfc153f4967029" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3aa0e218989a7148f6eccfc153f4967029">SVBK_REGISTER</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ad0f9515dd05db93f3e6f66f04fa9035c" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ad0f9515dd05db93f3e6f66f04fa9035c">HIGH_RAM_START</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ac436a43b56c2811f425d139aab4cadd0" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ac436a43b56c2811f425d139aab4cadd0">HIGH_RAM_END</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3abeab6c843ea24b52665de910713d25a6" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3abeab6c843ea24b52665de910713d25a6">INTERRUPT_ENABLE</a></td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ab4d8618376e6642d61dce5e8c35261d3ab3ac1cd03f51f22df8aae7724c8609d0" class="m-dox-self" name="ab4d8618376e6642d61dce5e8c35261d3ab3ac1cd03f51f22df8aae7724c8609d0">INTERRUPT_FLAG</a></td>
+                  <td>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-dox-details" id="ae7e19a09b15ac0f8859df59e9e5f0924"><div>
+            <h3>
+              enum gb::<wbr />memorymap::<wbr /><a href="#ae7e19a09b15ac0f8859df59e9e5f0924" class="m-dox-self">LCDC</a>
+            </h3>
+            <p>LCDC Register bit masks.</p>
+            <table class="m-table m-fullwidth m-flat m-dox">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#ae7e19a09b15ac0f8859df59e9e5f0924a3cfa3c04f09655239151b3571c315a1d" class="m-dox-self" name="ae7e19a09b15ac0f8859df59e9e5f0924a3cfa3c04f09655239151b3571c315a1d">ENABLE</a></td>
+                  <td>
+                  <p>LCD Controller enable.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae7e19a09b15ac0f8859df59e9e5f0924a861217977b95cf2b26a9f38dc7c301be" class="m-dox-self" name="ae7e19a09b15ac0f8859df59e9e5f0924a861217977b95cf2b26a9f38dc7c301be">WINDOW_CODE_AREA</a></td>
+                  <td>
+                  <p>Window map area selection.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae7e19a09b15ac0f8859df59e9e5f0924af10aa693dbd1a1c74fbeb8100011359c" class="m-dox-self" name="ae7e19a09b15ac0f8859df59e9e5f0924af10aa693dbd1a1c74fbeb8100011359c">WINDOW_ON</a></td>
+                  <td>
+                  <p>Window enable.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae7e19a09b15ac0f8859df59e9e5f0924a00b41989080c8557a3b7b3ecbc100252" class="m-dox-self" name="ae7e19a09b15ac0f8859df59e9e5f0924a00b41989080c8557a3b7b3ecbc100252">CHARACTER_DATA</a></td>
+                  <td>
+                  <p>Character map.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae7e19a09b15ac0f8859df59e9e5f0924ae61c4d30d71d9da17af01f38b2daf495" class="m-dox-self" name="ae7e19a09b15ac0f8859df59e9e5f0924ae61c4d30d71d9da17af01f38b2daf495">BG_CODE_AREA</a></td>
+                  <td>
+                  <p>Background map area selection.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae7e19a09b15ac0f8859df59e9e5f0924af0f9c2931a525929407feb7ea3add2c5" class="m-dox-self" name="ae7e19a09b15ac0f8859df59e9e5f0924af0f9c2931a525929407feb7ea3add2c5">OBJ_8x16</a></td>
+                  <td>
+                  <p><a href="classgb_1_1Sprite.html" class="m-dox">Sprite</a> composition mode.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae7e19a09b15ac0f8859df59e9e5f0924abd903c364b2af5e9b94d8ec07b0c5306" class="m-dox-self" name="ae7e19a09b15ac0f8859df59e9e5f0924abd903c364b2af5e9b94d8ec07b0c5306">OBJ_ON</a></td>
+                  <td>
+                  <p><a href="classgb_1_1Sprite.html" class="m-dox">Sprite</a> enable.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae7e19a09b15ac0f8859df59e9e5f0924abfdfff541b2bf6978e7b3efd9e96c14c" class="m-dox-self" name="ae7e19a09b15ac0f8859df59e9e5f0924abfdfff541b2bf6978e7b3efd9e96c14c">BG_DISPLAY_ON</a></td>
+                  <td>
+                  <p>Background enable.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-dox-details" id="abf5ea12fb5d4db7e44e28a06e509d9e9"><div>
+            <h3>
+              enum gb::<wbr />memorymap::<wbr /><a href="#abf5ea12fb5d4db7e44e28a06e509d9e9" class="m-dox-self">Stat</a>
+            </h3>
+            <p>LCDC Status Register bit masks.</p>
+            <table class="m-table m-fullwidth m-flat m-dox">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#abf5ea12fb5d4db7e44e28a06e509d9e9a013d38a7ab98b651a24bf29fc5f57188" class="m-dox-self" name="abf5ea12fb5d4db7e44e28a06e509d9e9a013d38a7ab98b651a24bf29fc5f57188">LYCLY</a></td>
+                  <td>
+                  <p>LY=LYC flag.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-dox-details" id="a0ed01effba21679f51aceee7c4e5638c"><div>
+            <h3>
+              enum gb::<wbr />memorymap::<wbr /><a href="#a0ed01effba21679f51aceee7c4e5638c" class="m-dox-self">SC</a>
+            </h3>
+            <p>Serial Control register bit masks.</p>
+            <table class="m-table m-fullwidth m-flat m-dox">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#a0ed01effba21679f51aceee7c4e5638cad07296180f108d9a34e65a4dbfe9d244" class="m-dox-self" name="a0ed01effba21679f51aceee7c4e5638cad07296180f108d9a34e65a4dbfe9d244">TRANSFER</a></td>
+                  <td>
+                  <p>Transfer start flag.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a0ed01effba21679f51aceee7c4e5638cad4e5dadd1d3387e471ae73b238c9ca50" class="m-dox-self" name="a0ed01effba21679f51aceee7c4e5638cad4e5dadd1d3387e471ae73b238c9ca50">SHIFT_CLOCK_RATE</a></td>
+                  <td>
+                  <p>Shift clock.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a0ed01effba21679f51aceee7c4e5638ca20998487398a81276f67678b3b905c56" class="m-dox-self" name="a0ed01effba21679f51aceee7c4e5638ca20998487398a81276f67678b3b905c56">CLOCK_MODE</a></td>
+                  <td>
+                  <p>0-External Clock, 1-Internal Clock</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-dox-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-dox-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-dox-search-content">
+          <input type="search" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" />
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            Search for symbols, directories, files, pages or modules. You can omit any
+            prefix from the symbol or file path; adding a <code>:</code> or <code>/</code>
+            suffix lists all members of given symbol or directory. Navigate through the
+            list using <span class="m-label m-dim">&darr;</span> and
+            <span class="m-label m-dim">&uarr;</span>, press
+            <span class="m-label m-dim">Enter</span> to go.
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search.js"></script>
+<script src="searchdata.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>GameboyCore. Created by <a href="https://doxygen.org/">Doxygen</a> 1.8.11 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>
