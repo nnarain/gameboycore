@@ -111,7 +111,18 @@ namespace gb
             Joypad key input event
         */
         void input(Joy::Key key, bool pressed);
+
+        /**
+            Get battery RAM
+
+            This copies the battery backed RAM from the emulator and returns it to the user
+        */
+        std::vector<uint8_t> getBatteryRam() const;
         
+        /**
+            Set battery RAM
+        */
+        void setBatteryRam(const std::vector<uint8_t>& ram);
 
         CPU::Ptr& getCPU();
         MMU::Ptr& getMMU();

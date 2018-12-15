@@ -19,14 +19,6 @@ int main(int argc, char * argv[])
     // Create an instance of the gameboy emulator core
     GameboyCore core;
 
-    // Set callbacks for video and audio
-    core.setScanlineCallback([](const GPU::Scanline& scanline, int line){
-        std::cout << "Line " << line << "\n";
-    });
-    core.setAudioSampleCallback([](int16_t l, int16_t r){
-        std::cout << "L: " << l << " " << "R: " << r << "\n";
-    });
-
     // Open the ROM specified ROM file
     try
     {
@@ -38,8 +30,14 @@ int main(int argc, char * argv[])
         return 1;
     }
 
-    // Run the emulator
-    core.emulateFrame();
+    // Get battery RAM from the emulator
+    // Battery RAM is persistent storage for the Gameboy (RAM at this location is always on because of a battery in the cartridge)
+    // Battery RAM starts at address $A000
+    auto batteryram = core.getBatteryRam();
+    batteryram[0] = 0xFF;
+    core.setBatteryRam(batteryram);
+
+    std::cout << "$A000: " << std::hex << (int)core.readMemory(0xA000) << "\n";
 
     return 0;
 }

@@ -211,6 +211,16 @@ namespace gb
             impl_->joy->release(key);
     }
 
+    std::vector<uint8_t> GameboyCore::getBatteryRam() const
+    {
+        return impl_->mmu->getBatteryRam();
+    }
+
+    void GameboyCore::setBatteryRam(const std::vector<uint8_t>& ram)
+    {
+        impl_->mmu->setBatteryRam(ram);
+    }
+
     CPU::Ptr& GameboyCore::getCPU()
     {
         return impl_->cpu;

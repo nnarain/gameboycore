@@ -1,1 +1,2 @@
 add_subdirectory(01_minimal)
+add_subdirectory(02_batteryram)
