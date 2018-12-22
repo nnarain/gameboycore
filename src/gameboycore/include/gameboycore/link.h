@@ -32,14 +32,14 @@ namespace gb
         };
 
         //! Smart pointer type
-        typedef std::unique_ptr<Link> Ptr;
+        using Ptr = std::unique_ptr<Link>;
 
         //! Callback to signal transfer ready status
-        typedef std::function<void(uint8_t, Mode)> ReadyCallback;
+        using ReadyCallback = std::function<void(uint8_t, Mode)>;
 
     public:
-        Link(MMU::Ptr& mmu);
-        Link(const Link&);
+        explicit Link(MMU::Ptr& mmu);
+        Link(const Link&) = delete;
         ~Link();
 
         /**

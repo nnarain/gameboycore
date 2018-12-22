@@ -56,9 +56,16 @@ inline void toggleBit(Tx& x, Ty y) noexcept
 
 //!
 template<typename Tx>
-inline Tx low(const Tx& x) noexcept
+inline Tx lownybble(const Tx& x) noexcept
 {
     return x & 0x0F;
+}
+
+//!
+template<typename T>
+inline T highnybble(const T& t) noexcept
+{
+    return (t >> 4);
 }
 
 //! Create a WORD

@@ -111,7 +111,40 @@ namespace gb
             Joypad key input event
         */
         void input(Joy::Key key, bool pressed);
+
+        /**
+            Get battery RAM
+
+            This copies the battery backed RAM from the emulator and returns it to the user
+        */
+        std::vector<uint8_t> getBatteryRam() const;
         
+        /**
+            Set battery RAM
+        */
+        void setBatteryRam(const std::vector<uint8_t>& ram);
+
+        /**
+            Write a byte to the serial port
+        */
+        void linkWrite(uint8_t byte);
+
+        /**
+            Set Link ready callback
+
+            Set a callback that fires when the core is ready to transfer a byte to the serial port
+        */
+        void setLinkReadyCallback(Link::ReadyCallback callback);
+
+        /**
+            Serialize GameboyCore state
+        */
+        std::vector<uint8_t> serialize() const;
+
+        /**
+            Deserialize GameboyCore state
+        */
+        void deserialize(const std::vector<uint8_t>& data);
 
         CPU::Ptr& getCPU();
         MMU::Ptr& getMMU();

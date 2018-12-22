@@ -1,6 +1,7 @@
 
 #include "gameboycore/gameboycore.h"
 #include "gameboycore/cartinfo.h"
+#include "bitutil.h"
 
 #include <fstream>
 #include <memory>
@@ -66,6 +67,34 @@ namespace gb
             apu->setAudioSampleCallback(audio_sample_callback_);
 
             setColorTheme(ColorTheme::GOLD);
+        }
+
+        std::vector<uint8_t> serialize() const
+        {
+            const auto cpu_data = cpu->serialize();
+            const auto xram_data = mmu->getBatteryRam();
+
+            const auto serialize_size = cpu_data.size() + xram_data.size();
+            
+            std::vector<uint8_t> data;
+            data.reserve(serialize_size);
+
+            std::copy(cpu_data.begin(), cpu_data.end(), std::back_inserter(data));
+            std::copy(xram_data.begin(), xram_data.end(), std::back_inserter(data));
+
+            return data;
+        }
+
+        void deserialize(const std::vector<uint8_t>& data)
+        {
+            std::array<uint8_t, 12> cpu_state;
+            std::copy(data.begin(), data.begin() + cpu_state.size(), cpu_state.begin());
+
+            std::vector<uint8_t> xram;
+            xram.reserve(memorymap::EXTERNAL_RAM_END - memorymap::EXTERNAL_RAM_START);
+            std::copy(data.begin() + cpu_state.size(), data.end(), std::back_inserter(xram));
+
+            mmu->setBatteryRam(xram);
         }
 
         void setColorTheme(ColorTheme theme)
@@ -209,6 +238,36 @@ namespace gb
             impl_->joy->press(key);
         else
             impl_->joy->release(key);
+    }
+
+    std::vector<uint8_t> GameboyCore::getBatteryRam() const
+    {
+        return impl_->mmu->getBatteryRam();
+    }
+
+    void GameboyCore::setBatteryRam(const std::vector<uint8_t>& ram)
+    {
+        impl_->mmu->setBatteryRam(ram);
+    }
+
+    void GameboyCore::linkWrite(uint8_t byte)
+    {
+        impl_->link->recieve(byte);
+    }
+
+    void GameboyCore::setLinkReadyCallback(Link::ReadyCallback callback)
+    {
+        impl_->link->setReadyCallback(callback);
+    }
+
+    std::vector<uint8_t> GameboyCore::serialize() const
+    {
+        return impl_->serialize();
+    }
+
+    void GameboyCore::deserialize(const std::vector<uint8_t>& data)
+    {
+        impl_->deserialize(data);
     }
 
     CPU::Ptr& GameboyCore::getCPU()

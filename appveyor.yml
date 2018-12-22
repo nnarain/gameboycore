@@ -21,7 +21,7 @@ install:
 before_build:
   - cd c:\projects\gameboycore
   - mkdir build && cd build
-  - cmake .. -DBUILD_TESTS="ON" -DBUILD_EXAMPLE="OFF" -DBUILD_DOCS="OFF" -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN%
+  - cmake .. -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN%
 
 build:
   project: c:\projects\gameboycore\build\gameboycore.sln

@@ -25,7 +25,7 @@ namespace gb
     {
     public:
         //! Callback from Link Cable
-        typedef std::function<void(uint8_t)> RecieveCallback;
+        using RecieveCallback = std::function<void(uint8_t)>;
 
         LinkCable();
         ~LinkCable();

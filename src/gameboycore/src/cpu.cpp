@@ -2346,6 +2346,40 @@ namespace gb
             setFlag(CPU::Flags::N, false);
         }
 
+        std::array<uint8_t, 12> serialize() const noexcept
+        {
+            return {
+                af_.hi,
+                af_.lo,
+                bc_.hi,
+                bc_.lo,
+                de_.hi,
+                de_.lo,
+                hl_.hi,
+                hl_.lo,
+                sp_.hi,
+                sp_.lo,
+                pc_.hi,
+                pc_.lo
+            };
+        }
+
+        void deserialize(const std::array<uint8_t, 12>& data) noexcept
+        {
+            af_.hi = data[0];
+            af_.lo = data[1];
+            bc_.hi = data[2];
+            bc_.lo = data[3];
+            de_.hi = data[4];
+            de_.lo = data[5];
+            hl_.hi = data[6];
+            hl_.lo = data[7];
+            sp_.hi = data[8];
+            sp_.lo = data[9];
+            pc_.hi = data[10];
+            pc_.lo = data[11];
+        }
+
         CPU::Status getStatus() const
         {
             Status status;
@@ -2444,6 +2478,15 @@ namespace gb
         impl_->setDisassemblyCallback(callback);
     }
     
+    std::array<uint8_t, 12> CPU::serialize() const noexcept
+    {
+        return impl_->serialize();
+    }
+
+    void CPU::deserialize(const std::array<uint8_t, 12>& data) noexcept
+    {
+        impl_->deserialize(data);
+    }
 
     CPU::Status CPU::getStatus() const
     {

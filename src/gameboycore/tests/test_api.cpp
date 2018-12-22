@@ -131,3 +131,85 @@ TEST(API, SpriteAttributes)
 
     EXPECT_EQ(s4.paletteOBP0(), 1);
 }
+
+TEST(API, GetAndSetBatteryRAM)
+{
+    CodeGenerator code;
+    code.block(0x76);
+
+    GameboyCore core;
+    core.loadROM(code.rom());
+
+    // enable xram by writing $0A into ROM < $1FFF
+    core.writeMemory(0x1000, 0x0A);
+
+    // Write a value into battery ram
+    core.writeMemory(0xA000, 0xDE);
+    core.writeMemory(0xBFFF, 0xCC);
+
+    // Get battery RAM
+    auto batteryram = core.getBatteryRam();
+
+    EXPECT_EQ(batteryram[0], 0xDE);
+    EXPECT_EQ(batteryram[batteryram.size() - 1], 0xCC);
+
+    batteryram[0] = 0xAD;
+    batteryram[batteryram.size() - 1] = 0xBB;
+    core.setBatteryRam(batteryram);
+
+    auto value1 = core.readMemory(0xA000);
+    auto value2 = core.readMemory(0xBFFF);
+
+    EXPECT_EQ(value1, 0xAD);
+    EXPECT_EQ(value2, 0xBB);
+}
+
+TEST(API, Serialization)
+{
+    CodeGenerator code{ CodeGenerator::MBC::MBC1 };
+    code.block(
+        0x3E, 0x0A, // LD A, $0A
+        0x06, 0x0B, // LD B, $0B
+        0x0E, 0x0C, // LD C, $0C
+        0x16, 0x0D, // LD D, $0D
+        0x1E, 0x0E, // LD E, $0E
+        0x26, 0x0F, // LD H, $0F
+        0x2E, 0x09  // LD L, $09
+    );
+
+    GameboyCore core;
+    core.loadROM(code.rom());
+
+    // Enable XRAM
+    core.writeMemory(0x1000, 0x0A);
+    // Write a value into XRAM
+    core.writeMemory(0xA000, 0xDE);
+
+    // Run the core for the necessary number of steps
+    core.update(9);
+
+    auto first_state = core.getCPU()->getStatus();
+
+    EXPECT_EQ(first_state.a, 0x0A);
+    EXPECT_EQ(first_state.b, 0x0B);
+    EXPECT_EQ(first_state.c, 0x0C);
+    EXPECT_EQ(first_state.d, 0x0D);
+    EXPECT_EQ(first_state.e, 0x0E);
+    EXPECT_EQ(first_state.h, 0x0F);
+    EXPECT_EQ(first_state.l, 0x09);
+    EXPECT_EQ(core.readMemory(0xA000), 0xDE);
+
+    const auto data = core.serialize();
+    core.deserialize(data);
+
+    auto second_state = core.getCPU()->getStatus();
+
+    EXPECT_EQ(second_state.a, 0x0A);
+    EXPECT_EQ(second_state.b, 0x0B);
+    EXPECT_EQ(second_state.c, 0x0C);
+    EXPECT_EQ(second_state.d, 0x0D);
+    EXPECT_EQ(second_state.e, 0x0E);
+    EXPECT_EQ(second_state.h, 0x0F);
+    EXPECT_EQ(second_state.l, 0x09);
+    EXPECT_EQ(core.readMemory(0xA000), 0xDE);
+}

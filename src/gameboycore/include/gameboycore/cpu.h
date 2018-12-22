@@ -65,7 +65,7 @@ namespace gb
         };
 
         //! Smart pointer type
-        typedef std::unique_ptr<CPU> Ptr;
+        using Ptr = std::unique_ptr<CPU>;
 
     public:
         CPU(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu, Link::Ptr& link);
@@ -96,6 +96,16 @@ namespace gb
             Set a callback function for the disassembly string when the CPU is in debug mode
         */
         void setDisassemblyCallback(std::function<void(const std::string&)>);
+
+        /**
+            Serialize the CPU state
+        */
+        std::array<uint8_t, 12> serialize() const noexcept;
+
+        /**
+            Deserialize the CPU state
+        */
+        void deserialize(const std::array<uint8_t, 12>& data) noexcept;
 
         /**
             Get the current status of the CPU
