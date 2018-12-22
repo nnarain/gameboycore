@@ -98,6 +98,16 @@ namespace gb
         void setDisassemblyCallback(std::function<void(const std::string&)>);
 
         /**
+            Serialize the CPU state
+        */
+        std::array<uint8_t, 12> serialize() const noexcept;
+
+        /**
+            Deserialize the CPU state
+        */
+        void deserialize(const std::array<uint8_t, 12>& data) noexcept;
+
+        /**
             Get the current status of the CPU
         */
         Status getStatus() const;
