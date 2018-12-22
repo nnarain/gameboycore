@@ -60,7 +60,6 @@ set(GAMEBOYCORE_HEADERS
     include/gameboycore/opcodeinfo.h
     include/gameboycore/opcode_cycles.h
     src/bitutil.h
-    src/serialization.h
     src/shiftrotate.h
 )
 
