@@ -63,7 +63,7 @@
           <h2><a href="#pub-types">Public types</a></h2>
           <dl class="m-dox">
             <dt>
-              using <a href="#a5b92f55c442c69e588ec347f16ead027" class="m-dox-self" name="a5b92f55c442c69e588ec347f16ead027">Ptr</a> = std::unique_ptr&lt;<a href="classgb_1_1GPU.html" class="m-dox">GPU</a>&gt;
+              using <a href="#afe55b09fdb9d5abb3a8bd7fcd75d9662" class="m-dox-self" name="afe55b09fdb9d5abb3a8bd7fcd75d9662">Ptr</a> = std::unique_ptr&lt;<a href="classgb_1_1GPU.html" class="m-dox">GPU</a>&gt;
             </dt>
             <dd>Smart pointer type.</dd>
             <dt>
@@ -71,11 +71,11 @@
             </dt>
             <dd>Array on <a href="structgb_1_1Pixel.html" class="m-dox">Pixel</a> objects representing a single scan line produced by the <a href="classgb_1_1GPU.html" class="m-dox">GPU</a>.</dd>
             <dt>
-              using <a href="#a5e0e439b194e64e42c02e80ff4203506" class="m-dox">RenderScanlineCallback</a> = std::function&lt;void(const <a href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb" class="m-dox">Scanline</a>&amp;, int linenum)&gt;
+              using <a href="#a1818270761fb7f12d870e652b3daeadc" class="m-dox">RenderScanlineCallback</a> = std::function&lt;void(const <a href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb" class="m-dox">Scanline</a>&amp;, int linenum)&gt;
             </dt>
             <dd></dd>
             <dt>
-              using <a href="#a169d5583ec6de3b0a462c9812371a379" class="m-dox">VBlankCallback</a> = std::function&lt;void()&gt;
+              using <a href="#aa287bf873f9894ce247e890a71d61a38" class="m-dox">VBlankCallback</a> = std::function&lt;void()&gt;
             </dt>
             <dd></dd>
           </dl>
@@ -89,11 +89,11 @@
             </dt>
             <dd></dd>
             <dt>
-              <span class="m-dox-wrap-bumper">void <a href="#a65b4c3ebc0a0ae65697d3893eaafe7ef" class="m-dox">setRenderCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506" class="m-dox">RenderScanlineCallback</a> callback)</span>
+              <span class="m-dox-wrap-bumper">void <a href="#a65b4c3ebc0a0ae65697d3893eaafe7ef" class="m-dox">setRenderCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc" class="m-dox">RenderScanlineCallback</a> callback)</span>
             </dt>
             <dd></dd>
             <dt>
-              <span class="m-dox-wrap-bumper">void <a href="#ac82853ef86a6e6ff0310dd12ccec903d" class="m-dox">setVBlankCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a169d5583ec6de3b0a462c9812371a379" class="m-dox">VBlankCallback</a> callback)</span>
+              <span class="m-dox-wrap-bumper">void <a href="#ac82853ef86a6e6ff0310dd12ccec903d" class="m-dox">setVBlankCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#aa287bf873f9894ce247e890a71d61a38" class="m-dox">VBlankCallback</a> callback)</span>
             </dt>
             <dd></dd>
             <dt>
@@ -119,15 +119,15 @@
         </section>
         <section>
           <h2>Typedef documentation</h2>
-          <section class="m-dox-details" id="a5e0e439b194e64e42c02e80ff4203506"><div>
+          <section class="m-dox-details" id="a1818270761fb7f12d870e652b3daeadc"><div>
             <h3>
-              typedef std::function&lt;void(const <a href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb" class="m-dox">Scanline</a>&amp;, int linenum)&gt; gb::<wbr />GPU::<wbr /><a href="#a5e0e439b194e64e42c02e80ff4203506" class="m-dox-self">RenderScanlineCallback</a>
+              using gb::<wbr />GPU::<wbr /><a href="#a1818270761fb7f12d870e652b3daeadc" class="m-dox-self">RenderScanlineCallback</a> = std::function&lt;void(const <a href="classgb_1_1GPU.html#acb40080a0e2e8f1df0689a784ec873eb" class="m-dox">Scanline</a>&amp;, int linenum)&gt;
             </h3>
 <p>Callback function called by the <a href="classgb_1_1GPU.html" class="m-dox">GPU</a> when it has produced a new scan line Provides the Scanline and the line number</p>
           </div></section>
-          <section class="m-dox-details" id="a169d5583ec6de3b0a462c9812371a379"><div>
+          <section class="m-dox-details" id="aa287bf873f9894ce247e890a71d61a38"><div>
             <h3>
-              typedef std::function&lt;void()&gt; gb::<wbr />GPU::<wbr /><a href="#a169d5583ec6de3b0a462c9812371a379" class="m-dox-self">VBlankCallback</a>
+              using gb::<wbr />GPU::<wbr /><a href="#aa287bf873f9894ce247e890a71d61a38" class="m-dox-self">VBlankCallback</a> = std::function&lt;void()&gt;
             </h3>
 <p>Callback function call by the <a href="classgb_1_1GPU.html" class="m-dox">GPU</a> when VBlank is reached</p>
           </div></section>
@@ -143,13 +143,13 @@
           </div></section>
           <section class="m-dox-details" id="a65b4c3ebc0a0ae65697d3893eaafe7ef"><div>
             <h3>
-              <span class="m-dox-wrap-bumper">void gb::<wbr />GPU::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a65b4c3ebc0a0ae65697d3893eaafe7ef" class="m-dox-self">setRenderCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506" class="m-dox">RenderScanlineCallback</a> callback)</span></span>
+              <span class="m-dox-wrap-bumper">void gb::<wbr />GPU::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a65b4c3ebc0a0ae65697d3893eaafe7ef" class="m-dox-self">setRenderCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc" class="m-dox">RenderScanlineCallback</a> callback)</span></span>
             </h3>
 <p>Set the host system callback</p>
           </div></section>
           <section class="m-dox-details" id="ac82853ef86a6e6ff0310dd12ccec903d"><div>
             <h3>
-              <span class="m-dox-wrap-bumper">void gb::<wbr />GPU::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#ac82853ef86a6e6ff0310dd12ccec903d" class="m-dox-self">setVBlankCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a169d5583ec6de3b0a462c9812371a379" class="m-dox">VBlankCallback</a> callback)</span></span>
+              <span class="m-dox-wrap-bumper">void gb::<wbr />GPU::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#ac82853ef86a6e6ff0310dd12ccec903d" class="m-dox-self">setVBlankCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#aa287bf873f9894ce247e890a71d61a38" class="m-dox">VBlankCallback</a> callback)</span></span>
             </h3>
 <p>Set the host system vblank callback</p>
           </div></section>

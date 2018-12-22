@@ -74,7 +74,7 @@
             </dt>
             <dd>Flags set by the most recent instruction.</dd>
             <dt>
-              using <a href="#a373eac1810d4f9a694e64a8dd4802b39" class="m-dox-self" name="a373eac1810d4f9a694e64a8dd4802b39">Ptr</a> = std::unique_ptr&lt;<a href="classgb_1_1CPU.html" class="m-dox">CPU</a>&gt;
+              using <a href="#ab1a4aaa64c92ca87d25059ca48af82a6" class="m-dox-self" name="ab1a4aaa64c92ca87d25059ca48af82a6">Ptr</a> = std::unique_ptr&lt;<a href="classgb_1_1CPU.html" class="m-dox">CPU</a>&gt;
             </dt>
             <dd>Smart pointer type.</dd>
           </dl>
@@ -100,6 +100,14 @@
             <dd></dd>
             <dt>
               <span class="m-dox-wrap-bumper">void <a href="#a601554132b0d19b16a300385b65e7b6a" class="m-dox">setDisassemblyCallback</a>(</span><span class="m-dox-wrap">std::function&lt;void(const std::string&amp;)&gt;)</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">auto <a href="#affa1d4a12e839addb411ec7e876c9b2b" class="m-dox">serialize</a>(</span><span class="m-dox-wrap">) const -&gt; std::array&lt;uint8_t, 12&gt; <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="#a6969ed52ac08581bef7a32c8b9a9ba08" class="m-dox">deserialize</a>(</span><span class="m-dox-wrap">const std::array&lt;uint8_t, 12&gt;&amp; data) <span class="m-label m-flat m-success">noexcept</span></span>
             </dt>
             <dd></dd>
             <dt>
@@ -146,6 +154,18 @@
               <span class="m-dox-wrap-bumper">void gb::<wbr />CPU::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a601554132b0d19b16a300385b65e7b6a" class="m-dox-self">setDisassemblyCallback</a>(</span><span class="m-dox-wrap">std::function&lt;void(const std::string&amp;)&gt;)</span></span>
             </h3>
 <p>Set a callback function for the disassembly string when the <a href="classgb_1_1CPU.html" class="m-dox">CPU</a> is in debug mode</p>
+          </div></section>
+          <section class="m-dox-details" id="affa1d4a12e839addb411ec7e876c9b2b"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">std::array&lt;uint8_t, 12&gt; gb::<wbr />CPU::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#affa1d4a12e839addb411ec7e876c9b2b" class="m-dox-self">serialize</a>(</span><span class="m-dox-wrap">) const <span class="m-label m-success">noexcept</span></span></span>
+            </h3>
+<p>Serialize the <a href="classgb_1_1CPU.html" class="m-dox">CPU</a> state</p>
+          </div></section>
+          <section class="m-dox-details" id="a6969ed52ac08581bef7a32c8b9a9ba08"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">void gb::<wbr />CPU::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a6969ed52ac08581bef7a32c8b9a9ba08" class="m-dox-self">deserialize</a>(</span><span class="m-dox-wrap">const std::array&lt;uint8_t, 12&gt;&amp; data) <span class="m-label m-success">noexcept</span></span></span>
+            </h3>
+<p>Deserialize the <a href="classgb_1_1CPU.html" class="m-dox">CPU</a> state</p>
           </div></section>
           <section class="m-dox-details" id="a81c46333eb53894a7a48297e6b460228"><div>
             <h3>

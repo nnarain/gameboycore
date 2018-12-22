@@ -104,11 +104,11 @@
             </dt>
             <dd></dd>
             <dt>
-              <span class="m-dox-wrap-bumper">void <a href="#af14a403c672ca777143273377859b28c" class="m-dox">setScanlineCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506" class="m-dox">GPU::<wbr />RenderScanlineCallback</a> callback)</span>
+              <span class="m-dox-wrap-bumper">void <a href="#af14a403c672ca777143273377859b28c" class="m-dox">setScanlineCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc" class="m-dox">GPU::<wbr />RenderScanlineCallback</a> callback)</span>
             </dt>
             <dd></dd>
             <dt>
-              <span class="m-dox-wrap-bumper">void <a href="#aa5d852204f788042b90aba27efc8e40f" class="m-dox">setVBlankCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a169d5583ec6de3b0a462c9812371a379" class="m-dox">GPU::<wbr />VBlankCallback</a> callback)</span>
+              <span class="m-dox-wrap-bumper">void <a href="#aa5d852204f788042b90aba27efc8e40f" class="m-dox">setVBlankCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#aa287bf873f9894ce247e890a71d61a38" class="m-dox">GPU::<wbr />VBlankCallback</a> callback)</span>
             </dt>
             <dd></dd>
             <dt>
@@ -118,6 +118,30 @@
             <dt>
               <span class="m-dox-wrap-bumper">void <a href="#a0aef042a14b436a878097fbe7c242e03" class="m-dox">input</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f" class="m-dox">Joy::<wbr />Key</a> key,
               bool pressed)</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">auto <a href="#a12dba4ba095d2f3dd963950d542dc348" class="m-dox">getBatteryRam</a>(</span><span class="m-dox-wrap">) const -&gt; std::vector&lt;uint8_t&gt;</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="#aebf2ce5d4a169346c6f707045a5633b9" class="m-dox">setBatteryRam</a>(</span><span class="m-dox-wrap">const std::vector&lt;uint8_t&gt;&amp; ram)</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="#a9f8c93a0c57e42783cbd76e025a5797c" class="m-dox">linkWrite</a>(</span><span class="m-dox-wrap">uint8_t byte)</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="#a6d92e02da2808446dc918263dfd4cda5" class="m-dox">setLinkReadyCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1Link.html#ab628aefaa9429e635b883a3d2dd814b3" class="m-dox">Link::<wbr />ReadyCallback</a> callback)</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">auto <a href="#a2f4a4603595807d0b61b183679b00ce0" class="m-dox">serialize</a>(</span><span class="m-dox-wrap">) const -&gt; std::vector&lt;uint8_t&gt;</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-dox-wrap-bumper">void <a href="#a7f8a49c006a41a23e78eac52b8b90889" class="m-dox">deserialize</a>(</span><span class="m-dox-wrap">const std::vector&lt;uint8_t&gt;&amp; data)</span>
             </dt>
             <dd></dd>
           </dl>
@@ -188,13 +212,13 @@
           </div></section>
           <section class="m-dox-details" id="af14a403c672ca777143273377859b28c"><div>
             <h3>
-              <span class="m-dox-wrap-bumper">void gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#af14a403c672ca777143273377859b28c" class="m-dox-self">setScanlineCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a5e0e439b194e64e42c02e80ff4203506" class="m-dox">GPU::<wbr />RenderScanlineCallback</a> callback)</span></span>
+              <span class="m-dox-wrap-bumper">void gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#af14a403c672ca777143273377859b28c" class="m-dox-self">setScanlineCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a1818270761fb7f12d870e652b3daeadc" class="m-dox">GPU::<wbr />RenderScanlineCallback</a> callback)</span></span>
             </h3>
 <p>Set scanline callback</p>
           </div></section>
           <section class="m-dox-details" id="aa5d852204f788042b90aba27efc8e40f"><div>
             <h3>
-              <span class="m-dox-wrap-bumper">void gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#aa5d852204f788042b90aba27efc8e40f" class="m-dox-self">setVBlankCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#a169d5583ec6de3b0a462c9812371a379" class="m-dox">GPU::<wbr />VBlankCallback</a> callback)</span></span>
+              <span class="m-dox-wrap-bumper">void gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#aa5d852204f788042b90aba27efc8e40f" class="m-dox-self">setVBlankCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1GPU.html#aa287bf873f9894ce247e890a71d61a38" class="m-dox">GPU::<wbr />VBlankCallback</a> callback)</span></span>
             </h3>
 <p>Set VBlank callback</p>
           </div></section>
@@ -210,6 +234,42 @@
               bool pressed)</span></span>
             </h3>
 <p>Joypad key input event</p>
+          </div></section>
+          <section class="m-dox-details" id="a12dba4ba095d2f3dd963950d542dc348"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">std::vector&lt;uint8_t&gt; gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a12dba4ba095d2f3dd963950d542dc348" class="m-dox-self">getBatteryRam</a>(</span><span class="m-dox-wrap">) const</span></span>
+            </h3>
+<p>Get battery RAM</p><p>This copies the battery backed RAM from the emulator and returns it to the user</p>
+          </div></section>
+          <section class="m-dox-details" id="aebf2ce5d4a169346c6f707045a5633b9"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">void gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#aebf2ce5d4a169346c6f707045a5633b9" class="m-dox-self">setBatteryRam</a>(</span><span class="m-dox-wrap">const std::vector&lt;uint8_t&gt;&amp; ram)</span></span>
+            </h3>
+<p>Set battery RAM</p>
+          </div></section>
+          <section class="m-dox-details" id="a9f8c93a0c57e42783cbd76e025a5797c"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">void gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a9f8c93a0c57e42783cbd76e025a5797c" class="m-dox-self">linkWrite</a>(</span><span class="m-dox-wrap">uint8_t byte)</span></span>
+            </h3>
+<p>Write a byte to the serial port</p>
+          </div></section>
+          <section class="m-dox-details" id="a6d92e02da2808446dc918263dfd4cda5"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">void gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a6d92e02da2808446dc918263dfd4cda5" class="m-dox-self">setLinkReadyCallback</a>(</span><span class="m-dox-wrap"><a href="classgb_1_1Link.html#ab628aefaa9429e635b883a3d2dd814b3" class="m-dox">Link::<wbr />ReadyCallback</a> callback)</span></span>
+            </h3>
+<p>Set <a href="classgb_1_1Link.html" class="m-dox">Link</a> ready callback</p><p>Set a callback that fires when the core is ready to transfer a byte to the serial port</p>
+          </div></section>
+          <section class="m-dox-details" id="a2f4a4603595807d0b61b183679b00ce0"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">std::vector&lt;uint8_t&gt; gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a2f4a4603595807d0b61b183679b00ce0" class="m-dox-self">serialize</a>(</span><span class="m-dox-wrap">) const</span></span>
+            </h3>
+<p>Serialize <a href="classgb_1_1GameboyCore.html" class="m-dox">GameboyCore</a> state</p>
+          </div></section>
+          <section class="m-dox-details" id="a7f8a49c006a41a23e78eac52b8b90889"><div>
+            <h3>
+              <span class="m-dox-wrap-bumper">void gb::<wbr />GameboyCore::<wbr /></span><span class="m-dox-wrap"><span class="m-dox-wrap-bumper"><a href="#a7f8a49c006a41a23e78eac52b8b90889" class="m-dox-self">deserialize</a>(</span><span class="m-dox-wrap">const std::vector&lt;uint8_t&gt;&amp; data)</span></span>
+            </h3>
+<p>Deserialize <a href="classgb_1_1GameboyCore.html" class="m-dox">GameboyCore</a> state</p>
           </div></section>
         </section>
       </div>
