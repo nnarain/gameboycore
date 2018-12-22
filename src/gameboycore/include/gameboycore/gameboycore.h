@@ -136,6 +136,16 @@ namespace gb
         */
         void setLinkReadyCallback(Link::ReadyCallback callback);
 
+        /**
+            Serialize GameboyCore state
+        */
+        std::vector<uint8_t> serialize() const;
+
+        /**
+            Deserialize GameboyCore state
+        */
+        void deserialize(const std::vector<uint8_t>& data);
+
         CPU::Ptr& getCPU();
         MMU::Ptr& getMMU();
         GPU::Ptr& getGPU();
