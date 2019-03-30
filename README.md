@@ -17,7 +17,7 @@ GameboyCore running as:
 * [A libretro core in RetroArch](https://github.com/nnarain/gameboycore-retro)
 * [Python bindings, usable with pygame](https://github.com/nnarain/gameboycore-python)
 * [An Android App](https://github.com/nnarain/dotrix-android)
-* And possible WebAssembly!
+* [In the Web](https://github.com/nnarain/gameboycore-web/tree/master)
 
 The above application are somewhat incomplete however they all demonstrate GameboyCore working for the given environment.
 
