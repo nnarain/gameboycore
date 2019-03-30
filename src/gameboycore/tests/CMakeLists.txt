@@ -73,6 +73,7 @@ find_package(benchmark QUIET)
 if (benchmark_FOUND)
     add_executable(gameboycore_benchmark
         bench_frame.cpp
+        bench_serialize.cpp
     )
     target_link_libraries(gameboycore_benchmark PRIVATE
         benchmark::benchmark benchmark::benchmark_main
