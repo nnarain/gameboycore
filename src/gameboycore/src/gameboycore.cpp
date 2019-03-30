@@ -72,15 +72,17 @@ namespace gb
         std::vector<uint8_t> serialize() const
         {
             const auto cpu_data = cpu->serialize();
-            const auto xram_data = mmu->getBatteryRam();
+            
+            const auto ram_start = mmu->getptr(memorymap::SWITCHABLE_ROM_BANK_END + 1);
+            const auto ram_end = mmu->getptr(memorymap::INTERRUPT_ENABLE);
 
-            const auto serialize_size = cpu_data.size() + xram_data.size();
+            const auto serialize_size = cpu_data.size() + static_cast<size_t>(ram_end - ram_start);
             
             std::vector<uint8_t> data;
             data.reserve(serialize_size);
 
             std::copy(cpu_data.begin(), cpu_data.end(), std::back_inserter(data));
-            std::copy(xram_data.begin(), xram_data.end(), std::back_inserter(data));
+            std::copy(ram_start, ram_end, std::back_inserter(data));
 
             return data;
         }
@@ -90,11 +92,8 @@ namespace gb
             std::array<uint8_t, 12> cpu_state;
             std::copy(data.begin(), data.begin() + cpu_state.size(), cpu_state.begin());
 
-            std::vector<uint8_t> xram;
-            xram.reserve(memorymap::EXTERNAL_RAM_END - memorymap::EXTERNAL_RAM_START);
-            std::copy(data.begin() + cpu_state.size(), data.end(), std::back_inserter(xram));
-
-            mmu->setBatteryRam(xram);
+            const auto ram_start = mmu->getptr(memorymap::SWITCHABLE_ROM_BANK_END + 1);
+            std::copy(data.begin() + cpu_state.size(), data.end(), ram_start);
         }
 
         void setColorTheme(ColorTheme theme)
