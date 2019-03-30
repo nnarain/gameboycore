@@ -43,7 +43,9 @@
   <div class="m-container m-container-inflatable">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <h1>gb <span class="m-thin">namespace</span></h1>
+        <h1>
+          gb <span class="m-thin">namespace</span>
+        </h1>
         <p><a href="classgb_1_1GameboyCore.html" class="m-dox">GameboyCore</a> namespace.</p>
         <div class="m-block m-default">
           <h3>Contents</h3>
@@ -150,23 +152,9 @@
           <section class="m-dox-details" id="acc8f9b6a93ae6c861f3706cecfa2f588"><div>
             <h3>
               enum gb::<wbr /><a href="#acc8f9b6a93ae6c861f3706cecfa2f588" class="m-dox-self">OpcodePage</a>
+              <div class="m-dox-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="opcodeinfo_8h.html">&lt;src/gameboycore/include/gameboycore/opcodeinfo.h&gt;</a></div>
             </h3>
 <p>Which page of instructions</p>
-            <table class="m-table m-fullwidth m-flat m-dox">
-              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
-              <tbody>
-                <tr>
-                  <td><a href="#acc8f9b6a93ae6c861f3706cecfa2f588a3f710e769a0ae706342108341bef1981" class="m-dox-self" name="acc8f9b6a93ae6c861f3706cecfa2f588a3f710e769a0ae706342108341bef1981">PAGE1</a></td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="#acc8f9b6a93ae6c861f3706cecfa2f588a36f7aa2615ab7f51cc679b1450ff113d" class="m-dox-self" name="acc8f9b6a93ae6c861f3706cecfa2f588a36f7aa2615ab7f51cc679b1450ff113d">PAGE2</a></td>
-                  <td>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
           </div></section>
         </section>
       </div>
@@ -183,15 +171,23 @@
           <div id="search-symbolcount">&hellip;</div>
         </div>
         <div class="m-dox-search-content">
-          <input type="search" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" />
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
           <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
           <div id="search-help" class="m-text m-dim m-text-center">
-            Search for symbols, directories, files, pages or modules. You can omit any
-            prefix from the symbol or file path; adding a <code>:</code> or <code>/</code>
-            suffix lists all members of given symbol or directory. Navigate through the
-            list using <span class="m-label m-dim">&darr;</span> and
-            <span class="m-label m-dim">&uarr;</span>, press
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
             <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+
           </div>
           <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
           <ul id="search-results"></ul>

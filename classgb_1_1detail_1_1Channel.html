@@ -45,6 +45,7 @@
       <div class="m-col-l-10 m-push-l-1">
         <h1>
           <span class="m-breadcrumb"><a href="namespacegb.html">gb</a>::<wbr/></span><span class="m-breadcrumb"><a href="namespacegb_1_1detail.html">detail</a>::<wbr/></span>Channel <span class="m-thin">class</span>
+          <div class="m-dox-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="channel_8h.html">&lt;src/gameboycore/include/gameboycore/channel.h&gt;</a></div>
         </h1>
         <p>Base class for Sound channel.</p>
         <div class="m-block m-default">
@@ -61,17 +62,29 @@
         <section id="pro-attribs">
           <h2><a href="#pro-attribs">Protected variables</a></h2>
           <dl class="m-dox">
-            <dt>uint8_t&amp; <a href="#a67977f58516c7ae86eddc35279d88a8b" class="m-dox-self" name="a67977f58516c7ae86eddc35279d88a8b">nrx1_</a></dt>
+            <dt>
+              uint8_t&amp; <a href="#a67977f58516c7ae86eddc35279d88a8b" class="m-dox-self" name="a67977f58516c7ae86eddc35279d88a8b">nrx1_</a>
+            </dt>
             <dd>NRx1 <a href="classgb_1_1APU.html" class="m-dox">APU</a> Register.</dd>
-            <dt>uint8_t&amp; <a href="#a41d785c9e8c4bb9cac29f8878fec1955" class="m-dox-self" name="a41d785c9e8c4bb9cac29f8878fec1955">nrx2_</a></dt>
+            <dt>
+              uint8_t&amp; <a href="#a41d785c9e8c4bb9cac29f8878fec1955" class="m-dox-self" name="a41d785c9e8c4bb9cac29f8878fec1955">nrx2_</a>
+            </dt>
             <dd>NRx2 <a href="classgb_1_1APU.html" class="m-dox">APU</a> Register.</dd>
-            <dt>uint8_t&amp; <a href="#ace282d41d19897b92d6c84e9cd9acf88" class="m-dox-self" name="ace282d41d19897b92d6c84e9cd9acf88">nrx3_</a></dt>
+            <dt>
+              uint8_t&amp; <a href="#ace282d41d19897b92d6c84e9cd9acf88" class="m-dox-self" name="ace282d41d19897b92d6c84e9cd9acf88">nrx3_</a>
+            </dt>
             <dd>NRx3 <a href="classgb_1_1APU.html" class="m-dox">APU</a> Register.</dd>
-            <dt>uint8_t&amp; <a href="#aa623429c2b547ab55707db85c13bd96a" class="m-dox-self" name="aa623429c2b547ab55707db85c13bd96a">nrx4_</a></dt>
+            <dt>
+              uint8_t&amp; <a href="#aa623429c2b547ab55707db85c13bd96a" class="m-dox-self" name="aa623429c2b547ab55707db85c13bd96a">nrx4_</a>
+            </dt>
             <dd>NRx4 <a href="classgb_1_1APU.html" class="m-dox">APU</a> Register.</dd>
-            <dt>int <a href="#a7a89d3a9230f4fb3494054d653ad1277" class="m-dox-self" name="a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a></dt>
+            <dt>
+              int <a href="#a7a89d3a9230f4fb3494054d653ad1277" class="m-dox-self" name="a7a89d3a9230f4fb3494054d653ad1277">length_counter_</a>
+            </dt>
             <dd>Length Counter.</dd>
-            <dt>bool <a href="#aa1aff1f3b076e36da52eec88214099f7" class="m-dox-self" name="aa1aff1f3b076e36da52eec88214099f7">enabled_</a></dt>
+            <dt>
+              bool <a href="#aa1aff1f3b076e36da52eec88214099f7" class="m-dox-self" name="aa1aff1f3b076e36da52eec88214099f7">enabled_</a>
+            </dt>
             <dd><a href="classgb_1_1detail_1_1Channel.html" class="m-dox">Channel</a> Enabled flag.</dd>
           </dl>
         </section>
@@ -89,15 +102,23 @@
           <div id="search-symbolcount">&hellip;</div>
         </div>
         <div class="m-dox-search-content">
-          <input type="search" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" />
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
           <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
           <div id="search-help" class="m-text m-dim m-text-center">
-            Search for symbols, directories, files, pages or modules. You can omit any
-            prefix from the symbol or file path; adding a <code>:</code> or <code>/</code>
-            suffix lists all members of given symbol or directory. Navigate through the
-            list using <span class="m-label m-dim">&darr;</span> and
-            <span class="m-label m-dim">&uarr;</span>, press
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
             <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+
           </div>
           <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
           <ul id="search-results"></ul>

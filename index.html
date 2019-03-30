@@ -46,7 +46,7 @@
         <h1>
           GameboyCore
         </h1>
-<p><a href="https://travis-ci.org/nnarain/gameboycore"></a> <a href="https://ci.appveyor.com/project/nnarain/gameboycore/branch/develop"></a> <a href="https://codecov.io/gh/nnarain/gameboycore"></a> <a href="https://github.com/nnarain/gameboycore/releases"></a> <a href="https://nnarain.github.io/gameboycore"></a></p><p>GameboyCore is a Gameboy/Gameboy Color emulator library written in C++.</p><p>A library? Yes. This is a dependency free C++11 library. GameboyCore does not open a window to render frames, it does not collect user input or play audio. GameboyCore emulates the Gameboy system and provides the audio/video output through the GameboyCore API.</p><p>This means the emulation logic and GUI logic of an emulator are separate. As long as the target platform has a C++11 compiler that platform can run GameboyCore!</p><p>GameboyCore running as:</p><ul><li><a href="https://github.com/nnarain/dotrix">A desktop application</a></li><li><a href="https://github.com/nnarain/gameboycore-retro">A libretro core in RetroArch</a></li><li><a href="https://github.com/nnarain/gameboycore-python">Python bindings, usable with pygame</a></li><li><a href="https://github.com/nnarain/dotrix-android">An Android App</a></li><li>And possible WebAssembly!</li></ul><p>The above application are somewhat incomplete however they all demonstrate GameboyCore working for the given environment.</p><h3>Building </h3><p>The <code>GameboyCore</code> library does not have any dependencies and can be compiled using any C++11 compiler. The tools contained in this repo, however, do have additional dependencies that need to be installed. All dependencies should be findable by CMake.</p><p>Fetch source:</p><pre class="m-code"><span class="n">git</span> <span class="n">clone</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/nnarain/gameboycore</span>
+<p><a href="https://travis-ci.org/nnarain/gameboycore"></a> <a href="https://ci.appveyor.com/project/nnarain/gameboycore/branch/develop"></a> <a href="https://codecov.io/gh/nnarain/gameboycore"></a> <a href="https://github.com/nnarain/gameboycore/releases"></a> <a href="https://nnarain.github.io/gameboycore"></a></p><p>GameboyCore is a Gameboy/Gameboy Color emulator library written in C++.</p><p>A library? Yes. This is a dependency free C++11 library. GameboyCore does not open a window to render frames, it does not collect user input or play audio. GameboyCore emulates the Gameboy system and provides the audio/video output through the GameboyCore API.</p><p>This means the emulation logic and GUI logic of an emulator are separate. As long as the target platform has a C++11 compiler that platform can run GameboyCore!</p><p>GameboyCore running as:</p><ul><li><a href="https://github.com/nnarain/dotrix">A desktop application</a></li><li><a href="https://github.com/nnarain/gameboycore-retro">A libretro core in RetroArch</a></li><li><a href="https://github.com/nnarain/gameboycore-python">Python bindings, usable with pygame</a></li><li><a href="https://github.com/nnarain/dotrix-android">An Android App</a></li><li><a href="https://github.com/nnarain/gameboycore-web/tree/master">In the Web</a></li></ul><p>The above application are somewhat incomplete however they all demonstrate GameboyCore working for the given environment.</p><h3>Building </h3><p>The <code>GameboyCore</code> library does not have any dependencies and can be compiled using any C++11 compiler. The tools contained in this repo, however, do have additional dependencies that need to be installed. All dependencies should be findable by CMake.</p><p>Fetch source:</p><pre class="m-code"><span class="n">git</span> <span class="n">clone</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/nnarain/gameboycore</span>
 <span class="n">cd</span> <span class="n">gameboycore</span>
 <span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">init</span> <span class="o">--</span><span class="n">recursive</span></pre><p>To build the library, simply run <code>cmake</code>.</p><pre class="m-code"><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
 <span class="n">cmake</span> <span class="p">..</span>
@@ -67,15 +67,23 @@
           <div id="search-symbolcount">&hellip;</div>
         </div>
         <div class="m-dox-search-content">
-          <input type="search" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" />
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
           <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
           <div id="search-help" class="m-text m-dim m-text-center">
-            Search for symbols, directories, files, pages or modules. You can omit any
-            prefix from the symbol or file path; adding a <code>:</code> or <code>/</code>
-            suffix lists all members of given symbol or directory. Navigate through the
-            list using <span class="m-label m-dim">&darr;</span> and
-            <span class="m-label m-dim">&uarr;</span>, press
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
             <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+
           </div>
           <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
           <ul id="search-results"></ul>

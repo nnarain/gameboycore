@@ -3,7 +3,7 @@
 /*
     This file is part of m.css.
 
-    Copyright © 2017, 2018 Vladimír Vondruš <mosra@centrum.cz>
+    Copyright © 2017, 2018, 2019 Vladimír Vondruš <mosra@centrum.cz>
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -403,18 +403,21 @@ pre {
 pre.m-console {
   background-color: #000000;
 }
-abbr {
-  cursor: help;
-  text-decoration: underline dotted;
-}
-sub, sup {
+strong, .m-text.m-strong { font-weight: bold; }
+em, .m-text.m-em { font-style: italic; }
+s, .m-text.m-s { text-decoration: line-through; }
+sub, sup, .m-text.m-sub, .m-text.m-sup {
   font-size: 0.75rem;
   line-height: 0;
   position: relative;
   vertical-align: baseline;
 }
-sup { top: -0.35rem; }
-sub { bottom: -0.2rem; }
+sup, .m-text.m-sup { top: -0.35rem; }
+sub, .m-text.m-sub { bottom: -0.2rem; }
+abbr {
+  cursor: help;
+  text-decoration: underline dotted;
+}
 a {
   color: #5b9dd9;
 }
@@ -475,12 +478,6 @@ div.m-scroll {
 }
 .m-text.m-big {
   font-size: 117%;
-}
-.m-text.m-strong {
-  font-weight: bold;
-}
-.m-text.m-em {
-  font-style: italic;
 }
 h1 .m-thin, h2 .m-thin, h3 .m-thin, h4 .m-thin, h5 .m-thin, h6 .m-thin {
   font-weight: normal;
@@ -553,12 +550,36 @@ dl.m-diary dd {
   padding-top: 0.25rem;
   padding-left: 3.5rem;
 }
+a.m-footnote, dl.m-footnote dd span.m-footnote {
+  top: -0.35rem;
+  font-size: 0.75rem;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+a.m-footnote, dl.m-footnote dd span.m-footnote a {
+  text-decoration: none;
+}
+a.m-footnote::before { content: '['; }
+a.m-footnote::after { content: ']'; }
+dl.m-footnote dt {
+  width: 1.5rem;
+  float: left;
+  clear: both;
+}
+dl.m-footnote dd {
+  margin-left: 1.5rem;
+}
+dl.m-footnote {
+  font-size: 85.4%;
+}
+dl.m-footnote dd span.m-footnote a {
+  font-weight: bold;
+  font-style: italic;
+}
 .m-note {
   border-radius: 0.2rem;
   padding: 1rem;
-}
-.m-note pre, .m-note code {
-  background-color: rgba(34, 39, 46, 0.5);
 }
 .m-frame {
   background-color: #2f363f;
@@ -717,6 +738,30 @@ table.m-table tr.m-info th, table.m-table th.m-info,
 table.m-table tr.m-dim td, table.m-table td.m-dim,
 table.m-table tr.m-dim th, table.m-table th.m-dim {
   border-color: #2f363f;
+}
+.m-note pre, .m-note code,
+table.m-table tr.m-default pre, table.m-table tr.m-default code,
+table.m-table td.m-default pre, table.m-table td.m-default code,
+table.m-table th.m-default pre, table.m-table th.m-default code,
+table.m-table tr.m-primary pre, table.m-table tr.m-primary code,
+table.m-table td.m-primary pre, table.m-table td.m-primary code,
+table.m-table th.m-primary pre, table.m-table th.m-primary code,
+table.m-table tr.m-success pre, table.m-table tr.m-success code,
+table.m-table td.m-success pre, table.m-table td.m-success code,
+table.m-table th.m-success pre, table.m-table th.m-success code,
+table.m-table tr.m-warning pre, table.m-table tr.m-warning code,
+table.m-table td.m-warning pre, table.m-table td.m-warning code,
+table.m-table th.m-warning pre, table.m-table th.m-warning code,
+table.m-table tr.m-danger pre, table.m-table tr.m-danger code,
+table.m-table td.m-danger pre, table.m-table td.m-danger code,
+table.m-table th.m-danger pre, table.m-table th.m-danger code,
+table.m-table tr.m-info pre, table.m-table tr.m-info code,
+table.m-table td.m-info pre, table.m-table td.m-info code,
+table.m-table th.m-info pre, table.m-table th.m-info code,
+table.m-table tr.m-dim pre, table.m-table tr.m-dim code,
+table.m-table td.m-dim pre, table.m-table td.m-dim code,
+table.m-table th.m-dim pre, table.m-table th.m-dim code {
+  background-color: rgba(34, 39, 46, 0.5);
 }
 img.m-image, svg.m-image {
   display: block;
@@ -1084,13 +1129,13 @@ pre.m-code span.hll {
   margin-right: -1.0rem;
   padding-left: 1.0rem;
 }
-pre.m-code.m-inverted {
+.m-code.m-inverted {
   color: rgba(230, 230, 230, 0.33);
 }
-pre.m-code.m-inverted > span {
+.m-code.m-inverted > span {
   opacity: 0.3333;
 }
-pre.m-code.m-inverted > span.hll {
+.m-code.m-inverted > span.hll {
   color: #dcdcdc;
   opacity: 1;
   background-color: transparent;
@@ -2503,7 +2548,8 @@ article:last-child, article section:last-child { margin-bottom: 0; }
 .m-console .w { color: #b2b2b2 }
 
 a.m-dox, a.m-dox-self, a.m-dox-external,
-ul.m-dox li.m-dox-expansible > a:first-child, ul.m-dox li.m-dox-collapsible > a:first-child {
+ul.m-dox li.m-dox-expansible > a:first-child, ul.m-dox li.m-dox-collapsible > a:first-child,
+.m-code.m-inverted.m-dox-include > a {
   text-decoration: none;
 }
 a.m-dox, a.m-dox-self {
@@ -2581,11 +2627,14 @@ ul.m-dox li.m-dox-expansible > a:first-child:before, ul.m-dox li.m-dox-collapsib
 }
 ul.m-dox li.m-dox-expansible > a:first-child:before { content: '⊕'; }
 ul.m-dox li.m-dox-collapsible > a:first-child:before { content: '⊖'; }
-h1 .m-dox-template {
+h1 .m-dox-template, h1 .m-dox-include {
   font-size: 1.3rem;
   font-weight: normal;
 }
-h3 .m-dox-template {
+h1 .m-dox-include:last-child {
+  margin-bottom: -0.5rem;
+}
+h3 .m-dox-template, h3 .m-dox-include {
   font-size: 1rem;
   font-weight: normal;
 }
@@ -2602,6 +2651,15 @@ dl.m-dox dd svg.m-math, ul.m-dox li > span.m-dox svg.m-math {
 dl.m-dox dd a:hover, dl.m-dox dd a:focus, dl.m-dox dd a:active,
 ul.m-dox li > span.m-dox a:hover, ul.m-dox li > span.m-dox a:focus, ul.m-dox li > span.m-dox a:active {
   color: #747474;
+}
+.m-code.m-inverted.m-dox-include > a:link,
+.m-code.m-inverted.m-dox-include > a:visited {
+  opacity: 0.6666;
+}
+.m-code.m-inverted.m-dox-include > a:hover,
+.m-code.m-inverted.m-dox-include > a:focus,
+.m-code.m-inverted.m-dox-include > a:active {
+  opacity: 1;
 }
 article section.m-dox-details > div {
   margin-top: 0;
@@ -2751,6 +2809,9 @@ a.m-dox-search-icon:focus svg, a.m-dox-search-icon:hover svg, a.m-dox-search-ico
 }
 .m-dox-search ul#search-results li#search-current a {
   background-color: #34424d;
+}
+.m-dox-search ul#search-results li#search-current.m-dox-search-copied a {
+  background-color: #2a703f;
 }
 .m-dox-search-typed {
   color: #5b9dd9;
