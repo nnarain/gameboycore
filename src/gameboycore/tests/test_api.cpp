@@ -182,8 +182,9 @@ TEST(API, Serialization)
 
     // Enable XRAM
     core.writeMemory(0x1000, 0x0A);
-    // Write a value into XRAM
-    core.writeMemory(0xA000, 0xDE);
+    // Write values into RAM
+    core.writeMemory(0x8000, 0xDE);
+    core.writeMemory(0xA000, 0xAD);
 
     // Run the core for the necessary number of steps
     core.update(9);
@@ -197,7 +198,8 @@ TEST(API, Serialization)
     EXPECT_EQ(first_state.e, 0x0E);
     EXPECT_EQ(first_state.h, 0x0F);
     EXPECT_EQ(first_state.l, 0x09);
-    EXPECT_EQ(core.readMemory(0xA000), 0xDE);
+    EXPECT_EQ(core.readMemory(0x8000), 0xDE);
+    EXPECT_EQ(core.readMemory(0xA000), 0xAD);
 
     const auto data = core.serialize();
     core.deserialize(data);
@@ -211,5 +213,6 @@ TEST(API, Serialization)
     EXPECT_EQ(second_state.e, 0x0E);
     EXPECT_EQ(second_state.h, 0x0F);
     EXPECT_EQ(second_state.l, 0x09);
-    EXPECT_EQ(core.readMemory(0xA000), 0xDE);
+    EXPECT_EQ(core.readMemory(0x8000), 0xDE);
+    EXPECT_EQ(core.readMemory(0xA000), 0xAD);
 }
