@@ -33,6 +33,7 @@ set(GAMEBOYCORE_API_HEADERS
     include/gameboycore/pixel.h
     include/gameboycore/sprite.h
     include/gameboycore/memorymap.h
+    include/gameboycore/time.h
 )
 
 set(GAMEBOYCORE_HEADERS
@@ -55,7 +56,7 @@ set(GAMEBOYCORE_HEADERS
     include/gameboycore/mbc2.h
     include/gameboycore/mbc3.h
     include/gameboycore/mbc5.h
-    include/gameboycore/rtc.h
+    include/gameboycore/detail/rtc/rtc.h
     include/gameboycore/cartinfo.h
     include/gameboycore/opcodeinfo.h
     include/gameboycore/opcode_cycles.h

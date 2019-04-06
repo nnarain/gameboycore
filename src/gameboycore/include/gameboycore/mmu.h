@@ -8,6 +8,7 @@
 #define GAMEBOYCORE_MMU_H
 
 #include "gameboycore/gameboycore_api.h"
+#include "gameboycore/time.h"
 
 #include <functional>
 #include <cstdint>
@@ -85,6 +86,11 @@ namespace gb
             \param buffer containing battery RAM
         */
         void setBatteryRam(const std::vector<uint8_t>& battery_ram);
+
+		/**
+			Set the time to be read from the RTC register (MBC3)
+		*/
+		void setTimeProvider(const TimeProvider provider);
 
         /**
             Check if OAM transfer has occured

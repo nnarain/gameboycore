@@ -9,7 +9,7 @@
 #define GAMEBOYCORE_MBC3_H
 
 #include "gameboycore/mbc.h"
-#include "gameboycore/rtc.h"
+#include "gameboycore/detail/rtc/rtc.h"
 #include <array>
 
 namespace gb
@@ -28,12 +28,15 @@ namespace gb
             ~MBC3();
 
             virtual uint8_t read(uint16_t addr) const;
+			
+			void setTimeProvider(TimeProvider provider);
 
         protected:
             virtual void control(uint8_t value, uint16_t addr);
 
         private:
             RTC rtc_;
+			uint8_t latch_ctl_;
         };
     }
 }
