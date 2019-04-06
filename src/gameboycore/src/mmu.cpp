@@ -171,6 +171,15 @@ namespace gb
             mbc_->setMemory(memorymap::EXTERNAL_RAM_START, battery_ram);
         }
 
+		void setTimeProvider(const TimeProvider provider)
+		{
+			// The time provider is only valid for MBC3
+			if (auto mbc_ptr = dynamic_cast<detail::MBC3*>(mbc_.get()))
+			{
+				mbc_ptr->setTimeProvider(provider);
+			}
+		}
+
         void loadResetValues()
         {
             // load reset values into registers
@@ -281,6 +290,11 @@ namespace gb
     {
         impl_->setBatteryRam(battery_ram);
     }
+
+	void MMU::setTimeProvider(const TimeProvider provider)
+	{
+		impl_->setTimeProvider(provider);
+	}
 
     bool MMU::getOamTransferStatus() const
     {

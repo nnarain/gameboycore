@@ -46,3 +46,43 @@ TEST(MBC3, BankRemap)
     EXPECT_EQ(value2, 0xBB);
     EXPECT_EQ(value3, 0xCC);
 }
+
+
+TEST(MBC3, RTC)
+{
+	CodeGenerator code{ CodeGenerator::MBC::MBC3 };
+	code.block(0x76);
+
+	GameboyCore core;
+	core.loadROM(code.rom());
+
+	Time time{ 1, 2, 3, 0x1FF };
+	auto time_provider = [&time]() {return time; };
+
+	// Set the time provider for the test
+	core.setTimeProvider(time_provider);
+
+	// Latch time data by writing $00 and then $01 to $6000-$7FFF
+	core.writeMemory(0x6000, 0x00);
+	core.writeMemory(0x6000, 0x01);
+
+	// Select seconds register
+	core.writeMemory(0x4000, 0x08);
+	EXPECT_EQ(core.readMemory(0xA000), 1);
+
+	// Select minutes register
+	core.writeMemory(0x4000, 0x09);
+	EXPECT_EQ(core.readMemory(0xA000), 2);
+
+	// Select hours register
+	core.writeMemory(0x4000, 0x0A);
+	EXPECT_EQ(core.readMemory(0xA000), 3);
+
+	// Select days low register
+	core.writeMemory(0x4000, 0x0B);
+	EXPECT_EQ(core.readMemory(0xA000), 0xFF);
+
+	// Select days high register
+	core.writeMemory(0x4000, 0x0C);
+	EXPECT_EQ(core.readMemory(0xA000), 0x01);
+}

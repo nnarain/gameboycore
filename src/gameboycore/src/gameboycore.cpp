@@ -96,6 +96,11 @@ namespace gb
             std::copy(data.begin() + cpu_state.size(), data.end(), ram_start);
         }
 
+		void setTimeProvider(const TimeProvider provider)
+		{
+			mmu->setTimeProvider(provider);
+		}
+
         void setColorTheme(ColorTheme theme)
         {
             switch (theme)
@@ -268,6 +273,11 @@ namespace gb
     {
         impl_->deserialize(data);
     }
+
+	void GameboyCore::setTimeProvider(const TimeProvider provider)
+	{
+		impl_->setTimeProvider(provider);
+	}
 
     CPU::Ptr& GameboyCore::getCPU()
     {
