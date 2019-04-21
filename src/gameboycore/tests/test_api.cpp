@@ -6,6 +6,8 @@
 #include <gameboycore/gameboycore.h>
 #include <gameboycore/memorymap.h>
 
+#include <vector>
+
 using namespace gb;
 
 TEST(API, SetBeforeLoad)
@@ -215,4 +217,35 @@ TEST(API, Serialization)
     EXPECT_EQ(second_state.l, 0x09);
     EXPECT_EQ(core.readMemory(0x8000), 0xDE);
     EXPECT_EQ(core.readMemory(0xA000), 0xAD);
+}
+
+TEST(API, InstructionCallback)
+{
+	std::vector<gb::Instruction> instructions;
+	const auto instruction_callback = [&instructions](const gb::Instruction & instr) {instructions.push_back(instr); };
+
+	CodeGenerator code;
+	code.block(
+		0x3E, 0x0A // LD A, $0A
+	);
+
+	GameboyCore core;
+	core.loadROM(code.rom());
+
+	core.setInstructionCallback(instruction_callback);
+	core.setDebugMode(true);
+
+	core.update(3);
+
+	EXPECT_EQ(instructions.size(), 3);
+	
+	EXPECT_EQ(instructions[0].opcode, 0x00);
+
+	EXPECT_EQ(instructions[1].opcode, 0xC3);
+	EXPECT_EQ(instructions[1].operand_data[0], 0x50);
+	EXPECT_EQ(instructions[1].operand_data[1], 0x01);
+
+	EXPECT_EQ(instructions[2].opcode, 0x3E);
+	EXPECT_EQ(instructions[2].operand_data[0], 0x0A);
+	EXPECT_EQ(instructions[2].operand_data[1], 0x00);
 }

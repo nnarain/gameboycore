@@ -151,6 +151,11 @@ namespace gb
 		*/
 		void setTimeProvider(const TimeProvider provider);
 
+		/**
+			Set instruction callback
+		*/
+		void setInstructionCallback(std::function<void(const gb::Instruction&)> instr);
+
         CPU::Ptr& getCPU();
         MMU::Ptr& getMMU();
         GPU::Ptr& getGPU();

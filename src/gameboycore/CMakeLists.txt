@@ -34,6 +34,7 @@ set(GAMEBOYCORE_API_HEADERS
     include/gameboycore/sprite.h
     include/gameboycore/memorymap.h
     include/gameboycore/time.h
+    include/gameboycore/instruction.h
 )
 
 set(GAMEBOYCORE_HEADERS
