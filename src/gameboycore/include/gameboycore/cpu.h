@@ -11,6 +11,7 @@
 #include "gameboycore/gpu.h"
 #include "gameboycore/apu.h"
 #include "gameboycore/link.h"
+#include "gameboycore/instruction.h"
 
 #include <cstdint>
 #include <memory>
@@ -93,9 +94,9 @@ namespace gb
         void setDebugMode(bool debug_mode);
 
         /**
-            Set a callback function for the disassembly string when the CPU is in debug mode
+            Set a callback for every CPU instruction.
         */
-        void setDisassemblyCallback(std::function<void(const std::string&)>);
+        void setInstructionCallback(std::function<void(const Instruction&)>);
 
         /**
             Serialize the CPU state

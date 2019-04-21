@@ -101,6 +101,11 @@ namespace gb
 			mmu->setTimeProvider(provider);
 		}
 
+		void setInstructionCallback(std::function<void(const Instruction&)> fn)
+		{
+			cpu->setInstructionCallback(fn);
+		}
+
         void setColorTheme(ColorTheme theme)
         {
             switch (theme)
@@ -277,6 +282,11 @@ namespace gb
 	void GameboyCore::setTimeProvider(const TimeProvider provider)
 	{
 		impl_->setTimeProvider(provider);
+	}
+
+	void GameboyCore::setInstructionCallback(std::function<void(const gb::Instruction&)> fn)
+	{
+		impl_->setInstructionCallback(fn);
 	}
 
     CPU::Ptr& GameboyCore::getCPU()

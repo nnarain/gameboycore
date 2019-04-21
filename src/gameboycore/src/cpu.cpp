@@ -1066,7 +1066,7 @@ namespace gb
 
             if (debug_mode_)
             {
-                printDisassembly(opcode, old_pc, OpcodePage::PAGE1);
+                sendInstructionData(opcode, old_pc, OpcodePage::PAGE1);
             }
 
             if (cycles == -1)
@@ -1937,7 +1937,7 @@ namespace gb
 
             if (debug_mode_)
             {
-                printDisassembly(opcode, old_pc, OpcodePage::PAGE2);
+                sendInstructionData(opcode, old_pc, OpcodePage::PAGE2);
             }
 
             return opcode_page2[opcode];
@@ -2022,64 +2022,39 @@ namespace gb
             }
         }
 
-        void printDisassembly(uint8_t opcode, uint16_t userdata_addr, OpcodePage page)
+        void sendInstructionData(uint8_t opcode, uint16_t addr, OpcodePage page)
         {
-            char str[32];
-
-            OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
-
-            if (opcodeinfo.userdata == OperandType::NONE)
-            {
-                std::sprintf(str, opcodeinfo.disassembly);
-            }
-            else
-            {
-                if (opcodeinfo.userdata == OperandType::IMM8)
-                {
-                    uint8_t userdata = mmu_->read(userdata_addr);
-                    std::sprintf(str, opcodeinfo.disassembly, userdata);
-                }
-                else // OperandType::IMM16
-                {
-                    uint8_t lo = mmu_->read(userdata_addr);
-                    uint8_t hi = mmu_->read(userdata_addr + 1);
-
-                    std::sprintf(str, opcodeinfo.disassembly, word(hi, lo));
-                }
-            }
-
-            auto addr = userdata_addr - 1;
-
-            std::stringstream ss;
-            ss << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << addr << ": " << str;
-
-            const int spaces_before_registers = 13;
-            std::string padding(spaces_before_registers - std::strlen(str), ' ');
-
-            // print debug info
-            std::printf("%04X: %s%s| PC: %04X, A: %02X, BC: %02X%02X, DE: %02X%02X, HL: %02X%02X | SP: %04X -> %04X | F: %02X | IF: %02X, IE: %02X\n",
-                userdata_addr - 1,
-                str,
-                padding.c_str(),
-                pc_.val,
-                af_.hi,
-                bc_.hi,
-                bc_.lo,
-                de_.hi,
-                de_.lo,
-                hl_.hi,
-                hl_.lo,
-                sp_.val,
-                word(mmu_->read(sp_.val + 1), mmu_->read(sp_.val)),
-                af_.lo,
-                interrupt_flags_,
-                interrupt_enable_
-            );
-
-            if (disassembly_callback_)
-                disassembly_callback_(ss.str());
-            
+			if (instruction_callback_)
+			{
+				const auto instr = fetchInstructionData(opcode, addr, page);
+				instruction_callback_(instr);
+			}
         }
+
+		Instruction fetchInstructionData(uint8_t opcode, uint16_t opcode_addr, OpcodePage page)
+		{
+			OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
+
+			if (opcodeinfo.userdata == OperandType::NONE)
+			{
+				return Instruction{ opcode, {0, 0} };
+			}
+			else
+			{
+				if (opcodeinfo.userdata == OperandType::IMM8)
+				{
+					uint8_t data = mmu_->read(opcode_addr);
+					return Instruction{ opcode, {data, 0} };
+				}
+				else // OperandType::IMM16
+				{
+					uint8_t lo = mmu_->read(opcode_addr);
+					uint8_t hi = mmu_->read(opcode_addr + 1);
+
+					return Instruction{ opcode, {lo, hi} };
+				}
+			}
+		}
 
         uint8_t load8Imm()
         {
@@ -2327,9 +2302,9 @@ namespace gb
             debug_mode_ = debug_mode;
         }
 
-        void setDisassemblyCallback(std::function<void(const std::string&)> callback)
+        void setInstructionCallback(std::function<void(const Instruction&)> callback)
         {
-            disassembly_callback_ = callback;
+            instruction_callback_ = callback;
         }
 
         bool isHalted() const
@@ -2430,7 +2405,7 @@ namespace gb
         int interrupt_master_disable_pending_;
 
         bool debug_mode_;
-        std::function<void(const std::string&)> disassembly_callback_;
+        std::function<void(const Instruction&)> instruction_callback_;
 
         int cycle_count_;
 
@@ -2473,9 +2448,9 @@ namespace gb
         impl_->setDebugMode(debug_mode);
     }
 
-    void CPU::setDisassemblyCallback(std::function<void(const std::string&)> callback)
+    void CPU::setInstructionCallback(std::function<void(const Instruction&)> callback)
     {
-        impl_->setDisassemblyCallback(callback);
+        impl_->setInstructionCallback(callback);
     }
     
     std::array<uint8_t, 12> CPU::serialize() const noexcept
