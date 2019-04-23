@@ -2037,21 +2037,21 @@ namespace gb
 
 			if (opcodeinfo.userdata == OperandType::NONE)
 			{
-				return Instruction{ opcode, {0, 0} };
+				return Instruction{ opcode, static_cast<Instruction::OpcodePage>(page), {0, 0} };
 			}
 			else
 			{
 				if (opcodeinfo.userdata == OperandType::IMM8)
 				{
-					uint8_t data = mmu_->read(opcode_addr);
-					return Instruction{ opcode, {data, 0} };
+					const auto data = mmu_->read(opcode_addr);
+					return Instruction{ opcode, static_cast<Instruction::OpcodePage>(page), {data, 0} };
 				}
 				else // OperandType::IMM16
 				{
-					uint8_t lo = mmu_->read(opcode_addr);
-					uint8_t hi = mmu_->read(opcode_addr + 1);
+					const auto lo = mmu_->read(opcode_addr);
+					const auto hi = mmu_->read(opcode_addr + 1);
 
-					return Instruction{ opcode, {lo, hi} };
+					return Instruction{ opcode, static_cast<Instruction::OpcodePage>(page), {lo, hi} };
 				}
 			}
 		}
