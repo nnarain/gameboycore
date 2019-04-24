@@ -96,15 +96,15 @@ namespace gb
             std::copy(data.begin() + cpu_state.size(), data.end(), ram_start);
         }
 
-		void setTimeProvider(const TimeProvider provider)
-		{
-			mmu->setTimeProvider(provider);
-		}
+        void setTimeProvider(const TimeProvider provider)
+        {
+            mmu->setTimeProvider(provider);
+        }
 
-		void setInstructionCallback(std::function<void(const Instruction&)> fn)
-		{
-			cpu->setInstructionCallback(fn);
-		}
+        void setInstructionCallback(std::function<void(const Instruction&)> fn)
+        {
+            cpu->setInstructionCallback(fn);
+        }
 
         void setColorTheme(ColorTheme theme)
         {
@@ -279,15 +279,15 @@ namespace gb
         impl_->deserialize(data);
     }
 
-	void GameboyCore::setTimeProvider(const TimeProvider provider)
-	{
-		impl_->setTimeProvider(provider);
-	}
+    void GameboyCore::setTimeProvider(const TimeProvider provider)
+    {
+        impl_->setTimeProvider(provider);
+    }
 
-	void GameboyCore::setInstructionCallback(std::function<void(const gb::Instruction&)> fn)
-	{
-		impl_->setInstructionCallback(fn);
-	}
+    void GameboyCore::setInstructionCallback(std::function<void(const gb::Instruction&)> fn)
+    {
+        impl_->setInstructionCallback(fn);
+    }
 
     CPU::Ptr& GameboyCore::getCPU()
     {
