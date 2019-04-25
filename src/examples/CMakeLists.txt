@@ -1,3 +1,4 @@
 add_subdirectory(01_minimal)
 add_subdirectory(02_batteryram)
 add_subdirectory(03_linkport)
+add_subdirectory(04_debug_output)
