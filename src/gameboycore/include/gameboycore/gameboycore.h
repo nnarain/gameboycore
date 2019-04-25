@@ -146,15 +146,15 @@ namespace gb
         */
         void deserialize(const std::vector<uint8_t>& data);
 
-		/**
-			Set the time to be read from the RTC register (MBC3)
-		*/
-		void setTimeProvider(const TimeProvider provider);
+        /**
+            Set the time to be read from the RTC register (MBC3)
+        */
+        void setTimeProvider(const TimeProvider provider);
 
-		/**
-			Set instruction callback
-		*/
-		void setInstructionCallback(std::function<void(const gb::Instruction&)> instr);
+        /**
+            Set instruction callback
+        */
+        void setInstructionCallback(std::function<void(const gb::Instruction&)> instr);
 
         CPU::Ptr& getCPU();
         MMU::Ptr& getMMU();

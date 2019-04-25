@@ -87,6 +87,7 @@ set(GAMEBOYCORE
     src/tilemap.cpp
     src/oam.cpp
     src/timer.cpp
+    src/instruction.cpp
 )
 
 # Gameboy Core Library
