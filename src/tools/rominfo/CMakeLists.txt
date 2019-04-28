@@ -13,7 +13,7 @@ add_executable(rominfo
     ${ROMINFO_SOURCES}
 )
 
-target_compile_features(rominfo PRIVATE cxx_std_17)
+target_compile_features(rominfo PRIVATE cxx_std_14)
 target_include_directories(rominfo PRIVATE
     include/
 )

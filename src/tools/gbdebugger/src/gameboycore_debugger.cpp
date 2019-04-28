@@ -1,7 +1,6 @@
 #include "gameboycore_debugger.hpp"
 
 #include <chrono>
-#include <filesystem>
 #include <fstream>
 #include <thread>
 
