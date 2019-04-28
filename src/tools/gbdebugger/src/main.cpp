@@ -9,11 +9,10 @@
 
 #include <cxxopts.hpp>
 
-#include <filesystem>
 #include <iostream>
 #include <string>
 
-int main(int argc, char const *argv[])
+int main(int argc, char* argv[])
 {
     cxxopts::Options options("GameboyCore Debugger", "Run and Debug Gameboy ROMs");
     options.add_options()
@@ -23,15 +22,9 @@ int main(int argc, char const *argv[])
 
     try
     {
-        auto args = options.parse(argc, argv);
+        const auto args = options.parse(argc, argv);
 
         rom_file = args["file"].as<std::string>();
-
-        std::filesystem::path filepath{ rom_file };
-        if (!std::filesystem::exists(filepath) || std::filesystem::is_directory(filepath))
-        {
-            throw std::runtime_error("ROM file does not exist");
-        }
     }
     catch (const cxxopts::OptionException& e)
     {
@@ -45,8 +38,15 @@ int main(int argc, char const *argv[])
     }
 
     // Initialize the GameboyCore Debugger
-    GameboyCoreDebugger debugger{ rom_file };
-    debugger.run();
+    try
+    {
+        GameboyCoreDebugger debugger{ rom_file };
+        debugger.run();
+    }
+    catch (const std::runtime_error & e)
+    {
+        std::cerr << e.what() << "\n";
+    }
 
     return 0;
 }

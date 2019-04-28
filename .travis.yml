@@ -20,6 +20,7 @@ addons:
       - cppcheck
       - lcov
       - python3.6
+      - libsfml-dev
 
 install:
 - bash scripts/ci_install
@@ -27,7 +28,7 @@ install:
 
 script:
 - mkdir build && cd build
-- cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DWITH_COVERAGE=ON -DBUILD_EXAMPLES=ON
+- cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DWITH_COVERAGE=ON -DBUILD_EXAMPLES=ON -DBUILD_TOOLS=ON
 - cd .. && cppcheck -q --enable=all --inconclusive --force --suppressions-list=./config/cppcheck-suppress.txt src/gameboycore/ && cd -
 - make
 - make check && make run_test_roms

@@ -25,4 +25,5 @@ target_link_libraries(imgui PUBLIC
     ${SFML_LIBRARIES}
 )
 
+target_compile_features(imgui PUBLIC cxx_std_14)
 target_compile_definitions(imgui PRIVATE IMGUI_USER_CONFIG="imconfig-SFML.h")

@@ -1,6 +1,7 @@
 find_package(OpenGL REQUIRED)
 find_package(SFML REQUIRED COMPONENTS system window graphics audio)
 find_package(cxxopts REQUIRED)
+find_package(Threads REQUIRED)
 
 set(GBDEBUGGER_HEADERS
     include/gameboycore_debugger.hpp
@@ -36,9 +37,11 @@ target_link_libraries(gbdebugger
     ${OPENGL_gl_LIBRARY}
 
     cxxopts::cxxopts
+
+    ${CMAKE_THREAD_LIBS_INIT}
 )
 
-target_compile_features(gbdebugger PUBLIC cxx_std_17)
+target_compile_features(gbdebugger PUBLIC cxx_std_14)
 target_compile_definitions(gbdebugger PRIVATE GAMEBOYCORE_STATIC=1)
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
