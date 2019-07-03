@@ -1,5 +1,6 @@
 #include "debugger/gameboycore_debugger.hpp"
 
+#include <algorithm>
 #include <functional>
 #include <thread>
 
