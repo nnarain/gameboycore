@@ -154,7 +154,7 @@ namespace gb
         /**
             Set instruction callback
         */
-        void setInstructionCallback(std::function<void(const gb::Instruction&)> instr);
+        void setInstructionCallback(std::function<void(const gb::Instruction&, const uint16_t addr)> instr);
 
         CPU::Ptr& getCPU();
         MMU::Ptr& getMMU();

@@ -2,19 +2,40 @@ find_package(OpenGL REQUIRED)
 find_package(SFML REQUIRED COMPONENTS system window graphics audio)
 find_package(cxxopts REQUIRED)
 find_package(Threads REQUIRED)
+find_package(fmt CONFIG REQUIRED)
+
+set(UI_HEADERS
+    include/ui/audio_stream.hpp
+    include/ui/frame_buffer.hpp
+    include/ui/user_interface.hpp
+)
+
+set(UI_SOURCES
+    src/ui/audio_stream.cpp
+    src/ui/user_interface.cpp
+)
+
+set(DEBUGGER_HEADERS
+    include/debugger/debugger_interface.hpp
+    include/debugger/gameboycore_debugger.hpp
+    include/debugger/disassembly_generator.hpp
+)
+
+set(DEBUGGER_SOURCES
+    src/debugger/gameboycore_debugger.cpp
+    src/debugger/disassembly_generator.cpp
+)
 
 set(GBDEBUGGER_HEADERS
-    include/gameboycore_debugger.hpp
-    include/user_interface.hpp
-    include/frame_buffer.hpp
-    include/audio_stream.hpp
+    ${UI_HEADERS}
+    ${DEBUGGER_HEADERS}
 )
 
 set(GBDEBUGGER_SOURCES
     src/main.cpp
-    src/gameboycore_debugger.cpp
-    src/user_interface.cpp
-    src/audio_stream.cpp
+    
+    ${UI_SOURCES}
+    ${DEBUGGER_SOURCES}
 )
 
 add_subdirectory(src/external)
@@ -37,6 +58,7 @@ target_link_libraries(gbdebugger
     ${OPENGL_gl_LIBRARY}
 
     cxxopts::cxxopts
+	fmt::fmt
 
     ${CMAKE_THREAD_LIBS_INIT}
 )

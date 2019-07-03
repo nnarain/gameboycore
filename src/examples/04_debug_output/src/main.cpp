@@ -5,9 +5,9 @@
 
 using namespace gb;
 
-void instructionCallback(const Instruction& instruction)
+void instructionCallback(const Instruction& instruction, const uint16_t addr)
 {
-    std::cout << disassemble(instruction) << "\n";
+    std::cout << addr << ": " << disassemble(instruction) << "\n";
 }
 
 int main(int argc, const char* argv[])

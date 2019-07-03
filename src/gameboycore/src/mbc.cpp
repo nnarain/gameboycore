@@ -76,6 +76,11 @@ namespace gb
             return &memory_[getIndex(addr, rom_bank_, ram_bank_)];
         }
 
+        int MBC::resolveAddress(const uint16_t& addr) const
+        {
+            return getIndex(addr, rom_bank_, ram_bank_);
+        }
+
         std::vector<uint8_t> MBC::getRange(uint16_t start, uint16_t end) const
         {
             auto start_idx = getIndex(start, rom_bank_, ram_bank_);
@@ -217,6 +222,11 @@ namespace gb
         unsigned int MBC::kilo(unsigned int n) const
         {
             return KILO_BYTE * n;
+        }
+
+        std::size_t MBC::getVirtualMemorySize() const
+        {
+            return memory_.size();
         }
 
         MBC::~MBC()

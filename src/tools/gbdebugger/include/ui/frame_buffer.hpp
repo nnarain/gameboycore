@@ -1,5 +1,4 @@
-#ifndef FRAME_BUFFER_H
-#define FRAME_BUFFER_H
+#pragma once
 
 #include <vector>
 #include <cstdint>
@@ -9,7 +8,7 @@ class Framebuffer
 {
 public:
     Framebuffer()
-        : buffer_(WIDTH * HEIGHT * PIXEL_SIZE)
+        : buffer_(WIDTH* HEIGHT* PIXEL_SIZE)
     {
     }
 
@@ -49,5 +48,3 @@ public:
 private:
     std::vector<uint8_t> buffer_;
 };
-
-#endif

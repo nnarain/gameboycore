@@ -54,6 +54,11 @@ namespace gb
             bool stopped;
             bool ime;
             uint8_t enabled_interrupts;
+
+            bool flag_z;
+            bool flag_n;
+            bool flag_h;
+            bool flag_c;
         };
 
         //! Flags set by the most recent instruction
@@ -86,17 +91,17 @@ namespace gb
         /**
             \return true if the CPU is halted
         */
-        bool isHalted() const;
+        bool isHalted() const noexcept;
 
         /**
             Set CPU debug mode
         */
-        void setDebugMode(bool debug_mode);
+        void setDebugMode(bool debug_mode) noexcept;
 
         /**
             Set a callback for every CPU instruction.
         */
-        void setInstructionCallback(std::function<void(const Instruction&)>);
+        void setInstructionCallback(std::function<void(const Instruction&, const uint16_t addr)>) noexcept;
 
         /**
             Serialize the CPU state
