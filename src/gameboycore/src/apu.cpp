@@ -147,10 +147,10 @@ namespace gb
             static constexpr float AMPLITUDE = 30000;
 
             // convert sound output between [0, 1]
-            auto sound1 = (float)square1_.getVolume() / 15.f;
-            auto sound2 = (float)square2_.getVolume() / 15.f;
-            auto sound3 = (float)wave_.getVolume() / 15.f;
-            auto sound4 = (float)noise_.getVolume() / 15.f;
+            const auto sound1 = (float)square1_.getVolume() / 15.f;
+            const auto sound2 = (float)square2_.getVolume() / 15.f;
+            const auto sound3 = (float)wave_.getVolume() / 15.f;
+            const auto sound4 = (float)noise_.getVolume() / 15.f;
 
             float left_sample = 0;
             float right_sample = 0;
@@ -180,12 +180,12 @@ namespace gb
             right_sample /= 4.0f;
 
             // volume per channel between [0, 1]
-            auto right_volume = ((float)right_volume_) / 7.f;
-            auto left_volume = ((float)left_volume_) / 7.f;
+            const auto right_volume = ((float)right_volume_) / 7.f;
+            const auto left_volume = ((float)left_volume_) / 7.f;
 
             // generate a sample
-            auto left = (int16_t)(left_sample * left_volume * AMPLITUDE);
-            auto right = (int16_t)(right_sample * right_volume * AMPLITUDE);
+            const auto left = (int16_t)(left_sample * left_volume * AMPLITUDE);
+            const auto right = (int16_t)(right_sample * right_volume * AMPLITUDE);
 
             // send the samples to the host system
             if (send_audio_sample_)
