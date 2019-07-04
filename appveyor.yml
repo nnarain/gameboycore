@@ -15,7 +15,7 @@ configuration:
 
 install:
   - cd c:\tools\vcpkg
-  - vcpkg install gtest sfml cxxopts
+  - vcpkg install gtest sfml cxxopts fmt
   - vcpkg integrate install
 
 before_build:

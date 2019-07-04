@@ -100,6 +100,11 @@ namespace gb
             uint8_t& get(uint16_t addr);
             uint8_t* getptr(uint16_t addr);
 
+            /**
+                Get the virtual memory location from the logical address
+            */
+            int resolveAddress(const uint16_t& addr) const;
+
             std::vector<uint8_t> getRange(uint16_t start, uint16_t end) const;
             void setMemory(uint16_t start, const std::vector<uint8_t>& mem);
 
@@ -108,6 +113,8 @@ namespace gb
             int getRomBank() const;
             int getRamBank() const;
             bool isXramEnabled() const;
+
+            std::size_t getVirtualMemorySize() const;
 
         protected:
             /**

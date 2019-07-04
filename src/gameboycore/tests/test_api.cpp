@@ -223,7 +223,7 @@ TEST(API, Serialization)
 TEST(API, InstructionCallback)
 {
     std::vector<gb::Instruction> instructions;
-    const auto instruction_callback = [&instructions](const gb::Instruction & instr) {instructions.push_back(instr); };
+    const auto instruction_callback = [&instructions](const gb::Instruction & instr, const uint16_t addr) {instructions.push_back(instr); };
 
     CodeGenerator code;
     code.block(

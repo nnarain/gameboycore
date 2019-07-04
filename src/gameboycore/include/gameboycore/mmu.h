@@ -112,6 +112,16 @@ namespace gb
         */
         uint8_t* getptr(uint16_t);
 
+        /**
+            Get the virtual memory location from the logical address
+        */
+        int resolveAddress(const uint16_t& addr) const;
+
+        /**
+            Get size of virtual memory
+        */
+        std::size_t getVirtualMemorySize() const;
+
     private:
         class Impl;
         Impl* impl_;

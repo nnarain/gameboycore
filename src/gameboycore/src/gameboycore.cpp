@@ -101,7 +101,7 @@ namespace gb
             mmu->setTimeProvider(provider);
         }
 
-        void setInstructionCallback(std::function<void(const Instruction&)> fn)
+        void setInstructionCallback(std::function<void(const Instruction&, const uint16_t addr)> fn)
         {
             cpu->setInstructionCallback(fn);
         }
@@ -284,7 +284,7 @@ namespace gb
         impl_->setTimeProvider(provider);
     }
 
-    void GameboyCore::setInstructionCallback(std::function<void(const gb::Instruction&)> fn)
+    void GameboyCore::setInstructionCallback(std::function<void(const gb::Instruction&, const uint16_t addr)> fn)
     {
         impl_->setInstructionCallback(fn);
     }

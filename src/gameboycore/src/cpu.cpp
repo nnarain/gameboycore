@@ -60,28 +60,38 @@ namespace gb
             JOYPAD = 0x0060
         };
 
-        Impl(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu, Link::Ptr& link) :
-            mmu_(mmu),
-            gpu_(gpu),
-            apu_(apu),
-            link_(link),
-            alu_(af_.lo),
-            timer_(*mmu.get()),
-            halted_(false),
-            stopped_(false),
-            interrupt_master_enable_(false),
-            interrupt_master_enable_pending_(-1),
-            interrupt_master_disable_pending_(-1),
-            debug_mode_(false),
-            cycle_count_(0),
-            interrupt_flags_(mmu_->get(memorymap::INTERRUPT_FLAG)),
-            interrupt_enable_(mmu_->get(memorymap::INTERRUPT_ENABLE)),
-            cgb_enabled_(mmu->cgbEnabled())
+        Impl(MMU::Ptr& mmu, GPU::Ptr& gpu, APU::Ptr& apu, Link::Ptr& link)
+            : af_{0}
+            , bc_{0}
+            , de_{0}
+            , hl_{0}
+            , sp_{0}
+            , pc_{0}
+            , mmu_{ mmu }
+            , gpu_{ gpu }
+            , apu_{ apu }
+            , link_{ link }
+            , alu_{ af_.lo }
+            , timer_{ *mmu.get() }
+            , halted_{ false }
+            , stopped_{ false }
+            , interrupt_master_enable_{ false }
+            , interrupt_master_enable_pending_{ -1 }
+            , interrupt_master_disable_pending_{ -1 }
+            , debug_mode_{ false }
+            , current_pc_{0}
+            , cycle_count_{ 0 }
+            , interrupt_flags_{ mmu_->get(memorymap::INTERRUPT_FLAG) }
+            , interrupt_enable_{ mmu_->get(memorymap::INTERRUPT_ENABLE) }
+            , cgb_enabled_{ mmu->cgbEnabled() }
         {
         }
 
         void step()
         {
+            // set current PC for debugging
+            current_pc_ = pc_.val;
+
             cycle_count_ = 0;
 
             if (!halted_)
@@ -93,7 +103,7 @@ namespace gb
                 if (opcode != 0xCB)
                 {
                     // decode from first page
-                    cycle_count_ += decode1(opcode);;
+                    cycle_count_ += decode1(opcode);
                 }
                 else
                 {
@@ -125,11 +135,6 @@ namespace gb
 
         uint8_t decode1(uint8_t opcode)
         {
-            static uint16_t old_pc;
-
-            // store current program counter location so it can be reused for disassembly output
-            old_pc = pc_.val;
-
             int cycles = -1;
 
             switch (opcode)
@@ -1066,7 +1071,7 @@ namespace gb
 
             if (debug_mode_)
             {
-                sendInstructionData(opcode, old_pc, OpcodePage::PAGE1);
+                sendInstructionData(opcode, current_pc_, OpcodePage::PAGE1);
             }
 
             if (cycles == -1)
@@ -1079,11 +1084,6 @@ namespace gb
 
         uint8_t decode2(uint8_t opcode)
         {
-            static uint16_t old_pc;
-
-            // store current program counter location so it can be reused for disassembly output
-            old_pc = pc_.val;
-
             uint8_t tmp;
 
             switch (opcode)
@@ -1937,7 +1937,7 @@ namespace gb
 
             if (debug_mode_)
             {
-                sendInstructionData(opcode, old_pc, OpcodePage::PAGE2);
+                sendInstructionData(opcode, current_pc_, OpcodePage::PAGE2);
             }
 
             return opcode_page2[opcode];
@@ -2024,32 +2024,32 @@ namespace gb
 
         void sendInstructionData(uint8_t opcode, uint16_t addr, OpcodePage page)
         {
-			if (instruction_callback_)
-			{
-				const auto instr = fetchInstructionData(opcode, addr, page);
-				instruction_callback_(instr);
-			}
+            if (instruction_callback_)
+            {
+                const auto instr = fetchInstructionData(opcode, addr, page);
+                instruction_callback_(instr, addr);
+            }
         }
 
-		Instruction fetchInstructionData(uint8_t opcode, uint16_t opcode_addr, OpcodePage page)
-		{
-			OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
+        Instruction fetchInstructionData(uint8_t opcode, uint16_t opcode_addr, OpcodePage page)
+        {
+            OpcodeInfo opcodeinfo = getOpcodeInfo(opcode, page);
 
-			if (opcodeinfo.userdata == OperandType::NONE)
-			{
-				return Instruction{ opcode, static_cast<Instruction::OpcodePage>(page), {0, 0} };
-			}
-			else
-			{
-				if (opcodeinfo.userdata == OperandType::IMM8)
-				{
-					const auto data = mmu_->read(opcode_addr);
+            if (opcodeinfo.userdata == OperandType::NONE)
+            {
+                return Instruction{ opcode, static_cast<Instruction::OpcodePage>(page), {0, 0} };
+            }
+            else
+            {
+                if (opcodeinfo.userdata == OperandType::IMM8)
+                {
+                    const auto data = mmu_->read(opcode_addr + 1);
 					return Instruction{ opcode, static_cast<Instruction::OpcodePage>(page), {data, 0} };
 				}
 				else // OperandType::IMM16
 				{
-					const auto lo = mmu_->read(opcode_addr);
-					const auto hi = mmu_->read(opcode_addr + 1);
+					const auto lo = mmu_->read(opcode_addr + 1);
+					const auto hi = mmu_->read(opcode_addr + 2);
 
 					return Instruction{ opcode, static_cast<Instruction::OpcodePage>(page), {lo, hi} };
 				}
@@ -2297,17 +2297,17 @@ namespace gb
             mmu_->write((uint8_t)0x00, memorymap::KEY1_REGISER);
         }
 
-        void setDebugMode(bool debug_mode)
+        void setDebugMode(bool debug_mode) noexcept
         {
             debug_mode_ = debug_mode;
         }
 
-        void setInstructionCallback(std::function<void(const Instruction&)> callback)
+        void setInstructionCallback(const std::function<void(const Instruction&, const uint16_t addr)>& callback) noexcept
         {
             instruction_callback_ = callback;
         }
 
-        bool isHalted() const
+        bool isHalted() const noexcept
         {
             return halted_;
         }
@@ -2377,6 +2377,11 @@ namespace gb
             status.ime = interrupt_master_enable_;
             status.enabled_interrupts = interrupt_enable_;
 
+            status.flag_z = !!(af_.lo & Flags::Z);
+            status.flag_n = !!(af_.lo & Flags::N);
+            status.flag_h = !!(af_.lo & Flags::H);
+            status.flag_c = !!(af_.lo & Flags::C);
+
             return status;
         }
 
@@ -2405,7 +2410,8 @@ namespace gb
         int interrupt_master_disable_pending_;
 
         bool debug_mode_;
-        std::function<void(const Instruction&)> instruction_callback_;
+        uint16_t current_pc_;
+        std::function<void(const Instruction&, const uint16_t addr)> instruction_callback_;
 
         int cycle_count_;
 
@@ -2438,17 +2444,17 @@ namespace gb
         impl_->reset();
     }
 
-    bool CPU::isHalted() const
+    bool CPU::isHalted() const noexcept
     {
         return impl_->isHalted();
     }
 
-    void CPU::setDebugMode(bool debug_mode)
+    void CPU::setDebugMode(bool debug_mode) noexcept
     {
         impl_->setDebugMode(debug_mode);
     }
 
-    void CPU::setInstructionCallback(std::function<void(const Instruction&)> callback)
+    void CPU::setInstructionCallback(std::function<void(const Instruction&, const uint16_t addr)> callback) noexcept
     {
         impl_->setInstructionCallback(callback);
     }

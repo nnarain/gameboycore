@@ -1,5 +1,4 @@
-#ifndef AUDIO_STREAM_H
-#define AUDIO_STREAM_H
+#pragma once
 
 #include <SFML/Audio.hpp>
 
@@ -32,5 +31,3 @@ private:
 
     std::vector<sf::Int16> samples_;
 };
-
-#endif
