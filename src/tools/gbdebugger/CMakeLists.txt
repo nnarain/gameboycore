@@ -8,11 +8,14 @@ set(UI_HEADERS
     include/ui/audio_stream.hpp
     include/ui/frame_buffer.hpp
     include/ui/user_interface.hpp
+    include/ui/views/view.hpp
+    include/ui/views/default_view.hpp
 )
 
 set(UI_SOURCES
     src/ui/audio_stream.cpp
     src/ui/user_interface.cpp
+    src/ui/views/default_view.cpp
 )
 
 set(DEBUGGER_HEADERS

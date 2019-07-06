@@ -1,17 +1,23 @@
 #pragma once
 
 #include "ui/audio_stream.hpp"
-#include "ui/frame_buffer.hpp"
+#include "ui/views/view.hpp"
+#include "ui/views/default_view.hpp"
+
 #include "debugger/debugger_interface.hpp"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
+#include <addons/imguitabwindow/imguitabwindow.h>
+
 #include <gameboycore/gameboycore.h>
 
-#include <functional>
 #include <map>
+#include <vector>
+#include <functional>
+
 
 class UserInterface
 {
@@ -26,27 +32,17 @@ private:
     void update();
     bool isRunning() const;
 
-    void drawUI();
-    void drawExecutionControl();
-    void drawRegisters();
-    void drawDisassembly();
-    void drawDisplay();
+    void renderViews();
 
-    void scanlineCallback(const gb::GPU::Scanline& scanline, int line);
-    void vblankCallback();
+    static void tabContentProvider(ImGui::TabWindow::TabLabel* tab, ImGui::TabWindow& parent, void* user_ptr);
 
     void handleKeyEvent(sf::Keyboard::Key key, bool pressed);
 
     sf::RenderWindow window_;
     sf::Clock delta_clock_;
 
-    gb::GameboyCore& core_;
-    DebuggerInterface& debugger_;
-    gb::CPU::Status state_;
-
-    sf::Sprite screen_sprite_;
-    sf::Texture screen_texture_;
-    Framebuffer<160, 144, 4> framebuffer_;
+    std::vector<View*> views_;
+    DefaultView default_view_;
 
     AudioStream audio_stream_;
 

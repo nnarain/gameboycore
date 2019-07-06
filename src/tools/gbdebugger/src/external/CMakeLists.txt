@@ -4,11 +4,15 @@
 find_package(SFML REQUIRED COMPONENTS system)
 
 set(IMGUI_SOURCES
+    # Core
     imgui/imgui.cpp
     imgui/imgui_draw.cpp
     imgui/imgui_widgets.cpp
     imgui/imgui_demo.cpp   # Generally its advised to leave this in for reference
+    # Binding
     imgui-sfml/imgui-SFML.cpp
+    # Addons
+    imgui/addons/imguitabwindow/imguitabwindow.cpp
 )
 
 add_library(imgui STATIC
