@@ -10,12 +10,14 @@ set(UI_HEADERS
     include/ui/user_interface.hpp
     include/ui/views/view.hpp
     include/ui/views/default_view.hpp
+    include/ui/views/memory_view.hpp
 )
 
 set(UI_SOURCES
     src/ui/audio_stream.cpp
     src/ui/user_interface.cpp
     src/ui/views/default_view.cpp
+    src/ui/views/memory_view.cpp
 )
 
 set(DEBUGGER_HEADERS
@@ -61,7 +63,7 @@ target_link_libraries(gbdebugger
     ${OPENGL_gl_LIBRARY}
 
     cxxopts::cxxopts
-	fmt::fmt
+    fmt::fmt
 
     ${CMAKE_THREAD_LIBS_INIT}
 )
