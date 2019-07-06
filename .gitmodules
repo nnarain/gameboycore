@@ -7,3 +7,9 @@
 [submodule "src/gameboycore/tests/test_runner/test_roms"]
 	path = src/gameboycore/tests/test_runner/test_roms
 	url = https://github.com/nnarain/gb-test-roms.git
+[submodule "src/tools/gbdebugger/src/external/imgui_club"]
+	path = src/tools/gbdebugger/src/external/imgui_club
+	url = https://github.com/ocornut/imgui_club
+[submodule "src/tools/gbdebugger/src/external/--force"]
+	path = src/tools/gbdebugger/src/external/--force
+	url = https://github.com/ocornut/imgui_club

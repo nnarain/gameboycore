@@ -13,6 +13,7 @@ set(IMGUI_SOURCES
     imgui-sfml/imgui-SFML.cpp
     # Addons
     imgui/addons/imguitabwindow/imguitabwindow.cpp
+    imgui_club/imgui_memory_editor/imgui_memory_editor.h
 )
 
 add_library(imgui STATIC
@@ -22,6 +23,7 @@ add_library(imgui STATIC
 target_include_directories(imgui PUBLIC
     imgui/
     imgui-sfml/
+    imgui_club/
     ${SFML_INCLUDE_DIR}
 )
 

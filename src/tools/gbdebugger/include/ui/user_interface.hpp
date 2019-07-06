@@ -3,6 +3,7 @@
 #include "ui/audio_stream.hpp"
 #include "ui/views/view.hpp"
 #include "ui/views/default_view.hpp"
+#include "ui/views/memory_view.hpp"
 
 #include "debugger/debugger_interface.hpp"
 
@@ -43,6 +44,7 @@ private:
 
     std::vector<View*> views_;
     DefaultView default_view_;
+    MemoryView memory_view_;
 
     AudioStream audio_stream_;
 

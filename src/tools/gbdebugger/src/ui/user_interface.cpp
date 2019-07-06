@@ -14,12 +14,14 @@ static constexpr ImGuiWindowFlags TAB_WINDOW_FLAGS = ImGuiWindowFlags_NoScrollba
 UserInterface::UserInterface(gb::GameboyCore& core, DebuggerInterface& debugger)
     : window_{ sf::VideoMode{800, 600}, "GameboyCore Debugger" }
     , default_view_{core, debugger}
+    , memory_view_{core}
     , key_map_{}
 {
     ImGui::SFML::Init(window_);
 
     // Init views
     views_.push_back(&default_view_);
+    views_.push_back(&memory_view_);
 
     // key mapping
     key_map_.insert({ sf::Keyboard::Key::W, gb::Joy::Key::UP });
