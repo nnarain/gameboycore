@@ -1,11 +1,6 @@
 option(BUILD_TESTS "Build tests" ON)
 option(WITH_COVERAGE "Build with coverage info" OFF)
 
-########################################################################################################################
-### CMake Policy                                                                                                     ###
-########################################################################################################################
-cmake_policy(SET CMP0054 OLD)
-
 
 ########################################################################################################################
 ### GameboyCore                                                                                                      ###
@@ -105,11 +100,11 @@ target_include_directories(gameboycore
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
     target_compile_options(gameboycore PRIVATE -Wall -Wextra)
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
     target_compile_options(gameboycore PRIVATE /W4)
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL Clang)
     target_compile_options(gameboycore PRIVATE -Wall -Wextra)
 endif()
 
