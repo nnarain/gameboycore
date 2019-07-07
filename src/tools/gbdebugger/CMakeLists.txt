@@ -24,11 +24,13 @@ set(DEBUGGER_HEADERS
     include/debugger/debugger_interface.hpp
     include/debugger/gameboycore_debugger.hpp
     include/debugger/disassembly_generator.hpp
+    include/debugger/annotations.hpp
 )
 
 set(DEBUGGER_SOURCES
     src/debugger/gameboycore_debugger.cpp
     src/debugger/disassembly_generator.cpp
+    src/debugger/annotations.cpp
 )
 
 set(GBDEBUGGER_HEADERS

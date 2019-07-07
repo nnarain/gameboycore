@@ -22,5 +22,7 @@ private:
 
     static gb::GameboyCore* g_core_;
 
+    void drawAnnotation();
+
     MemoryEditor editor_;
 };
