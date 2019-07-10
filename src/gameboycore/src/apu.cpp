@@ -216,11 +216,11 @@ namespace gb
         {
             uint8_t value = 0;
 
-            const auto extras = extra_bits_[addr - APU_REG_BASE];
+            const auto& extras = extra_bits_[addr - APU_REG_BASE];
 
             if (addr == memorymap::NR52_REGISTER)
             {
-                value &= 0xF0;
+                value = apuRead(addr) & 0xF0;
 
                 value |= square1_.isEnabled() << 0;
                 value |= square2_.isEnabled() << 1;
@@ -249,6 +249,10 @@ namespace gb
                 {
                     value = noise_.read(addr - memorymap::NR41_REGISTER);
                 }
+                else if (addr >= memorymap::NR50_REGISTER && addr <= memorymap::NR52_REGISTER)
+                {
+                    value = apuRead(addr);
+                }
             }
 
             return value | extras;
@@ -262,6 +266,12 @@ namespace gb
                 if (isClear(value, 0x80))
                 {
                     clearRegisters();
+
+                    square1_.disable();
+                    square2_.disable();
+                    wave_.disable();
+                    noise_.disable();
+
                     frame_sequencer_ = 0;
                 }
 
@@ -273,7 +283,7 @@ namespace gb
 
                 apuWrite(value, addr);
             }
-            else if (addr == memorymap::NR50_REGISTER)
+            else if (addr == memorymap::NR50_REGISTER && isEnabled())
             {
                 right_volume_ = value & 0x07;
                 right_enabled_ = (value & 0x08) != 0;
@@ -283,7 +293,7 @@ namespace gb
 
                 apuWrite(value, addr);
             }
-            else if (addr == memorymap::NR51_REGISTER)
+            else if (addr == memorymap::NR51_REGISTER && isEnabled())
             {
                 channel_right_enabled_[0] = (value & 0x01) != 0;
                 channel_right_enabled_[1] = (value & 0x02) != 0;
