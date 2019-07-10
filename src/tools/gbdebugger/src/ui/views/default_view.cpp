@@ -69,7 +69,18 @@ void DefaultView::drawExecutionControl()
             debugger_.setMode(DebuggerInterface::Mode::STEP);
         }
 
+        // C2E0
+        //debugger_.step();
         debugger_.runFrame();
+
+        state_ = core_.getCPU()->getStatus();
+
+        if (state_.pc == 0xC4D7)
+        {
+            
+            //debugger_.setMode(DebuggerInterface::Mode::STEP);
+        }
+
     }
     else
     {
