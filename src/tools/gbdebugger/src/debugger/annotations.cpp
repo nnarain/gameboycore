@@ -6,6 +6,7 @@
 
 #include <array>
 #include <sstream>
+#include <string>
 
 
 namespace utils
@@ -18,6 +19,45 @@ namespace utils
         return IoAnnotation{ name, {
             Annotation{{0,7}, "Value", ss.str()}
         } };
+    }
+
+    IoAnnotation annotateNR50(uint8_t value)
+    {
+        return IoAnnotation{ "Sound Control - NR50", {
+                Annotation{ {0,2}, "SO1 Output Level", std::to_string(value) },
+                Annotation{ {3}, "Vin -> SO1", (value & 0b1000) ? "ON" : "OFF" },
+                Annotation{ {4,6}, "SO2 Output Level", std::to_string((value & 0b01110000) >> 4) },
+                Annotation{ {7}, "Vin -> SO2", (value & 0b10000000) ? "ON" : "OFF" }
+            }
+        };
+    }
+
+    IoAnnotation annotateNR51(uint8_t value)
+    {
+        std::vector<Annotation> annotations;
+
+        for (auto i = 0; i < 8; ++i)
+        {
+            const auto mask = 1 << i;
+            const std::string status = (value & mask) ? "ON" : "OFF";
+            const std::string terminal = i >= 4 ? "SO2" : "SO1";
+
+            annotations.push_back(Annotation{ { i }, fmt::format("Output Sound {} to Terminal {}", ((i + 1) % 4), terminal), status });
+        }
+
+        return IoAnnotation{ "Sound Controller - NR51", annotations };
+    }
+
+    IoAnnotation annotateNR52(uint8_t value)
+    {
+        return IoAnnotation{ "Sound Controller - NR52", {
+                Annotation{{1}, "Sound 1 Flag", (value & 0b01) ? "ON" : "OFF"},
+                Annotation{{2}, "Sound 2 Flag", (value & 0b10) ? "ON" : "OFF"},
+                Annotation{{3}, "Sound 3 Flag", (value & 0b100) ? "ON" : "OFF"},
+                Annotation{{4}, "Sound 4 Flag", (value & 0b1000) ? "ON" : "OFF"},
+                Annotation{{4}, "All Sound Flag", (value & 0x80) ? "ON" : "OFF"}
+            }
+        };
     }
 
     IoAnnotation annotateJoyPad(uint8_t value)
@@ -235,6 +275,12 @@ namespace utils
             return annotateSingleValue("Window Y", value);
         case gb::memorymap::WX_REGISTER:
             return annotateSingleValue("Window X", value);
+        case gb::memorymap::NR50_REGISTER:
+            return annotateNR50(value);
+        case gb::memorymap::NR51_REGISTER:
+            return annotateNR51(value);
+        case gb::memorymap::NR52_REGISTER:
+            return annotateNR52(value);
         default:
             return IoAnnotation{};
         }
