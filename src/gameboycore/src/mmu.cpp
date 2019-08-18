@@ -76,8 +76,6 @@ namespace gb
                 mbc_.reset(new detail::MBC5(rom, size, header.rom_size, header.ram_size, cgb_enabled_));
                 break;
 
-
-
             default:
                 throw std::runtime_error("Unsupported cartridge type :(");
                 break;
@@ -169,6 +167,20 @@ namespace gb
         void setBatteryRam(const std::vector<uint8_t>& battery_ram)
         {
             mbc_->setMemory(memorymap::EXTERNAL_RAM_START, battery_ram);
+        }
+
+        void setTimeProvider(const TimeProvider provider)
+        {
+            // The time provider is only valid for MBC3
+            if (auto mbc_ptr = dynamic_cast<detail::MBC3*>(mbc_.get()))
+            {
+                mbc_ptr->setTimeProvider(provider);
+            }
+        }
+
+        int resolveAddress(const uint16_t& addr) const
+        {
+            return mbc_->resolveAddress(addr);
         }
 
         void loadResetValues()
@@ -282,6 +294,11 @@ namespace gb
         impl_->setBatteryRam(battery_ram);
     }
 
+	void MMU::setTimeProvider(const TimeProvider provider)
+	{
+		impl_->setTimeProvider(provider);
+	}
+
     bool MMU::getOamTransferStatus() const
     {
         bool ret = impl_->oam_updated_;
@@ -303,5 +320,15 @@ namespace gb
     uint8_t* MMU::getptr(uint16_t addr)
     {
         return impl_->mbc_->getptr(addr);
+    }
+
+    int MMU::resolveAddress(const uint16_t& addr) const
+    {
+        return impl_->resolveAddress(addr);
+    }
+
+    std::size_t MMU::getVirtualMemorySize() const
+    {
+        return impl_->mbc_->getVirtualMemorySize();
     }
 }

@@ -8,6 +8,7 @@
 #define GAMEBOYCORE_MMU_H
 
 #include "gameboycore/gameboycore_api.h"
+#include "gameboycore/time.h"
 
 #include <functional>
 #include <cstdint>
@@ -86,6 +87,11 @@ namespace gb
         */
         void setBatteryRam(const std::vector<uint8_t>& battery_ram);
 
+		/**
+			Set the time to be read from the RTC register (MBC3)
+		*/
+		void setTimeProvider(const TimeProvider provider);
+
         /**
             Check if OAM transfer has occured
         */
@@ -105,6 +111,16 @@ namespace gb
             \return point to memory location
         */
         uint8_t* getptr(uint16_t);
+
+        /**
+            Get the virtual memory location from the logical address
+        */
+        int resolveAddress(const uint16_t& addr) const;
+
+        /**
+            Get size of virtual memory
+        */
+        std::size_t getVirtualMemorySize() const;
 
     private:
         class Impl;

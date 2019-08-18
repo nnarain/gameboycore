@@ -1,23 +1,27 @@
-#include "user_interface.hpp"
-#include <imgui-SFML.h>
+#include "ui/user_interface.hpp"
+
 #include <imgui.h>
+#include <imgui-SFML.h>
 
+#include <chrono>
 #include <functional>
+#include <iostream>
 
+static constexpr ImGuiWindowFlags TAB_WINDOW_FLAGS = ImGuiWindowFlags_NoScrollbar |
+                                                     ImGuiWindowFlags_NoCollapse |
+                                                     ImGuiWindowFlags_NoTitleBar;
 
-UserInterface::UserInterface()
+UserInterface::UserInterface(gb::GameboyCore& core, DebuggerInterface& debugger)
     : window_{ sf::VideoMode{800, 600}, "GameboyCore Debugger" }
-    , screen_rect_{ {800, 600} }
+    , default_view_{core, debugger}
+    , memory_view_{core}
     , key_map_{}
 {
     ImGui::SFML::Init(window_);
 
-    if (!screen_texture_.create(framebuffer_.width(), framebuffer_.height()))
-    {
-        throw std::runtime_error("Could not create texture!");
-    }
-
-    screen_rect_.setTexture(&screen_texture_);
+    // Init views
+    views_.push_back(&default_view_);
+    views_.push_back(&memory_view_);
 
     // key mapping
     key_map_.insert({ sf::Keyboard::Key::W, gb::Joy::Key::UP });
@@ -28,6 +32,8 @@ UserInterface::UserInterface()
     key_map_.insert({ sf::Keyboard::Key::K, gb::Joy::Key::B });
     key_map_.insert({ sf::Keyboard::Key::Return, gb::Joy::Key::START });
     key_map_.insert({ sf::Keyboard::Key::LShift, gb::Joy::Key::SELECT });
+
+    initialize(core);
 }
 
 UserInterface::~UserInterface()
@@ -38,13 +44,24 @@ UserInterface::~UserInterface()
 
 void UserInterface::initialize(gb::GameboyCore& core)
 {
-    core.setScanlineCallback(std::bind(&UserInterface::scanlineCallback, this, std::placeholders::_1, std::placeholders::_2));
-    core.setVBlankCallback(std::bind(&UserInterface::vblankCallback, this));
-
     audio_stream_.initialize(core);
     audio_stream_.start();
 
     key_event_ = std::bind(&gb::GameboyCore::input, &core, std::placeholders::_1, std::placeholders::_2);
+
+    ImGui::TabWindow::SetWindowContentDrawerCallback(&UserInterface::tabContentProvider);
+}
+
+void UserInterface::run()
+{
+    using namespace std::chrono_literals;
+
+    while (isRunning())
+    {
+        update();
+
+        std::this_thread::sleep_for(16ms);
+    }
 }
 
 void UserInterface::update()
@@ -53,6 +70,8 @@ void UserInterface::update()
 
     while (window_.pollEvent(event))
     {
+        ImGui::SFML::ProcessEvent(event);
+
         switch (event.type)
         {
         case sf::Event::Closed:
@@ -73,17 +92,15 @@ void UserInterface::update()
         }
     }
 
-    //ImGui::SFML::Update(window_, delta_clock_.restart());
+    ImGui::SFML::Update(window_, delta_clock_.restart());
+ 
+    renderViews();
 
-    window_.clear(sf::Color{ 0, 0, 0, 255 });
-
-    window_.draw(screen_rect_);
-
-    //ImGui::SFML::Render(window_);
+    window_.clear(sf::Color{ 255, 255, 255, 255 });
+    ImGui::SFML::Render(window_);
 
     window_.display();
 }
-
 
 void UserInterface::handleKeyEvent(sf::Keyboard::Key key, bool pressed)
 {
@@ -93,21 +110,42 @@ void UserInterface::handleKeyEvent(sf::Keyboard::Key key, bool pressed)
     }
 }
 
-void UserInterface::scanlineCallback(const gb::GPU::Scanline& scanline, int line)
+void UserInterface::renderViews()
 {
-    // Buffer the scanline
-    for (auto i = 0u; i < scanline.size(); ++i)
+    static bool open = true;
+
+    const auto& window_size = ImGui::GetIO().DisplaySize;
+
+    const auto width = window_size.x;
+    const auto height = window_size.y;
+
+    ImGui::SetNextWindowPos({ 0, 0 });
+    ImGui::SetNextWindowSize({ width, height });
+
+    if (ImGui::Begin("##TabWindow", &open, TAB_WINDOW_FLAGS))
     {
-        const auto& p = scanline[i];
-        framebuffer_.write(i, line, sf::Color{ p.r, p.g, p.b, 255 });
+        static ImGui::TabWindow tab_window;
+        if (!tab_window.isInited())
+        {
+            for (auto& view : views_)
+            {
+                tab_window.addTabLabel(view->name().c_str(), nullptr, false, false, view);
+            }
+        }
+
+        tab_window.render();
     }
+
+    ImGui::End();
 }
 
-void UserInterface::vblankCallback()
+void UserInterface::tabContentProvider(ImGui::TabWindow::TabLabel* tab, ImGui::TabWindow& parent, void* user_ptr)
 {
-    // A full frame is done
-    // Update the screen texture
-    screen_texture_.update(framebuffer_.data());
+    if (tab->userPtr != nullptr)
+    {
+        auto ptr = static_cast<View*>(tab->userPtr);
+        ptr->render();
+    }
 }
 
 bool UserInterface::isRunning() const

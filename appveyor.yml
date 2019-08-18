@@ -15,13 +15,14 @@ configuration:
 
 install:
   - cd c:\tools\vcpkg
-  - vcpkg install gtest
+  - vcpkg install gtest sfml cxxopts fmt
   - vcpkg integrate install
 
 before_build:
   - cd c:\projects\gameboycore
+  - git submodule update --init --recursive
   - mkdir build && cd build
-  - cmake .. -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN%
+  - cmake .. -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_TOOLS=ON -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN%
 
 build:
   project: c:\projects\gameboycore\build\gameboycore.sln

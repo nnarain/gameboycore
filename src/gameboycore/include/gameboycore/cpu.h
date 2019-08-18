@@ -11,6 +11,7 @@
 #include "gameboycore/gpu.h"
 #include "gameboycore/apu.h"
 #include "gameboycore/link.h"
+#include "gameboycore/instruction.h"
 
 #include <cstdint>
 #include <memory>
@@ -53,6 +54,11 @@ namespace gb
             bool stopped;
             bool ime;
             uint8_t enabled_interrupts;
+
+            bool flag_z;
+            bool flag_n;
+            bool flag_h;
+            bool flag_c;
         };
 
         //! Flags set by the most recent instruction
@@ -85,17 +91,17 @@ namespace gb
         /**
             \return true if the CPU is halted
         */
-        bool isHalted() const;
+        bool isHalted() const noexcept;
 
         /**
             Set CPU debug mode
         */
-        void setDebugMode(bool debug_mode);
+        void setDebugMode(bool debug_mode) noexcept;
 
         /**
-            Set a callback function for the disassembly string when the CPU is in debug mode
+            Set a callback for every CPU instruction.
         */
-        void setDisassemblyCallback(std::function<void(const std::string&)>);
+        void setInstructionCallback(std::function<void(const Instruction&, const uint16_t addr)>) noexcept;
 
         /**
             Serialize the CPU state

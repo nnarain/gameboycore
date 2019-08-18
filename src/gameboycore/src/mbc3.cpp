@@ -5,8 +5,9 @@ namespace gb
 {
     namespace detail
     {
-        MBC3::MBC3(const uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable) :
-            MBC(rom, size, rom_size, ram_size, cgb_enable)
+        MBC3::MBC3(const uint8_t* rom, uint32_t size, uint8_t rom_size, uint8_t ram_size, bool cgb_enable)
+			: MBC(rom, size, rom_size, ram_size, cgb_enable)
+			, latch_ctl_{0}
         {
         }
 
@@ -49,9 +50,26 @@ namespace gb
             }
             else if(addr >= 0x6000 && addr <= 0x7FFF)
             {
-                
+				if (value == 0x00)
+				{
+					latch_ctl_++;
+				}
+				else if (latch_ctl_ == 1 && value == 0x01)
+				{
+					rtc_.latch();
+					latch_ctl_ = 0;
+				}
+				else
+				{
+					latch_ctl_ = 0;
+				}
             }
         }
+
+		void MBC3::setTimeProvider(TimeProvider provider)
+		{
+			rtc_.setTimeProvider(provider);
+		}
 
         MBC3::~MBC3()
         {

@@ -5,6 +5,9 @@
 
 #include <gameboycore/gameboycore.h>
 #include <gameboycore/memorymap.h>
+#include <gameboycore/instruction.h>
+
+#include <vector>
 
 using namespace gb;
 
@@ -182,8 +185,9 @@ TEST(API, Serialization)
 
     // Enable XRAM
     core.writeMemory(0x1000, 0x0A);
-    // Write a value into XRAM
-    core.writeMemory(0xA000, 0xDE);
+    // Write values into RAM
+    core.writeMemory(0x8000, 0xDE);
+    core.writeMemory(0xA000, 0xAD);
 
     // Run the core for the necessary number of steps
     core.update(9);
@@ -197,7 +201,8 @@ TEST(API, Serialization)
     EXPECT_EQ(first_state.e, 0x0E);
     EXPECT_EQ(first_state.h, 0x0F);
     EXPECT_EQ(first_state.l, 0x09);
-    EXPECT_EQ(core.readMemory(0xA000), 0xDE);
+    EXPECT_EQ(core.readMemory(0x8000), 0xDE);
+    EXPECT_EQ(core.readMemory(0xA000), 0xAD);
 
     const auto data = core.serialize();
     core.deserialize(data);
@@ -211,5 +216,37 @@ TEST(API, Serialization)
     EXPECT_EQ(second_state.e, 0x0E);
     EXPECT_EQ(second_state.h, 0x0F);
     EXPECT_EQ(second_state.l, 0x09);
-    EXPECT_EQ(core.readMemory(0xA000), 0xDE);
+    EXPECT_EQ(core.readMemory(0x8000), 0xDE);
+    EXPECT_EQ(core.readMemory(0xA000), 0xAD);
+}
+
+TEST(API, InstructionCallback)
+{
+    std::vector<gb::Instruction> instructions;
+    const auto instruction_callback = [&instructions](const gb::Instruction & instr, const uint16_t addr) {instructions.push_back(instr); };
+
+    CodeGenerator code;
+    code.block(
+        0x3E, 0x0A // LD A, $0A
+    );
+
+    GameboyCore core;
+    core.loadROM(code.rom());
+
+    core.setInstructionCallback(instruction_callback);
+    core.setDebugMode(true);
+
+    core.update(3);
+
+    EXPECT_EQ(instructions.size(), 3);
+    
+    EXPECT_EQ(instructions[0].opcode, 0x00);
+
+    EXPECT_EQ(instructions[1].opcode, 0xC3);
+    EXPECT_EQ(instructions[1].operand_data[0], 0x50);
+    EXPECT_EQ(instructions[1].operand_data[1], 0x01);
+
+    EXPECT_EQ(instructions[2].opcode, 0x3E);
+    EXPECT_EQ(instructions[2].operand_data[0], 0x0A);
+    EXPECT_EQ(instructions[2].operand_data[1], 0x00);
 }

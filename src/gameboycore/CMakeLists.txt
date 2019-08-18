@@ -1,11 +1,6 @@
 option(BUILD_TESTS "Build tests" ON)
 option(WITH_COVERAGE "Build with coverage info" OFF)
 
-########################################################################################################################
-### CMake Policy                                                                                                     ###
-########################################################################################################################
-cmake_policy(SET CMP0054 OLD)
-
 
 ########################################################################################################################
 ### GameboyCore                                                                                                      ###
@@ -33,6 +28,8 @@ set(GAMEBOYCORE_API_HEADERS
     include/gameboycore/pixel.h
     include/gameboycore/sprite.h
     include/gameboycore/memorymap.h
+    include/gameboycore/time.h
+    include/gameboycore/instruction.h
 )
 
 set(GAMEBOYCORE_HEADERS
@@ -55,7 +52,7 @@ set(GAMEBOYCORE_HEADERS
     include/gameboycore/mbc2.h
     include/gameboycore/mbc3.h
     include/gameboycore/mbc5.h
-    include/gameboycore/rtc.h
+    include/gameboycore/detail/rtc/rtc.h
     include/gameboycore/cartinfo.h
     include/gameboycore/opcodeinfo.h
     include/gameboycore/opcode_cycles.h
@@ -85,6 +82,7 @@ set(GAMEBOYCORE
     src/tilemap.cpp
     src/oam.cpp
     src/timer.cpp
+    src/instruction.cpp
 )
 
 # Gameboy Core Library
@@ -102,11 +100,11 @@ target_include_directories(gameboycore
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
     target_compile_options(gameboycore PRIVATE -Wall -Wextra)
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
     target_compile_options(gameboycore PRIVATE /W4)
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL Clang)
     target_compile_options(gameboycore PRIVATE -Wall -Wextra)
 endif()
 

@@ -8,9 +8,9 @@
 
 GameboyCore is a Gameboy/Gameboy Color emulator library written in C++.
 
-A library? Yes. This is a dependency free C++11 library. GameboyCore does not open a window to render frames, it does not collect user input or play audio. GameboyCore emulates the Gameboy system and provides the audio/video output through the GameboyCore API.
+GameboyCore is a dependency free C++11 library. It does not open a window to render frames, it does not collect user input or play audio. GameboyCore emulates the Gameboy system and provides the audio/video output through the GameboyCore API.
 
-This means the emulation logic and GUI logic of an emulator are separate. As long as the target platform has a C++11 compiler that platform can run GameboyCore!
+This means the emulation logic and GUI logic of an emulator are separate. As long as the target platform has a C++11 compiler that platform can run GameboyCore.
 
 GameboyCore running as:
 * [A desktop application](https://github.com/nnarain/dotrix)
@@ -20,6 +20,8 @@ GameboyCore running as:
 * [In the Web](https://github.com/nnarain/gameboycore-web/tree/master)
 
 The above application are somewhat incomplete however they all demonstrate GameboyCore working for the given environment.
+
+![Image not found](docs/images/outputs.png)
 
 Building
 --------
@@ -69,8 +71,11 @@ Debugger:
 * Used for running Gameboy ROMs and inspecting the core
 * Depends on SFML
 
+![Image not found](docs/images/debugger.png)
+
 RomInfo
 
 * Used for printing the information in the ROM header
+
 
 

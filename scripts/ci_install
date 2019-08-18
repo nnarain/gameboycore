@@ -10,3 +10,18 @@ popd
 
 # For documentation
 wget -O - https://bootstrap.pypa.io/get-pip.py | sudo python3.6
+
+# For Tools
+pushd .
+git clone --branch=v2.1.1 --depth=1 https://github.com/jarro2783/cxxopts ~/cxxopts
+mkdir ~/cxxopts/build && cd ~/cxxopts/build
+cmake .. -DCXXOPTS_BUILD_EXAMPLES=OFF -DCXXOPTS_BUILD_TESTS=OFF
+make && sudo make install
+popd
+
+pushd .
+git clone --branch=5.3.0 --depth=1 https://github.com/fmtlib/fmt ~/fmt
+mkdir ~/fmt/build && cd ~/fmt/build
+cmake ..
+make && sudo make install
+popd

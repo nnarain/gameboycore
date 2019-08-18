@@ -5,16 +5,21 @@
  * 
 */
 
-#include "gameboycore_debugger.hpp"
+#include "ui/user_interface.hpp"
+#include "debugger/gameboycore_debugger.hpp"
+
+#include <gameboycore/gameboycore.h>
 
 #include <cxxopts.hpp>
 
-#include <filesystem>
 #include <iostream>
 #include <string>
 
-int main(int argc, char const *argv[])
+int main(int argc, char* argv[])
 {
+    using namespace gb;
+
+    // Setup command line options
     cxxopts::Options options("GameboyCore Debugger", "Run and Debug Gameboy ROMs");
     options.add_options()
         ("f,file", "ROM file to run", cxxopts::value<std::string>());
@@ -23,30 +28,37 @@ int main(int argc, char const *argv[])
 
     try
     {
-        auto args = options.parse(argc, argv);
+        const auto args = options.parse(argc, argv);
 
         rom_file = args["file"].as<std::string>();
-
-        std::filesystem::path filepath{ rom_file };
-        if (!std::filesystem::exists(filepath) || std::filesystem::is_directory(filepath))
-        {
-            throw std::runtime_error("ROM file does not exist");
-        }
     }
     catch (const cxxopts::OptionException& e)
     {
         std::cerr << "Unable to parse command line options: " << e.what() << "\n";
-        return 1;
+        return EXIT_FAILURE;
     }
     catch (const std::runtime_error& e)
     {
         std::cerr << "ROM file is invalid: " << e.what() << "\n";
-        return 1;
+        return EXIT_FAILURE;
     }
 
-    // Initialize the GameboyCore Debugger
-    GameboyCoreDebugger debugger{ rom_file };
-    debugger.run();
+    try
+    {
+        // Setup the program with a GameboyCore instance, a debugger interface and the UI to display it
+        GameboyCore core;
+        core.open(rom_file);
 
-    return 0;
+        GameboyCoreDebugger debugger{ core };
+        UserInterface ui{ core, debugger };
+
+        ui.run();
+    }
+    catch (const std::runtime_error & e)
+    {
+        std::cerr << e.what() << "\n";
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }
