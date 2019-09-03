@@ -17,6 +17,10 @@ fi
 
 # Install m.css tool and dependencies
 git clone --depth=1 https://github.com/mosra/m.css ~/mcss
+cd ~/mcss
+git reset --hard cf916bc2947978f0062660eef13e51dce5c018e5
+cd -
+
 python3.6 -m pip install jinja2 --upgrade --user
 python3.6 -m pip install Pygments --user
 
@@ -29,7 +33,7 @@ git rm -rf .
 cd ../..
 
 # build the docs in the cloned directory
-python3.6 ~/mcss/doxygen/dox2html5.py Doxyfile-mcss
+python3.6 ~/mcss/documentation/doxygen.py Doxyfile-mcss
 
 cd docs/html
 
