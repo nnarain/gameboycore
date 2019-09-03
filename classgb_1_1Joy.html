@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>gb::Joy class | GameboyCore</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">GameboyCore</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <path d="m6 0c-3.3144 0-6 2.6856-6 6 0 3.3144 2.6856 6 6 6 1.4858 0 2.8463-0.54083 3.8945-1.4355-0.0164 0.33797 0.14734 0.75854 0.5 1.1504l3.2227 3.7891c0.55185 0.6139 1.4517 0.66544 2.002 0.11524 0.55022-0.55022 0.49866-1.4501-0.11524-2.002l-3.7891-3.2246c-0.39184-0.35266-0.81242-0.51469-1.1504-0.5 0.89472-1.0482 1.4355-2.4088 1.4355-3.8945 0-3.3128-2.6856-5.998-6-5.998zm0 1.5625a4.4375 4.4375 0 0 1 4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375 4.4375 4.4375 4.4375 0 0 1-4.4375-4.4375 4.4375 4.4375 0 0 1 4.4375-4.4375z"/>
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="namespacegb.html">gb</a>::<wbr/></span>Joy <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="joypad_8h.html">&lt;src/gameboycore/include/gameboycore/joypad.h&gt;</a></div>
+        </h1>
+        <p>Emulate Gameboy Joypad.</p>
+        <div class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#pub-types">Public types</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <section id="pub-types">
+          <h2><a href="#pub-types">Public types</a></h2>
+          <dl class="m-doc">
+            <dt id="a509eb9c9866d4fd0b0ee2009373e522f">
+              <span class="m-doc-wrap-bumper">enum <a href="#a509eb9c9866d4fd0b0ee2009373e522f" class="m-doc-self">Key</a> { </span><span class="m-doc-wrap"><a href="#a509eb9c9866d4fd0b0ee2009373e522fa21507b40c80068eda19865706fdc2403" class="m-doc">RIGHT</a> = 0,
+              <a href="#a509eb9c9866d4fd0b0ee2009373e522fa684d325a7303f52e64011467ff5c5758" class="m-doc">LEFT</a> = 1,
+              <a href="#a509eb9c9866d4fd0b0ee2009373e522fafbaedde498cdead4f2780217646e9ba1" class="m-doc">UP</a> = 2,
+              <a href="#a509eb9c9866d4fd0b0ee2009373e522fac4e0e4e3118472beeb2ae75827450f1f" class="m-doc">DOWN</a> = 3,
+              <a href="#a509eb9c9866d4fd0b0ee2009373e522fa7fc56270e7a70fa81a5935b72eacbe29" class="m-doc">A</a> = 4,
+              <a href="#a509eb9c9866d4fd0b0ee2009373e522fa9d5ed678fe57bcca610140957afab571" class="m-doc">B</a> = 5,
+              <a href="#a509eb9c9866d4fd0b0ee2009373e522fa63225f19fccb18e7c709f1fa11bc738e" class="m-doc">SELECT</a> = 6,
+              <a href="#a509eb9c9866d4fd0b0ee2009373e522fab078ffd28db767c502ac367053f6e0ac" class="m-doc">START</a> = 7 }</span>
+            </dt>
+            <dd>Keys on the Gameboy.</dd>
+            <dt id="ad3d130c21c3a1fd2a79c9badeeed394d">
+              using <a href="#ad3d130c21c3a1fd2a79c9badeeed394d" class="m-doc-self">Ptr</a> = std::unique_ptr&lt;<a href="classgb_1_1Joy.html" class="m-doc">Joy</a>&gt;
+            </dt>
+            <dd>Smart pointer type.</dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a5f1a13427f4186e36c2f73e64e960171" class="m-doc">press</a>(</span><span class="m-doc-wrap"><a href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f" class="m-doc">Key</a> key)</span>
+            </dt>
+            <dd></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a2e88e2b8504f213f7a5dd1172ba38f50" class="m-doc">release</a>(</span><span class="m-doc-wrap"><a href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f" class="m-doc">Key</a> key)</span>
+            </dt>
+            <dd></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a5f1a13427f4186e36c2f73e64e960171"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void gb::<wbr />Joy::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5f1a13427f4186e36c2f73e64e960171" class="m-doc-self">press</a>(</span><span class="m-doc-wrap"><a href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f" class="m-doc">Key</a> key)</span></span>
+            </h3>
+<p>Press Key on the Gameboy</p>
+          </div></section>
+          <section class="m-doc-details" id="a2e88e2b8504f213f7a5dd1172ba38f50"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void gb::<wbr />Joy::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2e88e2b8504f213f7a5dd1172ba38f50" class="m-doc-self">release</a>(</span><span class="m-doc-wrap"><a href="classgb_1_1Joy.html#a509eb9c9866d4fd0b0ee2009373e522f" class="m-doc">Key</a> key)</span></span>
+            </h3>
+<p>Release Key on the Gameboy</p>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search.js"></script>
+<script src="searchdata-v1.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>GameboyCore. Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.11 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>
