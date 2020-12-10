@@ -1,7 +1,6 @@
 # GameboyCore
 
-[![Build Status](https://travis-ci.org/nnarain/gameboycore.svg?branch=develop)](https://travis-ci.org/nnarain/gameboycore)
-[![Build status](https://ci.appveyor.com/api/projects/status/jkrjhds3i67o5k76/branch/develop?svg=true)](https://ci.appveyor.com/project/nnarain/gameboycore/branch/develop)
+![Build](https://github.com/nnarain/gameboycore/workflows/Build/badge.svg)
 [![codecov](https://codecov.io/gh/nnarain/gameboycore/branch/master/graph/badge.svg)](https://codecov.io/gh/nnarain/gameboycore)
 [![GitHub release](https://img.shields.io/github/release/nnarain/gameboycore.svg)](https://github.com/nnarain/gameboycore/releases)
 [![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://nnarain.github.io/gameboycore)
