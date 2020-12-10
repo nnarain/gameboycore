@@ -1,0 +1,45 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest] # TODO: windows-latest
+
+    name: Build and test on ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: true
+    - name: Vcpkg
+      uses: lukka/run-vcpkg@v6
+      with:
+        setupOnly: true
+        vcpkgGitCommitId:  1d8728ae1ba66ad94b344708cf8d0ace1a6330b8
+    - name: Install Dependencies
+      run: |
+        sudo apt-get install build-essential
+        $VCPKG_ROOT/vcpkg install gtest
+    - name: Build
+      run: |
+        mkdir build && cd build
+        cmake .. -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON
+        cmake --build . --target gameboycore
+    - name: Test
+      run: |
+        cd build
+        cmake --build . --target check
+        cmake --build . --target run_test_roms
+    # - name: Generate Coverage Report
+    #   run:
+    #     - echo "TODO"
+    #   if: matrix.os == 'ubuntu-latest'
+    # - uses: codecov/codecov-action@v1
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #   if: matrix.os == 'ubuntu-latest'
